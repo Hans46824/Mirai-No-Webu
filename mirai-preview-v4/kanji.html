@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kamus Kanji — MIRAI NO HANA</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="nav"><a class="brand" href="index.html"><img src="images/mirai/logo/MNH.png" alt="MIRAI NO HANA"></a>
+        <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false">MENU</button>
+        <nav class="links" data-nav-menu><a href="index.html">HOME</a><a href="kelas.html">KELAS</a><a class="active" href="kamus.html">KAMUS</a><a href="kegiatan.html">KEGIATAN</a><a href="tentang.html">TENTANG</a></nav></header><main><section class="page-hero"><div>
+<p class="eyebrow">MIRAI NO HANA / ALAT BELAJAR</p>
+<h1 class="page-title">Kamus<br><span>Kanji.</span>
+</h1>
+</div></section><section class="section dictionary-section"><p class="kicker">KAMUS KANJI</p>
+            <h2 class="heading">Temukan karakter,<br><span>makna, dan bacaan.</span>
+</h2>
+            <p class="copy">Cari melalui kanji, arti Indonesia, onyomi, atau kunyomi. Data ini tersimpan lokal dan siap dikembangkan lebih jauh.</p>
+            <div class="script-tabs" role="tablist">
+<button class="is-active" type="button" role="tab" data-script-tab="kanji">KANJI</button><button type="button" role="tab" data-script-tab="hiragana">HIRAGANA</button><button type="button" role="tab" data-script-tab="katakana">KATAKANA</button>
+</div>
+            <div data-script-panel="kanji" data-kanji-dictionary>
+            <div class="dictionary-controls">
+                <label>Cari<input type="search" data-kanji-search placeholder="Contoh: 日, hari, ニチ, ひ"></label>
+                <label>JLPT<select data-kanji-jlpt><option value="">Semua</option>
+<option value="N5">N5</option>
+<option value="N4">N4</option>
+<option value="N3">N3</option>
+<option value="N2">N2</option>
+<option value="N1">N1</option></select></label>
+                <label>Level<select data-kanji-level><option value="">Semua</option>
+<option value="Dasar">Dasar</option>
+<option value="Menengah">Menengah</option>
+<option value="Lanjutan">Lanjutan</option></select></label>
+            </div>
+            <p class="result-count" data-kanji-count>Memuat data kanji...</p>
+            <p class="empty-message" data-kanji-empty hidden>Kanji yang kamu cari belum ditemukan.</p>
+                <div class="dictionary-layout">
+<div class="kanji-grid" data-kanji-grid></div>
+<aside class="kanji-detail" data-kanji-detail><p>Pilih salah satu kanji untuk melihat detailnya.</p></aside>
+</div>
+            </div>
+            <div data-script-panel="hiragana" hidden></div>
+            <div data-script-panel="katakana" hidden></div>
+        </section></main><footer class="footer"><span>MIRAI NO HANA — NIHONGO KURABU</span><a href="kelas.html">KELAS →</a></footer><button class="to-top" type="button" aria-label="Kembali ke atas">↑</button>
+    <script src="js/sora.js"></script><script src="js/main.js"></script><script src="js/stroke-data.js"></script><script src="js/stroke.js"></script><script src="js/kana.js"></script><script src="js/kanji.js"></script>
+</body>
+</html>
