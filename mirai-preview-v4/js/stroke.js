@@ -1,5 +1,6 @@
 /* Animated player for local KanjiVG-derived SVG paths. */
-window.createStrokePlayer = function createStrokePlayer(host, character, fallbackCount) {
+window.createStrokePlayer = function createStrokePlayer(host, character, fallbackCount, options = {}) {
+    const showClearControl = options.showClear === true;
     const directRecord = window.MIRAI_STROKE_DATA?.[character];
     const componentRecords = character.length > 1 ? [...character].map((part) => window.MIRAI_STROKE_DATA?.[part]).filter(Boolean) : [];
     const composite = !directRecord && componentRecords.length === character.length;
@@ -23,9 +24,9 @@ window.createStrokePlayer = function createStrokePlayer(host, character, fallbac
         </div>
         ${fallback ? '<p class="stroke-fallback">Data stroke belum tersedia untuk karakter ini.</p>' : `<p class="stroke-source">${directRecord ? "Data urutan goresan: KanjiVG" : "Animasi dua karakter: tulis kana utama, lalu kana kecil."}</p>`}
         <div class="stroke-status">Goresan <b data-stroke-number>1</b> dari ${strokeCount}</div>
-        <p class="stroke-guide" data-stroke-guide>Langkah 1: ikuti garis merah dari awal hingga akhir.</p>
+        <p class="stroke-guide" data-stroke-guide role="status" aria-live="polite">Langkah 1: ikuti garis merah dari awal hingga akhir.</p>
         <ol class="stroke-order" aria-label="Urutan goresan">${Array.from({ length: strokeCount }, (_, index) => `<li data-stroke-step="${index}">${index + 1}</li>`).join("")}</ol>
-        <div class="stroke-controls"><button type="button" data-stroke-play>PLAY</button><button type="button" data-stroke-pause>PAUSE</button><button type="button" data-stroke-replay>REPLAY</button><label>Kecepatan<select data-stroke-speed aria-label="Kecepatan animasi stroke"><option value="1.6">0.5×</option><option value="1" selected>1×</option><option value="0.72">1.5×</option><option value="0.52">2×</option></select></label></div>`;
+        <div class="stroke-controls"><button type="button" data-stroke-play>PLAY</button><button type="button" data-stroke-pause>PAUSE</button><button type="button" data-stroke-replay>REPLAY</button>${showClearControl ? `<button type="button" data-stroke-clear aria-label="Bersihkan tampilan urutan goresan ${character}">CLEAR</button>` : ""}<label>Kecepatan<select data-stroke-speed aria-label="Kecepatan animasi stroke"><option value="1.6">0.5×</option><option value="1" selected>1×</option><option value="0.72">1.5×</option><option value="0.52">2×</option></select></label></div>`;
 
     const lines = [...host.querySelectorAll("path")];
     const number = host.querySelector("[data-stroke-number]");
@@ -35,13 +36,18 @@ window.createStrokePlayer = function createStrokePlayer(host, character, fallbac
     let step = 0;
     let animation;
     let playing = false;
+    let cleared = false;
 
     const duration = () => 650 * Number(speed.value);
 
     function setStepLabel() {
         const visibleStep = Math.min(step + 1, lines.length);
-        number.textContent = String(visibleStep);
-        guide.textContent = step >= lines.length ? "Selesai! Semua goresan sudah ditampilkan." : `Langkah ${visibleStep}: ikuti garis merah dari awal hingga akhir.`;
+        number.textContent = cleared ? "0" : String(visibleStep);
+        guide.textContent = cleared
+            ? "Tampilan goresan dibersihkan. Tekan PLAY untuk menampilkan ulang."
+            : step >= lines.length
+                ? "Selesai! Semua goresan sudah ditampilkan."
+                : `Langkah ${visibleStep}: ikuti garis merah dari awal hingga akhir.`;
         order.forEach((item, index) => {
             item.classList.toggle("is-active", index === step && playing);
             item.classList.toggle("is-done", index < step);
@@ -53,6 +59,7 @@ window.createStrokePlayer = function createStrokePlayer(host, character, fallbac
             const length = line.getTotalLength();
             line.style.strokeDasharray = `${length}`;
             line.style.strokeDashoffset = index < step ? "0" : `${length}`;
+            line.style.opacity = index < step ? "1" : "0";
         });
     }
 
@@ -70,6 +77,7 @@ window.createStrokePlayer = function createStrokePlayer(host, character, fallbac
         const length = line.getTotalLength();
         line.style.strokeDasharray = `${length}`;
         line.style.strokeDashoffset = `${length}`;
+        line.style.opacity = "1";
         setStepLabel();
         animation = line.animate(
             [{ strokeDashoffset: length }, { strokeDashoffset: 0 }],
@@ -80,6 +88,7 @@ window.createStrokePlayer = function createStrokePlayer(host, character, fallbac
 
     function play() {
         if (step >= lines.length) reset();
+        cleared = false;
         playing = true;
         if (animation?.playState === "paused") {
             animation.play();
@@ -101,6 +110,17 @@ window.createStrokePlayer = function createStrokePlayer(host, character, fallbac
         animation = undefined;
         playing = false;
         step = 0;
+        cleared = false;
+        hideFutureStrokes();
+        setStepLabel();
+    }
+
+    function clear() {
+        animation?.cancel();
+        animation = undefined;
+        playing = false;
+        step = 0;
+        cleared = true;
         hideFutureStrokes();
         setStepLabel();
     }
@@ -111,6 +131,7 @@ window.createStrokePlayer = function createStrokePlayer(host, character, fallbac
         reset();
         play();
     });
+    host.querySelector("[data-stroke-clear]")?.addEventListener("click", clear);
     speed.addEventListener("change", () => {
         if (animation?.playState === "running") {
             animation.cancel();
@@ -120,5 +141,5 @@ window.createStrokePlayer = function createStrokePlayer(host, character, fallbac
     });
 
     reset();
-    return { destroy: () => animation?.cancel(), play, reset };
+    return { destroy: () => animation?.cancel(), play, reset, clear };
 };

@@ -106,17 +106,17 @@ const voiced = [
 ];
 
 const combos = [
-    ["きゃきゅきょ", ["kya", "kyu", "kyo"]],
-    ["しゃしゅしょ", ["sha", "shu", "sho"]],
-    ["ちゃちゅちょ", ["cha", "chu", "cho"]],
-    ["にゃにゅにょ", ["nya", "nyu", "nyo"]],
-    ["ひゃひゅひょ", ["hya", "hyu", "hyo"]],
-    ["みゃみゅみょ", ["mya", "myu", "myo"]],
-    ["りゃりゅりょ", ["rya", "ryu", "ryo"]],
-    ["ぎゃぎゅぎょ", ["gya", "gyu", "gyo"]],
-    ["じゃじゅじょ", ["ja", "ju", "jo"]],
-    ["びゃびゅびょ", ["bya", "byu", "byo"]],
-    ["ぴゃぴゅぴょ", ["pya", "pyu", "pyo"]]
+    [["きゃ", "きゅ", "きょ"], ["kya", "kyu", "kyo"]],
+    [["しゃ", "しゅ", "しょ"], ["sha", "shu", "sho"]],
+    [["ちゃ", "ちゅ", "ちょ"], ["cha", "chu", "cho"]],
+    [["にゃ", "にゅ", "にょ"], ["nya", "nyu", "nyo"]],
+    [["ひゃ", "ひゅ", "ひょ"], ["hya", "hyu", "hyo"]],
+    [["みゃ", "みゅ", "みょ"], ["mya", "myu", "myo"]],
+    [["りゃ", "りゅ", "りょ"], ["rya", "ryu", "ryo"]],
+    [["ぎゃ", "ぎゅ", "ぎょ"], ["gya", "gyu", "gyo"]],
+    [["じゃ", "じゅ", "じょ"], ["ja", "ju", "jo"]],
+    [["びゃ", "びゅ", "びょ"], ["bya", "byu", "byo"]],
+    [["ぴゃ", "ぴゅ", "ぴょ"], ["pya", "pyu", "pyo"]]
 ];
 
 const wordBankHiragana = [
@@ -139,7 +139,11 @@ const wordBankHiragana = [
     { character: "かわ", romaji: "kawa", meaning: "sungai" },
     { character: "とり", romaji: "tori", meaning: "burung" },
     { character: "ひかり", romaji: "hikari", meaning: "cahaya" },
-    { character: "まち", romaji: "machi", meaning: "kota" }
+    { character: "まち", romaji: "machi", meaning: "kota" },
+    { character: "おちゃ", romaji: "ocha", meaning: "teh hijau" },
+    { character: "きょう", romaji: "kyou", meaning: "hari ini" },
+    { character: "しゃしん", romaji: "shashin", meaning: "foto" },
+    { character: "きゅう", romaji: "kyuu", meaning: "sembilan" }
 ];
 
 const wordBankKatakana = [
@@ -160,7 +164,11 @@ const wordBankKatakana = [
     { character: "ペン", romaji: "pen", meaning: "pena / pulpen" },
     { character: "ケーキ", romaji: "keeki", meaning: "kue" },
     { character: "コーヒー", romaji: "koohii", meaning: "kopi" },
-    { character: "ベッド", romaji: "beddo", meaning: "tempat tidur" }
+    { character: "ベッド", romaji: "beddo", meaning: "tempat tidur" },
+    { character: "シャツ", romaji: "shatsu", meaning: "kaus / kemeja" },
+    { character: "ジュース", romaji: "juusu", meaning: "jus" },
+    { character: "チョコ", romaji: "choko", meaning: "cokelat" },
+    { character: "キャンプ", romaji: "kyanpu", meaning: "kemah / kemping" }
 ];
 
 const wordBank = wordBankHiragana;
@@ -204,8 +212,8 @@ function makeKana(type) {
         });
     });
 
-    combos.forEach(([chars, readings], comboIndex) => {
-        [...chars].forEach((character, index) => {
+    combos.forEach(([kanaList, readings], comboIndex) => {
+        kanaList.forEach((character, index) => {
             data.push({
                 character: convert(character),
                 romaji: readings[index],
@@ -228,28 +236,45 @@ function shuffle(array) {
     return [...array].sort(() => Math.random() - 0.5);
 }
 
-function buildNormalQuestion(pool, previous) {
-    const candidates = pool.filter((item) => item.character !== previous?.answer.character);
-    const answer = (candidates.length ? candidates : pool)[
-        Math.floor(Math.random() * (candidates.length || pool.length))
+function buildNormalQuestion(pool, previous, fullPool = pool) {
+    const validPool = pool.filter((item) => item && item.character && item.romaji);
+    const sourcePool = validPool.length ? validPool : fullPool;
+    const candidates = sourcePool.filter((item) => item.character !== previous?.answer?.character);
+    const answer = (candidates.length ? candidates : sourcePool)[
+        Math.floor(Math.random() * (candidates.length || sourcePool.length))
     ];
     const kinds = ["kana", "romaji", "understand"];
     const kind = kinds[Math.floor(Math.random() * kinds.length)];
-    const distractors = shuffle(
-        pool.filter(
-            (item) => item.character !== answer.character && item.romaji !== answer.romaji
-        )
-    ).filter((item, index, list) => {
-        return list.findIndex((candidate) => {
-            return candidate.character === item.character && candidate.romaji === item.romaji;
-        }) === index;
-    }).slice(0, 2);
+
+    let distractorCandidates = pool.filter(
+        (item) => item && item.character && item.romaji && item.character !== answer.character && item.romaji !== answer.romaji
+    );
+
+    if (distractorCandidates.length < 2 && fullPool && fullPool.length) {
+        const extraCandidates = fullPool.filter(
+            (item) => item && item.character && item.romaji && item.character !== answer.character && item.romaji !== answer.romaji
+        );
+        distractorCandidates = [...distractorCandidates, ...extraCandidates];
+    }
+
+    const seenChars = new Set([answer.character]);
+    const seenRomaji = new Set([answer.romaji]);
+    const uniqueDistractors = [];
+
+    for (const cand of shuffle(distractorCandidates)) {
+        if (!seenChars.has(cand.character) && !seenRomaji.has(cand.romaji)) {
+            seenChars.add(cand.character);
+            seenRomaji.add(cand.romaji);
+            uniqueDistractors.push(cand);
+            if (uniqueDistractors.length >= 2) break;
+        }
+    }
 
     return {
         type: "normal",
         answer,
         kind,
-        choices: shuffle([answer, ...distractors])
+        choices: shuffle([answer, ...uniqueDistractors])
     };
 }
 
@@ -305,10 +330,10 @@ function buildMatchQuestion(scriptType = "hiragana") {
     };
 }
 
-function buildPracticeQuestions(levels, pool, scriptType = "hiragana") {
+function buildPracticeQuestions(levels, pool, scriptType = "hiragana", fullPool = pool) {
     const standardQuestions = [];
     while (standardQuestions.length < 10) {
-        standardQuestions.push(buildNormalQuestion(pool, standardQuestions.at(-1)));
+        standardQuestions.push(buildNormalQuestion(pool, standardQuestions.at(-1), fullPool));
     }
 
     const wordQuestions = buildWordQuestions(scriptType);
@@ -346,16 +371,22 @@ function initKanaQuest() {
         })),
         ...combos.map(([chars, readings], index) => ({
             id: 16 + index,
-            chars,
+            chars: chars.join(" "),
             label: readings.join(" ")
         }))
     ];
 
     const displayChars = (chars) => {
+        const str = Array.isArray(chars) ? chars.join(" ") : String(chars);
         if (script === "katakana") {
-            return [...chars].map((char) => String.fromCodePoint(char.codePointAt(0) + 0x60)).join("");
+            return [...str].map((char) => {
+                const code = char.codePointAt(0);
+                return (code >= 0x3041 && code <= 0x3096)
+                    ? String.fromCodePoint(code + 0x60)
+                    : char;
+            }).join("");
         }
-        return chars;
+        return str;
     };
 
     const renderDashboard = () => {
@@ -368,7 +399,7 @@ function initKanaQuest() {
         $("[data-review-count]").textContent = saved.review.length;
         $("[data-script-title]").innerHTML = `${script[0].toUpperCase() + script.slice(1)} <span>${script === "hiragana" ? "ひらがな" : "カタカナ"}</span>`;
 
-        const progress = Math.round((saved[script].unlocked - 1) / 15 * 100);
+        const progress = Math.min(100, Math.round((saved[script].unlocked - 1) / 25 * 100));
         $("[data-script-progress]").textContent = `${progress}%`;
         $("[data-script-progress-bar]").style.width = `${progress}%`;
 
@@ -380,7 +411,7 @@ function initKanaQuest() {
                 <article class="level-card ${unlocked ? "is-unlocked" : "is-locked"} ${completed ? "is-completed" : ""}">
                     <div class="level-card-top">
                         <span>${completed ? "✓ Completed" : unlocked ? "🔓 Unlocked" : "🔒 Locked"}</span>
-                        <b>${level.id < 11 ? level.name : level.name}</b>
+                        <b>${level.id < 11 ? level.name || `LV ${level.id}` : `LV ${level.id}`}</b>
                     </div>
                     <h3>${level.label}</h3>
                     <strong>${displayChars(level.chars)}</strong>
@@ -414,9 +445,9 @@ function initKanaQuest() {
         { label: "LV 6–10", levels: [6, 7, 8, 9, 10] },
         { label: `Basic ${script}`, levels: Array.from({ length: 10 }, (_, index) => index + 1) },
         { label: "Dakuten & Handakuten", levels: [11, 12, 13, 14, 15] },
-        { label: "Combination / Yōon", levels: [16] },
-        { label: "SEMUA MATERI", levels: Array.from({ length: 16 }, (_, index) => index + 1) },
-        { label: "RANDOM CHALLENGE", levels: Array.from({ length: saved[script].unlocked }, (_, index) => index + 1) }
+        { label: "Combination / Yōon", levels: Array.from({ length: 11 }, (_, index) => 16 + index) },
+        { label: "SEMUA MATERI", levels: Array.from({ length: 26 }, (_, index) => index + 1) },
+        { label: "RANDOM CHALLENGE", levels: Array.from({ length: Math.min(26, saved[script].unlocked) }, (_, index) => index + 1) }
     ];
 
     $("[data-mode-grid]").innerHTML = modes.map((mode, index) => {
@@ -446,7 +477,7 @@ function initKanaQuest() {
         currentSession = {
             levels,
             pool,
-            questions: buildPracticeQuestions(levels, pool, script),
+            questions: buildPracticeQuestions(levels, pool, script, data[script]),
             index: 0,
             results: [],
             streak: 0,
@@ -481,6 +512,7 @@ function initKanaQuest() {
         const defaultSub = document.querySelector(".question-card > p");
 
         if (question.type === "match-table") {
+            $("[data-answer-grid]").classList.add("is-match-grid");
             const { match } = question;
             $("[data-question-kind]").textContent = "PASANGKAN KATA";
             $("[data-question-prompt]").innerHTML = `
@@ -540,6 +572,8 @@ function initKanaQuest() {
 
             return;
         }
+
+        $("[data-answer-grid]").classList.remove("is-match-grid");
 
         if (defaultSub) {
             defaultSub.hidden = false;

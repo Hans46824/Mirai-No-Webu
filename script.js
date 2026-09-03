@@ -105,18 +105,21 @@ const voiced = [
     ["ぱぴぷぺぽ", ["pa", "pi", "pu", "pe", "po"]]
 ];
 
+// Setiap Yōon disimpan sebagai satu unit. Jangan gunakan string gabungan di
+// sini: spread pada "きゃ" akan memisahkan き dan ゃ, lalu membuat bacaan
+// bergeser (bahkan bisa menjadi "undefined") di soal latihan.
 const combos = [
-    ["きゃきゅきょ", ["kya", "kyu", "kyo"]],
-    ["しゃしゅしょ", ["sha", "shu", "sho"]],
-    ["ちゃちゅちょ", ["cha", "chu", "cho"]],
-    ["にゃにゅにょ", ["nya", "nyu", "nyo"]],
-    ["ひゃひゅひょ", ["hya", "hyu", "hyo"]],
-    ["みゃみゅみょ", ["mya", "myu", "myo"]],
-    ["りゃりゅりょ", ["rya", "ryu", "ryo"]],
-    ["ぎゃぎゅぎょ", ["gya", "gyu", "gyo"]],
-    ["じゃじゅじょ", ["ja", "ju", "jo"]],
-    ["びゃびゅびょ", ["bya", "byu", "byo"]],
-    ["ぴゃぴゅぴょ", ["pya", "pyu", "pyo"]]
+    [["きゃ", "きゅ", "きょ"], ["kya", "kyu", "kyo"]],
+    [["しゃ", "しゅ", "しょ"], ["sha", "shu", "sho"]],
+    [["ちゃ", "ちゅ", "ちょ"], ["cha", "chu", "cho"]],
+    [["にゃ", "にゅ", "にょ"], ["nya", "nyu", "nyo"]],
+    [["ひゃ", "ひゅ", "ひょ"], ["hya", "hyu", "hyo"]],
+    [["みゃ", "みゅ", "みょ"], ["mya", "myu", "myo"]],
+    [["りゃ", "りゅ", "りょ"], ["rya", "ryu", "ryo"]],
+    [["ぎゃ", "ぎゅ", "ぎょ"], ["gya", "gyu", "gyo"]],
+    [["じゃ", "じゅ", "じょ"], ["ja", "ju", "jo"]],
+    [["びゃ", "びゅ", "びょ"], ["bya", "byu", "byo"]],
+    [["ぴゃ", "ぴゅ", "ぴょ"], ["pya", "pyu", "pyo"]]
 ];
 
 const wordBankHiragana = [
@@ -205,7 +208,7 @@ function makeKana(type) {
     });
 
     combos.forEach(([chars, readings], comboIndex) => {
-        [...chars].forEach((character, index) => {
+        chars.forEach((character, index) => {
             data.push({
                 character: convert(character),
                 romaji: readings[index],
@@ -228,28 +231,45 @@ function shuffle(array) {
     return [...array].sort(() => Math.random() - 0.5);
 }
 
-function buildNormalQuestion(pool, previous) {
-    const candidates = pool.filter((item) => item.character !== previous?.answer.character);
-    const answer = (candidates.length ? candidates : pool)[
-        Math.floor(Math.random() * (candidates.length || pool.length))
+function buildNormalQuestion(pool, previous, fullPool = pool) {
+    const validPool = pool.filter((item) => item && item.character && item.romaji);
+    const sourcePool = validPool.length ? validPool : fullPool;
+    const candidates = sourcePool.filter((item) => item.character !== previous?.answer?.character);
+    const answer = (candidates.length ? candidates : sourcePool)[
+        Math.floor(Math.random() * (candidates.length || sourcePool.length))
     ];
     const kinds = ["kana", "romaji", "understand"];
     const kind = kinds[Math.floor(Math.random() * kinds.length)];
-    const distractors = shuffle(
-        pool.filter(
-            (item) => item.character !== answer.character && item.romaji !== answer.romaji
-        )
-    ).filter((item, index, list) => {
-        return list.findIndex((candidate) => {
-            return candidate.character === item.character && candidate.romaji === item.romaji;
-        }) === index;
-    }).slice(0, 2);
+
+    let distractorCandidates = pool.filter(
+        (item) => item && item.character && item.romaji && item.character !== answer.character && item.romaji !== answer.romaji
+    );
+
+    if (distractorCandidates.length < 2 && fullPool && fullPool.length) {
+        const extraCandidates = fullPool.filter(
+            (item) => item && item.character && item.romaji && item.character !== answer.character && item.romaji !== answer.romaji
+        );
+        distractorCandidates = [...distractorCandidates, ...extraCandidates];
+    }
+
+    const seenChars = new Set([answer.character]);
+    const seenRomaji = new Set([answer.romaji]);
+    const uniqueDistractors = [];
+
+    for (const cand of shuffle(distractorCandidates)) {
+        if (!seenChars.has(cand.character) && !seenRomaji.has(cand.romaji)) {
+            seenChars.add(cand.character);
+            seenRomaji.add(cand.romaji);
+            uniqueDistractors.push(cand);
+            if (uniqueDistractors.length >= 2) break;
+        }
+    }
 
     return {
         type: "normal",
         answer,
         kind,
-        choices: shuffle([answer, ...distractors])
+        choices: shuffle([answer, ...uniqueDistractors])
     };
 }
 
@@ -305,10 +325,10 @@ function buildMatchQuestion(scriptType = "hiragana") {
     };
 }
 
-function buildPracticeQuestions(levels, pool, scriptType = "hiragana") {
+function buildPracticeQuestions(levels, pool, scriptType = "hiragana", fullPool = pool) {
     const standardQuestions = [];
     while (standardQuestions.length < 10) {
-        standardQuestions.push(buildNormalQuestion(pool, standardQuestions.at(-1)));
+        standardQuestions.push(buildNormalQuestion(pool, standardQuestions.at(-1), fullPool));
     }
 
     const wordQuestions = buildWordQuestions(scriptType);
@@ -318,12 +338,15 @@ function buildPracticeQuestions(levels, pool, scriptType = "hiragana") {
 }
 
 function initKanaQuest() {
+    const yoonStartLevel = rows.length + voiced.length + 1;
+    const totalLevels = rows.length + voiced.length + combos.length;
+    const allLevelIds = Array.from({ length: totalLevels }, (_, index) => index + 1);
     const saved = {
         xp: 0,
         streak: 1,
         review: [],
-        hiragana: { unlocked: 99, completed: [], best: {} },
-        katakana: { unlocked: 99, completed: [], best: {} }
+        hiragana: { unlocked: totalLevels, completed: [], best: {} },
+        katakana: { unlocked: totalLevels, completed: [], best: {} }
     };
 
     let script = new URLSearchParams(window.location.search).get("script") === "katakana"
@@ -345,17 +368,18 @@ function initKanaQuest() {
             label: readings.join(" ")
         })),
         ...combos.map(([chars, readings], index) => ({
-            id: 16 + index,
+            id: yoonStartLevel + index,
             chars,
             label: readings.join(" ")
         }))
     ];
 
     const displayChars = (chars) => {
+        const text = Array.isArray(chars) ? chars.join("") : chars;
         if (script === "katakana") {
-            return [...chars].map((char) => String.fromCodePoint(char.codePointAt(0) + 0x60)).join("");
+            return [...text].map((char) => String.fromCodePoint(char.codePointAt(0) + 0x60)).join("");
         }
-        return chars;
+        return text;
     };
 
     const renderDashboard = () => {
@@ -368,7 +392,7 @@ function initKanaQuest() {
         $("[data-review-count]").textContent = saved.review.length;
         $("[data-script-title]").innerHTML = `${script[0].toUpperCase() + script.slice(1)} <span>${script === "hiragana" ? "ひらがな" : "カタカナ"}</span>`;
 
-        const progress = Math.round((saved[script].unlocked - 1) / 15 * 100);
+        const progress = Math.round((saved[script].unlocked - 1) / (totalLevels - 1) * 100);
         $("[data-script-progress]").textContent = `${progress}%`;
         $("[data-script-progress-bar]").style.width = `${progress}%`;
 
@@ -380,7 +404,7 @@ function initKanaQuest() {
                 <article class="level-card ${unlocked ? "is-unlocked" : "is-locked"} ${completed ? "is-completed" : ""}">
                     <div class="level-card-top">
                         <span>${completed ? "✓ Completed" : unlocked ? "🔓 Unlocked" : "🔒 Locked"}</span>
-                        <b>${level.id < 11 ? level.name : level.name}</b>
+                        <b>LV ${level.id}</b>
                     </div>
                     <h3>${level.label}</h3>
                     <strong>${displayChars(level.chars)}</strong>
@@ -404,39 +428,43 @@ function initKanaQuest() {
         $("[data-level-grid]").querySelectorAll("[data-level]").forEach((button) => {
             button.addEventListener("click", () => startPractice([Number(button.dataset.level)]));
         });
+
+        renderModes();
     };
 
-    const modes = [
-        { label: "LV 1–2", levels: [1, 2] },
-        { label: "LV 1–3", levels: [1, 2, 3] },
-        { label: "LV 1–5", levels: [1, 2, 3, 4, 5] },
-        { label: "LV 1–10", levels: Array.from({ length: 10 }, (_, index) => index + 1) },
-        { label: "LV 6–10", levels: [6, 7, 8, 9, 10] },
-        { label: `Basic ${script}`, levels: Array.from({ length: 10 }, (_, index) => index + 1) },
-        { label: "Dakuten & Handakuten", levels: [11, 12, 13, 14, 15] },
-        { label: "Combination / Yōon", levels: [16] },
-        { label: "SEMUA MATERI", levels: Array.from({ length: 16 }, (_, index) => index + 1) },
-        { label: "RANDOM CHALLENGE", levels: Array.from({ length: saved[script].unlocked }, (_, index) => index + 1) }
-    ];
+    function renderModes() {
+        const modes = [
+            { label: "LV 1–2", levels: [1, 2] },
+            { label: "LV 1–3", levels: [1, 2, 3] },
+            { label: "LV 1–5", levels: [1, 2, 3, 4, 5] },
+            { label: "LV 1–10", levels: Array.from({ length: rows.length }, (_, index) => index + 1) },
+            { label: "LV 6–10", levels: [6, 7, 8, 9, 10] },
+            { label: `Basic ${script}`, levels: Array.from({ length: rows.length }, (_, index) => index + 1) },
+            { label: "Dakuten & Handakuten", levels: Array.from({ length: voiced.length }, (_, index) => rows.length + index + 1) },
+            { label: "Yōon lengkap", levels: Array.from({ length: combos.length }, (_, index) => yoonStartLevel + index) },
+            { label: "SEMUA MATERI", levels: allLevelIds },
+            { label: "RANDOM CHALLENGE", levels: allLevelIds.filter((level) => level <= saved[script].unlocked) }
+        ];
 
-    $("[data-mode-grid]").innerHTML = modes.map((mode, index) => {
-        return `
-            <button class="mode-card" data-mode="${index}">
-                <b>${index === 9 ? "✦" : "→"}</b>
-                <span>${mode.label}</span>
-                <small>15 soal • campuran</small>
-            </button>
-        `;
-    }).join("");
+        $("[data-mode-grid]").innerHTML = modes.map((mode, index) => {
+            return `
+                <button class="mode-card" data-mode="${index}">
+                    <b>${index === 9 ? "✦" : "→"}</b>
+                    <span>${mode.label}</span>
+                    <small>15 soal • campuran</small>
+                </button>
+            `;
+        }).join("");
 
-    $("[data-mode-grid]").querySelectorAll("[data-mode]").forEach((button) => {
-        button.addEventListener("click", () => {
-            startPractice(modes[Number(button.dataset.mode)].levels);
+        $("[data-mode-grid]").querySelectorAll("[data-mode]").forEach((button) => {
+            button.addEventListener("click", () => {
+                startPractice(modes[Number(button.dataset.mode)].levels);
+            });
         });
-    });
+    }
 
     function startPractice(levels) {
-        const unlockedLevels = levels.filter((level) => level <= saved[script].unlocked);
+        const unlockedLevels = levels.filter((level) => level <= saved[script].unlocked && level <= totalLevels);
         const pool = data[script].filter((item) => unlockedLevels.includes(item.level));
 
         if (pool.length < 3) {
@@ -446,7 +474,7 @@ function initKanaQuest() {
         currentSession = {
             levels,
             pool,
-            questions: buildPracticeQuestions(levels, pool, script),
+            questions: buildPracticeQuestions(levels, pool, script, data[script]),
             index: 0,
             results: [],
             streak: 0,
@@ -481,6 +509,7 @@ function initKanaQuest() {
         const defaultSub = document.querySelector(".question-card > p");
 
         if (question.type === "match-table") {
+            $("[data-answer-grid]").classList.add("is-match-grid");
             const { match } = question;
             $("[data-question-kind]").textContent = "PASANGKAN KATA";
             $("[data-question-prompt]").innerHTML = `
@@ -540,6 +569,8 @@ function initKanaQuest() {
 
             return;
         }
+
+        $("[data-answer-grid]").classList.remove("is-match-grid");
 
         if (defaultSub) {
             defaultSub.hidden = false;

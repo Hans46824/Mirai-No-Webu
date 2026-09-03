@@ -320,7 +320,9 @@
                     <p><b>${item.example[0]}</b><span>${item.example[1]}</span>${item.example[2]}</p>
                 </div>
             `;
-            player = window.createStrokePlayer(detail.querySelector("[data-stroke-player]"), character, 3);
+            player = window.createStrokePlayer(detail.querySelector("[data-stroke-player]"), character, 3, {
+                showClear: true
+            });
         }
 
         const render = () => {

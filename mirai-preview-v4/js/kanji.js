@@ -126,42 +126,161 @@ function renderKanaPanel(mode) {
     const panel = document.querySelector(`[data-script-panel="${mode}"]`);
     if (!panel || panel.dataset.ready) return;
     panel.dataset.ready = "true";
-    const characters = window.KanaData.getCharacters(mode);
+    const categories = window.KanaData.categoriesConfig;
     let player;
-    panel.innerHTML = `<div class="dictionary-controls"><label>Cari<input type="search" data-kana-search placeholder="Contoh: あ, a, anime"></label><label>Jenis<select data-kana-type><option value="">Semua</option><option value="basic">Dasar</option><option value="dakuten">Dakuten</option><option value="handakuten">Handakuten</option><option value="combination">Kombinasi</option></select></label><button class="btn" type="button" data-random-kana>ACAK</button></div><p class="result-count" data-kana-count></p><div class="dictionary-layout"><div class="kana-grid dictionary-kana-grid" data-kana-grid-live></div><aside class="kana-detail" data-kana-detail-live><p>Pilih satu karakter.</p></aside></div>`;
-    const grid = panel.querySelector("[data-kana-grid-live]");
+    let selectedChar = null;
+
+    panel.innerHTML = `
+        <div class="dictionary-controls">
+            <label>Cari<input type="search" data-kana-search placeholder="Contoh: ${mode === 'katakana' ? 'ア, a, anime' : 'あ, a, cinta'}"></label>
+            <label>Kategori<select data-kana-type>
+                <option value="">Semua Kategori</option>
+                <option value="basic">1. Huruf Dasar (46)</option>
+                <option value="dakuten">2. Dakuten (20)</option>
+                <option value="handakuten">3. Handakuten (5)</option>
+                <option value="yoon">4. Yōon Gabungan (33)</option>
+            </select></label>
+            <button class="btn" type="button" data-random-kana>ACAK</button>
+        </div>
+        <p class="result-count" data-kana-count></p>
+        <div class="dictionary-layout">
+            <div class="kana-categorized-wrap" data-kana-grid-live style="display:flex; flex-direction:column; gap:28px;"></div>
+            <aside class="kana-detail" data-kana-detail-live><p>Pilih satu karakter untuk melihat detail dan urutan goresan.</p></aside>
+        </div>
+    `;
+
+    const container = panel.querySelector("[data-kana-grid-live]");
     const search = panel.querySelector("[data-kana-search]");
     const typeFilter = panel.querySelector("[data-kana-type]");
     const count = panel.querySelector("[data-kana-count]");
     const detail = panel.querySelector("[data-kana-detail-live]");
-    const category = (character) => character.length > 1 ? "combination" : /[がぎぐげござじずぜぞだぢづでどばびぶべぼガギグゲゴザジズゼゾダヂヅデドバビブベボ]/.test(character) ? "dakuten" : /[ぱぴぷぺぽパピプペポ]/.test(character) ? "handakuten" : "basic";
+
+    const toKatakana = (text) => {
+        return [...text].map((char) => {
+            const code = char.charCodeAt(0);
+            return (code >= 0x3041 && code <= 0x3096) ? String.fromCharCode(code + 0x60) : char;
+        }).join("");
+    };
+
     const show = (character) => {
+        selectedChar = character;
+        container.querySelectorAll(".kana-card").forEach((btn) => {
+            btn.classList.toggle("is-selected", btn.dataset.character === character);
+        });
+
         const item = window.KanaData.getDetail(character, mode);
         player?.destroy();
-        detail.innerHTML = `<p class="card-number">${mode.toUpperCase()} / ${category(character).toUpperCase()}</p><div class="selected-kana">${character}</div><p><b>Romaji:</b> ${item.reading}</p><p><b>Contoh:</b> ${item.example[0]} — ${item.example[2]}</p><h4>Urutan Menulis</h4><div data-stroke-player></div>`;
-        player = window.createStrokePlayer(detail.querySelector("[data-stroke-player]"), character, 3);
+        detail.innerHTML = `
+            <p class="card-number">${mode.toUpperCase()} / ${item.reading}</p>
+            <div class="selected-kana">${character}</div>
+            <p><b>Romaji:</b> ${item.reading}</p>
+            <p><b>Contoh:</b> <b>${item.example[0]}</b> (<em>${item.example[1]}</em>) — ${item.example[2]}</p>
+            <h4>Urutan Menulis</h4>
+            <div data-stroke-player></div>
+        `;
+        player = window.createStrokePlayer(detail.querySelector("[data-stroke-player]"), character, 3, {
+            showClear: true
+        });
     };
+
     const render = () => {
         const query = search.value.trim().toLowerCase();
-        const visible = characters.filter((character) => {
-            const item = window.KanaData.getDetail(character, mode);
-            return (!query || `${character} ${item.reading} ${item.example.join(" ")}`.toLowerCase().includes(query)) && (!typeFilter.value || category(character) === typeFilter.value);
+        const selectedType = typeFilter.value;
+        container.replaceChildren();
+
+        let totalVisible = 0;
+        let firstButton = null;
+
+        categories.forEach((cat) => {
+            if (selectedType && cat.id !== selectedType) {
+                return;
+            }
+
+            const chars = mode === "katakana" ? cat.hiraChars.map(toKatakana) : cat.hiraChars;
+            const filteredChars = chars.filter((character) => {
+                const item = window.KanaData.getDetail(character, mode);
+                return !query || `${character} ${item.reading} ${item.example.join(" ")}`.toLowerCase().includes(query);
+            });
+
+            if (filteredChars.length === 0) {
+                return;
+            }
+
+            totalVisible += filteredChars.length;
+
+            const section = document.createElement("section");
+            section.className = "kana-section-group";
+
+            const header = document.createElement("div");
+            header.className = "kana-section-header";
+
+            const titleWrap = document.createElement("div");
+            titleWrap.className = "kana-section-title-wrap";
+
+            const title = document.createElement("h3");
+            title.className = "kana-section-title";
+            title.textContent = cat.title;
+
+            const badge = document.createElement("span");
+            badge.className = "kana-section-badge";
+            badge.textContent = cat.badge;
+
+            titleWrap.append(title, badge);
+
+            const descCard = document.createElement("div");
+            descCard.className = "kana-section-desc-card";
+
+            const desc = document.createElement("p");
+            desc.className = "kana-section-desc";
+            desc.textContent = cat.description[mode] || cat.description.hiragana;
+
+            descCard.append(desc);
+            header.append(titleWrap, descCard);
+
+            const grid = document.createElement("div");
+            grid.className = "kana-section-grid";
+
+            filteredChars.forEach((character) => {
+                const item = window.KanaData.getDetail(character, mode);
+                const button = document.createElement("button");
+                button.className = "kana-card";
+                button.type = "button";
+                button.dataset.character = character;
+                if (character === selectedChar) {
+                    button.classList.add("is-selected");
+                }
+                button.innerHTML = `<strong>${character}</strong><span>${item.reading}</span>`;
+                button.addEventListener("click", () => show(character));
+                grid.append(button);
+
+                if (!firstButton) {
+                    firstButton = { button, character };
+                }
+            });
+
+            section.append(header, grid);
+            container.append(section);
         });
-        grid.replaceChildren();
-        count.textContent = `Menampilkan ${visible.length} karakter`;
-        visible.forEach((character) => {
-            const item = window.KanaData.getDetail(character, mode);
-            const button = document.createElement("button");
-            button.className = "kana-card";
-            button.type = "button";
-            button.innerHTML = `<strong>${character}</strong><span>${item.reading}</span>`;
-            button.addEventListener("click", () => show(character));
-            grid.append(button);
-        });
-        if (visible.length) show(visible[0]);
+
+        count.textContent = `Menampilkan ${totalVisible} karakter ${mode === 'katakana' ? 'Katakana' : 'Hiragana'}`;
+
+        if (totalVisible === 0) {
+            const emptyEl = document.createElement("div");
+            emptyEl.className = "kana-empty-state";
+            emptyEl.innerHTML = `<p>Tidak ada karakter yang cocok dengan pencarian “${query}”.</p>`;
+            container.append(emptyEl);
+        } else if (!selectedChar && firstButton) {
+            show(firstButton.character);
+        }
     };
+
     search.addEventListener("input", render);
     typeFilter.addEventListener("change", render);
-    panel.querySelector("[data-random-kana]").addEventListener("click", () => show(characters[Math.floor(Math.random() * characters.length)]));
+    panel.querySelector("[data-random-kana]").addEventListener("click", () => {
+        const allChars = window.KanaData.getCharacters(mode);
+        const randomChar = allChars[Math.floor(Math.random() * allChars.length)];
+        show(randomChar);
+    });
+
     render();
 }
