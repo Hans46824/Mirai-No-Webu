@@ -72,6 +72,39 @@ function setupInstagramFeedback() {
 function normalizeNavigation() {
     document.querySelectorAll('[data-nav-menu] a[href="kanji.html"]').forEach((link) => { link.href = "kamus.html"; link.textContent = "KAMUS"; });
     document.querySelectorAll('[data-nav-menu] a[href="about.html"]').forEach((link) => { link.href = "tentang.html"; });
+
+    // Apply coming soon overlay to "kegiatan" and "tentang" nav buttons
+    document.querySelectorAll('[data-nav-menu] a, .nav .links a').forEach((link) => {
+        const href = (link.getAttribute("href") || "").toLowerCase();
+        const rawText = (link.textContent || "").trim();
+        const upperText = rawText.toUpperCase();
+
+        if (
+            href.includes("kegiatan") ||
+            href.includes("tentang") ||
+            upperText === "KEGIATAN" ||
+            upperText === "TENTANG" ||
+            upperText.startsWith("KEGIATAN") ||
+            upperText.startsWith("TENTANG")
+        ) {
+            link.classList.add("nav-coming-soon");
+            link.setAttribute("href", "javascript:void(0)");
+            link.setAttribute("aria-disabled", "true");
+            link.setAttribute("tabindex", "-1");
+            link.setAttribute("title", `${upperText.includes("KEGIATAN") ? "Kegiatan" : "Tentang"} (Coming Soon)`);
+
+            link.addEventListener("click", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            });
+
+            if (!link.querySelector(".badge-coming-soon")) {
+                const label = upperText.includes("KEGIATAN") ? "KEGIATAN" : "TENTANG";
+                link.innerHTML = `<span class="nav-text">${label}</span><span class="badge-coming-soon">COMING SOON</span>`;
+            }
+        }
+    });
 }
 
 function setupMenu() {

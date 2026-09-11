@@ -98,6 +98,62 @@ a {
     transform-origin: left;
 }
 
+/* Navbar Coming Soon Overlay */
+.links a.nav-coming-soon,
+.nav .links a.nav-coming-soon {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: not-allowed !important;
+    text-decoration: none !important;
+    pointer-events: auto !important;
+    user-select: none;
+}
+
+.links a.nav-coming-soon .nav-text,
+.nav .links a.nav-coming-soon .nav-text {
+    opacity: 0.22;
+    filter: blur(0.3px);
+    transition: opacity 0.2s ease;
+}
+
+.links a.nav-coming-soon::after,
+.nav .links a.nav-coming-soon::after {
+    display: none !important;
+}
+
+.links a.nav-coming-soon .badge-coming-soon,
+.nav .links a.nav-coming-soon .badge-coming-soon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, #e91e63 0%, #b81b4d 100%);
+    color: #ffffff !important;
+    font-size: 7.5px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.7px !important;
+    line-height: 1 !important;
+    padding: 3px 6px !important;
+    border-radius: 4px !important;
+    white-space: nowrap !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    text-transform: uppercase;
+    pointer-events: none;
+    z-index: 3;
+}
+
+@media (max-width: 768px) {
+    .links a.nav-coming-soon,
+    .nav .links a.nav-coming-soon {
+        width: fit-content;
+        align-self: flex-start;
+        margin: 2px 0;
+    }
+}
+
 .hero,
 .page-hero {
     position: relative;

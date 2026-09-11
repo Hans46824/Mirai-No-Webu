@@ -290,10 +290,66 @@
     font-size: 13px;
     color: #27ae60;
 }
+
+/* Navbar Coming Soon Overlay */
+.links a.nav-coming-soon,
+.nav .links a.nav-coming-soon {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: not-allowed !important;
+    text-decoration: none !important;
+    pointer-events: auto !important;
+    user-select: none;
+}
+
+.links a.nav-coming-soon .nav-text,
+.nav .links a.nav-coming-soon .nav-text {
+    opacity: 0.22;
+    filter: blur(0.3px);
+    transition: opacity 0.2s ease;
+}
+
+.links a.nav-coming-soon::after,
+.nav .links a.nav-coming-soon::after {
+    display: none !important;
+}
+
+.links a.nav-coming-soon .badge-coming-soon,
+.nav .links a.nav-coming-soon .badge-coming-soon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, #e91e63 0%, #b81b4d 100%);
+    color: #ffffff !important;
+    font-size: 7.5px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.7px !important;
+    line-height: 1 !important;
+    padding: 3px 6px !important;
+    border-radius: 4px !important;
+    white-space: nowrap !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    text-transform: uppercase;
+    pointer-events: none;
+    z-index: 3;
+}
+
+@media (max-width: 768px) {
+    .links a.nav-coming-soon,
+    .nav .links a.nav-coming-soon {
+        width: fit-content;
+        align-self: flex-start;
+        margin: 2px 0;
+    }
+}
 </style>
 </head>
 <body class="learning-app">
-<header class="nav"><a class="brand" href="index.html" aria-label="MIRAI NO HANA home"><img src="images/mirai/logo/MNH.png" alt="MIRAI NO HANA"></a><button class="menu-toggle" type="button" data-menu-toggle aria-label="Buka menu" aria-expanded="false">MENU</button><nav class="links" data-nav-menu aria-label="Navigasi utama"><a href="index.html">HOME</a><a class="active" href="kelas.html">KELAS</a><a href="kamus.html">KAMUS</a><a href="kegiatan.html">KEGIATAN</a><a href="tentang.html">TENTANG</a></nav></header>
+<header class="nav"><a class="brand" href="index.html" aria-label="MIRAI NO HANA home"><img src="images/mirai/logo/MNH.png" alt="MIRAI NO HANA"></a><button class="menu-toggle" type="button" data-menu-toggle aria-label="Buka menu" aria-expanded="false">MENU</button><nav class="links" data-nav-menu aria-label="Navigasi utama"><a href="index.html">HOME</a><a class="active" href="kelas.html">KELAS</a><a href="kamus.html">KAMUS</a><a class="nav-coming-soon" href="javascript:void(0)" aria-disabled="true" tabindex="-1" title="Kegiatan (Coming Soon)"><span class="nav-text">KEGIATAN</span><span class="badge-coming-soon">COMING SOON</span></a><a class="nav-coming-soon" href="javascript:void(0)" aria-disabled="true" tabindex="-1" title="Tentang (Coming Soon)"><span class="nav-text">TENTANG</span><span class="badge-coming-soon">COMING SOON</span></a></nav></header>
 <main class="quest-main">
 <span data-review-count hidden>0</span><span data-streak hidden>1</span><span data-user-level hidden>1</span><span data-total-xp hidden>0</span><span data-level-xp hidden>0</span><span data-xp-bar hidden></span>
 <section class="quest-hero"><div><p class="eyebrow">KELAS DASAR / LATIHAN</p><h1>Practice<br><span>Kana</span></h1><p>Latih bentuk dan bacaan Hiragana atau Katakana dalam sesi singkat. Tidak perlu login, tidak ada riwayat tersimpan.</p></div></section>
