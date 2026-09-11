@@ -66,6 +66,10 @@ a {
     object-position: left center;
 }
 
+.brand-disabled {
+    cursor: not-allowed;
+}
+
 .links {
     display: flex;
     gap: 38px;
@@ -574,6 +578,11 @@ a {
 
 .footer a:hover {
     color: var(--pink2);
+}
+
+.footer-coming-soon {
+    color: rgba(255, 255, 255, .48);
+    cursor: not-allowed;
 }
 
 .contact-section {

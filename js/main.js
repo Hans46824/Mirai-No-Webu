@@ -73,25 +73,23 @@ function normalizeNavigation() {
     document.querySelectorAll('[data-nav-menu] a[href="kanji.html"]').forEach((link) => { link.href = "kamus.html"; link.textContent = "KAMUS"; });
     document.querySelectorAll('[data-nav-menu] a[href="about.html"]').forEach((link) => { link.href = "tentang.html"; });
 
-    // Apply coming soon overlay to "kegiatan" and "tentang" nav buttons
+    // Keep unfinished top-level destinations visible, but unavailable.
     document.querySelectorAll('[data-nav-menu] a, .nav .links a').forEach((link) => {
         const href = (link.getAttribute("href") || "").toLowerCase();
         const rawText = (link.textContent || "").trim();
         const upperText = rawText.toUpperCase();
+        const isHome = href.includes("index.html") || upperText === "HOME" || upperText.startsWith("HOME");
+        const isKegiatan = href.includes("kegiatan") || upperText === "KEGIATAN" || upperText.startsWith("KEGIATAN");
+        const isTentang = href.includes("tentang") || upperText === "TENTANG" || upperText.startsWith("TENTANG");
 
-        if (
-            href.includes("kegiatan") ||
-            href.includes("tentang") ||
-            upperText === "KEGIATAN" ||
-            upperText === "TENTANG" ||
-            upperText.startsWith("KEGIATAN") ||
-            upperText.startsWith("TENTANG")
-        ) {
+        if (isHome || isKegiatan || isTentang) {
+            const label = isHome ? "HOME" : isKegiatan ? "KEGIATAN" : "TENTANG";
             link.classList.add("nav-coming-soon");
+            link.classList.remove("active");
             link.setAttribute("href", "javascript:void(0)");
             link.setAttribute("aria-disabled", "true");
             link.setAttribute("tabindex", "-1");
-            link.setAttribute("title", `${upperText.includes("KEGIATAN") ? "Kegiatan" : "Tentang"} (Coming Soon)`);
+            link.setAttribute("title", `${label.charAt(0) + label.slice(1).toLowerCase()} (Coming Soon)`);
 
             link.addEventListener("click", (e) => {
                 e.preventDefault();
@@ -100,7 +98,6 @@ function normalizeNavigation() {
             });
 
             if (!link.querySelector(".badge-coming-soon")) {
-                const label = upperText.includes("KEGIATAN") ? "KEGIATAN" : "TENTANG";
                 link.innerHTML = `<span class="nav-text">${label}</span><span class="badge-coming-soon">COMING SOON</span>`;
             }
         }
