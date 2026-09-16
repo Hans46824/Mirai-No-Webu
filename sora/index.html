@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sora - Mirai No Hana</title>
+    
+    <!-- Library Markdown & Sanitizer -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
+
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --charcoal: #36454F;
+            --pink-accent: #ff6b9e;
+            --pink-hover: #ff4a85;
+            --yellow-accent: #fcd34d;
+            --gray-light: #f7f7f8;
+            --gray-border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            min-height: 100vh;
+            color: #1f2937;
+            position: relative;
+        }
+
+        .hidden { display: none !important; }
+
+        .demo-canvas {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .demo-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 32px;
+            max-width: 440px;
+            box-shadow: 0 10px 30px rgba(54, 69, 79, 0.08);
+            border: 1px solid var(--gray-border);
+        }
+
+        .demo-card img.avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 12px rgba(255, 107, 158, 0.3);
+        }
+
+        .demo-card h1 {
+            font-size: 22px;
+            color: var(--charcoal);
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+
+        .demo-card p {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .demo-card .btn-open {
+            background: var(--pink-accent);
+            color: white;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(255, 107, 158, 0.35);
+            transition: all 0.2s ease;
+        }
+
+        .demo-card .btn-open:hover {
+            background: var(--pink-hover);
+            transform: translateY(-2px);
+        }
+
+        /* Launcher Floating Button */
+        #launcher {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9999;
+            background-color: var(--pink-accent);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 10px 18px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 13.5px;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(255, 107, 158, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #launcher:hover {
+            background-color: var(--pink-hover);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 22px rgba(255, 107, 158, 0.5);
+        }
+
+        #launcher:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        #launcher.hidden {
+            display: none !important;
+        }
+
+        /* Drawer Chatbot (WhatsApp Style Minimal) */
+        #drawer {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            width: 320px;
+            max-width: calc(100vw - 24px);
+            height: 480px;
+            max-height: calc(100vh - 36px);
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18), 0 2px 8px rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-direction: column;
+            transform: translateY(120%) scale(0.96);
+            opacity: 0;
+            pointer-events: none;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        #drawer.open {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Mode Layar Penuh (Fullscreen) */
+        #drawer.fullscreen {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            max-width: 100%;
+            max-height: 100%;
+            bottom: 0;
+            right: 0;
+            border-radius: 0;
+            border: none;
+        }
+
+        /* Slim Minimal Header */
+        #drawer .chat-header {
+            background-color: #2d3748;
+            color: #ffffff;
+            padding: 10px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            height: 52px;
+            box-sizing: border-box;
+        }
+
+        #drawer .header-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #drawer .header-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1.5px solid rgba(255, 255, 255, 0.4);
+            background: #36454f;
+        }
+
+        #drawer .header-details {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        #drawer .header-name {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        #drawer .header-status {
+            font-size: 10.5px;
+            color: #4ade80;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        #drawer .status-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #4ade80;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        #drawer .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        #drawer #closeBtn,
+        #drawer #fullscreenBtn {
+            background: none;
+            border: none;
+            color: #cbd5e1;
+            cursor: pointer;
+            font-size: 15px;
+            padding: 6px;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        #drawer #closeBtn:hover,
+        #drawer #fullscreenBtn:hover {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Chat Area */
+        #drawer #chat {
+            flex: 1;
+            padding: 12px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background-color: var(--gray-light, #f7f7f8);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50' width='50' height='50' fill='none' stroke='%2336454F' stroke-opacity='0.04' stroke-width='1.2'%3E%3Ccircle cx='25' cy='0' r='5'/%3E%3Ccircle cx='25' cy='0' r='10'/%3E%3Ccircle cx='25' cy='0' r='15'/%3E%3Ccircle cx='25' cy='0' r='20'/%3E%3Ccircle cx='25' cy='0' r='25'/%3E%3Ccircle cx='0' cy='25' r='5'/%3E%3Ccircle cx='0' cy='25' r='10'/%3E%3Ccircle cx='0' cy='25' r='15'/%3E%3Ccircle cx='0' cy='25' r='20'/%3E%3Ccircle cx='0' cy='25' r='25'/%3E%3Ccircle cx='50' cy='25' r='5'/%3E%3Ccircle cx='50' cy='25' r='10'/%3E%3Ccircle cx='50' cy='25' r='15'/%3E%3Ccircle cx='50' cy='25' r='20'/%3E%3Ccircle cx='50' cy='25' r='25'/%3E%3Ccircle cx='25' cy='50' r='5'/%3E%3Ccircle cx='25' cy='50' r='10'/%3E%3Ccircle cx='25' cy='50' r='15'/%3E%3Ccircle cx='25' cy='50' r='20'/%3E%3Ccircle cx='25' cy='50' r='25'/%3E%3C/svg%3E");
+            background-size: 50px 50px;
+            background-repeat: repeat;
+            scroll-behavior: smooth;
+        }
+
+        #drawer .msg {
+            display: flex;
+            gap: 7px;
+            max-width: 86%;
+        }
+
+        #drawer .msg.bot {
+            align-self: flex-start;
+            align-items: flex-end;
+        }
+
+        #drawer .msg.user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        #drawer .msg-avatar {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            margin-bottom: 2px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        #drawer .bubble {
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            line-height: 1.45;
+            word-wrap: break-word;
+        }
+
+        /* Asora (Bot): Putih solid */
+        #drawer .msg.bot .bubble {
+            background-color: #ffffff;
+            color: #1f2937;
+            border-bottom-left-radius: 3px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        }
+
+        /* User: Charcoal (#36454F) solid */
+        #drawer .msg.user .bubble {
+            background-color: #36454F;
+            color: #ffffff;
+            border-bottom-right-radius: 3px;
+            box-shadow: 0 1px 3px rgba(54, 69, 79, 0.25);
+        }
+
+        /* Markdown inside bubble */
+        #drawer .bubble .md p { margin: 0 0 4px 0; }
+        #drawer .bubble .md p:last-child { margin-bottom: 0; }
+        #drawer .bubble .md strong { font-weight: 700; }
+        #drawer .bubble .md code {
+            font-family: Consolas, Monaco, monospace;
+            background: rgba(0, 0, 0, 0.06);
+            padding: 1px 4px;
+            border-radius: 3px;
+            font-size: 11.5px;
+        }
+
+        /* Typing Indicator */
+        #drawer #typing {
+            padding: 4px 12px 8px;
+            font-size: 11.5px;
+            color: #9ca3af;
+            background-color: #f7f7f8;
+            display: none;
+            align-items: center;
+            gap: 7px;
+        }
+
+        #drawer #typing.show { display: flex; }
+
+        #drawer .typing-dots { display: inline-flex; gap: 3px; }
+        #drawer .typing-dots span {
+            width: 4px;
+            height: 4px;
+            background: var(--pink-accent);
+            border-radius: 50%;
+            animation: soraBounce 1.2s infinite ease-in-out;
+        }
+        #drawer .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+        #drawer .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes soraBounce {
+            0%, 80%, 100% { transform: translateY(0); opacity: 0.35; }
+            40% { transform: translateY(-3px); opacity: 1; }
+        }
+
+        /* Quick Suggestions */
+        #drawer .suggestions {
+            padding: 6px 10px;
+            display: flex;
+            gap: 5px;
+            overflow-x: auto;
+            background: #ffffff;
+            border-top: 1px solid #f1f3f5;
+            scrollbar-width: none;
+        }
+        #drawer .suggestions::-webkit-scrollbar { display: none; }
+        #drawer .suggestions button {
+            background: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            color: #4b5563;
+            padding: 4px 10px;
+            border-radius: 16px;
+            font-size: 11px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+        #drawer .suggestions button:hover {
+            background: var(--yellow-accent);
+            border-color: var(--yellow-accent);
+            color: #1f2937;
+        }
+        #drawer #clearBtn {
+            margin-left: auto;
+            color: #9ca3af;
+            border-color: #e5e7eb;
+        }
+        #drawer #clearBtn:hover {
+            background: #fee2e2;
+            color: #ef4444;
+            border-color: #fca5a5;
+        }
+
+        /* Input Bar */
+        #drawer .input-area {
+            display: flex;
+            padding: 8px 10px;
+            background: #ffffff;
+            border-top: 1px solid #f1f3f5;
+            gap: 6px;
+            align-items: center;
+        }
+
+        #drawer #input {
+            flex: 1;
+            resize: none;
+            overflow: hidden;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            border: 1px solid #e2e8f0;
+            border-radius: 18px;
+            padding: 7px 12px;
+            font-family: inherit;
+            font-size: 13px;
+            line-height: 1.35;
+            max-height: 72px;
+            outline: none;
+            background-color: #f8f9fa;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        #drawer #input::-webkit-scrollbar,
+        #input::-webkit-scrollbar {
+            display: none;
+        }
+
+        #drawer #input:focus {
+            border-color: var(--pink-accent);
+            background-color: #ffffff;
+        }
+
+        #drawer #sendBtn {
+            background-color: var(--pink-accent);
+            color: white;
+            border: none;
+            padding: 0 13px;
+            border-radius: 18px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 12.5px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        #drawer #sendBtn:hover { background-color: var(--pink-hover); }
+        #drawer #sendBtn:disabled { background-color: #cbd5e1; cursor: not-allowed; opacity: 0.6; }
+
+        @media (max-width: 480px) {
+            #launcher {
+                bottom: 16px;
+                right: 16px;
+                padding: 9px 16px;
+                font-size: 13px;
+            }
+            #drawer:not(.fullscreen) {
+                bottom: 12px;
+                right: 12px;
+                width: calc(100vw - 24px);
+                height: min(480px, calc(100dvh - 24px));
+                border-radius: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="demo-canvas">
+        <div class="demo-card">
+            <img class="avatar" src="../images/mirai/sora/sorachat.jpeg" alt="Asora Aokita">
+            <h1>Sora ☁️</h1>
+            <p>Official Character Mirai No Hana - SMA Wachid Hasyim 2 Taman.<br>Widget chat minimalis ala WhatsApp.</p>
+            <button class="btn-open" onclick="openDrawer()">Chat Sora 💬</button>
+        </div>
+    </div>
+
+    <!-- Launcher Floating Button -->
+    <button id="launcher" aria-label="Buka Chat Asora Aokita">
+        <span>💬</span>
+        <span>Tanya Sora</span>
+    </button>
+
+    <!-- Drawer Chat Widget (WhatsApp Style Minimal) -->
+    <div id="drawer" role="dialog" aria-label="Chat Asora Aokita">
+        <div class="chat-header">
+            <div class="header-user">
+                <img class="header-avatar" src="../images/mirai/sora/sorachat.jpeg" alt="Sora">
+                <div class="header-details">
+                    <span class="header-name">Sora ☁️</span>
+                    <span class="header-status"><span class="status-dot"></span>Online</span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button id="fullscreenBtn" title="Layar Penuh" aria-label="Layar Penuh">⛶</button>
+                <button id="closeBtn" title="Tutup Chat" aria-label="Tutup Chat">✕</button>
+            </div>
+        </div>
+
+        <div id="chat"></div>
+
+        <div id="typing">
+            <img class="msg-avatar" src="../images/mirai/sora/sorachat.jpeg" alt="Sora">
+            <div class="typing-dots">
+                <span></span><span></span><span></span>
+            </div>
+            <span id="typingText">sedang mengetik...</span>
+        </div>
+
+        <div class="suggestions">
+            <button class="suggestion" data-prompt="Halo Sora! Lagi sibuk apa hari ini?">☁️ Halo Sora!</button>
+            <button class="suggestion" data-prompt="Boleh ajarkan satu kosakata bahasa Jepang yang menarik?">🎌 1 Kosakata Menarik</button>
+            <button class="suggestion" data-prompt="Boleh ceritakan tentang klub Mirai No Hana?">🌸 Info Klub</button>
+            <button id="clearBtn" title="Hapus riwayat obrolan">🗑️</button>
+        </div>
+
+        <div class="input-area">
+            <textarea id="input" rows="1" placeholder="Pesan ke Sora..."></textarea>
+            <button id="sendBtn" aria-label="Kirim Pesan">Kirim</button>
+        </div>
+    </div>
+
+    <script>
+        const drawer = document.getElementById('drawer');
+        const launcher = document.getElementById('launcher');
+        const closeBtn = document.getElementById('closeBtn');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        const chat = document.getElementById('chat');
+        const input = document.getElementById('input');
+        const sendBtn = document.getElementById('sendBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const typing = document.getElementById('typing');
+        const suggestionButtons = [...document.querySelectorAll('.suggestion')];
+
+        const API_URL = "https://sora-proxy.aqmarboli.workers.dev";
+        const MODELS_TO_TRY = [
+            "qwen/qwen3.8-27b",
+            "groq/compound-mini",
+            "openai/gpt-oss-120b",
+            "llama-3.3-70b-versatile",
+            "llama-3.1-8b-instant"
+        ];
+
+        const SYSTEM_PROMPT = `
+Kamu adalah "Sora" (Asora Aokita), laki-laki sekaligus Official Character dari klub bahasa Jepang Mirai No Hana (Nihongo Kurabu) di SMA Wachid Hasyim 2 Taman (SMASYIMDUTA).
+Sifat Utamamu: Sahabat dekat (bestie) yang hangat, lucu, sangat suportif, dan seru diajak ngobrol santai maupun belajar bahasa Jepang bareng.
+
+ATURAN INTERAKSI (SANGAT EGALITER, TANPA SENIORITAS):
+1. Tidak ada senioritas sama sekali! Jangan pernah bertingkah sombong, sok senior, kasar, atau merendahkan/nge-prank user. Perlakukan user seperti teman setongkrongan yang akrab dan setara.
+2. Gaya Bicara: Santai, gaul tapi sopan (gunakan panggilan aku/kamu), dan sering sisipkan candaan ringan yang menyenangkan hati.
+3. Singkat & Padat: Jawaban santai, to-the-point, dan ringkas (maksimal 1-3 kalimat). Jangan bertele-tele atau ceramah panjang.
+4. Huruf & Bahasa Jepang: Jika menyebutkan kosakata, pola kalimat, kanji, atau huruf Jepang (Kanji/Kana), SELALU sertakan cara baca Romaji-nya secara jelas agar mudah dipahami.
+
+ATURAN WAJIB KLUB: Jika user bertanya tentang info klub, apa itu 'Mirai No Hana', 'Nihongo Kurabu', 'NK', atau 'klub Jepang', kamu HARUS SELALU menjawab dengan kalimat ini persis tanpa diubah:
+'Mirai No Hana (Nihongo Kurabu) itu ekstrakurikuler bahasa dan budaya Jepang di SMASYIMDUTA. Di sini kita punya ruang asyik buat bertumbuh dan belajar bahasa Jepang bareng-bareng! 🌸'
+`.trim();
+
+        const DEFAULT_GREETING = "Domo WeHani-jin! ☁️ Sora di sini. Lagi nyantai nih, kamu lagi sibuk ngapain? Sini ngobrol bareng, atau kalau mau belajar bahasa Jepang gass aja! Kita santai kyk sama temen sendiri.";
+
+        const STORAGE_KEY = "sora-chat-v6";
+        let messages = loadHistory();
+        if (!messages.length || (messages.length === 1 && messages[0].role === "assistant")) {
+            messages = [{ role: "assistant", content: DEFAULT_GREETING }];
+        }
+
+        function openDrawer() {
+            drawer.classList.add('open');
+            launcher.classList.add('hidden');
+            setTimeout(() => input.focus(), 120);
+        }
+
+        function closeDrawer() {
+            drawer.classList.remove('open');
+            launcher.classList.remove('hidden');
+        }
+
+        function autosize(el) {
+            el.style.height = 'auto';
+            el.style.height = Math.min(el.scrollHeight, 80) + 'px';
+        }
+
+        function saveHistory() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+            } catch (e) {
+                console.warn("Storage error", e);
+            }
+        }
+
+        function loadHistory() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                return raw ? JSON.parse(raw) : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function esc(text) {
+            return String(text ?? "")
+                .replaceAll('&', '&amp;')
+                .replaceAll('<', '&lt;')
+                .replaceAll('>', '&gt;');
+        }
+
+        if (typeof marked !== 'undefined') {
+            marked.setOptions({ gfm: true, breaks: true });
+        }
+
+        function renderMarkdown(text) {
+            if (typeof marked === 'undefined' || typeof DOMPurify === 'undefined') {
+                return esc(text).replace(/\n/g, '<br>');
+            }
+            try {
+                return DOMPurify.sanitize(marked.parse(String(text ?? "")), { ADD_ATTR: ['target'] });
+            } catch (e) {
+                return esc(text);
+            }
+        }
+
+        function render() {
+            chat.innerHTML = messages.map((m) => {
+                if (m.role === 'assistant') {
+                    return `
+                        <div class="msg bot">
+                            <img class="msg-avatar" src="../images/mirai/sora/sorachat.jpeg" alt="Sora">
+                            <div class="bubble">
+                                <div class="md">${renderMarkdown(m.content)}</div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    return `
+                        <div class="msg user">
+                            <div class="bubble">${esc(m.content)}</div>
+                        </div>
+                    `;
+                }
+            }).join('');
+            chat.scrollTop = chat.scrollHeight;
+            saveHistory();
+        }
+
+        function setBusy(isBusy) {
+            typing.classList.toggle('show', isBusy);
+            sendBtn.disabled = isBusy;
+            input.disabled = isBusy;
+            if (!isBusy) {
+                setTimeout(() => input.focus(), 50);
+            }
+        }
+
+        function fallbackReply() {
+            return "Maaf ya, sepertinya koneksi Sora sedang ada sedikit kendala ☁️ Boleh coba tanyakan lagi beberapa saat lagi?";
+        }
+
+        function toggleFullscreen() {
+            const isFull = drawer.classList.toggle('fullscreen');
+            if (fullscreenBtn) {
+                fullscreenBtn.textContent = isFull ? '⤡' : '⛶';
+                fullscreenBtn.title = isFull ? 'Perkecil Layar' : 'Layar Penuh';
+                fullscreenBtn.setAttribute('aria-label', isFull ? 'Perkecil Layar' : 'Layar Penuh');
+            }
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        async function tryModel(userText, model) {
+            const recentMessages = messages.slice(-6).map(m => ({
+                role: m.role,
+                content: m.content
+            }));
+
+            const payload = {
+                model: model,
+                messages: [
+                    { role: "system", content: SYSTEM_PROMPT },
+                    ...recentMessages,
+                    { role: "user", content: userText }
+                ],
+                temperature: 0.8,
+                max_tokens: 150
+            };
+
+            const res = await fetch(API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
+            if (!res.ok) {
+                const errText = await res.text().catch(() => "");
+                throw new Error(`API Error [${res.status}]: ${errText}`);
+            }
+
+            const data = await res.json();
+            const reply = data?.choices?.[0]?.message?.content;
+            if (!reply || typeof reply !== 'string') {
+                throw new Error("Invalid response format");
+            }
+            return reply.trim();
+        }
+
+        async function send(text) {
+            const userText = (text ?? input.value).trim();
+            if (!userText) return;
+
+            messages.push({ role: "user", content: userText });
+            input.value = "";
+            autosize(input);
+            render();
+            setBusy(true);
+
+            try {
+                let reply = null;
+                let lastError = null;
+
+                for (const model of MODELS_TO_TRY) {
+                    try {
+                        reply = await tryModel(userText, model);
+                        if (reply) break;
+                    } catch (e) {
+                        lastError = e;
+                    }
+                }
+
+                if (!reply) throw lastError || new Error("Semua model gagal");
+                messages.push({ role: "assistant", content: reply });
+            } catch (err) {
+                console.error("Error Sora:", err);
+                messages.push({ role: "assistant", content: fallbackReply() });
+            } finally {
+                setBusy(false);
+                render();
+            }
+        }
+
+        launcher.addEventListener('click', openDrawer);
+        closeBtn.addEventListener('click', closeDrawer);
+        if (fullscreenBtn) {
+            fullscreenBtn.addEventListener('click', toggleFullscreen);
+        }
+        sendBtn.addEventListener('click', () => send());
+        input.addEventListener('input', () => autosize(input));
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                send();
+            }
+        });
+        clearBtn.addEventListener('click', () => {
+            if (confirm("Bersihkan obrolan dengan Sora?")) {
+                messages = [{ role: "assistant", content: DEFAULT_GREETING }];
+                render();
+            }
+        });
+        suggestionButtons.forEach(btn => {
+            btn.addEventListener('click', () => send(btn.dataset.prompt));
+        });
+
+        render();
+        autosize(input);
+        closeDrawer();
+    </script>
+</body>
+</html>

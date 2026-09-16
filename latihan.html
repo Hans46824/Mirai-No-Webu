@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Latihan Kana — MIRAI NO HANA</title>
-<link rel="stylesheet" href="style.css?v=3">
+<link rel="stylesheet" href="style.css?v=4">
 <style>
 .answer-grid.is-match-grid,
 .learning-app .answer-grid.is-match-grid,
@@ -346,18 +346,118 @@
         margin: 2px 0;
     }
 }
+
+/* Dark Mode Overrides for Latihan & Review Kesalahan */
+body.theme-dark .match-button {
+    background: #231c27 !important;
+    border-color: #4e3947 !important;
+    color: #f5edf3 !important;
+}
+
+body.theme-dark .match-button:hover:not(:disabled):not(.is-selected):not(.is-matched) {
+    background: #2d2332 !important;
+    border-color: #714d63 !important;
+}
+
+body.theme-dark .match-button.is-selected {
+    background: #3a1c2b !important;
+    border-color: #e91e63 !important;
+    box-shadow: 0 0 12px rgba(233, 30, 99, 0.4) !important;
+}
+
+body.theme-dark .match-button.is-matched {
+    background: #142a1e !important;
+    border-color: #2ecc71 !important;
+    opacity: 0.8;
+}
+
+body.theme-dark .match-kana-char,
+body.theme-dark .match-romaji-char {
+    color: #ffffff !important;
+}
+
+body.theme-dark .match-meaning {
+    color: #bdaec0 !important;
+}
+
+body.theme-dark .mistake-review-header {
+    border-top-color: #3d2f3a !important;
+}
+
+body.theme-dark .mistake-review-header h3 {
+    color: #ffffff !important;
+}
+
+body.theme-dark .mistake-review-header p {
+    color: #bdaec0 !important;
+}
+
+body.theme-dark .mistake-item-card {
+    background: #221a25 !important;
+    border-color: #453340 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.theme-dark .mistake-badge {
+    background: #361a28 !important;
+    color: #ff659b !important;
+}
+
+body.theme-dark .mistake-num {
+    color: #bdaec0 !important;
+}
+
+body.theme-dark .mistake-prompt {
+    color: #ffffff !important;
+}
+
+body.theme-dark .mistake-box.is-wrong {
+    background: #33161b !important;
+    border-color: #632630 !important;
+    color: #ff8a99 !important;
+}
+
+body.theme-dark .mistake-box.is-wrong small {
+    color: #ff6b7d !important;
+}
+
+body.theme-dark .mistake-box.is-correct {
+    background: #142a1e !important;
+    border-color: #24553b !important;
+    color: #6be3a1 !important;
+}
+
+body.theme-dark .mistake-box.is-correct small {
+    color: #4cd98b !important;
+}
+
+body.theme-dark .mistake-explanation-box {
+    background: #1d1721 !important;
+    border-left-color: #e91e63 !important;
+    color: #e5dbe2 !important;
+}
+
+body.theme-dark .perfect-note {
+    background: #142a1e !important;
+    border-color: #24553b !important;
+    color: #6be3a1 !important;
+}
+
+body.theme-dark .perfect-note p {
+    color: #4cd98b !important;
+}
 </style>
 </head>
 <body class="learning-app">
-<header class="nav"><a class="brand brand-disabled" href="javascript:void(0)" aria-disabled="true" tabindex="-1" title="Home (Coming Soon)"><img src="images/mirai/logo/MNH.png" alt="MIRAI NO HANA"></a><button class="menu-toggle" type="button" data-menu-toggle aria-label="Buka menu" aria-expanded="false">MENU</button><nav class="links" data-nav-menu aria-label="Navigasi utama"><a class="nav-coming-soon" href="javascript:void(0)" aria-disabled="true" tabindex="-1" title="Home (Coming Soon)"><span class="nav-text">HOME</span><span class="badge-coming-soon">COMING SOON</span></a><a class="active" href="kelas.html">KELAS</a><a href="kamus.html">KAMUS</a><a class="nav-coming-soon" href="javascript:void(0)" aria-disabled="true" tabindex="-1" title="Kegiatan (Coming Soon)"><span class="nav-text">KEGIATAN</span><span class="badge-coming-soon">COMING SOON</span></a><a class="nav-coming-soon" href="javascript:void(0)" aria-disabled="true" tabindex="-1" title="Tentang (Coming Soon)"><span class="nav-text">TENTANG</span><span class="badge-coming-soon">COMING SOON</span></a></nav></header>
+<header class="nav"><a class="brand" href="index.html"><img src="images/mirai/logo/MNH1-nav.png" alt="MIRAI NO HANA"></a><button class="menu-toggle" type="button" data-menu-toggle aria-label="Buka menu" aria-expanded="false">MENU</button><nav class="links" data-nav-menu aria-label="Navigasi utama"><a href="index.html">BERANDA</a><a class="active" href="kelas.html">KELAS</a><a href="kamus.html">KAMUS</a><a href="kegiatan.html">KEGIATAN</a><a href="tentang.html">TENTANG</a></nav></header>
 <main class="quest-main">
 <span data-review-count hidden>0</span><span data-streak hidden>1</span><span data-user-level hidden>1</span><span data-total-xp hidden>0</span><span data-level-xp hidden>0</span><span data-xp-bar hidden></span>
-<section class="quest-hero"><div><p class="eyebrow">KELAS DASAR / LATIHAN</p><h1>Practice<br><span>Kana</span></h1><p>Latih bentuk dan bacaan Hiragana atau Katakana dalam sesi singkat. Tidak perlu login, tidak ada riwayat tersimpan.</p></div></section>
+<section class="quest-hero"><div><p class="eyebrow">KELAS DASAR / LATIHAN</p><h1>Latihan<br><span>Kana</span></h1><p>Latih bentuk dan bacaan Hiragana atau Katakana dalam sesi singkat. Tidak perlu login, tidak ada riwayat tersimpan.</p></div></section>
 <section class="quest-section quest-overview"><div class="script-tabs" role="tablist"><button class="is-active" data-script="hiragana" role="tab">ひらがな <small>Hiragana</small></button><button data-script="katakana" role="tab">カタカナ <small>Katakana</small></button></div><div class="progress-heading"><div><p class="kicker">PILIH MATERI</p><h2 data-script-title>Hiragana <span>ひらがな</span></h2></div><div class="path-meter"><strong data-script-progress>0%</strong><div class="progress-track"><i data-script-progress-bar></i></div></div></div><div class="level-grid" data-level-grid></div></section>
 <section class="quest-section mix-section"><div class="section-heading"><div><p class="kicker">LATIHAN GABUNGAN</p><h2>Campur materi</h2></div><p>Pilih cakupan latihan. Materi yang terkunci tidak akan masuk ke soal.</p></div><div class="mode-grid" data-mode-grid></div></section>
 </main>
-<section class="practice-view" data-practice-view hidden><div class="practice-shell"><button class="icon-close" data-close-practice aria-label="Tutup latihan">×</button><div class="practice-head"><span data-practice-label>Hiragana</span><strong>⏱ <span data-timer>00:00</span></strong></div><div class="question-dots" data-question-dots></div><div class="question-count">Question <b data-question-number>1</b> / <span data-question-total>10</span></div><div class="question-progress"><i data-question-progress></i></div><article class="question-card"><div class="question-kind" data-question-kind>KANA → ROMAJI</div><div class="question-prompt" data-question-prompt>あ</div><button class="audio-button" data-audio hidden>▶ Dengarkan pengucapan</button><p>Bagaimana bacaannya?</p><div class="answer-grid" data-answer-grid></div><div class="feedback" data-feedback hidden></div></article><button class="skip-button" data-skip>Skip →</button></div></section>
-<section class="result-view" data-result-view hidden><div class="result-card"><button class="icon-close" data-result-home aria-label="Tutup hasil latihan">×</button><p class="kicker">SESSION COMPLETE</p><h2>🎉 Latihan selesai!</h2><div class="result-stats"><div><b data-result-accuracy>0%</b><small>Accuracy</small></div><div><b data-result-correct>0</b><small>Correct</small></div><div><b data-result-wrong>0</b><small>Wrong</small></div><div><b data-result-time>00:00</b><small>Time</small></div></div><p data-result-streak>Best streak: 0</p><div class="result-actions"><button class="btn primary" data-retry>↻ Coba Lagi</button><button class="btn" data-review-result>Review Kesalahan</button></div><div class="mistake-list" data-mistake-list></div></div></section>
+<section class="practice-view" data-practice-view hidden><div class="practice-shell"><button class="icon-close" data-close-practice aria-label="Tutup latihan">×</button><div class="practice-head"><span data-practice-label>Hiragana</span><strong>⏱ <span data-timer>00:00</span></strong></div><div class="question-dots" data-question-dots></div><div class="question-count">Soal <b data-question-number>1</b> / <span data-question-total>10</span></div><div class="question-progress"><i data-question-progress></i></div><article class="question-card"><div class="question-kind" data-question-kind>KANA → ROMAJI</div><div class="question-prompt" data-question-prompt>あ</div><button class="audio-button" data-audio hidden>▶ Dengarkan pengucapan</button><p>Bagaimana bacaannya?</p><div class="answer-grid" data-answer-grid></div><div class="feedback" data-feedback hidden></div></article><button class="skip-button" data-skip>Lewati →</button></div></section>
+<section class="result-view" data-result-view hidden><div class="result-card"><button class="icon-close" data-result-home aria-label="Tutup hasil latihan">×</button><p class="kicker">SESI SELESAI</p><h2>🎉 Latihan selesai!</h2><div class="result-stats"><div><b data-result-accuracy>0%</b><small>Akurasi</small></div><div><b data-result-correct>0</b><small>Benar</small></div><div><b data-result-wrong>0</b><small>Salah</small></div><div><b data-result-time>00:00</b><small>Waktu</small></div></div><p data-result-streak>Runtunan terbaik: 0</p><div class="result-actions"><button class="btn primary" data-retry>↻ Coba Lagi</button><button class="btn" data-review-result>Tinjau Kesalahan</button></div><div class="mistake-list" data-mistake-list></div></div></section>
 <button class="to-top" type="button" aria-label="Kembali ke atas">↑</button><script src="js/sora.js"></script><script src="js/main.js"></script><script src="script.js"></script>
 </body>
 </html>

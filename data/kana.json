@@ -1,16 +1,2316 @@
 {
-    "hiragana": {
-        "rows": [
-            ["あ","い","う","え","お"], ["か","き","く","け","こ"], ["さ","し","す","せ","そ"], ["た","ち","つ","て","と"], ["な","に","ぬ","ね","の"], ["は","ひ","ふ","へ","ほ"], ["ま","み","む","め","も"], ["や","ゆ","よ"], ["ら","り","る","れ","ろ"], ["わ","を","ん"],
-            ["が","ぎ","ぐ","げ","ご"], ["ざ","じ","ず","ぜ","ぞ"], ["だ","ぢ","づ","で","ど"], ["ば","び","ぶ","べ","ぼ"], ["ぱ","ぴ","ぷ","ぺ","ぽ"],
-            ["きゃ","きゅ","きょ"], ["しゃ","しゅ","しょ"], ["ちゃ","ちゅ","ちょ"], ["にゃ","にゅ","にょ"], ["ひゃ","ひゅ","ひょ"], ["みゃ","みゅ","みょ"], ["りゃ","りゅ","りょ"], ["ぎゃ","ぎゅ","ぎょ"], ["じゃ","じゅ","じょ"], ["びゃ","びゅ","びょ"], ["ぴゃ","ぴゅ","ぴょ"]
-        ]
+  "hiragana": [
+    {
+      "character": "あ",
+      "reading": "a",
+      "romaji": "a",
+      "type": "basic",
+      "example": {
+        "word": "あさ",
+        "romaji": "asa",
+        "meaning": "pagi"
+      }
     },
-    "katakana": {
-        "rows": [
-            ["ア","イ","ウ","エ","オ"], ["カ","キ","ク","ケ","コ"], ["サ","シ","ス","セ","ソ"], ["タ","チ","ツ","テ","ト"], ["ナ","ニ","ヌ","ネ","ノ"], ["ハ","ヒ","フ","ヘ","ホ"], ["マ","ミ","ム","メ","モ"], ["ヤ","ユ","ヨ"], ["ラ","リ","ル","レ","ロ"], ["ワ","ヲ","ン"],
-            ["ガ","ギ","グ","ゲ","ゴ"], ["ザ","ジ","ズ","ゼ","ゾ"], ["ダ","ヂ","ヅ","デ","ド"], ["バ","ビ","ブ","ベ","ボ"], ["パ","ピ","プ","ペ","ポ"],
-            ["キャ","キュ","キョ"], ["シャ","シュ","ショ"], ["チャ","チュ","チョ"], ["ニャ","ニュ","ニョ"], ["ヒャ","ヒュ","ヒョ"], ["ミャ","ミュ","ミョ"], ["リャ","リュ","リョ"], ["ギャ","ギュ","ギョ"], ["ジャ","ジュ","ジョ"], ["ビャ","ビュ","ビョ"], ["ピャ","ピュ","ピョ"]
-        ]
+    {
+      "character": "い",
+      "reading": "i",
+      "romaji": "i",
+      "type": "basic",
+      "example": {
+        "word": "いぬ",
+        "romaji": "inu",
+        "meaning": "anjing"
+      }
+    },
+    {
+      "character": "う",
+      "reading": "u",
+      "romaji": "u",
+      "type": "basic",
+      "example": {
+        "word": "うみ",
+        "romaji": "umi",
+        "meaning": "laut"
+      }
+    },
+    {
+      "character": "え",
+      "reading": "e",
+      "romaji": "e",
+      "type": "basic",
+      "example": {
+        "word": "えき",
+        "romaji": "eki",
+        "meaning": "stasiun"
+      }
+    },
+    {
+      "character": "お",
+      "reading": "o",
+      "romaji": "o",
+      "type": "basic",
+      "example": {
+        "word": "おちゃ",
+        "romaji": "ocha",
+        "meaning": "teh hijau"
+      }
+    },
+    {
+      "character": "か",
+      "reading": "ka",
+      "romaji": "ka",
+      "type": "basic",
+      "example": {
+        "word": "かさ",
+        "romaji": "kasa",
+        "meaning": "payung"
+      }
+    },
+    {
+      "character": "き",
+      "reading": "ki",
+      "romaji": "ki",
+      "type": "basic",
+      "example": {
+        "word": "き",
+        "romaji": "ki",
+        "meaning": "pohon"
+      }
+    },
+    {
+      "character": "く",
+      "reading": "ku",
+      "romaji": "ku",
+      "type": "basic",
+      "example": {
+        "word": "くるま",
+        "romaji": "kuruma",
+        "meaning": "mobil"
+      }
+    },
+    {
+      "character": "け",
+      "reading": "ke",
+      "romaji": "ke",
+      "type": "basic",
+      "example": {
+        "word": "けさ",
+        "romaji": "kesa",
+        "meaning": "pagi ini"
+      }
+    },
+    {
+      "character": "こ",
+      "reading": "ko",
+      "romaji": "ko",
+      "type": "basic",
+      "example": {
+        "word": "こども",
+        "romaji": "kodomo",
+        "meaning": "anak-anak"
+      }
+    },
+    {
+      "character": "さ",
+      "reading": "sa",
+      "romaji": "sa",
+      "type": "basic",
+      "example": {
+        "word": "さくら",
+        "romaji": "sakura",
+        "meaning": "bunga sakura"
+      }
+    },
+    {
+      "character": "し",
+      "reading": "shi",
+      "romaji": "shi",
+      "type": "basic",
+      "example": {
+        "word": "しま",
+        "romaji": "shima",
+        "meaning": "pulau"
+      }
+    },
+    {
+      "character": "す",
+      "reading": "su",
+      "romaji": "su",
+      "type": "basic",
+      "example": {
+        "word": "すし",
+        "romaji": "sushi",
+        "meaning": "sushi"
+      }
+    },
+    {
+      "character": "せ",
+      "reading": "se",
+      "romaji": "se",
+      "type": "basic",
+      "example": {
+        "word": "せんせい",
+        "romaji": "sensei",
+        "meaning": "guru"
+      }
+    },
+    {
+      "character": "そ",
+      "reading": "so",
+      "romaji": "so",
+      "type": "basic",
+      "example": {
+        "word": "そら",
+        "romaji": "sora",
+        "meaning": "langit"
+      }
+    },
+    {
+      "character": "た",
+      "reading": "ta",
+      "romaji": "ta",
+      "type": "basic",
+      "example": {
+        "word": "たまご",
+        "romaji": "tamago",
+        "meaning": "telur"
+      }
+    },
+    {
+      "character": "ち",
+      "reading": "chi",
+      "romaji": "chi",
+      "type": "basic",
+      "example": {
+        "word": "ちず",
+        "romaji": "chizu",
+        "meaning": "peta"
+      }
+    },
+    {
+      "character": "つ",
+      "reading": "tsu",
+      "romaji": "tsu",
+      "type": "basic",
+      "example": {
+        "word": "つき",
+        "romaji": "tsuki",
+        "meaning": "bulan"
+      }
+    },
+    {
+      "character": "て",
+      "reading": "te",
+      "romaji": "te",
+      "type": "basic",
+      "example": {
+        "word": "て",
+        "romaji": "te",
+        "meaning": "tangan"
+      }
+    },
+    {
+      "character": "と",
+      "reading": "to",
+      "romaji": "to",
+      "type": "basic",
+      "example": {
+        "word": "とり",
+        "romaji": "tori",
+        "meaning": "burung"
+      }
+    },
+    {
+      "character": "な",
+      "reading": "na",
+      "romaji": "na",
+      "type": "basic",
+      "example": {
+        "word": "なつ",
+        "romaji": "natsu",
+        "meaning": "musim panas"
+      }
+    },
+    {
+      "character": "に",
+      "reading": "ni",
+      "romaji": "ni",
+      "type": "basic",
+      "example": {
+        "word": "にほん",
+        "romaji": "nihon",
+        "meaning": "Jepang"
+      }
+    },
+    {
+      "character": "ぬ",
+      "reading": "nu",
+      "romaji": "nu",
+      "type": "basic",
+      "example": {
+        "word": "ぬいぐるみ",
+        "romaji": "nuigurumi",
+        "meaning": "boneka"
+      }
+    },
+    {
+      "character": "ね",
+      "reading": "ne",
+      "romaji": "ne",
+      "type": "basic",
+      "example": {
+        "word": "ねこ",
+        "romaji": "neko",
+        "meaning": "kucing"
+      }
+    },
+    {
+      "character": "の",
+      "reading": "no",
+      "romaji": "no",
+      "type": "basic",
+      "example": {
+        "word": "のみもの",
+        "romaji": "nomimono",
+        "meaning": "minuman"
+      }
+    },
+    {
+      "character": "は",
+      "reading": "ha",
+      "romaji": "ha",
+      "type": "basic",
+      "example": {
+        "word": "はな",
+        "romaji": "hana",
+        "meaning": "bunga"
+      }
+    },
+    {
+      "character": "ひ",
+      "reading": "hi",
+      "romaji": "hi",
+      "type": "basic",
+      "example": {
+        "word": "ひと",
+        "romaji": "hito",
+        "meaning": "orang"
+      }
+    },
+    {
+      "character": "ふ",
+      "reading": "fu",
+      "romaji": "fu",
+      "type": "basic",
+      "example": {
+        "word": "ふね",
+        "romaji": "fune",
+        "meaning": "kapal"
+      }
+    },
+    {
+      "character": "へ",
+      "reading": "he",
+      "romaji": "he",
+      "type": "basic",
+      "example": {
+        "word": "へや",
+        "romaji": "heya",
+        "meaning": "kamar"
+      }
+    },
+    {
+      "character": "ほ",
+      "reading": "ho",
+      "romaji": "ho",
+      "type": "basic",
+      "example": {
+        "word": "ほん",
+        "romaji": "hon",
+        "meaning": "buku"
+      }
+    },
+    {
+      "character": "ま",
+      "reading": "ma",
+      "romaji": "ma",
+      "type": "basic",
+      "example": {
+        "word": "まど",
+        "romaji": "mado",
+        "meaning": "jendela"
+      }
+    },
+    {
+      "character": "み",
+      "reading": "mi",
+      "romaji": "mi",
+      "type": "basic",
+      "example": {
+        "word": "みず",
+        "romaji": "mizu",
+        "meaning": "air"
+      }
+    },
+    {
+      "character": "む",
+      "reading": "mu",
+      "romaji": "mu",
+      "type": "basic",
+      "example": {
+        "word": "むし",
+        "romaji": "mushi",
+        "meaning": "serangga"
+      }
+    },
+    {
+      "character": "め",
+      "reading": "me",
+      "romaji": "me",
+      "type": "basic",
+      "example": {
+        "word": "め",
+        "romaji": "me",
+        "meaning": "mata"
+      }
+    },
+    {
+      "character": "も",
+      "reading": "mo",
+      "romaji": "mo",
+      "type": "basic",
+      "example": {
+        "word": "もり",
+        "romaji": "mori",
+        "meaning": "hutan"
+      }
+    },
+    {
+      "character": "や",
+      "reading": "ya",
+      "romaji": "ya",
+      "type": "basic",
+      "example": {
+        "word": "やま",
+        "romaji": "yama",
+        "meaning": "gunung"
+      }
+    },
+    {
+      "character": "ゆ",
+      "reading": "yu",
+      "romaji": "yu",
+      "type": "basic",
+      "example": {
+        "word": "ゆき",
+        "romaji": "yuki",
+        "meaning": "salju"
+      }
+    },
+    {
+      "character": "よ",
+      "reading": "yo",
+      "romaji": "yo",
+      "type": "basic",
+      "example": {
+        "word": "よる",
+        "romaji": "yoru",
+        "meaning": "malam"
+      }
+    },
+    {
+      "character": "ら",
+      "reading": "ra",
+      "romaji": "ra",
+      "type": "basic",
+      "example": {
+        "word": "らいねん",
+        "romaji": "rainen",
+        "meaning": "tahun depan"
+      }
+    },
+    {
+      "character": "り",
+      "reading": "ri",
+      "romaji": "ri",
+      "type": "basic",
+      "example": {
+        "word": "りんご",
+        "romaji": "ringo",
+        "meaning": "apel"
+      }
+    },
+    {
+      "character": "る",
+      "reading": "ru",
+      "romaji": "ru",
+      "type": "basic",
+      "example": {
+        "word": "るす",
+        "romaji": "rusu",
+        "meaning": "tidak di rumah"
+      }
+    },
+    {
+      "character": "れ",
+      "reading": "re",
+      "romaji": "re",
+      "type": "basic",
+      "example": {
+        "word": "れきし",
+        "romaji": "rekishi",
+        "meaning": "sejarah"
+      }
+    },
+    {
+      "character": "ろ",
+      "reading": "ro",
+      "romaji": "ro",
+      "type": "basic",
+      "example": {
+        "word": "ろうそく",
+        "romaji": "rousoku",
+        "meaning": "lilin"
+      }
+    },
+    {
+      "character": "わ",
+      "reading": "wa",
+      "romaji": "wa",
+      "type": "basic",
+      "example": {
+        "word": "わたし",
+        "romaji": "watashi",
+        "meaning": "saya"
+      }
+    },
+    {
+      "character": "を",
+      "reading": "wo",
+      "romaji": "wo",
+      "type": "basic",
+      "example": {
+        "word": "ほんをよむ",
+        "romaji": "hon o yomu",
+        "meaning": "membaca buku (partikel)"
+      }
+    },
+    {
+      "character": "ん",
+      "reading": "n",
+      "romaji": "n",
+      "type": "basic",
+      "example": {
+        "word": "にほん",
+        "romaji": "nihon",
+        "meaning": "Jepang"
+      }
+    },
+    {
+      "character": "が",
+      "reading": "ga",
+      "romaji": "ga",
+      "type": "dakuten",
+      "example": {
+        "word": "がくせい",
+        "romaji": "gakusei",
+        "meaning": "siswa"
+      }
+    },
+    {
+      "character": "ぎ",
+      "reading": "gi",
+      "romaji": "gi",
+      "type": "dakuten",
+      "example": {
+        "word": "ぎんこう",
+        "romaji": "ginkou",
+        "meaning": "bank"
+      }
+    },
+    {
+      "character": "ぐ",
+      "reading": "gu",
+      "romaji": "gu",
+      "type": "dakuten",
+      "example": {
+        "word": "ぐんたい",
+        "romaji": "guntai",
+        "meaning": "tentara"
+      }
+    },
+    {
+      "character": "げ",
+      "reading": "ge",
+      "romaji": "ge",
+      "type": "dakuten",
+      "example": {
+        "word": "げんき",
+        "romaji": "genki",
+        "meaning": "sehat / bersemangat"
+      }
+    },
+    {
+      "character": "ご",
+      "reading": "go",
+      "romaji": "go",
+      "type": "dakuten",
+      "example": {
+        "word": "ごはん",
+        "romaji": "gohan",
+        "meaning": "nasi"
+      }
+    },
+    {
+      "character": "ざ",
+      "reading": "za",
+      "romaji": "za",
+      "type": "dakuten",
+      "example": {
+        "word": "ざっし",
+        "romaji": "zasshi",
+        "meaning": "majalah"
+      }
+    },
+    {
+      "character": "じ",
+      "reading": "ji",
+      "romaji": "ji",
+      "type": "dakuten",
+      "example": {
+        "word": "じかん",
+        "romaji": "jikan",
+        "meaning": "waktu"
+      }
+    },
+    {
+      "character": "ず",
+      "reading": "zu",
+      "romaji": "zu",
+      "type": "dakuten",
+      "example": {
+        "word": "ずっと",
+        "romaji": "zutto",
+        "meaning": "selamanya / terus"
+      }
+    },
+    {
+      "character": "ぜ",
+      "reading": "ze",
+      "romaji": "ze",
+      "type": "dakuten",
+      "example": {
+        "word": "ぜんぶ",
+        "romaji": "zenbu",
+        "meaning": "semua"
+      }
+    },
+    {
+      "character": "ぞ",
+      "reading": "zo",
+      "romaji": "zo",
+      "type": "dakuten",
+      "example": {
+        "word": "ぞう",
+        "romaji": "zou",
+        "meaning": "gajah"
+      }
+    },
+    {
+      "character": "だ",
+      "reading": "da",
+      "romaji": "da",
+      "type": "dakuten",
+      "example": {
+        "word": "だいがく",
+        "romaji": "daigaku",
+        "meaning": "universitas"
+      }
+    },
+    {
+      "character": "ぢ",
+      "reading": "ji",
+      "romaji": "ji",
+      "type": "dakuten",
+      "example": {
+        "word": "はなぢ",
+        "romaji": "hanaji",
+        "meaning": "mimisan"
+      }
+    },
+    {
+      "character": "づ",
+      "reading": "zu",
+      "romaji": "zu",
+      "type": "dakuten",
+      "example": {
+        "word": "つづく",
+        "romaji": "tsuzuku",
+        "meaning": "berlanjut"
+      }
+    },
+    {
+      "character": "で",
+      "reading": "de",
+      "romaji": "de",
+      "type": "dakuten",
+      "example": {
+        "word": "でんしゃ",
+        "romaji": "densha",
+        "meaning": "kereta listrik"
+      }
+    },
+    {
+      "character": "ど",
+      "reading": "do",
+      "romaji": "do",
+      "type": "dakuten",
+      "example": {
+        "word": "どこ",
+        "romaji": "doko",
+        "meaning": "di mana"
+      }
+    },
+    {
+      "character": "ば",
+      "reading": "ba",
+      "romaji": "ba",
+      "type": "dakuten",
+      "example": {
+        "word": "ばしょ",
+        "romaji": "basho",
+        "meaning": "tempat"
+      }
+    },
+    {
+      "character": "び",
+      "reading": "bi",
+      "romaji": "bi",
+      "type": "dakuten",
+      "example": {
+        "word": "びょういん",
+        "romaji": "byouin",
+        "meaning": "rumah sakit"
+      }
+    },
+    {
+      "character": "ぶ",
+      "reading": "bu",
+      "romaji": "bu",
+      "type": "dakuten",
+      "example": {
+        "word": "ぶんか",
+        "romaji": "bunka",
+        "meaning": "budaya"
+      }
+    },
+    {
+      "character": "べ",
+      "reading": "be",
+      "romaji": "be",
+      "type": "dakuten",
+      "example": {
+        "word": "べんきょう",
+        "romaji": "benkyou",
+        "meaning": "belajar"
+      }
+    },
+    {
+      "character": "ぼ",
+      "reading": "bo",
+      "romaji": "bo",
+      "type": "dakuten",
+      "example": {
+        "word": "ぼうし",
+        "romaji": "boushi",
+        "meaning": "topi"
+      }
+    },
+    {
+      "character": "ぱ",
+      "reading": "pa",
+      "romaji": "pa",
+      "type": "handakuten",
+      "example": {
+        "word": "ぱん",
+        "romaji": "pan",
+        "meaning": "roti"
+      }
+    },
+    {
+      "character": "ぴ",
+      "reading": "pi",
+      "romaji": "pi",
+      "type": "handakuten",
+      "example": {
+        "word": "ぴかぴか",
+        "romaji": "pikapika",
+        "meaning": "berkilau"
+      }
+    },
+    {
+      "character": "ぷ",
+      "reading": "pu",
+      "romaji": "pu",
+      "type": "handakuten",
+      "example": {
+        "word": "ぷれぜんと",
+        "romaji": "purezento",
+        "meaning": "hadiah"
+      }
+    },
+    {
+      "character": "ぺ",
+      "reading": "pe",
+      "romaji": "pe",
+      "type": "handakuten",
+      "example": {
+        "word": "ぺん",
+        "romaji": "pen",
+        "meaning": "pena"
+      }
+    },
+    {
+      "character": "ぽ",
+      "reading": "po",
+      "romaji": "po",
+      "type": "handakuten",
+      "example": {
+        "word": "ぽけっと",
+        "romaji": "poketto",
+        "meaning": "saku"
+      }
+    },
+    {
+      "character": "きゃ",
+      "reading": "kya",
+      "romaji": "kya",
+      "type": "yoon",
+      "example": {
+        "word": "きゃく",
+        "romaji": "kyaku",
+        "meaning": "tamu / pelanggan"
+      }
+    },
+    {
+      "character": "きゅ",
+      "reading": "kyu",
+      "romaji": "kyu",
+      "type": "yoon",
+      "example": {
+        "word": "きゅうり",
+        "romaji": "kyuuri",
+        "meaning": "mentimun"
+      }
+    },
+    {
+      "character": "きょ",
+      "reading": "kyo",
+      "romaji": "kyo",
+      "type": "yoon",
+      "example": {
+        "word": "きょう",
+        "romaji": "kyou",
+        "meaning": "hari ini"
+      }
+    },
+    {
+      "character": "しゃ",
+      "reading": "sha",
+      "romaji": "sha",
+      "type": "yoon",
+      "example": {
+        "word": "しゃしん",
+        "romaji": "shashin",
+        "meaning": "foto"
+      }
+    },
+    {
+      "character": "しゅ",
+      "reading": "shu",
+      "romaji": "shu",
+      "type": "yoon",
+      "example": {
+        "word": "しゅくだい",
+        "romaji": "shukudai",
+        "meaning": "pekerjaan rumah"
+      }
+    },
+    {
+      "character": "しょ",
+      "reading": "sho",
+      "romaji": "sho",
+      "type": "yoon",
+      "example": {
+        "word": "しょくどう",
+        "romaji": "shokudou",
+        "meaning": "kantin"
+      }
+    },
+    {
+      "character": "ちゃ",
+      "reading": "cha",
+      "romaji": "cha",
+      "type": "yoon",
+      "example": {
+        "word": "おちゃ",
+        "romaji": "ocha",
+        "meaning": "teh"
+      }
+    },
+    {
+      "character": "ちゅ",
+      "reading": "chu",
+      "romaji": "chu",
+      "type": "yoon",
+      "example": {
+        "word": "ちゅうごく",
+        "romaji": "chuugoku",
+        "meaning": "China"
+      }
+    },
+    {
+      "character": "ちょ",
+      "reading": "cho",
+      "romaji": "cho",
+      "type": "yoon",
+      "example": {
+        "word": "ちょっと",
+        "romaji": "chotto",
+        "meaning": "sebentar"
+      }
+    },
+    {
+      "character": "にゃ",
+      "reading": "nya",
+      "romaji": "nya",
+      "type": "yoon",
+      "example": {
+        "word": "にゃー",
+        "romaji": "nyaa",
+        "meaning": "meong (suara kucing)"
+      }
+    },
+    {
+      "character": "にゅ",
+      "reading": "nyu",
+      "romaji": "nyu",
+      "type": "yoon",
+      "example": {
+        "word": "にゅうがく",
+        "romaji": "nyuugaku",
+        "meaning": "masuk sekolah"
+      }
+    },
+    {
+      "character": "にょ",
+      "reading": "nyo",
+      "romaji": "nyo",
+      "type": "yoon",
+      "example": {
+        "word": "にょうぼう",
+        "romaji": "nyoubou",
+        "meaning": "istri"
+      }
+    },
+    {
+      "character": "ひゃ",
+      "reading": "hya",
+      "romaji": "hya",
+      "type": "yoon",
+      "example": {
+        "word": "ひゃく",
+        "romaji": "hyaku",
+        "meaning": "seratus"
+      }
+    },
+    {
+      "character": "ひゅ",
+      "reading": "hyu",
+      "romaji": "hyu",
+      "type": "yoon",
+      "example": {
+        "word": "ひゅうひゅう",
+        "romaji": "hyuuhyuu",
+        "meaning": "desiran angin"
+      }
+    },
+    {
+      "character": "ひょ",
+      "reading": "hyo",
+      "romaji": "hyo",
+      "type": "yoon",
+      "example": {
+        "word": "ひょうじ",
+        "romaji": "hyouji",
+        "meaning": "tampilan"
+      }
+    },
+    {
+      "character": "みゃ",
+      "reading": "mya",
+      "romaji": "mya",
+      "type": "yoon",
+      "example": {
+        "word": "みゃく",
+        "romaji": "myaku",
+        "meaning": "denyut nadi"
+      }
+    },
+    {
+      "character": "みゅ",
+      "reading": "myu",
+      "romaji": "myu",
+      "type": "yoon",
+      "example": {
+        "word": "みゅーじっく",
+        "romaji": "myuujikku",
+        "meaning": "musik"
+      }
+    },
+    {
+      "character": "みょ",
+      "reading": "myo",
+      "romaji": "myo",
+      "type": "yoon",
+      "example": {
+        "word": "みょうじ",
+        "romaji": "myouji",
+        "meaning": "nama keluarga"
+      }
+    },
+    {
+      "character": "りゃ",
+      "reading": "rya",
+      "romaji": "rya",
+      "type": "yoon",
+      "example": {
+        "word": "りゃくご",
+        "romaji": "ryakugo",
+        "meaning": "singkatan"
+      }
+    },
+    {
+      "character": "りゅ",
+      "reading": "ryu",
+      "romaji": "ryu",
+      "type": "yoon",
+      "example": {
+        "word": "りゅうがく",
+        "romaji": "ryuugaku",
+        "meaning": "studi luar negeri"
+      }
+    },
+    {
+      "character": "りょ",
+      "reading": "ryo",
+      "romaji": "ryo",
+      "type": "yoon",
+      "example": {
+        "word": "りょこう",
+        "romaji": "ryokou",
+        "meaning": "perjalanan / liburan"
+      }
+    },
+    {
+      "character": "ぎゃ",
+      "reading": "gya",
+      "romaji": "gya",
+      "type": "yoon",
+      "example": {
+        "word": "ぎゃくてん",
+        "romaji": "gyakuten",
+        "meaning": "pembalikan keadaan"
+      }
+    },
+    {
+      "character": "ぎゅ",
+      "reading": "gyu",
+      "romaji": "gyu",
+      "type": "yoon",
+      "example": {
+        "word": "ぎゅうにゅう",
+        "romaji": "gyuunyuu",
+        "meaning": "susu sapi"
+      }
+    },
+    {
+      "character": "ぎょ",
+      "reading": "gyo",
+      "romaji": "gyo",
+      "type": "yoon",
+      "example": {
+        "word": "ぎょぎょう",
+        "romaji": "gyogyou",
+        "meaning": "perikanan"
+      }
+    },
+    {
+      "character": "じゃ",
+      "reading": "ja",
+      "romaji": "ja",
+      "type": "yoon",
+      "example": {
+        "word": "じゃがいも",
+        "romaji": "jagaimo",
+        "meaning": "kentang"
+      }
+    },
+    {
+      "character": "じゅ",
+      "reading": "ju",
+      "romaji": "ju",
+      "type": "yoon",
+      "example": {
+        "word": "じゅぎょう",
+        "romaji": "jugyou",
+        "meaning": "pelajaran"
+      }
+    },
+    {
+      "character": "じょ",
+      "reading": "jo",
+      "romaji": "jo",
+      "type": "yoon",
+      "example": {
+        "word": "じょせい",
+        "romaji": "josei",
+        "meaning": "wanita"
+      }
+    },
+    {
+      "character": "びゃ",
+      "reading": "bya",
+      "romaji": "bya",
+      "type": "yoon",
+      "example": {
+        "word": "びゃくだん",
+        "romaji": "byakudan",
+        "meaning": "kayu cendana"
+      }
+    },
+    {
+      "character": "びゅ",
+      "reading": "byu",
+      "romaji": "byu",
+      "type": "yoon",
+      "example": {
+        "word": "びゅうびゅう",
+        "romaji": "byuubyuu",
+        "meaning": "tiupan angin kencang"
+      }
+    },
+    {
+      "character": "びょ",
+      "reading": "byo",
+      "romaji": "byo",
+      "type": "yoon",
+      "example": {
+        "word": "びょうき",
+        "romaji": "byouki",
+        "meaning": "sakit / penyakit"
+      }
+    },
+    {
+      "character": "ぴゃ",
+      "reading": "pya",
+      "romaji": "pya",
+      "type": "yoon",
+      "example": {
+        "word": "さんぴゃく",
+        "romaji": "sanpyaku",
+        "meaning": "tiga ratus"
+      }
+    },
+    {
+      "character": "ぴゅ",
+      "reading": "pyu",
+      "romaji": "pyu",
+      "type": "yoon",
+      "example": {
+        "word": "ぴゅーま",
+        "romaji": "pyuuma",
+        "meaning": "puma"
+      }
+    },
+    {
+      "character": "ぴょ",
+      "reading": "pyo",
+      "romaji": "pyo",
+      "type": "yoon",
+      "example": {
+        "word": "ぴょんぴょん",
+        "romaji": "pyonpyon",
+        "meaning": "melompat-lompat"
+      }
+    },
+    {
+      "character": "っ",
+      "reading": "tsu",
+      "romaji": "tsu",
+      "type": "yoon",
+      "example": {
+        "word": "がっこう",
+        "romaji": "gakkou",
+        "meaning": "sekolah (konsonan ganda)"
+      }
     }
+  ],
+  "katakana": [
+    {
+      "character": "ア",
+      "reading": "a",
+      "romaji": "a",
+      "type": "basic",
+      "example": {
+        "word": "アニメ",
+        "romaji": "anime",
+        "meaning": "animasi / anime"
+      }
+    },
+    {
+      "character": "イ",
+      "reading": "i",
+      "romaji": "i",
+      "type": "basic",
+      "example": {
+        "word": "インターネット",
+        "romaji": "intaanetto",
+        "meaning": "internet"
+      }
+    },
+    {
+      "character": "ウ",
+      "reading": "u",
+      "romaji": "u",
+      "type": "basic",
+      "example": {
+        "word": "ウイルス",
+        "romaji": "uirusu",
+        "meaning": "virus"
+      }
+    },
+    {
+      "character": "エ",
+      "reading": "e",
+      "romaji": "e",
+      "type": "basic",
+      "example": {
+        "word": "エレベーター",
+        "romaji": "erebeetaa",
+        "meaning": "lift / elevator"
+      }
+    },
+    {
+      "character": "オ",
+      "reading": "o",
+      "romaji": "o",
+      "type": "basic",
+      "example": {
+        "word": "オレンジ",
+        "romaji": "orenji",
+        "meaning": "jeruk"
+      }
+    },
+    {
+      "character": "カ",
+      "reading": "ka",
+      "romaji": "ka",
+      "type": "basic",
+      "example": {
+        "word": "カメラ",
+        "romaji": "kamera",
+        "meaning": "kamera"
+      }
+    },
+    {
+      "character": "キ",
+      "reading": "ki",
+      "romaji": "ki",
+      "type": "basic",
+      "example": {
+        "word": "キッチン",
+        "romaji": "kicchin",
+        "meaning": "dapur"
+      }
+    },
+    {
+      "character": "ク",
+      "reading": "ku",
+      "romaji": "ku",
+      "type": "basic",
+      "example": {
+        "word": "クラス",
+        "romaji": "kurasu",
+        "meaning": "kelas"
+      }
+    },
+    {
+      "character": "ケ",
+      "reading": "ke",
+      "romaji": "ke",
+      "type": "basic",
+      "example": {
+        "word": "ケーキ",
+        "romaji": "keeki",
+        "meaning": "kue"
+      }
+    },
+    {
+      "character": "コ",
+      "reading": "ko",
+      "romaji": "ko",
+      "type": "basic",
+      "example": {
+        "word": "コーヒー",
+        "romaji": "koohii",
+        "meaning": "kopi"
+      }
+    },
+    {
+      "character": "サ",
+      "reading": "sa",
+      "romaji": "sa",
+      "type": "basic",
+      "example": {
+        "word": "サラダ",
+        "romaji": "sarada",
+        "meaning": "salad"
+      }
+    },
+    {
+      "character": "シ",
+      "reading": "shi",
+      "romaji": "shi",
+      "type": "basic",
+      "example": {
+        "word": "シャツ",
+        "romaji": "shatsu",
+        "meaning": "kemeja"
+      }
+    },
+    {
+      "character": "ス",
+      "reading": "su",
+      "romaji": "su",
+      "type": "basic",
+      "example": {
+        "word": "スポーツ",
+        "romaji": "supootsu",
+        "meaning": "olahraga"
+      }
+    },
+    {
+      "character": "セ",
+      "reading": "se",
+      "romaji": "se",
+      "type": "basic",
+      "example": {
+        "word": "セーター",
+        "romaji": "seetaa",
+        "meaning": "sweater"
+      }
+    },
+    {
+      "character": "ソ",
+      "reading": "so",
+      "romaji": "so",
+      "type": "basic",
+      "example": {
+        "word": "ソファ",
+        "romaji": "sofa",
+        "meaning": "sofa"
+      }
+    },
+    {
+      "character": "タ",
+      "reading": "ta",
+      "romaji": "ta",
+      "type": "basic",
+      "example": {
+        "word": "タクシー",
+        "romaji": "takushii",
+        "meaning": "taksi"
+      }
+    },
+    {
+      "character": "チ",
+      "reading": "chi",
+      "romaji": "chi",
+      "type": "basic",
+      "example": {
+        "word": "チーズ",
+        "romaji": "chiizu",
+        "meaning": "keju"
+      }
+    },
+    {
+      "character": "ツ",
+      "reading": "tsu",
+      "romaji": "tsu",
+      "type": "basic",
+      "example": {
+        "word": "ツアー",
+        "romaji": "tsuaa",
+        "meaning": "tur / perjalanan"
+      }
+    },
+    {
+      "character": "テ",
+      "reading": "te",
+      "romaji": "te",
+      "type": "basic",
+      "example": {
+        "word": "テレビ",
+        "romaji": "terebi",
+        "meaning": "televisi"
+      }
+    },
+    {
+      "character": "ト",
+      "reading": "to",
+      "romaji": "to",
+      "type": "basic",
+      "example": {
+        "word": "トイレ",
+        "romaji": "toire",
+        "meaning": "toilet"
+      }
+    },
+    {
+      "character": "ナ",
+      "reading": "na",
+      "romaji": "na",
+      "type": "basic",
+      "example": {
+        "word": "ナイフ",
+        "romaji": "naifu",
+        "meaning": "pisau"
+      }
+    },
+    {
+      "character": "ニ",
+      "reading": "ni",
+      "romaji": "ni",
+      "type": "basic",
+      "example": {
+        "word": "ニュース",
+        "romaji": "nyuusu",
+        "meaning": "berita"
+      }
+    },
+    {
+      "character": "ヌ",
+      "reading": "nu",
+      "romaji": "nu",
+      "type": "basic",
+      "example": {
+        "word": "ヌードル",
+        "romaji": "nuudoru",
+        "meaning": "mi"
+      }
+    },
+    {
+      "character": "ネ",
+      "reading": "ne",
+      "romaji": "ne",
+      "type": "basic",
+      "example": {
+        "word": "ネクタイ",
+        "romaji": "nekutai",
+        "meaning": "dasi"
+      }
+    },
+    {
+      "character": "ノ",
+      "reading": "no",
+      "romaji": "no",
+      "type": "basic",
+      "example": {
+        "word": "ノート",
+        "romaji": "nooto",
+        "meaning": "buku catatan"
+      }
+    },
+    {
+      "character": "ハ",
+      "reading": "ha",
+      "romaji": "ha",
+      "type": "basic",
+      "example": {
+        "word": "ホテル",
+        "romaji": "hoteru",
+        "meaning": "hotel"
+      }
+    },
+    {
+      "character": "ヒ",
+      "reading": "hi",
+      "romaji": "hi",
+      "type": "basic",
+      "example": {
+        "word": "ヒーター",
+        "romaji": "hiitaa",
+        "meaning": "pemanas"
+      }
+    },
+    {
+      "character": "フ",
+      "reading": "fu",
+      "romaji": "fu",
+      "type": "basic",
+      "example": {
+        "word": "フォーク",
+        "romaji": "fooku",
+        "meaning": "garpu"
+      }
+    },
+    {
+      "character": "ヘ",
+      "reading": "he",
+      "romaji": "he",
+      "type": "basic",
+      "example": {
+        "word": "ヘリコプター",
+        "romaji": "herikoputaa",
+        "meaning": "helikopter"
+      }
+    },
+    {
+      "character": "ホ",
+      "reading": "ho",
+      "romaji": "ho",
+      "type": "basic",
+      "example": {
+        "word": "ホーム",
+        "romaji": "hoomu",
+        "meaning": "peron stasiun"
+      }
+    },
+    {
+      "character": "マ",
+      "reading": "ma",
+      "romaji": "ma",
+      "type": "basic",
+      "example": {
+        "word": "マンガ",
+        "romaji": "manga",
+        "meaning": "komik jepang"
+      }
+    },
+    {
+      "character": "ミ",
+      "reading": "mi",
+      "romaji": "mi",
+      "type": "basic",
+      "example": {
+        "word": "ミルク",
+        "romaji": "miruku",
+        "meaning": "susu"
+      }
+    },
+    {
+      "character": "ム",
+      "reading": "mu",
+      "romaji": "mu",
+      "type": "basic",
+      "example": {
+        "word": "ムービー",
+        "romaji": "muubii",
+        "meaning": "film"
+      }
+    },
+    {
+      "character": "メ",
+      "reading": "me",
+      "romaji": "me",
+      "type": "basic",
+      "example": {
+        "word": "メニュー",
+        "romaji": "menyuu",
+        "meaning": "menu"
+      }
+    },
+    {
+      "character": "モ",
+      "reading": "mo",
+      "romaji": "mo",
+      "type": "basic",
+      "example": {
+        "word": "モデル",
+        "romaji": "moderu",
+        "meaning": "model"
+      }
+    },
+    {
+      "character": "ヤ",
+      "reading": "ya",
+      "romaji": "ya",
+      "type": "basic",
+      "example": {
+        "word": "ヤンキー",
+        "romaji": "yankii",
+        "meaning": "anak muda bergaya"
+      }
+    },
+    {
+      "character": "ユ",
+      "reading": "yu",
+      "romaji": "yu",
+      "type": "basic",
+      "example": {
+        "word": "ユーザー",
+        "romaji": "yuuzaa",
+        "meaning": "pengguna"
+      }
+    },
+    {
+      "character": "ヨ",
+      "reading": "yo",
+      "romaji": "yo",
+      "type": "basic",
+      "example": {
+        "word": "ヨーグルト",
+        "romaji": "yooguruto",
+        "meaning": "yogurt"
+      }
+    },
+    {
+      "character": "ラ",
+      "reading": "ra",
+      "romaji": "ra",
+      "type": "basic",
+      "example": {
+        "word": "ラジオ",
+        "romaji": "rajio",
+        "meaning": "radio"
+      }
+    },
+    {
+      "character": "リ",
+      "reading": "ri",
+      "romaji": "ri",
+      "type": "basic",
+      "example": {
+        "word": "リモコン",
+        "romaji": "rimokon",
+        "meaning": "remote control"
+      }
+    },
+    {
+      "character": "ル",
+      "reading": "ru",
+      "romaji": "ru",
+      "type": "basic",
+      "example": {
+        "word": "ルール",
+        "romaji": "ruuru",
+        "meaning": "aturan"
+      }
+    },
+    {
+      "character": "レ",
+      "reading": "re",
+      "romaji": "re",
+      "type": "basic",
+      "example": {
+        "word": "レストラン",
+        "romaji": "resutoran",
+        "meaning": "restoran"
+      }
+    },
+    {
+      "character": "ロ",
+      "reading": "ro",
+      "romaji": "ro",
+      "type": "basic",
+      "example": {
+        "word": "ロボット",
+        "romaji": "robotto",
+        "meaning": "robot"
+      }
+    },
+    {
+      "character": "ワ",
+      "reading": "wa",
+      "romaji": "wa",
+      "type": "basic",
+      "example": {
+        "word": "ワイン",
+        "romaji": "wain",
+        "meaning": "anggur / wine"
+      }
+    },
+    {
+      "character": "ヲ",
+      "reading": "wo",
+      "romaji": "wo",
+      "type": "basic",
+      "example": {
+        "word": "ヲタク",
+        "romaji": "wotaku",
+        "meaning": "penggemar berat / otaku"
+      }
+    },
+    {
+      "character": "ン",
+      "reading": "n",
+      "romaji": "n",
+      "type": "basic",
+      "example": {
+        "word": "パン",
+        "romaji": "pan",
+        "meaning": "roti"
+      }
+    },
+    {
+      "character": "ガ",
+      "reading": "ga",
+      "romaji": "ga",
+      "type": "dakuten",
+      "example": {
+        "word": "ガクセイ",
+        "romaji": "gakusei",
+        "meaning": "siswa"
+      }
+    },
+    {
+      "character": "ギ",
+      "reading": "gi",
+      "romaji": "gi",
+      "type": "dakuten",
+      "example": {
+        "word": "ギンコウ",
+        "romaji": "ginkou",
+        "meaning": "bank"
+      }
+    },
+    {
+      "character": "グ",
+      "reading": "gu",
+      "romaji": "gu",
+      "type": "dakuten",
+      "example": {
+        "word": "グンタイ",
+        "romaji": "guntai",
+        "meaning": "tentara"
+      }
+    },
+    {
+      "character": "ゲ",
+      "reading": "ge",
+      "romaji": "ge",
+      "type": "dakuten",
+      "example": {
+        "word": "ゲンキ",
+        "romaji": "genki",
+        "meaning": "sehat / bersemangat"
+      }
+    },
+    {
+      "character": "ゴ",
+      "reading": "go",
+      "romaji": "go",
+      "type": "dakuten",
+      "example": {
+        "word": "ゴハン",
+        "romaji": "gohan",
+        "meaning": "nasi"
+      }
+    },
+    {
+      "character": "ザ",
+      "reading": "za",
+      "romaji": "za",
+      "type": "dakuten",
+      "example": {
+        "word": "ザッシ",
+        "romaji": "zasshi",
+        "meaning": "majalah"
+      }
+    },
+    {
+      "character": "ジ",
+      "reading": "ji",
+      "romaji": "ji",
+      "type": "dakuten",
+      "example": {
+        "word": "ジカン",
+        "romaji": "jikan",
+        "meaning": "waktu"
+      }
+    },
+    {
+      "character": "ズ",
+      "reading": "zu",
+      "romaji": "zu",
+      "type": "dakuten",
+      "example": {
+        "word": "ズット",
+        "romaji": "zutto",
+        "meaning": "selamanya / terus"
+      }
+    },
+    {
+      "character": "ゼ",
+      "reading": "ze",
+      "romaji": "ze",
+      "type": "dakuten",
+      "example": {
+        "word": "ゼンブ",
+        "romaji": "zenbu",
+        "meaning": "semua"
+      }
+    },
+    {
+      "character": "ゾ",
+      "reading": "zo",
+      "romaji": "zo",
+      "type": "dakuten",
+      "example": {
+        "word": "ゾウ",
+        "romaji": "zou",
+        "meaning": "gajah"
+      }
+    },
+    {
+      "character": "ダ",
+      "reading": "da",
+      "romaji": "da",
+      "type": "dakuten",
+      "example": {
+        "word": "ダイガク",
+        "romaji": "daigaku",
+        "meaning": "universitas"
+      }
+    },
+    {
+      "character": "ヂ",
+      "reading": "ji",
+      "romaji": "ji",
+      "type": "dakuten",
+      "example": {
+        "word": "ハナヂ",
+        "romaji": "hanaji",
+        "meaning": "mimisan"
+      }
+    },
+    {
+      "character": "ヅ",
+      "reading": "zu",
+      "romaji": "zu",
+      "type": "dakuten",
+      "example": {
+        "word": "ツヅク",
+        "romaji": "tsuzuku",
+        "meaning": "berlanjut"
+      }
+    },
+    {
+      "character": "デ",
+      "reading": "de",
+      "romaji": "de",
+      "type": "dakuten",
+      "example": {
+        "word": "デンシャ",
+        "romaji": "densha",
+        "meaning": "kereta listrik"
+      }
+    },
+    {
+      "character": "ド",
+      "reading": "do",
+      "romaji": "do",
+      "type": "dakuten",
+      "example": {
+        "word": "ドコ",
+        "romaji": "doko",
+        "meaning": "di mana"
+      }
+    },
+    {
+      "character": "バ",
+      "reading": "ba",
+      "romaji": "ba",
+      "type": "dakuten",
+      "example": {
+        "word": "バショ",
+        "romaji": "basho",
+        "meaning": "tempat"
+      }
+    },
+    {
+      "character": "ビ",
+      "reading": "bi",
+      "romaji": "bi",
+      "type": "dakuten",
+      "example": {
+        "word": "ビョウイン",
+        "romaji": "byouin",
+        "meaning": "rumah sakit"
+      }
+    },
+    {
+      "character": "ブ",
+      "reading": "bu",
+      "romaji": "bu",
+      "type": "dakuten",
+      "example": {
+        "word": "ブンカ",
+        "romaji": "bunka",
+        "meaning": "budaya"
+      }
+    },
+    {
+      "character": "ベ",
+      "reading": "be",
+      "romaji": "be",
+      "type": "dakuten",
+      "example": {
+        "word": "ベンキョウ",
+        "romaji": "benkyou",
+        "meaning": "belajar"
+      }
+    },
+    {
+      "character": "ボ",
+      "reading": "bo",
+      "romaji": "bo",
+      "type": "dakuten",
+      "example": {
+        "word": "ボウシ",
+        "romaji": "boushi",
+        "meaning": "topi"
+      }
+    },
+    {
+      "character": "パ",
+      "reading": "pa",
+      "romaji": "pa",
+      "type": "handakuten",
+      "example": {
+        "word": "パン",
+        "romaji": "pan",
+        "meaning": "roti"
+      }
+    },
+    {
+      "character": "ピ",
+      "reading": "pi",
+      "romaji": "pi",
+      "type": "handakuten",
+      "example": {
+        "word": "ピカピカ",
+        "romaji": "pikapika",
+        "meaning": "berkilau"
+      }
+    },
+    {
+      "character": "プ",
+      "reading": "pu",
+      "romaji": "pu",
+      "type": "handakuten",
+      "example": {
+        "word": "プレゼント",
+        "romaji": "purezento",
+        "meaning": "hadiah"
+      }
+    },
+    {
+      "character": "ペ",
+      "reading": "pe",
+      "romaji": "pe",
+      "type": "handakuten",
+      "example": {
+        "word": "ペン",
+        "romaji": "pen",
+        "meaning": "pena"
+      }
+    },
+    {
+      "character": "ポ",
+      "reading": "po",
+      "romaji": "po",
+      "type": "handakuten",
+      "example": {
+        "word": "ポケット",
+        "romaji": "poketto",
+        "meaning": "saku"
+      }
+    },
+    {
+      "character": "キャ",
+      "reading": "kya",
+      "romaji": "kya",
+      "type": "yoon",
+      "example": {
+        "word": "キャク",
+        "romaji": "kyaku",
+        "meaning": "tamu / pelanggan"
+      }
+    },
+    {
+      "character": "キュ",
+      "reading": "kyu",
+      "romaji": "kyu",
+      "type": "yoon",
+      "example": {
+        "word": "キュウリ",
+        "romaji": "kyuuri",
+        "meaning": "mentimun"
+      }
+    },
+    {
+      "character": "キョ",
+      "reading": "kyo",
+      "romaji": "kyo",
+      "type": "yoon",
+      "example": {
+        "word": "キョウ",
+        "romaji": "kyou",
+        "meaning": "hari ini"
+      }
+    },
+    {
+      "character": "シャ",
+      "reading": "sha",
+      "romaji": "sha",
+      "type": "yoon",
+      "example": {
+        "word": "シャシン",
+        "romaji": "shashin",
+        "meaning": "foto"
+      }
+    },
+    {
+      "character": "シュ",
+      "reading": "shu",
+      "romaji": "shu",
+      "type": "yoon",
+      "example": {
+        "word": "シュクダイ",
+        "romaji": "shukudai",
+        "meaning": "pekerjaan rumah"
+      }
+    },
+    {
+      "character": "ショ",
+      "reading": "sho",
+      "romaji": "sho",
+      "type": "yoon",
+      "example": {
+        "word": "ショクドウ",
+        "romaji": "shokudou",
+        "meaning": "kantin"
+      }
+    },
+    {
+      "character": "チャ",
+      "reading": "cha",
+      "romaji": "cha",
+      "type": "yoon",
+      "example": {
+        "word": "オチャ",
+        "romaji": "ocha",
+        "meaning": "teh"
+      }
+    },
+    {
+      "character": "チュ",
+      "reading": "chu",
+      "romaji": "chu",
+      "type": "yoon",
+      "example": {
+        "word": "チュウゴク",
+        "romaji": "chuugoku",
+        "meaning": "China"
+      }
+    },
+    {
+      "character": "チョ",
+      "reading": "cho",
+      "romaji": "cho",
+      "type": "yoon",
+      "example": {
+        "word": "チョット",
+        "romaji": "chotto",
+        "meaning": "sebentar"
+      }
+    },
+    {
+      "character": "ニャ",
+      "reading": "nya",
+      "romaji": "nya",
+      "type": "yoon",
+      "example": {
+        "word": "ニャー",
+        "romaji": "nyaa",
+        "meaning": "meong (suara kucing)"
+      }
+    },
+    {
+      "character": "ニュ",
+      "reading": "nyu",
+      "romaji": "nyu",
+      "type": "yoon",
+      "example": {
+        "word": "ニュウガク",
+        "romaji": "nyuugaku",
+        "meaning": "masuk sekolah"
+      }
+    },
+    {
+      "character": "ニョ",
+      "reading": "nyo",
+      "romaji": "nyo",
+      "type": "yoon",
+      "example": {
+        "word": "ニョウボウ",
+        "romaji": "nyoubou",
+        "meaning": "istri"
+      }
+    },
+    {
+      "character": "ヒャ",
+      "reading": "hya",
+      "romaji": "hya",
+      "type": "yoon",
+      "example": {
+        "word": "ヒャク",
+        "romaji": "hyaku",
+        "meaning": "seratus"
+      }
+    },
+    {
+      "character": "ヒュ",
+      "reading": "hyu",
+      "romaji": "hyu",
+      "type": "yoon",
+      "example": {
+        "word": "ヒュウヒュウ",
+        "romaji": "hyuuhyuu",
+        "meaning": "desiran angin"
+      }
+    },
+    {
+      "character": "ヒョ",
+      "reading": "hyo",
+      "romaji": "hyo",
+      "type": "yoon",
+      "example": {
+        "word": "ヒョウジ",
+        "romaji": "hyouji",
+        "meaning": "tampilan"
+      }
+    },
+    {
+      "character": "ミャ",
+      "reading": "mya",
+      "romaji": "mya",
+      "type": "yoon",
+      "example": {
+        "word": "ミャク",
+        "romaji": "myaku",
+        "meaning": "denyut nadi"
+      }
+    },
+    {
+      "character": "ミュ",
+      "reading": "myu",
+      "romaji": "myu",
+      "type": "yoon",
+      "example": {
+        "word": "ミュージック",
+        "romaji": "myuujikku",
+        "meaning": "musik"
+      }
+    },
+    {
+      "character": "ミョ",
+      "reading": "myo",
+      "romaji": "myo",
+      "type": "yoon",
+      "example": {
+        "word": "ミョウジ",
+        "romaji": "myouji",
+        "meaning": "nama keluarga"
+      }
+    },
+    {
+      "character": "リャ",
+      "reading": "rya",
+      "romaji": "rya",
+      "type": "yoon",
+      "example": {
+        "word": "リャクゴ",
+        "romaji": "ryakugo",
+        "meaning": "singkatan"
+      }
+    },
+    {
+      "character": "リュ",
+      "reading": "ryu",
+      "romaji": "ryu",
+      "type": "yoon",
+      "example": {
+        "word": "リュウガク",
+        "romaji": "ryuugaku",
+        "meaning": "studi luar negeri"
+      }
+    },
+    {
+      "character": "リョ",
+      "reading": "ryo",
+      "romaji": "ryo",
+      "type": "yoon",
+      "example": {
+        "word": "リョコウ",
+        "romaji": "ryokou",
+        "meaning": "perjalanan / liburan"
+      }
+    },
+    {
+      "character": "ギャ",
+      "reading": "gya",
+      "romaji": "gya",
+      "type": "yoon",
+      "example": {
+        "word": "ギャクテン",
+        "romaji": "gyakuten",
+        "meaning": "pembalikan keadaan"
+      }
+    },
+    {
+      "character": "ギュ",
+      "reading": "gyu",
+      "romaji": "gyu",
+      "type": "yoon",
+      "example": {
+        "word": "ギュウニュウ",
+        "romaji": "gyuunyuu",
+        "meaning": "susu sapi"
+      }
+    },
+    {
+      "character": "ギョ",
+      "reading": "gyo",
+      "romaji": "gyo",
+      "type": "yoon",
+      "example": {
+        "word": "ギョギョウ",
+        "romaji": "gyogyou",
+        "meaning": "perikanan"
+      }
+    },
+    {
+      "character": "ジャ",
+      "reading": "ja",
+      "romaji": "ja",
+      "type": "yoon",
+      "example": {
+        "word": "ジャガイモ",
+        "romaji": "jagaimo",
+        "meaning": "kentang"
+      }
+    },
+    {
+      "character": "ジュ",
+      "reading": "ju",
+      "romaji": "ju",
+      "type": "yoon",
+      "example": {
+        "word": "ジュギョウ",
+        "romaji": "jugyou",
+        "meaning": "pelajaran"
+      }
+    },
+    {
+      "character": "ジョ",
+      "reading": "jo",
+      "romaji": "jo",
+      "type": "yoon",
+      "example": {
+        "word": "ジョセイ",
+        "romaji": "josei",
+        "meaning": "wanita"
+      }
+    },
+    {
+      "character": "ビャ",
+      "reading": "bya",
+      "romaji": "bya",
+      "type": "yoon",
+      "example": {
+        "word": "ビャクダン",
+        "romaji": "byakudan",
+        "meaning": "kayu cendana"
+      }
+    },
+    {
+      "character": "ビュ",
+      "reading": "byu",
+      "romaji": "byu",
+      "type": "yoon",
+      "example": {
+        "word": "ビュウビュウ",
+        "romaji": "byuubyuu",
+        "meaning": "tiupan angin kencang"
+      }
+    },
+    {
+      "character": "ビョ",
+      "reading": "byo",
+      "romaji": "byo",
+      "type": "yoon",
+      "example": {
+        "word": "ビョウキ",
+        "romaji": "byouki",
+        "meaning": "sakit / penyakit"
+      }
+    },
+    {
+      "character": "ピャ",
+      "reading": "pya",
+      "romaji": "pya",
+      "type": "yoon",
+      "example": {
+        "word": "サンピャク",
+        "romaji": "sanpyaku",
+        "meaning": "tiga ratus"
+      }
+    },
+    {
+      "character": "ピュ",
+      "reading": "pyu",
+      "romaji": "pyu",
+      "type": "yoon",
+      "example": {
+        "word": "ピューマ",
+        "romaji": "pyuuma",
+        "meaning": "puma"
+      }
+    },
+    {
+      "character": "ピョ",
+      "reading": "pyo",
+      "romaji": "pyo",
+      "type": "yoon",
+      "example": {
+        "word": "ピョンピョン",
+        "romaji": "pyonpyon",
+        "meaning": "melompat-lompat"
+      }
+    },
+    {
+      "character": "ッ",
+      "reading": "tsu",
+      "romaji": "tsu",
+      "type": "yoon",
+      "example": {
+        "word": "ベッド",
+        "romaji": "beddo",
+        "meaning": "tempat tidur (konsonan ganda)"
+      }
+    }
+  ]
 }

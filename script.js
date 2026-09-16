@@ -1058,6 +1058,12 @@ function initKanaQuest() {
             return;
         }
 
+        // Track which side was selected first
+        if (!match.selectedLeft && !match.selectedRight) {
+            match.firstSelectedSide = side;
+            match.firstSelectedId = id;
+        }
+
         if (side === "left") {
             match.selectedLeft = id;
         } else if (side === "right") {
@@ -1088,9 +1094,11 @@ function initKanaQuest() {
             match.matchedIds.push(matchedId);
             match.selectedLeft = null;
             match.selectedRight = null;
+            match.firstSelectedSide = null;
+            match.firstSelectedId = null;
 
             $("[data-answer-grid]").querySelectorAll(`[data-match-id="${matchedId}"]`).forEach((button) => {
-                button.classList.remove("is-selected");
+                button.classList.remove("is-selected", "is-wrong-match", "is-correct-glow");
                 button.classList.add("is-matched");
                 button.disabled = true;
             });
@@ -1141,22 +1149,38 @@ function initKanaQuest() {
         const wrongLeftBtn = $("[data-answer-grid]").querySelector(`[data-match-side='left'][data-match-id="${wrongLeftId}"]`);
         const wrongRightBtn = $("[data-answer-grid]").querySelector(`[data-match-side='right'][data-match-id="${wrongRightId}"]`);
 
-        // Identify matching partners to illuminate
-        const correctRightBtn = $("[data-answer-grid]").querySelector(`[data-match-side='right'][data-match-id="${wrongLeftId}"]`);
-        const correctLeftBtn = $("[data-answer-grid]").querySelector(`[data-match-side='left'][data-match-id="${wrongRightId}"]`);
-
-        const leftPair = match.leftOptions.find((o) => o.id === wrongLeftId);
-        const rightPair = match.rightOptions.find((o) => o.id === wrongRightId);
-
-        // Mark chosen mismatch buttons with red shake
+        // Mark chosen mismatch buttons with red shake only
         if (wrongLeftBtn) wrongLeftBtn.classList.add("is-wrong-match");
         if (wrongRightBtn) wrongRightBtn.classList.add("is-wrong-match");
 
-        // Make correct matching partners glow brightly
-        if (correctRightBtn) correctRightBtn.classList.add("is-correct-glow");
-        if (correctLeftBtn) correctLeftBtn.classList.add("is-correct-glow");
+        // Glow ONLY the correct partner of the FIRST option picked by the user
+        const firstSide = match.firstSelectedSide || "left";
+        const firstId = match.firstSelectedId || wrongLeftId;
+
+        let correctTargetBtn = null;
+        let notifText = "";
+
+        if (firstSide === "left") {
+            const firstItem = match.leftOptions.find((o) => o.id === firstId);
+            correctTargetBtn = $("[data-answer-grid]").querySelector(`[data-match-side='right'][data-match-id="${firstId}"]`);
+            if (firstItem) {
+                notifText = `• <b>${firstItem.character}</b> pasangannya adalah <b>${firstItem.romaji}</b> (${firstItem.meaning})`;
+            }
+        } else {
+            const firstItem = match.rightOptions.find((o) => o.id === firstId);
+            correctTargetBtn = $("[data-answer-grid]").querySelector(`[data-match-side='left'][data-match-id="${firstId}"]`);
+            if (firstItem) {
+                notifText = `• <b>${firstItem.romaji}</b> pasangannya adalah <b>${firstItem.character}</b> (${firstItem.meaning})`;
+            }
+        }
+
+        if (correctTargetBtn && !match.matchedIds.includes(firstId)) {
+            correctTargetBtn.classList.add("is-correct-glow");
+        }
 
         // Record mistake for Review Kesalahan
+        const leftPair = match.leftOptions.find((o) => o.id === wrongLeftId);
+        const rightPair = match.rightOptions.find((o) => o.id === wrongRightId);
         if (leftPair && rightPair) {
             currentSession.matchMistakes.push({
                 character: leftPair.character,
@@ -1169,16 +1193,17 @@ function initKanaQuest() {
         const message = $("[data-feedback]");
         message.hidden = false;
         message.className = "feedback is-bad";
-        message.innerHTML = `<strong>Pasangan Belum Tepat</strong><span>• <b>${leftPair ? leftPair.character : ""}</b> pasangannya adalah <b>${leftPair ? leftPair.romaji : ""}</b> (${leftPair ? leftPair.meaning : ""})</span>`;
+        message.innerHTML = `<strong>Pasangan Belum Tepat</strong><span>${notifText}</span>`;
 
         setTimeout(() => {
             match.selectedLeft = null;
             match.selectedRight = null;
+            match.firstSelectedSide = null;
+            match.firstSelectedId = null;
             if (wrongLeftBtn) wrongLeftBtn.classList.remove("is-selected", "is-wrong-match");
             if (wrongRightBtn) wrongRightBtn.classList.remove("is-selected", "is-wrong-match");
-            if (correctRightBtn) correctRightBtn.classList.remove("is-correct-glow");
-            if (correctLeftBtn) correctLeftBtn.classList.remove("is-correct-glow");
-        }, 850);
+            if (correctTargetBtn) correctTargetBtn.classList.remove("is-correct-glow");
+        }, 1100);
     }
 
     function answerQuestion(value, state = "answered") {
@@ -1214,7 +1239,7 @@ function initKanaQuest() {
         const meaningText = question.type === "word" ? ` (${question.answer.meaning})` : "";
 
         if (correct) {
-            feedback.innerHTML = `<strong>Benar! 🎉</strong><span>${question.answer.character} = ${question.answer.romaji}${meaningText}${currentSession.streak > 2 ? ` • 🔥 ${currentSession.streak} streak` : ""}</span>`;
+            feedback.innerHTML = `<strong>Benar! 🎉</strong><span>${question.answer.character} = ${question.answer.romaji}${meaningText}${currentSession.streak > 2 ? ` • 🔥 ${currentSession.streak} runtunan` : ""}</span>`;
         } else if (state === "skipped") {
             feedback.innerHTML = `<strong>Soal Dilewati</strong><span>Jawaban benar: <b>${question.answer.character}</b> = <b>${question.answer.romaji}</b>${meaningText}</span>`;
         } else {
@@ -1316,7 +1341,7 @@ function initKanaQuest() {
         $("[data-result-correct]").textContent = correct;
         $("[data-result-wrong]").textContent = wrong.length;
         $("[data-result-time]").textContent = formatTime(Date.now() - currentSession.started);
-        $("[data-result-streak]").textContent = `Best streak: ${currentSession.best}`;
+        $("[data-result-streak]").textContent = `Runtunan terbaik: ${currentSession.best}`;
 
         // Compile all mistakes (both quiz questions and match mismatches)
         const allMistakes = [];
