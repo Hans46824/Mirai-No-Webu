@@ -1,5 +1,6 @@
 :root {
     --pink: #e91e63;
+    --pink-accent: #e91e63;
     --pink2: #ff4f91;
     --pink-light: #ff4f91;
     --pink3: #ffd2e3;
@@ -4091,23 +4092,25 @@ body.theme-dark .division-cs-overlay .cs-sub {
 .proker-section:nth-child(odd) { background: var(--pink-soft); }
 body.theme-dark .proker-section:nth-child(odd) { background: #231d27; }
 
-.proker-section .proker-section-title {
-    font-size: clamp(22px, 3vw, 30px);
-    margin: 0 0 8px;
-}
 .proker-section .proker-section-subtitle {
-    color: var(--pink);
-    font-size: 11px;
-    letter-spacing: .12em;
-    font-weight: 700;
-    margin: 0 0 32px;
+    color: var(--pink-accent, var(--pink));
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin: 0 0 15px;
+}
+.proker-section .proker-section-title {
+    font-size: clamp(24px, 3.5vw, 34px);
+    line-height: 1.25;
+    margin: 0 0 20px;
 }
 .proker-section .proker-copy {
     max-width: 680px;
     font-size: 16px;
     line-height: 1.8;
     color: var(--muted);
-    margin: 0 0 32px;
+    margin: 0 0 24px;
 }
 body.theme-dark .proker-section .proker-copy { color: #c0b0ba; }
 
@@ -4246,20 +4249,35 @@ body.theme-dark .proker-benefit-card p { color: #d7ccd2; }
 .doc-dot.is-active { background: var(--pink); transform: scale(1.3); }
 
 /* =====================================================
-   PROKER PAGE – BACK LINK
+   PROKER PAGE – BACK BUTTON
    ===================================================== */
-.proker-back {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 80px 6vw 0;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: .08em;
-    color: var(--pink);
-    text-decoration: none;
+.proker-back-wrap {
+    padding: 96px 6vw 0;
+    background: var(--ink);
 }
-.proker-back:hover { text-decoration: underline; }
+.proker-back {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--pink-accent, var(--pink));
+    color: #fff;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-bottom: 24px;
+    transition: 0.3s;
+}
+.proker-back:hover {
+    background-color: var(--pink2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(233, 30, 99, 0.4);
+    text-decoration: none;
+    color: #fff;
+}
+.proker-back-wrap + .proker-hero {
+    padding-top: 24px;
+    min-height: 48vh;
+}
 
 
 /* =====================================================
@@ -4327,7 +4345,8 @@ body.theme-dark .division-cs-overlay .cs-sub {
 
 /* PROGRAM CARDS AS BUTTON-STYLE (NO NARRATIVE COPY, JUST TITLE & BADGE) */
 .program-card-link {
-    display: block;
+    display: flex;
+    height: 100%;
     text-decoration: none;
     color: inherit;
     border-radius: 12px;
@@ -4337,15 +4356,15 @@ body.theme-dark .division-cs-overlay .cs-sub {
     transform: translateY(-6px);
 }
 .program-card {
-    min-height: 200px;
-    padding: 28px 20px;
+    width: 100%;
+    min-height: 280px;
+    padding: 28px 20px 24px;
     background: #27222a;
     border: 1px solid #51404b;
     border-radius: 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     text-align: center;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
     transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
@@ -4374,11 +4393,115 @@ body.theme-dark .division-cs-overlay .cs-sub {
     text-transform: uppercase;
 }
 .program-card h3 {
-    margin: 0;
-    font-size: 20px;
+    margin: 0 0 10px;
+    font-size: 19px;
     color: #fff;
     font-weight: 700;
     line-height: 1.3;
+}
+.program-card .program-desc {
+    margin: 0 0 20px;
+    color: #d7ccd2;
+    font-size: 13px;
+    line-height: 1.6;
+    flex-grow: 1;
+}
+.program-card .program-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: auto;
+    padding: 9px 20px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    background: rgba(233, 30, 99, 0.18);
+    border: 1px solid var(--pink);
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+    transition: all 0.25s ease;
+}
+.program-card-link:hover .program-btn {
+    background: var(--pink);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(233, 30, 99, 0.4);
+}
+
+/* RADIO SCRIPT FORMATTING (NJR) */
+.radio-script-container {
+    max-width: 800px;
+    margin: 36px auto 0;
+    background: #27222a;
+    border: 1px solid #51404b;
+    border-radius: 12px;
+    padding: 32px 28px;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25);
+    text-align: left;
+}
+body:not(.theme-dark) .radio-script-container {
+    background: #ffffff;
+    border-color: #f0d4df;
+    box-shadow: 0 12px 36px rgba(233, 30, 99, 0.08);
+}
+.radio-script-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--pink);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+body:not(.theme-dark) .radio-script-title {
+    border-bottom-color: #f0d4df;
+    color: #b93463;
+}
+.radio-block {
+    margin-bottom: 22px;
+    padding: 18px 22px;
+    background: rgba(255, 255, 255, 0.03);
+    border-left: 4px solid var(--pink);
+    border-radius: 0 8px 8px 0;
+}
+body:not(.theme-dark) .radio-block {
+    background: #fff8fa;
+    border-left-color: #de507e;
+}
+.radio-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    color: var(--pink);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+.radio-line {
+    font-size: 15px;
+    line-height: 1.75;
+    margin: 4px 0;
+    color: #e5dde2;
+}
+body:not(.theme-dark) .radio-line {
+    color: #3b2c35;
+}
+.radio-speaker {
+    font-weight: 700;
+    color: #ff9abb;
+}
+body:not(.theme-dark) .radio-speaker {
+    color: #b93463;
+}
+.radio-japanese {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    margin-top: 4px;
+}
+body:not(.theme-dark) .radio-japanese {
+    color: #1a151e;
 }
 
 /* =====================================================
@@ -4611,12 +4734,14 @@ body.theme-dark .division-cs-overlay .cs-sub {
 .management-coming-soon-wrap {
     position: relative;
     margin-top: 36px;
+    overflow: hidden;
+    border-radius: 12px;
 }
 .management-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;
-    filter: blur(5px);
+    filter: blur(20px);
     pointer-events: none;
     user-select: none;
 }
@@ -4635,6 +4760,7 @@ body.theme-dark .division-cs-overlay .cs-sub {
     border-radius: 6px;
     margin-bottom: 8px;
     display: block;
+    filter: blur(15px);
 }
 .management-card .member-label {
     margin: 0 0 4px;
@@ -4979,3 +5105,151 @@ body.theme-dark .menu-toggle {
     background: linear-gradient(135deg, rgba(233, 30, 99, 0.9) 0%, rgba(160, 0, 70, 0.95) 100%);
     box-shadow: 0 2px 14px rgba(233, 30, 99, 0.4);
 }
+
+/* =====================================================
+   HOME PAGE – KEGIATAN & ORGANISASI (DARK THEME, 2 BIG CARDS)
+   ===================================================== */
+.home-activities-dark-section {
+    background: var(--ink, #18151b);
+    color: #fff;
+    padding: 90px 6vw;
+    position: relative;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.home-activities-dark-section .kicker {
+    color: var(--pink-accent, var(--pink));
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+.home-activities-dark-section .heading {
+    color: #fff;
+    font-size: clamp(32px, 4.5vw, 54px);
+    line-height: 1.1;
+    margin: 0 0 16px;
+}
+.home-activities-dark-section .heading span {
+    color: var(--pink-accent, var(--pink));
+}
+.home-activities-dark-section .copy {
+    color: #d7ccd2;
+    max-width: 620px;
+    font-size: 16px;
+    line-height: 1.7;
+    margin: 0 0 36px;
+}
+.activities-two-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 520px));
+    justify-content: center;
+    gap: 24px;
+    margin-top: 10px;
+    width: 100%;
+}
+@media (max-width: 850px) {
+    .activities-two-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.activity-start-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 230px;
+    padding: 30px 28px 34px;
+    background: #241f27;
+    border: 1px solid #483944;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.activity-card-active:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 36px rgba(233, 30, 99, 0.22);
+    border-color: var(--pink-accent, var(--pink));
+}
+.activity-start-card span.card-badge {
+    color: var(--pink-accent, var(--pink));
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: inline-block;
+}
+.activity-start-card h3 {
+    margin: 10px 0 10px;
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.25;
+}
+.activity-start-card p {
+    margin: 0;
+    color: #d7ccd2;
+    font-size: 14.5px;
+    line-height: 1.6;
+    max-width: 320px;
+}
+.activity-start-card b {
+    position: absolute;
+    right: 24px;
+    bottom: 22px;
+    font-size: 22px;
+    color: var(--pink-accent, var(--pink));
+    transition: transform 0.2s ease;
+    z-index: 2;
+}
+.activity-card-active:hover b {
+    transform: translateX(4px);
+}
+.activity-card-locked {
+    cursor: not-allowed;
+    background: #1f1b22;
+    border-color: #3b2e38;
+}
+.activity-card-blurred-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+.activity-card-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    pointer-events: none;
+    background: rgba(24, 21, 27, 0.4);
+}
+.activity-cs-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 20px;
+    background: var(--pink-accent, var(--pink));
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: 30px;
+    box-shadow: 0 6px 20px rgba(233, 30, 99, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.course-card .btn {
+    margin-top: 19px;
+    min-height: 42px;
+    padding: 10px 20px;
+    font-size: 11.5px;
+    letter-spacing: 1.2px;
+    border-radius: 4px;
+}
+
