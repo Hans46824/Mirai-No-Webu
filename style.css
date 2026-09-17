@@ -2029,8 +2029,16 @@ body.theme-dark .kana-search input { color:#fff8fb !important; background:#30243
 .course-card > div { margin-left:132px; max-width:440px; }
 .course-kana { position:absolute; top:31px; left:31px; width:104px; text-align:center; }
 .course-sticker { right:18px; bottom:14px; left:auto; z-index:1; width:88px; opacity:.88; }
-.course-card > div { z-index:2; }
-.course-card h3 { margin-top:5px; }
+.course-card h3 {
+    margin-top: 5px;
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.learning-path.soft-section .course-card h3 {
+    color: var(--ink);
+}
 
 @media (max-width:620px) {
     .nav > .brand { left:4vw; }
