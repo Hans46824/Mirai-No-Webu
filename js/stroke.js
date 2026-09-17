@@ -1,3 +1,40 @@
+window.currentPenSize = window.currentPenSize || 'thin';
+
+window.togglePenSize = function togglePenSize() {
+    const strokeContainer = document.getElementById('stroke-stage');
+    const penBtn = document.getElementById('btn-toggle-pen');
+
+    if (strokeContainer) {
+        if (strokeContainer.classList.contains('stroke-thin')) {
+            strokeContainer.classList.remove('stroke-thin');
+            strokeContainer.classList.add('stroke-thick');
+            window.currentPenSize = 'thick';
+            if (penBtn) penBtn.innerHTML = 'Kuas: Tebal 🖌️';
+        } else {
+            strokeContainer.classList.remove('stroke-thick');
+            strokeContainer.classList.add('stroke-thin');
+            window.currentPenSize = 'thin';
+            if (penBtn) penBtn.innerHTML = 'Kuas: Tipis 🖊️';
+        }
+    } else {
+        window.currentPenSize = window.currentPenSize === 'thin' ? 'thick' : 'thin';
+    }
+
+    // Sync all stroke stages and buttons across page
+    document.querySelectorAll('.stroke-stage').forEach((el) => {
+        if (window.currentPenSize === 'thick') {
+            el.classList.remove('stroke-thin');
+            el.classList.add('stroke-thick');
+        } else {
+            el.classList.remove('stroke-thick');
+            el.classList.add('stroke-thin');
+        }
+    });
+    document.querySelectorAll('.btn-pen-style, #btn-toggle-pen').forEach((btn) => {
+        btn.innerHTML = window.currentPenSize === 'thick' ? 'Kuas: Tebal 🖌️' : 'Kuas: Tipis 🖊️';
+    });
+};
+
 /* Animated player for local & dynamic KanjiVG-derived SVG paths. */
 window.getStrokeDataAsync = async function getStrokeDataAsync(character) {
     if (!character) return null;
@@ -17,16 +54,16 @@ window.getStrokeDataAsync = async function getStrokeDataAsync(character) {
         }
     } catch (e) {}
 
-    // Multi-char composite (e.g. kana digraphs)
+    // Multi-char: fetch parts separately without flattening into a single broken SVG
     if (character.length > 1) {
-        const parts = await Promise.all([...character].map((c) => window.getStrokeDataAsync(c)));
+        const parts = await Promise.all(Array.from(character).map((c) => window.getStrokeDataAsync(c)));
         if (parts.every(Boolean)) {
-            const composite = {
-                viewBox: "0 0 220 160",
-                paths: parts.flatMap((p) => p.paths),
+            return {
+                isMulti: true,
+                characters: Array.from(character),
+                parts: parts,
                 source: "KanjiVG"
             };
-            return composite;
         }
     }
 
@@ -59,42 +96,131 @@ window.getStrokeDataAsync = async function getStrokeDataAsync(character) {
     return null;
 };
 
-window.createStrokePlayer = function createStrokePlayer(host, character, fallbackCount, options = {}) {
+window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallbackCount, options = {}) {
+    if (!kanaString || !host) return null;
     const showClearControl = options.showClear === true;
     let destroyed = false;
     let internalController = null;
 
-    function renderWithRecord(record) {
+    const characters = Array.from(kanaString);
+    const isMulti = characters.length > 1;
+
+    // Helper to get cached character record
+    const getCached = (c) => window.MIRAI_STROKE_DATA?.[c];
+    const allImmediate = characters.every(getCached);
+
+    function setupPlayerWithRecords(records) {
         if (destroyed || !host) return;
-        const directRecord = record || window.MIRAI_STROKE_DATA?.[character];
-        const componentRecords = character.length > 1 ? [...character].map((part) => window.MIRAI_STROKE_DATA?.[part]).filter(Boolean) : [];
-        const composite = !directRecord && componentRecords.length === character.length;
-        const activeRecord = directRecord || (composite ? { viewBox: "0 0 220 160", paths: componentRecords.flatMap((item) => item.paths) } : null);
-        const sourcePaths = activeRecord?.paths || [];
-        const fallback = !sourcePaths.length;
-        const paths = fallback
-            ? ["M55 52 L165 52", "M72 38 L72 172", "M52 115 L168 115", "M164 48 L164 172"].slice(0, Math.max(2, Math.min(fallbackCount || 3, 4)))
-            : sourcePaths;
 
-        const pathMarkup = composite
-            ? componentRecords.map((item, componentIndex) => `<g transform="${componentIndex === 0 ? "translate(10 18) scale(1.05)" : "translate(134 72) scale(.62)"}">${item.paths.map((path, pathIndex) => `<path data-stroke="${componentIndex}-${pathIndex}" d="${path}" />`).join("")}</g>`).join("")
-            : paths.map((path, index) => `<path data-stroke="${index}" d="${path}" />`).join("");
-        const strokeCount = composite ? componentRecords.reduce((total, item) => total + item.paths.length, 0) : paths.length;
+        // Calculate total strokes
+        let totalStrokes = 0;
+        records.forEach((rec) => {
+            if (rec?.paths?.length) {
+                totalStrokes += rec.paths.length;
+            }
+        });
+        if (totalStrokes === 0) {
+            totalStrokes = Math.max(2, Math.min(fallbackCount || 3, 4)) * characters.length;
+        }
 
+        const currentPenClass = window.currentPenSize === 'thick' ? 'stroke-thick' : 'stroke-thin';
+        const currentPenLabel = window.currentPenSize === 'thick' ? 'Kuas: Tebal 🖌️' : 'Kuas: Tipis 🖊️';
+
+        // Render external controls skeleton
         host.innerHTML = `
-            <div class="stroke-stage ${fallback ? "is-fallback" : ""}" aria-label="Animasi urutan menulis ${character}">
-                <svg viewBox="${activeRecord?.viewBox || "0 0 220 220"}" role="img" aria-label="Urutan goresan ${character}">
-                    ${pathMarkup}
-                </svg>
-                ${fallback ? `<span class="stroke-fallback-glyph" aria-hidden="true">${character}</span>` : ""}
+            <div class="stroke-stage ${currentPenClass}" id="stroke-stage" aria-label="Animasi urutan menulis ${kanaString}"></div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin:8px 0 4px; gap:10px;">
+                <p class="stroke-source" style="margin:0;">${isMulti ? "Animasi multi-karakter (KanjiVG)" : "Data urutan goresan: KanjiVG"}</p>
+                <button id="btn-toggle-pen" class="btn-pen-style" type="button" onclick="togglePenSize()">${currentPenLabel}</button>
             </div>
-            ${fallback ? '<p class="stroke-fallback">Data stroke belum tersedia untuk karakter ini.</p>' : `<p class="stroke-source">${activeRecord?.source === "KanjiVG" || directRecord ? "Data urutan goresan: KanjiVG" : "Animasi dua karakter: tulis kana utama, lalu kana kecil."}</p>`}
-            <div class="stroke-status">Goresan <b data-stroke-number>1</b> dari ${strokeCount}</div>
+            <div class="stroke-status">Goresan <b data-stroke-number>1</b> dari ${totalStrokes}</div>
             <p class="stroke-guide" data-stroke-guide role="status" aria-live="polite">Langkah 1: ikuti garis merah dari awal hingga akhir.</p>
-            <ol class="stroke-order" aria-label="Urutan goresan">${Array.from({ length: strokeCount }, (_, index) => `<li data-stroke-step="${index}">${index + 1}</li>`).join("")}</ol>
-            <div class="stroke-controls"><button type="button" data-stroke-play>PUTAR</button><button type="button" data-stroke-pause>JEDA</button><button type="button" data-stroke-replay>ULANG</button>${showClearControl ? `<button type="button" data-stroke-clear aria-label="Bersihkan tampilan urutan goresan ${character}">BERSIHKAN</button>` : ""}<label>Kecepatan<select data-stroke-speed aria-label="Kecepatan animasi stroke"><option value="1.6">0.5×</option><option value="1" selected>1×</option><option value="0.72">1.5×</option><option value="0.52">2×</option></select></label></div>`;
+            <ol class="stroke-order" aria-label="Urutan goresan">${Array.from({ length: totalStrokes }, (_, index) => `<li data-stroke-step="${index}">${index + 1}</li>`).join("")}</ol>
+            <div class="stroke-controls">
+                <button type="button" data-stroke-play>PUTAR</button>
+                <button type="button" data-stroke-pause>JEDA</button>
+                <button type="button" data-stroke-replay>ULANG</button>
+                ${showClearControl ? `<button type="button" data-stroke-clear aria-label="Bersihkan tampilan urutan goresan ${kanaString}">BERSIHKAN</button>` : ""}
+                <label>Kecepatan<select data-stroke-speed aria-label="Kecepatan animasi stroke">
+                    <option value="1.6">0.5×</option>
+                    <option value="1" selected>1×</option>
+                    <option value="0.72">1.5×</option>
+                    <option value="0.52">2×</option>
+                </select></label>
+            </div>
+        `;
 
-        const lines = [...host.querySelectorAll("path")];
+        // 2. Isolasi Instance Render (JS)
+        // - Kosongkan container utama
+        const strokeStage = host.querySelector('.stroke-stage');
+        strokeStage.innerHTML = "";
+        // - Jadikan container utama flexbox
+        strokeStage.style.display = 'flex';
+        strokeStage.style.flexDirection = 'row';
+        strokeStage.style.justifyContent = 'center';
+        strokeStage.style.alignItems = 'center';
+        strokeStage.style.gap = '10px';
+        strokeStage.style.flexWrap = 'wrap';
+
+        // - Gunakan Array.from(kanaString).forEach((char, index) => { ... })
+        Array.from(kanaString).forEach((char, index) => {
+            // 3. Buat Container Unik: Di DALAM forEach
+            let charWrapper = document.createElement('div');
+            charWrapper.id = 'stroke-char-' + index;
+            charWrapper.className = 'kanjivg-char-box';
+            charWrapper.style.position = 'relative';
+
+            if (isMulti) {
+                charWrapper.style.width = '90px';
+                charWrapper.style.height = '90px';
+            } else {
+                charWrapper.style.width = '200px';
+                charWrapper.style.height = '200px';
+                charWrapper.classList.add('single-char');
+            }
+
+            // 4 & 5. Isolasi Tag SVG:
+            // Pastikan hasil akhir di DOM adalah: SETIAP charWrapper memiliki SATU tag <svg viewBox="0 0 109 109"> di dalamnya.
+            const rec = records[index];
+            const paths = rec?.paths?.length
+                ? rec.paths
+                : ["M55 52 L165 52", "M72 38 L72 172", "M52 115 L168 115", "M164 48 L164 172"].slice(0, Math.max(2, Math.min(fallbackCount || 3, 4)));
+
+            let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svg.setAttribute("viewBox", rec?.viewBox || "0 0 109 109");
+            svg.setAttribute("role", "img");
+            svg.setAttribute("aria-label", `Urutan goresan ${char}`);
+            svg.style.width = '100%';
+            svg.style.height = '100%';
+            svg.style.position = 'relative';
+            svg.style.display = 'block';
+
+            paths.forEach((d, pathIndex) => {
+                const pathEl = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                pathEl.setAttribute("data-stroke", `${index}-${pathIndex}`);
+                pathEl.setAttribute("d", d);
+                pathEl.setAttribute("stroke-linecap", "round");
+                pathEl.setAttribute("stroke-linejoin", "round");
+                pathEl.setAttribute("fill", "none");
+                svg.appendChild(pathEl);
+            });
+
+            charWrapper.appendChild(svg);
+
+            if (!rec?.paths?.length) {
+                const fallbackSpan = document.createElement('span');
+                fallbackSpan.className = 'stroke-fallback-glyph';
+                fallbackSpan.textContent = char;
+                fallbackSpan.style.fontSize = isMulti ? '50px' : '130px';
+                charWrapper.appendChild(fallbackSpan);
+            }
+
+            // Append ke container utama
+            strokeStage.appendChild(charWrapper);
+        });
+
+        // Kumpulkan semua path berurutan secara chronologis
+        const lines = [...strokeStage.querySelectorAll("path")];
         const number = host.querySelector("[data-stroke-number]");
         const guide = host.querySelector("[data-stroke-guide]");
         const order = [...host.querySelectorAll("[data-stroke-step]")];
@@ -210,20 +336,19 @@ window.createStrokePlayer = function createStrokePlayer(host, character, fallbac
         internalController = { destroy: () => animation?.cancel(), play, reset, clear };
     }
 
-    const immediate = window.MIRAI_STROKE_DATA?.[character];
-    if (immediate) {
-        renderWithRecord(immediate);
+    if (allImmediate) {
+        setupPlayerWithRecords(characters.map(getCached));
     } else {
-        // Show loading state and fetch async from KanjiVG
+        // Show loading state and fetch async per character from KanjiVG
         host.innerHTML = `
             <div class="stroke-stage is-fallback">
-                <span class="stroke-fallback-glyph" style="opacity:0.35;">${character}</span>
+                <span class="stroke-fallback-glyph" style="opacity:0.35;">${kanaString}</span>
             </div>
             <p class="stroke-source">Memuat data goresan KanjiVG...</p>
         `;
-        window.getStrokeDataAsync(character).then((record) => {
+        Promise.all(characters.map((c) => window.getStrokeDataAsync(c))).then((records) => {
             if (!destroyed) {
-                renderWithRecord(record);
+                setupPlayerWithRecords(records);
             }
         });
     }
@@ -238,4 +363,3 @@ window.createStrokePlayer = function createStrokePlayer(host, character, fallbac
         clear: () => internalController?.clear()
     };
 };
-
