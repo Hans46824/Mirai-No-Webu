@@ -828,7 +828,7 @@ function initKanaQuest() {
         $("[data-script-progress-bar]").style.width = `${progress}%`;
 
         $("[data-level-grid]").innerHTML = allLevels.map((level) => {
-            const unlocked = level.id <= saved[script].unlocked;
+            const unlocked = level.id <= saved[script].unlocked || saved[script].completed.includes(level.id);
             const completed = saved[script].completed.includes(level.id);
 
             return `
@@ -839,9 +839,6 @@ function initKanaQuest() {
                     </div>
                     <h3>${level.label}</h3>
                     <strong>${displayChars(level.chars)}</strong>
-                    <div class="mini-progress">
-                        <i style="width:${completed ? 100 : unlocked ? 18 : 0}%"></i>
-                    </div>
                     <small>
                         ${completed
                             ? "Siap diulang kapan saja"
@@ -895,7 +892,7 @@ function initKanaQuest() {
     }
 
     function startPractice(levels) {
-        const unlockedLevels = levels.filter((level) => level <= saved[script].unlocked && level <= totalLevels);
+        const unlockedLevels = levels.filter((level) => (level <= saved[script].unlocked || saved[script].completed.includes(level)) && level <= totalLevels);
         const pool = data[script].filter((item) => unlockedLevels.includes(item.level));
 
         if (pool.length < 3) {
@@ -1054,20 +1051,31 @@ function initKanaQuest() {
         const question = currentSession.questions[currentSession.index];
         const match = question.match;
 
-        if (match.matchedIds.includes(id)) {
+        if (match.isLocked || match.matchedIds.includes(id)) {
             return;
         }
 
-        // Track which side was selected first
-        if (!match.selectedLeft && !match.selectedRight) {
-            match.firstSelectedSide = side;
-            match.firstSelectedId = id;
-        }
-
+        // Toggle selection & track firstSelectedSide
         if (side === "left") {
-            match.selectedLeft = id;
+            if (match.selectedLeft === id) {
+                match.selectedLeft = null;
+                match.firstSelectedSide = match.selectedRight ? "right" : null;
+            } else {
+                match.selectedLeft = id;
+                if (!match.selectedRight) {
+                    match.firstSelectedSide = "left";
+                }
+            }
         } else if (side === "right") {
-            match.selectedRight = id;
+            if (match.selectedRight === id) {
+                match.selectedRight = null;
+                match.firstSelectedSide = match.selectedLeft ? "left" : null;
+            } else {
+                match.selectedRight = id;
+                if (!match.selectedLeft) {
+                    match.firstSelectedSide = "right";
+                }
+            }
         }
 
         const leftButtons = $("[data-answer-grid]").querySelectorAll("[data-match-side='left']");
@@ -1095,7 +1103,6 @@ function initKanaQuest() {
             match.selectedLeft = null;
             match.selectedRight = null;
             match.firstSelectedSide = null;
-            match.firstSelectedId = null;
 
             $("[data-answer-grid]").querySelectorAll(`[data-match-id="${matchedId}"]`).forEach((button) => {
                 button.classList.remove("is-selected", "is-wrong-match", "is-correct-glow");
@@ -1143,6 +1150,7 @@ function initKanaQuest() {
         }
 
         // Wrong match selected
+        match.isLocked = true;
         const wrongLeftId = match.selectedLeft;
         const wrongRightId = match.selectedRight;
 
@@ -1153,9 +1161,9 @@ function initKanaQuest() {
         if (wrongLeftBtn) wrongLeftBtn.classList.add("is-wrong-match");
         if (wrongRightBtn) wrongRightBtn.classList.add("is-wrong-match");
 
-        // Glow ONLY the correct partner of the FIRST option picked by the user
+        // Glow ONLY the correct partner of the FIRST option picked by the user (current active selection)
         const firstSide = match.firstSelectedSide || "left";
-        const firstId = match.firstSelectedId || wrongLeftId;
+        const firstId = firstSide === "left" ? wrongLeftId : wrongRightId;
 
         let correctTargetBtn = null;
         let notifText = "";
@@ -1199,11 +1207,53 @@ function initKanaQuest() {
             match.selectedLeft = null;
             match.selectedRight = null;
             match.firstSelectedSide = null;
-            match.firstSelectedId = null;
+            match.isLocked = false;
             if (wrongLeftBtn) wrongLeftBtn.classList.remove("is-selected", "is-wrong-match");
             if (wrongRightBtn) wrongRightBtn.classList.remove("is-selected", "is-wrong-match");
             if (correctTargetBtn) correctTargetBtn.classList.remove("is-correct-glow");
         }, 1100);
+    }
+
+    function skipMatchQuestion() {
+        const question = currentSession.questions[currentSession.index];
+        const match = question.match;
+
+        currentSession.results[currentSession.index] = {
+            state: "skipped",
+            question,
+            value: "Dilewati",
+            userChoice: "Dilewati",
+            correctChoice: "Pasangkan Kata"
+        };
+
+        match.leftOptions.forEach((leftItem) => {
+            if (!match.matchedIds.includes(leftItem.id)) {
+                currentSession.matchMistakes.push({
+                    character: leftItem.character,
+                    meaning: leftItem.meaning,
+                    chosenRomaji: "Dilewati",
+                    correctRomaji: leftItem.romaji
+                });
+            }
+        });
+
+        $("[data-answer-grid]").querySelectorAll(".match-button").forEach((button) => {
+            button.disabled = true;
+        });
+
+        const feedback = $("[data-feedback]");
+        feedback.hidden = false;
+        feedback.className = "feedback is-skip";
+        feedback.innerHTML = "<strong>Soal Dilewati</strong><span>Lanjut ke hasil latihan...</span>";
+
+        setTimeout(() => {
+            currentSession.index += 1;
+            if (currentSession.index >= currentSession.questions.length) {
+                finishPractice();
+            } else {
+                renderQuestion();
+            }
+        }, 500);
     }
 
     function answerQuestion(value, state = "answered") {
@@ -1212,6 +1262,13 @@ function initKanaQuest() {
         }
 
         const question = currentSession.questions[currentSession.index];
+        if (question.type === "match-table") {
+            if (state === "skipped") {
+                skipMatchQuestion();
+            }
+            return;
+        }
+
         const correct = state !== "skipped" && value === question.answer.character;
 
         const displayKind = question.kind === "kana" || question.kind === "audio" ? "romaji" : "character";
@@ -1319,7 +1376,7 @@ function initKanaQuest() {
 
         if (accuracy >= 70) {
             const highest = Math.max(...currentSession.levels);
-            saved[script].unlocked = Math.min(16, Math.max(saved[script].unlocked, highest + 1));
+            saved[script].unlocked = Math.max(saved[script].unlocked, Math.min(totalLevels, highest + 1));
             saved[script].completed = [...new Set([...saved[script].completed, ...currentSession.levels])];
         }
 
@@ -1348,6 +1405,9 @@ function initKanaQuest() {
 
         wrong.forEach((result) => {
             const q = result.question;
+            if (q.type === "match-table") {
+                return;
+            }
             const isWord = q.type === "word";
             const badge = isWord ? "KOSAKATA" : "KANA";
             const prompt = isWord

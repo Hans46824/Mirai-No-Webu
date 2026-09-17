@@ -1364,9 +1364,11 @@ a {
 .learning-app .level-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; align-items: stretch; }
 .learning-app .level-card { min-height: 270px; padding: 22px; }
 .learning-app .level-card h3 { min-height: 52px; margin: 18px 0 10px; font-size: 17px; line-height: 1.35; }
-.learning-app .level-card > strong { min-height: 78px; font-size: 27px; line-height: 1.45; }
-.learning-app .level-card .mini-progress { margin: 12px 0; }
-.learning-app .level-card small { min-height: 33px; }
+.learning-app .level-card .mini-progress,
+.mini-progress,
+.level-card .mini-progress {
+    display: none !important;
+}
 .learning-app .answer-grid { gap: 14px; }
 .learning-app [data-audio] { display: none !important; }
 .learning-app .answer-grid button { min-height: 64px; padding: 12px 18px; border: 1px solid var(--pink-border); border-radius: 6px; font-size: 20px; }
@@ -1946,7 +1948,7 @@ body.theme-dark .kana-search input { color:#fff8fb !important; background:#30243
 .program-section .copy { color:#d7ccd2; }
 .program-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:42px; }
 .program-card { min-height:300px; padding:23px; background:#27222a; border:1px solid #51404b; }
-.program-card img { display:block; width:78px; height:78px; margin-bottom:24px; padding:8px; object-fit:contain; background:#fff; border-radius:50%; }
+.program-card img { display:block; width:104px; height:104px; margin-bottom:20px; padding:0; object-fit:cover; background:#fff; border-radius:50%; }
 .program-card h3 { margin:0 0 9px; font-size:22px; }
 .program-card p:not(.card-number) { margin:0; color:#d7ccd2; font-size:14px; line-height:1.7; }
 @media(max-width:850px){.program-grid{grid-template-columns:repeat(2,1fr)}}
@@ -4086,14 +4088,15 @@ body.theme-dark .division-cs-overlay .cs-sub {
 .proker-hero-deco img:nth-child(3) { transform: rotate(-3deg) translateY(-15px); opacity: .08; }
 .proker-hero-inner { position: relative; z-index: 2; max-width: 640px; }
 .proker-hero-logo {
-    width: clamp(60px, 8vw, 90px);
-    height: clamp(60px, 8vw, 90px);
-    object-fit: contain;
+    width: clamp(80px, 11vw, 110px);
+    height: clamp(80px, 11vw, 110px);
+    object-fit: cover;
     background: #fff;
     border-radius: 50%;
-    padding: 8px;
+    padding: 0;
     margin-bottom: 22px;
     display: block;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
 .proker-hero .eyebrow { color: var(--pink); font-size: 12px; letter-spacing: .12em; font-weight: 700; margin: 0 0 12px; }
 .proker-hero h1 { margin: 0 0 16px; font-size: clamp(32px, 5vw, 54px); line-height: 1.1; }
@@ -4387,14 +4390,19 @@ body.theme-dark .division-cs-overlay .cs-sub {
 }
 .program-card img {
     display: block;
-    width: 76px;
-    height: 76px;
-    margin: 0 auto 16px;
-    padding: 8px;
-    object-fit: contain;
+    width: 104px;
+    height: 104px;
+    margin: 0 auto 18px;
+    padding: 0;
+    object-fit: cover;
     background: #fff;
     border-radius: 50%;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.program-card-link:hover .program-card img {
+    transform: scale(1.06);
+    box-shadow: 0 10px 26px rgba(233, 30, 99, 0.35);
 }
 .program-card .card-number {
     margin: 0 0 8px;
