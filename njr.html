@@ -31,66 +31,257 @@
 
   <!-- APA ITU -->
   <section class="proker-section">
-    <p class="proker-section-subtitle">APA ITU?</p>
-    <h2 class="proker-section-title">Teman setia jam istirahat di sekolah.</h2>
+    <p class="proker-section-subtitle">NIHON GO RAJIO</p>
+    <h2 class="proker-section-title">Teman yang menemani jam istirahat di sekolah.</h2>
     <p class="proker-copy">Nihon Go Rajio adalah program kerja andalan dari Mirai No Hana yang hadir untuk menemani jam istirahat seluruh warga sekolah di SMASYIMDUTA. Dipandu oleh dua announcer yang asik dan energik, siaran ini menyuguhkan berbagai obrolan santai seputar budaya, bahasa, pop-culture Jepang, serta tips belajar menarik.</p>
     <p class="proker-copy">Tak hanya obrolan seru, Nihon Go Rajio juga memutarkan lagu-lagu favorit hasil titipan lagu dan pesan anonim (Songfess) dari teman-teman sekolah melalui media sosial Instagram klub, menjadikan jam istirahat lebih hidup dan berwarna!</p>
   </section>
 
-  <!-- FORMAT NASKAH SIARAN -->
+  <!-- FORMAT NASKAH & CONTOH SIARAN SLIDER -->
   <section class="proker-section">
-    <p class="proker-section-subtitle">TEMPLATE SIARAN</p>
+    <p class="proker-section-subtitle">TEMPLATE &amp; CONTOH NASKAH</p>
     <h2 class="proker-section-title">Struktur &amp; Naskah Siaran Nihon Go Rajio</h2>
-    <p class="proker-copy">Berikut adalah template naskah resmi yang dibawakan oleh penyiar Nihon Go Rajio pada setiap episodenya:</p>
+    <p class="proker-copy">Geser slide di bawah untuk melihat template naskah utuh serta contoh riil percakapan siaran:</p>
 
-    <div class="radio-script-container">
-      <div class="radio-script-title">
-        <span>🌸 NIHON GO RAJIO</span>
-        <span>📻</span>
+    <div class="njr-slider-wrapper">
+      <div class="njr-slider-header-bar">
+        <span class="njr-slider-indicator-text" id="njrSlideIndicator">1/3 · Template Naskah Full</span>
+        <div class="njr-slider-arrows">
+          <button type="button" class="njr-nav-btn" id="njrPrevBtn" aria-label="Slide sebelumnya">‹</button>
+          <button type="button" class="njr-nav-btn" id="njrNextBtn" aria-label="Slide berikutnya">›</button>
+        </div>
       </div>
 
-      <!-- 1. OPENING -->
-      <div class="radio-block">
-        <span class="radio-badge">🎙️ 1. Opening</span>
-        <p class="radio-line"><span class="radio-speaker">A:</span> Moshi moshi~! Ohayou gozaimasu, minna-san! Ogenki desu ka?</p>
-        <p class="radio-line"><span class="radio-speaker">B:</span> Welcome back to Nihon Go Rajio! Watashi wa [nama] desu!</p>
-        <p class="radio-line"><span class="radio-speaker">A:</span> To Watashi wa [nama] desu!</p>
+      <div class="njr-slider-track" id="njrSliderTrack">
+        <!-- SLIDE 1: TEMPLATE UTAMA (FULL) -->
+        <div class="njr-slide" id="slide-1">
+          <div class="njr-slide-inner">
+            <div class="radio-script-title">
+              <span>🌸 NIHON GO RAJIO (Template Naskah Full)</span>
+              <span>📻</span>
+            </div>
+
+            <!-- 1. OPENING -->
+            <div class="radio-block">
+              <span class="radio-badge">🎙️ 1. Opening</span>
+              <p class="radio-line"><span class="radio-speaker">A:</span> Moshi moshi~! Ohayou gozaimasu, minna-san! Ogenki desu ka?</p>
+              <p class="radio-line"><span class="radio-speaker">B:</span> Welcome back to Nihon Go Rajio! Watashi wa [nama] desu!</p>
+              <p class="radio-line"><span class="radio-speaker">A:</span> To Watashi wa [nama] desu!</p>
+            </div>
+
+            <!-- 2. TAGLINE -->
+            <div class="radio-block">
+              <span class="radio-badge">🌸 2. Tagline</span>
+              <p class="radio-line"><span class="radio-speaker">A &amp; B:</span> Mirai no Hana Nihongo Kurabu</p>
+              <p class="radio-line"><span class="radio-speaker">A &amp; B:</span> Kiso kara imio rekai dekirumade!</p>
+              <p class="radio-line radio-japanese">基礎から意味がわかるまで！</p>
+            </div>
+
+            <!-- 3. DAILY NIHONGO -->
+            <div class="radio-block">
+              <span class="radio-badge">🎌 3. Daily Nihongo</span>
+              <p class="radio-line"><span class="radio-speaker">A:</span> Soredewa, Daily Nihongo no jikan desu!</p>
+              <p class="radio-line"><span class="radio-speaker">B:</span> Kyou no kotoba wa... [Kosakata Hari Ini]</p>
+              <p class="radio-line"><span class="radio-speaker">A:</span> [Penjelasan Arti &amp; Contoh Kalimat]</p>
+              <p class="radio-line"><span class="radio-speaker">B:</span> [Contoh Situasi Penggunaan]</p>
+              <p class="radio-line"><span class="radio-speaker">A &amp; B:</span> Minna-san, issho ni oboemashou!</p>
+            </div>
+
+            <!-- 4. J-SONGFESS -->
+            <div class="radio-block">
+              <span class="radio-badge">🎵 4. Jsongfess</span>
+              <p class="radio-line"><span class="radio-speaker">B:</span> Sugi wa, songfess!</p>
+              <p class="radio-line"><span class="radio-speaker">A:</span> Daiichi no songfess wa... [Pesan &amp; Lagu Pertama]</p>
+              <p class="radio-line"><span class="radio-speaker">B:</span> Daini no songfess wa... [Pesan &amp; Lagu Kedua]</p>
+            </div>
+
+            <!-- 5. CLOSING -->
+            <div class="radio-block">
+              <span class="radio-badge">🔒 5. Closing</span>
+              <p class="radio-line"><span class="radio-speaker">A:</span> Sate, kore de kyou no Nihon Go Rajio wa owari desu!</p>
+              <p class="radio-line"><span class="radio-speaker">B:</span> Arigatou gozaimasu, minna-san!</p>
+              <p class="radio-line"><span class="radio-speaker">A:</span> Tsugi wa Songfess no jikan desu!</p>
+              <p class="radio-line"><span class="radio-speaker">A &amp; B:</span> Kiite kudasai!</p>
+              <p class="radio-line"><span class="radio-speaker">A &amp; B:</span> Mata raishuu! Ja ne~! 🌸</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 2: CONTOH SIARAN 1 -->
+        <div class="njr-slide" id="slide-2">
+          <div class="njr-slide-inner">
+            <div class="radio-script-title">
+              <span>🌸 NIHON GO RAJIO (Contoh Siaran 1)</span>
+              <span>📻</span>
+            </div>
+
+            <!-- 1. OPENING -->
+            <div class="radio-block">
+              <span class="radio-badge">🎙️ 1. Opening</span>
+              <p class="radio-line"><span class="radio-speaker">A:</span> Moshi moshi~! Ohayou gozaimasu, minna-san! Ogenki desu ka?</p>
+              <p class="radio-line"><span class="radio-speaker">B:</span> Welcome back to Nihon Go Rajio! Watashi wa Asora desu!</p>
+              <p class="radio-line"><span class="radio-speaker">A:</span> To Watashi wa Budi desu!</p>
+            </div>
+
+            <!-- 2. TAGLINE -->
+            <div class="radio-block">
+              <span class="radio-badge">🌸 2. Tagline</span>
+              <p class="radio-line"><span class="radio-speaker">A &amp; B:</span> Mirai no Hana Nihongo Kurabu</p>
+              <p class="radio-line"><span class="radio-speaker">A &amp; B:</span> Kiso kara imio rekai dekirumade!</p>
+              <p class="radio-line radio-japanese">基礎から意味がわかるまで！</p>
+            </div>
+
+            <!-- 3. DAILY NIHONGO -->
+            <div class="radio-block">
+              <span class="radio-badge">🎌 3. Daily Nihongo</span>
+              <p class="radio-line"><span class="radio-speaker">A:</span> Soredewa, Daily Nihongo no jikan desu!</p>
+              <p class="radio-line"><span class="radio-speaker">B:</span> Kyou no kotoba wa... "Ohiru" (Makan Siang)!</p>
+              <p class="radio-line"><span class="radio-speaker">A:</span> Yatta! Waktunya isi energi!</p>
+              <p class="radio-line"><span class="radio-speaker">A &amp; B:</span> Minna-san, issho ni oboemashou!</p>
+            </div>
+
+            <!-- 4. J-SONGFESS -->
+            <div class="radio-block">
+              <span class="radio-badge">🎵 4. Jsongfess</span>
+              <p class="radio-line"><span class="radio-speaker">B:</span> Sugi wa, songfess!</p>
+              <p class="radio-line"><span class="radio-speaker">A:</span> Daichi no songfess wa Yoasobi - Idol!</p>
+              <p class="radio-line"><span class="radio-speaker">B:</span> Daini no songfess wa Kenshi Yonezu - Kick Back!</p>
+            </div>
+
+            <!-- 5. CLOSING -->
+            <div class="radio-block">
+              <span class="radio-badge">🔒 5. Closing</span>
+              <p class="radio-line"><span class="radio-speaker">A:</span> Sate, kore de kyou no Nihon Go Rajio wa owari desu!</p>
+              <p class="radio-line"><span class="radio-speaker">B:</span> Arigatou gozaimasu, minna-san!</p>
+              <p class="radio-line"><span class="radio-speaker">A &amp; B:</span> Mata raishuu! 🌸</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 3: CONTOH SIARAN 2 -->
+        <div class="njr-slide" id="slide-3">
+          <div class="njr-slide-inner">
+            <div class="radio-script-title">
+              <span>🌸 NIHON GO RAJIO (Contoh Siaran 2)</span>
+              <span>📻</span>
+            </div>
+
+            <!-- 1. OPENING -->
+            <div class="radio-block">
+              <span class="radio-badge">🎙️ 1. Opening</span>
+              <p class="radio-line"><span class="radio-speaker">A:</span> Moshi moshi~! Ohayou gozaimasu, minna-san! Ogenki desu ka?</p>
+              <p class="radio-line"><span class="radio-speaker">B:</span> Welcome back to Nihon Go Rajio! Watashi wa Rina desu!</p>
+              <p class="radio-line"><span class="radio-speaker">A:</span> To Watashi wa Dina desu!</p>
+            </div>
+
+            <!-- 2. TAGLINE -->
+            <div class="radio-block">
+              <span class="radio-badge">🌸 2. Tagline</span>
+              <p class="radio-line"><span class="radio-speaker">A &amp; B:</span> Mirai no Hana Nihongo Kurabu</p>
+              <p class="radio-line"><span class="radio-speaker">A &amp; B:</span> Kiso kara imio rekai dekirumade!</p>
+              <p class="radio-line radio-japanese">基礎から意味がわかるまで！</p>
+            </div>
+
+            <!-- 3. DAILY NIHONGO -->
+            <div class="radio-block">
+              <span class="radio-badge">🎌 3. Daily Nihongo</span>
+              <p class="radio-line"><span class="radio-speaker">A:</span> Soredewa, Daily Nihongo no jikan desu!</p>
+              <p class="radio-line"><span class="radio-speaker">B:</span> Kyou no kotoba wa... "Yasumi" (Istirahat)!</p>
+              <p class="radio-line"><span class="radio-speaker">A:</span> Waktunya santai sejenak dari pelajaran sekolah!</p>
+              <p class="radio-line"><span class="radio-speaker">A &amp; B:</span> Minna-san, issho ni oboemashou!</p>
+            </div>
+
+            <!-- 4. J-SONGFESS -->
+            <div class="radio-block">
+              <span class="radio-badge">🎵 4. Jsongfess</span>
+              <p class="radio-line"><span class="radio-speaker">B:</span> Sugi wa, songfess!</p>
+              <p class="radio-line"><span class="radio-speaker">A:</span> Daiichi no songfess wa Fujii Kaze - Matsuri!</p>
+              <p class="radio-line"><span class="radio-speaker">B:</span> Daini no songfess wa Official HIGE DANDism - Pretender!</p>
+            </div>
+
+            <!-- 5. CLOSING -->
+            <div class="radio-block">
+              <span class="radio-badge">🔒 5. Closing</span>
+              <p class="radio-line"><span class="radio-speaker">A:</span> Sate, kore de kyou no Nihon Go Rajio wa owari desu!</p>
+              <p class="radio-line"><span class="radio-speaker">B:</span> Arigatou gozaimasu, minna-san!</p>
+              <p class="radio-line"><span class="radio-speaker">A &amp; B:</span> Mata raishuu! 🌸</p>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- 2. TAGLINE -->
-      <div class="radio-block">
-        <span class="radio-badge">🌸 2. Tagline</span>
-        <p class="radio-line"><span class="radio-speaker">A &amp; B:</span> Mirai no Hana Nihongo Kurabu</p>
-        <p class="radio-line"><span class="radio-speaker">A &amp; B:</span> Kiso kara imio rekai dekirumade!</p>
-        <p class="radio-line radio-japanese">基礎から意味がわかるまで！</p>
+      <!-- SLIDER DOTS -->
+      <div class="njr-slider-dots" id="njrSliderDots">
+        <button type="button" class="njr-dot active" data-index="0" aria-label="Slide 1: Template Naskah Full"></button>
+        <button type="button" class="njr-dot" data-index="1" aria-label="Slide 2: Contoh Siaran 1"></button>
+        <button type="button" class="njr-dot" data-index="2" aria-label="Slide 3: Contoh Siaran 2"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- KETENTUAN SIARAN (DI LUAR SLIDER) -->
+  <section class="proker-section">
+    <p class="proker-section-subtitle">KETENTUAN SIARAN</p>
+    <h2 class="proker-section-title">Ketentuan Nihon Go Rajio</h2>
+    <p class="proker-copy">Aturan dan panduan resmi bagi seluruh announcer dan tim siaran Nihon Go Rajio:</p>
+
+    <div class="ketentuan-grid">
+      <!-- Kategori A -->
+      <div class="ketentuan-card">
+        <div class="ketentuan-card-header">
+          <span class="ketentuan-card-badge">🎙️ Kategori A</span>
+          <h3>Pembicara</h3>
+        </div>
+        <ol class="ketentuan-list">
+          <li>Pembicara minimal 1 orang dan maksimal 2 orang</li>
+          <li>Pembicara merupakan anggota Mirai no Hana yang masih aktif</li>
+          <li>Pembicara di perbolehkan di isi dengan lawan jenis ataupun sesama jenis</li>
+          <li>Pembicara di wajibkan untuk memakai seragam sesuai jadwal sekolah</li>
+        </ol>
       </div>
 
-      <!-- 3. DAILY NIHONGO -->
-      <div class="radio-block">
-        <span class="radio-badge">🎌 3. Daily Nihongo</span>
-        <p class="radio-line"><span class="radio-speaker">A:</span> Soredewa, Daily Nihongo no jikan desu!</p>
-        <p class="radio-line"><span class="radio-speaker">B:</span> Kyou no kotoba wa... [Kosakata Hari Ini]</p>
-        <p class="radio-line"><span class="radio-speaker">A:</span> [Penjelasan Arti &amp; Contoh Kalimat]</p>
-        <p class="radio-line"><span class="radio-speaker">B:</span> [Contoh Situasi Penggunaan]</p>
-        <p class="radio-line"><span class="radio-speaker">A &amp; B:</span> Minna-san, issho ni oboemashou!</p>
+      <!-- Kategori B -->
+      <div class="ketentuan-card">
+        <div class="ketentuan-card-header">
+          <span class="ketentuan-card-badge">📝 Kategori B</span>
+          <h3>Teks</h3>
+        </div>
+        <ol class="ketentuan-list">
+          <li>Teks mengikuti format dari template yg tersedia</li>
+          <li>kata kata dari teks nya boleh di rubah</li>
+          <li>apabila ada beberapa kendala di perbolehkan langsung ke songfess dan di akhiri closing</li>
+          <li>di perbolehkan menggunakan bahasa indonesia namun masih ada bahasa jepang nya di teks</li>
+        </ol>
       </div>
 
-      <!-- 4. SONG FESS -->
-      <div class="radio-block">
-        <span class="radio-badge">🎵 4. J-Songfess</span>
-        <p class="radio-line"><span class="radio-speaker">B:</span> Tsugi wa, songfess!</p>
-        <p class="radio-line"><span class="radio-speaker">A:</span> Daiichi no songfess wa... [Pesan &amp; Lagu Pertama]</p>
-        <p class="radio-line"><span class="radio-speaker">B:</span> Daini no songfess wa... [Pesan &amp; Lagu Kedua]</p>
+      <!-- Kategori C -->
+      <div class="ketentuan-card">
+        <div class="ketentuan-card-header">
+          <span class="ketentuan-card-badge">📸 Kategori C</span>
+          <h3>Dokumentasi</h3>
+        </div>
+        <ol class="ketentuan-list">
+          <li>Pendokumentasi merupakan anggota aktif MIrai no Hana</li>
+          <li>Mendokumentasikan dengan layar potrait</li>
+          <li>menampakan pembicara yang sedang berbicara di dalam dokumentasi</li>
+          <li>durasi dokumentasi minimal 5 detik maksimal 1 menit (lebih lama, lebih baik)</li>
+          <li>Sesudah mendokumentasi di wajibkan untuk langsung mengirimnya di grup Nihongo announcer</li>
+          <li>dokumentasi yg terbaik akan di upload di instagram Mirai no Hana dengan template yg sudah di sediakan</li>
+        </ol>
       </div>
 
-      <!-- 5. CLOSING -->
-      <div class="radio-block">
-        <span class="radio-badge">🔒 5. Closing</span>
-        <p class="radio-line"><span class="radio-speaker">A:</span> Sate, kore de kyou no Nihon Go Rajio wa owari desu!</p>
-        <p class="radio-line"><span class="radio-speaker">B:</span> Arigatou gozaimasu, minna-san!</p>
-        <p class="radio-line"><span class="radio-speaker">A:</span> Tsugi wa Songfess no jikan desu!</p>
-        <p class="radio-line"><span class="radio-speaker">A &amp; B:</span> Kiite kudasai!</p>
-        <p class="radio-line"><span class="radio-speaker">A &amp; B:</span> Mata raishuu! Ja ne~! 🌸</p>
+      <!-- Kategori D -->
+      <div class="ketentuan-card">
+        <div class="ketentuan-card-header">
+          <span class="ketentuan-card-badge">🎵 Kategori D</span>
+          <h3>Songfess</h3>
+        </div>
+        <ol class="ketentuan-list">
+          <li>Open request songfess akan di buka di hari sabtu di story instagram nya Mirai no Hana</li>
+          <li>songfess minimal 1 maksimal 2 (diperbolehkan 3 apabila langsung ke songfess dan waktu di anggap cukup)</li>
+          <li>songfess merupakan lagu yang memiliki unsur jepang dan tidak mengandung unsur negatif</li>
+          <li>songfess di check oleh pengurus mirai no hana dengan cara menanyakan lagu tersebut kepada AI</li>
+        </ol>
       </div>
     </div>
   </section>
@@ -206,6 +397,83 @@
 <button class="to-top" type="button">↑</button>
 <script src="js/main.js"></script>
 <script src="js/proker-slider.js"></script>
+<script>
+  (function() {
+    const track = document.getElementById('njrSliderTrack');
+    const prevBtn = document.getElementById('njrPrevBtn');
+    const nextBtn = document.getElementById('njrNextBtn');
+    const indicator = document.getElementById('njrSlideIndicator');
+    const dotsWrap = document.getElementById('njrSliderDots');
+    const dots = dotsWrap ? dotsWrap.querySelectorAll('.njr-dot') : [];
+    const slides = track ? track.querySelectorAll('.njr-slide') : [];
+
+    if (!track || slides.length === 0) return;
+
+    const titles = [
+      '1/3 · Template Naskah Full',
+      '2/3 · Contoh Siaran 1',
+      '3/3 · Contoh Siaran 2'
+    ];
+
+    let currentIndex = 0;
+
+    function updateNav(index) {
+      currentIndex = Math.max(0, Math.min(index, slides.length - 1));
+      if (indicator) {
+        indicator.textContent = titles[currentIndex] || `Slide ${currentIndex + 1} dari ${slides.length}`;
+      }
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentIndex);
+      });
+      if (prevBtn) prevBtn.disabled = (currentIndex === 0);
+      if (nextBtn) nextBtn.disabled = (currentIndex === slides.length - 1);
+    }
+
+    function scrollToSlide(index) {
+      if (index < 0 || index >= slides.length) return;
+      const targetSlide = slides[index];
+      track.scrollTo({
+        left: targetSlide.offsetLeft,
+        behavior: 'smooth'
+      });
+      updateNav(index);
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => scrollToSlide(currentIndex - 1));
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => scrollToSlide(currentIndex + 1));
+    }
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const idx = parseInt(dot.getAttribute('data-index'), 10);
+        if (!isNaN(idx)) scrollToSlide(idx);
+      });
+    });
+
+    let scrollDebounce;
+    track.addEventListener('scroll', () => {
+      clearTimeout(scrollDebounce);
+      scrollDebounce = setTimeout(() => {
+        const scrollLeft = track.scrollLeft;
+        let closestIndex = 0;
+        let minDiff = Infinity;
+        slides.forEach((slide, idx) => {
+          const diff = Math.abs(slide.offsetLeft - scrollLeft);
+          if (diff < minDiff) {
+            minDiff = diff;
+            closestIndex = idx;
+          }
+        });
+        updateNav(closestIndex);
+      }, 50);
+    }, { passive: true });
+
+    updateNav(0);
+  })();
+</script>
 </body>
 </html>
 
