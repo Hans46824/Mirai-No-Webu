@@ -113,6 +113,51 @@
       </a>
     </div>
   </section>
+
+  <!-- DOKUMENTASI KEGIATAN (SLIDER INDEPENDEN PORTRAIT & LANDSCAPE) -->
+  <section class="section kegiatan-section documentation-section">
+    <p class="kicker" style="text-align: center;">DOKUMENTASI</p>
+    <h2 class="section-title heading" style="text-align: center; margin-bottom: 20px;">DOKUMENTASI KEGIATAN</h2>
+    <p class="copy" style="text-align: center; max-width: 680px; margin: 0 auto 30px;">Kumpulan potret seru, hangat, dan berkesan dari berbagai kegiatan klub dalam baris galeri yang dapat digeser secara bebas.</p>
+
+    <!-- Slider Atas (Khusus Portrait) -->
+    <div class="dokumentasi-row">
+      <h3 style="font-size: 14px; opacity: 0.8; margin-bottom: 10px;">Potret Keseruan</h3>
+      <div class="slider-wrapper" style="position: relative;">
+        <button class="slide-btn prev-btn" type="button" aria-label="Sebelumnya">❮</button>
+        <div class="independent-slider portrait-slider">
+          <img src="images/mirai/stiker/kok.jpeg" alt="Potret Stiker Kok" class="indep-portrait">
+          <img src="images/mirai/stiker/sor.jpeg" alt="Potret Stiker Sor" class="indep-portrait">
+          <img src="images/mirai/stiker/kar.jpeg" alt="Potret Stiker Kar" class="indep-portrait">
+          <img src="images/mirai/stiker/mas.jpeg" alt="Potret Stiker Mas" class="indep-portrait">
+          <img src="images/mirai/stiker/dip.jpeg" alt="Potret Stiker Dip" class="indep-portrait">
+          <img src="images/mirai/stiker/woy.jpeg" alt="Potret Stiker Woy" class="indep-portrait">
+          <img src="images/mirai/stiker/ita.jpeg" alt="Potret Stiker Ita" class="indep-portrait">
+          <img src="images/mirai/stiker/bel.jpeg" alt="Potret Stiker Bel" class="indep-portrait">
+        </div>
+        <button class="slide-btn next-btn" type="button" aria-label="Berikutnya">❯</button>
+      </div>
+    </div>
+
+    <!-- Slider Bawah (Khusus Landscape) -->
+    <div class="dokumentasi-row" style="margin-top: 30px;">
+      <h3 style="font-size: 14px; opacity: 0.8; margin-bottom: 10px;">Momen Bersama</h3>
+      <div class="slider-wrapper" style="position: relative;">
+        <button class="slide-btn prev-btn" type="button" aria-label="Sebelumnya">❮</button>
+        <div class="independent-slider landscape-slider">
+          <img src="images/mirai/stiker/ber.jpeg" alt="Momen Stiker Ber" class="indep-landscape">
+          <img src="images/mirai/stiker/jaw.jpeg" alt="Momen Stiker Jaw" class="indep-landscape">
+          <img src="images/mirai/stiker/log.jpeg" alt="Momen Stiker Log" class="indep-landscape">
+          <img src="images/mirai/stiker/haori-depan.png" alt="Momen Haori Depan" class="indep-landscape">
+          <img src="images/mirai/stiker/haori-belakang.png" alt="Momen Haori Belakang" class="indep-landscape">
+          <img src="images/mirai/stiker/kok.jpeg" alt="Momen Stiker Kok" class="indep-landscape">
+          <img src="images/mirai/stiker/mas.jpeg" alt="Momen Stiker Mas" class="indep-landscape">
+          <img src="images/mirai/stiker/sor.jpeg" alt="Momen Stiker Sor" class="indep-landscape">
+        </div>
+        <button class="slide-btn next-btn" type="button" aria-label="Berikutnya">❯</button>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer class="footer">
@@ -122,5 +167,60 @@
 
 <button class="to-top" type="button">↑</button>
 <script src="js/main.js"></script>
+<script>
+  (function() {
+    const wrappers = document.querySelectorAll('.slider-wrapper');
+
+    wrappers.forEach((wrapper) => {
+      const slider = wrapper.querySelector('.independent-slider');
+      const prevBtn = wrapper.querySelector('.prev-btn');
+      const nextBtn = wrapper.querySelector('.next-btn');
+
+      if (!slider) return;
+
+      // Event Click Next
+      if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+          slider.scrollBy({ left: 250, behavior: 'smooth' });
+        });
+      }
+
+      // Event Click Prev
+      if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+          slider.scrollBy({ left: -250, behavior: 'smooth' });
+        });
+      }
+
+      // Auto-Slide Interval (setiap 3000ms / 3 detik)
+      let timer = null;
+      function startAutoSlide() {
+        stopAutoSlide();
+        timer = setInterval(() => {
+          if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 10) {
+            slider.scrollTo({ left: 0, behavior: 'smooth' });
+          } else {
+            slider.scrollBy({ left: 250, behavior: 'smooth' });
+          }
+        }, 3000);
+      }
+
+      function stopAutoSlide() {
+        if (timer) {
+          clearInterval(timer);
+          timer = null;
+        }
+      }
+
+      startAutoSlide();
+
+      // Hentikan sementara saat di-hover atau disentuh agar interaksi user nyaman
+      wrapper.addEventListener('mouseenter', stopAutoSlide);
+      wrapper.addEventListener('mouseleave', startAutoSlide);
+      wrapper.addEventListener('touchstart', stopAutoSlide, { passive: true });
+      wrapper.addEventListener('touchend', startAutoSlide, { passive: true });
+    });
+  })();
+</script>
 </body>
 </html>

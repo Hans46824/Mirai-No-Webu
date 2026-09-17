@@ -5860,3 +5860,103 @@ body.theme-dark .menu-toggle {
         aspect-ratio: 3 / 4;
     }
 }
+
+/* Slider Dokumentasi Independen (Portrait & Landscape) */
+.dokumentasi-row {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+.slider-wrapper {
+    position: relative;
+}
+
+.independent-slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: 15px;
+    padding-bottom: 10px;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+    -webkit-overflow-scrolling: touch;
+}
+
+.independent-slider::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+.slide-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s, transform 0.2s;
+    user-select: none;
+}
+
+.slide-btn:hover {
+    background: #e91e63; /* Warna pink tema web */
+}
+
+.slide-btn:active {
+    transform: translateY(-50%) scale(0.92);
+}
+
+.prev-btn {
+    left: -5px;
+}
+
+.next-btn {
+    right: -5px;
+}
+
+.independent-slider img {
+    scroll-snap-align: start; /* Supaya gesernya pas di pinggir foto */
+    object-fit: cover;
+    border-radius: 15px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.indep-portrait {
+    width: 45%; /* Di mobile akan muat ~2 foto di layar */
+    aspect-ratio: 3 / 4;
+    max-width: 200px;
+}
+
+.indep-landscape {
+    width: 85%; /* Di mobile akan muat 1 foto menyisakan sedikit foto sebelahnya */
+    aspect-ratio: 16 / 9;
+    max-width: 400px;
+}
+
+@media (max-width: 600px) {
+    .independent-slider {
+        gap: 12px;
+    }
+    .independent-slider img {
+        border-radius: 12px;
+    }
+    .prev-btn {
+        left: 2px;
+    }
+    .next-btn {
+        right: 2px;
+    }
+}
+
+
