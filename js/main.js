@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setupReveal();
     setupInstagramFeedback();
     setupLearningPanel();
+    setupManagementSlider();
     window.initKanjiDictionary?.();
     window.initSora?.();
 });
@@ -268,4 +269,69 @@ function appendMessage(container, text, author) {
     container.appendChild(message);
     container.scrollTop = container.scrollHeight;
     return message;
+}
+
+function setupManagementSlider() {
+    const track = document.getElementById("mgmtSliderTrack");
+    if (!track) return;
+
+    const slides = track.querySelectorAll(".mgmt-slide");
+    const tabs = document.querySelectorAll(".mgmt-tab-btn");
+    const prevBtn = document.getElementById("mgmtPrevBtn");
+    const nextBtn = document.getElementById("mgmtNextBtn");
+    const indicator = document.getElementById("mgmtPageIndicator");
+    const totalSlides = slides.length;
+    let currentIndex = 0;
+
+    function updateState(index) {
+        currentIndex = Math.max(0, Math.min(index, totalSlides - 1));
+        tabs.forEach((tab, i) => {
+            tab.classList.toggle("active", i === currentIndex);
+            tab.setAttribute("aria-selected", String(i === currentIndex));
+        });
+        if (indicator) {
+            indicator.textContent = `${currentIndex + 1} / ${totalSlides}`;
+        }
+        if (prevBtn) prevBtn.style.opacity = currentIndex === 0 ? "0.45" : "1";
+        if (nextBtn) nextBtn.style.opacity = currentIndex === totalSlides - 1 ? "0.45" : "1";
+    }
+
+    function scrollToSlide(index) {
+        currentIndex = Math.max(0, Math.min(index, totalSlides - 1));
+        const slideWidth = track.clientWidth;
+        track.scrollTo({
+            left: currentIndex * slideWidth,
+            behavior: "smooth"
+        });
+        updateState(currentIndex);
+    }
+
+    tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+            const targetIndex = parseInt(tab.dataset.mgmtTarget, 10) || 0;
+            scrollToSlide(targetIndex);
+        });
+    });
+
+    prevBtn?.addEventListener("click", () => {
+        scrollToSlide(currentIndex - 1);
+    });
+
+    nextBtn?.addEventListener("click", () => {
+        scrollToSlide(currentIndex + 1);
+    });
+
+    let scrollTimeout;
+    track.addEventListener("scroll", () => {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            const slideWidth = track.clientWidth || 1;
+            const newIndex = Math.round(track.scrollLeft / slideWidth);
+            if (newIndex !== currentIndex) {
+                updateState(newIndex);
+            }
+        }, 60);
+    }, { passive: true });
+
+    updateState(0);
 }
