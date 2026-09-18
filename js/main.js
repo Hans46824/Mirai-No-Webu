@@ -13,38 +13,13 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function setupThemeToggle() {
-    const storageKey = "mirai-no-hana-theme";
-    const savedTheme = localStorage.getItem(storageKey);
-    const prefersDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
-    const useDarkTheme = savedTheme ? savedTheme === "dark" : prefersDark;
-    const header = document.querySelector(".nav");
-
-    document.body.classList.toggle("theme-dark", useDarkTheme);
-    document.body.classList.toggle("dark-mode", useDarkTheme);
-    if (!header) return;
-
-    const button = document.createElement("button");
-    button.className = "theme-toggle";
-    button.type = "button";
-    button.setAttribute("aria-pressed", String(useDarkTheme));
-
-    function updateLabel(isDark) {
-        button.innerHTML = isDark
-            ? '<span aria-hidden="true">☀</span> <span class="theme-text">MODE TERANG</span>'
-            : '<span aria-hidden="true">☾</span> <span class="theme-text">MODE MALAM</span>';
-        button.setAttribute("aria-label", isDark ? "Aktifkan mode terang" : "Aktifkan mode malam");
-    }
-
-    updateLabel(useDarkTheme);
-    button.addEventListener("click", () => {
-        const isDark = !document.body.classList.contains("theme-dark");
-        document.body.classList.toggle("theme-dark", isDark);
-        document.body.classList.toggle("dark-mode", isDark);
-        localStorage.setItem(storageKey, isDark ? "dark" : "light");
-        button.setAttribute("aria-pressed", String(isDark));
-        updateLabel(isDark);
-    });
-    header.appendChild(button);
+    // Website dikunci 100% pada Light Mode
+    try {
+        localStorage.removeItem("mirai-no-hana-theme");
+    } catch (e) {}
+    document.body.classList.remove("theme-dark", "dark-mode");
+    const toggle = document.querySelector(".theme-toggle, .dark-mode-toggle");
+    if (toggle) toggle.remove();
 }
 
 function setupLearningPanel() {
@@ -117,7 +92,8 @@ function setupSidebarNav() {
     const sidebarNav = document.querySelector(".sidebar-nav");
     const sidebarOverlay = document.querySelector(".sidebar-overlay");
 
-    if (menuBtn && sidebarNav) {
+    if (menuBtn && sidebarNav && !menuBtn.dataset.sidebarInit) {
+        menuBtn.dataset.sidebarInit = "true";
         menuBtn.addEventListener("click", () => {
             sidebarNav.classList.add("active");
             if (sidebarOverlay) sidebarOverlay.classList.add("active");

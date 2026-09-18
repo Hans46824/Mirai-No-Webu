@@ -89,7 +89,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const sidebarNav = document.querySelector(".sidebar-nav");
     const sidebarOverlay = document.querySelector(".sidebar-overlay");
 
-    if (menuBtn && sidebarNav) {
+    if (menuBtn && sidebarNav && !menuBtn.dataset.sidebarInit) {
+        menuBtn.dataset.sidebarInit = "true";
         menuBtn.addEventListener("click", () => {
             sidebarNav.classList.add("active");
             if (sidebarOverlay) sidebarOverlay.classList.add("active");
@@ -112,6 +113,14 @@ document.addEventListener("DOMContentLoaded", () => {
             if (menuBtn) menuBtn.setAttribute("aria-expanded", "false");
         });
     }
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && sidebarNav && sidebarNav.classList.contains("active")) {
+            sidebarNav.classList.remove("active");
+            if (sidebarOverlay) sidebarOverlay.classList.remove("active");
+            if (menuBtn) menuBtn.setAttribute("aria-expanded", "false");
+        }
+    });
 });
 
 const rows = [

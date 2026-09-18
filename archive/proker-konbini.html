@@ -4,24 +4,49 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Mirai no Konbini — MIRAI NO HANA</title>
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="../style.css?v=4">
 </head>
 <body>
-<header class="nav"><a class="brand" href="index.html"><img src="images/mirai/logo/MNH1-nav.png" alt="MIRAI NO HANA"></a><button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false">MENU</button><nav class="links" data-nav-menu><a href="index.html">BERANDA</a><a href="kelas.html">KELAS</a><a href="kamus.html">KAMUS</a><a class="active" href="kegiatan.html">KEGIATAN</a><a href="tentang.html">TENTANG</a></nav></header>
+    <header class="home-header">
+        <a class="brand" href="../index.html">
+            <img src="../images/mirai/logo/MNH1-nav.png" alt="MIRAI NO HANA">
+        </a>
+        <button class="menu-btn" type="button" aria-label="Buka Menu" aria-expanded="false">MENU ☰</button>
+    </header>
+
+    <div class="sidebar-overlay" aria-hidden="true"></div>
+    <aside class="sidebar-nav" aria-label="Menu Navigasi">
+        <div class="sidebar-header">
+            <span class="sidebar-label">MENU</span>
+            <button class="close-btn" type="button" aria-label="Tutup Menu">✕</button>
+        </div>
+        <nav class="sidebar-links">
+            <a href="../index.html">BERANDA</a>
+            <a href="../kelas.html">KELAS</a>
+            <a href="../kamus.html">KAMUS</a>
+            <a class="active" href="../kegiatan.html">KEGIATAN</a>
+            <a href="../tentang.html">TENTANG</a>
+        </nav>
+        <div class="sidebar-footer">
+            <img class="sidebar-footer-logo" src="../images/mirai/logo/MNH1-nav.png" alt="MIRAI NO HANA">
+            <p class="sidebar-footer-desc">Ekstrakurikuler Bahasa dan Budaya Jepang (Nihongo Kurabu) di SMASYIMDUTA Sidoarjo.</p>
+            <div class="sidebar-footer-social">
+                <a class="sidebar-social-link" href="https://www.instagram.com/mirainohana_smawh2?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" aria-label="Instagram Mirai No Hana">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    <span>@mirainohana_smawh2</span>
+                </a>
+            </div>
+        </div>
+    </aside>
 
 <main>
   <!-- HERO -->
   <section class="proker-hero">
     <div class="proker-back-wrap">
-      <a class="proker-back" href="kegiatan.html">← Kembali ke Kegiatan</a>
-    </div>
-    <div class="proker-hero-deco" aria-hidden="true">
-      <img src="images/mirai/icon/Ki.png" alt="">
-      <img src="images/mirai/icon/Fa.png" alt="">
-      <img src="images/mirai/icon/Lo.png" alt="">
+      <a class="proker-back" href=\"../kegiatan.html">← Kembali ke Kegiatan</a>
     </div>
     <div class="proker-hero-inner">
-      <img class="proker-hero-logo" src="images/mirai/logo/Mirainokonbini.png" alt="Logo Mirai no Konbini">
+      <img class="proker-hero-logo" src="../images/mirai/logo/Mirainokonbini.png" alt="Logo Mirai no Konbini">
       <p class="eyebrow">02 / PROGRAM KERJA</p>
       <h1>Mirai no<br><span>Konbini</span></h1>
       <p>Proyek kewirausahaan kreatif bernuansa Jepang — belajar berjualan, berkreasi, dan membangun pengalaman nyata.</p>
@@ -110,23 +135,23 @@
       <div class="doc-slider-wrap">
         <div class="doc-slider-track" data-slider-track>
           <div class="doc-slide" data-slide>
-            <img src="images/mirai/icon/Ki.png" alt="Dokumentasi 1">
+            <img src="../images/mirai/icon/Ki.png" alt="Dokumentasi 1">
             <div class="slide-caption">Persiapan produk dan kemasan Konbini</div>
           </div>
           <div class="doc-slide" data-slide>
-            <img src="images/mirai/icon/Fa.png" alt="Dokumentasi 2">
+            <img src="../images/mirai/icon/Fa.png" alt="Dokumentasi 2">
             <div class="slide-caption">Booth Mirai no Konbini saat hari buka</div>
           </div>
           <div class="doc-slide" data-slide>
-            <img src="images/mirai/icon/Lo.png" alt="Dokumentasi 3">
+            <img src="../images/mirai/icon/Lo.png" alt="Dokumentasi 3">
             <div class="slide-caption">Anggota melayani pembeli dengan ramah</div>
           </div>
           <div class="doc-slide" data-slide>
-            <img src="images/mirai/icon/Fu.png" alt="Dokumentasi 4">
+            <img src="../images/mirai/icon/Fu.png" alt="Dokumentasi 4">
             <div class="slide-caption">Produk-produk pilihan Mirai no Konbini</div>
           </div>
           <div class="doc-slide" data-slide>
-            <img src="images/mirai/icon/Ay.png" alt="Dokumentasi 5">
+            <img src="../images/mirai/icon/Ay.png" alt="Dokumentasi 5">
             <div class="slide-caption">Sesi foto tim Konbini</div>
           </div>
         </div>
@@ -140,13 +165,29 @@
   </section>
 </main>
 
-<footer class="footer">
-  <a href="kegiatan.html">← KEGIATAN</a>
-  <a href="tentang.html">TENTANG →</a>
+<footer class="global-footer">
+    <div class="global-footer-main">
+        <div class="global-footer-col left">
+            <img class="global-footer-logo" src="../images/mirai/logo/MNH1-nav.png" alt="MIRAI NO HANA">
+            <p class="global-footer-disclaimer">
+                Website Materi Klub/Ekstrakurikuler Jepang &quot;MIRAI NO HANA&quot; SMASYIMDUTA Sidoarjo. *Website ini dikelola oleh kepengurusan Klub/Ekstrakurikuler Jepang &quot;MIRAI NO HANA&quot; dan tidak ada campur tangan oleh pihak sekolah.
+            </p>
+        </div>
+        <div class="global-footer-col right">
+            <h4 class="global-footer-heading">Sosial Media</h4>
+            <a class="global-footer-social" href="https://www.instagram.com/mirainohana_smawh2?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" aria-label="Instagram Mirai No Hana">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                <span>@mirainohana_smawh2</span>
+            </a>
+        </div>
+    </div>
+    <div class="global-footer-bottom">
+        <p>© 2026 MIRAI NO HANA | Angkatan 8 (Aqmar) | Ditenagai oleh Github</p>
+    </div>
 </footer>
 <button class="to-top" type="button">↑</button>
-<script src="js/main.js"></script>
-<script src="js/proker-slider.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/proker-slider.js"></script>
 </body>
 </html>
 
