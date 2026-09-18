@@ -19,45 +19,56 @@
     </div>
   </section>
 
-  <!-- DIVISI SECTION — COMING SOON OVERLAY -->
-  <section class="section division-section">
+  <!-- DIVISI SECTION -->
+  <section class="section division-section" id="divisi">
     <p class="kicker">DIVISI MIRAI NO HANA</p>
     <h2 class="heading">Belajar, berkarya,<br><span>dan membuat cerita.</span></h2>
     <p class="copy">Kegiatan adalah ruang untuk menerapkan rasa ingin tahu di luar materi kelas dan membangun klub bersama-sama.</p>
 
-    <div class="division-coming-soon-wrap">
-      <!-- Blurred grid -->
-      <div class="division-grid" aria-hidden="true">
+    <div class="division-grid">
+      <!-- 01 Divisi Bahasa -->
+      <a class="division-card-link" href="divisi-bahasa.html">
         <article class="division-card">
-          <img src="images/mirai/logo/MNH.png" alt="Logo MIRAI NO HANA">
+          <img src="images/mirai/logo/comingsoon.jpg" alt="Logo Divisi Bahasa">
           <p class="card-number">01 / DIVISI</p>
           <h3>Divisi Bahasa</h3>
-          <p>Mengembangkan kegiatan pembelajaran bahasa Jepang dan membantu anggota belajar bersama.</p>
+          <p>Membina pembelajaran bahasa Jepang, pemahaman huruf kana, kanji, tata bahasa, dan simulasi kaiwa interaktif.</p>
+          <span class="card-btn">Lihat Profil Divisi →</span>
         </article>
+      </a>
+
+      <!-- 02 Divisi Cosplay -->
+      <a class="division-card-link" href="divisi-cosplay.html">
         <article class="division-card">
-          <img src="images/mirai/logo/MNH.png" alt="Logo MIRAI NO HANA">
+          <img src="images/mirai/logo/comingsoon.jpg" alt="Logo Divisi Cosplay">
           <p class="card-number">02 / DIVISI</p>
-          <h3>Divisi Desain</h3>
-          <p>Mengembangkan identitas visual, desain publikasi, dan kebutuhan kreatif organisasi.</p>
+          <h3>Divisi Cosplay</h3>
+          <p>Mewadahi ekspresi seni peran karakter anime/manga, workshop makeup, wig styling, dan kreasi properti panggung.</p>
+          <span class="card-btn">Lihat Profil Divisi →</span>
         </article>
+      </a>
+
+      <!-- 03 Divisi Desain -->
+      <a class="division-card-link" href="divisi-desain.html">
         <article class="division-card">
-          <img src="images/mirai/logo/MNH.png" alt="Logo MIRAI NO HANA">
+          <img src="images/mirai/logo/comingsoon.jpg" alt="Logo Divisi Desain">
           <p class="card-number">03 / DIVISI</p>
-          <h3>Divisi Kewirausahaan</h3>
-          <p>Mengembangkan project usaha dan kegiatan yang mendukung kreativitas serta kemandirian klub.</p>
+          <h3>Divisi Desain</h3>
+          <p>Mengembangkan identitas visual, grafis media sosial, ilustrasi maskot Sora, serta desain merchandise resmi klub.</p>
+          <span class="card-btn">Lihat Profil Divisi →</span>
         </article>
+      </a>
+
+      <!-- 04 Divisi KWU -->
+      <a class="division-card-link" href="divisi-kewirausahaan.html">
         <article class="division-card">
-          <img src="images/mirai/logo/MNH.png" alt="Logo MIRAI NO HANA">
+          <img src="images/mirai/logo/comingsoon.jpg" alt="Logo Divisi KWU">
           <p class="card-number">04 / DIVISI</p>
-          <h3>Divisi Acara</h3>
-          <p>Mengatur kegiatan, event, dan momen kebersamaan anggota.</p>
+          <h3>Divisi KWU</h3>
+          <p>Mengembangkan kemandirian finansial klub lewat stan kuliner Mirai no Konbini dan proyek bisnis kreatif saat festival.</p>
+          <span class="card-btn">Lihat Profil Divisi →</span>
         </article>
-      </div>
-      <!-- Overlay -->
-      <div class="division-cs-overlay" role="status" aria-label="Divisi belum tersedia">
-        <span class="cs-label">SEGERA HADIR</span>
-        <span class="cs-sub">Divisi sedang dalam pembentukan — pantau terus!</span>
-      </div>
+      </a>
     </div>
   </section>
 
@@ -167,60 +178,6 @@
 
 <button class="to-top" type="button">↑</button>
 <script src="js/main.js"></script>
-<script>
-  (function() {
-    const wrappers = document.querySelectorAll('.slider-wrapper');
-
-    wrappers.forEach((wrapper) => {
-      const slider = wrapper.querySelector('.independent-slider');
-      const prevBtn = wrapper.querySelector('.prev-btn');
-      const nextBtn = wrapper.querySelector('.next-btn');
-
-      if (!slider) return;
-
-      // Event Click Next
-      if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-          slider.scrollBy({ left: 250, behavior: 'smooth' });
-        });
-      }
-
-      // Event Click Prev
-      if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-          slider.scrollBy({ left: -250, behavior: 'smooth' });
-        });
-      }
-
-      // Auto-Slide Interval (setiap 3000ms / 3 detik)
-      let timer = null;
-      function startAutoSlide() {
-        stopAutoSlide();
-        timer = setInterval(() => {
-          if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 10) {
-            slider.scrollTo({ left: 0, behavior: 'smooth' });
-          } else {
-            slider.scrollBy({ left: 250, behavior: 'smooth' });
-          }
-        }, 3000);
-      }
-
-      function stopAutoSlide() {
-        if (timer) {
-          clearInterval(timer);
-          timer = null;
-        }
-      }
-
-      startAutoSlide();
-
-      // Hentikan sementara saat di-hover atau disentuh agar interaksi user nyaman
-      wrapper.addEventListener('mouseenter', stopAutoSlide);
-      wrapper.addEventListener('mouseleave', startAutoSlide);
-      wrapper.addEventListener('touchstart', stopAutoSlide, { passive: true });
-      wrapper.addEventListener('touchend', startAutoSlide, { passive: true });
-    });
-  })();
-</script>
+<script src="js/proker-slider.js"></script>
 </body>
 </html>

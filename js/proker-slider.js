@@ -1,65 +1,64 @@
-// Shared Documentation Slider
-// Usage: call initDocSlider() after DOM is ready
-function initDocSlider() {
-    const wraps = document.querySelectorAll('[data-doc-slider]');
-    wraps.forEach((wrap) => {
-        const track = wrap.querySelector('[data-slider-track]');
-        const slides = wrap.querySelectorAll('[data-slide]');
-        const prev = wrap.querySelector('[data-slider-prev]');
-        const next = wrap.querySelector('[data-slider-next]');
-        const dotsWrap = wrap.querySelector('[data-slider-dots]');
-        if (!track || slides.length === 0) return;
+// Shared Independent Documentation Slider (Portrait & Landscape)
+// Used in kegiatan.html and all proker pages (ktn.html, njr.html, konbini.html, ramadhan.html)
+function initIndependentSliders() {
+  const wrappers = document.querySelectorAll('.slider-wrapper');
 
-        let current = 0;
-        let autoTimer = null;
-        const total = slides.length;
+  wrappers.forEach((wrapper) => {
+    if (wrapper.dataset.sliderInitialized) return;
+    wrapper.dataset.sliderInitialized = 'true';
 
-        // Build dots
-        if (dotsWrap) {
-            slides.forEach((_, i) => {
-                const dot = document.createElement('button');
-                dot.className = 'doc-dot' + (i === 0 ? ' is-active' : '');
-                dot.type = 'button';
-                dot.setAttribute('aria-label', `Slide ${i + 1}`);
-                dot.addEventListener('click', () => goTo(i));
-                dotsWrap.appendChild(dot);
-            });
+    const slider = wrapper.querySelector('.independent-slider');
+    const prevBtn = wrapper.querySelector('.prev-btn');
+    const nextBtn = wrapper.querySelector('.next-btn');
+
+    if (!slider) return;
+
+    // Event Click Next
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        slider.scrollBy({ left: 250, behavior: 'smooth' });
+      });
+    }
+
+    // Event Click Prev
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        slider.scrollBy({ left: -250, behavior: 'smooth' });
+      });
+    }
+
+    // Auto-Slide Interval (setiap 3000ms / 3 detik)
+    let timer = null;
+    function startAutoSlide() {
+      stopAutoSlide();
+      timer = setInterval(() => {
+        if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 10) {
+          slider.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          slider.scrollBy({ left: 250, behavior: 'smooth' });
         }
+      }, 3000);
+    }
 
-        function getDots() { return dotsWrap ? dotsWrap.querySelectorAll('.doc-dot') : []; }
+    function stopAutoSlide() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+    }
 
-        function goTo(index) {
-            current = (index + total) % total;
-            track.style.transform = `translateX(-${current * 100}%)`;
-            getDots().forEach((d, i) => d.classList.toggle('is-active', i === current));
-        }
+    startAutoSlide();
 
-        function startAuto() {
-            clearInterval(autoTimer);
-            autoTimer = setInterval(() => goTo(current + 1), 3500);
-        }
-
-        function stopAuto() { clearInterval(autoTimer); }
-
-        prev?.addEventListener('click', () => { stopAuto(); goTo(current - 1); startAuto(); });
-        next?.addEventListener('click', () => { stopAuto(); goTo(current + 1); startAuto(); });
-
-        // Pause on hover
-        wrap.addEventListener('mouseenter', stopAuto);
-        wrap.addEventListener('mouseleave', startAuto);
-
-        // Touch swipe
-        let touchStartX = 0;
-        wrap.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
-        wrap.addEventListener('touchend', (e) => {
-            const diff = touchStartX - e.changedTouches[0].clientX;
-            if (Math.abs(diff) > 40) { stopAuto(); goTo(current + (diff > 0 ? 1 : -1)); startAuto(); }
-        });
-
-        goTo(0);
-        startAuto();
-    });
+    // Hentikan sementara saat di-hover atau disentuh agar interaksi user nyaman
+    wrapper.addEventListener('mouseenter', stopAutoSlide);
+    wrapper.addEventListener('mouseleave', startAutoSlide);
+    wrapper.addEventListener('touchstart', stopAutoSlide, { passive: true });
+    wrapper.addEventListener('touchend', startAutoSlide, { passive: true });
+  });
 }
 
-document.addEventListener('DOMContentLoaded', initDocSlider);
-
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initIndependentSliders);
+} else {
+  initIndependentSliders();
+}

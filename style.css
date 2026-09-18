@@ -1937,7 +1937,18 @@ body.theme-dark .kana-search input { color:#fff8fb !important; background:#30243
 .hero-badge { width:min(245px,47vw); padding:9px; background:rgba(255,255,255,.92); border:2px solid rgba(255,210,227,.9); border-radius:50%; box-shadow:0 0 0 9px rgba(255,255,255,.17),0 14px 30px rgba(0,0,0,.16); }
 @media(max-width:850px){.journey-sticker{width:100px;right:3vw;top:28px}.start-card h3,.start-card p{max-width:68%}.course-card{grid-template-columns:100px 1fr}.course-sticker{width:82px}}@media(max-width:580px){.journey-sticker{display:none}.start-card{min-height:210px}.start-card h3,.start-card p{max-width:68%}.course-card{grid-template-columns:1fr}.course-sticker{right:10px;left:auto;bottom:10px;width:82px}.course-kana{width:fit-content}.soft-section::before{right:3vw}.hero-badge{width:180px}}
 @media(max-width:620px){.class-submenu{position:static; min-width:0; margin:3px 0 5px; background:rgba(255,255,255,.07); border-color:rgba(255,255,255,.18); box-shadow:none}.class-submenu a{color:#fff}.class-submenu a:hover{background:rgba(255,255,255,.1)}.class-submenu small{color:var(--pink3)}}
-.division-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:42px; }.division-card { min-height:310px; padding:23px; background:#fff; border:1px solid var(--pink-border); box-shadow:0 8px 24px rgba(72,32,52,.05); transition:.25s ease; }.division-card:hover { transform:translateY(-6px); border-color:var(--pink); box-shadow:0 18px 30px rgba(233,30,99,.13); }.division-card img { width:74px; height:74px; margin-bottom:26px; object-fit:contain; border:1px solid var(--pink-light); border-radius:50%; }.division-card h3 { margin:0 0 9px; font-size:22px; }.division-card p:not(.card-number) { margin:0; color:var(--muted); font-size:14px; line-height:1.7; } @media(max-width:850px){.division-grid{grid-template-columns:repeat(2,1fr)}} @media(max-width:580px){.division-grid{grid-template-columns:1fr}.division-card{min-height:0}}
+.division-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:42px; }
+.division-card-link { text-decoration:none; color:inherit; display:flex; flex-direction:column; height:100%; }
+.division-card { display:flex; flex-direction:column; height:100%; min-height:310px; padding:23px; background:#fff; border:1px solid var(--pink-border); box-shadow:0 8px 24px rgba(72,32,52,.05); transition:.25s ease; box-sizing:border-box; }
+.division-card-link:hover .division-card, .division-card:hover { transform:translateY(-6px); border-color:var(--pink); box-shadow:0 18px 30px rgba(233,30,99,.13); }
+.division-card img { width:74px; height:74px; margin-bottom:26px; object-fit:cover; border:1px solid var(--pink-light); border-radius:50%; background:#fff; }
+.division-card h3 { margin:0 0 9px; font-size:22px; }
+.division-card p:not(.card-number) { margin:0; color:var(--muted); font-size:14px; line-height:1.7; }
+.division-card .card-btn { margin-top:auto; padding-top:16px; font-size:13px; font-weight:700; color:var(--pink); display:inline-flex; align-items:center; gap:6px; transition:transform .2s ease; white-space:nowrap; }
+.division-card-link:hover .card-btn, .division-card:hover .card-btn { transform:translateX(4px); }
+@media(max-width:850px){.division-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:580px){.division-grid{grid-template-columns:1fr}.division-card{min-height:0}}
+
 .chat-message.is-loading { color:var(--muted); font-style:italic; }.chat-message.is-error { color:#b0003a; background:#fff0f4; border:1px solid #f3b6ca; }
 
 .class-nav { display:flex; align-self:center; align-items:center; }
@@ -2817,6 +2828,7 @@ body.theme-dark .course-card:hover,
 body.theme-dark .level-card:hover,
 body.theme-dark .mode-card:hover,
 body.theme-dark .material-card:hover,
+body.theme-dark .division-card:hover,
 body.theme-dark .program-card:hover,
 body.theme-dark .curriculum-cards a:hover,
 body.theme-dark .member:hover,
@@ -3993,48 +4005,8 @@ body.theme-dark .kana-empty-state {
 }
 
 /* =====================================================
-   KEGIATAN PAGE – DIVISI COMING SOON OVERLAY
+   KEGIATAN PAGE – DIVISI SECTION
    ===================================================== */
-.division-coming-soon-wrap {
-    position: relative;
-}
-.division-coming-soon-wrap .division-grid {
-    filter: blur(5px);
-    user-select: none;
-    pointer-events: none;
-}
-.division-cs-overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 5;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    background: rgba(255, 255, 255, 0.35);
-    backdrop-filter: blur(2px);
-    border-radius: 12px;
-}
-.division-cs-overlay .cs-label {
-    font-size: clamp(28px, 5vw, 56px);
-    font-weight: 900;
-    letter-spacing: 0.18em;
-    color: var(--pink);
-    text-shadow: 0 2px 16px rgba(233,30,99,.25);
-}
-.division-cs-overlay .cs-sub {
-    font-size: 14px;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    font-weight: 600;
-}
-body.theme-dark .division-cs-overlay {
-    background: rgba(24,21,27,0.45);
-}
-body.theme-dark .division-cs-overlay .cs-sub {
-    color: #d7ccd2;
-}
 
 /* Program card as clickable link */
 .program-card-link {
@@ -4305,46 +4277,6 @@ body.theme-dark .division-section {
     background: #231d27 !important;
 }
 
-.division-coming-soon-wrap {
-    position: relative;
-}
-.division-coming-soon-wrap .division-grid {
-    filter: blur(5px);
-    user-select: none;
-    pointer-events: none;
-}
-.division-cs-overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 5;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    background: rgba(255, 255, 255, 0.38);
-    backdrop-filter: blur(2px);
-    border-radius: 12px;
-}
-.division-cs-overlay .cs-label {
-    font-size: clamp(28px, 5vw, 56px);
-    font-weight: 900;
-    letter-spacing: 0.18em;
-    color: var(--pink);
-    text-shadow: 0 2px 16px rgba(233, 30, 99, 0.25);
-}
-.division-cs-overlay .cs-sub {
-    font-size: 14px;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    font-weight: 600;
-}
-body.theme-dark .division-cs-overlay {
-    background: rgba(24, 21, 27, 0.45);
-}
-body.theme-dark .division-cs-overlay .cs-sub {
-    color: #d7ccd2;
-}
 
 /* PROGRAM KERJA SECTION - CRISP DARK CONTRAST (NOT BLURRED / FADED) */
 .program-section {
