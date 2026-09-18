@@ -120,18 +120,36 @@
         #launcher:hover {
             background-color: var(--pink-hover);
             transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 8px 22px rgba(255, 107, 158, 0.5);
+            box-shadow: 0 0 16px rgba(255, 46, 131, 0.85), 0 0 32px rgba(255, 79, 145, 0.55), 0 0 52px rgba(255, 105, 180, 0.35);
+            border-color: #ff4f91;
+            animation: pinkRayGlow 1.8s infinite ease-in-out;
+        }
+
+        .btn-sora-avatar {
+            width: 30px;
+            height: 30px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 1.5px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+            transition: transform 0.25s ease;
+        }
+
+        #launcher:hover .btn-sora-avatar {
+            transform: scale(1.12) rotate(4deg);
         }
 
         #launcher:active {
             transform: translateY(0) scale(0.98);
+            box-shadow: 0 0 25px rgba(255, 46, 131, 1), 0 0 50px rgba(255, 79, 145, 0.9), 0 0 80px rgba(255, 105, 180, 0.6);
+            border-color: #ff2e83;
         }
 
         #launcher.hidden {
             display: none !important;
         }
 
-        /* Drawer Chatbot (WhatsApp Style Minimal) */
+        /* Drawer Chatbot (Dark Mode Modern) */
         #drawer {
             position: fixed;
             bottom: 20px;
@@ -141,9 +159,9 @@
             max-width: calc(100vw - 24px);
             height: 480px;
             max-height: calc(100vh - 36px);
-            background-color: #ffffff;
+            background-color: #121319;
             border-radius: 16px;
-            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18), 0 2px 8px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.65), 0 2px 10px rgba(0, 0, 0, 0.35);
             display: flex;
             flex-direction: column;
             transform: translateY(120%) scale(0.96);
@@ -151,7 +169,7 @@
             pointer-events: none;
             transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
             overflow: hidden;
-            border: 1px solid rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
         }
 
         #drawer.open {
@@ -175,7 +193,7 @@
 
         /* Slim Minimal Header */
         #drawer .chat-header {
-            background-color: #2d3748;
+            background-color: #1a1b24;
             color: #ffffff;
             padding: 10px 14px;
             display: flex;
@@ -184,6 +202,7 @@
             user-select: none;
             height: 52px;
             box-sizing: border-box;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         #drawer .header-user {
@@ -197,7 +216,7 @@
             height: 32px;
             border-radius: 50%;
             object-fit: cover;
-            border: 1.5px solid rgba(255, 255, 255, 0.4);
+            border: 1.5px solid rgba(255, 255, 255, 0.5);
             background: #36454f;
         }
 
@@ -258,7 +277,7 @@
             background-color: rgba(255, 255, 255, 0.15);
         }
 
-        /* Chat Area */
+        /* Chat Area - Dark Mode Dot Pattern */
         #drawer #chat {
             flex: 1;
             padding: 12px;
@@ -266,8 +285,8 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            background-color: var(--gray-light, #f7f7f8);
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50' width='50' height='50' fill='none' stroke='%2336454F' stroke-opacity='0.04' stroke-width='1.2'%3E%3Ccircle cx='25' cy='0' r='5'/%3E%3Ccircle cx='25' cy='0' r='10'/%3E%3Ccircle cx='25' cy='0' r='15'/%3E%3Ccircle cx='25' cy='0' r='20'/%3E%3Ccircle cx='25' cy='0' r='25'/%3E%3Ccircle cx='0' cy='25' r='5'/%3E%3Ccircle cx='0' cy='25' r='10'/%3E%3Ccircle cx='0' cy='25' r='15'/%3E%3Ccircle cx='0' cy='25' r='20'/%3E%3Ccircle cx='0' cy='25' r='25'/%3E%3Ccircle cx='50' cy='25' r='5'/%3E%3Ccircle cx='50' cy='25' r='10'/%3E%3Ccircle cx='50' cy='25' r='15'/%3E%3Ccircle cx='50' cy='25' r='20'/%3E%3Ccircle cx='50' cy='25' r='25'/%3E%3Ccircle cx='25' cy='50' r='5'/%3E%3Ccircle cx='25' cy='50' r='10'/%3E%3Ccircle cx='25' cy='50' r='15'/%3E%3Ccircle cx='25' cy='50' r='20'/%3E%3Ccircle cx='25' cy='50' r='25'/%3E%3C/svg%3E");
+            background-color: #0e0f14;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50' width='50' height='50' fill='none' stroke='%23ffffff' stroke-opacity='0.025' stroke-width='1.2'%3E%3Ccircle cx='25' cy='0' r='5'/%3E%3Ccircle cx='25' cy='0' r='10'/%3E%3Ccircle cx='25' cy='0' r='15'/%3E%3Ccircle cx='25' cy='0' r='20'/%3E%3Ccircle cx='25' cy='0' r='25'/%3E%3Ccircle cx='0' cy='25' r='5'/%3E%3Ccircle cx='0' cy='25' r='10'/%3E%3Ccircle cx='0' cy='25' r='15'/%3E%3Ccircle cx='0' cy='25' r='20'/%3E%3Ccircle cx='0' cy='25' r='25'/%3E%3Ccircle cx='50' cy='25' r='5'/%3E%3Ccircle cx='50' cy='25' r='10'/%3E%3Ccircle cx='50' cy='25' r='15'/%3E%3Ccircle cx='50' cy='25' r='20'/%3E%3Ccircle cx='50' cy='25' r='25'/%3E%3Ccircle cx='25' cy='50' r='5'/%3E%3Ccircle cx='25' cy='50' r='10'/%3E%3Ccircle cx='25' cy='50' r='15'/%3E%3Ccircle cx='25' cy='50' r='20'/%3E%3Ccircle cx='25' cy='50' r='25'/%3E%3C/svg%3E");
             background-size: 50px 50px;
             background-repeat: repeat;
             scroll-behavior: smooth;
@@ -296,40 +315,43 @@
             object-fit: cover;
             flex-shrink: 0;
             margin-bottom: 2px;
-            border: 1px solid rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         #drawer .bubble {
-            padding: 8px 12px;
-            border-radius: 12px;
+            padding: 9px 13px;
+            border-radius: 14px;
             font-size: 13px;
             line-height: 1.45;
             word-wrap: break-word;
         }
 
-        /* Asora (Bot): Putih solid */
+        /* Asora (Bot): BIRU */
         #drawer .msg.bot .bubble {
-            background-color: #ffffff;
-            color: #1f2937;
+            background: linear-gradient(135deg, #1d4ed8, #2563eb);
+            color: #ffffff;
             border-bottom-left-radius: 3px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.35);
+            border: 1px solid rgba(96, 165, 250, 0.25);
         }
 
-        /* User: Charcoal (#36454F) solid */
+        /* User (Pengguna): PINK */
         #drawer .msg.user .bubble {
-            background-color: #36454F;
+            background: linear-gradient(135deg, #ff4f91, #e91e63);
             color: #ffffff;
             border-bottom-right-radius: 3px;
-            box-shadow: 0 1px 3px rgba(54, 69, 79, 0.25);
+            box-shadow: 0 2px 8px rgba(233, 30, 99, 0.35);
+            border: 1px solid rgba(255, 105, 180, 0.3);
         }
 
         /* Markdown inside bubble */
         #drawer .bubble .md p { margin: 0 0 4px 0; }
         #drawer .bubble .md p:last-child { margin-bottom: 0; }
-        #drawer .bubble .md strong { font-weight: 700; }
+        #drawer .bubble .md strong { font-weight: 700; color: #ffffff; }
         #drawer .bubble .md code {
             font-family: Consolas, Monaco, monospace;
-            background: rgba(0, 0, 0, 0.06);
+            background: rgba(0, 0, 0, 0.25);
+            color: #ffffff;
             padding: 1px 4px;
             border-radius: 3px;
             font-size: 11.5px;
@@ -339,8 +361,8 @@
         #drawer #typing {
             padding: 4px 12px 8px;
             font-size: 11.5px;
-            color: #9ca3af;
-            background-color: #f7f7f8;
+            color: #94a3b8;
+            background-color: #0e0f14;
             display: none;
             align-items: center;
             gap: 7px;
@@ -352,7 +374,7 @@
         #drawer .typing-dots span {
             width: 4px;
             height: 4px;
-            background: var(--pink-accent);
+            background: #60a5fa;
             border-radius: 50%;
             animation: soraBounce 1.2s infinite ease-in-out;
         }
@@ -370,15 +392,15 @@
             display: flex;
             gap: 5px;
             overflow-x: auto;
-            background: #ffffff;
-            border-top: 1px solid #f1f3f5;
+            background: #14151c;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
             scrollbar-width: none;
         }
         #drawer .suggestions::-webkit-scrollbar { display: none; }
         #drawer .suggestions button {
-            background: #f8f9fa;
-            border: 1px solid #e2e8f0;
-            color: #4b5563;
+            background: #1e2029;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #e2e8f0;
             padding: 4px 10px;
             border-radius: 16px;
             font-size: 11px;
@@ -387,27 +409,27 @@
             transition: all 0.2s ease;
         }
         #drawer .suggestions button:hover {
-            background: var(--yellow-accent);
-            border-color: var(--yellow-accent);
-            color: #1f2937;
+            background: rgba(37, 99, 235, 0.3);
+            border-color: #3b82f6;
+            color: #93c5fd;
         }
         #drawer #clearBtn {
             margin-left: auto;
-            color: #9ca3af;
-            border-color: #e5e7eb;
+            color: #94a3b8;
+            border-color: rgba(255, 255, 255, 0.1);
         }
         #drawer #clearBtn:hover {
-            background: #fee2e2;
-            color: #ef4444;
-            border-color: #fca5a5;
+            background: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+            border-color: #ef4444;
         }
 
         /* Input Bar */
         #drawer .input-area {
             display: flex;
             padding: 8px 10px;
-            background: #ffffff;
-            border-top: 1px solid #f1f3f5;
+            background: #14151c;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
             gap: 6px;
             align-items: center;
         }
@@ -418,7 +440,7 @@
             overflow: hidden;
             -ms-overflow-style: none;
             scrollbar-width: none;
-            border: 1px solid #e2e8f0;
+            border: 1px solid rgba(255, 255, 255, 0.14);
             border-radius: 18px;
             padding: 7px 12px;
             font-family: inherit;
@@ -426,8 +448,13 @@
             line-height: 1.35;
             max-height: 72px;
             outline: none;
-            background-color: #f8f9fa;
+            background-color: #1e2029;
+            color: #f8fafc;
             transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        #drawer #input::placeholder {
+            color: #64748b;
         }
 
         #drawer #input::-webkit-scrollbar,
@@ -436,12 +463,13 @@
         }
 
         #drawer #input:focus {
-            border-color: var(--pink-accent);
-            background-color: #ffffff;
+            border-color: #ff4f91;
+            background-color: #262a37;
+            box-shadow: 0 0 0 2px rgba(255, 79, 145, 0.25);
         }
 
         #drawer #sendBtn {
-            background-color: var(--pink-accent);
+            background: linear-gradient(135deg, #ff4f91, #e91e63);
             color: white;
             border: none;
             padding: 0 13px;
@@ -455,10 +483,19 @@
             justify-content: center;
             transition: all 0.2s ease;
             flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(233, 30, 99, 0.35);
         }
 
-        #drawer #sendBtn:hover { background-color: var(--pink-hover); }
-        #drawer #sendBtn:disabled { background-color: #cbd5e1; cursor: not-allowed; opacity: 0.6; }
+        #drawer #sendBtn:hover {
+            background: linear-gradient(135deg, #ff3380, #d81557);
+            box-shadow: 0 4px 12px rgba(233, 30, 99, 0.5);
+        }
+        #drawer #sendBtn:disabled {
+            background: #334155;
+            cursor: not-allowed;
+            opacity: 0.5;
+            box-shadow: none;
+        }
 
         @media (max-width: 480px) {
             #launcher {
@@ -490,7 +527,7 @@
 
     <!-- Launcher Floating Button -->
     <button id="launcher" aria-label="Buka Chat Asora Aokita">
-        <span>💬</span>
+        <img class="btn-sora-avatar" src="../images/mirai/sora/sorachat.jpeg" alt="Sora">
         <span>Tanya Sora</span>
     </button>
 
