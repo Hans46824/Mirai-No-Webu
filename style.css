@@ -1,4 +1,11 @@
 :root {
+    --bg-odd: #ffffff; /* Putih bersih */
+    --bg-even: #0e0b12; /* Hitam pekat obsidian */
+    --text-color: #333333; /* Warna teks utama di section putih */
+    --bg-section-odd: var(--bg-odd);
+    --bg-section-even: var(--bg-even);
+    --bg-page: var(--bg-odd);
+    --bg-alt: var(--bg-even);
     --pink: #e91e63;
     --pink-accent: #e91e63;
     --pink2: #ff4f91;
@@ -7,8 +14,8 @@
     --ink: #18151b;
     --text: #242126;
     --white: #ffffff;
-    --muted: #706872;
-    --pink-soft: #fff1f6;
+    --muted: #6b626e;
+    --pink-soft: #fff0f5;
     --pink-border: #f4bfd3;
 }
 
@@ -31,9 +38,809 @@ html {
 
 body {
     margin: 0;
-    color: var(--ink);
-    background: var(--white);
+    color: var(--text-color);
+    background: var(--bg-odd);
     font-family: Arial, Helvetica, sans-serif;
+}
+
+/* =====================================================
+   SISTEM BACKGROUND SELANG-SELING (PUTIH & HITAM BERGANTIAN)
+   Urutan Konten Standar: PUTIH -> HITAM -> PUTIH -> HITAM
+   Urutan Konten Proker: HERO (PUTIH) -> HITAM -> PUTIH -> HITAM
+   Kamus & Kanji: Khusus PUTIH BERSIH & GARIS PINK
+   ===================================================== */
+main > section {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ----------------------------------------------------
+   1. SECTION KONTEN GENAP PADA HALAMAN STANDAR (Section 2, 4, 6, 8, 10) = PUTIH BERSIH
+   ---------------------------------------------------- */
+main > section:nth-of-type(even):not(.proker-hero ~ section) {
+    background-color: var(--bg-odd, #ffffff) !important;
+    color: var(--text-color, #333333) !important;
+}
+
+/* Tipografi di Section Putih (Kontras Tinggi Gelap) */
+main > section:nth-of-type(even):not(.proker-hero ~ section) h1,
+main > section:nth-of-type(even):not(.proker-hero ~ section) h2,
+main > section:nth-of-type(even):not(.proker-hero ~ section) h3,
+main > section:nth-of-type(even):not(.proker-hero ~ section) h4,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .heading,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .section-title,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .page-title,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .section-heading h2 {
+    color: #18151b !important;
+}
+
+main > section:nth-of-type(even):not(.proker-hero ~ section) .heading span,
+main > section:nth-of-type(even):not(.proker-hero ~ section) h1 span,
+main > section:nth-of-type(even):not(.proker-hero ~ section) h2 span,
+main > section:nth-of-type(even):not(.proker-hero ~ section) h3 span,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .page-title span {
+    color: var(--pink, #e91e63) !important;
+}
+
+main > section:nth-of-type(even):not(.proker-hero ~ section) p,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .copy,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .lead,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .section-heading > p,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .timeline-hint {
+    color: #554e57 !important;
+}
+
+main > section:nth-of-type(even):not(.proker-hero ~ section) .kicker,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .eyebrow,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .dokumentasi-row h3 {
+    color: var(--pink, #e91e63) !important;
+}
+
+main > section:nth-of-type(even):not(.proker-hero ~ section) a.text-link {
+    color: #18151b !important;
+    border-color: rgba(24, 21, 27, 0.3) !important;
+}
+
+main > section:nth-of-type(even):not(.proker-hero ~ section) a.text-link span {
+    color: var(--pink, #e91e63) !important;
+}
+
+main > section:nth-of-type(even):not(.proker-hero ~ section) a.text-link:hover {
+    color: var(--pink, #e91e63) !important;
+    border-color: var(--pink, #e91e63) !important;
+}
+
+/* Kartu & Permukaan di Section Putih */
+main > section:nth-of-type(even):not(.proker-hero ~ section) .about-name-card,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .logo-meaning-card,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .logo-meaning-badge-col,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .timeline-content,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .achievement-card,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .accessory-card,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .accessory-banner-card,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .management-card,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .program-card,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .division-card,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .activity-start-card,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .start-card,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .level-card,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .class-card,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .mode-card,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .ketentuan-card,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .faq-intro-box,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .faq-item,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .faq-item summary,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .sora-rpg-card,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .haori-card,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .lesson-list article {
+    background: #ffffff !important;
+    border: 1px solid var(--pink-border, #f4bfd3) !important;
+    color: #18151b !important;
+    box-shadow: 0 8px 24px rgba(233, 30, 99, 0.06) !important;
+}
+
+main > section:nth-of-type(even):not(.proker-hero ~ section) .about-name-card h3,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .logo-meaning-card h3,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .timeline-title,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .achievement-rank,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .accessory-card h3,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .accessory-banner-content h3,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .management-card h3,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .program-card h3,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .division-card h3,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .activity-start-card h3,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .start-card h3,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .level-card h3,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .class-card h3,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .ketentuan-card h3,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .faq-intro-text,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .faq-question,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .lesson-list h3,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .haori-card h3,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .facility h3 {
+    color: #18151b !important;
+}
+
+main > section:nth-of-type(even):not(.proker-hero ~ section) .about-name-card p,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .logo-meaning-card p,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .timeline-ketua,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .achievement-name,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .accessory-card p,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .accessory-banner-content p,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .management-card p,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .program-card p,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .division-card p,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .activity-start-card p,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .start-card p,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .level-card p,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .level-card small,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .ketentuan-card .ketentuan-list,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .lesson-list p,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .haori-card p,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .facility p {
+    color: #6b626e !important;
+}
+
+main > section:nth-of-type(even):not(.proker-hero ~ section) .card-number,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .about-name-badge,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .accessory-badge,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .card-badge,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .ketentuan-card-badge,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .achievement-badge,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .achievement-year,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .timeline-year,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .haori-badge,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .haori-photo-tag,
+main > section:nth-of-type(even):not(.proker-hero ~ section) .lesson-list span {
+    background: #fff0f5 !important;
+    border: 1px solid var(--pink-border, #f4bfd3) !important;
+    color: var(--pink, #e91e63) !important;
+}
+
+main > section:nth-of-type(even):not(.proker-hero ~ section) .division-card img {
+    background: #ffffff !important;
+    border: 1px solid var(--pink-light, #ff4f91) !important;
+}
+
+main > section:nth-of-type(even):not(.proker-hero ~ section) .faq-chat-bubble {
+    background: #fff5f8 !important;
+    color: #18151b !important;
+    border-left: 3px solid var(--pink, #e91e63) !important;
+}
+
+main > section:nth-of-type(even):not(.proker-hero ~ section) .timeline-content::after {
+    background: #ffffff !important;
+    border-color: var(--pink-border, #f4bfd3) !important;
+}
+
+main > section:nth-of-type(even):not(.proker-hero ~ section) .timeline-dot {
+    border-color: #ffffff !important;
+}
+
+main > section:nth-of-type(even):not(.proker-hero ~ section) strong {
+    color: #18151b !important;
+}
+
+main > section:nth-of-type(even):not(.proker-hero ~ section) input,
+main > section:nth-of-type(even):not(.proker-hero ~ section) textarea {
+    background: #ffffff !important;
+    border: 1px solid var(--pink-border, #f4bfd3) !important;
+    color: #18151b !important;
+}
+
+/* ----------------------------------------------------
+   2. SECTION KONTEN GANJIL PADA HALAMAN STANDAR (Section 3, 5, 7, 9...) = HITAM PEKAT
+   (Kecuali Hero & Kamus)
+   ---------------------------------------------------- */
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) {
+    background-color: var(--bg-even, #0e0b12) !important;
+    color: #f5edf4 !important;
+}
+
+/* Tipografi di Section Hitam Halaman Standar (Kontras Tinggi Terang) */
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) h1,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) h2,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) h3,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) h4,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .heading,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .section-title,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .page-title,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .quest-section h2,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .section-heading h2 {
+    color: #ffffff !important;
+}
+
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .heading span,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) h1 span,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) h2 span,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) h3 span,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .page-title span,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .quest-section h2 span {
+    color: #ff659b !important;
+}
+
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) p,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .copy,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .lead,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .section-heading > p,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .timeline-hint {
+    color: #d5ccd3 !important;
+}
+
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .kicker,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .eyebrow,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .dokumentasi-row h3 {
+    color: #ff659b !important;
+}
+
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) a.text-link {
+    color: #ff659b !important;
+    border-color: rgba(255, 101, 155, 0.4) !important;
+}
+
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) a.text-link span {
+    color: #ff8ab6 !important;
+}
+
+/* Kartu & Permukaan di Section Hitam (Tema Obsidian Gelap) */
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .about-name-card,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .logo-meaning-card,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .logo-meaning-badge-col,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .timeline-content,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .achievement-card,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .accessory-card,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .accessory-banner-card,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .management-card,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .program-card,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .division-card,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .activity-start-card,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .start-card,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .level-card,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .class-card,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .mode-card,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .ketentuan-card,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .radio-script-container,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .faq-intro-box,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .faq-item,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .faq-item summary,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .sora-visual-card,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .sora-rpg-card,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .haori-card,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .haori-photo-card,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .mgmt-slide-badge,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .lesson-list article,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .feedback-form {
+    background: #19141f !important;
+    border-color: #3d3040 !important;
+    color: #ffffff !important;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+}
+
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .about-name-card h3,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .logo-meaning-card h3,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .timeline-title,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .achievement-rank,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .accessory-card h3,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .accessory-banner-content h3,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .management-card h3,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .program-card h3,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .division-card h3,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .activity-start-card h3,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .start-card h3,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .level-card h3,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .class-card h3,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .ketentuan-card h3,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .faq-intro-text,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .faq-question,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .lesson-list h3,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .haori-card h3,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .facility h3 {
+    color: #ffffff !important;
+}
+
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .about-name-card p,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .logo-meaning-card p,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .timeline-ketua,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .achievement-name,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .accessory-card p,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .accessory-banner-content p,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .management-card p,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .program-card p,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .division-card p,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .activity-start-card p,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .start-card p,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .level-card p,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .level-card small,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .ketentuan-card .ketentuan-list,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .lesson-list p,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .haori-card p,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .facility p {
+    color: #d5ccd3 !important;
+}
+
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .card-number,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .about-name-badge,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .accessory-badge,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .card-badge,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .ketentuan-card-badge,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .achievement-badge,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .achievement-year,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .timeline-year,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .haori-badge,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .haori-photo-tag,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .lesson-list span {
+    background: #2b1c28 !important;
+    border: 1px solid #5d2f49 !important;
+    color: #ff659b !important;
+}
+
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .division-card img {
+    background: #251e2b !important;
+    border-color: #52374c !important;
+}
+
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .division-card .card-btn,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .start-card b,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .activity-start-card b {
+    color: var(--pink) !important;
+}
+
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .faq-chat-bubble {
+    background: #231b28 !important;
+    color: #ffffff !important;
+    border-left: 3px solid #ff659b !important;
+}
+
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .timeline-content::after {
+    background: #19141f !important;
+    border-color: #3d3040 !important;
+}
+
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .timeline-dot {
+    border-color: #19141f !important;
+}
+
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) strong {
+    color: #ffffff !important;
+}
+
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) input,
+main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) textarea {
+    background: #251e2c !important;
+    border-color: #4a384e !important;
+    color: #ffffff !important;
+}
+
+/* ----------------------------------------------------
+   3. SISTEM KHUSUS PROKER & DIVISI (HERO PUTIH -> HITAM -> PUTIH -> HITAM...)
+   Section 1: Hero (Putih)
+   Section 2, 4, 6 (Genap): HITAM PEKAT
+   Section 3, 5, 7 (Ganjil): PUTIH BERSIH
+   ---------------------------------------------------- */
+.proker-hero ~ section:nth-of-type(even),
+main:has(.proker-hero) > section:nth-of-type(even) {
+    background-color: var(--bg-even, #0e0b12) !important;
+    color: #f5edf4 !important;
+}
+
+.proker-hero ~ section:nth-of-type(even) h1,
+.proker-hero ~ section:nth-of-type(even) h2,
+.proker-hero ~ section:nth-of-type(even) h3,
+.proker-hero ~ section:nth-of-type(even) h4,
+.proker-hero ~ section:nth-of-type(even) .heading,
+.proker-hero ~ section:nth-of-type(even) .proker-section-title,
+main:has(.proker-hero) > section:nth-of-type(even) h1,
+main:has(.proker-hero) > section:nth-of-type(even) h2,
+main:has(.proker-hero) > section:nth-of-type(even) h3,
+main:has(.proker-hero) > section:nth-of-type(even) h4,
+main:has(.proker-hero) > section:nth-of-type(even) .heading,
+main:has(.proker-hero) > section:nth-of-type(even) .proker-section-title {
+    color: #ffffff !important;
+}
+
+.proker-hero ~ section:nth-of-type(even) .heading span,
+.proker-hero ~ section:nth-of-type(even) .proker-section-title span,
+main:has(.proker-hero) > section:nth-of-type(even) .heading span,
+main:has(.proker-hero) > section:nth-of-type(even) .proker-section-title span {
+    color: #ff659b !important;
+}
+
+.proker-hero ~ section:nth-of-type(even) .proker-section-subtitle,
+.proker-hero ~ section:nth-of-type(even) .kicker,
+.proker-hero ~ section:nth-of-type(even) .dokumentasi-row h3,
+main:has(.proker-hero) > section:nth-of-type(even) .proker-section-subtitle,
+main:has(.proker-hero) > section:nth-of-type(even) .kicker,
+main:has(.proker-hero) > section:nth-of-type(even) .dokumentasi-row h3 {
+    color: #ff659b !important;
+}
+
+.proker-hero ~ section:nth-of-type(even) p,
+.proker-hero ~ section:nth-of-type(even) .copy,
+.proker-hero ~ section:nth-of-type(even) .proker-copy,
+main:has(.proker-hero) > section:nth-of-type(even) p,
+main:has(.proker-hero) > section:nth-of-type(even) .copy,
+main:has(.proker-hero) > section:nth-of-type(even) .proker-copy {
+    color: #d5ccd3 !important;
+}
+
+/* Elemen Step & Kartu di Section Hitam Proker */
+.proker-hero ~ section:nth-of-type(even) .proker-step-num,
+main:has(.proker-hero) > section:nth-of-type(even) .proker-step-num {
+    background-color: var(--pink, #e91e63) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(233, 30, 99, 0.4);
+}
+
+.proker-hero ~ section:nth-of-type(even) .proker-step-body h4,
+main:has(.proker-hero) > section:nth-of-type(even) .proker-step-body h4 {
+    color: #ffffff !important;
+}
+
+.proker-hero ~ section:nth-of-type(even) .proker-step-body p,
+main:has(.proker-hero) > section:nth-of-type(even) .proker-step-body p {
+    color: #d5ccd3 !important;
+}
+
+.proker-hero ~ section:nth-of-type(even) .proker-benefit-card,
+.proker-hero ~ section:nth-of-type(even) .proker-detail-card,
+main:has(.proker-hero) > section:nth-of-type(even) .proker-benefit-card,
+main:has(.proker-hero) > section:nth-of-type(even) .proker-detail-card {
+    background: #19141f !important;
+    border: 1px solid #3d3040 !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+}
+
+.proker-hero ~ section:nth-of-type(even) .proker-benefit-card h4,
+.proker-hero ~ section:nth-of-type(even) .proker-detail-card h3,
+main:has(.proker-hero) > section:nth-of-type(even) .proker-benefit-card h4,
+main:has(.proker-hero) > section:nth-of-type(even) .proker-detail-card h3 {
+    color: #ffffff !important;
+}
+
+.proker-hero ~ section:nth-of-type(even) .proker-benefit-card p,
+.proker-hero ~ section:nth-of-type(even) .proker-detail-card p,
+main:has(.proker-hero) > section:nth-of-type(even) .proker-benefit-card p,
+main:has(.proker-hero) > section:nth-of-type(even) .proker-detail-card p {
+    color: #d5ccd3 !important;
+}
+
+/* Section Ganjil Proker (Section 3, 5, 7) = PUTIH BERSIH */
+.proker-hero ~ section:nth-of-type(odd),
+main:has(.proker-hero) > section:nth-of-type(odd):not(.proker-hero) {
+    background-color: var(--bg-odd, #ffffff) !important;
+    color: var(--text-color, #333333) !important;
+}
+
+.proker-hero ~ section:nth-of-type(odd) h1,
+.proker-hero ~ section:nth-of-type(odd) h2,
+.proker-hero ~ section:nth-of-type(odd) h3,
+.proker-hero ~ section:nth-of-type(odd) h4,
+.proker-hero ~ section:nth-of-type(odd) .heading,
+.proker-hero ~ section:nth-of-type(odd) .proker-section-title,
+main:has(.proker-hero) > section:nth-of-type(odd):not(.proker-hero) h1,
+main:has(.proker-hero) > section:nth-of-type(odd):not(.proker-hero) h2,
+main:has(.proker-hero) > section:nth-of-type(odd):not(.proker-hero) h3,
+main:has(.proker-hero) > section:nth-of-type(odd):not(.proker-hero) h4,
+main:has(.proker-hero) > section:nth-of-type(odd):not(.proker-hero) .heading,
+main:has(.proker-hero) > section:nth-of-type(odd):not(.proker-hero) .proker-section-title {
+    color: #18151b !important;
+}
+
+.proker-hero ~ section:nth-of-type(odd) .heading span,
+.proker-hero ~ section:nth-of-type(odd) .proker-section-title span,
+main:has(.proker-hero) > section:nth-of-type(odd):not(.proker-hero) .heading span,
+main:has(.proker-hero) > section:nth-of-type(odd):not(.proker-hero) .proker-section-title span {
+    color: var(--pink, #e91e63) !important;
+}
+
+.proker-hero ~ section:nth-of-type(odd) .proker-section-subtitle,
+.proker-hero ~ section:nth-of-type(odd) .kicker,
+.proker-hero ~ section:nth-of-type(odd) .dokumentasi-row h3,
+main:has(.proker-hero) > section:nth-of-type(odd):not(.proker-hero) .proker-section-subtitle,
+main:has(.proker-hero) > section:nth-of-type(odd):not(.proker-hero) .kicker,
+main:has(.proker-hero) > section:nth-of-type(odd):not(.proker-hero) .dokumentasi-row h3 {
+    color: var(--pink, #e91e63) !important;
+}
+
+.proker-hero ~ section:nth-of-type(odd) p,
+.proker-hero ~ section:nth-of-type(odd) .copy,
+.proker-hero ~ section:nth-of-type(odd) .proker-copy,
+main:has(.proker-hero) > section:nth-of-type(odd):not(.proker-hero) p,
+main:has(.proker-hero) > section:nth-of-type(odd):not(.proker-hero) .copy,
+main:has(.proker-hero) > section:nth-of-type(odd):not(.proker-hero) .proker-copy {
+    color: #554e57 !important;
+}
+
+/* Elemen Step & Kartu di Section Putih Proker */
+.proker-hero ~ section:nth-of-type(odd) .proker-step-num,
+main:has(.proker-hero) > section:nth-of-type(odd):not(.proker-hero) .proker-step-num {
+    background-color: var(--pink, #e91e63) !important;
+    color: #ffffff !important;
+}
+
+.proker-hero ~ section:nth-of-type(odd) .proker-step-body h4,
+main:has(.proker-hero) > section:nth-of-type(odd):not(.proker-hero) .proker-step-body h4 {
+    color: #18151b !important;
+}
+
+.proker-hero ~ section:nth-of-type(odd) .proker-step-body p,
+main:has(.proker-hero) > section:nth-of-type(odd):not(.proker-hero) .proker-step-body p {
+    color: #554e57 !important;
+}
+
+.proker-hero ~ section:nth-of-type(odd) .proker-benefit-card,
+.proker-hero ~ section:nth-of-type(odd) .proker-detail-card,
+main:has(.proker-hero) > section:nth-of-type(odd):not(.proker-hero) .proker-benefit-card,
+main:has(.proker-hero) > section:nth-of-type(odd):not(.proker-hero) .proker-detail-card {
+    background: #ffffff !important;
+    border: 1px solid var(--pink-border, #f4bfd3) !important;
+    box-shadow: 0 6px 20px rgba(233, 30, 99, 0.06) !important;
+}
+
+.proker-hero ~ section:nth-of-type(odd) .proker-benefit-card h4,
+.proker-hero ~ section:nth-of-type(odd) .proker-detail-card h3,
+main:has(.proker-hero) > section:nth-of-type(odd):not(.proker-hero) .proker-benefit-card h4,
+main:has(.proker-hero) > section:nth-of-type(odd):not(.proker-hero) .proker-detail-card h3 {
+    color: #18151b !important;
+}
+
+.proker-hero ~ section:nth-of-type(odd) .proker-benefit-card p,
+.proker-hero ~ section:nth-of-type(odd) .proker-detail-card p,
+main:has(.proker-hero) > section:nth-of-type(odd):not(.proker-hero) .proker-benefit-card p,
+main:has(.proker-hero) > section:nth-of-type(odd):not(.proker-hero) .proker-detail-card p {
+    color: #6b626e !important;
+}
+
+/* ----------------------------------------------------
+   4. KAMUS & KANJI: SELALU PUTIH BERSIH & GARIS PINK
+   ---------------------------------------------------- */
+main > section.dictionary-section,
+.dictionary-section,
+.kana-section-group,
+body.theme-dark .dictionary-section,
+body.dark-mode .dictionary-section,
+body.theme-dark .kana-section-group,
+body.dark-mode .kana-section-group {
+    background-color: #ffffff !important;
+    color: #18151b !important;
+}
+
+.dictionary-section h1,
+.dictionary-section h2,
+.dictionary-section h3,
+.dictionary-section h4,
+.dictionary-section .heading,
+body.theme-dark .dictionary-section h1,
+body.theme-dark .dictionary-section h2,
+body.theme-dark .dictionary-section h3,
+body.theme-dark .dictionary-section h4,
+body.theme-dark .dictionary-section .heading {
+    color: #18151b !important;
+}
+
+.dictionary-section .heading span,
+body.theme-dark .dictionary-section .heading span {
+    color: var(--pink, #e91e63) !important;
+}
+
+.dictionary-section p,
+.dictionary-section .copy,
+body.theme-dark .dictionary-section p,
+body.theme-dark .dictionary-section .copy {
+    color: #554e57 !important;
+}
+
+.dictionary-section .kicker,
+body.theme-dark .dictionary-section .kicker {
+    color: var(--pink, #e91e63) !important;
+}
+
+/* Kartu Kana & Kanji */
+.kana-card,
+.kanji-card,
+body.theme-dark .kana-card,
+body.dark-mode .kana-card,
+body.theme-dark .kanji-card,
+body.dark-mode .kanji-card {
+    background: #ffffff !important;
+    border: 1.5px solid var(--pink-border, #f4bfd3) !important;
+    color: #18151b !important;
+    box-shadow: 0 4px 14px rgba(233, 30, 99, 0.05) !important;
+}
+
+.kana-card strong,
+.kana-card span,
+body.theme-dark .kana-card strong,
+body.theme-dark .kana-card span {
+    color: #18151b !important;
+}
+
+.kanji-card h3,
+body.theme-dark .kanji-card h3 {
+    color: #18151b !important;
+}
+
+.kanji-card p,
+body.theme-dark .kanji-card p {
+    color: #554e57 !important;
+}
+
+.kana-card:hover,
+.kana-card.is-selected,
+body.theme-dark .kana-card:hover,
+body.theme-dark .kana-card.is-selected {
+    background: #fff0f5 !important;
+    border-color: var(--pink, #e91e63) !important;
+}
+
+/* Header & Card Deskripsi Grup Kana */
+.kana-section-header,
+body.theme-dark .kana-section-header {
+    background: transparent !important;
+}
+
+.kana-section-title,
+body.theme-dark .kana-section-title {
+    color: #18151b !important;
+}
+
+.kana-section-badge,
+body.theme-dark .kana-section-badge {
+    background: #fff0f5 !important;
+    border: 1px solid var(--pink-border, #f4bfd3) !important;
+    color: var(--pink, #e91e63) !important;
+}
+
+.kana-section-desc-card,
+body.theme-dark .kana-section-desc-card {
+    background: #fff8fa !important;
+    border-left: 3px solid var(--pink, #e91e63) !important;
+}
+
+.kana-section-desc,
+body.theme-dark .kana-section-desc {
+    color: #554e57 !important;
+}
+
+/* Detail & Controls Kamus */
+.kana-detail,
+.kanji-detail,
+body.theme-dark .kana-detail,
+body.theme-dark .kanji-detail {
+    background: #fff8fa !important;
+    border: 1.5px solid var(--pink-border, #f4bfd3) !important;
+    color: #18151b !important;
+}
+
+body.theme-dark .kana-detail h3,
+body.theme-dark .kana-detail h4,
+body.theme-dark .kana-detail > p,
+body.theme-dark .kanji-detail h3,
+body.theme-dark .kanji-detail p {
+    color: #18151b !important;
+}
+
+.dictionary-controls input,
+.dictionary-controls select,
+.dictionary-section input,
+.dictionary-section select,
+body.theme-dark .dictionary-controls input,
+body.theme-dark .dictionary-controls select,
+body.theme-dark .dictionary-section input,
+body.theme-dark .dictionary-section select {
+    background: #ffffff !important;
+    border: 1.5px solid var(--pink-border, #f4bfd3) !important;
+    color: #18151b !important;
+}
+
+.dictionary-practice-link,
+body.theme-dark .dictionary-practice-link {
+    background: #fff5f8 !important;
+    border: 1.5px solid var(--pink-border, #f4bfd3) !important;
+    color: #18151b !important;
+}
+
+.dictionary-practice-link h3,
+body.theme-dark .dictionary-practice-link h3 {
+    color: #18151b !important;
+}
+
+.dictionary-practice-link .kicker,
+body.theme-dark .dictionary-practice-link .kicker {
+    color: var(--pink, #e91e63) !important;
+}
+
+/* ----------------------------------------------------
+   5. STANDARISASI KARTU KELAS (KELAS DASAR & LANJUTAN)
+   Selalu bersih, putih, bergaris pink halus tanpa bunga sakura
+   ---------------------------------------------------- */
+.course-card {
+    background: #ffffff !important;
+    border: 1.5px solid var(--pink-border, #f4bfd3) !important;
+    color: #18151b !important;
+    box-shadow: 0 8px 24px rgba(233, 30, 99, 0.06) !important;
+}
+
+.course-card h3 {
+    color: #18151b !important;
+}
+
+.course-card p {
+    color: #6b626e !important;
+}
+
+.course-card .card-number {
+    background: #fff0f5 !important;
+    border: 1px solid var(--pink-border, #f4bfd3) !important;
+    color: var(--pink, #e91e63) !important;
+}
+
+.course-card .course-kana {
+    background: #fff0f5 !important;
+    border: 1px solid var(--pink-border, #f4bfd3) !important;
+    color: var(--pink, #e91e63) !important;
+}
+
+/* =====================================================
+   STANDARISASI TOMBOL – TEMA PINK & PUTIH MIRAI NO HANA
+   ===================================================== */
+/* Tombol Utama (Pink khas tema, teks putih, tanpa border) */
+.btn-primary,
+.btn.primary,
+.card-btn,
+.program-btn,
+.proker-back,
+.start-level {
+    background-color: var(--pink, #e91e63) !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 4px;
+    font-weight: 700;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.btn-primary:hover,
+.btn.primary:hover,
+.card-btn:hover,
+.program-btn:hover,
+.proker-back:hover,
+.start-level:hover:not(:disabled) {
+    background-color: var(--pink2, #d81b60) !important;
+    color: #ffffff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(233, 30, 99, 0.35);
+}
+
+/* Tombol Sekunder & Navigasi Slider (Putih bersih, teks pink, border pink) */
+.btn-secondary,
+.btn.secondary,
+.btn.light,
+.slide-btn {
+    background-color: #ffffff !important;
+    color: var(--pink, #e91e63) !important;
+    border: 1.5px solid var(--pink, #e91e63) !important;
+    border-radius: 4px;
+    font-weight: 700;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.btn-secondary:hover,
+.btn.secondary:hover,
+.btn.light:hover,
+.slide-btn:hover {
+    background-color: var(--pink, #e91e63) !important;
+    color: #ffffff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(233, 30, 99, 0.25);
 }
 
 a {
@@ -165,26 +972,435 @@ a {
     }
 }
 
-.hero,
+/* ==========================================================================
+   Header Melayang & Off-Canvas Sidebar Nav (Tengoku Style)
+   ========================================================================== */
+header.home-header,
+.home-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background: transparent;
+    border-bottom: none;
+    box-sizing: border-box;
+}
+
+.home-header .brand {
+    display: flex;
+    align-items: center;
+    height: auto;
+}
+
+.home-header .brand img {
+    height: clamp(38px, 6vw, 48px);
+    width: auto;
+    object-fit: contain;
+}
+
+.menu-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: bold;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 13px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    font-family: inherit;
+}
+
+.menu-btn:hover {
+    background: var(--pink, #e91e63);
+    border-color: var(--pink, #e91e63);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(233, 30, 99, 0.45);
+}
+
+.menu-btn:active {
+    transform: translateY(0);
+}
+
+/* Sidebar Overlay */
+.sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Sidebar Nav (Off-Canvas) */
+.sidebar-nav {
+    position: fixed;
+    top: 0;
+    right: -420px;
+    width: 320px;
+    max-width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    z-index: 1002;
+    transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 36px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    overflow-y: auto;
+    box-shadow: -15px 0 45px rgba(0, 0, 0, 0.8);
+}
+
+.sidebar-nav.active {
+    right: 0;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-label {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: var(--pink, #e91e63);
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.close-btn {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 16px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-family: inherit;
+}
+
+.close-btn:hover {
+    background: var(--pink, #e91e63);
+    border-color: var(--pink, #e91e63);
+    color: #ffffff;
+    transform: rotate(90deg);
+}
+
+.sidebar-links {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: auto 0;
+    padding: 16px 0;
+}
+
+.sidebar-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: clamp(1.35rem, 3.8vw, 1.8rem);
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    position: relative;
+    padding: 6px 0;
+    display: inline-block;
+    transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.sidebar-links a:hover,
+.sidebar-links a.active {
+    color: var(--pink, #ff659b);
+    transform: translateX(8px);
+}
+
+.sidebar-footer {
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sidebar-footer-logo {
+    width: 140px;
+    height: auto;
+    max-width: 100%;
+    object-fit: contain;
+    margin-bottom: 2px;
+}
+
+.sidebar-footer-desc {
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: #999999;
+    margin: 0;
+}
+
+.sidebar-footer-social {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.sidebar-social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #dddddd;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    transition: all 0.25s ease;
+}
+
+.sidebar-social-link:hover {
+    background: var(--pink, #e91e63);
+    border-color: var(--pink, #e91e63);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(233, 30, 99, 0.35);
+}
+
+/* Responsiveness for Mobile */
+@media (max-width: 600px) {
+    header.home-header,
+    .home-header {
+        padding: 16px 20px;
+    }
+
+    .hero-text-box {
+        bottom: 12% !important;
+        left: 6% !important;
+    }
+
+    .sidebar-nav {
+        width: 100%;
+        right: -100%;
+        padding: 28px 20px;
+    }
+}
+
+/* ==========================================================================
+   Fullscreen Hero Section (Tengoku Style)
+   ========================================================================== */
+.hero {
+    min-height: 100vh;
+    min-height: 100dvh;
+    background-image: url("images/mirai/background/Sora.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    overflow: hidden;
+    color: var(--white);
+    box-sizing: border-box;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.hero-text-box {
+    position: absolute;
+    bottom: 15%;
+    left: 5%;
+    z-index: 10;
+    max-width: 90%;
+}
+
+.hero-subtitle {
+    font-size: clamp(1rem, 1.8vw, 1.2rem);
+    letter-spacing: 5px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0 0 -10px;
+}
+
+.hero-title {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: #ffffff;
+    margin: 0;
+    text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* ==========================================================================
+   Global Footer / Disclaimer Section (Tengoku Style)
+   ========================================================================== */
+.global-footer {
+    background-color: #050505 !important;
+    color: #888888 !important;
+    padding: 50px 5% !important;
+    font-size: 0.85rem !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+    z-index: 10;
+    box-sizing: border-box;
+}
+
+.global-footer-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.global-footer-col.left {
+    flex: 1 1 650px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.global-footer-logo {
+    width: 160px;
+    height: auto;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.global-footer-disclaimer {
+    color: #777777;
+    font-size: 0.82rem;
+    line-height: 1.65;
+    margin: 0;
+    max-width: 640px;
+}
+
+.global-footer-disclaimer strong {
+    color: #aaaaaa;
+    font-weight: 700;
+}
+
+.global-footer-col.right {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.global-footer-heading {
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 0.5px;
+}
+
+.global-footer-social {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #cccccc;
+    text-decoration: none;
+    font-size: 0.88rem;
+    transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.global-footer-social:hover {
+    color: var(--pink, #ff659b);
+    transform: translateX(3px);
+}
+
+.global-footer-social svg {
+    flex-shrink: 0;
+    stroke: currentColor;
+}
+
+.global-footer-bottom {
+    max-width: 1200px;
+    margin: 40px auto 0;
+    padding-top: 25px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    text-align: center;
+    color: #555555;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+@media (max-width: 768px) {
+    .global-footer-main {
+        flex-direction: column;
+        gap: 30px;
+    }
+    .global-footer {
+        padding: 40px 20px 24px !important;
+    }
+}
+
 .page-hero {
     position: relative;
     overflow: hidden;
     color: var(--white);
-    background: #2b2730 url("images/mirai/background/Sora.png") center / cover no-repeat;
+    background-image: url("images/mirai/background/Sora.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
-.hero {
-    display: flex;
-    align-items: center;
-    min-height: 100svh;
-}
-
-.hero::before,
 .page-hero::before {
     position: absolute;
     inset: 0;
     content: "";
-    background: linear-gradient(90deg, rgba(19, 16, 22, .76), rgba(24, 18, 25, .42) 48%, rgba(24, 18, 25, .10)), linear-gradient(0deg, rgba(24, 21, 27, .30), transparent 46%);
+    background: linear-gradient(90deg, rgba(24, 21, 27, 0.72) 0%, rgba(24, 21, 27, 0.28) 58%, rgba(24, 21, 27, 0.05) 100%),
+                linear-gradient(0deg, rgba(24, 21, 27, 0.24) 0%, transparent 46%);
 }
 
 .hero-content,
@@ -210,7 +1426,7 @@ a {
 }
 
 .eyebrow {
-    color: var(--pink3);
+    color: var(--pink);
 }
 
 .title,
@@ -219,6 +1435,7 @@ a {
     font-weight: 800;
     letter-spacing: -.08em;
     line-height: .82;
+    color: var(--white);
 }
 
 .title {
@@ -238,9 +1455,13 @@ a {
 .lead {
     max-width: 645px;
     margin: 0;
-    color: #fff9fc;
+    color: rgba(255, 255, 255, 0.9);
     font-size: clamp(15px, 1.5vw, 18px);
     line-height: 1.85;
+}
+
+.page-hero p {
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .buttons {
@@ -314,7 +1535,6 @@ a {
 
 .section {
     padding: clamp(80px, 11vw, 150px) 7vw;
-    background: var(--white);
 }
 
 .section-intro {
@@ -351,7 +1571,7 @@ a {
 
 .about-preview,
 .materials-section {
-    background: linear-gradient(120deg, var(--white) 0%, var(--white) 74%, var(--pink-soft) 100%);
+    position: relative;
 }
 
 .about-copy-wrap {
@@ -478,7 +1698,7 @@ a {
 }
 
 .identity-section {
-    background: var(--pink-soft);
+    position: relative;
 }
 
 .identity-grid {
@@ -593,7 +1813,7 @@ a {
 }
 
 .contact-section {
-    background: var(--pink-soft);
+    position: relative;
 }
 
 .social-dark {
@@ -753,12 +1973,12 @@ a {
 }
 
 /* MIRAI learning pages */
-.journey-section { display:grid; grid-template-columns: .75fr 1fr; gap: 7vw; align-items:end; background:linear-gradient(110deg,#fff 62%,var(--pink-soft)); }
+.journey-section { display:grid; grid-template-columns: .75fr 1fr; gap: 7vw; align-items:end; }
 .start-grid { grid-column:1/-1; display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:10px; }
 .start-card { position:relative; min-height:210px; padding:24px; border:1px solid var(--pink-border); background:#fff; transition:.25s ease; }
 .start-card:hover { transform:translateY(-6px); box-shadow:0 18px 36px rgba(233,30,99,.13); border-color:var(--pink); }
 .start-card span,.start-card b { color:var(--pink); font-size:11px; letter-spacing:1.5px; }.start-card h3 { margin:45px 0 8px; font-size:25px; }.start-card p { margin:0; color:var(--muted); line-height:1.55; }.start-card b { position:absolute; right:22px; bottom:20px; font-size:22px; }
-.learning-path > .copy { max-width:620px; margin-top:24px; }.soft-section { background:var(--pink-soft); }
+.learning-path > .copy { max-width:620px; margin-top:24px; }
 .course-cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px; margin:42px 0; }.course-cards.one-card { grid-template-columns:minmax(0,620px); }
 .course-card { display:grid; grid-template-columns:150px 1fr; gap:24px; min-height:305px; padding:32px; background:var(--white); border:1px solid var(--pink-border); transition:.25s ease; }.course-card:hover { transform:translateY(-6px); box-shadow:0 20px 40px rgba(233,30,99,.14); border-color:var(--pink); }.course-kana { align-self:start; color:var(--pink); font-size:58px; line-height:1; }.course-card h3 { margin:6px 0 10px; font-size:30px; }.course-card p:not(.card-number) { color:var(--muted); line-height:1.7; }.course-card .btn { margin-top:19px; }
 .kana-learning > .copy { max-width:780px; margin-top:25px; }.kana-layout { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(340px,.75fr); gap:24px; margin-top:48px; align-items:start; }.kana-group-head { display:flex; justify-content:space-between; gap:20px; align-items:baseline; margin-bottom:15px; }.kana-group-head h3 { margin:0; font-size:24px; }.kana-group-head span,.kana-dictionary-note { color:var(--muted); font-size:13px; line-height:1.5; }
@@ -769,7 +1989,7 @@ a {
 .curriculum-cards { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:42px; }.curriculum-cards a { display:flex; flex-direction:column; min-height:255px; padding:24px; background:#fff; border:1px solid var(--pink-border); transition:.2s ease; }.curriculum-cards a:hover { transform:translateY(-5px); border-color:var(--pink); box-shadow:0 15px 30px rgba(233,30,99,.12); }.curriculum-cards span,.curriculum-cards b { color:var(--pink); font-size:11px; letter-spacing:1.4px; }.curriculum-cards h3 { margin:50px 0 8px; font-size:24px; }.curriculum-cards p { margin:0; color:var(--muted); line-height:1.6; }.curriculum-cards b { margin-top:auto; } @media(max-width:850px){.curriculum-cards{grid-template-columns:1fr 1fr}} @media(max-width:580px){.curriculum-cards{grid-template-columns:1fr}}
 
 /* Kana Quest dashboard */
-.learning-app { background:#fbf8f9; font-family:Georgia, "Times New Roman", serif; }.learning-app .nav { background:#201c26; }.quest-main { padding-top:82px; }.quest-hero { display:grid; grid-template-columns:minmax(0,1.3fr) minmax(320px,.7fr); gap:7vw; align-items:end; min-height:375px; padding:68px 8vw 54px; color:#fff; background:linear-gradient(115deg,#251f2a 0%,#392936 58%,#b93463 100%); }.quest-hero h1 { margin:20px 0 18px; font-size:clamp(52px,8vw,92px); line-height:.85; letter-spacing:-.06em; }.quest-hero h1 span,.quest-section h2 span { color:#ff9abb; }.quest-hero p:not(.eyebrow) { max-width:600px; margin:0; color:#fceaf1; font-family:Arial,Helvetica,sans-serif; font-size:16px; line-height:1.75; }.learner-card { padding:22px; color:var(--ink); background:#fff; border-radius:8px; box-shadow:0 18px 40px rgba(24,12,23,.18); font-family:Arial,Helvetica,sans-serif; }.learner-top { display:flex; justify-content:space-between; gap:15px; font-size:13px; }.learner-top strong { color:var(--pink); }.xp-track,.progress-track,.mini-progress { height:8px; margin:16px 0 9px; overflow:hidden; background:#f4dce5; border-radius:99px; }.xp-track i,.progress-track i,.mini-progress i { display:block; width:0; height:100%; background:var(--pink); border-radius:inherit; transition:width .4s ease; }.learner-card small { color:var(--muted); font-size:11px; }.quest-section { padding:58px 8vw; }.quest-overview { background:#fff; }.stat-strip { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:42px; }.stat-strip > div { display:grid; grid-template-columns:36px 1fr; column-gap:10px; padding:18px; background:#fff8fa; border:1px solid #f4d8e2; }.stat-strip b { grid-row:span 2; font-size:24px; }.stat-strip strong { font-size:14px; }.stat-strip small { color:var(--muted); font:11px Arial,Helvetica,sans-serif; margin-top:4px; }.script-tabs { display:flex; gap:10px; margin:0 0 42px; }.script-tabs button { flex:1; padding:16px 20px; color:var(--muted); text-align:left; cursor:pointer; background:#fff; border:1px solid #f0d4df; border-radius:6px; font:bold 18px Georgia,serif; transition:.2s ease; }.script-tabs button small { display:block; margin-top:4px; font:11px Arial,Helvetica,sans-serif; }.script-tabs button.is-active { color:#fff; background:var(--pink); border-color:var(--pink); box-shadow:0 9px 20px rgba(233,30,99,.2); }.progress-heading,.section-heading { display:flex; justify-content:space-between; align-items:end; gap:30px; }.quest-section h2 { margin:8px 0 0; color:var(--ink); font-size:clamp(32px,4vw,52px); letter-spacing:-.05em; }.path-meter { width:210px; font:700 13px Arial,Helvetica,sans-serif; color:var(--pink); }.path-meter .progress-track { margin:8px 0 0; }.level-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; margin-top:28px; }.level-card { display:flex; flex-direction:column; min-height:257px; padding:19px; background:#fff; border:1px solid #f0d4df; border-radius:7px; box-shadow:0 7px 16px rgba(64,23,40,.04); }.level-card.is-locked { opacity:.58; background:#f6f2f3; }.level-card-top { display:flex; justify-content:space-between; color:var(--pink); font:700 10px Arial,Helvetica,sans-serif; }.level-card-top b { color:var(--muted); }.level-card h3 { margin:26px 0 9px; font-size:18px; }.level-card > strong { min-height:34px; color:var(--pink); font-size:29px; font-weight:500; letter-spacing:2px; }.mini-progress { height:5px; margin:17px 0 9px; }.level-card small { min-height:30px; color:var(--muted); font:11px/1.4 Arial,Helvetica,sans-serif; }.start-level { min-height:38px; margin-top:auto; color:var(--pink); cursor:pointer; background:#fff; border:1px solid var(--pink-border); border-radius:4px; font:bold 10px Arial,Helvetica,sans-serif; letter-spacing:.5px; }.start-level:hover:not(:disabled) { color:#fff; background:var(--pink); }.start-level:disabled { cursor:not-allowed; }.mix-section { background:#f7eaf0; }.section-heading > p { max-width:390px; margin:0; color:var(--muted); font:14px/1.6 Arial,Helvetica,sans-serif; }.mode-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:11px; margin-top:28px; }.mode-card { display:grid; gap:13px; min-height:125px; padding:17px; color:var(--ink); text-align:left; cursor:pointer; background:#fff; border:1px solid #ebccd8; border-radius:6px; transition:.2s ease; }.mode-card:hover { color:#fff; background:#302431; transform:translateY(-4px); }.mode-card b { color:var(--pink); font:24px Arial,Helvetica,sans-serif; }.mode-card span { font:bold 13px Arial,Helvetica,sans-serif; }.mode-card small { color:var(--muted); font:10px Arial,Helvetica,sans-serif; }.mode-card:hover small { color:#f8dce7; }.calendar-section { display:grid; grid-template-columns:1fr 1fr; gap:8vw; align-items:center; background:#fff; }.week-card { padding:25px; background:#2a222e; border-radius:8px; color:#fff; }.week-card strong { font:16px Arial,Helvetica,sans-serif; }.week-days { display:grid; grid-template-columns:repeat(7,1fr); gap:7px; margin:25px 0 18px; }.week-days span { display:grid; gap:9px; color:#f0c8d7; text-align:center; font:10px Arial,Helvetica,sans-serif; }.week-days i { display:grid; place-items:center; width:30px; height:30px; margin:auto; color:#fff; background:#de507e; border-radius:50%; font-style:normal; }.week-days span:last-child i { color:#ff9abb; background:#593848; }.week-card small { color:#dfcbd4; font:11px/1.5 Arial,Helvetica,sans-serif; }.practice-view,.result-view { position:fixed; inset:0; z-index:30; overflow:auto; padding:30px 20px; background:rgba(35,27,37,.94); }.practice-shell,.result-card { position:relative; width:min(680px,100%); margin:0 auto; padding:28px; background:#fff; border-radius:10px; box-shadow:0 25px 80px rgba(0,0,0,.3); }.icon-close { position:absolute; top:15px; right:18px; color:var(--muted); cursor:pointer; background:none; border:0; font-size:28px; }.practice-head { display:flex; justify-content:space-between; padding-right:30px; color:var(--pink); font:bold 12px Arial,Helvetica,sans-serif; letter-spacing:.5px; }.question-dots { display:flex; gap:6px; margin:30px 0 12px; }.question-dots i { flex:1; height:7px; background:#eadfe3; border-radius:8px; }.question-dots i.is-current { background:#f2ca38; }.question-dots i.is-correct { background:#3bb982; }.question-dots i.is-wrong { background:#e25767; }.question-dots i.skipped { background:#f2ca38; }.question-count { color:var(--muted); font:12px Arial,Helvetica,sans-serif; }.question-progress { height:5px; margin:8px 0 30px; background:#f4dce5; border-radius:99px; }.question-progress i { display:block; height:100%; background:var(--pink); border-radius:inherit; }.question-card { padding:28px 20px; text-align:center; border:1px solid #f2dce4; border-radius:8px; }.question-kind { color:var(--muted); font:bold 10px Arial,Helvetica,sans-serif; letter-spacing:1.8px; }.question-prompt { min-height:100px; margin:23px 0 9px; color:var(--ink); font-size:80px; line-height:1; }.question-card > p { margin:0 0 20px; color:var(--muted); font:13px Arial,Helvetica,sans-serif; }.audio-button { padding:10px 14px; color:var(--pink); cursor:pointer; background:#fff4f8; border:1px solid var(--pink-border); border-radius:4px; font:bold 11px Arial,Helvetica,sans-serif; }.answer-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }.answer-grid button { min-height:58px; color:var(--ink); cursor:pointer; background:#fff; border:1px solid #e6d6dc; border-radius:5px; font:18px Arial,Helvetica,sans-serif; transition:.2s ease; }.answer-grid button:hover:not(:disabled) { color:var(--pink); border-color:var(--pink); transform:translateY(-2px); }.answer-grid button.is-answer { color:#18764d; background:#e8f8f0; border-color:#60c893; }.feedback { display:grid; gap:5px; margin-top:16px; padding:13px; border-radius:5px; text-align:left; font:12px/1.5 Arial,Helvetica,sans-serif; }.feedback.is-good { color:#14603f; background:#e8f8f0; }.feedback.is-bad { color:#9b3242; background:#fff0f1; }.feedback.is-skip { color:#846b18; background:#fff9df; }.skip-button { display:block; width:100%; margin-top:15px; padding:13px; color:var(--muted); cursor:pointer; background:none; border:0; font:bold 12px Arial,Helvetica,sans-serif; }.result-view { display:grid; place-items:start center; }.result-card { margin-top:4vh; text-align:center; }.result-card h2 { margin:15px 0 7px; font-size:40px; }.result-xp { display:block; color:var(--pink); font:700 28px Arial,Helvetica,sans-serif; }.result-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:30px 0 20px; }.result-stats div { padding:13px 6px; background:#fff6f8; border-radius:5px; }.result-stats b,.result-stats small { display:block; }.result-stats b { color:var(--pink); font:bold 22px Arial,Helvetica,sans-serif; }.result-stats small { margin-top:4px; color:var(--muted); font:10px Arial,Helvetica,sans-serif; }.result-card > p:not(.kicker) { color:var(--muted); font:13px Arial,Helvetica,sans-serif; }.result-actions { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-top:25px; }.result-actions .btn { min-height:42px; padding:11px 15px; font-size:10px; }.mistake-list { margin-top:27px; text-align:left; }.mistake-list h3 { padding-top:20px; border-top:1px solid #f0dbe2; font-size:20px; }.mistake-list p { display:grid; grid-template-columns:38px 1fr; gap:4px 8px; padding:10px 0; margin:0; border-bottom:1px solid #f4e4e8; font:12px Arial,Helvetica,sans-serif; }.mistake-list p span { grid-column:2; color:var(--pink); }.perfect-note { padding:15px; background:#e8f8f0; }
+.learning-app { background:#fbf8f9; font-family:Georgia, "Times New Roman", serif; }.learning-app .nav { background:#201c26; }.quest-main { padding-top:82px; }.quest-hero { display:grid; grid-template-columns:minmax(0,1.3fr) minmax(320px,.7fr); gap:7vw; align-items:end; min-height:375px; padding:100px 8vw 54px; color:var(--ink); background:var(--bg-section-odd); }.quest-hero h1 { margin:20px 0 18px; font-size:clamp(52px,8vw,92px); line-height:.85; letter-spacing:-.06em; color:var(--ink); }.quest-hero h1 span,.quest-section h2 span { color:var(--pink); }.quest-hero p:not(.eyebrow) { max-width:600px; margin:0; color:var(--muted); font-family:Arial,Helvetica,sans-serif; font-size:16px; line-height:1.75; }.learner-card { padding:22px; color:var(--ink); background:#fff; border-radius:8px; box-shadow:0 18px 40px rgba(24,12,23,.18); font-family:Arial,Helvetica,sans-serif; }.learner-top { display:flex; justify-content:space-between; gap:15px; font-size:13px; }.learner-top strong { color:var(--pink); }.xp-track,.progress-track,.mini-progress { height:8px; margin:16px 0 9px; overflow:hidden; background:#f4dce5; border-radius:99px; }.xp-track i,.progress-track i,.mini-progress i { display:block; width:0; height:100%; background:var(--pink); border-radius:inherit; transition:width .4s ease; }.learner-card small { color:var(--muted); font-size:11px; }.quest-section { padding:58px 8vw; }.quest-overview { }.stat-strip { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:42px; }.stat-strip > div { display:grid; grid-template-columns:36px 1fr; column-gap:10px; padding:18px; background:#fff8fa; border:1px solid #f4d8e2; }.stat-strip b { grid-row:span 2; font-size:24px; }.stat-strip strong { font-size:14px; }.stat-strip small { color:var(--muted); font:11px Arial,Helvetica,sans-serif; margin-top:4px; }.script-tabs { display:flex; gap:10px; margin:0 0 42px; }.script-tabs button { flex:1; padding:16px 20px; color:var(--muted); text-align:left; cursor:pointer; background:#fff; border:1px solid #f0d4df; border-radius:6px; font:bold 18px Georgia,serif; transition:.2s ease; }.script-tabs button small { display:block; margin-top:4px; font:11px Arial,Helvetica,sans-serif; }.script-tabs button.is-active { color:#fff; background:var(--pink); border-color:var(--pink); box-shadow:0 9px 20px rgba(233,30,99,.2); }.progress-heading,.section-heading { display:flex; justify-content:space-between; align-items:end; gap:30px; }.quest-section h2 { margin:8px 0 0; color:var(--ink); font-size:clamp(32px,4vw,52px); letter-spacing:-.05em; }.path-meter { width:210px; font:700 13px Arial,Helvetica,sans-serif; color:var(--pink); }.path-meter .progress-track { margin:8px 0 0; }.level-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; margin-top:28px; }.level-card { display:flex; flex-direction:column; min-height:257px; padding:19px; background:#fff; border:1px solid #f0d4df; border-radius:7px; box-shadow:0 7px 16px rgba(64,23,40,.04); }.level-card.is-locked { opacity:.58; background:#f6f2f3; }.level-card-top { display:flex; justify-content:space-between; color:var(--pink); font:700 10px Arial,Helvetica,sans-serif; }.level-card-top b { color:var(--muted); }.level-card h3 { margin:26px 0 9px; font-size:18px; }.level-card > strong { min-height:34px; color:var(--pink); font-size:29px; font-weight:500; letter-spacing:2px; }.mini-progress { height:5px; margin:17px 0 9px; }.level-card small { min-height:30px; color:var(--muted); font:11px/1.4 Arial,Helvetica,sans-serif; }.start-level { min-height:38px; margin-top:auto; color:var(--pink); cursor:pointer; background:#fff; border:1px solid var(--pink-border); border-radius:4px; font:bold 10px Arial,Helvetica,sans-serif; letter-spacing:.5px; }.start-level:hover:not(:disabled) { color:#fff; background:var(--pink); }.start-level:disabled { cursor:not-allowed; }.mix-section { }.section-heading > p { max-width:390px; margin:0; color:var(--muted); font:14px/1.6 Arial,Helvetica,sans-serif; }.mode-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:11px; margin-top:28px; }.mode-card { display:grid; gap:13px; min-height:125px; padding:17px; color:var(--ink); text-align:left; cursor:pointer; background:#fff; border:1px solid #ebccd8; border-radius:6px; transition:.2s ease; }.mode-card:hover { color:#fff; background:#302431; transform:translateY(-4px); }.mode-card b { color:var(--pink); font:24px Arial,Helvetica,sans-serif; }.mode-card span { font:bold 13px Arial,Helvetica,sans-serif; }.mode-card small { color:var(--muted); font:10px Arial,Helvetica,sans-serif; }.mode-card:hover small { color:#f8dce7; }.calendar-section { display:grid; grid-template-columns:1fr 1fr; gap:8vw; align-items:center; }.week-card { padding:25px; background:#2a222e; border-radius:8px; color:#fff; }.week-card strong { font:16px Arial,Helvetica,sans-serif; }.week-days { display:grid; grid-template-columns:repeat(7,1fr); gap:7px; margin:25px 0 18px; }.week-days span { display:grid; gap:9px; color:#f0c8d7; text-align:center; font:10px Arial,Helvetica,sans-serif; }.week-days i { display:grid; place-items:center; width:30px; height:30px; margin:auto; color:#fff; background:#de507e; border-radius:50%; font-style:normal; }.week-days span:last-child i { color:#ff9abb; background:#593848; }.week-card small { color:#dfcbd4; font:11px/1.5 Arial,Helvetica,sans-serif; }.practice-view,.result-view { position:fixed; inset:0; z-index:30; overflow:auto; padding:30px 20px; background:rgba(35,27,37,.94); }.practice-shell,.result-card { position:relative; width:min(680px,100%); margin:0 auto; padding:28px; background:#fff; border-radius:10px; box-shadow:0 25px 80px rgba(0,0,0,.3); }.icon-close { position:absolute; top:15px; right:18px; color:var(--muted); cursor:pointer; background:none; border:0; font-size:28px; }.practice-head { display:flex; justify-content:space-between; padding-right:30px; color:var(--pink); font:bold 12px Arial,Helvetica,sans-serif; letter-spacing:.5px; }.question-dots { display:flex; gap:6px; margin:30px 0 12px; }.question-dots i { flex:1; height:7px; background:#eadfe3; border-radius:8px; }.question-dots i.is-current { background:#f2ca38; }.question-dots i.is-correct { background:#3bb982; }.question-dots i.is-wrong { background:#e25767; }.question-dots i.skipped { background:#f2ca38; }.question-count { color:var(--muted); font:12px Arial,Helvetica,sans-serif; }.question-progress { height:5px; margin:8px 0 30px; background:#f4dce5; border-radius:99px; }.question-progress i { display:block; height:100%; background:var(--pink); border-radius:inherit; }.question-card { padding:28px 20px; text-align:center; border:1px solid #f2dce4; border-radius:8px; }.question-kind { color:var(--muted); font:bold 10px Arial,Helvetica,sans-serif; letter-spacing:1.8px; }.question-prompt { min-height:100px; margin:23px 0 9px; color:var(--ink); font-size:80px; line-height:1; }.question-card > p { margin:0 0 20px; color:var(--muted); font:13px Arial,Helvetica,sans-serif; }.audio-button { padding:10px 14px; color:var(--pink); cursor:pointer; background:#fff4f8; border:1px solid var(--pink-border); border-radius:4px; font:bold 11px Arial,Helvetica,sans-serif; }.answer-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }.answer-grid button { min-height:58px; color:var(--ink); cursor:pointer; background:#fff; border:1px solid #e6d6dc; border-radius:5px; font:18px Arial,Helvetica,sans-serif; transition:.2s ease; }.answer-grid button:hover:not(:disabled) { color:var(--pink); border-color:var(--pink); transform:translateY(-2px); }.answer-grid button.is-answer { color:#18764d; background:#e8f8f0; border-color:#60c893; }.feedback { display:grid; gap:5px; margin-top:16px; padding:13px; border-radius:5px; text-align:left; font:12px/1.5 Arial,Helvetica,sans-serif; }.feedback.is-good { color:#14603f; background:#e8f8f0; }.feedback.is-bad { color:#9b3242; background:#fff0f1; }.feedback.is-skip { color:#846b18; background:#fff9df; }.skip-button { display:block; width:100%; margin-top:15px; padding:13px; color:var(--muted); cursor:pointer; background:none; border:0; font:bold 12px Arial,Helvetica,sans-serif; }.result-view { display:grid; place-items:start center; }.result-card { margin-top:4vh; text-align:center; }.result-card h2 { margin:15px 0 7px; font-size:40px; }.result-xp { display:block; color:var(--pink); font:700 28px Arial,Helvetica,sans-serif; }.result-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:30px 0 20px; }.result-stats div { padding:13px 6px; background:#fff6f8; border-radius:5px; }.result-stats b,.result-stats small { display:block; }.result-stats b { color:var(--pink); font:bold 22px Arial,Helvetica,sans-serif; }.result-stats small { margin-top:4px; color:var(--muted); font:10px Arial,Helvetica,sans-serif; }.result-card > p:not(.kicker) { color:var(--muted); font:13px Arial,Helvetica,sans-serif; }.result-actions { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-top:25px; }.result-actions .btn { min-height:42px; padding:11px 15px; font-size:10px; }.mistake-list { margin-top:27px; text-align:left; }.mistake-list h3 { padding-top:20px; border-top:1px solid #f0dbe2; font-size:20px; }.mistake-list p { display:grid; grid-template-columns:38px 1fr; gap:4px 8px; padding:10px 0; margin:0; border-bottom:1px solid #f4e4e8; font:12px Arial,Helvetica,sans-serif; }.mistake-list p span { grid-column:2; color:var(--pink); }.perfect-note { padding:15px; background:#e8f8f0; }
 @media(max-width:850px){.quest-hero,.calendar-section{grid-template-columns:1fr}.quest-hero{gap:36px}.level-grid{grid-template-columns:repeat(2,1fr)}.mode-grid{grid-template-columns:repeat(3,1fr)}.path-meter{width:170px}}
 @media(max-width:560px){.quest-main{padding-top:68px}.quest-hero,.quest-section{padding:42px 6vw}.stat-strip{grid-template-columns:1fr;gap:8px;margin-bottom:28px}.script-tabs{margin-bottom:30px}.script-tabs button{padding:13px;font-size:15px}.progress-heading,.section-heading{display:block}.path-meter{width:100%;margin-top:18px}.level-grid{grid-template-columns:1fr}.mode-grid{grid-template-columns:repeat(2,1fr)}.mode-card{min-height:110px;padding:13px}.week-days{gap:2px}.week-days i{width:26px;height:26px}.practice-view,.result-view{padding:12px}.practice-shell,.result-card{padding:20px 15px}.question-prompt{font-size:70px}.answer-grid{gap:7px}.answer-grid button{font-size:16px}.result-card h2{font-size:31px}.result-stats{grid-template-columns:repeat(2,1fr)}}
 
@@ -1411,7 +2631,7 @@ body.theme-dark .kana-search input { color:#fff8fb !important; background:#30243
 }
 
 .facilities-section {
-    background: var(--pink-soft);
+    position: relative;
 }
 
 .facility-grid {
@@ -1556,7 +2776,7 @@ body.theme-dark .kana-search input { color:#fff8fb !important; background:#30243
 }
 
 .access-section {
-    background: var(--pink-soft);
+    position: relative;
 }
 
 .access-section .copy,
@@ -1914,22 +3134,32 @@ body.theme-dark .kana-search input { color:#fff8fb !important; background:#30243
 :root { --pink-light:#fff3f8; --pink-soft:#fff7fb; --ink:#25212a; --muted:#6f6872; }
 .nav { height:72px; background:rgba(31,27,34,.78); }
 .class-nav { position:relative; }.class-nav > a::before { display:inline-block; margin-right:5px; content:"⌄"; color:var(--pink2); }.class-submenu { position:absolute; top:38px; left:-17px; display:none; min-width:165px; padding:8px; background:#fff; border:1px solid var(--pink-border); box-shadow:0 12px 27px rgba(40,24,34,.15); }.class-nav:hover .class-submenu,.class-nav:focus-within .class-submenu { display:grid; }.class-submenu a { display:grid; gap:2px; padding:10px 11px; color:var(--ink); letter-spacing:.4px; }.class-submenu a:hover { color:var(--pink); background:var(--pink-soft); }.class-submenu small { color:var(--pink); font-size:8px; font-weight:700; letter-spacing:1px; }
-.brand { height:72px; width:auto; flex-shrink:0; }.brand img { height:44px; width:auto; max-width:280px; object-fit:contain; }
-.hero::before { background:linear-gradient(90deg,rgba(19,16,22,.70),rgba(24,18,25,.30) 55%,rgba(24,18,25,.06)),linear-gradient(0deg,rgba(24,21,27,.20),transparent 46%); }
-.page-hero::before { background:linear-gradient(90deg,rgba(27,23,30,.68),rgba(27,23,30,.22) 65%,rgba(255,255,255,.04)); }
+.hero::before,
+.page-hero::before {
+    background: linear-gradient(90deg, rgba(24, 21, 27, 0.72) 0%, rgba(24, 21, 27, 0.28) 58%, rgba(24, 21, 27, 0.05) 100%),
+                linear-gradient(0deg, rgba(24, 21, 27, 0.24) 0%, transparent 46%);
+}
+body.dark-mode .hero::before,
+body.theme-dark .hero::before,
+body.dark-mode .page-hero::before,
+body.theme-dark .page-hero::before {
+    background: linear-gradient(90deg, rgba(14, 11, 18, 0.85) 0%, rgba(14, 11, 18, 0.45) 58%, rgba(14, 11, 18, 0.15) 100%),
+                linear-gradient(0deg, rgba(14, 11, 18, 0.35) 0%, transparent 46%);
+}
 .section,.learning-path { position:relative; overflow:hidden; }
-.about-preview,.materials-section { background:#fff; }
-.journey-section { position:relative; gap:5vw; background:#fff; border-top:1px solid #f8e6ee; }
+.journey-section { position:relative; gap:5vw; border-top:1px solid #f8e6ee; }
 .journey-section::after { position:absolute; right:-82px; bottom:-98px; width:220px; height:220px; content:""; background:radial-gradient(circle,#ffd2e3 0 4px,transparent 5px); background-size:25px 25px; opacity:.55; }
 .journey-sticker { position:absolute; right:5vw; top:20px; z-index:1; width:130px; transform:rotate(5deg); filter:drop-shadow(0 13px 13px rgba(55,32,46,.14)); pointer-events:none; }
 .start-grid { position:relative; z-index:2; }
 .start-card { min-height:250px; overflow:hidden; padding:25px; border:1px solid #f0c3d5; box-shadow:0 8px 25px rgba(72,32,52,.055); }
 .start-card::before { position:absolute; top:0; left:0; width:100%; height:4px; content:""; background:var(--pink); transform:scaleX(0); transform-origin:left; transition:transform .25s ease; }.start-card:hover::before { transform:scaleX(1); }
-.start-card img { position:absolute; right:-13px; bottom:-10px; width:112px; opacity:.96; transition:transform .3s ease; }.start-card:hover img { transform:translateY(-7px) rotate(-3deg); }
+.start-card img { position:absolute; right:-13px; bottom:-10px; width:112px; opacity: 1 !important; transition:transform .3s ease; }.start-card:hover img { transform:translateY(-7px) rotate(-3deg); }
 .start-card h3 { margin-top:44px; max-width:62%; }.start-card p { max-width:62%; }.start-card b { z-index:2; }
 .class-hero { background-position:center 38%; }.class-hero-copy { max-width:550px; margin:0; color:#fffafd; font-size:16px; line-height:1.75; }
-.soft-section { background:#fff8fb; }.soft-section::before { position:absolute; top:54px; right:8vw; width:80px; height:80px; content:"✿"; color:#ffd2e3; font-size:78px; line-height:1; }
-.course-card { position:relative; overflow:hidden; grid-template-columns:112px 1fr; min-height:330px; border-color:#efc1d2; box-shadow:0 9px 27px rgba(72,32,52,.06); }.course-card::after { position:absolute; right:14px; top:11px; color:#ffe0ec; font-size:52px; content:"✿"; }.course-card:hover { box-shadow:0 18px 35px rgba(233,30,99,.14); }
+.soft-section::before { display: none !important; content: none !important; }
+.course-card { position:relative; overflow:hidden; grid-template-columns:112px 1fr; min-height:330px; background:#ffffff !important; border:1.5px solid var(--pink-border, #f4bfd3) !important; box-shadow:0 9px 27px rgba(72,32,52,.06); }
+.course-card::after { display: none !important; content: none !important; }
+.course-card:hover { box-shadow:0 18px 35px rgba(233,30,99,.14); border-color: var(--pink, #e91e63) !important; }
 .course-sticker { position:absolute; left:21px; bottom:18px; z-index:1; width:102px; filter:drop-shadow(0 9px 9px rgba(65,36,49,.12)); }.course-kana { position:relative; z-index:2; align-self:start; padding:9px; background:#fff7fb; border:1px solid #ffd2e3; }.course-card > div { position:relative; z-index:2; }
 .card,.class-card,.kanji-card,.kana-card { border-color:#efc1d2; box-shadow:0 7px 20px rgba(72,32,52,.045); }
 .kana-detail,.kanji-detail { background:#fff8fb; }.kana-grid .kana-card { background:#fff; }.kana-card:hover,.kana-card.is-selected { background:#fff8fb; }
@@ -1954,9 +3184,6 @@ body.theme-dark .kana-search input { color:#fff8fb !important; background:#30243
 .class-nav { display:flex; align-self:center; align-items:center; }
 .about-preview { position:relative; grid-template-columns:1fr; padding-top:250px; }
 .about-logo { position:absolute; top:65px; left:50%; width:min(230px,42vw); max-height:150px; object-fit:contain; filter:drop-shadow(0 10px 18px rgba(0,0,0,.28)); transform:translateX(-50%); }
-.program-section { background:#18151b; color:#fff; }
-.program-section .heading { color:#fff; }
-.program-section .copy { color:#d7ccd2; }
 .program-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:42px; }
 .program-card { min-height:300px; padding:23px; background:#27222a; border:1px solid #51404b; }
 .program-card img { display:block; width:104px; height:104px; margin-bottom:20px; padding:0; object-fit:cover; background:#fff; border-radius:50%; }
@@ -1965,7 +3192,6 @@ body.theme-dark .kana-search input { color:#fff8fb !important; background:#30243
 @media(max-width:850px){.program-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:580px){.about-preview{padding-top:210px}.about-logo{top:42px;width:150px}.program-grid{grid-template-columns:1fr}.program-card{min-height:0}}
 
-.feedback-section { background:#f5eef1; }
 .feedback-section > .btn { margin-top:25px; }
 .feedback-window { margin-top:48px; overflow:hidden; }
 .feedback-track { display:flex; width:max-content; animation:feedback-slide 32s linear infinite; }
@@ -1973,14 +3199,11 @@ body.theme-dark .kana-search input { color:#fff8fb !important; background:#30243
 .feedback-track article { display:grid; width:min(360px,78vw); min-height:150px; margin-right:16px; padding:24px; color:#fff; background:#25212a; border-left:4px solid var(--pink); font-size:17px; line-height:1.55; }
 .feedback-track b { align-self:end; color:var(--pink3); font-size:11px; letter-spacing:1px; }
 @keyframes feedback-slide { to { transform:translateX(-50%); } }
-.mission-section { background:#18151b; color:#fff; }
-.mission-section .heading { color:#fff; }
 .mission-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:42px; }
 .mission-grid p { margin:0; padding:28px; color:#eee6ea; background:#28232b; border-top:3px solid var(--pink); line-height:1.7; }
 .footer { flex-wrap:wrap; }
 .footer-social { display:flex; gap:16px; }
 .footer small { width:100%; color:rgba(255,255,255,.62); font-size:10px; letter-spacing:.3px; }
-.history-section { background:#f7f0e8; }
 .identity-logo { display:block; width:105px; height:105px; margin:18px 0; padding:8px; object-fit:contain; background:#fff; border-radius:50%; }
 .meaning-logo { display:block; width:min(190px,100%); margin:18px auto 24px; }
 .logo-meaning { text-align:center; }
@@ -2015,33 +3238,22 @@ body.theme-dark .kana-search input { color:#fff8fb !important; background:#30243
 .hero .title { margin:16px 0 22px; font-size:clamp(56px,8vw,108px); line-height:.9; }
 .hero .title span { white-space:nowrap; }
 
-/* One stronger colour field per page prevents the site from reading as a wall of white. */
-.journey-section { background:#f8eef2; }
-.about-preview { background:#18151b; }
-.about-preview .heading { color:#fff; }
-.about-preview .copy { color:#d7ccd2; }
-.about-preview .text-link { color:#fff; border-color:rgba(255,255,255,.3); }
-.about-preview .text-link span { color:var(--pink2); }
-.learning-path { background:#f6edf1; }
-.learning-path.soft-section { color:#fff; background:#18151b; }
-.learning-path.soft-section .heading { color:#fff; }
-.learning-path.soft-section .copy { color:#d7ccd2; }
-.learning-path.soft-section .text-link { color:#fff; border-color:rgba(255,255,255,.3); }
-.kana-learning { background:#edf3f8; }
-.dictionary-section { background:#f7f0e8; }
-.activities-hero + .section { background:#f2eaf1; }
-.profile-section { background:#ece7ef; }
-.identity-section { background:#18151b; color:#fff; }
 .identity-section .identity-item { background:#27222a; border-color:#4d404b; }
 .identity-section .identity-item p { color:#d8cfd5; }
-.management-section { background:#f7f0e8; }
-.contact-section { background:#e91e63; color:#fff; }
-.contact-section .heading, .contact-section .heading span { color:#fff; }
+
+body.dark-mode .about-preview .heading,
+body.theme-dark .about-preview .heading { color:#fff; }
+body.dark-mode .about-preview .copy,
+body.theme-dark .about-preview .copy { color:#d7ccd2; }
+body.dark-mode .about-preview .text-link,
+body.theme-dark .about-preview .text-link { color:#fff; border-color:rgba(255,255,255,.3); }
+body.dark-mode .about-preview .text-link span,
+body.theme-dark .about-preview .text-link span { color:var(--pink2); }
 
 .course-card { grid-template-columns:1fr; min-height:310px; padding:31px; }
 .course-card > div { margin-left:132px; max-width:440px; }
 .course-kana { position:absolute; top:31px; left:31px; width:104px; text-align:center; }
-.course-sticker { right:18px; bottom:14px; left:auto; z-index:1; width:88px; opacity:.88; }
+.course-sticker { right:18px; bottom:14px; left:auto; z-index:1; width:88px; opacity: 1 !important; }
 .course-card h3 {
     margin-top: 5px;
     font-size: 30px;
@@ -2160,6 +3372,29 @@ body.theme-dark .kana-search input { color:#fff8fb !important; background:#30243
 
 .hero-navigation .btn {
     min-width: 158px;
+}
+.hero-navigation .btn.primary {
+    background-color: var(--pink, #e91e63) !important;
+    color: #ffffff !important;
+    border: none !important;
+}
+.hero-navigation .btn.primary:hover {
+    background-color: var(--pink2, #d81b60) !important;
+    border-color: var(--pink2, #d81b60) !important;
+    color: #ffffff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(233, 30, 99, 0.4);
+}
+.hero-navigation .btn.light {
+    background-color: #ffffff !important;
+    color: var(--pink, #e91e63) !important;
+    border: 1.5px solid var(--pink, #e91e63) !important;
+}
+.hero-navigation .btn.light:hover {
+    background-color: var(--pink, #e91e63) !important;
+    color: #ffffff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(233, 30, 99, 0.25);
 }
 
 .class-grid--three,
@@ -2315,7 +3550,6 @@ body.theme-dark .kana-search input { color:#fff8fb !important; background:#30243
     align-items: end;
     justify-content: space-between;
     gap: 40px;
-    background: #fff8fb;
     border-top: 1px solid var(--pink-border);
 }
 
@@ -2331,7 +3565,6 @@ body.theme-dark .kana-search input { color:#fff8fb !important; background:#30243
     display: grid;
     grid-template-columns: minmax(0, 0.9fr) minmax(320px, 0.75fr);
     gap: clamp(40px, 8vw, 120px);
-    background: #fff8fb;
 }
 
 .feedback-form {
@@ -2512,8 +3745,10 @@ body.theme-dark .kana-search input { color:#fff8fb !important; background:#30243
     filter: drop-shadow(0 8px 9px rgba(67, 36, 50, 0.12));
 }
 
-.about-detail-section {
-    background: #fff8fb;
+.about-detail-section,
+.mission-detail-section,
+.schedule-section {
+    position: relative;
 }
 
 .about-detail-grid {
@@ -2548,14 +3783,6 @@ body.theme-dark .kana-search input { color:#fff8fb !important; background:#30243
     margin: 0;
     color: var(--muted);
     line-height: 1.7;
-}
-
-.mission-detail-section {
-    background: #f6edf1;
-}
-
-.schedule-section {
-    background: var(--white);
 }
 
 .meeting-card {
@@ -2601,10 +3828,21 @@ body.theme-dark .kana-search input { color:#fff8fb !important; background:#30243
 }
 
 /* ==========================================================================
-   MASTER DARK MODE SYSTEM (theme-dark)
+   MASTER DARK MODE SYSTEM (theme-dark / dark-mode)
    Unified color variables, high contrast typography, crisp borders & surfaces
    ========================================================================== */
+body.dark-mode,
 body.theme-dark {
+    --bg-odd: #121212; /* Abu-abu sangat gelap (Hampir hitam) */
+    --bg-even: #000000; /* Hitam legam / Pitch black */
+    --text-color: #f1f1f1;
+    --bg-section-odd: var(--bg-odd);
+    --bg-section-even: var(--bg-even);
+    --bg-page: var(--bg-odd);
+    --bg-alt: var(--bg-even);
+    --bg-card: #151118;
+    --bg-card-alt: #1c1722;
+    --border-card: #2f2533;
     /* Keep --white as pure white so buttons, badges and icon text are never inverted */
     --white: #ffffff;
     --ink: #f5edf4;
@@ -2612,45 +3850,16 @@ body.theme-dark {
     --muted: #bdaec0;
     --pink-soft: #251a23;
     --pink-border: #543949;
-    --bg-page: #131016;
-    --bg-card: #1e1823;
-    --bg-card-alt: #261f2c;
-    --border-card: #3d2f3a;
-    color: var(--ink);
-    background: #131016;
+    color: var(--text-color);
+    background: #000000;
 }
 
+body.dark-mode,
+body.dark-mode main,
 body.theme-dark,
-body.theme-dark main,
-body.theme-dark .section,
-body.theme-dark .quest-section,
-body.theme-dark .quest-overview,
-body.theme-dark .dictionary-section,
-body.theme-dark .kana-learning,
-body.theme-dark .learning-path,
-body.theme-dark .learning-path.soft-section,
-body.theme-dark .mix-section,
-body.theme-dark .calendar-section,
-body.theme-dark .journey-section,
-body.theme-dark .profile-section,
-body.theme-dark .management-section,
-body.theme-dark .history-section,
-body.theme-dark .about-detail-section,
-body.theme-dark .mission-detail-section,
-body.theme-dark .material-library,
-body.theme-dark .feedback-section--home,
-body.theme-dark .feedback-page,
-body.theme-dark .learning-app {
+body.theme-dark main {
     color: #f5edf4;
-    background: #131016;
-}
-
-body.theme-dark .identity-section,
-body.theme-dark .mission-section,
-body.theme-dark .program-section,
-body.theme-dark .about-preview,
-body.theme-dark .doc-section {
-    background: #0d0a10 !important;
+    background: #000000;
 }
 
 /* Base Headings & Copy */
@@ -2779,9 +3988,16 @@ body.theme-dark .btn.primary:hover {
     box-shadow: 0 6px 18px rgba(233, 30, 99, 0.45) !important;
 }
 
-body.theme-dark .btn.light {
+body.theme-dark .btn.light,
+body.dark-mode .btn.light {
+    background-color: #ffffff !important;
+    color: var(--pink, #e91e63) !important;
+    border: 1.5px solid var(--pink, #e91e63) !important;
+}
+body.theme-dark .btn.light:hover,
+body.dark-mode .btn.light:hover {
+    background-color: var(--pink, #e91e63) !important;
     color: #ffffff !important;
-    border-color: rgba(255, 255, 255, 0.6) !important;
 }
 
 /* Cards & Surface Containers */
@@ -3623,6 +4839,21 @@ body.theme-dark .kana-empty-state {
 /* ==========================================================================
    Chibi Genshin Mascot Placement & Styling
    ========================================================================== */
+.start-chibi,
+.course-page-chibi,
+.curriculum-chibi,
+.practice-promo-chibi,
+.feedback-page-chibi,
+.buuku-hero-chibi,
+.chibi-feedback,
+.journey-sticker,
+.course-sticker,
+.path-chibi,
+.proker-hero-deco img,
+.quest-hero-deco img {
+    opacity: 1 !important;
+}
+
 .start-card {
     position: relative;
     overflow: hidden;
@@ -3634,7 +4865,7 @@ body.theme-dark .kana-empty-state {
     bottom: -8px;
     width: 108px;
     height: auto;
-    opacity: 0.94;
+    opacity: 1 !important;
     transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
     filter: drop-shadow(0 8px 12px rgba(45, 20, 35, 0.15));
     pointer-events: none;
@@ -3705,7 +4936,7 @@ body.theme-dark .kana-empty-state {
     bottom: -8px;
     width: 96px;
     height: auto;
-    opacity: 0.92;
+    opacity: 1 !important;
     transition: transform 0.3s ease;
     pointer-events: none;
     filter: drop-shadow(0 6px 10px rgba(45, 20, 35, 0.12));
@@ -4031,12 +5262,13 @@ body.theme-dark .kana-empty-state {
    PROKER PAGE – SHARED LAYOUT
    ===================================================== */
 .proker-hero {
-    min-height: 58vh;
+    min-height: 52vh;
     display: flex;
-    align-items: flex-end;
-    padding: 120px 6vw 64px;
-    background: var(--ink);
-    color: #fff;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 110px 6vw 64px;
+    background: var(--bg-section-odd);
+    color: var(--ink);
     position: relative;
     overflow: hidden;
 }
@@ -4048,16 +5280,97 @@ body.theme-dark .kana-empty-state {
     justify-content: flex-end;
     pointer-events: none;
     padding: 0 6vw;
-    gap: 0;
+    gap: 12px;
+    z-index: 1;
 }
 .proker-hero-deco img {
-    width: clamp(80px, 10vw, 140px);
-    opacity: .18;
-    filter: grayscale(0.3);
-    transform: rotate(-8deg);
+    width: clamp(90px, 11vw, 145px);
+    height: auto;
+    opacity: 1 !important;
+    filter: drop-shadow(0 10px 18px rgba(45, 20, 35, 0.16)) !important;
+    transform: rotate(-6deg) translateY(-4px);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+    pointer-events: auto;
 }
-.proker-hero-deco img:nth-child(2) { transform: rotate(6deg) translateY(20px); opacity: .12; }
-.proker-hero-deco img:nth-child(3) { transform: rotate(-3deg) translateY(-15px); opacity: .08; }
+.proker-hero-deco img:hover {
+    transform: translateY(-10px) scale(1.08) rotate(0deg);
+    filter: drop-shadow(0 14px 24px rgba(233, 30, 99, 0.28)) !important;
+}
+.proker-hero-deco img:nth-child(2) {
+    transform: rotate(5deg) translateY(14px);
+}
+.proker-hero-deco img:nth-child(2):hover {
+    transform: translateY(4px) scale(1.08) rotate(1deg);
+}
+.proker-hero-deco img:nth-child(3) {
+    transform: rotate(-4deg) translateY(-10px);
+}
+.proker-hero-deco img:nth-child(3):hover {
+    transform: translateY(-18px) scale(1.08) rotate(-1deg);
+}
+@media (max-width: 900px) {
+    .proker-hero-deco {
+        gap: 6px;
+    }
+    .proker-hero-deco img {
+        width: clamp(70px, 9vw, 100px);
+    }
+}
+@media (max-width: 650px) {
+    .proker-hero-deco {
+        right: 15px;
+        top: 24px;
+        bottom: auto;
+        padding: 0;
+        gap: 4px;
+    }
+    .proker-hero-deco img {
+        width: 60px;
+    }
+    .proker-hero-deco img:nth-child(2),
+    .proker-hero-deco img:nth-child(3) {
+        display: none;
+    }
+}
+
+/* Quest Hero Chibi Deco (Latihan & Tantangan) */
+.quest-hero {
+    position: relative;
+    overflow: hidden;
+}
+.quest-hero-deco {
+    position: absolute;
+    right: 5vw;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    pointer-events: none;
+    z-index: 2;
+}
+.quest-hero-deco img {
+    width: clamp(85px, 10vw, 130px);
+    height: auto;
+    opacity: 1 !important;
+    filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.28)) !important;
+    pointer-events: auto;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.quest-hero-deco img:nth-child(1) {
+    transform: rotate(-5deg) translateY(-6px);
+}
+.quest-hero-deco img:nth-child(2) {
+    transform: rotate(6deg) translateY(8px);
+}
+.quest-hero-deco img:hover {
+    transform: translateY(-10px) scale(1.08);
+}
+@media (max-width: 768px) {
+    .quest-hero-deco {
+        display: none;
+    }
+}
 .proker-hero-inner { position: relative; z-index: 2; max-width: 640px; }
 .proker-hero-logo {
     width: clamp(80px, 11vw, 110px);
@@ -4070,14 +5383,26 @@ body.theme-dark .kana-empty-state {
     display: block;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
-.proker-hero .eyebrow { color: var(--pink); font-size: 12px; letter-spacing: .12em; font-weight: 700; margin: 0 0 12px; }
-.proker-hero h1 { margin: 0 0 16px; font-size: clamp(32px, 5vw, 54px); line-height: 1.1; }
+.proker-hero .eyebrow { color: var(--pink-accent, var(--pink)); font-size: 12px; letter-spacing: .12em; font-weight: 700; margin: 0 0 12px; }
+.proker-hero h1 { margin: 0 0 16px; font-size: clamp(32px, 5vw, 54px); line-height: 1.1; color: var(--ink); }
 .proker-hero h1 span { color: var(--pink); }
-.proker-hero p { margin: 0; font-size: 16px; line-height: 1.7; color: #d7ccd2; max-width: 520px; }
+.proker-hero p { margin: 0; font-size: 16px; line-height: 1.7; color: var(--muted); max-width: 520px; }
+
+body.dark-mode .proker-hero,
+body.theme-dark .proker-hero {
+    background: var(--bg-section-odd);
+    color: #fff;
+}
+body.dark-mode .proker-hero h1,
+body.theme-dark .proker-hero h1 {
+    color: #fff;
+}
+body.dark-mode .proker-hero p,
+body.theme-dark .proker-hero p {
+    color: #d7ccd2;
+}
 
 .proker-section { padding: 80px 6vw; }
-.proker-section:nth-child(odd) { background: var(--pink-soft); }
-body.theme-dark .proker-section:nth-child(odd) { background: #231d27; }
 
 .proker-section .proker-section-subtitle {
     color: var(--pink-accent, var(--pink));
@@ -4156,11 +5481,8 @@ body.theme-dark .proker-benefit-card p { color: #d7ccd2; }
    ===================================================== */
 .doc-section {
     padding: 80px 6vw;
-    background: var(--ink);
-    color: #fff;
+    position: relative;
 }
-.doc-section .proker-section-title { color: #fff; }
-.doc-section .proker-copy { color: #d7ccd2; }
 
 .doc-slider-wrap {
     position: relative;
@@ -4239,8 +5561,11 @@ body.theme-dark .proker-benefit-card p { color: #d7ccd2; }
    PROKER PAGE – BACK BUTTON
    ===================================================== */
 .proker-back-wrap {
-    padding: 96px 6vw 0;
-    background: var(--ink);
+    position: relative;
+    z-index: 3;
+    padding: 0;
+    margin-bottom: 24px;
+    background: transparent;
 }
 .proker-back {
     display: inline-block;
@@ -4251,7 +5576,7 @@ body.theme-dark .proker-benefit-card p { color: #d7ccd2; }
     text-decoration: none;
     font-weight: bold;
     font-size: 0.9rem;
-    margin-bottom: 24px;
+    margin-bottom: 0;
     transition: 0.3s;
 }
 .proker-back:hover {
@@ -4261,33 +5586,19 @@ body.theme-dark .proker-benefit-card p { color: #d7ccd2; }
     text-decoration: none;
     color: #fff;
 }
-.proker-back-wrap + .proker-hero {
-    padding-top: 24px;
-    min-height: 48vh;
-}
 
 
 /* =====================================================
    KEGIATAN PAGE ENHANCEMENTS
    ===================================================== */
-.division-section {
-    background: #f2eaf1 !important;
-}
-body.theme-dark .division-section {
-    background: #231d27 !important;
-}
 
-
-/* PROGRAM KERJA SECTION - CRISP DARK CONTRAST (NOT BLURRED / FADED) */
-.program-section {
-    background: #18151b !important;
-    color: #fff !important;
+body.dark-mode .program-section .heading,
+body.theme-dark .program-section .heading {
+    color: #fff;
 }
-.program-section .heading {
-    color: #fff !important;
-}
-.program-section .copy {
-    color: #d7ccd2 !important;
+body.dark-mode .program-section .copy,
+body.theme-dark .program-section .copy {
+    color: #d7ccd2;
 }
 
 /* PROGRAM CARDS AS BUTTON-STYLE (NO NARRATIVE COPY, JUST TITLE & BADGE) */
@@ -4306,19 +5617,19 @@ body.theme-dark .division-section {
     width: 100%;
     min-height: 280px;
     padding: 28px 20px 24px;
-    background: #27222a;
-    border: 1px solid #51404b;
+    background: var(--white);
+    border: 1px solid var(--pink-border);
     border-radius: 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 20px rgba(72, 32, 52, 0.05);
     transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
 }
 .program-card-link:hover .program-card {
     border-color: var(--pink);
-    box-shadow: 0 16px 32px rgba(233, 30, 99, 0.25);
+    box-shadow: 0 16px 32px rgba(233, 30, 99, 0.2);
 }
 .program-card img {
     display: block;
@@ -4329,7 +5640,7 @@ body.theme-dark .division-section {
     object-fit: cover;
     background: #fff;
     border-radius: 50%;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 .program-card-link:hover .program-card img {
@@ -4347,16 +5658,29 @@ body.theme-dark .division-section {
 .program-card h3 {
     margin: 0 0 10px;
     font-size: 19px;
-    color: #fff;
+    color: var(--ink);
     font-weight: 700;
     line-height: 1.3;
 }
 .program-card .program-desc {
     margin: 0 0 20px;
-    color: #d7ccd2;
+    color: var(--muted);
     font-size: 13px;
     line-height: 1.6;
     flex-grow: 1;
+}
+body.dark-mode .program-card,
+body.theme-dark .program-card {
+    background: #161219;
+    border-color: #2f2533;
+}
+body.dark-mode .program-card h3,
+body.theme-dark .program-card h3 {
+    color: #fff;
+}
+body.dark-mode .program-card .program-desc,
+body.theme-dark .program-card .program-desc {
+    color: #d7ccd2;
 }
 .program-card .program-btn {
     display: inline-flex;
@@ -4747,7 +6071,6 @@ body:not(.theme-dark) .njr-dot {
 
 /* SECTION 1: FILOSOFI NAMA (FULL WIDTH ON LAPTOP, 2 EQUAL BALANCED CARDS) */
 .about-filosofi-section {
-    background: #fff8fb !important;
     display: block !important;
     padding: 90px 7vw !important;
 }
@@ -4802,13 +6125,8 @@ body:not(.theme-dark) .njr-dot {
 
 /* SECTION 2: MAKNA LOGO NK */
 .logo-meaning-section {
-    background: #18151b !important;
-    color: #fff !important;
     display: block !important;
     padding: 90px 7vw !important;
-}
-.logo-meaning-section .heading {
-    color: #fff !important;
 }
 .logo-meaning-section .section-intro {
     margin-bottom: 36px;
@@ -4820,8 +6138,8 @@ body:not(.theme-dark) .njr-dot {
     align-items: stretch;
 }
 .logo-meaning-badge-col {
-    background: #27222a;
-    border: 1px solid #51404b;
+    background: var(--white);
+    border: 1px solid var(--pink-border);
     border-radius: 14px;
     padding: 36px 24px;
     display: flex;
@@ -4829,7 +6147,7 @@ body:not(.theme-dark) .njr-dot {
     align-items: center;
     justify-content: center;
     text-align: center;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 24px rgba(72, 32, 52, 0.05);
 }
 .logo-meaning-badge-col img {
     width: 130px;
@@ -4839,7 +6157,7 @@ body:not(.theme-dark) .njr-dot {
     filter: drop-shadow(0 6px 14px rgba(233, 30, 99, 0.25));
 }
 .logo-meaning-badge-col strong {
-    color: #fff;
+    color: var(--ink);
     font-size: 18px;
     letter-spacing: 1.5px;
 }
@@ -4849,12 +6167,12 @@ body:not(.theme-dark) .njr-dot {
     gap: 16px;
 }
 .logo-meaning-card {
-    background: #27222a;
-    border: 1px solid #51404b;
+    background: var(--white);
+    border: 1px solid var(--pink-border);
     border-left: 5px solid var(--pink);
     border-radius: 12px;
     padding: 22px 26px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 16px rgba(72, 32, 52, 0.05);
     transition: transform 0.2s ease, border-color 0.2s ease;
 }
 .logo-meaning-card:hover {
@@ -4862,21 +6180,42 @@ body:not(.theme-dark) .njr-dot {
     border-left-color: var(--pink2);
 }
 .logo-meaning-card h3 {
-    color: #fff;
+    color: var(--ink);
     font-size: 18px;
     margin: 0 0 8px;
     font-weight: 700;
 }
 .logo-meaning-card p {
-    color: #d7ccd2;
+    color: var(--muted);
     font-size: 14px;
     line-height: 1.7;
     margin: 0;
 }
+body.dark-mode .logo-meaning-badge-col,
+body.theme-dark .logo-meaning-badge-col {
+    background: #161219;
+    border-color: #2f2533;
+}
+body.dark-mode .logo-meaning-badge-col strong,
+body.theme-dark .logo-meaning-badge-col strong {
+    color: #fff;
+}
+body.dark-mode .logo-meaning-card,
+body.theme-dark .logo-meaning-card {
+    background: #161219;
+    border-color: #2f2533;
+}
+body.dark-mode .logo-meaning-card h3,
+body.theme-dark .logo-meaning-card h3 {
+    color: #fff;
+}
+body.dark-mode .logo-meaning-card p,
+body.theme-dark .logo-meaning-card p {
+    color: #d7ccd2;
+}
 
 /* SECTION 3: HAORI SHOWCASE & 6 MEANINGS */
 .haori-section {
-    background: #fff8fb !important;
     display: block !important;
     padding: 90px 7vw !important;
 }
@@ -5213,67 +6552,84 @@ body:not(.theme-dark) .njr-dot {
 }
 
 /* DARK MODE SUPPORT */
-body.theme-dark .about-filosofi-section,
-body.theme-dark .haori-section {
-    background: #17141b !important;
-}
+body.dark-mode .about-name-card,
 body.theme-dark .about-name-card,
+body.dark-mode .haori-photo-card,
 body.theme-dark .haori-photo-card,
+body.dark-mode .haori-card,
 body.theme-dark .haori-card,
+body.dark-mode .management-card,
 body.theme-dark .management-card {
     background: #211b23;
     border-color: #4a3c48;
 }
+body.dark-mode .about-name-card h3,
 body.theme-dark .about-name-card h3,
+body.dark-mode .haori-card h3,
 body.theme-dark .haori-card h3,
+body.dark-mode .management-card h3,
 body.theme-dark .management-card h3 {
     color: #fff;
 }
+body.dark-mode .about-name-card p,
 body.theme-dark .about-name-card p,
+body.dark-mode .haori-card p,
 body.theme-dark .haori-card p,
+body.dark-mode .management-card p,
 body.theme-dark .management-card p {
     color: #c9bec6;
 }
+body.dark-mode .haori-photo-card img,
 body.theme-dark .haori-photo-card img {
     background: transparent;
 }
+body.dark-mode .management-card img,
 body.theme-dark .management-card img {
     background: #fff;
 }
+body.dark-mode .haori-photo-tag,
 body.theme-dark .haori-photo-tag {
     background: #2a222c;
     border-color: #4a3c48;
 }
+body.dark-mode .mgmt-tab-btn,
 body.theme-dark .mgmt-tab-btn {
     background: #27222a;
     border-color: #51404b;
     color: #c9bec6;
 }
+body.dark-mode .mgmt-tab-btn:hover,
 body.theme-dark .mgmt-tab-btn:hover {
     border-color: var(--pink);
     color: #fff;
 }
+body.dark-mode .mgmt-tab-btn.active,
 body.theme-dark .mgmt-tab-btn.active {
     background: var(--pink);
     border-color: var(--pink);
     color: #fff;
 }
+body.dark-mode .mgmt-nav-btn,
 body.theme-dark .mgmt-nav-btn {
     background: #27222a;
     border-color: #51404b;
     color: #fff;
 }
+body.dark-mode .mgmt-nav-btn:hover,
 body.theme-dark .mgmt-nav-btn:hover {
     background: var(--pink);
     border-color: var(--pink);
 }
+body.dark-mode .mgmt-page-indicator,
 body.theme-dark .mgmt-page-indicator {
     color: #c9bec6;
 }
+body.dark-mode .mgmt-slide-badge,
 body.theme-dark .mgmt-slide-badge {
     background: #211b23;
     border-color: #4a3c48;
 }
+body.dark-mode .mgmt-badge-desc,
 body.theme-dark .mgmt-badge-desc {
     color: #c9bec6;
 }
@@ -5283,7 +6639,6 @@ body.theme-dark .mgmt-badge-desc {
    ACCESSORIES SECTION (tentang.html)
    =========================== */
 .accessories-section {
-    background: #fff8fb !important;
     display: block !important;
     padding: 90px 7vw !important;
 }
@@ -5465,10 +6820,6 @@ body.theme-dark .mgmt-badge-desc {
 }
 
 /* Dark mode */
-body.theme-dark .accessories-section {
-    background: #17141b;
-}
-
 body.theme-dark .accessory-banner-card,
 body.theme-dark .accessory-card {
     background: #211b23;
@@ -5504,15 +6855,11 @@ body.theme-dark .menu-toggle {
 }
 
 /* =====================================================
-   HOME PAGE – KEGIATAN & ORGANISASI (DARK THEME, 2 BIG CARDS)
+   HOME PAGE – KEGIATAN & ORGANISASI (2 BIG CARDS)
    ===================================================== */
 .home-activities-dark-section {
-    background: var(--ink, #18151b);
-    color: #fff;
     padding: 90px 6vw;
     position: relative;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 .home-activities-dark-section .kicker {
     color: var(--pink-accent, var(--pink));
@@ -5523,7 +6870,6 @@ body.theme-dark .menu-toggle {
     margin-bottom: 12px;
 }
 .home-activities-dark-section .heading {
-    color: #fff;
     font-size: clamp(32px, 4.5vw, 54px);
     line-height: 1.1;
     margin: 0 0 16px;
@@ -5532,11 +6878,14 @@ body.theme-dark .menu-toggle {
     color: var(--pink-accent, var(--pink));
 }
 .home-activities-dark-section .copy {
-    color: #d7ccd2;
     max-width: 620px;
     font-size: 16px;
     line-height: 1.7;
     margin: 0 0 36px;
+}
+.home-activities-dark-section .activity-start-card {
+    border: 1px solid var(--pink-border);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
 }
 .activities-two-grid {
     display: grid;
@@ -5556,13 +6905,14 @@ body.theme-dark .menu-toggle {
     overflow: hidden;
     min-height: 230px;
     padding: 30px 28px 34px;
-    background: #241f27;
-    border: 1px solid #483944;
+    background: var(--white);
+    border: 1px solid var(--pink-border);
     border-radius: 8px;
     text-decoration: none;
-    color: #fff;
+    color: var(--ink);
     display: flex;
     flex-direction: column;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 .activity-card-active:hover {
@@ -5583,12 +6933,12 @@ body.theme-dark .menu-toggle {
     margin: 10px 0 10px;
     font-size: 26px;
     font-weight: 700;
-    color: #fff;
+    color: var(--ink);
     line-height: 1.25;
 }
 .activity-start-card p {
     margin: 0;
-    color: #d7ccd2;
+    color: var(--muted);
     font-size: 14.5px;
     line-height: 1.6;
     max-width: 320px;
@@ -5607,6 +6957,36 @@ body.theme-dark .menu-toggle {
 }
 .activity-card-locked {
     cursor: not-allowed;
+    background: #fbf6f8;
+    border-color: #ebccd8;
+}
+
+/* Dark mode for Home Activities */
+body.dark-mode .home-activities-dark-section .heading,
+body.theme-dark .home-activities-dark-section .heading {
+    color: #fff;
+}
+body.dark-mode .home-activities-dark-section .copy,
+body.theme-dark .home-activities-dark-section .copy {
+    color: #d7ccd2;
+}
+body.dark-mode .activity-start-card,
+body.theme-dark .activity-start-card {
+    background: #18151c;
+    border-color: #3b2e38;
+    color: #fff;
+    box-shadow: none;
+}
+body.dark-mode .activity-start-card h3,
+body.theme-dark .activity-start-card h3 {
+    color: #fff;
+}
+body.dark-mode .activity-start-card p,
+body.theme-dark .activity-start-card p {
+    color: #d7ccd2;
+}
+body.dark-mode .activity-card-locked,
+body.theme-dark .activity-card-locked {
     background: #1f1b22;
     border-color: #3b2e38;
 }
@@ -5825,23 +7205,16 @@ body.theme-dark .menu-toggle {
     top: 50%;
     transform: translateY(-50%);
     z-index: 10;
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50% !important;
     font-size: 16px;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: background 0.3s, transform 0.2s;
     user-select: none;
-}
-
-.slide-btn:hover {
-    background: #e91e63; /* Warna pink tema web */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
 .slide-btn:active {
@@ -5890,5 +7263,693 @@ body.theme-dark .menu-toggle {
         right: 2px;
     }
 }
+
+/* ==========================================================================
+   SEJARAH KLUB (Horizontal Timeline - Angkatan 1 s/d 8)
+   ========================================================================== */
+.timeline-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.timeline-wrapper {
+    position: relative;
+    width: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 30px 0 20px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.timeline-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.timeline-track {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 1180px;
+    padding: 130px 40px;
+}
+
+/* Central horizontal line */
+.timeline-track::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 40px;
+    right: 40px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--pink), var(--pink2));
+    transform: translateY(-50%);
+    border-radius: 2px;
+    z-index: 1;
+}
+
+.timeline-node {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 125px;
+    flex-shrink: 0;
+    scroll-snap-align: center;
+    z-index: 2;
+}
+
+/* Node Dot */
+.timeline-dot {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--pink);
+    border: 4px solid var(--white);
+    box-shadow: 0 0 0 3px var(--pink), 0 4px 12px rgba(233, 30, 99, 0.35);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    cursor: default;
+}
+
+.timeline-node:hover .timeline-dot {
+    transform: scale(1.3);
+    box-shadow: 0 0 0 5px var(--pink), 0 6px 16px rgba(233, 30, 99, 0.5);
+}
+
+/* Node Content card */
+.timeline-content {
+    position: absolute;
+    width: 145px;
+    padding: 12px 10px;
+    text-align: center;
+    background: var(--white);
+    border: 1px solid var(--pink-border);
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.timeline-node:hover .timeline-content {
+    transform: translateX(-50%) translateY(-3px);
+    box-shadow: 0 8px 24px rgba(233, 30, 99, 0.16);
+    border-color: var(--pink);
+}
+
+/* Zig-zag: Odd nodes above the line */
+.timeline-node:nth-child(odd) .timeline-content {
+    bottom: calc(50% + 22px);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.timeline-node:nth-child(odd) .timeline-content::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 10px;
+    height: 10px;
+    background: var(--white);
+    border-right: 1px solid var(--pink-border);
+    border-bottom: 1px solid var(--pink-border);
+}
+
+/* Zig-zag: Even nodes below the line */
+.timeline-node:nth-child(even) .timeline-content {
+    top: calc(50% + 22px);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.timeline-node:nth-child(even) .timeline-content::after {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 10px;
+    height: 10px;
+    background: var(--white);
+    border-left: 1px solid var(--pink-border);
+    border-top: 1px solid var(--pink-border);
+}
+
+.timeline-year {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    color: var(--pink);
+    background: var(--pink-soft);
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-bottom: 5px;
+}
+
+.timeline-title {
+    font-size: 13px;
+    font-weight: 700;
+    margin: 0 0 3px;
+    color: var(--ink);
+}
+
+.timeline-ketua {
+    font-size: 11px;
+    color: var(--muted);
+    margin: 0;
+    line-height: 1.35;
+}
+
+.timeline-ketua strong {
+    color: var(--pink);
+    font-weight: 700;
+}
+
+.timeline-hint {
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 15px;
+    letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   PROFIL MASKOT (Sora Character Card - RPG Style)
+   ========================================================================== */
+.sora-profile-section {
+    position: relative;
+}
+
+.sora-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: clamp(24px, 4vw, 45px);
+    align-items: center;
+    margin-top: 35px;
+}
+
+.sora-visual-card {
+    position: relative;
+    border-radius: 22px;
+    overflow: hidden;
+    background: linear-gradient(145deg, #1f1a26, #2d2036);
+    border: 2px solid var(--pink-border);
+    box-shadow: 0 12px 35px rgba(233, 30, 99, 0.15);
+    aspect-ratio: 4 / 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sora-visual-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 15%;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.sora-visual-card:hover img {
+    transform: scale(1.04);
+}
+
+.sora-visual-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: rgba(24, 21, 27, 0.85);
+    color: #ffd54f;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    padding: 6px 14px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 213, 79, 0.4);
+    backdrop-filter: blur(8px);
+}
+
+/* RPG Stats Card */
+.sora-rpg-card {
+    background: var(--white);
+    border: 2px solid var(--pink-border);
+    border-radius: 22px;
+    padding: clamp(24px, 3.5vw, 36px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    position: relative;
+}
+
+.sora-rpg-header {
+    border-bottom: 2px dashed var(--pink-border);
+    padding-bottom: 18px;
+    margin-bottom: 22px;
+}
+
+.sora-rpg-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--pink);
+    background: var(--pink-soft);
+    padding: 4px 12px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.sora-rpg-name {
+    font-size: clamp(22px, 2.8vw, 32px);
+    font-weight: 800;
+    margin: 0;
+    color: var(--ink);
+    letter-spacing: -0.5px;
+}
+
+.sora-rpg-name span {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--pink);
+    margin-left: 8px;
+}
+
+/* Stat Grid */
+.sora-stat-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.sora-stat-item {
+    background: var(--pink-soft);
+    padding: 12px 16px;
+    border-radius: 14px;
+    border-left: 4px solid var(--pink);
+}
+
+.sora-stat-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.sora-stat-value {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Quotes Box */
+.sora-quote-box {
+    position: relative;
+    background: linear-gradient(135deg, rgba(233, 30, 99, 0.06), rgba(255, 79, 145, 0.04));
+    border: 1px solid var(--pink-border);
+    border-radius: 14px;
+    padding: 18px 20px 18px 46px;
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 13.5px;
+}
+
+.sora-quote-box::before {
+    content: "“";
+    position: absolute;
+    left: 14px;
+    top: 6px;
+    font-size: 42px;
+    font-family: Georgia, serif;
+    color: var(--pink);
+    opacity: 0.6;
+    line-height: 1;
+}
+
+/* ==========================================================================
+   PAPAN PRESTASI (Wall of Fame "Jejak Kebanggaan" Bento Grid)
+   ========================================================================== */
+.wall-of-fame-section {
+    position: relative;
+}
+
+.achievement-bento {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 35px;
+}
+
+.achievement-card {
+    position: relative;
+    background: var(--white);
+    border: 1px solid var(--pink-border);
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    overflow: hidden;
+}
+
+.achievement-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(233, 30, 99, 0.12);
+    border-color: var(--pink);
+}
+
+.achievement-card.span-2 {
+    grid-column: span 2;
+}
+
+.achievement-card.highlight {
+    background: linear-gradient(145deg, #fff8fb, #ffffff);
+    border-width: 2px;
+}
+
+.achievement-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.achievement-icon {
+    font-size: 34px;
+    line-height: 1;
+}
+
+.achievement-year {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--pink);
+    background: var(--pink-soft);
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+}
+
+.achievement-rank {
+    font-size: clamp(16px, 1.8vw, 20px);
+    font-weight: 800;
+    color: var(--ink);
+    margin: 0 0 8px;
+}
+
+.achievement-name {
+    font-size: 13.5px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin: 0 0 16px;
+}
+
+.achievement-badge {
+    align-self: flex-start;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--pink);
+    border: 1px solid var(--pink-border);
+    background: var(--pink-soft);
+    padding: 4px 10px;
+    border-radius: 8px;
+}
+
+/* ==========================================================================
+   FAQ INTERAKTIF (Tanya Sora - Details / Summary Accordion)
+   ========================================================================== */
+.faq-section {
+    position: relative;
+}
+
+.faq-intro-box {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: linear-gradient(135deg, var(--pink-soft), #f0f7fc);
+    border: 1px solid var(--pink-border);
+    border-radius: 18px;
+    padding: 16px 22px;
+    margin: 25px 0 35px;
+    max-width: 720px;
+}
+
+.faq-intro-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--pink);
+    box-shadow: 0 3px 12px rgba(233, 30, 99, 0.25);
+    flex-shrink: 0;
+}
+
+.faq-intro-text {
+    margin: 0;
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.5;
+}
+
+.faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 880px;
+}
+
+.faq-item {
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--pink-border);
+    background: var(--white);
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.04);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.faq-item[open] {
+    border-color: var(--pink);
+    box-shadow: 0 8px 25px rgba(233, 30, 99, 0.1);
+}
+
+.faq-question {
+    padding: 18px 24px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+    background: var(--pink-soft);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.25s ease, color 0.25s ease;
+    user-select: none;
+}
+
+.faq-question::-webkit-details-marker {
+    display: none;
+}
+
+.faq-question::after {
+    content: "+";
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--pink);
+    transition: transform 0.25s ease;
+}
+
+.faq-item[open] .faq-question::after {
+    content: "−";
+}
+
+.faq-question:hover {
+    background: #ffe3ee;
+}
+
+.faq-answer {
+    padding: 22px 24px;
+    border-left: 5px solid var(--pink);
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    background: var(--white);
+}
+
+.faq-chat-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--pink);
+    box-shadow: 0 2px 8px rgba(233, 30, 99, 0.2);
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.faq-chat-bubble {
+    position: relative;
+    background: var(--pink-soft);
+    border-radius: 14px;
+    border-top-left-radius: 4px;
+    padding: 14px 18px;
+    font-size: 13.5px;
+    color: var(--text);
+    line-height: 1.6;
+    flex-grow: 1;
+}
+
+.faq-chat-bubble::before {
+    content: "";
+    position: absolute;
+    top: 12px;
+    left: -8px;
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-right: 8px solid var(--pink-soft);
+}
+
+/* ==========================================================================
+   DARK MODE ADJUSTMENTS FOR NEW TENTANG SECTIONS
+   ========================================================================== */
+body.theme-dark .timeline-dot {
+    border-color: var(--bg-card);
+}
+body.theme-dark .timeline-content {
+    background: var(--bg-card);
+    border-color: var(--border-card);
+}
+body.theme-dark .timeline-node:nth-child(odd) .timeline-content::after {
+    background: var(--bg-card);
+    border-color: var(--border-card);
+}
+body.theme-dark .timeline-node:nth-child(even) .timeline-content::after {
+    background: var(--bg-card);
+    border-color: var(--border-card);
+}
+body.theme-dark .timeline-title {
+    color: var(--ink);
+}
+body.theme-dark .timeline-ketua {
+    color: var(--muted);
+}
+body.theme-dark .sora-rpg-card {
+    background: var(--bg-card);
+    border-color: var(--border-card);
+}
+body.theme-dark .sora-rpg-header {
+    border-color: var(--border-card);
+}
+body.theme-dark .sora-stat-item {
+    background: var(--bg-card-alt);
+    border-left-color: var(--pink);
+}
+body.theme-dark .sora-stat-value {
+    color: var(--ink);
+}
+body.theme-dark .sora-quote-box {
+    background: rgba(233, 30, 99, 0.12);
+    border-color: var(--border-card);
+    color: #f0e6ef;
+}
+body.theme-dark .achievement-card {
+    background: var(--bg-card);
+    border-color: var(--border-card);
+}
+body.theme-dark .achievement-card.highlight {
+    background: linear-gradient(145deg, #241a28, #1e1823);
+}
+body.theme-dark .achievement-rank {
+    color: var(--ink);
+}
+body.theme-dark .achievement-name {
+    color: var(--muted);
+}
+body.theme-dark .faq-intro-box {
+    background: linear-gradient(135deg, #251a23, #191f28);
+    border-color: var(--border-card);
+}
+body.theme-dark .faq-intro-text {
+    color: var(--ink);
+}
+body.theme-dark .faq-item {
+    background: var(--bg-card);
+    border-color: var(--border-card);
+}
+body.theme-dark .faq-question {
+    background: #251a23;
+    color: var(--ink);
+}
+body.theme-dark .faq-question:hover {
+    background: #332230;
+}
+body.theme-dark .faq-answer {
+    background: var(--bg-card);
+    border-left-color: var(--pink);
+}
+body.theme-dark .faq-chat-bubble {
+    background: var(--bg-card-alt);
+    color: #f5edf4;
+}
+body.theme-dark .faq-chat-bubble::before {
+    border-right-color: var(--bg-card-alt);
+}
+
+/* Responsive Media Queries */
+@media (max-width: 900px) {
+    .achievement-bento {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .achievement-card.span-2 {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 768px) {
+    .sora-grid {
+        grid-template-columns: 1fr;
+    }
+    .sora-visual-card {
+        max-height: 420px;
+    }
+    .sora-stat-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .achievement-bento {
+        grid-template-columns: 1fr;
+    }
+    .achievement-card.span-2 {
+        grid-column: span 1;
+    }
+    .faq-answer {
+        padding: 16px;
+        gap: 12px;
+    }
+    .faq-chat-avatar {
+        width: 36px;
+        height: 36px;
+    }
+    .faq-question {
+        padding: 14px 18px;
+        font-size: 14px;
+    }
+}
+
 
 

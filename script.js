@@ -82,6 +82,36 @@ document.addEventListener("DOMContentLoaded", () => {
     if (app) {
         initKanaQuest();
     }
+
+    // Toggle sidebar navigation (Tengoku Style)
+    const menuBtn = document.querySelector(".menu-btn");
+    const closeBtn = document.querySelector(".close-btn");
+    const sidebarNav = document.querySelector(".sidebar-nav");
+    const sidebarOverlay = document.querySelector(".sidebar-overlay");
+
+    if (menuBtn && sidebarNav) {
+        menuBtn.addEventListener("click", () => {
+            sidebarNav.classList.add("active");
+            if (sidebarOverlay) sidebarOverlay.classList.add("active");
+            menuBtn.setAttribute("aria-expanded", "true");
+        });
+    }
+
+    if (closeBtn && sidebarNav) {
+        closeBtn.addEventListener("click", () => {
+            sidebarNav.classList.remove("active");
+            if (sidebarOverlay) sidebarOverlay.classList.remove("active");
+            if (menuBtn) menuBtn.setAttribute("aria-expanded", "false");
+        });
+    }
+
+    if (sidebarOverlay && sidebarNav) {
+        sidebarOverlay.addEventListener("click", () => {
+            sidebarNav.classList.remove("active");
+            sidebarOverlay.classList.remove("active");
+            if (menuBtn) menuBtn.setAttribute("aria-expanded", "false");
+        });
+    }
 });
 
 const rows = [

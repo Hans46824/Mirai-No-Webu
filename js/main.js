@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     normalizeNavigation();
     setupThemeToggle();
     setupMenu();
+    setupSidebarNav();
     setupBackToTop();
     setupReveal();
     setupInstagramFeedback();
@@ -19,6 +20,7 @@ function setupThemeToggle() {
     const header = document.querySelector(".nav");
 
     document.body.classList.toggle("theme-dark", useDarkTheme);
+    document.body.classList.toggle("dark-mode", useDarkTheme);
     if (!header) return;
 
     const button = document.createElement("button");
@@ -37,6 +39,7 @@ function setupThemeToggle() {
     button.addEventListener("click", () => {
         const isDark = !document.body.classList.contains("theme-dark");
         document.body.classList.toggle("theme-dark", isDark);
+        document.body.classList.toggle("dark-mode", isDark);
         localStorage.setItem(storageKey, isDark ? "dark" : "light");
         button.setAttribute("aria-pressed", String(isDark));
         updateLabel(isDark);
@@ -105,6 +108,46 @@ function setupMenu() {
     toggle.addEventListener("click", () => {
         const isOpen = menu.classList.toggle("is-open");
         toggle.setAttribute("aria-expanded", String(isOpen));
+    });
+}
+
+function setupSidebarNav() {
+    const menuBtn = document.querySelector(".menu-btn");
+    const closeBtn = document.querySelector(".close-btn");
+    const sidebarNav = document.querySelector(".sidebar-nav");
+    const sidebarOverlay = document.querySelector(".sidebar-overlay");
+
+    if (menuBtn && sidebarNav) {
+        menuBtn.addEventListener("click", () => {
+            sidebarNav.classList.add("active");
+            if (sidebarOverlay) sidebarOverlay.classList.add("active");
+            menuBtn.setAttribute("aria-expanded", "true");
+        });
+    }
+
+    if (closeBtn && sidebarNav) {
+        closeBtn.addEventListener("click", () => {
+            sidebarNav.classList.remove("active");
+            if (sidebarOverlay) sidebarOverlay.classList.remove("active");
+            if (menuBtn) menuBtn.setAttribute("aria-expanded", "false");
+        });
+    }
+
+    if (sidebarOverlay && sidebarNav) {
+        sidebarOverlay.addEventListener("click", () => {
+            sidebarNav.classList.remove("active");
+            sidebarOverlay.classList.remove("active");
+            if (menuBtn) menuBtn.setAttribute("aria-expanded", "false");
+        });
+    }
+
+    // Close on escape key
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && sidebarNav && sidebarNav.classList.contains("active")) {
+            sidebarNav.classList.remove("active");
+            if (sidebarOverlay) sidebarOverlay.classList.remove("active");
+            if (menuBtn) menuBtn.setAttribute("aria-expanded", "false");
+        }
     });
 }
 
