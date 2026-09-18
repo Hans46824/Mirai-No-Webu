@@ -8394,12 +8394,7 @@ button:focus-visible:not(:disabled),
 input[type="button"]:hover,
 input[type="submit"]:hover,
 input[type="reset"]:hover,
-[role="button"]:hover,
-#drawer #sendBtn:hover:not(:disabled),
-#drawer #closeBtn:hover,
-#drawer #fullscreenBtn:hover,
-#drawer #clearBtn:hover,
-#drawer .suggestions button:hover {
+[role="button"]:hover {
     box-shadow: 0 0 16px rgba(255, 46, 131, 0.85), 0 0 32px rgba(255, 79, 145, 0.55), 0 0 52px rgba(255, 105, 180, 0.35) !important;
     border-color: #ff4f91 !important;
     animation: pinkRayGlow 1.8s infinite ease-in-out;
@@ -8430,12 +8425,7 @@ button:active:not(:disabled):not(.is-matched):not(.is-answer):not(.is-wrong-matc
 input[type="button"]:active,
 input[type="submit"]:active,
 input[type="reset"]:active,
-[role="button"]:active,
-#drawer #sendBtn:active:not(:disabled),
-#drawer #closeBtn:active,
-#drawer #fullscreenBtn:active,
-#drawer #clearBtn:active,
-#drawer .suggestions button:active {
+[role="button"]:active {
     box-shadow: 0 0 25px rgba(255, 46, 131, 1), 0 0 50px rgba(255, 79, 145, 0.9), 0 0 80px rgba(255, 105, 180, 0.6) !important;
     border-color: #ff2e83 !important;
     transform: scale(0.97);

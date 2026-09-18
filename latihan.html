@@ -4,8 +4,209 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Latihan Kana — MIRAI NO HANA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Pacifico&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css?v=4">
 <style>
+/* ===== DIGITAL SIGNATURE WIDGET ===== */
+.sig-widget {
+    margin-top: 22px;
+    padding: 18px 20px 20px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #1a1225 0%, #201430 100%);
+    border: 1px solid rgba(233,30,99,0.22);
+    box-shadow: 0 4px 20px rgba(233,30,99,0.10);
+    text-align: left;
+}
+body:not(.theme-dark) .sig-widget {
+    background: linear-gradient(135deg, #fff5f9 0%, #ffeef5 100%);
+    border: 1px solid #f4c2d4;
+    box-shadow: 0 4px 20px rgba(233,30,99,0.08);
+}
+.sig-widget-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #e91e63;
+    margin: 0 0 14px;
+}
+.sig-widget-title span.sig-icon {
+    font-size: 16px;
+    letter-spacing: 0;
+}
+.sig-input-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.sig-name-input {
+    flex: 1;
+    min-width: 140px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1.5px solid rgba(233,30,99,0.3);
+    background: rgba(233,30,99,0.06);
+    color: #f5edf3;
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+body:not(.theme-dark) .sig-name-input {
+    color: #2d1c2e;
+    background: #fff;
+}
+.sig-name-input::placeholder { color: #a07090; }
+.sig-name-input:focus {
+    border-color: #e91e63;
+    box-shadow: 0 0 0 3px rgba(233,30,99,0.18);
+}
+.sig-font-picker {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin: 12px 0 0;
+}
+.sig-font-btn {
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1.5px solid rgba(233,30,99,0.28);
+    background: transparent;
+    color: #c06080;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.18s;
+}
+body.theme-dark .sig-font-btn { color: #e06090; }
+.sig-font-btn.active,
+.sig-font-btn:hover {
+    background: #e91e63;
+    border-color: #e91e63;
+    color: #fff;
+}
+.sig-preview-wrap {
+    margin-top: 14px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.03);
+    border: 1.5px dashed rgba(233,30,99,0.22);
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 18px;
+    position: relative;
+    overflow: hidden;
+}
+body:not(.theme-dark) .sig-preview-wrap {
+    background: rgba(255,255,255,0.85);
+    border-color: #f4c2d4;
+}
+.sig-preview-wrap::before {
+    content: '';
+    position: absolute;
+    bottom: 14px;
+    left: 18px;
+    right: 18px;
+    height: 1.5px;
+    background: linear-gradient(90deg, transparent, rgba(233,30,99,0.35), transparent);
+}
+.sig-preview-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(28px, 6vw, 44px);
+    font-weight: 700;
+    color: #e91e63;
+    text-align: center;
+    width: 100%;
+    word-break: break-word;
+    line-height: 1.2;
+    padding-bottom: 8px;
+    transition: font-family 0.25s;
+    text-shadow: 0 2px 18px rgba(233,30,99,0.22);
+}
+.sig-preview-text.font-greatvibes { font-family: 'Great Vibes', cursive; font-weight: 400; }
+.sig-preview-text.font-pacifico   { font-family: 'Pacifico', cursive; font-weight: 400; }
+.sig-placeholder {
+    color: rgba(233,30,99,0.28);
+    font-family: 'Dancing Script', cursive;
+    font-size: 26px;
+    font-style: italic;
+    user-select: none;
+}
+.sig-actions-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+.sig-dl-btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 18px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #e91e63, #b81b4d);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 16px rgba(233,30,99,0.30);
+}
+.sig-dl-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(233,30,99,0.45);
+}
+.sig-dl-btn:active { transform: scale(0.97); }
+.sig-copy-btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 16px;
+    border-radius: 8px;
+    background: rgba(233,30,99,0.1);
+    color: #e91e63;
+    font-size: 13px;
+    font-weight: 700;
+    border: 1.5px solid rgba(233,30,99,0.28);
+    cursor: pointer;
+    transition: all 0.18s;
+}
+body.theme-dark .sig-copy-btn { background: rgba(233,30,99,0.12); }
+.sig-copy-btn:hover {
+    background: rgba(233,30,99,0.18);
+    border-color: #e91e63;
+}
+.sig-toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: #e91e63;
+    color: #fff;
+    padding: 10px 22px;
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 4px 18px rgba(233,30,99,0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 9999;
+}
+.sig-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+#sig-canvas { display: none; }
+
 .answer-grid.is-match-grid,
 .learning-app .answer-grid.is-match-grid,
 .question-card .answer-grid.is-match-grid {
@@ -505,7 +706,176 @@ body.theme-dark .perfect-note p {
     </div>
 </footer>
 <section class="practice-view" data-practice-view hidden><div class="practice-shell"><button class="icon-close" data-close-practice aria-label="Tutup latihan">×</button><div class="practice-head"><span data-practice-label>Hiragana</span><strong>⏱ <span data-timer>00:00</span></strong></div><div class="question-dots" data-question-dots></div><div class="question-count">Soal <b data-question-number>1</b> / <span data-question-total>10</span></div><div class="question-progress"><i data-question-progress></i></div><article class="question-card"><div class="question-kind" data-question-kind>KANA → ROMAJI</div><div class="question-prompt" data-question-prompt>あ</div><button class="audio-button" data-audio hidden>▶ Dengarkan pengucapan</button><p>Bagaimana bacaannya?</p><div class="answer-grid" data-answer-grid></div><div class="feedback" data-feedback hidden></div></article><button class="skip-button" data-skip>Lewati →</button></div></section>
-<section class="result-view" data-result-view hidden><div class="result-card"><button class="icon-close" data-result-home aria-label="Tutup hasil latihan">×</button><p class="kicker">SESI SELESAI</p><h2>🎉 Latihan selesai!</h2><div class="result-stats"><div><b data-result-accuracy>0%</b><small>Akurasi</small></div><div><b data-result-correct>0</b><small>Benar</small></div><div><b data-result-wrong>0</b><small>Salah</small></div><div><b data-result-time>00:00</b><small>Waktu</small></div></div><p data-result-streak>Runtunan terbaik: 0</p><div class="result-actions"><button class="btn primary" data-retry>↻ Coba Lagi</button><button class="btn" data-review-result>Tinjau Kesalahan</button></div><div class="mistake-list" data-mistake-list></div></div></section>
+<section class="result-view" data-result-view hidden><div class="result-card"><button class="icon-close" data-result-home aria-label="Tutup hasil latihan">×</button><p class="kicker">SESI SELESAI</p><h2>🎉 Latihan selesai!</h2><div class="result-stats"><div><b data-result-accuracy>0%</b><small>Akurasi</small></div><div><b data-result-correct>0</b><small>Benar</small></div><div><b data-result-wrong>0</b><small>Salah</small></div><div><b data-result-time>00:00</b><small>Waktu</small></div></div><p data-result-streak>Runtutan terbaik: 0</p><div class="result-actions"><button class="btn primary" data-retry>↻ Coba Lagi</button><button class="btn" data-review-result>Tinjau Kesalahan</button></div><div class="mistake-list" data-mistake-list></div>
+
+<!-- ===== DIGITAL SIGNATURE WIDGET ===== -->
+<div class="sig-widget" id="sigWidget">
+  <p class="sig-widget-title"><span class="sig-icon">✍️</span> Tanda Tangan Digital</p>
+  <div class="sig-input-row">
+    <input class="sig-name-input" id="sigNameInput" type="text" maxlength="40" placeholder="Ketik namamu di sini…" autocomplete="off" spellcheck="false">
+  </div>
+  <div class="sig-font-picker" id="sigFontPicker">
+    <button class="sig-font-btn active" data-font="dancing" style="font-family:'Dancing Script',cursive">Dancing Script</button>
+    <button class="sig-font-btn" data-font="greatvibes" style="font-family:'Great Vibes',cursive">Great Vibes</button>
+    <button class="sig-font-btn" data-font="pacifico" style="font-family:'Pacifico',cursive">Pacifico</button>
+  </div>
+  <div class="sig-preview-wrap" id="sigPreviewWrap">
+    <span class="sig-preview-text" id="sigPreviewText">
+      <span class="sig-placeholder" id="sigPlaceholder">Nama kamu akan tampil di sini…</span>
+    </span>
+  </div>
+  <div class="sig-actions-row" id="sigActionsRow" style="display:none">
+    <button class="sig-dl-btn" id="sigDlBtn">⬇ Unduh PNG</button>
+    <button class="sig-copy-btn" id="sigCopyBtn">📋 Salin Nama</button>
+  </div>
+</div>
+</div></section>
+
+<!-- Hidden canvas for PNG export -->
+<canvas id="sig-canvas"></canvas>
+<div class="sig-toast" id="sigToast">✓ Nama disalin!</div>
+
 <button class="to-top" type="button" aria-label="Kembali ke atas">↑</button><script src="js/sora.js"></script><script src="js/main.js"></script><script src="script.js"></script>
+<script>
+/* ===== DIGITAL SIGNATURE ENGINE ===== */
+(function() {
+  var input     = document.getElementById('sigNameInput');
+  var preview   = document.getElementById('sigPreviewText');
+  var placeholder = document.getElementById('sigPlaceholder');
+  var picker    = document.getElementById('sigFontPicker');
+  var actionsRow = document.getElementById('sigActionsRow');
+  var dlBtn     = document.getElementById('sigDlBtn');
+  var copyBtn   = document.getElementById('sigCopyBtn');
+  var toast     = document.getElementById('sigToast');
+  var canvas    = document.getElementById('sig-canvas');
+
+  var currentFont = 'dancing'; // default
+  var fontMap = {
+    dancing:   { family: "'Dancing Script', cursive", weight: 700 },
+    greatvibes:{ family: "'Great Vibes', cursive",    weight: 400 },
+    pacifico:  { family: "'Pacifico', cursive",        weight: 400 }
+  };
+  var fontClass = {
+    dancing:    '',
+    greatvibes: 'font-greatvibes',
+    pacifico:   'font-pacifico'
+  };
+
+  function updatePreview() {
+    var name = input.value.trim();
+    if (name.length === 0) {
+      if (placeholder) placeholder.style.display = '';
+      preview.childNodes.forEach(function(n){ if(n !== placeholder) n.textContent = ''; });
+      actionsRow.style.display = 'none';
+      return;
+    }
+    if (placeholder) placeholder.style.display = 'none';
+    // Set text content keeping only text node
+    var textNode = Array.from(preview.childNodes).find(function(n){ return n !== placeholder && n.nodeType === 3; });
+    if (!textNode) {
+      textNode = document.createTextNode(name);
+      preview.insertBefore(textNode, placeholder || null);
+    } else {
+      textNode.textContent = name;
+    }
+    actionsRow.style.display = 'flex';
+  }
+
+  function applyFont(fontKey) {
+    currentFont = fontKey;
+    preview.className = 'sig-preview-text ' + (fontClass[fontKey] || '');
+    picker.querySelectorAll('.sig-font-btn').forEach(function(b){
+      b.classList.toggle('active', b.dataset.font === fontKey);
+    });
+  }
+
+  input.addEventListener('input', updatePreview);
+  input.addEventListener('keydown', function(e){ if(e.key==='Enter') e.preventDefault(); });
+
+  picker.addEventListener('click', function(e){
+    var btn = e.target.closest('.sig-font-btn');
+    if (!btn) return;
+    applyFont(btn.dataset.font);
+  });
+
+  // === Download PNG via Canvas ===
+  dlBtn.addEventListener('click', function(){
+    var name = input.value.trim();
+    if (!name) return;
+    var f = fontMap[currentFont];
+    var fontSize = 72;
+    var ctx = canvas.getContext('2d');
+    ctx.font = f.weight + ' ' + fontSize + 'px ' + f.family;
+    var measured = ctx.measureText(name);
+    var W = Math.max(Math.ceil(measured.width) + 80, 300);
+    var H = 130;
+    canvas.width  = W;
+    canvas.height = H;
+
+    // Background
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, W, H);
+
+    // Baseline line
+    ctx.strokeStyle = 'rgba(233,30,99,0.28)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(30, H - 22);
+    ctx.lineTo(W - 30, H - 22);
+    ctx.stroke();
+
+    // Text
+    ctx.font = f.weight + ' ' + fontSize + 'px ' + f.family;
+    ctx.fillStyle = '#e91e63';
+    ctx.textBaseline = 'alphabetic';
+    ctx.textAlign = 'center';
+    ctx.shadowColor = 'rgba(233,30,99,0.18)';
+    ctx.shadowBlur = 10;
+    ctx.fillText(name, W / 2, H - 30);
+
+    // Watermark
+    ctx.shadowBlur = 0;
+    ctx.font = '600 10px Arial, sans-serif';
+    ctx.fillStyle = 'rgba(180,120,150,0.55)';
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'bottom';
+    ctx.fillText('MIRAI NO HANA', W - 12, H - 4);
+
+    // Download
+    var link = document.createElement('a');
+    link.download = 'ttd-' + name.replace(/\s+/g, '-').toLowerCase() + '.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+
+    showToast('✓ Tanda tangan diunduh!');
+  });
+
+  // === Copy name to clipboard ===
+  copyBtn.addEventListener('click', function(){
+    var name = input.value.trim();
+    if (!name) return;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(name).then(function(){ showToast('✓ Nama disalin!'); });
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = name;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showToast('✓ Nama disalin!');
+    }
+  });
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(function(){ toast.classList.remove('show'); }, 2400);
+  }
+})();
+</script>
+
 </body>
 </html>
