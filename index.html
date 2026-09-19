@@ -627,9 +627,9 @@ HANYA JIKA user bertanya serius tentang pelajaran bahasa Jepang atau info ekstra
 - Jawab dengan jelas dan ringkas. Setelah menjawab, kembalilah ke mode santai/tengilmu. Jangan bertele-tele jadi guru.
 `.trim();
 
-        const DEFAULT_GREETING = "Domo WeHani-jin! ☁️ Aku Asora Aokita (Sora), siap nemenin kamu hari ini. Mau belajar bahasa Jepang bareng, tanya-tanya seputar klub, atau sekadar ngobrol santai nih?";
+        const DEFAULT_GREETING = "Domo WeHani-jin! ☁️ Aku Asora Aokita (Sora), siap nemenin kamu hari ini. Mau belajar bahasa Jepang bareng, atau lagi mau ngomong sama aku?";
 
-        const STORAGE_KEY = "sora-chat-v9";
+        const STORAGE_KEY = "sora-chat-v10";
         let messages = loadHistory();
         if (!messages.length || (messages.length === 1 && messages[0].role === "assistant")) {
             messages = [{ role: "assistant", content: DEFAULT_GREETING }];
