@@ -194,49 +194,41 @@
                 <p class="copy">Karakter maskot kebanggaan MIRAI NO HANA yang merepresentasikan semangat pantang menyerah dan keceriaan para siswa.</p>
             </div>
 
-            <div class="sora-grid">
-                <!-- Visual Sora Full Body -->
-                <div class="sora-visual-card" style="position: relative;">
-                    <span class="sora-visual-badge" style="z-index: 10;">★ SSR MASKOT RESMI</span>
-                    <style>.no-scroll-bar::-webkit-scrollbar { display: none; } .no-scroll-bar { -ms-overflow-style: none; scrollbar-width: none; }</style>
-                    <div class="no-scroll-bar" style="width: 100%; height: 100%; overflow-x: auto; overflow-y: hidden; display: block; white-space: nowrap; font-size: 0; scroll-behavior: smooth; cursor: grab;" onmousedown="this.style.cursor='grabbing';" onmouseup="this.style.cursor='grab';">
-                        <img src="images/mirai/sora/soracarousel.png" alt="Asora Aokita (Sora) - Maskot Resmi" style="height: 100%; width: auto; max-width: none; display: inline-block;">
-                    </div>
-                </div>
-
-                <!-- RPG Status Card -->
-                <div class="sora-rpg-card">
-                    <div class="sora-rpg-header">
-                        <span class="sora-rpg-tag">CHARACTER STATUS · LEVEL MAX</span>
-                        <h3 class="sora-rpg-name">Asora Aokita <span>(Sora)</span></h3>
-                    </div>
-
-                    <!-- RPG Attribute Grid -->
-                    <div class="sora-stat-list">
-                        <div class="sora-stat-item">
-                            <span class="sora-stat-label">🎂 Ulang Tahun</span>
-                            <p class="sora-stat-value">1 Desember</p>
-                        </div>
-                        <div class="sora-stat-item">
-                            <span class="sora-stat-label">🌌 MBTI / Zodiac</span>
-                            <p class="sora-stat-value">ENTP — Sagitarius</p>
-                        </div>
-                        <div class="sora-stat-item">
-                            <span class="sora-stat-label">📏 Tinggi / Berat</span>
-                            <p class="sora-stat-value">175 cm / 58 kg</p>
-                        </div>
-                        <div class="sora-stat-item">
-                            <span class="sora-stat-label">📚 Hobi Favorit</span>
-                            <p class="sora-stat-value">Membaca buku ensiklopedia</p>
-                        </div>
-                    </div>
-
-                    <!-- Quotes Box -->
-                    <div class="sora-quote-box">
-                        Langit cerah berwarna biru muda, burung berkicau merdu suaranya. Perkenalkan aku Asora Aokita, seorang anak laki-laki yang tidak mudah menyerah!
-                    </div>
+            <div class="sora-full-carousel">
+                <style>.no-scroll-bar::-webkit-scrollbar { display: none; } .no-scroll-bar { -ms-overflow-style: none; scrollbar-width: none; }</style>
+                <div id="sora-scroll-box" class="no-scroll-bar" style="width: 100%; border-radius: 22px; overflow-x: auto; overflow-y: hidden; display: block; white-space: nowrap; font-size: 0; box-shadow: 0 12px 35px rgba(233, 30, 99, 0.15); border: 2px solid var(--pink-border); cursor: grab;">
+                    <img src="images/mirai/sora/soracarousel.png" alt="Profil Lengkap Asora Aokita" style="width: max(100%, 1500px); height: auto; display: inline-block; pointer-events: none;">
                 </div>
             </div>
+            
+            <script>
+                const slider = document.getElementById('sora-scroll-box');
+                let isDown = false;
+                let startX;
+                let scrollLeft;
+
+                slider.addEventListener('mousedown', (e) => {
+                    isDown = true;
+                    slider.style.cursor = 'grabbing';
+                    startX = e.pageX - slider.offsetLeft;
+                    scrollLeft = slider.scrollLeft;
+                });
+                slider.addEventListener('mouseleave', () => {
+                    isDown = false;
+                    slider.style.cursor = 'grab';
+                });
+                slider.addEventListener('mouseup', () => {
+                    isDown = false;
+                    slider.style.cursor = 'grab';
+                });
+                slider.addEventListener('mousemove', (e) => {
+                    if (!isDown) return;
+                    e.preventDefault();
+                    const x = e.pageX - slider.offsetLeft;
+                    const walk = (x - startX) * 2; // Scroll-fast
+                    slider.scrollLeft = scrollLeft - walk;
+                });
+            </script>
         </section>
 
         <!-- PAPAN PRESTASI (WALL OF FAME - JEJAK KEBANGGAAN) -->
