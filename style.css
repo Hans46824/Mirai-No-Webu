@@ -6972,6 +6972,322 @@ body.theme-dark .logo-meaning-card p {
     color: #d7ccd2;
 }
 
+/* =====================================================
+   SECTION: MAKNA SLOGAN (.slogan-section)
+   ===================================================== */
+.slogan-section {
+    display: block !important;
+    padding: 90px 7vw !important;
+}
+
+.slogan-container {
+    max-width: 1040px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.slogan-hero-card {
+    background: linear-gradient(135deg, #1f1825 0%, #15101a 100%);
+    border: 1.5px solid rgba(233, 30, 99, 0.4);
+    border-radius: 18px;
+    padding: 42px 32px;
+    text-align: center;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+    position: relative;
+    overflow: hidden;
+}
+
+.slogan-hero-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 30%, rgba(233, 30, 99, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.slogan-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 16px;
+    background: rgba(233, 30, 99, 0.15);
+    border: 1px solid rgba(233, 30, 99, 0.4);
+    color: #ff659b !important;
+    border-radius: 20px;
+    font-size: 11.5px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.slogan-japanese {
+    font-size: clamp(34px, 5.5vw, 56px);
+    font-weight: 900;
+    color: #ffffff !important;
+    margin: 18px 0 8px;
+    letter-spacing: 2px;
+    font-family: 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', sans-serif;
+    text-shadow: 0 4px 20px rgba(233, 30, 99, 0.3);
+}
+
+.slogan-romaji {
+    font-size: 18px;
+    color: #ff659b !important;
+    font-weight: 700;
+    margin: 0 0 16px;
+    font-style: italic;
+    letter-spacing: 0.5px;
+}
+
+.slogan-divider {
+    width: 90px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #e91e63, transparent);
+    margin: 0 auto 16px;
+    border-radius: 2px;
+}
+
+.slogan-meaning-quote {
+    font-size: clamp(17px, 2.2vw, 22px);
+    color: #ffffff !important;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 0.3px;
+}
+
+.slogan-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+}
+
+.slogan-card {
+    background: #18131c;
+    border: 1px solid #3d2c40;
+    border-radius: 14px;
+    padding: 28px 30px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.slogan-card:hover {
+    transform: translateY(-4px);
+    border-color: #e91e63;
+    box-shadow: 0 12px 28px rgba(233, 30, 99, 0.2);
+}
+
+.slogan-card.span-full {
+    grid-column: 1 / -1;
+    background: #1b1420;
+    border-color: #48314c;
+}
+
+.slogan-card-badge {
+    color: #ff659b !important;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.slogan-card h3 {
+    color: #ffffff !important;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 12px;
+    line-height: 1.35;
+}
+
+.slogan-card p {
+    color: #cfc1d1 !important;
+    font-size: 14.5px;
+    line-height: 1.75;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .slogan-cards-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =====================================================
+   SECTION: VISI & MISI (.vision-mission-section)
+   ===================================================== */
+.vision-mission-section {
+    display: block !important;
+    padding: 90px 7vw !important;
+}
+
+.vision-mission-wrap {
+    max-width: 1040px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.vision-card {
+    background: linear-gradient(135deg, #fff5f9 0%, #fffbfd 100%);
+    border: 1.5px solid var(--pink-border, #f4bfd3);
+    border-left: 6px solid var(--pink, #e91e63);
+    border-radius: 16px;
+    padding: 34px 38px;
+    box-shadow: 0 8px 26px rgba(72, 32, 52, 0.05);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.vision-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 32px rgba(233, 30, 99, 0.1);
+}
+
+.vision-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 14px;
+    background: rgba(233, 30, 99, 0.08);
+    border: 1px solid rgba(233, 30, 99, 0.25);
+    color: var(--pink, #e91e63) !important;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.vision-card h3 {
+    font-size: clamp(20px, 2.5vw, 25px);
+    color: var(--ink, #18151b) !important;
+    font-weight: 800;
+    margin: 0 0 14px;
+    line-height: 1.35;
+}
+
+.vision-quote {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #382f3c !important;
+    font-style: italic;
+    margin: 0;
+    font-weight: 500;
+}
+
+.mission-grid-four {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+}
+
+.mission-box {
+    background: var(--white, #ffffff);
+    border: 1px solid var(--pink-border, #f0d5e1);
+    border-radius: 14px;
+    padding: 26px 28px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    box-shadow: 0 4px 18px rgba(72, 32, 52, 0.04);
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.mission-box:hover {
+    transform: translateY(-4px);
+    border-color: var(--pink, #e91e63);
+    box-shadow: 0 12px 28px rgba(233, 30, 99, 0.12);
+}
+
+.mission-number {
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--pink, #e91e63) !important;
+    font-family: Georgia, serif;
+    line-height: 1;
+    flex-shrink: 0;
+    background: rgba(233, 30, 99, 0.08);
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    border: 1px solid rgba(233, 30, 99, 0.22);
+}
+
+.mission-content h3 {
+    font-size: 17px;
+    font-weight: 750;
+    color: var(--ink, #18151b) !important;
+    margin: 0 0 8px;
+    line-height: 1.4;
+}
+
+.mission-content p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #554a59 !important;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .mission-grid-four {
+        grid-template-columns: 1fr;
+    }
+    .mission-box {
+        padding: 22px 20px;
+    }
+}
+
+/* Dark Mode Overrides for Visi & Misi */
+body.dark-mode .vision-card,
+body.theme-dark .vision-card {
+    background: linear-gradient(135deg, #1c1522 0%, #16111a 100%) !important;
+    border-color: #3b2a3d !important;
+    border-left-color: #ff659b !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
+}
+
+body.dark-mode .vision-card h3,
+body.theme-dark .vision-card h3 {
+    color: #ffffff !important;
+}
+
+body.dark-mode .vision-quote,
+body.theme-dark .vision-quote {
+    color: #dfd2e0 !important;
+}
+
+body.dark-mode .mission-box,
+body.theme-dark .mission-box {
+    background: #17121b !important;
+    border-color: #382839 !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35) !important;
+}
+
+body.dark-mode .mission-number,
+body.theme-dark .mission-number {
+    background: rgba(255, 101, 155, 0.15) !important;
+    color: #ff659b !important;
+    border-color: rgba(255, 101, 155, 0.3) !important;
+}
+
+body.dark-mode .mission-content h3,
+body.theme-dark .mission-content h3 {
+    color: #ffffff !important;
+}
+
+body.dark-mode .mission-content p,
+body.theme-dark .mission-content p {
+    color: #cfc1d1 !important;
+}
+
 /* SECTION 3: HAORI SHOWCASE & 6 MEANINGS */
 .haori-section {
     display: block !important;
