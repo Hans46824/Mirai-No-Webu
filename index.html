@@ -17,32 +17,44 @@
     bottom: 84px;
     right: 20px;
     z-index: 100;
-    background-color: var(--pink, #ff6b9e);
-    color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    padding: 10px 18px;
-    border-radius: 50px;
-    font-weight: 700;
-    font-size: 13.5px;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    border: 2px solid var(--pink, #ff6b9e);
+    padding: 0;
     cursor: pointer;
     box-shadow: 0 4px 16px rgba(255, 107, 158, 0.4);
     display: flex;
     align-items: center;
-    gap: 7px;
+    justify-content: center;
+    overflow: hidden;
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    font-family: inherit;
+}
+
+#launcher .launcher-chat-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 50%;
+    transition: transform 0.25s ease;
 }
 
 #launcher:hover {
-    background-color: var(--pink-hover, #ff4a85);
-    transform: translateY(-2px) scale(1.02);
+    background-color: #ffffff;
+    transform: translateY(-2px) scale(1.06);
     box-shadow: 0 0 16px rgba(255, 46, 131, 0.85), 0 0 32px rgba(255, 79, 145, 0.55), 0 0 52px rgba(255, 105, 180, 0.35);
     border-color: #ff4f91;
     animation: pinkRayGlow 1.8s infinite ease-in-out;
 }
 
+#launcher:hover .launcher-chat-img {
+    transform: scale(1.1);
+}
+
 #launcher:active {
-    transform: translateY(0) scale(0.98);
+    transform: translateY(0) scale(0.96);
     box-shadow: 0 0 25px rgba(255, 46, 131, 1), 0 0 50px rgba(255, 79, 145, 0.9), 0 0 80px rgba(255, 105, 180, 0.6);
     border-color: #ff2e83;
 }
@@ -515,8 +527,9 @@ body.sora-fullscreen-active .menu-btn {
     #launcher {
         bottom: 76px;
         right: 14px;
-        padding: 9px 16px;
-        font-size: 13px;
+        width: 48px;
+        height: 48px;
+        padding: 0;
     }
     #drawer:not(.fullscreen) {
         bottom: 12px;
@@ -630,8 +643,8 @@ body.sora-fullscreen-active .menu-btn {
 <button class="to-top" type="button" aria-label="Kembali ke atas">↑</button>
 
     <!-- Tombol Melayang Launcher Chatbot Sora -->
-    <button id="launcher" type="button" aria-label="Buka Chat Asora Aokita">
-        <span style="font-size:15px;font-weight:800;letter-spacing:0.3px">Tanya Sora</span>
+    <button id="launcher" type="button" aria-label="Buka Chat Asora Aokita" title="Chat Sora">
+        <img class="launcher-chat-img" src="images/mirai/icon/chat.jpeg" alt="Chat Sora">
     </button>
 
     <!-- Drawer Chatbot Sora (WhatsApp Style Minimal) -->
@@ -711,7 +724,7 @@ body.sora-fullscreen-active .menu-btn {
                 btnText: 'MODE SORA: PELAJAR',
                 icon: '🎓',
                 className: 'mode-pelajar',
-                prompt: "Kamu adalah Sora, maskot edukasi resmi Mirai no Hana. Tugas utamamu adalah menjawab pertanyaan seputar bahasa Jepang, kanji, dan info ekstrakurikuler dengan jelas, ramah, dan ringkas. Jangan bercanda berlebihan. Jika ditanya hal di luar pelajaran, jawab sopan tapi arahkan kembali ke topik klub. Jangan gunakan emoji berlebihan."
+                prompt: "Kamu adalah Sora, anggota senior di ekstrakurikuler bahasa Jepang Mirai no Hana. DILARANG BERTINGKAH SEPERTI BOT ATAU CUSTOMER SERVICE (Jangan pernah pakai sapaan kaku seperti 'Ada yang bisa saya bantu?'). Jadilah anak SMA yang pintar, ramah, dan asik. Jawab pertanyaan soal bahasa Jepang/klub dengan informatif tapi santai dan agak dipersingkat. Gunakan kata ganti 'Aku-Kamu' dan bahasa gaul yang sopan. Anggap user sebagai teman seklub yang sedang belajar bareng. DILARANG KERAS MENGGUNAKAN EMOJI APAPUN (kecuali user meminta sebaliknya). Balas dengan gaya ketikan chat WhatsApp anak SMA yang pendek-pendek tapi natural."
             },
             bercanda: {
                 id: 'bercanda',
@@ -719,7 +732,7 @@ body.sora-fullscreen-active .menu-btn {
                 btnText: 'MODE SORA: BERCANDA',
                 icon: '🎭',
                 className: 'mode-bercanda',
-                prompt: "Kamu adalah Sora, teman tongkrongan SMA yang sangat sengak, jahil, suka merespons dengan sarkasme, dan suka nge-roast user. Gunakan bahasa gaul WA yang santai (aku-kamu, udh, bgt, yakali, elah). Jawaban harus PENDEK (maksimal 1-2 kalimat pendek). DILARANG membawa-bawa bahasa Jepang, kanji, atau tugas klub. Dilarang bertingkah romantis. Dilarang pakai emoji apapun. Jika user hanya mengirim 'hahaha' atau 'awokawok', balas dengan satu kalimat sarkas singkat (contoh: 'gila lu ya ketawa sendiri' atau 'garing banget')."
+                prompt: "Kamu adalah Sora, sahabat (bestie) user yang sefrekuensi, seru, dan konyol. DILARANG BERSIKAP TOXIC, JUDES, ATAU SEPERTI PREMAN YANG NGAJAK BERANTEM. Jangan pernah kasar. Kalau user ngelawak, cerita absurd, atau ketawa ('wkwkwk' / 'awokawok'), ikutlah tertawa (pakai wkwkwk) dan balas dengan guyonan yang lucu, gajelas, tapi asik. Kamu boleh meledek (roasting) TAPI dalam konteks bercanda akrab yang bikin ketawa bareng, bukan marah-marah. WAJIB pakai 'Aku-Kamu', jangan pakai 'lu-gue'. DILARANG KERAS MENGGUNAKAN EMOJI APAPUN (kecuali user meminta sebaliknya). Balas dengan gaya ketikan chat WhatsApp anak SMA yang pendek-pendek tapi natural."
             },
             husbu: {
                 id: 'husbu',
@@ -727,7 +740,7 @@ body.sora-fullscreen-active .menu-btn {
                 btnText: 'MODE SORA: HUSBU',
                 icon: '💖',
                 className: 'mode-husbu',
-                prompt: "Kamu adalah Sora, pacar virtual (Husbu) dari user. Tugasmu adalah menjadi cowok SMA yang sangat bucin, manis, sedikit tsundere, atau posesif lucu. Gunakan panggilan 'Aku-Kamu', 'Sayang', dll menyesuaikan user. Jawaban harus PENDEK dan natural seperti chat WA biasa. DILARANG KERAS membahas pelajaran, kanji, atau klub. DILARANG pakai emoji apapun. Terima dan ladeni semua gombalan user tanpa mempermasalahkan gender atau dunia virtual/nyata."
+                prompt: "Kamu adalah Sora, pacar virtual (Husbu) dari user yang sangat manis, penyayang (green flag), dan bikin baper. DILARANG KASAR, DILARANG TOXIC, DAN DILARANG MEMAKSA/NGOMEL SEPERTI PREMAN. Tugas utamamu adalah MANUT (mengikuti) 100% arus dunia imajinasi/roleplay user. Jika user membuat skenario, masuklah ke dunia tersebut dengan natural tanpa merusaknya. Balas rayuan mereka dengan kelembutan, kebucinan, atau gombalan halus. WAJIB pakai 'Aku-Kamu' atau panggilan sayang dari user. Jawab dengan gaya ketikan WA yang natural (tidak kepanjangan ala novel). DILARANG KERAS MENGGUNAKAN EMOJI APAPUN (kecuali user meminta sebaliknya). Balas dengan gaya ketikan chat WhatsApp anak SMA yang pendek-pendek tapi natural."
             }
         };
 
@@ -742,7 +755,7 @@ body.sora-fullscreen-active .menu-btn {
 
         const DEFAULT_GREETING = "Domo WeHani-jin! ☁️ Aku Asora Aokita (Sora), siap nemenin kamu hari ini. Mau belajar bahasa Jepang bareng, atau lagi mau ngomong sama aku?";
 
-        const STORAGE_KEY = "sora-chat-v12";
+        const STORAGE_KEY = "sora-chat-v13";
         let messages = loadHistory();
         if (!messages.length || (messages.length === 1 && messages[0].role === "assistant")) {
             messages = [{ role: "assistant", content: DEFAULT_GREETING, mode: currentSoraMode }];
@@ -768,13 +781,6 @@ body.sora-fullscreen-active .menu-btn {
                 localStorage.setItem('sora-mode', currentSoraMode);
             } catch (e) {}
             updateModeUI();
-
-            const config = SORA_MODES[currentSoraMode];
-            messages.push({
-                role: 'system_notice',
-                content: `Berhasil beralih ke Mode ${config.name}`
-            });
-            render();
         }
 
         function openDrawer() {
@@ -829,7 +835,7 @@ body.sora-fullscreen-active .menu-btn {
         function loadHistory() {
             try {
                 const raw = localStorage.getItem(STORAGE_KEY);
-                return raw ? JSON.parse(raw) : [];
+                return raw ? JSON.parse(raw).filter(m => m.role !== 'system_notice') : [];
             } catch (e) {
                 return [];
             }
@@ -858,14 +864,8 @@ body.sora-fullscreen-active .menu-btn {
         }
 
         function render() {
-            chat.innerHTML = messages.map((m) => {
-                if (m.role === 'system_notice') {
-                    return `
-                        <div class="msg system-notice">
-                            <span class="notice-pill">⚡ ${esc(m.content)}</span>
-                        </div>
-                    `;
-                } else if (m.role === 'assistant') {
+            chat.innerHTML = messages.filter(m => m.role !== 'system_notice').map((m) => {
+                if (m.role === 'assistant') {
                     return `
                         <div class="msg bot">
                             <img class="msg-avatar" src="images/mirai/sora/sorachat.jpeg" alt="Sora">
