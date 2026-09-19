@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setupInstagramFeedback();
     setupLearningPanel();
     setupManagementSlider();
+    setupImageLightbox();
     window.initKanjiDictionary?.();
     window.initSora?.();
 });
@@ -363,4 +364,101 @@ function setupManagementSlider() {
     }, { passive: true });
 
     updateState(0);
+}
+
+function setupImageLightbox() {
+    let lightbox = null;
+    let imgEl = null;
+    let captionEl = null;
+
+    function createLightbox() {
+        if (lightbox) return;
+        lightbox = document.createElement("div");
+        lightbox.id = "imgLightboxModal";
+        lightbox.className = "img-lightbox";
+        lightbox.setAttribute("role", "dialog");
+        lightbox.setAttribute("aria-label", "Pratinjau Foto");
+        lightbox.setAttribute("aria-modal", "true");
+        lightbox.innerHTML = [
+            '<button class="img-lightbox-close" type="button" aria-label="Tutup Pratinjau">✕</button>',
+            '<div class="img-lightbox-container">',
+            '    <img class="img-lightbox-img" src="" alt="Pratinjau Foto">',
+            '    <div class="img-lightbox-caption"></div>',
+            '    <div class="img-lightbox-hint">Klik di mana saja atau tekan ESC untuk menutup</div>',
+            '</div>'
+        ].join("");
+        document.body.appendChild(lightbox);
+
+        imgEl = lightbox.querySelector(".img-lightbox-img");
+        captionEl = lightbox.querySelector(".img-lightbox-caption");
+        const closeBtn = lightbox.querySelector(".img-lightbox-close");
+
+        closeBtn.addEventListener("click", closeLightbox);
+        lightbox.addEventListener("click", (e) => {
+            if (e.target !== captionEl) {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && lightbox.classList.contains("is-open")) {
+                closeLightbox();
+            }
+        });
+    }
+
+    function openLightbox(sourceImg) {
+        if (!sourceImg || !sourceImg.src) return;
+        createLightbox();
+
+        imgEl.src = sourceImg.currentSrc || sourceImg.src;
+        const caption = sourceImg.alt || sourceImg.title || "";
+        captionEl.textContent = caption;
+
+        lightbox.classList.add("is-open");
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.remove("is-open");
+        document.body.style.overflow = "";
+        setTimeout(() => {
+            if (imgEl && !lightbox.classList.contains("is-open")) {
+                imgEl.src = "";
+            }
+        }, 260);
+    }
+
+    // Double-click detection for Desktop
+    document.addEventListener("dblclick", (e) => {
+        const img = e.target.closest("img");
+        if (!img) return;
+        if (img.closest(".img-lightbox") || img.closest("#launcher") || img.closest(".to-top")) return;
+        if (!img.src) return;
+        e.preventDefault();
+        openLightbox(img);
+    });
+
+    // Double-tap detection for Mobile (tap twice within 320ms)
+    let lastTapTime = 0;
+    let lastTapTarget = null;
+    document.addEventListener("touchend", (e) => {
+        const img = e.target.closest("img");
+        if (!img) return;
+        if (img.closest(".img-lightbox") || img.closest("#launcher") || img.closest(".to-top")) return;
+        if (!img.src) return;
+
+        const now = Date.now();
+        const diff = now - lastTapTime;
+        if (diff < 320 && diff > 40 && lastTapTarget === img) {
+            e.preventDefault();
+            openLightbox(img);
+            lastTapTime = 0;
+            lastTapTarget = null;
+        } else {
+            lastTapTime = now;
+            lastTapTarget = img;
+        }
+    }, { passive: false });
 }
