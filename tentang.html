@@ -11,8 +11,9 @@
         <a class="brand" href="index.html">
             <img src="images/mirai/logo/MNH1-nav.png" alt="MIRAI NO HANA">
         </a>
-        <button class="menu-btn" type="button" aria-label="Buka Menu" aria-expanded="false">MENU ☰</button>
+        
     </header>
+    <button class="menu-btn" type="button" aria-label="Buka Menu" aria-expanded="false">MENU ☰</button>
 
     <div class="sidebar-overlay" aria-hidden="true"></div>
     <aside class="sidebar-nav" aria-label="Menu Navigasi">
@@ -195,9 +196,12 @@
 
             <div class="sora-grid">
                 <!-- Visual Sora Full Body -->
-                <div class="sora-visual-card">
-                    <span class="sora-visual-badge">★ SSR MASKOT RESMI</span>
-                    <img src="images/mirai/background/Sora.png" alt="Asora Aokita (Sora) - Maskot Resmi">
+                <div class="sora-visual-card" style="position: relative;">
+                    <span class="sora-visual-badge" style="z-index: 10;">★ SSR MASKOT RESMI</span>
+                    <style>.no-scroll-bar::-webkit-scrollbar { display: none; } .no-scroll-bar { -ms-overflow-style: none; scrollbar-width: none; }</style>
+                    <div class="no-scroll-bar" style="width: 100%; height: 100%; overflow-x: auto; overflow-y: hidden; display: block; white-space: nowrap; font-size: 0; scroll-behavior: smooth; cursor: grab;" onmousedown="this.style.cursor='grabbing';" onmouseup="this.style.cursor='grab';">
+                        <img src="images/mirai/sora/soracarousel.png" alt="Asora Aokita (Sora) - Maskot Resmi" style="height: 100%; width: auto; max-width: none; display: inline-block;">
+                    </div>
                 </div>
 
                 <!-- RPG Status Card -->
@@ -391,6 +395,14 @@
                     </div>
                     <h3>Pin Logo NK</h3>
                     <p>Pin bulat berhiaskan logo bunga sakura dan identitas SMA Wachid Hasyim 2.</p>
+                </article>
+
+                <article class="accessory-card">
+                    <div class="accessory-thumb-wrap">
+                        <img src="images/mirai/identitas/nametag-katakana.jpeg" alt="Nametag Katakana">
+                    </div>
+                    <h3>Nametag Katakana</h3>
+                    <p>Papan nama dengan tulisan nama anggota dalam huruf Katakana sebagai identitas klub.</p>
                 </article>
             </div>
         </section>

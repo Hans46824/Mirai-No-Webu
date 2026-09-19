@@ -1017,6 +1017,7 @@ header.home-header,
     top: 20px;
     right: 20px;
     z-index: 10000;
+    overflow: hidden;
     background: rgba(0, 0, 0, 0.65);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
@@ -8452,7 +8453,6 @@ input[type="reset"]:active,
 .class-card,
 .level-card,
 .mode-card,
-.menu-btn,
 .btn:not(.primary):not(.light) {
     position: relative;
     overflow: hidden;
