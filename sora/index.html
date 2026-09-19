@@ -102,14 +102,14 @@
             bottom: 24px;
             right: 24px;
             z-index: 9999;
-            width: 54px;
-            height: 54px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             background-color: #ffffff;
             border: 2px solid var(--pink-accent, #ff6b9e);
             padding: 0;
             cursor: pointer;
-            box-shadow: 0 4px 16px rgba(255, 107, 158, 0.4);
+            box-shadow: 0 4px 14px rgba(255, 107, 158, 0.35);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -118,29 +118,32 @@
         }
 
         #launcher .launcher-chat-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            width: 26px;
+            height: 26px;
+            object-fit: contain;
             display: block;
-            border-radius: 50%;
+            filter: brightness(1.08);
+            mix-blend-mode: multiply;
             transition: transform 0.25s ease;
+            user-select: none;
+            -webkit-user-drag: none;
         }
 
         #launcher:hover {
             background-color: #ffffff;
-            transform: translateY(-2px) scale(1.06);
+            transform: translateY(-2px) scale(1.08);
             box-shadow: 0 0 16px rgba(255, 46, 131, 0.85), 0 0 32px rgba(255, 79, 145, 0.55), 0 0 52px rgba(255, 105, 180, 0.35);
             border-color: #ff4f91;
             animation: pinkRayGlow 1.8s infinite ease-in-out;
         }
 
         #launcher:hover .launcher-chat-img {
-            transform: scale(1.1);
+            transform: scale(1.12);
         }
 
         #launcher:active {
             transform: translateY(0) scale(0.96);
-            box-shadow: 0 0 25px rgba(255, 46, 131, 1), 0 0 50px rgba(255, 79, 145, 0.9), 0 0 80px rgba(255, 105, 180, 0.6);
+            box-shadow: 0 0 25px rgba(255, 46, 131, 1), 0 0 50px rgba(255, 79, 145, 0.9);
             border-color: #ff2e83;
         }
 
@@ -602,9 +605,13 @@
             #launcher {
                 bottom: 16px;
                 right: 16px;
-                width: 48px;
-                height: 48px;
+                width: 40px;
+                height: 40px;
                 padding: 0;
+            }
+            #launcher .launcher-chat-img {
+                width: 23px;
+                height: 23px;
             }
             #drawer:not(.fullscreen) {
                 bottom: 12px;
