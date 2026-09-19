@@ -234,7 +234,7 @@
     background: linear-gradient(135deg, #1d4ed8, #2563eb);
     color: #ffffff;
     border-bottom-left-radius: 3px;
-    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.35);
+    box-shadow: none;
     border: 1px solid rgba(96, 165, 250, 0.25);
 }
 
@@ -243,9 +243,10 @@
     background: linear-gradient(135deg, #ff4f91, #e91e63);
     color: #ffffff;
     border-bottom-right-radius: 3px;
-    box-shadow: 0 2px 8px rgba(233, 30, 99, 0.35);
+    box-shadow: none;
     border: 1px solid rgba(255, 105, 180, 0.3);
 }
+
 
 /* Markdown styling inside bubble */
 #drawer .bubble .md p { margin: 0 0 4px 0; }
@@ -366,9 +367,9 @@
 }
 
 #drawer #input:focus {
-    border-color: #ff4f91;
+    border-color: rgba(255, 255, 255, 0.25);
     background-color: #262a37;
-    box-shadow: 0 0 0 2px rgba(255, 79, 145, 0.25);
+    box-shadow: none;
 }
 
 #drawer #sendBtn {
@@ -386,12 +387,12 @@
     justify-content: center;
     transition: all 0.2s ease;
     flex-shrink: 0;
-    box-shadow: 0 2px 8px rgba(233, 30, 99, 0.35);
+    box-shadow: none;
 }
 
 #drawer #sendBtn:hover {
     background: linear-gradient(135deg, #ff3380, #d81557);
-    box-shadow: 0 4px 12px rgba(233, 30, 99, 0.5);
+    box-shadow: none;
 }
 #drawer #sendBtn:disabled {
     background: #334155;
@@ -399,6 +400,7 @@
     opacity: 0.5;
     box-shadow: none;
 }
+
 
 /* Mobile Responsive */
 @media (max-width: 480px) {
@@ -456,7 +458,52 @@
                 <p class="hero-subtitle">SELAMAT DATANG DI</p>
                 <h1 class="hero-title">MIRAI NO WEBU</h1>
             </div>
-        </section><section class="section about-preview"><div class="section-intro"><p class="kicker">APA ITU MIRAI NO HANA?</p><h2 class="heading">Ruang belajar,<br><span>ruang bertumbuh.</span></h2></div><div class="about-copy-wrap"><p class="copy">MIRAI NO HANA adalah ruang belajar dan berkarya untuk mengenal bahasa Jepang, budaya, dan pengalaman belajar bersama.</p><a class="text-link" href="tentang.html">TEMUKAN CERITA KAMI <span>→</span></a></div></section><section class="section journey-section"><div class="section-intro"><p class="kicker">BELAJAR DI MIRAI NO HANA</p><h2 class="heading">Mulai<br><span>perjalananmu.</span></h2></div><p class="copy">Pilih jalur yang ingin kamu jelajahi. Setiap ruang belajar dibuat agar mudah dilanjutkan sesuai ritmemu.</p><div class="start-grid"><a class="start-card" href="kelas.html"><img class="card-corner-chibi" src="images/mirai/icon/Al.png" alt=""><span>01</span><h3>Kelas Dasar</h3><p>Hiragana, katakana, dan fondasi belajar.</p><b>→</b></a><a class="start-card" href="kelas-lanjutan.html"><img class="card-corner-chibi" src="images/mirai/icon/Lo.png" alt=""><span>02</span><h3>Kelas Lanjutan</h3><p>Kanji dan pemahaman bahasa yang lebih dalam.</p><b>→</b></a><a class="start-card" href="kamus.html"><img class="card-corner-chibi" src="images/mirai/icon/Fu.png" alt=""><span>03</span><h3>Kamus</h3><p>Cari kana, kanji, arti, bacaan, dan contoh.</p><b>→</b></a></div></section>
+        </section><section class="section about-preview"><div class="section-intro"><p class="kicker">APA ITU MIRAI NO HANA?</p><h2 class="heading">Ruang belajar,<br><span>ruang bertumbuh.</span></h2></div><div class="about-copy-wrap"><p class="copy">MIRAI NO HANA adalah ruang belajar dan berkarya untuk mengenal bahasa Jepang, budaya, dan pengalaman belajar bersama.</p><a class="text-link" href="tentang.html">TEMUKAN CERITA KAMI <span>→</span></a></div></section><section class="section journey-section"><div class="section-intro"><p class="kicker">BELAJAR DI MIRAI NO HANA</p><h2 class="heading">Mulai<br><span>perjalananmu.</span></h2></div><p class="copy">Pilih jalur yang ingin kamu jelajahi. Setiap ruang belajar dibuat agar mudah dilanjutkan sesuai ritmemu.</p><div class="start-grid">
+  <div class="start-card" tabindex="0">
+    <div class="start-card-content">
+      <img class="card-corner-chibi" src="images/mirai/icon/Al.png" alt="">
+      <span>01</span>
+      <h3>Kelas Dasar</h3>
+      <p>Hiragana, katakana, dan fondasi belajar.</p>
+      <b>→</b>
+    </div>
+    <div class="start-card-hover-menu">
+      <a class="btn primary" href="kelas.html">Beranda Kelas</a>
+      <a class="btn" href="latihan.html">Latihan Kana</a>
+      <a class="btn" href="kamus.html?tab=hiragana">Kamus Hiragana</a>
+      <a class="btn" href="kamus.html?tab=katakana">Kamus Katakana</a>
+    </div>
+  </div>
+  <div class="start-card" tabindex="0">
+    <div class="start-card-content">
+      <img class="card-corner-chibi" src="images/mirai/icon/Lo.png" alt="">
+      <span>02</span>
+      <h3>Kelas Lanjutan</h3>
+      <p>Kanji dan pemahaman bahasa yang lebih dalam.</p>
+      <b>→</b>
+    </div>
+    <div class="start-card-hover-menu">
+      <a class="btn primary" href="kelas-lanjutan.html">Beranda Kelas</a>
+      <a class="btn" href="kamus.html?tab=kanji">Kamus Kanji</a>
+      <a class="btn" href="materi/lanjutan/index.html">Materi Kanji</a>
+    </div>
+  </div>
+  <div class="start-card" tabindex="0">
+    <div class="start-card-content">
+      <img class="card-corner-chibi" src="images/mirai/icon/Fu.png" alt="">
+      <span>03</span>
+      <h3>Kamus</h3>
+      <p>Cari kana, kanji, arti, bacaan, dan contoh.</p>
+      <b>→</b>
+    </div>
+    <div class="start-card-hover-menu">
+      <a class="btn primary" href="kamus.html">Buka Kamus</a>
+      <a class="btn" href="kamus.html?tab=hiragana">Hiragana</a>
+      <a class="btn" href="kamus.html?tab=katakana">Katakana</a>
+      <a class="btn" href="kamus.html?tab=kanji">Kanji</a>
+    </div>
+  </div>
+</div></section>
 
 <section class="section home-activities-dark-section">
   <div class="section-intro">
@@ -507,7 +554,7 @@
 
     <!-- Tombol Melayang Launcher Chatbot Sora -->
     <button id="launcher" type="button" aria-label="Buka Chat Asora Aokita">
-        <span style="font-size:15px;font-weight:800;letter-spacing:0.3px">Chat Sora</span>
+        <span style="font-size:15px;font-weight:800;letter-spacing:0.3px">Tanya Sora</span>
     </button>
 
     <!-- Drawer Chatbot Sora (WhatsApp Style Minimal) -->

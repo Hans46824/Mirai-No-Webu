@@ -191,8 +191,8 @@ main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not
 main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .haori-badge,
 main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .haori-photo-tag,
 main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .lesson-list span {
-    background: #fff0f5 !important;
-    border: 1px solid var(--pink-border, #f4bfd3) !important;
+    background: transparent !important;
+    border: none !important;
     color: var(--pink, #e91e63) !important;
 }
 
@@ -308,7 +308,10 @@ main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):no
 main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .haori-photo-card,
 main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .mgmt-slide-badge,
 main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .lesson-list article,
-main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .feedback-form {
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .feedback-form,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .material-card,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .course-card,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .roadmap article {
     background: #19141f !important;
     border-color: #3d3040 !important;
     color: #ffffff !important;
@@ -333,7 +336,9 @@ main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):no
 main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .faq-question,
 main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .lesson-list h3,
 main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .haori-card h3,
-main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .facility h3 {
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .facility h3,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .material-card h3,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .course-card h3 {
     color: #ffffff !important;
 }
 
@@ -353,7 +358,9 @@ main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):no
 main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .ketentuan-card .ketentuan-list,
 main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .lesson-list p,
 main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .haori-card p,
-main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .facility p {
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .facility p,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .material-card p,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .course-card p {
     color: #d5ccd3 !important;
 }
 
@@ -368,10 +375,11 @@ main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):no
 main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .haori-badge,
 main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .haori-photo-tag,
 main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .lesson-list span {
-    background: #2b1c28 !important;
-    border: 1px solid #5d2f49 !important;
+    background: transparent !important;
+    border: none !important;
     color: #ff659b !important;
 }
+
 
 main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .division-card img {
     background: #251e2b !important;
@@ -768,10 +776,11 @@ body.theme-dark .dictionary-practice-link .kicker {
 }
 
 .course-card .card-number {
-    background: #fff0f5 !important;
-    border: 1px solid var(--pink-border, #f4bfd3) !important;
+    background: transparent !important;
+    border: none !important;
     color: var(--pink, #e91e63) !important;
 }
+
 
 .course-card .course-kana {
     background: #fff0f5 !important;
@@ -838,7 +847,6 @@ body.theme-dark .dictionary-practice-link .kicker {
 .slide-btn:hover {
     background-color: var(--pink, #e91e63) !important;
     color: #ffffff !important;
-    transform: translateY(-2px);
     box-shadow: 0 6px 18px rgba(233, 30, 99, 0.25);
 }
 
@@ -8431,3 +8439,139 @@ input[type="reset"]:active,
     transform: scale(0.97);
 }
 
+
+/* =====================================================
+   EFEK GARIS PINK BERGESER — TOMBOL HITAM & KARTU GELAP
+   Saat hover: garis pink slide dari kiri ke kanan (sama seperti .start-card)
+   ===================================================== */
+
+/* Pastikan kartu gelap punya overflow:hidden dan position:relative */
+.program-card,
+.division-card,
+.material-card,
+.class-card,
+.level-card,
+.mode-card,
+.menu-btn,
+.btn:not(.primary):not(.light) {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Garis pink top yang slide kiri → kanan saat hover */
+.program-card::before,
+.division-card::before,
+.material-card::before,
+.class-card::before,
+.level-card::before,
+.mode-card::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    content: "";
+    background: linear-gradient(90deg, var(--pink, #e91e63), #ff4f91, var(--pink, #e91e63));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+    z-index: 3;
+}
+
+.program-card:hover::before,
+.division-card-link:hover .division-card::before,
+.division-card:hover::before,
+.material-card:hover::before,
+.class-card:hover::before,
+.level-card:hover::before,
+.mode-card:hover::before {
+    transform: scaleX(1);
+}
+
+/* Untuk tombol hitam / .menu-btn: shimmer diagonal bergerak */
+.menu-btn::before,
+.btn:not(.primary):not(.light)::before {
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    content: "";
+    background: linear-gradient(120deg, transparent 0%, rgba(255,79,145,0.35) 50%, transparent 100%);
+    transform: skewX(-20deg);
+    transition: left 0.4s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.menu-btn:hover::before,
+.btn:not(.primary):not(.light):hover::before {
+    left: 130%;
+}
+
+/* Perbaikan warna teks tombol sekunder (outline) di section gelap agar tidak nabrak (hitam di atas hitam) */
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .btn:not(.primary):not(.light) {
+    color: #ffffff !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+}
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .btn:not(.primary):not(.light):hover {
+    color: #ffffff !important;
+    background: var(--pink2) !important;
+    border-color: var(--pink2) !important;
+}
+
+/* Pastikan h3 dan p pada roadmap article mendapat warna terang jika sebelumnya kurang spesifik */
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .roadmap article h3 {
+    color: #ffffff !important;
+}
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .roadmap article p {
+    color: #d5ccd3 !important;
+}
+
+/* Hover Menu Start Card */
+.start-card-wrap {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+.start-card-content {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    height: 100%;
+}
+.start-card-hover-menu {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    padding: 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+    z-index: 10;
+}
+.start-card:hover .start-card-content {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+.start-card:hover .start-card-hover-menu {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+.start-card-hover-menu .btn {
+    min-height: 38px;
+    padding: 8px 12px;
+    font-size: 10px;
+    width: 100%;
+}
+body.theme-dark .start-card-hover-menu {
+    background: rgba(30, 24, 35, 0.95);
+}
+.start-card-hover-menu .btn {
+    box-sizing: border-box;
+}

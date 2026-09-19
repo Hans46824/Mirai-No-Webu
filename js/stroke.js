@@ -1,4 +1,4 @@
-window.currentPenSize = window.currentPenSize || 'thin';
+window.currentPenSize = window.currentPenSize || 'thick';
 
 window.togglePenSize = function togglePenSize() {
     const strokeContainer = document.getElementById('stroke-stage');
@@ -38,10 +38,10 @@ window.togglePenSize = function togglePenSize() {
 /* Animated player for local & dynamic KanjiVG-derived SVG paths. */
 window.getStrokeDataAsync = async function getStrokeDataAsync(character) {
     if (!character) return null;
-    if (window.MIRAI_STROKE_DATA?.[character]) {
-        return window.MIRAI_STROKE_DATA[character];
-    }
-    const cacheKey = "mirai_stroke_" + character;
+
+    const cacheKey = "mirai_stroke_v2_" + character;
+
+    // 1. Check localStorage cache first (previously fetched from CDN = accurate)
     try {
         const cached = localStorage.getItem(cacheKey);
         if (cached) {
@@ -54,7 +54,7 @@ window.getStrokeDataAsync = async function getStrokeDataAsync(character) {
         }
     } catch (e) {}
 
-    // Multi-char: fetch parts separately without flattening into a single broken SVG
+    // Multi-char: fetch parts separately
     if (character.length > 1) {
         const parts = await Promise.all(Array.from(character).map((c) => window.getStrokeDataAsync(c)));
         if (parts.every(Boolean)) {
@@ -67,36 +67,44 @@ window.getStrokeDataAsync = async function getStrokeDataAsync(character) {
         }
     }
 
-    // Fetch official SVG from KanjiVG via jsDelivr CDN
+    // 2. Fetch official accurate SVG from KanjiVG via jsDelivr CDN
     try {
         const cp = character.codePointAt(0);
         if (!cp) return null;
         const hex = cp.toString(16).padStart(5, "0").toLowerCase();
         const res = await fetch(`https://cdn.jsdelivr.net/gh/KanjiVG/kanjivg@master/kanji/${hex}.svg`);
-        if (!res.ok) return null;
-        const svgText = await res.text();
-        const paths = [];
-        const regex = /<path[^>]+d="([^"]+)"/g;
-        let match;
-        while ((match = regex.exec(svgText)) !== null) {
-            paths.push(match[1]);
-        }
-        if (paths.length > 0) {
-            const record = { viewBox: "0 0 109 109", paths, source: "KanjiVG" };
-            if (!window.MIRAI_STROKE_DATA) window.MIRAI_STROKE_DATA = {};
-            window.MIRAI_STROKE_DATA[character] = record;
-            try {
-                localStorage.setItem(cacheKey, JSON.stringify(record));
-            } catch (e) {}
-            return record;
+        if (res.ok) {
+            const svgText = await res.text();
+            const paths = [];
+            const regex = /<path[^>]+d="([^"]+)"/g;
+            let match;
+            while ((match = regex.exec(svgText)) !== null) {
+                paths.push(match[1]);
+            }
+            if (paths.length > 0) {
+                const record = { viewBox: "0 0 109 109", paths, source: "KanjiVG-CDN" };
+                if (!window.MIRAI_STROKE_DATA) window.MIRAI_STROKE_DATA = {};
+                window.MIRAI_STROKE_DATA[character] = record;
+                try {
+                    localStorage.setItem(cacheKey, JSON.stringify(record));
+                } catch (e) {}
+                return record;
+            }
         }
     } catch (err) {
-        console.warn("Gagal memuat stroke KanjiVG untuk:", character, err);
+        console.warn("Gagal memuat stroke KanjiVG CDN untuk:", character, err);
     }
+
+    // 3. Fallback: use local stroke-data.js (offline backup, may be less accurate)
+    if (window.MIRAI_STROKE_DATA?.[character]) {
+        return window.MIRAI_STROKE_DATA[character];
+    }
+
     return null;
 };
 
 window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallbackCount, options = {}) {
+
     if (!kanaString || !host) return null;
     const showClearControl = options.showClear === true;
     let destroyed = false;

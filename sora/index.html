@@ -331,7 +331,7 @@
             background: linear-gradient(135deg, #1d4ed8, #2563eb);
             color: #ffffff;
             border-bottom-left-radius: 3px;
-            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.35);
+            box-shadow: none;
             border: 1px solid rgba(96, 165, 250, 0.25);
         }
 
@@ -340,9 +340,10 @@
             background: linear-gradient(135deg, #ff4f91, #e91e63);
             color: #ffffff;
             border-bottom-right-radius: 3px;
-            box-shadow: 0 2px 8px rgba(233, 30, 99, 0.35);
+            box-shadow: none;
             border: 1px solid rgba(255, 105, 180, 0.3);
         }
+
 
         /* Markdown inside bubble */
         #drawer .bubble .md p { margin: 0 0 4px 0; }
@@ -463,9 +464,9 @@
         }
 
         #drawer #input:focus {
-            border-color: #ff4f91;
+            border-color: rgba(255, 255, 255, 0.25);
             background-color: #262a37;
-            box-shadow: 0 0 0 2px rgba(255, 79, 145, 0.25);
+            box-shadow: none;
         }
 
         #drawer #sendBtn {
@@ -483,12 +484,12 @@
             justify-content: center;
             transition: all 0.2s ease;
             flex-shrink: 0;
-            box-shadow: 0 2px 8px rgba(233, 30, 99, 0.35);
+            box-shadow: none;
         }
 
         #drawer #sendBtn:hover {
             background: linear-gradient(135deg, #ff3380, #d81557);
-            box-shadow: 0 4px 12px rgba(233, 30, 99, 0.5);
+            box-shadow: none;
         }
         #drawer #sendBtn:disabled {
             background: #334155;
@@ -496,6 +497,7 @@
             opacity: 0.5;
             box-shadow: none;
         }
+
 
         @media (max-width: 480px) {
             #launcher {
@@ -527,7 +529,7 @@
 
     <!-- Launcher Floating Button -->
     <button id="launcher" aria-label="Buka Chat Asora Aokita">
-        <span style="font-size:15px;font-weight:800;letter-spacing:0.3px">Chat Sora</span>
+        <span style="font-size:15px;font-weight:800;letter-spacing:0.3px">Tanya Sora</span>
     </button>
 
     <!-- Drawer Chat Widget (WhatsApp Style Minimal) -->
