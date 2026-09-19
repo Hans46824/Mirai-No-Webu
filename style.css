@@ -1031,10 +1031,25 @@ header.home-header,
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    gap: 9px;
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, visibility 0.25s ease;
     font-family: inherit;
     box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+}
+
+/* Sembunyikan tombol menu saat Sidebar Nav sedang terbuka */
+body:has(.sidebar-nav.active) .menu-btn,
+body.sidebar-open .menu-btn {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+/* Sembunyikan tombol menu saat Tanya Sora dalam mode fullscreen */
+body:has(#drawer.open.fullscreen) .menu-btn,
+body.sora-fullscreen-active .menu-btn {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
 }
 
 .menu-btn:hover {
@@ -1056,7 +1071,7 @@ header.home-header,
     background: rgba(0, 0, 0, 0.65);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
-    z-index: 9998;
+    z-index: 10005;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.4s ease, visibility 0.4s ease;
@@ -1081,7 +1096,7 @@ header.home-header,
     -webkit-backdrop-filter: blur(15px);
     border-left: 1px solid rgba(255, 255, 255, 0.1);
     color: white;
-    z-index: 9999;
+    z-index: 10010;
     transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     padding: 32px 28px 28px;
     display: flex;
@@ -1604,6 +1619,18 @@ header.home-header,
 .about-preview,
 .materials-section {
     position: relative;
+}
+
+.about-preview .heading {
+    font-size: clamp(32px, 4.4vw, 68px);
+    line-height: 1.08;
+    letter-spacing: -0.045em;
+}
+
+.about-preview .heading span.highlight,
+.about-preview .heading span {
+    color: var(--pink) !important;
+    display: inline-block;
 }
 
 .about-copy-wrap {
@@ -7387,7 +7414,7 @@ body.theme-dark .activity-card-locked {
     justify-content: space-between;
     align-items: center;
     min-width: 1180px;
-    padding: 130px 40px;
+    padding: 175px 40px;
 }
 
 /* Central horizontal line */
@@ -7501,6 +7528,34 @@ body.theme-dark .activity-card-locked {
     padding: 2px 8px;
     border-radius: 20px;
     margin-bottom: 5px;
+}
+
+.timeline-photo-wrap {
+    width: 48px;
+    height: 58px;
+    margin: 5px auto 6px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1.5px solid var(--pink-border);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.timeline-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.timeline-node:hover .timeline-photo-wrap {
+    border-color: var(--pink);
+    transform: scale(1.06);
+    box-shadow: 0 4px 12px rgba(233, 30, 99, 0.35);
 }
 
 .timeline-title {
