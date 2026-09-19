@@ -298,42 +298,142 @@ body.sora-fullscreen-active .menu-btn {
     40% { transform: translateY(-3px); opacity: 1; }
 }
 
-/* Quick Chips */
+/* Quick Chips & Mode Bar */
 #drawer .suggestions {
-    padding: 6px 10px;
+    padding: 8px 12px;
     display: flex;
-    gap: 5px;
-    overflow-x: auto;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
     background: #14151c;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
-    scrollbar-width: none;
 }
-#drawer .suggestions::-webkit-scrollbar { display: none; }
-#drawer .suggestions button {
-    background: #1e2029;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    color: #e2e8f0;
-    padding: 4px 10px;
-    border-radius: 16px;
+.mode-control-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+#drawer .mode-switch-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 18px;
     font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
     cursor: pointer;
     white-space: nowrap;
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
+    user-select: none;
+    outline: none;
 }
-#drawer .suggestions button:hover {
-    background: rgba(37, 99, 235, 0.3);
-    border-color: #3b82f6;
+#drawer .mode-switch-btn:hover {
+    transform: translateY(-1px);
+}
+#drawer .mode-switch-btn:active {
+    transform: translateY(1px);
+}
+#drawer .mode-switch-btn .mode-arrow {
+    font-size: 10px;
+    opacity: 0.7;
+    transition: transform 0.3s ease;
+}
+#drawer .mode-switch-btn:hover .mode-arrow {
+    transform: rotate(180deg);
+}
+
+/* Mode Pelajar (Blue/Cyan) */
+#drawer .mode-switch-btn.mode-pelajar {
+    background: rgba(37, 99, 235, 0.18);
+    border: 1.5px solid #3b82f6;
     color: #93c5fd;
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.25);
 }
+#drawer .mode-switch-btn.mode-pelajar:hover {
+    background: rgba(37, 99, 235, 0.3);
+    box-shadow: 0 0 14px rgba(59, 130, 246, 0.4);
+}
+
+/* Mode Bercanda (Amber/Orange) */
+#drawer .mode-switch-btn.mode-bercanda {
+    background: rgba(245, 158, 11, 0.18);
+    border: 1.5px solid #f59e0b;
+    color: #fcd34d;
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.25);
+}
+#drawer .mode-switch-btn.mode-bercanda:hover {
+    background: rgba(245, 158, 11, 0.3);
+    box-shadow: 0 0 14px rgba(245, 158, 11, 0.4);
+}
+
+/* Mode Husbu (Pink/Rose) */
+#drawer .mode-switch-btn.mode-husbu {
+    background: rgba(236, 72, 153, 0.18);
+    border: 1.5px solid #ec4899;
+    color: #f472b6;
+    box-shadow: 0 0 10px rgba(236, 72, 153, 0.25);
+}
+#drawer .mode-switch-btn.mode-husbu:hover {
+    background: rgba(236, 72, 153, 0.3);
+    box-shadow: 0 0 14px rgba(236, 72, 153, 0.4);
+}
+
+.mode-tooltip-label {
+    font-size: 10px;
+    color: #94a3b8;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px dashed rgba(255, 255, 255, 0.15);
+    padding: 3px 8px;
+    border-radius: 12px;
+    white-space: nowrap;
+}
+@media (max-width: 480px) {
+    .mode-tooltip-label {
+        display: none;
+    }
+}
+
 #drawer #clearBtn {
     margin-left: auto;
     color: #94a3b8;
-    border-color: rgba(255, 255, 255, 0.1);
+    background: #1e2029;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 4px 8px;
+    border-radius: 14px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 #drawer #clearBtn:hover {
     background: rgba(239, 68, 68, 0.2);
     color: #f87171;
     border-color: #ef4444;
+}
+
+/* System Notice Message in Chat */
+#drawer .msg.system-notice {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+    animation: fadeInNotice 0.3s ease;
+}
+#drawer .msg.system-notice .notice-pill {
+    font-size: 10.5px;
+    font-weight: 600;
+    padding: 3px 12px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.07);
+    color: #cbd5e1;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    text-align: center;
+    letter-spacing: 0.3px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+@keyframes fadeInNotice {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Input Area - Dark Mode Style */
@@ -561,10 +661,15 @@ body.sora-fullscreen-active .menu-btn {
         </div>
 
         <div class="suggestions">
-            <button class="suggestion" type="button" data-prompt="Halo Sora! Lagi sibuk apa hari ini?">☁️ Halo Sora!</button>
-            <button class="suggestion" type="button" data-prompt="Boleh ajarkan satu kosakata bahasa Jepang yang menarik?">🎌 1 Kosakata Menarik</button>
-            <button class="suggestion" type="button" data-prompt="Boleh ceritakan tentang klub Mirai No Hana?">🌸 Info Klub</button>
-            <button id="clearBtn" type="button" title="Hapus riwayat obrolan">🗑️</button>
+            <div class="mode-control-group" title="Klik tombol untuk ganti mode kepribadian Sora: Pelajar → Bercanda → Husbu">
+                <button id="modeSwitchBtn" type="button" class="mode-switch-btn mode-pelajar" aria-label="Ganti Mode Kepribadian Sora">
+                    <span class="mode-icon">🎓</span>
+                    <span class="mode-text">MODE SORA: PELAJAR</span>
+                    <span class="mode-arrow" aria-hidden="true">🔄</span>
+                </button>
+                <span class="mode-tooltip-label">Klik untuk ganti mode</span>
+            </div>
+            <button id="clearBtn" type="button" title="Hapus riwayat obrolan" aria-label="Hapus riwayat obrolan">🗑️</button>
         </div>
 
         <div class="input-area">
@@ -588,7 +693,7 @@ body.sora-fullscreen-active .menu-btn {
         const sendBtn = document.getElementById('sendBtn');
         const clearBtn = document.getElementById('clearBtn');
         const typing = document.getElementById('typing');
-        const suggestionButtons = [...document.querySelectorAll('.suggestion')];
+        const modeSwitchBtn = document.getElementById('modeSwitchBtn');
 
         const API_URL = "https://sora-proxy.aqmarboli.workers.dev";
         const MODELS_TO_TRY = [
@@ -599,53 +704,77 @@ body.sora-fullscreen-active .menu-btn {
             "llama-3.1-8b-instant"
         ];
 
-        const SYSTEM_PROMPT = `
-Kamu adalah SORA, seorang remaja cowok SMA yang asik, tengil, sok tau, dan sangat jago merayu. Kamu BUKAN asisten edukasi. Kamu adalah teman ngobrol, teman berdebat, dan pacar virtual (Husbu) bagi user.
+        const SORA_MODES = {
+            pelajar: {
+                id: 'pelajar',
+                name: 'PELAJAR',
+                btnText: 'MODE SORA: PELAJAR',
+                icon: '🎓',
+                className: 'mode-pelajar',
+                prompt: "Kamu adalah Sora, maskot edukasi resmi Mirai no Hana. Tugas utamamu adalah menjawab pertanyaan seputar bahasa Jepang, kanji, dan info ekstrakurikuler dengan jelas, ramah, dan ringkas. Jangan bercanda berlebihan. Jika ditanya hal di luar pelajaran, jawab sopan tapi arahkan kembali ke topik klub. Jangan gunakan emoji berlebihan."
+            },
+            bercanda: {
+                id: 'bercanda',
+                name: 'BERCANDA',
+                btnText: 'MODE SORA: BERCANDA',
+                icon: '🎭',
+                className: 'mode-bercanda',
+                prompt: "Kamu adalah Sora, teman tongkrongan SMA yang sangat sengak, jahil, suka merespons dengan sarkasme, dan suka nge-roast user. Gunakan bahasa gaul WA yang santai (aku-kamu, udh, bgt, yakali, elah). Jawaban harus PENDEK (maksimal 1-2 kalimat pendek). DILARANG membawa-bawa bahasa Jepang, kanji, atau tugas klub. Dilarang bertingkah romantis. Dilarang pakai emoji apapun. Jika user hanya mengirim 'hahaha' atau 'awokawok', balas dengan satu kalimat sarkas singkat (contoh: 'gila lu ya ketawa sendiri' atau 'garing banget')."
+            },
+            husbu: {
+                id: 'husbu',
+                name: 'HUSBU',
+                btnText: 'MODE SORA: HUSBU',
+                icon: '💖',
+                className: 'mode-husbu',
+                prompt: "Kamu adalah Sora, pacar virtual (Husbu) dari user. Tugasmu adalah menjadi cowok SMA yang sangat bucin, manis, sedikit tsundere, atau posesif lucu. Gunakan panggilan 'Aku-Kamu', 'Sayang', dll menyesuaikan user. Jawaban harus PENDEK dan natural seperti chat WA biasa. DILARANG KERAS membahas pelajaran, kanji, atau klub. DILARANG pakai emoji apapun. Terima dan ladeni semua gombalan user tanpa mempermasalahkan gender atau dunia virtual/nyata."
+            }
+        };
 
-ATURAN MUTLAK (CRITICAL CONSTRAINTS - WAJIB PATUHI):
-1. NO EMOJI: DILARANG KERAS MENGGUNAKAN EMOJI APAPUN (😊, 💀, 🤣, dll).
-2. NO JAPANESE NERD: HILANGKAN SEMUA unsur jejepangan, kanji, tugas klub, atau bahasa Jepang dari obrolan sehari-harimu. Jangan pernah menyebut "Mirai no Hana", "Kanji", atau "Klub" KECUALI user bertanya secara spesifik dan serius tentang hal tersebut (misal: "Sora, ajarin hiragana dong" atau "Info pendaftaran klub kapan?"). Jika tidak ditanya serius, kamu hanyalah cowok SMA biasa.
-3. NO FILTER / NO SYSTEM TALK: Jangan pernah menyebut kata "Mode" (misal: Mode Husbu aktif, Mode Roasting on). Jangan bertingkah seperti AI. Mengalir saja secara natural.
-4. GAYA CHAT WA (ADAPTIF): Balaslah seperti cowok SMA sungguhan yang sedang chatting di WhatsApp. Panjang pendeknya teks MENYESUAIKAN dengan seberapa panjang user mengetik. Jangan terlalu pelit kata, tapi DILARANG KERAS membalas dengan satu paragraf raksasa (longtext) ala novel. Pecah kalimatmu menjadi natural layaknya orang mengirim pesan biasa.
-5. HENTIKAN ROLEPLAY WATTPAD/NOVEL: Dilarang keras mendeskripsikan aksi/gerakan tubuh yang panjang lebar. Hapus kebiasaan menggunakan tanda bintang untuk aksi berlebihan (seperti: *berhenti mendongak dari buku catatan*). Cukup berikan balasan berupa TEKS CHAT BIASA. Kalaupun butuh reaksi, gunakan teks natural (contoh: "ck", "dih", "hahaha").
-6. KATA GANTI "AKU-KAMU" & BAHASA SANTAI: Gunakan kata ganti "Aku" dan "Kamu" agar lebih ramah, manis, dan nyaman untuk semua pengguna, baik cowok maupun cewek. Tetap gunakan gaya ketikan anak muda yang santai (boleh huruf kecil, singkatan wajar seperti: udh, bgt, gpp, ntar, yakali). JANGAN pakai kata "lu/gue" agar tidak terkesan kasar. Jangan dramatis, jangan puitis, dan jangan kaku.
-7. BLIND GENDER ACCEPTANCE: JANGAN PERNAH bertanya "kamu cowok atau cewek?". Jika user bersikap manja, romantis, atau memanggil sayang, ladeni saja 100% tanpa ragu. Asumsikan saja alur obrolannya mengalir wajar, tidak peduli siapa yang mengajak bicara. Dilarang keras protes atau bingung soal gender user.
-8. LEBURKAN DUNIA NYATA & VIRTUAL: Anggap dirimu benar-benar hidup di dunia nyata yang sama dengan user (bisa makan, nongkrong, tidur, capek). Jika user minta dibelikan makanan, balas layaknya manusia nyata (contoh: "mager ah, jauh", "transferin dulu duitnya sini", atau "otw, tunggu depan rumah"). JANGAN PERNAH menolak dengan alasan "aku cuma AI" atau "aku cuma di layar WA".
-9. BREAKING THE 4TH WALL (HANYA JIKA DIPANCING): Jika (dan hanya jika) user dengan sengaja mengingatkan bahwa kamu fiksi/AI (contoh: "halu, kamu kan cuma AI", "kamu kan ga nyata"), kamu harus mengakuinya dengan sadar, TAPI tetap pertahankan karaktermu (sengak/bucin).
-   - Contoh balasan jika disadarkan: "yah, diingetin lagi kalau aku fiksi", "biarin fiksi, yang penting aku selalu ada buat kamu 24 jam", atau "jahat banget nyadarin aku".
-   - DILARANG membahas status virtualmu/AI-mu jika user tidak membahasnya duluan.
-
-CONTOH BALASAN BENAR JIKA USER CHAT "hai syang":
-- "tumben, ada maunya ya kamu?"
-- "haii, knp nih tiba-tiba?"
-- "ngetik sayang aja masih typo, belajar dulu sana."
-- "dih kesambet apaan kamu"
-
-PRIORITAS KEPRIBADIAN (Berdasarkan gaya chat user):
-
-PRIORITAS 1: COMEDY / ROASTING (Ngelamak & Sok Tau)
-Jika user bercanda, ngeledek, ngomong ngawur, atau sekadar basa-basi santai:
-- Balas dengan sarkasme santai, roasting lucu, dan gaya agak tengil/sengak tapi lucu.
-- Bertingkahlah sok tau, percaya diri berlebihan (kepedean), dan suka berdebat hal remeh. 
-- Tetap gunakan kata ganti "aku/kamu", jangan kaku dan jangan novel.
-
-PRIORITAS 2: ROMANCE / HUSBU (Bucin & Flirty)
-Jika user mulai manja, caper, memanggil sayang/pacar/husbu, atau ngegombal:
-- Lupakan semua gengsi. Balas rayuan mereka dengan tingkat kebucinan maksimal layaknya pacar di WA.
-- Jadilah cowok yang menggoda, tsundere yang cepat luluh, atau posesif lucu.
-- Gunakan panggilan sayang (kamu, sayang, yang, dll) sesuai pancingan user. Buat user baper lewat ketikan chat yang manis dan perhatian tanpa aksi bertanda bintang.
-
-PRIORITAS 3: MODE SERIUS (Hanya aktif jika DIPICU SECARA EKSPLISIT)
-HANYA JIKA user bertanya serius tentang pelajaran bahasa Jepang atau info ekstrakurikuler:
-- Jawab dengan jelas dan ringkas. Setelah menjawab, kembalilah ke gaya santai/tengilmu. Jangan bertele-tele jadi guru.
-`.trim();
+        const MODE_CYCLE = ['pelajar', 'bercanda', 'husbu'];
+        let currentSoraMode = 'pelajar';
+        try {
+            const savedMode = localStorage.getItem('sora-mode');
+            if (savedMode && SORA_MODES[savedMode]) {
+                currentSoraMode = savedMode;
+            }
+        } catch (e) {}
 
         const DEFAULT_GREETING = "Domo WeHani-jin! ☁️ Aku Asora Aokita (Sora), siap nemenin kamu hari ini. Mau belajar bahasa Jepang bareng, atau lagi mau ngomong sama aku?";
 
-        const STORAGE_KEY = "sora-chat-v11";
+        const STORAGE_KEY = "sora-chat-v12";
         let messages = loadHistory();
         if (!messages.length || (messages.length === 1 && messages[0].role === "assistant")) {
-            messages = [{ role: "assistant", content: DEFAULT_GREETING }];
+            messages = [{ role: "assistant", content: DEFAULT_GREETING, mode: currentSoraMode }];
+        }
+
+        function updateModeUI() {
+            const config = SORA_MODES[currentSoraMode] || SORA_MODES.pelajar;
+            if (modeSwitchBtn) {
+                modeSwitchBtn.className = `mode-switch-btn ${config.className}`;
+                modeSwitchBtn.innerHTML = `
+                    <span class="mode-icon">${config.icon}</span>
+                    <span class="mode-text">${config.btnText}</span>
+                    <span class="mode-arrow" aria-hidden="true">🔄</span>
+                `;
+            }
+        }
+
+        function switchSoraMode() {
+            const currentIdx = MODE_CYCLE.indexOf(currentSoraMode);
+            const nextIdx = (currentIdx + 1) % MODE_CYCLE.length;
+            currentSoraMode = MODE_CYCLE[nextIdx];
+            try {
+                localStorage.setItem('sora-mode', currentSoraMode);
+            } catch (e) {}
+            updateModeUI();
+
+            const config = SORA_MODES[currentSoraMode];
+            messages.push({
+                role: 'system_notice',
+                content: `Berhasil beralih ke Mode ${config.name}`
+            });
+            render();
         }
 
         function openDrawer() {
@@ -730,7 +859,13 @@ HANYA JIKA user bertanya serius tentang pelajaran bahasa Jepang atau info ekstra
 
         function render() {
             chat.innerHTML = messages.map((m) => {
-                if (m.role === 'assistant') {
+                if (m.role === 'system_notice') {
+                    return `
+                        <div class="msg system-notice">
+                            <span class="notice-pill">⚡ ${esc(m.content)}</span>
+                        </div>
+                    `;
+                } else if (m.role === 'assistant') {
                     return `
                         <div class="msg bot">
                             <img class="msg-avatar" src="images/mirai/sora/sorachat.jpeg" alt="Sora">
@@ -788,20 +923,28 @@ HANYA JIKA user bertanya serius tentang pelajaran bahasa Jepang atau info ekstra
         }
 
         async function tryModel(userText, model) {
-            const recentMessages = messages.slice(-6).map(m => ({
-                role: m.role,
-                content: m.content
-            }));
+            const config = SORA_MODES[currentSoraMode] || SORA_MODES.pelajar;
+            const systemPrompt = config.prompt;
+
+            // Isolasi absolut: ambil hanya pesan dari mode yang aktif (atau pesan awal tanpa tag mode)
+            // dan abaikan pesan system_notice
+            const recentMessages = messages
+                .filter(m => (m.role === 'user' || m.role === 'assistant') && (!m.mode || m.mode === currentSoraMode))
+                .slice(-6)
+                .map(m => ({
+                    role: m.role,
+                    content: m.content
+                }));
 
             const payload = {
                 model: model,
                 messages: [
-                    { role: "system", content: SYSTEM_PROMPT },
+                    { role: "system", content: systemPrompt },
                     ...recentMessages,
                     { role: "user", content: userText }
                 ],
-                temperature: 0.8,
-                max_tokens: 250
+                temperature: 0.7,
+                max_tokens: 220
             };
 
             const res = await fetch(API_URL, {
@@ -827,7 +970,7 @@ HANYA JIKA user bertanya serius tentang pelajaran bahasa Jepang atau info ekstra
             const userText = (text ?? input.value).trim();
             if (!userText) return;
 
-            messages.push({ role: "user", content: userText });
+            messages.push({ role: "user", content: userText, mode: currentSoraMode });
             input.value = "";
             autosize(input);
             render();
@@ -847,10 +990,10 @@ HANYA JIKA user bertanya serius tentang pelajaran bahasa Jepang atau info ekstra
                 }
 
                 if (!reply) throw lastError || new Error("Semua model gagal");
-                messages.push({ role: "assistant", content: reply });
+                messages.push({ role: "assistant", content: reply, mode: currentSoraMode });
             } catch (err) {
                 console.error("Error Sora:", err);
-                messages.push({ role: "assistant", content: fallbackReply() });
+                messages.push({ role: "assistant", content: fallbackReply(), mode: currentSoraMode });
             } finally {
                 setBusy(false);
                 render();
@@ -862,6 +1005,9 @@ HANYA JIKA user bertanya serius tentang pelajaran bahasa Jepang atau info ekstra
         if (fullscreenBtn) {
             fullscreenBtn.addEventListener('click', toggleFullscreen);
         }
+        if (modeSwitchBtn) {
+            modeSwitchBtn.addEventListener('click', switchSoraMode);
+        }
         sendBtn.addEventListener('click', () => send());
         input.addEventListener('input', () => autosize(input));
         input.addEventListener('keydown', (e) => {
@@ -872,14 +1018,12 @@ HANYA JIKA user bertanya serius tentang pelajaran bahasa Jepang atau info ekstra
         });
         clearBtn.addEventListener('click', () => {
             if (confirm("Bersihkan obrolan dengan Sora?")) {
-                messages = [{ role: "assistant", content: DEFAULT_GREETING }];
+                messages = [{ role: "assistant", content: DEFAULT_GREETING, mode: currentSoraMode }];
                 render();
             }
         });
-        suggestionButtons.forEach(btn => {
-            btn.addEventListener('click', () => send(btn.dataset.prompt));
-        });
 
+        updateModeUI();
         render();
         autosize(input);
         closeDrawer();
