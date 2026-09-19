@@ -311,6 +311,7 @@ main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):no
 main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .feedback-form,
 main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .material-card,
 main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .course-card,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .schedule-note,
 main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section) .roadmap article {
     background: #19141f !important;
     border-color: #3d3040 !important;
@@ -6230,10 +6231,10 @@ body:not(.theme-dark) .njr-dot {
     box-shadow: 0 8px 24px rgba(72, 32, 52, 0.05);
 }
 .logo-meaning-badge-col img {
-    width: 130px;
-    height: 130px;
+    width: 200px;
+    height: 200px;
     object-fit: contain;
-    margin-bottom: 18px;
+    margin-bottom: 24px;
     filter: drop-shadow(0 6px 14px rgba(233, 30, 99, 0.25));
 }
 .logo-meaning-badge-col strong {
@@ -6717,13 +6718,12 @@ body.theme-dark .mgmt-badge-desc {
 /* Heading Utama Kabinet Sora */
 .kabinet-title {
     text-align: center;
-    color: #ffffff;
+    color: var(--ink);
     font-size: clamp(2rem, 5vw, 4rem);
     font-weight: 900;
     letter-spacing: 3px;
     margin-bottom: 40px;
     text-transform: uppercase;
-    text-shadow: 0px 4px 15px rgba(0,0,0,0.8);
     width: 100%;
     display: block;
 }
@@ -8528,50 +8528,3 @@ main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):no
     color: #d5ccd3 !important;
 }
 
-/* Hover Menu Start Card */
-.start-card-wrap {
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-}
-.start-card-content {
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    height: 100%;
-}
-.start-card-hover-menu {
-    position: absolute;
-    inset: 0;
-    background: rgba(255, 255, 255, 0.95);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 8px;
-    padding: 20px;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.3s ease;
-    pointer-events: none;
-    z-index: 10;
-}
-.start-card:hover .start-card-content {
-    opacity: 0;
-    transform: translateY(-20px);
-}
-.start-card:hover .start-card-hover-menu {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-}
-.start-card-hover-menu .btn {
-    min-height: 38px;
-    padding: 8px 12px;
-    font-size: 10px;
-    width: 100%;
-}
-body.theme-dark .start-card-hover-menu {
-    background: rgba(30, 24, 35, 0.95);
-}
-.start-card-hover-menu .btn {
-    box-sizing: border-box;
-}
