@@ -7382,6 +7382,120 @@ body.theme-dark .mission-content p {
     padding: 90px 7vw !important;
 }
 
+/* Pembina Spotlight */
+.pembina-spotlight-wrap {
+    margin: 36px 0 44px;
+    display: flex;
+    justify-content: center;
+}
+.pembina-card {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    background: linear-gradient(135deg, #ffffff 0%, #fff7fb 100%);
+    border: 1.5px solid var(--pink-border, #fcd1e5);
+    border-left: 6px solid var(--pink, #e91e63);
+    border-radius: 18px;
+    padding: 28px 36px;
+    box-shadow: 0 8px 28px rgba(72, 32, 52, 0.06);
+    max-width: 860px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    box-sizing: border-box;
+}
+.pembina-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 34px rgba(233, 30, 99, 0.13);
+    border-color: var(--pink, #e91e63);
+}
+.pembina-avatar-wrap {
+    position: relative;
+    flex-shrink: 0;
+}
+.pembina-avatar {
+    width: 180px;
+    height: 180px;
+    border-radius: 16px;
+    object-fit: cover;
+    border: 2.5px solid var(--pink-light, #ffd1e3);
+    box-shadow: 0 6px 20px rgba(233, 30, 99, 0.15);
+    display: block;
+    background: #fff;
+    padding: 2px;
+}
+.pembina-role-badge {
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--pink, #e91e63);
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 4px 14px;
+    border-radius: 20px;
+    white-space: nowrap;
+    box-shadow: 0 3px 10px rgba(233, 30, 99, 0.35);
+}
+.pembina-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    flex: 1;
+}
+.pembina-meta-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 2px;
+}
+.pembina-kicker {
+    color: var(--pink, #e91e63);
+    font-size: 11.5px;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+}
+.pembina-period-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(233, 30, 99, 0.08);
+    color: var(--pink, #e91e63);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--pink-border, #fcd1e5);
+}
+.pembina-period-badge svg {
+    flex-shrink: 0;
+}
+.pembina-name {
+    font-size: clamp(22px, 2.4vw, 26px);
+    font-weight: 800;
+    color: var(--ink, #18151b);
+    margin: 3px 0 2px;
+    line-height: 1.25;
+}
+.pembina-school {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--pink, #e91e63);
+    margin: 0 0 6px;
+}
+.pembina-desc {
+    font-size: 14px;
+    color: var(--muted, #666);
+    line-height: 1.65;
+    margin: 0;
+}
+
 /* Slider Controls Header */
 .mgmt-slider-header {
     display: flex;
@@ -7602,8 +7716,31 @@ body.theme-dark .mission-content p {
         grid-template-columns: repeat(3, 1fr);
         gap: 12px;
     }
+    .pembina-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 24px 20px;
+        gap: 20px;
+    }
+    .pembina-meta-row {
+        justify-content: center;
+    }
+    .pembina-avatar {
+        width: 150px;
+        height: 150px;
+    }
+    .pembina-name {
+        font-size: 20px;
+    }
 }
 @media (max-width: 520px) {
+    .pembina-card {
+        padding: 20px 16px;
+    }
+    .pembina-avatar {
+        width: 130px;
+        height: 130px;
+    }
     .mgmt-period-tabs {
         width: 100%;
     }
@@ -7626,6 +7763,41 @@ body.theme-dark .mission-content p {
 }
 
 /* DARK MODE SUPPORT */
+body.dark-mode .pembina-card,
+body.theme-dark .pembina-card {
+    background: linear-gradient(135deg, #231b26 0%, #1c1520 100%);
+    border-color: #4a3c48;
+    border-left-color: #ff659b;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+}
+body.dark-mode .pembina-card:hover,
+body.theme-dark .pembina-card:hover {
+    border-color: #ff659b;
+    box-shadow: 0 12px 34px rgba(255, 101, 155, 0.2);
+}
+body.dark-mode .pembina-name,
+body.theme-dark .pembina-name {
+    color: #ffffff;
+}
+body.dark-mode .pembina-school,
+body.theme-dark .pembina-school {
+    color: #ff85b3;
+}
+body.dark-mode .pembina-desc,
+body.theme-dark .pembina-desc {
+    color: #c9bec6;
+}
+body.dark-mode .pembina-avatar,
+body.theme-dark .pembina-avatar {
+    border-color: #4a3c48;
+    background: #2b202e;
+}
+body.dark-mode .pembina-period-badge,
+body.theme-dark .pembina-period-badge {
+    background: rgba(255, 101, 155, 0.15);
+    border-color: #5d384c;
+    color: #ff85b3;
+}
 body.dark-mode .about-name-card,
 body.theme-dark .about-name-card,
 body.dark-mode .haori-photo-card,
