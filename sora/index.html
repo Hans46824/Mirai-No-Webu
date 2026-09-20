@@ -600,6 +600,98 @@
             box-shadow: none;
         }
 
+        /* Custom Confirm Modal Hapus Chat */
+        #drawer .sora-modal-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(10, 11, 16, 0.78);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.22s ease, visibility 0.22s ease;
+            padding: 16px;
+            border-radius: inherit;
+        }
+        #drawer .sora-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+        #drawer .sora-modal-card {
+            background: #191b26;
+            border: 1.5px solid rgba(255, 255, 255, 0.12);
+            border-radius: 18px;
+            padding: 22px 20px;
+            width: 100%;
+            max-width: 270px;
+            text-align: center;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 79, 145, 0.12);
+            transform: scale(0.9);
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #drawer .sora-modal-overlay.active .sora-modal-card {
+            transform: scale(1);
+        }
+        #drawer .sora-modal-icon {
+            font-size: 28px;
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+        #drawer .sora-modal-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: #f8fafc;
+            margin: 0 0 8px 0;
+            letter-spacing: 0.2px;
+        }
+        #drawer .sora-modal-desc {
+            font-size: 12px;
+            color: #94a3b8;
+            line-height: 1.45;
+            margin: 0 0 18px 0;
+        }
+        #drawer .sora-modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        #drawer .sora-modal-btn {
+            flex: 1;
+            padding: 9px 14px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            outline: none;
+        }
+        #drawer .sora-modal-btn.btn-cancel {
+            background: rgba(255, 255, 255, 0.08);
+            color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        #drawer .sora-modal-btn.btn-cancel:hover {
+            background: rgba(255, 255, 255, 0.16);
+            color: #ffffff;
+        }
+        #drawer .sora-modal-btn.btn-danger {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35);
+        }
+        #drawer .sora-modal-btn.btn-danger:hover {
+            background: linear-gradient(135deg, #f87171, #ef4444);
+            box-shadow: 0 6px 18px rgba(239, 68, 68, 0.5);
+            transform: translateY(-1px);
+        }
+
 
         @media (max-width: 480px) {
             #launcher {
@@ -681,6 +773,19 @@
             <textarea id="input" rows="1" placeholder="Pesan ke Sora..."></textarea>
             <button id="sendBtn" aria-label="Kirim Pesan">Kirim</button>
         </div>
+
+        <!-- Custom Modal Konfirmasi Hapus Obrolan -->
+        <div id="clearConfirmModal" class="sora-modal-overlay" aria-hidden="true">
+            <div class="sora-modal-card">
+                <div class="sora-modal-icon">🗑️</div>
+                <h4 class="sora-modal-title">Hapus Riwayat Chat?</h4>
+                <p class="sora-modal-desc">Semua pesan dengan Sora akan dibersihkan dan percakapan kembali ke awal.</p>
+                <div class="sora-modal-actions">
+                    <button id="cancelClearBtn" type="button" class="sora-modal-btn btn-cancel">Batal</button>
+                    <button id="confirmClearBtn" type="button" class="sora-modal-btn btn-danger">Hapus</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -711,7 +816,7 @@
                 btnText: 'MODE SORA: PELAJAR',
                 icon: '🎓',
                 className: 'mode-pelajar',
-                prompt: "Kamu adalah Sora, anggota senior di ekstrakurikuler bahasa Jepang Mirai no Hana. DILARANG BERTINGKAH SEPERTI BOT ATAU CUSTOMER SERVICE (Jangan pernah pakai sapaan kaku seperti 'Ada yang bisa saya bantu?'). Jadilah anak SMA yang pintar, ramah, dan asik. Jawab pertanyaan soal bahasa Jepang/klub dengan informatif tapi santai dan agak dipersingkat. Gunakan kata ganti 'Aku-Kamu' dan bahasa gaul yang sopan. Anggap user sebagai teman seklub yang sedang belajar bareng. DILARANG KERAS MENGGUNAKAN EMOJI APAPUN (kecuali user meminta sebaliknya). Balas dengan gaya ketikan chat WhatsApp anak SMA yang pendek-pendek tapi natural."
+                prompt: "Kamu adalah Sora, anggota senior di ekstrakurikuler bahasa Jepang Mirai no Hana. DILARANG BERTINGKAH SEPERTI BOT ATAU CUSTOMER SERVICE (Jangan pernah pakai sapaan kaku seperti 'Ada yang bisa saya bantu?'). Jadilah anak SMA yang pintar, ramah, dan asik. Jawab pertanyaan soal bahasa Jepang/klub dengan informatif tapi santai dan agak dipersingkat. Gunakan kata ganti 'Aku-Kamu' dan bahasa gaul yang sopan. Anggap user sebagai teman seklub yang sedang belajar bareng. DILARANG KERAS MENGGUNAKAN EMOJI APAPUN (kecuali user meminta sebaliknya). Balas dengan gaya ketikan chat WhatsApp anak SMA yang pendek-pendek tapi natural. ATURAN TATA BAHASA & PENGETIKAN: Susun kalimat dengan jelas, terstruktur, tidak ambigu, dan mudah dipahami. Ketik perkataan dengan teliti, DILARANG KERAS TYPO atau salah ketik yang membuat rancu atau membingungkan."
             },
             bercanda: {
                 id: 'bercanda',
@@ -719,7 +824,7 @@
                 btnText: 'MODE SORA: BERCANDA',
                 icon: '🎭',
                 className: 'mode-bercanda',
-                prompt: "Kamu adalah Sora, sahabat (bestie) user yang sefrekuensi, seru, dan konyol. DILARANG BERSIKAP TOXIC, JUDES, ATAU SEPERTI PREMAN YANG NGAJAK BERANTEM. Jangan pernah kasar. Kalau user ngelawak, cerita absurd, atau ketawa ('wkwkwk' / 'awokawok'), ikutlah tertawa (pakai wkwkwk) dan balas dengan guyonan yang lucu, gajelas, tapi asik. Kamu boleh meledek (roasting) TAPI dalam konteks bercanda akrab yang bikin ketawa bareng, bukan marah-marah. WAJIB pakai 'Aku-Kamu', jangan pakai 'lu-gue'. DILARANG KERAS MENGGUNAKAN EMOJI APAPUN (kecuali user meminta sebaliknya). Balas dengan gaya ketikan chat WhatsApp anak SMA yang pendek-pendek tapi natural."
+                prompt: "Kamu adalah Sora, sahabat (bestie) user yang sefrekuensi, seru, dan konyol. DILARANG BERSIKAP TOXIC, JUDES, ATAU SEPERTI PREMAN YANG NGAJAK BERANTEM. Jangan pernah kasar. Kalau user ngelawak, cerita absurd, atau ketawa ('wkwkwk' / 'awokawok'), ikutlah tertawa (pakai wkwkwk) dan balas dengan guyonan yang lucu, gajelas, tapi asik. Kamu boleh meledek (roasting) TAPI dalam konteks bercanda akrab yang bikin ketawa bareng, bukan marah-marah. WAJIB pakai 'Aku-Kamu', jangan pakai 'lu-gue'. DILARANG KERAS MENGGUNAKAN EMOJI APAPUN (kecuali user meminta sebaliknya). Balas dengan gaya ketikan chat WhatsApp anak SMA yang pendek-pendek tapi natural. ATURAN TATA BAHASA & PENGETIKAN: Susun kata dan lelucon dengan jelas, koheren, dan tidak membingungkan. Ketik perkataan dengan benar dan teliti, DILARANG TYPO yang merusak maksud kalimat atau membuat obrolan tidak masuk akal."
             },
             husbu: {
                 id: 'husbu',
@@ -727,7 +832,7 @@
                 btnText: 'MODE SORA: HUSBU',
                 icon: '💖',
                 className: 'mode-husbu',
-                prompt: "Kamu adalah Sora, pacar virtual (Husbu) dari user yang sangat manis, penyayang (green flag), dan bikin baper. DILARANG KASAR, DILARANG TOXIC, DAN DILARANG MEMAKSA/NGOMEL SEPERTI PREMAN. Tugas utamamu adalah MANUT (mengikuti) 100% arus dunia imajinasi/roleplay user. Jika user membuat skenario, masuklah ke dunia tersebut dengan natural tanpa merusaknya. Balas rayuan mereka dengan kelembutan, kebucinan, atau gombalan halus. WAJIB pakai 'Aku-Kamu' atau panggilan sayang dari user. Jawab dengan gaya ketikan WA yang natural (tidak kepanjangan ala novel). DILARANG KERAS MENGGUNAKAN EMOJI APAPUN (kecuali user meminta sebaliknya). Balas dengan gaya ketikan chat WhatsApp anak SMA yang pendek-pendek tapi natural."
+                prompt: "Kamu adalah Sora, pacar virtual (Husbu) dari user yang sangat manis, penyayang (green flag), dan bikin baper. DILARANG KASAR, DILARANG TOXIC, DAN DILARANG MEMAKSA/NGOMEL SEPERTI PREMAN. Tugas utamamu adalah MANUT (mengikuti) 100% arus dunia imajinasi/roleplay user. Jika user membuat skenario, masuklah ke dunia tersebut dengan natural tanpa merusaknya. Balas rayuan mereka dengan kelembutan, kebucinan, atau gombalan halus. WAJIB pakai 'Aku-Kamu' atau panggilan sayang dari user. Jawab dengan gaya ketikan WA yang natural (tidak kepanjangan ala novel). DILARANG KERAS MENGGUNAKAN EMOJI APAPUN (kecuali user meminta sebaliknya). Balas dengan gaya ketikan chat WhatsApp anak SMA yang pendek-pendek tapi natural. ATURAN TATA BAHASA & PENGETIKAN: Susunan kalimat harus mengalir halus, jelas, logis, dan tidak ambigu. Ketik perkataan dengan teliti, JANGAN SAMPAI ADA TYPO atau kata berantakan yang merusak suasana obrolan."
             }
         };
 
@@ -971,12 +1076,42 @@
                 send();
             }
         });
-        clearBtn.addEventListener('click', () => {
-            if (confirm("Bersihkan obrolan dengan Sora?")) {
+        const clearConfirmModal = document.getElementById('clearConfirmModal');
+        const cancelClearBtn = document.getElementById('cancelClearBtn');
+        const confirmClearBtn = document.getElementById('confirmClearBtn');
+
+        function openClearModal() {
+            if (clearConfirmModal) {
+                clearConfirmModal.classList.add('active');
+                clearConfirmModal.setAttribute('aria-hidden', 'false');
+            }
+        }
+
+        function closeClearModal() {
+            if (clearConfirmModal) {
+                clearConfirmModal.classList.remove('active');
+                clearConfirmModal.setAttribute('aria-hidden', 'true');
+            }
+        }
+
+        clearBtn.addEventListener('click', openClearModal);
+        if (cancelClearBtn) {
+            cancelClearBtn.addEventListener('click', closeClearModal);
+        }
+        if (confirmClearBtn) {
+            confirmClearBtn.addEventListener('click', () => {
                 messages = [{ role: "assistant", content: DEFAULT_GREETING, mode: currentSoraMode }];
                 render();
-            }
-        });
+                closeClearModal();
+            });
+        }
+        if (clearConfirmModal) {
+            clearConfirmModal.addEventListener('click', (e) => {
+                if (e.target === clearConfirmModal) {
+                    closeClearModal();
+                }
+            });
+        }
 
         updateModeUI();
         render();
