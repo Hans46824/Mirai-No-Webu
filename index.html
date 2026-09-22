@@ -250,15 +250,66 @@ body.sora-fullscreen-active .menu-btn {
     font-size: 13px;
     line-height: 1.45;
     word-wrap: break-word;
+    transition: background 0.28s ease, border-color 0.28s ease, color 0.2s ease, box-shadow 0.28s ease;
 }
 
-/* Asora (Bot): BIRU */
-#drawer .msg.bot .bubble {
+/* Default & Mode Pelajar (Bot): BIRU */
+#drawer .msg.bot .bubble,
+#drawer[data-sora-mode="pelajar"] .msg.bot .bubble,
+#drawer.mode-pelajar .msg.bot .bubble {
     background: linear-gradient(135deg, #1d4ed8, #2563eb);
     color: #ffffff;
     border-bottom-left-radius: 3px;
-    box-shadow: none;
-    border: 1px solid rgba(96, 165, 250, 0.25);
+    box-shadow: 0 3px 12px rgba(37, 99, 235, 0.25);
+    border: 1px solid rgba(96, 165, 250, 0.35);
+}
+#drawer[data-sora-mode="pelajar"] .msg.bot .bubble .md strong,
+#drawer.mode-pelajar .msg.bot .bubble .md strong {
+    color: #ffffff;
+}
+#drawer[data-sora-mode="pelajar"] .msg.bot .bubble .md code,
+#drawer.mode-pelajar .msg.bot .bubble .md code {
+    background: rgba(0, 0, 0, 0.25);
+    color: #ffffff;
+}
+
+/* Mode Bercanda (Bot): KUNING */
+#drawer[data-sora-mode="bercanda"] .msg.bot .bubble,
+#drawer.mode-bercanda .msg.bot .bubble {
+    background: linear-gradient(135deg, #f59e0b, #eab308);
+    color: #1a1202;
+    border-bottom-left-radius: 3px;
+    box-shadow: 0 3px 12px rgba(245, 158, 11, 0.28);
+    border: 1px solid rgba(251, 191, 36, 0.6);
+}
+#drawer[data-sora-mode="bercanda"] .msg.bot .bubble .md strong,
+#drawer.mode-bercanda .msg.bot .bubble .md strong {
+    color: #000000;
+    font-weight: 700;
+}
+#drawer[data-sora-mode="bercanda"] .msg.bot .bubble .md code,
+#drawer.mode-bercanda .msg.bot .bubble .md code {
+    background: rgba(0, 0, 0, 0.12);
+    color: #1a1202;
+}
+
+/* Mode Husbu (Bot): PINK */
+#drawer[data-sora-mode="husbu"] .msg.bot .bubble,
+#drawer.mode-husbu .msg.bot .bubble {
+    background: linear-gradient(135deg, #ec4899, #db2777);
+    color: #ffffff;
+    border-bottom-left-radius: 3px;
+    box-shadow: 0 3px 12px rgba(236, 72, 153, 0.28);
+    border: 1px solid rgba(244, 114, 182, 0.4);
+}
+#drawer[data-sora-mode="husbu"] .msg.bot .bubble .md strong,
+#drawer.mode-husbu .msg.bot .bubble .md strong {
+    color: #ffffff;
+}
+#drawer[data-sora-mode="husbu"] .msg.bot .bubble .md code,
+#drawer.mode-husbu .msg.bot .bubble .md code {
+    background: rgba(0, 0, 0, 0.25);
+    color: #ffffff;
 }
 
 /* User (Pengguna): PINK */
@@ -304,7 +355,14 @@ body.sora-fullscreen-active .menu-btn {
     background: #60a5fa;
     border-radius: 50%;
     animation: soraBounce 1.2s infinite ease-in-out;
+    transition: background-color 0.25s ease;
 }
+#drawer[data-sora-mode="pelajar"] .typing-dots span,
+#drawer.mode-pelajar .typing-dots span { background: #60a5fa; }
+#drawer[data-sora-mode="bercanda"] .typing-dots span,
+#drawer.mode-bercanda .typing-dots span { background: #f59e0b; }
+#drawer[data-sora-mode="husbu"] .typing-dots span,
+#drawer.mode-husbu .typing-dots span { background: #f472b6; }
 #drawer .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
 #drawer .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
 
@@ -877,6 +935,11 @@ body.sora-fullscreen-active .menu-btn {
 
         function updateModeUI() {
             const config = SORA_MODES[currentSoraMode] || SORA_MODES.pelajar;
+            if (drawer) {
+                drawer.setAttribute('data-sora-mode', currentSoraMode);
+                drawer.classList.remove('mode-pelajar', 'mode-bercanda', 'mode-husbu');
+                drawer.classList.add(`mode-${currentSoraMode}`);
+            }
             if (modeSwitchBtn) {
                 modeSwitchBtn.className = `mode-switch-btn ${config.className}`;
                 modeSwitchBtn.innerHTML = `
