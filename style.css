@@ -7070,63 +7070,32 @@ body:not(.theme-dark) .njr-dot {
     align-items: stretch;
 }
 .logo-meaning-badge-col {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-/* Kotak logo generik */
-.logo-box {
     background: var(--white);
     border: 1.5px solid var(--pink-border);
     border-radius: 18px;
-    padding: 24px 20px;
+    padding: 36px 24px;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 14px;
     text-align: center;
     box-shadow: 0 8px 24px rgba(72, 32, 52, 0.05);
-    transition: transform 0.22s ease, box-shadow 0.22s ease;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-
-.logo-box:hover {
+.logo-meaning-badge-col:hover {
     transform: translateY(-3px);
     box-shadow: 0 14px 32px rgba(233, 30, 99, 0.12);
 }
 
-.logo-box-label {
-    font-size: 0.7rem;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--pink, #e91e63);
-    margin: 0;
-    background: #ffd2e3;
-    border-radius: 20px;
-    padding: 3px 12px;
-}
-
 /* Logo lingkaran NK */
 .logo-img-circle {
-    width: 160px;
-    height: 160px;
+    width: 190px;
+    height: 190px;
     object-fit: contain;
-    filter: drop-shadow(0 6px 14px rgba(233, 30, 99, 0.22));
+    filter: drop-shadow(0 6px 16px rgba(233, 30, 99, 0.22));
     transition: transform 0.25s ease;
 }
 .logo-img-circle:hover {
     transform: scale(1.04) rotate(2deg);
-}
-
-/* Logo panjang MNH1 — tanpa background */
-.logo-img-wide {
-    width: 100%;
-    max-width: 280px;
-    height: auto;
-    object-fit: contain;
-    display: block;
 }
 .logo-meaning-items {
     display: flex;
@@ -7160,11 +7129,6 @@ body:not(.theme-dark) .njr-dot {
 }
 body.dark-mode .logo-meaning-badge-col,
 body.theme-dark .logo-meaning-badge-col {
-    background: #161219;
-    border-color: #2f2533;
-}
-body.dark-mode .logo-box,
-body.theme-dark .logo-box {
     background: #161219;
     border-color: #2f2533;
 }
