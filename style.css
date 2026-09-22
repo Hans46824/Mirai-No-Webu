@@ -8301,6 +8301,144 @@ body.theme-dark .activity-card-locked {
     box-shadow: 0 6px 20px rgba(233, 30, 99, 0.45);
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
+
+/* ==========================================================================
+   Wagara Patterns pada Tombol Besar (Start Cards & Activity Cards)
+   - Page Putih: Pattern Seigaiha Ombak Halus (w3w.jpeg)
+   - Page Hitam: Pattern Wagara Gelap (b1.jpeg)
+   ========================================================================== */
+
+/* 1. Tombol Besar pada Halaman/Section Putih (w3w.jpeg) */
+.start-card,
+.curriculum-cards a {
+    position: relative;
+    overflow: hidden;
+    background-color: #ffffff;
+}
+
+.start-card > *,
+.curriculum-cards a > * {
+    position: relative;
+    z-index: 2;
+}
+
+.curriculum-cards a::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    content: "";
+    background: var(--pink, #e91e63);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+    z-index: 3;
+}
+
+.curriculum-cards a:hover::before {
+    transform: scaleX(1);
+}
+
+.start-card::after,
+.curriculum-cards a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("images/mirai/pattern/w3w.jpeg");
+    background-size: 260px auto;
+    background-repeat: repeat;
+    background-position: center;
+    opacity: 0.22;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    z-index: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.start-card:hover::after,
+.curriculum-cards a:hover::after {
+    opacity: 0.32;
+    transform: scale(1.02);
+}
+
+/* Dukungan Dark Mode untuk Tombol Besar Halaman Putih (otomatis beralih ke b1) */
+body.dark-mode .start-card::after,
+body.theme-dark .start-card::after,
+main > section:nth-of-type(even) .start-card::after,
+body.dark-mode .curriculum-cards a::after,
+body.theme-dark .curriculum-cards a::after {
+    background-image: url("images/mirai/pattern/b1.jpeg");
+    opacity: 0.22;
+    mix-blend-mode: screen;
+}
+
+body.dark-mode .start-card:hover::after,
+body.theme-dark .start-card:hover::after,
+main > section:nth-of-type(even) .start-card:hover::after,
+body.dark-mode .curriculum-cards a:hover::after,
+body.theme-dark .curriculum-cards a:hover::after {
+    opacity: 0.32;
+}
+
+/* 2. Tombol Besar pada Halaman/Section Hitam (b1.jpeg) */
+.activity-start-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.activity-start-card > * {
+    position: relative;
+    z-index: 2;
+}
+
+.activity-start-card::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    content: "";
+    background: linear-gradient(90deg, var(--pink, #e91e63), #ff4f91, var(--pink, #e91e63));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+    z-index: 3;
+}
+
+.activity-card-active:hover::before,
+.activity-start-card:hover::before {
+    transform: scaleX(1);
+}
+
+.activity-start-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("images/mirai/pattern/b1.jpeg");
+    background-size: 260px auto;
+    background-repeat: repeat;
+    background-position: center;
+    opacity: 0.22;
+    mix-blend-mode: screen;
+    pointer-events: none;
+    z-index: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.activity-card-active:hover::after,
+.activity-start-card:hover::after {
+    opacity: 0.32;
+    transform: scale(1.02);
+}
+
+/* Jika .activity-start-card berada di section terang/putih */
+body:not(.dark-mode):not(.theme-dark) main > section:nth-of-type(odd):not(.home-activities-dark-section) .activity-start-card::after {
+    background-image: url("images/mirai/pattern/w3w.jpeg");
+    opacity: 0.22;
+    mix-blend-mode: multiply;
+}
+
 .course-card .btn {
     margin-top: 19px;
     min-height: 42px;
