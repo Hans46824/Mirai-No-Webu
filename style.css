@@ -1442,12 +1442,35 @@ body.sora-fullscreen-active .menu-btn {
 @media (max-width: 768px) {
     .global-footer-main {
         flex-direction: column;
-        gap: 30px;
+        gap: 18px;
     }
     .global-footer {
-        padding: 40px 20px 24px !important;
+        padding: 28px 18px 18px !important;
+    }
+    .global-footer-col.left {
+        flex: none;
+        width: 100%;
+    }
+    .global-footer img.footer-logo,
+    .global-footer-logo {
+        width: 140px;
+        margin-bottom: 10px;
+    }
+    .global-footer-disclaimer {
+        font-size: 0.75rem;
+        line-height: 1.55;
+        max-width: 100%;
+    }
+    .global-footer-col.right {
+        gap: 8px;
+    }
+    .global-footer-bottom {
+        margin-top: 20px;
+        padding-top: 14px;
+        font-size: 0.72rem;
     }
 }
+
 
 .page-hero {
     position: relative;
