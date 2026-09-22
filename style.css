@@ -9942,7 +9942,7 @@ body.theme-dark .faq-chat-bubble::before {
     margin: 18px 0 8px !important;
 }
 
-/* ===== Penataan Kerapian Kartu Kelas (class-card & course-card) ===== */
+/* ===== Penataan Kerapian Kartu Kelas (class-card & course-card) Tanpa Chibi ===== */
 
 /* 1. Class Card (PILIH JALUR BELAJAR: Kelas Dasar, Kelas Lanjutan, Kurikulum) */
 .class-card {
@@ -9950,8 +9950,8 @@ body.theme-dark .faq-chat-bubble::before {
     display: flex !important;
     flex-direction: column !important;
     justify-content: flex-start !important;
-    min-height: 270px !important;
-    padding: 26px !important;
+    min-height: 250px !important;
+    padding: 28px !important;
     border: 1.5px solid var(--pink-border, #f4bfd3) !important;
     border-radius: 20px !important;
     text-decoration: none !important;
@@ -9969,15 +9969,15 @@ body.theme-dark .faq-chat-bubble::before {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    width: 32px !important;
-    height: 32px !important;
+    width: 34px !important;
+    height: 34px !important;
     border-radius: 50% !important;
     background: #fff0f5 !important;
     color: var(--pink, #e91e63) !important;
-    font-size: 12px !important;
+    font-size: 13px !important;
     font-weight: 800 !important;
-    border: 1px solid var(--pink-border, #ffd2e3) !important;
-    margin-bottom: 14px !important;
+    border: 1.5px solid var(--pink-border, #ffd2e3) !important;
+    margin-bottom: 16px !important;
 }
 
 .class-card h3 {
@@ -9989,54 +9989,32 @@ body.theme-dark .faq-chat-bubble::before {
 
 .class-card p {
     margin: 0 !important;
-    font-size: 13.5px !important;
+    font-size: 14px !important;
     line-height: 1.6 !important;
     color: var(--muted) !important;
-    max-width: 80% !important;
 }
 
 .class-card .class-arrow {
     margin-top: auto !important;
     padding-top: 18px !important;
     display: inline-block !important;
-    font-size: 20px !important;
+    font-size: 22px !important;
     color: var(--pink, #e91e63) !important;
     transition: transform 0.2s ease !important;
 }
 
 .class-card:hover .class-arrow {
-    transform: translateX(4px) !important;
-}
-
-/* Chibi pada class-card: DI POJOK KANAN BAWAH */
-.class-card > .path-chibi,
-.path-chibi {
-    position: absolute !important;
-    bottom: 12px !important;
-    right: 14px !important;
-    top: auto !important;
-    left: auto !important;
-    width: 76px !important;
-    height: 76px !important;
-    object-fit: contain !important;
-    z-index: 5 !important;
-    pointer-events: none !important;
-    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.16)) !important;
-    transition: transform 0.25s ease !important;
-}
-
-.class-card:hover .path-chibi {
-    transform: translateY(-3px) scale(1.06) !important;
+    transform: translateX(5px) !important;
 }
 
 /* 2. Course Card (KELAS DASAR & KELAS LANJUTAN) */
 .course-card {
     position: relative !important;
     display: grid !important;
-    grid-template-columns: 110px 1fr !important;
-    gap: 22px !important;
+    grid-template-columns: clamp(110px, 14vw, 135px) 1fr !important;
+    gap: 24px !important;
     align-items: stretch !important;
-    min-height: 300px !important;
+    min-height: 290px !important;
     padding: 26px !important;
     border: 1.5px solid var(--pink-border, #f4bfd3) !important;
     border-radius: 20px !important;
@@ -10051,7 +10029,7 @@ body.theme-dark .faq-chat-bubble::before {
     box-shadow: 0 16px 36px rgba(233, 30, 99, 0.16) !important;
 }
 
-/* Banner Vertikal Kana di Sisi Kiri */
+/* Banner Vertikal Kata Jepang: DIBUAT BESAR & JELAS */
 .course-card .course-kana {
     position: static !important;
     display: flex !important;
@@ -10059,16 +10037,25 @@ body.theme-dark .faq-chat-bubble::before {
     justify-content: center !important;
     writing-mode: vertical-rl !important;
     text-orientation: upright !important;
-    letter-spacing: 4px !important;
-    font-size: 26px !important;
+    letter-spacing: 6px !important;
+    font-size: clamp(32px, 3.4vw, 42px) !important;
     font-weight: 800 !important;
+    font-family: var(--font-jp, "Noto Sans JP", sans-serif) !important;
+    line-height: 1.25 !important;
     color: var(--pink, #e91e63) !important;
     background: #fff5f8 !important;
     border: 1.5px solid #ffd2e3 !important;
-    border-radius: 14px !important;
-    padding: 16px 10px !important;
+    border-radius: 16px !important;
+    padding: 20px 10px !important;
     height: 100% !important;
     box-sizing: border-box !important;
+    transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease !important;
+}
+
+.course-card:hover .course-kana {
+    transform: scale(1.03) !important;
+    background: #ffebf3 !important;
+    border-color: var(--pink, #e91e63) !important;
 }
 
 /* Konten Teks di Sisi Kanan */
@@ -10077,7 +10064,7 @@ body.theme-dark .faq-chat-bubble::before {
     display: flex !important;
     flex-direction: column !important;
     justify-content: flex-start !important;
-    padding-right: 70px !important; /* Memberi ruang aman untuk chibi di pojok kanan bawah */
+    padding-right: 0 !important;
     position: relative !important;
     z-index: 2 !important;
 }
@@ -10092,7 +10079,7 @@ body.theme-dark .faq-chat-bubble::before {
 }
 
 .course-card h3 {
-    font-size: 22px !important;
+    font-size: 24px !important;
     font-weight: 800 !important;
     color: var(--ink) !important;
     margin: 0 0 8px 0 !important;
@@ -10100,10 +10087,10 @@ body.theme-dark .faq-chat-bubble::before {
 }
 
 .course-card p:not(.card-number) {
-    font-size: 13px !important;
+    font-size: 13.5px !important;
     line-height: 1.65 !important;
     color: var(--muted) !important;
-    margin: 0 0 18px 0 !important;
+    margin: 0 0 20px 0 !important;
 }
 
 /* Kerapian Tombol di Dalam Course Card */
@@ -10111,9 +10098,9 @@ body.theme-dark .faq-chat-bubble::before {
     margin-top: auto !important;
     width: fit-content !important;
     min-height: 42px !important;
-    padding: 10px 22px !important;
-    border-radius: 10px !important;
-    font-size: 11.5px !important;
+    padding: 11px 24px !important;
+    border-radius: 12px !important;
+    font-size: 12px !important;
     font-weight: 800 !important;
     letter-spacing: 1.2px !important;
     text-align: center !important;
@@ -10131,32 +10118,19 @@ body.theme-dark .faq-chat-bubble::before {
     box-shadow: 0 6px 16px rgba(233, 30, 99, 0.35) !important;
 }
 
-/* Chibi pada course-card: DI POJOK KANAN BAWAH */
+/* Sembunyikan chibi di kartu kelas */
 .course-card > .course-sticker,
-.course-sticker {
-    position: absolute !important;
-    bottom: 12px !important;
-    right: 14px !important;
-    top: auto !important;
-    left: auto !important;
-    width: 76px !important;
-    height: 76px !important;
-    object-fit: contain !important;
-    z-index: 5 !important;
-    pointer-events: none !important;
-    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.16)) !important;
-    transition: transform 0.25s ease !important;
-}
-
-.course-card:hover .course-sticker {
-    transform: translateY(-3px) scale(1.06) !important;
+.course-sticker,
+.class-card > .path-chibi,
+.path-chibi {
+    display: none !important;
 }
 
 /* Responsif Mobile untuk Kartu Kelas */
 @media (max-width: 680px) {
     .course-card {
         grid-template-columns: 1fr !important;
-        padding: 20px !important;
+        padding: 22px !important;
         gap: 16px !important;
     }
 
@@ -10165,24 +10139,14 @@ body.theme-dark .faq-chat-bubble::before {
         text-orientation: mixed !important;
         height: auto !important;
         width: fit-content !important;
-        padding: 6px 14px !important;
-        font-size: 16px !important;
-        letter-spacing: 2px !important;
+        padding: 8px 18px !important;
+        font-size: 22px !important;
+        letter-spacing: 3px !important;
     }
 
     .course-card .course-content,
     .course-card > div {
-        padding-right: 50px !important;
-    }
-
-    .course-card > .course-sticker,
-    .course-sticker,
-    .class-card > .path-chibi,
-    .path-chibi {
-        width: 62px !important;
-        height: 62px !important;
-        bottom: 10px !important;
-        right: 10px !important;
+        padding-right: 0 !important;
     }
 }
 
