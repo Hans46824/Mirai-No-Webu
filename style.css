@@ -1326,17 +1326,37 @@ body.sora-fullscreen-active .menu-btn {
    Global Footer / Disclaimer Section (Tengoku Style)
    ========================================================================== */
 .global-footer {
-    background-color: #050505 !important;
+    background-color: #08070a !important;
     color: #888888 !important;
     padding: 50px 5% !important;
     font-size: 0.85rem !important;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     position: relative;
+    overflow: hidden;
     z-index: 10;
     box-sizing: border-box;
 }
 
+/* Pola Kumo Wagara Gelap c1b pada Section Disclaimer / Footer */
+.global-footer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(ellipse at 50% 0%, rgba(233, 30, 99, 0.09) 0%, transparent 70%),
+        url("images/mirai/pattern/c1b.jpeg");
+    background-size: cover, 280px auto;
+    background-repeat: no-repeat, repeat;
+    background-position: center, center;
+    opacity: 0.22;
+    mix-blend-mode: screen;
+    pointer-events: none;
+    z-index: 0;
+}
+
 .global-footer-main {
+    position: relative;
+    z-index: 1;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -1412,12 +1432,14 @@ body.sora-fullscreen-active .menu-btn {
 }
 
 .global-footer-bottom {
+    position: relative;
+    z-index: 1;
     max-width: 1200px;
     margin: 40px auto 0;
     padding-top: 25px;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     text-align: center;
-    color: #555555;
+    color: rgba(255, 255, 255, 0.55);
     font-size: 0.8rem;
     letter-spacing: 0.5px;
 }
