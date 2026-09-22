@@ -10462,202 +10462,280 @@ img:not(.img-lightbox-img) {
 
 /* ===== Kurikulum & Tata Cara — Doc Cards ===== */
 .kurikulum-page-section {
-    padding: 60px 0 80px;
+    padding: 60px 0 90px !important;
 }
 
 .kurikulum-page-section .section-intro {
-    text-align: center;
-    margin-bottom: 48px;
+    text-align: center !important;
+    margin-bottom: 48px !important;
 }
 
 .doc-cards-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 28px;
-    margin-bottom: 48px;
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 30px !important;
+    margin-bottom: 48px !important;
 }
 
+/* KARTU BESAR PUTIH BERSIH & ELEGAN */
 .doc-big-card {
-    background: #fff;
-    border: 1.5px solid #ffd2e3;
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(233, 30, 99, 0.09), 0 2px 8px rgba(72, 32, 52, 0.06);
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    background: #ffffff !important;
+    border: 1.5px solid #ffccd9 !important;
+    border-radius: 22px !important;
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.35), 0 2px 8px rgba(233, 30, 99, 0.08) !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
 }
 
 .doc-big-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 48px rgba(233, 30, 99, 0.16), 0 4px 16px rgba(72, 32, 52, 0.1);
+    transform: translateY(-5px) !important;
+    box-shadow: 0 16px 44px rgba(233, 30, 99, 0.22), 0 6px 16px rgba(0, 0, 0, 0.4) !important;
+    border-color: #e91e63 !important;
 }
 
-/* Header kartu: badge nomor + tipe dokumen */
+/* Header kartu: badge nomor + badge format */
 .doc-card-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 20px 28px 16px;
-    border-bottom: 1px solid #ffeaf2;
-    background: #fff8fb;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 12px !important;
+    padding: 18px 26px !important;
+    background: #fff5f8 !important;
+    border-bottom: 1px solid #ffd8e4 !important;
 }
 
 .doc-index-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: var(--pink, #e91e63);
-    color: #fff;
-    font-size: 0.82rem;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-    flex-shrink: 0;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    background: #e91e63 !important;
+    color: #ffffff !important;
+    font-size: 0.82rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.5px !important;
+    flex-shrink: 0 !important;
+    box-shadow: 0 2px 8px rgba(233, 30, 99, 0.25) !important;
 }
 
 .doc-type-badge {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: #b03070;
-    background: #ffd2e3;
-    border-radius: 20px;
-    padding: 4px 12px;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    font-size: 0.72rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 1px !important;
+    text-transform: uppercase !important;
+    color: #be185d !important;
+    background: #fce7f3 !important;
+    border: 1px solid #fbcfe8 !important;
+    border-radius: 20px !important;
+    padding: 4px 12px !important;
 }
 
-/* Body kartu: ikon besar + teks */
+/* Body kartu: ikon + teks informatif */
 .doc-card-body {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-    padding: 28px 28px 20px;
-    flex: 1;
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 20px !important;
+    padding: 26px 26px 22px !important;
+    flex: 1 !important;
+    background: #ffffff !important;
 }
 
 .doc-icon-wrap {
-    width: 64px;
-    height: 64px;
-    border-radius: 16px;
-    background: linear-gradient(135deg, #ffd2e3 0%, #ffeaf2 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 16px !important;
+    background: linear-gradient(135deg, #ffe4e6 0%, #fff1f2 100%) !important;
+    border: 1.5px solid #fecdd3 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    box-shadow: 0 4px 12px rgba(233, 30, 99, 0.08) !important;
 }
 
 .doc-icon {
-    font-size: 2rem;
-    line-height: 1;
+    font-size: 1.9rem !important;
+    line-height: 1 !important;
 }
 
 .doc-text-wrap {
-    flex: 1;
-    min-width: 0;
+    flex: 1 !important;
+    min-width: 0 !important;
 }
 
+/* JUDUL UTAMA DOKUMEN: Hitam Pekat Tegas & Kontras Tinggi */
+.doc-big-card h3.doc-title,
+.doc-big-card h3,
 .doc-title {
-    font-size: 1.18rem;
-    font-weight: 800;
-    color: #2a1020;
-    margin: 0 0 6px;
-    line-height: 1.3;
+    font-size: 1.25rem !important;
+    font-weight: 800 !important;
+    color: #1a151e !important;
+    margin: 0 0 6px 0 !important;
+    line-height: 1.35 !important;
 }
 
+/* SUBTITLE: Pink Magenta Elegan */
+.doc-big-card p.doc-subtitle,
 .doc-subtitle {
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    color: var(--pink, #e91e63);
-    margin: 0 0 10px;
+    font-size: 0.78rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.8px !important;
+    text-transform: uppercase !important;
+    color: #db2777 !important;
+    margin: 0 0 10px 0 !important;
+    line-height: 1.4 !important;
 }
 
+/* DESKRIPSI: Abu Gelap Charcoal Sangat Mudah Dibaca */
+.doc-big-card p.doc-desc,
 .doc-desc {
-    font-size: 0.88rem;
-    line-height: 1.7;
-    color: #5a3848;
-    margin: 0;
+    font-size: 0.88rem !important;
+    line-height: 1.68 !important;
+    color: #4b3f4c !important;
+    margin: 0 !important;
 }
 
-/* Footer kartu: tombol */
+/* Footer kartu: Tombol Aksi */
 .doc-card-footer {
-    display: flex;
-    gap: 12px;
-    padding: 20px 28px 24px;
-    border-top: 1px solid #ffeaf2;
-    background: #fff8fb;
-    flex-wrap: wrap;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 16px 26px 22px !important;
+    border-top: 1px solid #ffe8f0 !important;
+    background: #fff8fa !important;
 }
 
-.btn-doc-download {
-    flex: 1;
-    min-width: 140px;
-    text-align: center;
-    justify-content: center;
-    font-size: 0.88rem;
-    font-weight: 700;
-    padding: 12px 20px !important;
-    border-radius: 10px !important;
+/* Netralkan efek pseudo element shimmer agar tombol bersih */
+.doc-card-footer a::before,
+.doc-card-footer a::after {
+    display: none !important;
+    content: none !important;
 }
 
-.btn-doc-view {
-    flex-shrink: 0;
-    background: transparent !important;
-    color: var(--pink, #e91e63) !important;
-    border: 2px solid var(--pink, #e91e63) !important;
-    border-radius: 10px !important;
-    font-size: 0.88rem;
-    font-weight: 700;
-    padding: 10px 20px !important;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    transition: background 0.2s, color 0.2s;
+/* Tombol 1: Unduh File PDF (Pink Utama) */
+.doc-card-footer a.btn-doc-download,
+a.btn-doc-download {
+    flex: 1.2 !important;
+    min-height: 44px !important;
+    background: #e91e63 !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 12px !important;
+    padding: 11px 18px !important;
+    font-size: 0.88rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.3px !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    box-shadow: 0 4px 14px rgba(233, 30, 99, 0.28) !important;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease !important;
 }
 
-.btn-doc-view:hover {
-    background: var(--pink, #e91e63) !important;
-    color: #fff !important;
+.doc-card-footer a.btn-doc-download:hover,
+a.btn-doc-download:hover {
+    background: #c2185b !important;
+    color: #ffffff !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 18px rgba(233, 30, 99, 0.4) !important;
 }
 
+/* Tombol 2: Buka Dokumen (Outline Pink Lembut) */
+.doc-card-footer a.btn-doc-view,
+a.btn-doc-view {
+    flex: 1 !important;
+    min-height: 44px !important;
+    background: #ffffff !important;
+    color: #e91e63 !important;
+    border: 1.5px solid #f472b6 !important;
+    border-radius: 12px !important;
+    padding: 10px 18px !important;
+    font-size: 0.88rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.3px !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    box-shadow: none !important;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease !important;
+}
+
+.doc-card-footer a.btn-doc-view:hover,
+a.btn-doc-view:hover {
+    background: #fff0f5 !important;
+    color: #c2185b !important;
+    border-color: #db2777 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(219, 39, 119, 0.12) !important;
+}
+
+/* Navigasi Kembali ke Kelas */
 .doc-nav-back {
-    text-align: center;
-    margin-top: 12px;
+    text-align: center !important;
+    margin-top: 36px !important;
 }
 
-/* Responsive */
+.doc-nav-back a {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 48px !important;
+    padding: 12px 28px !important;
+    border-radius: 12px !important;
+    font-size: 0.9rem !important;
+    font-weight: 700 !important;
+    background: #e91e63 !important;
+    color: #ffffff !important;
+    text-decoration: none !important;
+    border: none !important;
+    box-shadow: 0 4px 14px rgba(233, 30, 99, 0.3) !important;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s !important;
+}
+
+.doc-nav-back a:hover {
+    background: #c2185b !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 20px rgba(233, 30, 99, 0.45) !important;
+}
+
+/* Responsif Mobile */
 @media (max-width: 720px) {
     .doc-cards-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
+        grid-template-columns: 1fr !important;
+        gap: 22px !important;
     }
 
     .doc-card-body {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 14px;
-        padding: 20px 20px 16px;
+        padding: 20px 20px 18px !important;
+        gap: 16px !important;
     }
 
     .doc-card-header,
     .doc-card-footer {
-        padding-left: 20px;
-        padding-right: 20px;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
     }
 
     .doc-card-footer {
-        flex-direction: column;
+        flex-direction: column !important;
+        gap: 10px !important;
     }
 
-    .btn-doc-download,
-    .btn-doc-view {
-        width: 100%;
-        justify-content: center;
+    .doc-card-footer a.btn-doc-download,
+    .doc-card-footer a.btn-doc-view {
+        width: 100% !important;
+        flex: none !important;
     }
 }
