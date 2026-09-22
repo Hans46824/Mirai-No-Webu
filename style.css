@@ -2068,6 +2068,103 @@ body.sora-fullscreen-active .menu-btn {
 @media(max-width:850px){.journey-section,.kana-layout{grid-template-columns:1fr}.start-grid{grid-template-columns:1fr 1fr}.kana-detail{position:static}.course-card{grid-template-columns:110px 1fr}.course-kana{font-size:46px}}@media(max-width:580px){.start-grid,.course-cards{grid-template-columns:1fr}.course-card{grid-template-columns:1fr;min-height:0}.course-kana{font-size:48px}.kana-grid{grid-template-columns:repeat(4,1fr)}.kana-group-head{display:grid}.kana-layout{margin-top:32px}.journey-section{display:block}.journey-section .copy{margin:22px 0}.start-grid{margin-top:28px}}
 .curriculum-cards { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:42px; }.curriculum-cards a { display:flex; flex-direction:column; min-height:255px; padding:24px; background:#fff; border:1px solid var(--pink-border); transition:.2s ease; }.curriculum-cards a:hover { transform:translateY(-5px); border-color:var(--pink); box-shadow:0 15px 30px rgba(233,30,99,.12); }.curriculum-cards span,.curriculum-cards b { color:var(--pink); font-size:11px; letter-spacing:1.4px; }.curriculum-cards h3 { margin:50px 0 8px; font-size:24px; }.curriculum-cards p { margin:0; color:var(--muted); line-height:1.6; }.curriculum-cards b { margin-top:auto; } @media(max-width:850px){.curriculum-cards{grid-template-columns:1fr 1fr}} @media(max-width:580px){.curriculum-cards{grid-template-columns:1fr}}
 
+/* ==========================================================================
+   Dokumen PDF Kurikulum — 2 Tombol Unduh Resmi
+   ========================================================================== */
+.curriculum-docs-row {
+    margin-top: 52px;
+    padding-top: 36px;
+    border-top: 1.5px solid var(--pink-border);
+}
+
+.curriculum-doc-btns {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.curriculum-doc-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1;
+    min-width: 240px;
+    padding: 18px 22px;
+    background: #ffffff;
+    border: 1.5px solid var(--pink-border);
+    border-radius: 14px;
+    text-decoration: none;
+    color: var(--ink);
+    box-shadow: 0 3px 14px rgba(233, 30, 99, 0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.curriculum-doc-btn:hover {
+    transform: translateY(-4px);
+    border-color: var(--pink);
+    box-shadow: 0 10px 28px rgba(233, 30, 99, 0.15);
+}
+
+.doc-btn-icon {
+    font-size: 30px;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.doc-btn-text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex: 1;
+}
+
+.doc-btn-text strong {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--ink);
+}
+
+.doc-btn-text small {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.4;
+}
+
+.doc-btn-arrow {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--pink);
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.curriculum-doc-btn:hover .doc-btn-arrow {
+    transform: translateY(3px);
+}
+
+/* Dark Mode */
+body.theme-dark .curriculum-doc-btn {
+    background: var(--bg-card);
+    border-color: var(--border-card);
+}
+body.theme-dark .curriculum-doc-btn:hover {
+    border-color: var(--pink);
+}
+body.theme-dark .doc-btn-text strong {
+    color: var(--ink);
+}
+
+@media (max-width: 580px) {
+    .curriculum-doc-btns {
+        flex-direction: column;
+    }
+    .curriculum-doc-btn {
+        min-width: 0;
+    }
+}
+
+
+
 /* Kana Quest dashboard */
 .learning-app { background:#fbf8f9; font-family:Georgia, "Times New Roman", serif; }.learning-app .nav { background:#201c26; }.quest-main { padding-top:0; }
 .quest-hero {
