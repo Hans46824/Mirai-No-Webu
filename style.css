@@ -790,24 +790,95 @@ body.theme-dark .dictionary-practice-link .kicker {
 }
 
 /* =====================================================
-   STANDARISASI TOMBOL – TEMA PINK & PUTIH MIRAI NO HANA
+   WAGARA PATTERN SYSTEM & STANDARISASI TOMBOL MIRAI NO HANA
+   1 Pattern Berbeda per Halaman (Sesuai Struktur Navbar)
+   Transparansi Elegan agar Teks Tajam & Motif Memperindah
    ===================================================== */
-/* Tombol Utama (Pink khas tema dengan pola kelopak sakura wagara, teks putih) */
+
+/* Default Pattern (Sakura Floating Petals - Beranda) */
+:root {
+    --page-pattern: url("images/mirai/pattern/s1w.jpeg");
+}
+
+/* 1. Beranda (Navbar: BERANDA) -> Sakura Floating Petals */
+body,
+body.page-beranda,
+body.page-index {
+    --page-pattern: url("images/mirai/pattern/s1w.jpeg");
+}
+
+/* 2. Kelas & Pembelajaran (Navbar: KELAS) -> Sakura + Yagasuri Arrows */
+body.page-kelas,
+body.page-kelas-dasar,
+body.page-kelas-lanjutan {
+    --page-pattern: url("images/mirai/pattern/s2w.jpeg");
+}
+
+/* 3. Kurikulum & Modul Belajar -> Bamboo Geometric Wagara */
+body.page-kurikulum {
+    --page-pattern: url("images/mirai/pattern/b1.jpeg");
+}
+
+/* 4. Kamus & Kanji (Navbar: KAMUS) -> Seigaiha Ocean Waves */
+body.page-kamus,
+body.page-kanji {
+    --page-pattern: url("images/mirai/pattern/w3w.jpeg");
+}
+
+/* 5. Kegiatan, Proker & Divisi (Navbar: KEGIATAN) -> Nami Great Waves Blue */
+body.page-kegiatan,
+body.page-konbini,
+body.page-ramadhan,
+body.page-njr,
+body.page-ktn,
+body.page-divisi {
+    --page-pattern: url("images/mirai/pattern/w1w.jpeg");
+}
+
+/* 6. Tentang Kami, Sejarah & Kabinet (Navbar: TENTANG) -> Kumo Traditional Clouds */
+body.page-tentang,
+body.page-about {
+    --page-pattern: url("images/mirai/pattern/c1w.jpeg");
+}
+
+/* 7. Latihan Soal & Quiz Quest -> Sakura Flurry Storm */
+body.page-latihan,
+body.learning-app {
+    --page-pattern: url("images/mirai/pattern/s3w.jpeg");
+}
+
+/* 8. Asora Aokita / Sora Chat Page -> Kumo Dark Sky Clouds */
+body.page-sora {
+    --page-pattern: url("images/mirai/pattern/c1b.jpeg");
+}
+
+/* 9. Masukan & Formulir -> Modern Contour Topography */
+body.page-masukan {
+    --page-pattern: url("images/mirai/pattern/w2w.jpeg");
+}
+
+/* -----------------------------------------------------
+   STYLING TOMBOL UTAMA (PRIMARY)
+   Pink khas Mirai berpadu transparansi motif wagara halaman.
+   Teks putih tebal dengan drop shadow lembut (tidak bertabrakan).
+   ----------------------------------------------------- */
 .btn-primary,
 .btn.primary,
 .card-btn,
 .program-btn,
 .proker-back,
 .start-level {
+    position: relative;
     background-color: var(--pink, #e91e63) !important;
-    background-image: linear-gradient(135deg, rgba(233, 30, 99, 0.92), rgba(216, 27, 96, 0.96)),
-                      url("images/mirai/pattern/s1w.jpeg") !important;
-    background-size: cover, 180px auto !important;
+    background-image:
+        linear-gradient(135deg, rgba(233, 30, 99, 0.70) 0%, rgba(194, 24, 91, 0.80) 100%),
+        var(--page-pattern) !important;
+    background-size: cover, 110px auto !important;
     background-repeat: no-repeat, repeat !important;
-    background-blend-mode: multiply !important;
+    background-position: center, center !important;
     color: #ffffff !important;
-    border: none !important;
-    border-radius: 4px;
+    border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+    border-radius: 6px;
     font-weight: 700;
     transition: all 0.25s ease;
     text-decoration: none;
@@ -815,6 +886,8 @@ body.theme-dark .dictionary-practice-link .kicker {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45) !important;
+    box-shadow: 0 4px 15px rgba(233, 30, 99, 0.32) !important;
 }
 
 .btn-primary:hover,
@@ -824,27 +897,35 @@ body.theme-dark .dictionary-practice-link .kicker {
 .proker-back:hover,
 .start-level:hover:not(:disabled) {
     background-color: var(--pink2, #d81b60) !important;
-    background-image: linear-gradient(135deg, rgba(216, 27, 96, 0.95), rgba(194, 24, 91, 0.98)),
-                      url("images/mirai/pattern/s1w.jpeg") !important;
-    background-size: cover, 160px auto !important;
+    background-image:
+        linear-gradient(135deg, rgba(216, 27, 96, 0.75) 0%, rgba(173, 20, 87, 0.85) 100%),
+        var(--page-pattern) !important;
+    background-size: cover, 110px auto !important;
     color: #ffffff !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4) !important;
+    box-shadow: 0 8px 24px rgba(233, 30, 99, 0.52) !important;
 }
 
-/* Tombol Sekunder & Navigasi Slider (Putih bersih dengan tekstur seigaiha wagara, teks pink, border pink) */
+/* -----------------------------------------------------
+   STYLING TOMBOL SEKUNDER / LIGHT (SECONDARY & SLIDERS)
+   Putih bertekstur wagara transparan, teks pink tajam, border pink.
+   ----------------------------------------------------- */
 .btn-secondary,
 .btn.secondary,
 .btn.light,
 .slide-btn {
+    position: relative;
     background-color: #ffffff !important;
-    background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(255, 247, 251, 0.96)),
-                      url("images/mirai/pattern/w3w.jpeg") !important;
-    background-size: cover, 140px auto !important;
+    background-image:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.80) 0%, rgba(255, 246, 250, 0.88) 100%),
+        var(--page-pattern) !important;
+    background-size: cover, 110px auto !important;
     background-repeat: no-repeat, repeat !important;
+    background-position: center, center !important;
     color: var(--pink, #e91e63) !important;
     border: 1.5px solid var(--pink, #e91e63) !important;
-    border-radius: 4px;
+    border-radius: 6px;
     font-weight: 700;
     transition: all 0.25s ease;
     text-decoration: none;
@@ -852,6 +933,8 @@ body.theme-dark .dictionary-practice-link .kicker {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9) !important;
+    box-shadow: 0 4px 14px rgba(233, 30, 99, 0.12) !important;
 }
 
 .btn-secondary:hover,
@@ -859,12 +942,194 @@ body.theme-dark .dictionary-practice-link .kicker {
 .btn.light:hover,
 .slide-btn:hover {
     background-color: var(--pink, #e91e63) !important;
-    background-image: linear-gradient(135deg, rgba(233, 30, 99, 0.94), rgba(216, 27, 96, 0.97)),
-                      url("images/mirai/pattern/s1w.jpeg") !important;
-    background-size: cover, 160px auto !important;
-    background-blend-mode: multiply !important;
+    background-image:
+        linear-gradient(135deg, rgba(233, 30, 99, 0.70) 0%, rgba(194, 24, 91, 0.80) 100%),
+        var(--page-pattern) !important;
+    background-size: cover, 110px auto !important;
     color: #ffffff !important;
-    box-shadow: 0 6px 18px rgba(233, 30, 99, 0.35) !important;
+    border-color: var(--pink, #e91e63) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(233, 30, 99, 0.42) !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45) !important;
+}
+
+/* -----------------------------------------------------
+   STYLING TOMBOL MENU (NAVBAR POJOK KANAN ATAS)
+   Elegan, gelap transparan dengan motif wagara halaman terlihat jelas,
+   hover menyala pink bertekstur pattern.
+   ----------------------------------------------------- */
+.menu-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    overflow: hidden;
+    background-color: #1a141e !important;
+    background-image:
+        linear-gradient(135deg, rgba(22, 16, 26, 0.72) 0%, rgba(36, 18, 38, 0.80) 100%),
+        var(--page-pattern) !important;
+    background-size: cover, 110px auto !important;
+    background-repeat: no-repeat, repeat !important;
+    background-position: center, center !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: #ffffff !important;
+    padding: 11px 22px;
+    border-radius: 30px;
+    font-weight: 800;
+    border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
+    font-size: 15px;
+    letter-spacing: 2.5px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, visibility 0.25s ease;
+    font-family: inherit;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 79, 145, 0.3) !important;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9) !important;
+}
+
+.menu-btn:hover {
+    background-color: var(--pink, #e91e63) !important;
+    background-image:
+        linear-gradient(135deg, rgba(233, 30, 99, 0.68) 0%, rgba(194, 24, 91, 0.78) 100%),
+        var(--page-pattern) !important;
+    border-color: #ff4f91 !important;
+    color: #ffffff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(233, 30, 99, 0.5) !important;
+}
+
+.menu-btn:active {
+    transform: translateY(0);
+}
+
+/* -----------------------------------------------------
+   STYLING TOMBOL TO-TOP (KEMBALI KE ATAS)
+   Pink bertekstur wagara halaman dengan transparansi rapi.
+   ----------------------------------------------------- */
+.to-top {
+    position: fixed;
+    right: 24px;
+    bottom: 25px;
+    z-index: 15;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    visibility: hidden;
+    color: #ffffff !important;
+    background-color: var(--pink, #e91e63) !important;
+    background-image:
+        linear-gradient(135deg, rgba(233, 30, 99, 0.70) 0%, rgba(194, 24, 91, 0.80) 100%),
+        var(--page-pattern) !important;
+    background-size: cover, 100px auto !important;
+    background-repeat: no-repeat, repeat !important;
+    background-position: center, center !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
+    border-radius: 8px;
+    opacity: 0;
+    font-size: 20px;
+    font-weight: 800;
+    transition: opacity .25s ease, transform .25s ease, visibility .25s;
+    box-shadow: 0 4px 16px rgba(233, 30, 99, 0.4) !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45) !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.to-top.is-visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+.to-top:hover {
+    background-color: var(--pink2, #d81b60) !important;
+    background-image:
+        linear-gradient(135deg, rgba(216, 27, 96, 0.75) 0%, rgba(173, 20, 87, 0.85) 100%),
+        var(--page-pattern) !important;
+    border-color: #ff4f91 !important;
+    transform: translateY(-4px);
+    box-shadow: 0 6px 22px rgba(233, 30, 99, 0.6) !important;
+}
+
+/* -----------------------------------------------------
+   STYLING TOMBOL TAMBAHAN (TAB MANAJEMEN, NAV SLIDER, MODAL)
+   ----------------------------------------------------- */
+.mgmt-tab-btn {
+    background-color: #ffffff !important;
+    background-image:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 246, 250, 0.90) 100%),
+        var(--page-pattern) !important;
+    background-size: cover, 100px auto !important;
+    background-repeat: no-repeat, repeat !important;
+    background-position: center, center !important;
+    border: 1.5px solid var(--pink-border, #fcd1e5) !important;
+}
+
+.mgmt-tab-btn.active {
+    background-color: var(--pink, #e91e63) !important;
+    background-image:
+        linear-gradient(135deg, rgba(233, 30, 99, 0.70) 0%, rgba(194, 24, 91, 0.80) 100%),
+        var(--page-pattern) !important;
+    background-size: cover, 100px auto !important;
+    background-repeat: no-repeat, repeat !important;
+    border-color: var(--pink) !important;
+    color: #ffffff !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35) !important;
+    box-shadow: 0 4px 14px rgba(233, 30, 99, 0.3) !important;
+}
+
+.mgmt-nav-btn,
+.njr-nav-btn,
+.doc-slider-btn,
+.proker-slider-btn {
+    background-color: #ffffff !important;
+    background-image:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 246, 250, 0.85) 100%),
+        var(--page-pattern) !important;
+    background-size: cover, 80px auto !important;
+    background-repeat: no-repeat, repeat !important;
+    background-position: center, center !important;
+    border: 1.5px solid var(--pink-border, #fcd1e5) !important;
+    color: var(--ink) !important;
+}
+
+.mgmt-nav-btn:hover,
+.njr-nav-btn:hover:not(:disabled),
+.doc-slider-btn:hover:not(:disabled),
+.proker-slider-btn:hover:not(:disabled) {
+    background-color: var(--pink, #e91e63) !important;
+    background-image:
+        linear-gradient(135deg, rgba(233, 30, 99, 0.70) 0%, rgba(194, 24, 91, 0.80) 100%),
+        var(--page-pattern) !important;
+    border-color: var(--pink) !important;
+    color: #ffffff !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Modal Sora Hapus & Batal */
+.sora-modal-btn.btn-danger {
+    background-color: #e11d48 !important;
+    background-image:
+        linear-gradient(135deg, rgba(225, 29, 72, 0.75) 0%, rgba(190, 18, 60, 0.85) 100%),
+        var(--page-pattern) !important;
+    background-size: cover, 90px auto !important;
+    background-repeat: no-repeat, repeat !important;
+    background-position: center, center !important;
+    color: #ffffff !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35) !important;
+}
+
+.sora-modal-btn.btn-cancel {
+    background-color: #334155 !important;
+    background-image:
+        linear-gradient(135deg, rgba(51, 65, 85, 0.78) 0%, rgba(30, 41, 59, 0.88) 100%),
+        var(--page-pattern) !important;
+    background-size: cover, 90px auto !important;
+    background-repeat: no-repeat, repeat !important;
+    background-position: center, center !important;
+    color: #e2e8f0 !important;
 }
 
 a {
@@ -1034,7 +1299,6 @@ header.home-header,
     right: 20px;
     z-index: 10000;
     overflow: hidden;
-    background: rgba(0, 0, 0, 0.65);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     color: white;
@@ -1069,8 +1333,6 @@ body.sora-fullscreen-active .menu-btn {
 }
 
 .menu-btn:hover {
-    background: var(--pink, #e91e63);
-    border-color: var(--pink, #e91e63);
     color: #ffffff;
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(233, 30, 99, 0.45);
@@ -2998,8 +3260,6 @@ body.theme-dark .kana-search input { color:#fff8fb !important; background:#30243
     cursor: pointer;
     visibility: hidden;
     color: var(--white);
-    background: var(--pink);
-    border: 0;
     opacity: 0;
     font-size: 20px;
     transition: opacity .25s ease, transform .25s ease, visibility .25s;
@@ -3011,7 +3271,6 @@ body.theme-dark .kana-search input { color:#fff8fb !important; background:#30243
 }
 
 .to-top:hover {
-    background: var(--pink2);
     transform: translateY(-4px);
 }
 
@@ -4981,11 +5240,11 @@ body.theme-dark .footer-coming-soon {
 /* To-top button & Theme toggle */
 body.theme-dark .to-top {
     color: #ffffff !important;
-    background: #e91e63 !important;
+    background-color: #e91e63 !important;
 }
 
 body.theme-dark .to-top:hover {
-    background: #ff4081 !important;
+    background-color: #ff4081 !important;
 }
 
 body.theme-dark .theme-toggle {

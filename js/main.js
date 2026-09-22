@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+    setupPagePatternClass();
     normalizeNavigation();
     setupThemeToggle();
     setupMenu();
@@ -12,6 +13,31 @@ document.addEventListener("DOMContentLoaded", () => {
     window.initKanjiDictionary?.();
     window.initSora?.();
 });
+
+function setupPagePatternClass() {
+    const body = document.body;
+    if (!body) return;
+    const path = (window.location.pathname || "").toLowerCase();
+    if (path.includes('kelas-dasar') || path.includes('kelas-lanjutan') || path.includes('kelas')) {
+        body.classList.add('page-kelas');
+    } else if (path.includes('kurikulum')) {
+        body.classList.add('page-kurikulum');
+    } else if (path.includes('kamus') || path.includes('kanji') || path.includes('hiragana') || path.includes('katakana')) {
+        body.classList.add('page-kamus');
+    } else if (path.includes('kegiatan') || path.includes('konbini') || path.includes('ramadhan') || path.includes('njr') || path.includes('ktn') || path.includes('divisi')) {
+        body.classList.add('page-kegiatan');
+    } else if (path.includes('tentang') || path.includes('about')) {
+        body.classList.add('page-tentang');
+    } else if (path.includes('latihan')) {
+        body.classList.add('page-latihan');
+    } else if (path.includes('sora')) {
+        body.classList.add('page-sora');
+    } else if (path.includes('masukan')) {
+        body.classList.add('page-masukan');
+    } else if (!body.className || body.className.trim() === '') {
+        body.classList.add('page-beranda');
+    }
+}
 
 function setupThemeToggle() {
     // Website dikunci 100% pada Light Mode
