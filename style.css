@@ -8304,11 +8304,11 @@ body.theme-dark .activity-card-locked {
 
 /* ==========================================================================
    Wagara Patterns pada Tombol Besar (Start Cards & Activity Cards)
-   - Page Putih: Pattern Seigaiha Ombak Halus (w3w.jpeg)
-   - Page Hitam: Pattern Wagara Gelap (b1.jpeg)
+   - Page Putih: Pattern Kumo Awan Halus (c1w.jpeg)
+   - Page Hitam: Pattern Kumo Awan Gelap (c1b.jpeg)
    ========================================================================== */
 
-/* 1. Tombol Besar pada Halaman/Section Putih (w3w.jpeg) */
+/* 1. Tombol Besar pada Halaman/Section Putih (c1w.jpeg) */
 .start-card,
 .curriculum-cards a {
     position: relative;
@@ -8345,9 +8345,9 @@ body.theme-dark .activity-card-locked {
     content: "";
     position: absolute;
     inset: 0;
-    background-image: url("images/mirai/pattern/w3w.jpeg");
-    background-size: 260px auto;
-    background-repeat: repeat;
+    background-image: url("images/mirai/pattern/c1w.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
     background-position: center;
     opacity: 0.22;
     mix-blend-mode: multiply;
@@ -8358,18 +8358,21 @@ body.theme-dark .activity-card-locked {
 
 .start-card:hover::after,
 .curriculum-cards a:hover::after {
-    opacity: 0.32;
+    opacity: 0.34;
     transform: scale(1.02);
 }
 
-/* Dukungan Dark Mode untuk Tombol Besar Halaman Putih (otomatis beralih ke b1) */
+/* Dukungan Dark Mode untuk Tombol Besar Halaman Putih (otomatis beralih ke c1b) */
 body.dark-mode .start-card::after,
 body.theme-dark .start-card::after,
 main > section:nth-of-type(even) .start-card::after,
 body.dark-mode .curriculum-cards a::after,
 body.theme-dark .curriculum-cards a::after {
-    background-image: url("images/mirai/pattern/b1.jpeg");
-    opacity: 0.22;
+    background-image: url("images/mirai/pattern/c1b.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.24;
     mix-blend-mode: screen;
 }
 
@@ -8378,10 +8381,10 @@ body.theme-dark .start-card:hover::after,
 main > section:nth-of-type(even) .start-card:hover::after,
 body.dark-mode .curriculum-cards a:hover::after,
 body.theme-dark .curriculum-cards a:hover::after {
-    opacity: 0.32;
+    opacity: 0.34;
 }
 
-/* 2. Tombol Besar pada Halaman/Section Hitam (b1.jpeg) */
+/* 2. Tombol Besar pada Halaman/Section Hitam (c1b.jpeg) */
 .activity-start-card {
     position: relative;
     overflow: hidden;
@@ -8415,11 +8418,11 @@ body.theme-dark .curriculum-cards a:hover::after {
     content: "";
     position: absolute;
     inset: 0;
-    background-image: url("images/mirai/pattern/b1.jpeg");
-    background-size: 260px auto;
-    background-repeat: repeat;
+    background-image: url("images/mirai/pattern/c1b.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
     background-position: center;
-    opacity: 0.22;
+    opacity: 0.24;
     mix-blend-mode: screen;
     pointer-events: none;
     z-index: 1;
@@ -8428,13 +8431,16 @@ body.theme-dark .curriculum-cards a:hover::after {
 
 .activity-card-active:hover::after,
 .activity-start-card:hover::after {
-    opacity: 0.32;
+    opacity: 0.34;
     transform: scale(1.02);
 }
 
 /* Jika .activity-start-card berada di section terang/putih */
 body:not(.dark-mode):not(.theme-dark) main > section:nth-of-type(odd):not(.home-activities-dark-section) .activity-start-card::after {
-    background-image: url("images/mirai/pattern/w3w.jpeg");
+    background-image: url("images/mirai/pattern/c1w.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     opacity: 0.22;
     mix-blend-mode: multiply;
 }
@@ -9444,23 +9450,63 @@ body.theme-dark .faq-chat-bubble::before {
     transform: translateY(-6px) scale(1.1) rotate(-3deg);
 }
 
-/* Penyesuaian Posisi Arrow di Kartu Beranda agar Tidak Nabrak Chibi */
+/* Penyesuaian Nomor & Arrow Berbentuk Lingkaran Elegan di Kartu Beranda */
 .start-card b {
     position: absolute !important;
     right: 22px !important;
     top: 22px !important;
     bottom: auto !important;
-    font-size: 22px !important;
+    width: 38px !important;
+    height: 38px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 50% !important;
+    background: rgba(233, 30, 99, 0.08) !important;
+    border: 1.5px solid rgba(233, 30, 99, 0.25) !important;
+    color: var(--pink, #e91e63) !important;
+    font-size: 16px !important;
+    line-height: 1 !important;
+    box-shadow: 0 3px 10px rgba(233, 30, 99, 0.08);
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
     z-index: 3 !important;
+}
+
+.start-card:hover b {
+    background: var(--pink, #e91e63) !important;
+    border-color: var(--pink, #e91e63) !important;
+    color: #ffffff !important;
+    transform: scale(1.1) translateX(2px);
+    box-shadow: 0 6px 16px rgba(233, 30, 99, 0.35);
 }
 
 .start-card span {
     position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 50% !important;
+    background: rgba(233, 30, 99, 0.08) !important;
+    border: 1.5px solid rgba(233, 30, 99, 0.22) !important;
+    color: var(--pink, #e91e63) !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.5px !important;
+    box-shadow: 0 3px 10px rgba(233, 30, 99, 0.06);
+    transition: all 0.25s ease !important;
     z-index: 3 !important;
 }
 
+.start-card:hover span {
+    background: rgba(233, 30, 99, 0.16) !important;
+    border-color: var(--pink, #e91e63) !important;
+    transform: scale(1.06);
+}
+
 .start-card h3 {
-    margin-top: 36px !important;
+    margin-top: 18px !important;
     max-width: 62% !important;
 }
 
@@ -9473,12 +9519,85 @@ body.theme-dark .faq-chat-bubble::before {
     right: 24px !important;
     top: 24px !important;
     bottom: auto !important;
-    font-size: 22px !important;
+    width: 38px !important;
+    height: 38px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.2) !important;
+    color: #ffffff !important;
+    font-size: 16px !important;
+    line-height: 1 !important;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
     z-index: 3 !important;
+}
+
+.activity-card-active:hover b,
+.activity-start-card:hover b {
+    background: var(--pink, #e91e63) !important;
+    border-color: var(--pink, #e91e63) !important;
+    color: #ffffff !important;
+    transform: scale(1.1) translateX(2px);
+    box-shadow: 0 0 18px rgba(233, 30, 99, 0.55);
+}
+
+.activity-start-card span {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.2) !important;
+    color: #ff75a6 !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.5px !important;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.25s ease !important;
+    z-index: 3 !important;
+}
+
+.activity-card-active:hover span,
+.activity-start-card:hover span {
+    background: rgba(233, 30, 99, 0.22) !important;
+    border-color: var(--pink, #e91e63) !important;
+    color: #ffffff !important;
+    transform: scale(1.06);
+}
+
+.activity-start-card h3 {
+    margin-top: 18px !important;
 }
 
 .activity-start-card p {
     max-width: 62% !important;
+}
+
+/* Lingkaran nomor pada kartu kurikulum */
+.curriculum-cards a span {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 50% !important;
+    background: rgba(233, 30, 99, 0.08) !important;
+    border: 1.5px solid rgba(233, 30, 99, 0.22) !important;
+    color: var(--pink, #e91e63) !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    box-shadow: 0 3px 10px rgba(233, 30, 99, 0.06);
+    margin-bottom: 12px !important;
+}
+
+.curriculum-cards a h3 {
+    margin: 18px 0 8px !important;
 }
 
 /* Ukuran Chibi Halaman Kelas & Kurikulum */
