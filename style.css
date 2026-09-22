@@ -2215,6 +2215,27 @@ body.sora-fullscreen-active .menu-btn {
     background: #fff7fa;
 }
 
+/* Navigasi antar kelas (Kelas Dasar ↔ Kelas Lanjutan) */
+.class-nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 480px) {
+    .class-nav-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .class-nav-row .btn {
+        text-align: center;
+        justify-content: center;
+    }
+}
+
 .timeline {
     display: grid;
     gap: 0;
