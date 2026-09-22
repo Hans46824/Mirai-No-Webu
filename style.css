@@ -9211,6 +9211,51 @@ body:not(.dark-mode):not(.theme-dark) main > section:nth-of-type(odd):not(.home-
 }
 
 /* ==========================================================================
+   Winner Row — Foto Pemenang & Nama dalam Achievement Card
+   ========================================================================== */
+.achievement-winner-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+}
+
+.achievement-winner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.winner-photo {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2.5px solid var(--pink);
+    box-shadow: 0 0 0 3px var(--pink-soft), 0 4px 14px rgba(233, 30, 99, 0.22);
+    flex-shrink: 0;
+    transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+}
+
+.achievement-card:hover .winner-photo {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 3.5px var(--pink), 0 6px 18px rgba(233, 30, 99, 0.35);
+}
+
+.winner-name {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 130px;
+}
+
+/* ==========================================================================
    FAQ INTERAKTIF (Tanya Sora - Details / Summary Accordion)
    ========================================================================== */
 .faq-section {
@@ -9402,6 +9447,9 @@ body.theme-dark .achievement-rank {
 }
 body.theme-dark .achievement-name {
     color: var(--muted);
+}
+body.theme-dark .winner-name {
+    color: #e8d5f0;
 }
 body.theme-dark .faq-intro-box {
     background: linear-gradient(135deg, #251a23, #191f28);
