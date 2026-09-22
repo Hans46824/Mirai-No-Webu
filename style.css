@@ -877,8 +877,8 @@ a {
 .brand img {
     display: block;
     width: auto;
-    height: 60px;
-    max-width: 360px;
+    height: 72px;
+    max-width: 400px;
     object-fit: contain;
     object-position: left center;
 }
@@ -1001,10 +1001,12 @@ header.home-header,
 }
 
 .home-header .brand img {
-    height: clamp(38px, 6vw, 48px);
+    height: clamp(56px, 7.5vw, 82px);
     width: auto;
+    max-width: min(400px, calc(100vw - 120px));
     object-fit: contain;
-    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.45));
+    object-position: left center;
+    filter: drop-shadow(0 3px 12px rgba(0, 0, 0, 0.65));
 }
 
 .menu-btn {
@@ -1242,7 +1244,13 @@ body.sora-fullscreen-active .menu-btn {
 @media (max-width: 600px) {
     header.home-header,
     .home-header {
-        padding: 16px 20px;
+        padding: 14px 16px;
+    }
+
+    .home-header .brand img,
+    .brand img {
+        height: 56px;
+        max-width: calc(100vw - 115px);
     }
 
     .menu-btn {
@@ -1941,7 +1949,7 @@ body.sora-fullscreen-active .menu-btn {
     }
 
     .brand img {
-        height: 40px;
+        height: 60px;
     }
 
     .links {
@@ -2010,7 +2018,7 @@ body.sora-fullscreen-active .menu-btn {
     }
 
     .brand img {
-        height: 36px;
+        height: 56px;
     }
 
     .links {
@@ -2735,7 +2743,7 @@ body.sora-fullscreen-active .menu-btn {
     }
 
     .brand img {
-        height: 34px;
+        height: 52px;
     }
 
     .nav > .links,
