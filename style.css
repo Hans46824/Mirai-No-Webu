@@ -10694,13 +10694,13 @@ img:not(.img-lightbox-img) {
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
 }
 
-/* Subtle Wagara Pattern c1w */
+/* Subtle Wagara Contour Pattern w1w */
 .kurikulum-page-section .doc-big-card::after,
 .doc-big-card::after {
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/pattern/c1w.jpeg") !important;
+    background-image: url("images/mirai/pattern/w1w.jpeg") !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
@@ -11063,7 +11063,7 @@ body.page-kurikulum .doc-nav-back a:hover,
     color: #ff659b !important;
 }
 
-/* Kartu di Kelas Lanjutan: Kartu Gelap Elegan dengan Pattern c1b.jpeg */
+/* Kartu di Kelas Lanjutan: Kartu Gelap Elegan dengan Pattern w1b.jpeg */
 #lanjutan .course-card {
     position: relative !important;
     overflow: hidden !important;
@@ -11072,30 +11072,30 @@ body.page-kurikulum .doc-nav-back a:hover,
     justify-content: flex-start !important;
     min-height: 300px !important;
     padding: 28px 28px 24px !important;
-    background: #18141f !important;
-    border: 1.5px solid var(--pink-border, #4a3443) !important;
+    background: linear-gradient(165deg, #1d1624 0%, #130f18 100%) !important;
+    border: 1.5px solid rgba(255, 101, 155, 0.22) !important;
     border-radius: 20px !important;
     text-decoration: none !important;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45) !important;
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
     box-sizing: border-box !important;
 }
 
 #lanjutan .course-card:hover {
-    transform: translateY(-5px) !important;
-    border-color: var(--pink, #e91e63) !important;
-    box-shadow: 0 16px 36px rgba(233, 30, 99, 0.25) !important;
+    transform: translateY(-6px) !important;
+    border-color: #ff659b !important;
+    box-shadow: 0 20px 44px rgba(233, 30, 99, 0.3), 0 4px 14px rgba(0, 0, 0, 0.6) !important;
 }
 
 #lanjutan .course-card::after {
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/pattern/c1b.jpeg") !important;
+    background-image: url("images/mirai/pattern/w1b.jpeg") !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
-    opacity: 0.24 !important;
+    opacity: 0.16 !important;
     mix-blend-mode: screen !important;
     pointer-events: none !important;
     z-index: 1 !important;
@@ -11104,7 +11104,7 @@ body.page-kurikulum .doc-nav-back a:hover,
 }
 
 #lanjutan .course-card:hover::after {
-    opacity: 0.34 !important;
+    opacity: 0.26 !important;
     transform: scale(1.02) !important;
 }
 
@@ -11119,8 +11119,8 @@ body.page-kurikulum .doc-nav-back a:hover,
     font-family: var(--font-jp, "Noto Sans JP", sans-serif) !important;
     letter-spacing: 2px !important;
     color: #ff659b !important;
-    background: rgba(233, 30, 99, 0.15) !important;
-    border: 1.5px solid rgba(233, 30, 99, 0.35) !important;
+    background: rgba(233, 30, 99, 0.16) !important;
+    border: 1.5px solid rgba(233, 30, 99, 0.4) !important;
     border-radius: 12px !important;
     padding: 6px 16px !important;
     margin: 0 0 16px 0 !important;
@@ -11155,7 +11155,7 @@ body.page-kurikulum .doc-nav-back a:hover,
     max-width: calc(100% - 65px) !important;
 }
 
-/* 2. PILIH JALUR BELAJAR (class-overview): PAGE HITAM PEKAT (#111111) */
+/* 2. PILIH JALUR BELAJAR (class-overview): PAGE HITAM PEKAT (#111111) DENGAN PATTERN w1b.jpeg */
 .class-overview {
     background-color: #111111 !important;
     background: #111111 !important;
@@ -11190,13 +11190,13 @@ body.page-kurikulum .doc-nav-back a:hover,
     overflow: hidden !important;
     display: flex !important;
     flex-direction: column !important;
-    min-height: 250px !important;
-    padding: 26px !important;
-    background: #18141f !important;
-    border: 1.5px solid var(--pink-border, #4a3443) !important;
+    min-height: 270px !important;
+    padding: 28px 24px 24px !important;
+    background: linear-gradient(165deg, #1c1523 0%, #130f18 100%) !important;
+    border: 1.5px solid rgba(255, 101, 155, 0.22) !important;
     border-radius: 20px !important;
     text-decoration: none !important;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
     box-sizing: border-box !important;
 }
@@ -11206,7 +11206,7 @@ body.page-kurikulum .doc-nav-back a:hover,
     top: 0 !important;
     left: 0 !important;
     width: 100% !important;
-    height: 4px !important;
+    height: 3px !important;
     content: "" !important;
     background: var(--pink, #e91e63) !important;
     transform: scaleX(0) !important;
@@ -11223,11 +11223,11 @@ body.page-kurikulum .doc-nav-back a:hover,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/pattern/c1b.jpeg") !important;
+    background-image: url("images/mirai/pattern/w1b.jpeg") !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
-    opacity: 0.24 !important;
+    opacity: 0.16 !important;
     mix-blend-mode: screen !important;
     pointer-events: none !important;
     z-index: 1 !important;
@@ -11236,14 +11236,14 @@ body.page-kurikulum .doc-nav-back a:hover,
 }
 
 .class-card:hover::after {
-    opacity: 0.34 !important;
+    opacity: 0.26 !important;
     transform: scale(1.02) !important;
 }
 
 .class-card:hover {
-    transform: translateY(-5px) !important;
+    transform: translateY(-6px) !important;
     border-color: var(--pink, #e91e63) !important;
-    box-shadow: 0 16px 36px rgba(233, 30, 99, 0.25) !important;
+    box-shadow: 0 20px 42px rgba(233, 30, 99, 0.28), 0 4px 14px rgba(0, 0, 0, 0.6) !important;
 }
 
 .class-card .class-index {
@@ -11251,11 +11251,11 @@ body.page-kurikulum .doc-nav-back a:hover,
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    width: 36px !important;
-    height: 36px !important;
+    width: 38px !important;
+    height: 38px !important;
     border-radius: 50% !important;
     background: rgba(233, 30, 99, 0.15) !important;
-    border: 1.5px solid rgba(233, 30, 99, 0.35) !important;
+    border: 1.5px solid rgba(233, 30, 99, 0.4) !important;
     color: #ff659b !important;
     font-size: 13px !important;
     font-weight: 800 !important;
@@ -11267,20 +11267,20 @@ body.page-kurikulum .doc-nav-back a:hover,
 }
 
 .class-card:hover .class-index {
-    background: rgba(233, 30, 99, 0.28) !important;
+    background: rgba(233, 30, 99, 0.3) !important;
     border-color: var(--pink, #e91e63) !important;
     color: #ffffff !important;
     transform: scale(1.06) !important;
 }
 
 .class-card h3 {
-    margin-top: 22px !important;
+    margin-top: 20px !important;
     margin-bottom: 8px !important;
-    font-size: 22px !important;
+    font-size: 21px !important;
     font-weight: 800 !important;
     color: #ffffff !important;
     line-height: 1.3 !important;
-    max-width: 62% !important;
+    max-width: 66% !important;
     position: relative !important;
     z-index: 3 !important;
 }
@@ -11290,7 +11290,7 @@ body.page-kurikulum .doc-nav-back a:hover,
     font-size: 13.5px !important;
     line-height: 1.6 !important;
     color: #d5ccd3 !important;
-    max-width: 62% !important;
+    max-width: 66% !important;
     position: relative !important;
     z-index: 3 !important;
 }
@@ -11298,7 +11298,7 @@ body.page-kurikulum .doc-nav-back a:hover,
 .class-card .class-arrow {
     position: absolute !important;
     right: 22px !important;
-    top: 22px !important;
+    top: 24px !important;
     bottom: auto !important;
     margin: 0 !important;
     padding: 0 !important;
@@ -11308,8 +11308,8 @@ body.page-kurikulum .doc-nav-back a:hover,
     align-items: center !important;
     justify-content: center !important;
     border-radius: 50% !important;
-    background: rgba(255, 255, 255, 0.1) !important;
-    border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.2) !important;
     color: #ffffff !important;
     font-size: 16px !important;
     line-height: 1 !important;
@@ -11322,11 +11322,11 @@ body.page-kurikulum .doc-nav-back a:hover,
     background: var(--pink, #e91e63) !important;
     border-color: var(--pink, #e91e63) !important;
     color: #ffffff !important;
-    transform: scale(1.12) translateX(2px) !important;
-    box-shadow: 0 6px 16px rgba(233, 30, 99, 0.5) !important;
+    transform: scale(1.1) translateX(2px) !important;
+    box-shadow: 0 6px 18px rgba(233, 30, 99, 0.5) !important;
 }
 
-/* 3. KELAS DASAR: PAGE PUTIH BERSIH (#ffffff) DENGAN GRID 2x2 */
+/* 3. KELAS DASAR: PAGE PUTIH BERSIH (#ffffff) DENGAN PATTERN w1w.jpeg & GRID 2x2 */
 #dasar {
     background-color: #ffffff !important;
     background: #ffffff !important;
@@ -11362,7 +11362,7 @@ body.page-kurikulum .doc-nav-back a:hover,
     margin-top: 36px !important;
 }
 
-/* Kartu Putih di Kelas Dasar dengan Pattern c1w.jpeg Seperti Gambar 1 */
+/* Kartu Putih di Kelas Dasar dengan Pattern w1w.jpeg */
 #dasar .course-card {
     position: relative !important;
     overflow: hidden !important;
@@ -11372,29 +11372,29 @@ body.page-kurikulum .doc-nav-back a:hover,
     min-height: 300px !important;
     padding: 28px 28px 24px !important;
     background: #ffffff !important;
-    border: 1.5px solid var(--pink-border, #f4bfd3) !important;
+    border: 1.5px solid #ffccd9 !important;
     border-radius: 20px !important;
     text-decoration: none !important;
-    box-shadow: 0 8px 25px rgba(72, 32, 52, 0.055) !important;
+    box-shadow: 0 10px 30px rgba(72, 32, 52, 0.05), 0 2px 6px rgba(233, 30, 99, 0.03) !important;
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
     box-sizing: border-box !important;
 }
 
 #dasar .course-card:hover {
-    transform: translateY(-5px) !important;
+    transform: translateY(-6px) !important;
     border-color: var(--pink, #e91e63) !important;
-    box-shadow: 0 16px 36px rgba(233, 30, 99, 0.16) !important;
+    box-shadow: 0 18px 40px rgba(233, 30, 99, 0.16) !important;
 }
 
 #dasar .course-card::after {
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/pattern/c1w.jpeg") !important;
+    background-image: url("images/mirai/pattern/w1w.jpeg") !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
-    opacity: 0.22 !important;
+    opacity: 0.12 !important;
     mix-blend-mode: multiply !important;
     pointer-events: none !important;
     z-index: 1 !important;
@@ -11403,7 +11403,7 @@ body.page-kurikulum .doc-nav-back a:hover,
 }
 
 #dasar .course-card:hover::after {
-    opacity: 0.34 !important;
+    opacity: 0.20 !important;
     transform: scale(1.02) !important;
 }
 
@@ -11494,13 +11494,12 @@ body.page-kurikulum .doc-nav-back a:hover,
 }
 
 /* 5. ICON CHIBI GENSHIN DI KANAN BAWAH (SAMPING TOMBOL KECIL) */
-/* Absolute murni: tidak merusak susunan flex kartu dan aman jika tertimpa */
 .course-card > .card-corner-chibi,
 .course-card > .course-sticker,
 .class-card > .card-corner-chibi,
 .class-card > .path-chibi {
     position: absolute !important;
-    bottom: 10px !important;
+    bottom: 12px !important;
     right: 14px !important;
     top: auto !important;
     left: auto !important;
@@ -11510,7 +11509,7 @@ body.page-kurikulum .doc-nav-back a:hover,
     z-index: 2 !important;
     pointer-events: none !important;
     opacity: 0.96 !important;
-    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.22)) !important;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.35)) !important;
     transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
     display: block !important;
 }
@@ -11551,4 +11550,277 @@ body.page-kurikulum .doc-nav-back a:hover,
         right: 10px !important;
     }
 }
+
+/* =====================================================
+   7. KARTU PADA HALAMAN TENTANG DENGAN PATTERN w1b & w1w
+   - Section Hitam/Gelap: Pattern w1b.jpeg (mix-blend-mode: screen)
+   - Section Putih: Pattern w1w.jpeg (mix-blend-mode: multiply)
+   ===================================================== */
+
+/* (A) SECTION HITAM: .about-name-card, .slogan-card, .achievement-card, .accessory-card */
+.about-name-card,
+.slogan-hero-card,
+.slogan-card,
+.achievement-card,
+.accessory-card,
+.accessory-banner-card {
+    position: relative !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+    border-radius: 18px !important;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
+}
+
+.about-name-card::after,
+.slogan-hero-card::after,
+.slogan-card::after,
+.achievement-card::after,
+.accessory-card::after,
+.accessory-banner-card::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background-image: url("images/mirai/pattern/w1b.jpeg") !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    opacity: 0.15 !important;
+    mix-blend-mode: screen !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+    display: block !important;
+    transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+
+.about-name-card:hover::after,
+.slogan-hero-card:hover::after,
+.slogan-card:hover::after,
+.achievement-card:hover::after,
+.accessory-card:hover::after,
+.accessory-banner-card:hover::after {
+    opacity: 0.24 !important;
+    transform: scale(1.02) !important;
+}
+
+.about-name-card > *,
+.slogan-hero-card > *,
+.slogan-card > *,
+.achievement-card > *,
+.accessory-card > *,
+.accessory-banner-card > * {
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+.about-name-card {
+    background: linear-gradient(165deg, #1c1523 0%, #130f18 100%) !important;
+    border: 1.5px solid rgba(255, 101, 155, 0.22) !important;
+    padding: 34px 30px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+}
+
+.about-name-card:hover {
+    transform: translateY(-5px) !important;
+    border-color: var(--pink, #e91e63) !important;
+    box-shadow: 0 18px 40px rgba(233, 30, 99, 0.22) !important;
+}
+
+.about-name-badge {
+    color: #ff659b !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1.6px !important;
+    margin-bottom: 12px !important;
+    text-transform: uppercase !important;
+    display: inline-block !important;
+}
+
+.about-name-card h3 {
+    margin: 0 0 14px !important;
+    font-size: 21px !important;
+    line-height: 1.4 !important;
+    color: #ffffff !important;
+    font-weight: 800 !important;
+}
+
+.about-name-card p {
+    color: #d5ccd3 !important;
+    font-size: 14.5px !important;
+    line-height: 1.75 !important;
+}
+
+/* (B) SECTION PUTIH: .logo-meaning-card, .haori-card, .pembina-card, .management-card */
+.logo-meaning-badge-col,
+.logo-meaning-card,
+.haori-card,
+.haori-photo-card,
+.pembina-card,
+.management-card {
+    position: relative !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+    border-radius: 18px !important;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
+}
+
+.logo-meaning-badge-col::after,
+.logo-meaning-card::after,
+.haori-card::after,
+.haori-photo-card::after,
+.pembina-card::after,
+.management-card::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background-image: url("images/mirai/pattern/w1w.jpeg") !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    opacity: 0.11 !important;
+    mix-blend-mode: multiply !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+    display: block !important;
+    transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+
+.logo-meaning-badge-col:hover::after,
+.logo-meaning-card:hover::after,
+.haori-card:hover::after,
+.haori-photo-card:hover::after,
+.pembina-card:hover::after,
+.management-card:hover::after {
+    opacity: 0.18 !important;
+    transform: scale(1.02) !important;
+}
+
+.logo-meaning-badge-col > *,
+.logo-meaning-card > *,
+.haori-card > *,
+.haori-photo-card > *,
+.pembina-card > *,
+.management-card > * {
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+.logo-meaning-badge-col,
+.logo-meaning-card {
+    background: #ffffff !important;
+    border: 1.5px solid #ffccd9 !important;
+    box-shadow: 0 8px 24px rgba(72, 32, 52, 0.05) !important;
+}
+
+.logo-meaning-card {
+    border-left: 5px solid var(--pink, #e91e63) !important;
+    padding: 22px 26px !important;
+}
+
+.logo-meaning-card:hover {
+    transform: translateX(4px) translateY(-2px) !important;
+    border-color: var(--pink, #e91e63) !important;
+    box-shadow: 0 14px 32px rgba(233, 30, 99, 0.14) !important;
+}
+
+.logo-card-badge {
+    color: var(--pink, #e91e63) !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1.4px !important;
+    margin-bottom: 8px !important;
+    text-transform: uppercase !important;
+    display: block !important;
+}
+
+.logo-meaning-card h3 {
+    margin: 0 0 8px !important;
+    font-size: 18px !important;
+    color: #1a151e !important;
+    font-weight: 800 !important;
+}
+
+.logo-meaning-card p {
+    margin: 0 !important;
+    font-size: 14px !important;
+    color: #554857 !important;
+    line-height: 1.7 !important;
+}
+
+.haori-card {
+    background: #ffffff !important;
+    border: 1.5px solid #ffccd9 !important;
+    box-shadow: 0 8px 24px rgba(72, 32, 52, 0.05) !important;
+    padding: 26px 24px !important;
+}
+
+.haori-card:hover {
+    transform: translateY(-4px) !important;
+    border-color: var(--pink, #e91e63) !important;
+    box-shadow: 0 16px 34px rgba(233, 30, 99, 0.13) !important;
+}
+
+.haori-badge {
+    color: var(--pink, #e91e63) !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1.4px !important;
+    margin-bottom: 10px !important;
+    text-transform: uppercase !important;
+    display: block !important;
+}
+
+.haori-card h3 {
+    margin: 0 0 10px !important;
+    font-size: 17px !important;
+    color: #1a151e !important;
+    line-height: 1.4 !important;
+    font-weight: 800 !important;
+}
+
+.haori-card p {
+    margin: 0 !important;
+    font-size: 14px !important;
+    color: #554857 !important;
+    line-height: 1.75 !important;
+}
+
+/* Roadmap cards di kelas-dasar & kelas-lanjutan */
+.roadmap article {
+    position: relative !important;
+    overflow: hidden !important;
+    border-radius: 16px !important;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
+}
+
+.page-kelas-dasar .roadmap article::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background-image: url("images/mirai/pattern/w1w.jpeg") !important;
+    background-size: cover !important;
+    background-position: center !important;
+    opacity: 0.11 !important;
+    mix-blend-mode: multiply !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+}
+
+.page-kelas-lanjutan .roadmap article::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background-image: url("images/mirai/pattern/w1b.jpeg") !important;
+    background-size: cover !important;
+    background-position: center !important;
+    opacity: 0.15 !important;
+    mix-blend-mode: screen !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+}
+
+.roadmap article > * {
+    position: relative !important;
+    z-index: 2 !important;
+}
+
 
