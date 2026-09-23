@@ -6435,7 +6435,7 @@ body.theme-dark .kana-empty-state {
     text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4) !important;
 }
 .proker-hero h1 {
-    margin: 0 0 16px !important;
+    margin: 0 !important;
     font-size: clamp(34px, 5.2vw, 56px) !important;
     line-height: 1.12 !important;
     font-weight: 800 !important;
@@ -6443,13 +6443,8 @@ body.theme-dark .kana-empty-state {
     text-shadow: 0 2px 14px rgba(0, 0, 0, 0.5) !important;
 }
 .proker-hero h1 span { color: #ff659b !important; }
-.proker-hero p {
-    margin: 0 !important;
-    font-size: 16px !important;
-    line-height: 1.75 !important;
-    color: #e5dde4 !important;
-    max-width: 540px !important;
-    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45) !important;
+.proker-hero-inner p:not(.eyebrow) {
+    display: none !important;
 }
 
 body.dark-mode .proker-hero,
