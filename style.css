@@ -3433,11 +3433,9 @@ body.theme-dark .quest-hero::before {
 .start-card h3 { margin-top:44px; max-width:62%; }.start-card p { max-width:62%; }.start-card b { z-index:2; }
 .class-hero { background-position:center 38%; }.class-hero-copy { max-width:550px; margin:0; color:#fffafd; font-size:16px; line-height:1.75; }
 .soft-section::before { display: none !important; content: none !important; }
-.course-card { position:relative; overflow:hidden; grid-template-columns:112px 1fr; min-height:330px; background:#ffffff !important; border:1.5px solid var(--pink-border, #f4bfd3) !important; box-shadow:0 9px 27px rgba(72,32,52,.06); }
-.course-card::after { display: none !important; content: none !important; }
-.course-card:hover { box-shadow:0 18px 35px rgba(233,30,99,.14); border-color: var(--pink, #e91e63) !important; }
-.course-sticker { position:absolute; left:21px; bottom:18px; z-index:1; width:102px; filter:drop-shadow(0 9px 9px rgba(65,36,49,.12)); }.course-kana { position:relative; z-index:2; align-self:start; padding:9px; background:#fff7fb; border:1px solid #ffd2e3; }.course-card > div { position:relative; z-index:2; }
-.course-sticker { position:absolute; bottom:16px; right:16px; left:auto; top:auto; z-index:1; width:72px; filter:drop-shadow(0 9px 9px rgba(65,36,49,.12)); }.course-kana { position:relative; z-index:2; align-self:start; padding:9px; background:#fff7fb; border:1px solid #ffd2e3; }.course-card > div { position:relative; z-index:2; }
+.course-card { position:relative; overflow:hidden; min-height:300px; background:#ffffff !important; border:1.5px solid var(--pink-border, #f4bfd3) !important; box-shadow:0 8px 25px rgba(72,32,52,.055); }
+.course-card:hover { box-shadow:0 16px 36px rgba(233,30,99,.16); border-color: var(--pink, #e91e63) !important; }
+.course-kana { position:relative; z-index:2; align-self:start; padding:9px; background:#fff7fb; border:1px solid #ffd2e3; }
 .card,.class-card,.kanji-card,.kana-card { border-color:#efc1d2; box-shadow:0 7px 20px rgba(72,32,52,.045); }
 .kana-detail,.kanji-detail { background:#fff8fb; }.kana-grid .kana-card { background:#fff; }.kana-card:hover,.kana-card.is-selected { background:#fff8fb; }
 .script-tabs button,.stroke-controls button { border-radius:0; }.btn { border-radius:0; }
@@ -3773,9 +3771,12 @@ body.theme-dark .about-preview .text-link span { color:var(--pink2); }
     box-shadow: 0 6px 18px rgba(233, 30, 99, 0.25);
 }
 
-.class-grid--three,
-.course-cards--three {
+.class-grid--three {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.course-cards--two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .class-card {
@@ -3783,68 +3784,99 @@ body.theme-dark .about-preview .text-link span { color:var(--pink2); }
     overflow: hidden !important;
     display: flex !important;
     flex-direction: column !important;
-    min-height: 270px !important;
-    padding: 28px 26px !important;
-    background: #18141f !important;
-    border: 1.5px solid var(--pink-border, #4a3443) !important;
-    border-radius: 18px !important;
+    min-height: 250px !important;
+    padding: 26px !important;
+    background: #ffffff !important;
+    border: 1.5px solid var(--pink-border, #f4bfd3) !important;
+    border-radius: 20px !important;
     text-decoration: none !important;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+    box-shadow: 0 8px 25px rgba(72, 32, 52, 0.055) !important;
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
 }
 
 .class-card:hover {
     transform: translateY(-5px) !important;
     border-color: var(--pink, #e91e63) !important;
-    box-shadow: 0 16px 36px rgba(233, 30, 99, 0.2) !important;
+    box-shadow: 0 16px 36px rgba(233, 30, 99, 0.16) !important;
 }
 
 .class-card .class-index {
+    position: relative !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    width: 38px !important;
-    height: 38px !important;
+    width: 36px !important;
+    height: 36px !important;
     border-radius: 50% !important;
-    background: rgba(233, 30, 99, 0.15) !important;
-    border: 1.5px solid var(--pink, #e91e63) !important;
-    color: #ff659b !important;
+    background: rgba(233, 30, 99, 0.08) !important;
+    border: 1.5px solid rgba(233, 30, 99, 0.22) !important;
+    color: var(--pink, #e91e63) !important;
     font-size: 13px !important;
     font-weight: 800 !important;
-    margin-bottom: 18px !important;
+    letter-spacing: 0.5px !important;
+    box-shadow: 0 3px 10px rgba(233, 30, 99, 0.06);
+    transition: all 0.25s ease !important;
+    z-index: 3 !important;
+    margin: 0 !important;
+}
+
+.class-card:hover .class-index {
+    background: rgba(233, 30, 99, 0.16) !important;
+    border-color: var(--pink, #e91e63) !important;
+    transform: scale(1.06) !important;
 }
 
 .class-card h3 {
-    margin: 0 0 8px 0 !important;
-    font-size: 1.35rem !important;
+    margin-top: 22px !important;
+    margin-bottom: 8px !important;
+    font-size: 22px !important;
     font-weight: 800 !important;
-    color: #ffffff !important;
+    color: #1a151e !important;
     line-height: 1.3 !important;
+    max-width: 62% !important;
+    position: relative !important;
+    z-index: 3 !important;
 }
 
 .class-card p {
-    margin: 0 0 20px 0 !important;
-    font-size: 0.88rem !important;
+    margin: 0 !important;
+    font-size: 13.5px !important;
     line-height: 1.6 !important;
-    color: #c9bfcb !important;
-    max-width: calc(100% - 70px) !important;
+    color: #554857 !important;
+    max-width: 62% !important;
+    position: relative !important;
+    z-index: 3 !important;
 }
 
 .class-card .class-arrow {
-    position: static !important;
-    margin-top: auto !important;
+    position: absolute !important;
+    right: 22px !important;
+    top: 22px !important;
+    bottom: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 38px !important;
+    height: 38px !important;
     display: inline-flex !important;
     align-items: center !important;
-    color: #ff659b !important;
-    font-size: 1.3rem !important;
-    font-weight: 700 !important;
-    transition: transform 0.2s ease !important;
-    width: fit-content !important;
+    justify-content: center !important;
+    border-radius: 50% !important;
+    background: rgba(233, 30, 99, 0.08) !important;
+    border: 1.5px solid rgba(233, 30, 99, 0.25) !important;
+    color: var(--pink, #e91e63) !important;
+    font-size: 16px !important;
+    line-height: 1 !important;
+    box-shadow: 0 3px 10px rgba(233, 30, 99, 0.08) !important;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    z-index: 3 !important;
 }
 
 .class-card:hover .class-arrow {
-    transform: translateX(6px) !important;
+    background: var(--pink, #e91e63) !important;
+    border-color: var(--pink, #e91e63) !important;
     color: #ffffff !important;
+    transform: scale(1.12) translateX(2px) !important;
+    box-shadow: 0 6px 16px rgba(233, 30, 99, 0.35) !important;
 }
 
 .buuku-course-card .course-kana {
@@ -9879,6 +9911,7 @@ body.theme-dark .faq-chat-bubble::before {
 .activity-start-card:hover .card-corner-chibi,
 .achievement-card:hover .card-corner-chibi,
 .class-card:hover .card-corner-chibi,
+.course-card:hover .card-corner-chibi,
 .division-card:hover .card-corner-chibi,
 .division-card-link:hover .card-corner-chibi,
 .program-card:hover .card-corner-chibi,
@@ -10831,3 +10864,436 @@ a.btn-doc-view:hover {
         flex: none !important;
     }
 }
+
+/* ==========================================================================
+   REVAMP KELAS.HTML: CARD & TOMBOL SEPERTI GAMBAR 1 + CHIBI GENSHIN
+   - Grid Kelas Dasar: 2x2 (4 Grid: 2 Atas, 2 Bawah)
+   - Tombol Kecil Rapi di Kiri Bawah
+   - Icon Chibi di Sisi Kanan Tombol Kecil (Pojok Kanan Bawah)
+   - Pure absolute positioning agar tidak mengubah tatanan flex / teks
+   - Desain Card Putih Bersih dengan Pattern c1w.jpeg & Garis Pink Halus
+   ========================================================================== */
+
+/* 1. Latar Belakang & Tipografi Bersih untuk Section Kelas */
+.class-overview {
+    background: #ffffff !important;
+    color: #1a151e !important;
+}
+
+.class-overview .heading,
+.class-overview h2 {
+    color: #1a151e !important;
+}
+
+.class-overview .heading span {
+    color: var(--pink, #e91e63) !important;
+}
+
+.class-overview .kicker {
+    color: var(--pink, #e91e63) !important;
+}
+
+#lanjutan.soft-section {
+    background: #fff8fb !important;
+}
+
+#lanjutan .heading,
+#lanjutan h2 {
+    color: #1a151e !important;
+}
+
+#lanjutan .heading span {
+    color: var(--pink, #e91e63) !important;
+}
+
+#lanjutan .copy {
+    color: #554857 !important;
+}
+
+#lanjutan .kicker {
+    color: var(--pink, #e91e63) !important;
+}
+
+/* 2. Grid Susunan Kartu */
+.class-grid {
+    display: grid !important;
+    gap: 22px !important;
+    margin-top: 36px !important;
+}
+
+.class-grid--three {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+
+/* Kelas Dasar & Lanjutan: Grid 2 Kolom (4 Grid: 2 Atas, 2 Bawah) */
+.course-cards,
+.course-cards--two,
+.course-cards--three,
+#dasar .course-cards,
+#lanjutan .course-cards {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 24px !important;
+    margin-top: 36px !important;
+}
+
+/* 3. Desain Card Jalur Belajar (class-card) Seperti Gambar 1 */
+.class-card {
+    position: relative !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 250px !important;
+    padding: 26px !important;
+    background: #ffffff !important;
+    border: 1.5px solid var(--pink-border, #f4bfd3) !important;
+    border-radius: 20px !important;
+    text-decoration: none !important;
+    box-shadow: 0 8px 25px rgba(72, 32, 52, 0.055) !important;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
+    box-sizing: border-box !important;
+}
+
+.class-card::before {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 4px !important;
+    content: "" !important;
+    background: var(--pink, #e91e63) !important;
+    transform: scaleX(0) !important;
+    transform-origin: left !important;
+    transition: transform 0.25s ease !important;
+    z-index: 4 !important;
+}
+
+.class-card:hover::before {
+    transform: scaleX(1) !important;
+}
+
+.class-card::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background-image: url("images/mirai/pattern/c1w.jpeg") !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    opacity: 0.22 !important;
+    mix-blend-mode: multiply !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+    display: block !important;
+    transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+
+.class-card:hover::after {
+    opacity: 0.34 !important;
+    transform: scale(1.02) !important;
+}
+
+.class-card:hover {
+    transform: translateY(-5px) !important;
+    border-color: var(--pink, #e91e63) !important;
+    box-shadow: 0 16px 36px rgba(233, 30, 99, 0.16) !important;
+}
+
+.class-card .class-index {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 50% !important;
+    background: rgba(233, 30, 99, 0.08) !important;
+    border: 1.5px solid rgba(233, 30, 99, 0.22) !important;
+    color: var(--pink, #e91e63) !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.5px !important;
+    box-shadow: 0 3px 10px rgba(233, 30, 99, 0.06);
+    transition: all 0.25s ease !important;
+    z-index: 3 !important;
+    margin: 0 !important;
+}
+
+.class-card:hover .class-index {
+    background: rgba(233, 30, 99, 0.16) !important;
+    border-color: var(--pink, #e91e63) !important;
+    transform: scale(1.06) !important;
+}
+
+.class-card h3 {
+    margin-top: 22px !important;
+    margin-bottom: 8px !important;
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    color: #1a151e !important;
+    line-height: 1.3 !important;
+    max-width: 62% !important;
+    position: relative !important;
+    z-index: 3 !important;
+}
+
+.class-card p {
+    margin: 0 !important;
+    font-size: 13.5px !important;
+    line-height: 1.6 !important;
+    color: #554857 !important;
+    max-width: 62% !important;
+    position: relative !important;
+    z-index: 3 !important;
+}
+
+.class-card .class-arrow {
+    position: absolute !important;
+    right: 22px !important;
+    top: 22px !important;
+    bottom: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 38px !important;
+    height: 38px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 50% !important;
+    background: rgba(233, 30, 99, 0.08) !important;
+    border: 1.5px solid rgba(233, 30, 99, 0.25) !important;
+    color: var(--pink, #e91e63) !important;
+    font-size: 16px !important;
+    line-height: 1 !important;
+    box-shadow: 0 3px 10px rgba(233, 30, 99, 0.08);
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    z-index: 3 !important;
+}
+
+.class-card:hover .class-arrow {
+    background: var(--pink, #e91e63) !important;
+    border-color: var(--pink, #e91e63) !important;
+    color: #ffffff !important;
+    transform: scale(1.12) translateX(2px) !important;
+    box-shadow: 0 6px 16px rgba(233, 30, 99, 0.35) !important;
+}
+
+/* 4. Desain Course Card (Kelas Dasar & Kelas Lanjutan) */
+.course-card {
+    position: relative !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    min-height: 300px !important;
+    padding: 28px 28px 24px !important;
+    background: #ffffff !important;
+    border: 1.5px solid var(--pink-border, #f4bfd3) !important;
+    border-radius: 20px !important;
+    text-decoration: none !important;
+    box-shadow: 0 8px 25px rgba(72, 32, 52, 0.055) !important;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
+    box-sizing: border-box !important;
+}
+
+.course-card::before {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 4px !important;
+    content: "" !important;
+    background: var(--pink, #e91e63) !important;
+    transform: scaleX(0) !important;
+    transform-origin: left !important;
+    transition: transform 0.25s ease !important;
+    z-index: 4 !important;
+}
+
+.course-card:hover::before {
+    transform: scaleX(1) !important;
+}
+
+.course-card::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background-image: url("images/mirai/pattern/c1w.jpeg") !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    opacity: 0.22 !important;
+    mix-blend-mode: multiply !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+    display: block !important;
+    transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+
+.course-card:hover::after {
+    opacity: 0.34 !important;
+    transform: scale(1.02) !important;
+}
+
+.course-card:hover {
+    transform: translateY(-5px) !important;
+    border-color: var(--pink, #e91e63) !important;
+    box-shadow: 0 16px 36px rgba(233, 30, 99, 0.16) !important;
+}
+
+/* Badge Huruf Jepang di Atas */
+.course-card .course-kana {
+    position: static !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    align-self: flex-start !important;
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    font-family: var(--font-jp, "Noto Sans JP", sans-serif) !important;
+    letter-spacing: 2px !important;
+    color: var(--pink, #e91e63) !important;
+    background: #fff2f7 !important;
+    border: 1.5px solid #ffd2e3 !important;
+    border-radius: 12px !important;
+    padding: 6px 16px !important;
+    margin: 0 0 16px 0 !important;
+    line-height: 1.2 !important;
+    width: fit-content !important;
+    position: relative !important;
+    z-index: 3 !important;
+    transition: transform 0.2s ease, background 0.2s ease !important;
+}
+
+.course-card:hover .course-kana {
+    transform: scale(1.04) !important;
+    background: #ffe6f0 !important;
+}
+
+.course-card .course-content,
+.course-card > div {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 1 auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative !important;
+    z-index: 3 !important;
+}
+
+.course-card .card-number {
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1.5px !important;
+    color: var(--pink, #e91e63) !important;
+    text-transform: uppercase !important;
+    margin: 0 0 6px 0 !important;
+}
+
+.course-card h3 {
+    margin: 0 0 8px 0 !important;
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    color: #1a151e !important;
+    line-height: 1.3 !important;
+}
+
+.course-card p:not(.card-number) {
+    color: #554857 !important;
+    font-size: 13.5px !important;
+    line-height: 1.6 !important;
+    margin: 0 0 22px 0 !important;
+    max-width: calc(100% - 65px) !important;
+}
+
+/* Tombol Kecil di Kiri Bawah */
+.course-card .btn.primary,
+.course-card .btn {
+    margin-top: auto !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: fit-content !important;
+    min-height: 38px !important;
+    padding: 8px 20px !important;
+    border-radius: 10px !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.8px !important;
+    text-align: center !important;
+    background: var(--pink, #e91e63) !important;
+    color: #ffffff !important;
+    border: none !important;
+    box-shadow: 0 4px 12px rgba(233, 30, 99, 0.25) !important;
+    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease !important;
+    position: relative !important;
+    z-index: 4 !important;
+    align-self: flex-start !important;
+}
+
+.course-card .btn.primary:hover,
+.course-card .btn:hover {
+    background: #c2185b !important;
+    color: #ffffff !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 16px rgba(233, 30, 99, 0.38) !important;
+}
+
+/* Icon Chibi Genshin di Sebelah Kanan Tombol Kecil (Pojok Kanan Bawah) */
+/* Absolute positioning murni agar TIDAK memengaruhi tatanan layout flex */
+.course-card > .card-corner-chibi,
+.course-card > .course-sticker,
+.class-card > .card-corner-chibi,
+.class-card > .path-chibi {
+    position: absolute !important;
+    bottom: 10px !important;
+    right: 14px !important;
+    top: auto !important;
+    left: auto !important;
+    width: 82px !important;
+    height: 82px !important;
+    object-fit: contain !important;
+    z-index: 2 !important;
+    pointer-events: none !important;
+    opacity: 0.96 !important;
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.14)) !important;
+    transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    display: block !important;
+}
+
+.course-card:hover > .card-corner-chibi,
+.course-card:hover > .course-sticker,
+.class-card:hover > .card-corner-chibi,
+.class-card:hover > .path-chibi {
+    transform: translateY(-5px) scale(1.08) rotate(-3deg) !important;
+}
+
+/* 5. Responsif Tablet & Mobile */
+@media (max-width: 768px) {
+    .class-grid--three,
+    .course-cards,
+    .course-cards--two,
+    .course-cards--three,
+    #dasar .course-cards,
+    #lanjutan .course-cards {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+
+    .class-card,
+    .course-card {
+        padding: 22px 20px 20px !important;
+        min-height: auto !important;
+    }
+
+    .course-card > .card-corner-chibi,
+    .course-card > .course-sticker,
+    .class-card > .card-corner-chibi,
+    .class-card > .path-chibi {
+        width: 68px !important;
+        height: 68px !important;
+        bottom: 8px !important;
+        right: 10px !important;
+    }
+}
+
