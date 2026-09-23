@@ -10866,55 +10866,151 @@ a.btn-doc-view:hover {
 }
 
 /* ==========================================================================
-   REVAMP KELAS.HTML: CARD & TOMBOL SEPERTI GAMBAR 1 + CHIBI GENSHIN
+   REVAMP KELAS.HTML: SECTION BERSIH, CARD & TOMBOL SEPERTI GAMBAR 1 + CHIBI
+   - Kelas Overview & Kelas Lanjutan: PAGE HITAM (#111111 pekat)
+   - Kelas Dasar: PAGE PUTIH (#ffffff bersih)
    - Grid Kelas Dasar: 2x2 (4 Grid: 2 Atas, 2 Bawah)
-   - Tombol Kecil Rapi di Kiri Bawah
-   - Icon Chibi di Sisi Kanan Tombol Kecil (Pojok Kanan Bawah)
-   - Pure absolute positioning agar tidak mengubah tatanan flex / teks
-   - Desain Card Putih Bersih dengan Pattern c1w.jpeg & Garis Pink Halus
+   - Tombol Kecil Rapi di Sisi Kiri Bawah
+   - Icon Chibi di Sisi Kanan Tombol Kecil (Pojok Kanan Bawah, Absolute)
    ========================================================================== */
 
-/* 1. Latar Belakang & Tipografi Bersih untuk Section Kelas */
-.class-overview {
-    background: #ffffff !important;
-    color: #1a151e !important;
-}
-
-.class-overview .heading,
-.class-overview h2 {
-    color: #1a151e !important;
-}
-
-.class-overview .heading span {
-    color: var(--pink, #e91e63) !important;
-}
-
-.class-overview .kicker {
-    color: var(--pink, #e91e63) !important;
-}
-
+/* 1. KELAS LANJUTAN: PAGE HITAM PEKAT (#111111) */
+#lanjutan,
 #lanjutan.soft-section {
-    background: #fff8fb !important;
+    background-color: #111111 !important;
+    background: #111111 !important;
+    color: #f5edf4 !important;
 }
 
 #lanjutan .heading,
 #lanjutan h2 {
-    color: #1a151e !important;
+    color: #ffffff !important;
 }
 
 #lanjutan .heading span {
-    color: var(--pink, #e91e63) !important;
+    color: #ff659b !important;
 }
 
 #lanjutan .copy {
-    color: #554857 !important;
+    color: #d5ccd3 !important;
 }
 
 #lanjutan .kicker {
-    color: var(--pink, #e91e63) !important;
+    color: #ff659b !important;
 }
 
-/* 2. Grid Susunan Kartu */
+/* Kartu di Kelas Lanjutan: Kartu Gelap Elegan dengan Pattern c1b.jpeg */
+#lanjutan .course-card {
+    position: relative !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    min-height: 300px !important;
+    padding: 28px 28px 24px !important;
+    background: #18141f !important;
+    border: 1.5px solid var(--pink-border, #4a3443) !important;
+    border-radius: 20px !important;
+    text-decoration: none !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
+    box-sizing: border-box !important;
+}
+
+#lanjutan .course-card:hover {
+    transform: translateY(-5px) !important;
+    border-color: var(--pink, #e91e63) !important;
+    box-shadow: 0 16px 36px rgba(233, 30, 99, 0.25) !important;
+}
+
+#lanjutan .course-card::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background-image: url("images/mirai/pattern/c1b.jpeg") !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    opacity: 0.24 !important;
+    mix-blend-mode: screen !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+    display: block !important;
+    transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+
+#lanjutan .course-card:hover::after {
+    opacity: 0.34 !important;
+    transform: scale(1.02) !important;
+}
+
+#lanjutan .course-card .course-kana {
+    position: static !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    align-self: flex-start !important;
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    font-family: var(--font-jp, "Noto Sans JP", sans-serif) !important;
+    letter-spacing: 2px !important;
+    color: #ff659b !important;
+    background: rgba(233, 30, 99, 0.15) !important;
+    border: 1.5px solid rgba(233, 30, 99, 0.35) !important;
+    border-radius: 12px !important;
+    padding: 6px 16px !important;
+    margin: 0 0 16px 0 !important;
+    line-height: 1.2 !important;
+    width: fit-content !important;
+    position: relative !important;
+    z-index: 3 !important;
+}
+
+#lanjutan .course-card .card-number {
+    color: #ff659b !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1.5px !important;
+    text-transform: uppercase !important;
+    margin: 0 0 6px 0 !important;
+}
+
+#lanjutan .course-card h3 {
+    margin: 0 0 8px 0 !important;
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    color: #ffffff !important;
+    line-height: 1.3 !important;
+}
+
+#lanjutan .course-card p:not(.card-number) {
+    color: #d5ccd3 !important;
+    font-size: 13.5px !important;
+    line-height: 1.6 !important;
+    margin: 0 0 22px 0 !important;
+    max-width: calc(100% - 65px) !important;
+}
+
+/* 2. PILIH JALUR BELAJAR (class-overview): PAGE HITAM PEKAT (#111111) */
+.class-overview {
+    background-color: #111111 !important;
+    background: #111111 !important;
+    color: #f5edf4 !important;
+}
+
+.class-overview .heading,
+.class-overview h2 {
+    color: #ffffff !important;
+}
+
+.class-overview .heading span {
+    color: #ff659b !important;
+}
+
+.class-overview .kicker {
+    color: #ff659b !important;
+}
+
 .class-grid {
     display: grid !important;
     gap: 22px !important;
@@ -10925,19 +11021,6 @@ a.btn-doc-view:hover {
     grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
 }
 
-/* Kelas Dasar & Lanjutan: Grid 2 Kolom (4 Grid: 2 Atas, 2 Bawah) */
-.course-cards,
-.course-cards--two,
-.course-cards--three,
-#dasar .course-cards,
-#lanjutan .course-cards {
-    display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 24px !important;
-    margin-top: 36px !important;
-}
-
-/* 3. Desain Card Jalur Belajar (class-card) Seperti Gambar 1 */
 .class-card {
     position: relative !important;
     overflow: hidden !important;
@@ -10945,11 +11028,11 @@ a.btn-doc-view:hover {
     flex-direction: column !important;
     min-height: 250px !important;
     padding: 26px !important;
-    background: #ffffff !important;
-    border: 1.5px solid var(--pink-border, #f4bfd3) !important;
+    background: #18141f !important;
+    border: 1.5px solid var(--pink-border, #4a3443) !important;
     border-radius: 20px !important;
     text-decoration: none !important;
-    box-shadow: 0 8px 25px rgba(72, 32, 52, 0.055) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
     box-sizing: border-box !important;
 }
@@ -10976,12 +11059,12 @@ a.btn-doc-view:hover {
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/pattern/c1w.jpeg") !important;
+    background-image: url("images/mirai/pattern/c1b.jpeg") !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
-    opacity: 0.22 !important;
-    mix-blend-mode: multiply !important;
+    opacity: 0.24 !important;
+    mix-blend-mode: screen !important;
     pointer-events: none !important;
     z-index: 1 !important;
     display: block !important;
@@ -10996,7 +11079,7 @@ a.btn-doc-view:hover {
 .class-card:hover {
     transform: translateY(-5px) !important;
     border-color: var(--pink, #e91e63) !important;
-    box-shadow: 0 16px 36px rgba(233, 30, 99, 0.16) !important;
+    box-shadow: 0 16px 36px rgba(233, 30, 99, 0.25) !important;
 }
 
 .class-card .class-index {
@@ -11007,21 +11090,22 @@ a.btn-doc-view:hover {
     width: 36px !important;
     height: 36px !important;
     border-radius: 50% !important;
-    background: rgba(233, 30, 99, 0.08) !important;
-    border: 1.5px solid rgba(233, 30, 99, 0.22) !important;
-    color: var(--pink, #e91e63) !important;
+    background: rgba(233, 30, 99, 0.15) !important;
+    border: 1.5px solid rgba(233, 30, 99, 0.35) !important;
+    color: #ff659b !important;
     font-size: 13px !important;
     font-weight: 800 !important;
     letter-spacing: 0.5px !important;
-    box-shadow: 0 3px 10px rgba(233, 30, 99, 0.06);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3) !important;
     transition: all 0.25s ease !important;
     z-index: 3 !important;
     margin: 0 !important;
 }
 
 .class-card:hover .class-index {
-    background: rgba(233, 30, 99, 0.16) !important;
+    background: rgba(233, 30, 99, 0.28) !important;
     border-color: var(--pink, #e91e63) !important;
+    color: #ffffff !important;
     transform: scale(1.06) !important;
 }
 
@@ -11030,7 +11114,7 @@ a.btn-doc-view:hover {
     margin-bottom: 8px !important;
     font-size: 22px !important;
     font-weight: 800 !important;
-    color: #1a151e !important;
+    color: #ffffff !important;
     line-height: 1.3 !important;
     max-width: 62% !important;
     position: relative !important;
@@ -11041,7 +11125,7 @@ a.btn-doc-view:hover {
     margin: 0 !important;
     font-size: 13.5px !important;
     line-height: 1.6 !important;
-    color: #554857 !important;
+    color: #d5ccd3 !important;
     max-width: 62% !important;
     position: relative !important;
     z-index: 3 !important;
@@ -11060,12 +11144,12 @@ a.btn-doc-view:hover {
     align-items: center !important;
     justify-content: center !important;
     border-radius: 50% !important;
-    background: rgba(233, 30, 99, 0.08) !important;
-    border: 1.5px solid rgba(233, 30, 99, 0.25) !important;
-    color: var(--pink, #e91e63) !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+    color: #ffffff !important;
     font-size: 16px !important;
     line-height: 1 !important;
-    box-shadow: 0 3px 10px rgba(233, 30, 99, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
     transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
     z-index: 3 !important;
 }
@@ -11075,11 +11159,47 @@ a.btn-doc-view:hover {
     border-color: var(--pink, #e91e63) !important;
     color: #ffffff !important;
     transform: scale(1.12) translateX(2px) !important;
-    box-shadow: 0 6px 16px rgba(233, 30, 99, 0.35) !important;
+    box-shadow: 0 6px 16px rgba(233, 30, 99, 0.5) !important;
 }
 
-/* 4. Desain Course Card (Kelas Dasar & Kelas Lanjutan) */
-.course-card {
+/* 3. KELAS DASAR: PAGE PUTIH BERSIH (#ffffff) DENGAN GRID 2x2 */
+#dasar {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    color: #1a151e !important;
+}
+
+#dasar .heading,
+#dasar h2 {
+    color: #1a151e !important;
+}
+
+#dasar .heading span {
+    color: var(--pink, #e91e63) !important;
+}
+
+#dasar .copy {
+    color: #554857 !important;
+}
+
+#dasar .kicker {
+    color: var(--pink, #e91e63) !important;
+}
+
+/* Susunan Grid 2 Kolom (4 Grid: 2 Atas, 2 Bawah) */
+.course-cards,
+.course-cards--two,
+.course-cards--three,
+#dasar .course-cards,
+#lanjutan .course-cards {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 24px !important;
+    margin-top: 36px !important;
+}
+
+/* Kartu Putih di Kelas Dasar dengan Pattern c1w.jpeg Seperti Gambar 1 */
+#dasar .course-card {
     position: relative !important;
     overflow: hidden !important;
     display: flex !important;
@@ -11096,25 +11216,13 @@ a.btn-doc-view:hover {
     box-sizing: border-box !important;
 }
 
-.course-card::before {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 4px !important;
-    content: "" !important;
-    background: var(--pink, #e91e63) !important;
-    transform: scaleX(0) !important;
-    transform-origin: left !important;
-    transition: transform 0.25s ease !important;
-    z-index: 4 !important;
+#dasar .course-card:hover {
+    transform: translateY(-5px) !important;
+    border-color: var(--pink, #e91e63) !important;
+    box-shadow: 0 16px 36px rgba(233, 30, 99, 0.16) !important;
 }
 
-.course-card:hover::before {
-    transform: scaleX(1) !important;
-}
-
-.course-card::after {
+#dasar .course-card::after {
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
@@ -11130,19 +11238,12 @@ a.btn-doc-view:hover {
     transition: opacity 0.3s ease, transform 0.3s ease !important;
 }
 
-.course-card:hover::after {
+#dasar .course-card:hover::after {
     opacity: 0.34 !important;
     transform: scale(1.02) !important;
 }
 
-.course-card:hover {
-    transform: translateY(-5px) !important;
-    border-color: var(--pink, #e91e63) !important;
-    box-shadow: 0 16px 36px rgba(233, 30, 99, 0.16) !important;
-}
-
-/* Badge Huruf Jepang di Atas */
-.course-card .course-kana {
+#dasar .course-card .course-kana {
     position: static !important;
     display: inline-flex !important;
     align-items: center !important;
@@ -11165,23 +11266,12 @@ a.btn-doc-view:hover {
     transition: transform 0.2s ease, background 0.2s ease !important;
 }
 
-.course-card:hover .course-kana {
+#dasar .course-card:hover .course-kana {
     transform: scale(1.04) !important;
     background: #ffe6f0 !important;
 }
 
-.course-card .course-content,
-.course-card > div {
-    display: flex !important;
-    flex-direction: column !important;
-    flex: 1 1 auto !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    position: relative !important;
-    z-index: 3 !important;
-}
-
-.course-card .card-number {
+#dasar .course-card .card-number {
     font-size: 11px !important;
     font-weight: 800 !important;
     letter-spacing: 1.5px !important;
@@ -11190,7 +11280,7 @@ a.btn-doc-view:hover {
     margin: 0 0 6px 0 !important;
 }
 
-.course-card h3 {
+#dasar .course-card h3 {
     margin: 0 0 8px 0 !important;
     font-size: 22px !important;
     font-weight: 800 !important;
@@ -11198,7 +11288,7 @@ a.btn-doc-view:hover {
     line-height: 1.3 !important;
 }
 
-.course-card p:not(.card-number) {
+#dasar .course-card p:not(.card-number) {
     color: #554857 !important;
     font-size: 13.5px !important;
     line-height: 1.6 !important;
@@ -11206,7 +11296,7 @@ a.btn-doc-view:hover {
     max-width: calc(100% - 65px) !important;
 }
 
-/* Tombol Kecil di Kiri Bawah */
+/* 4. TOMBOL KECIL RAPI DI KIRI BAWAH PADA SEMUA COURSE CARD */
 .course-card .btn.primary,
 .course-card .btn {
     margin-top: auto !important;
@@ -11224,7 +11314,7 @@ a.btn-doc-view:hover {
     background: var(--pink, #e91e63) !important;
     color: #ffffff !important;
     border: none !important;
-    box-shadow: 0 4px 12px rgba(233, 30, 99, 0.25) !important;
+    box-shadow: 0 4px 12px rgba(233, 30, 99, 0.3) !important;
     transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease !important;
     position: relative !important;
     z-index: 4 !important;
@@ -11236,11 +11326,11 @@ a.btn-doc-view:hover {
     background: #c2185b !important;
     color: #ffffff !important;
     transform: translateY(-2px) !important;
-    box-shadow: 0 6px 16px rgba(233, 30, 99, 0.38) !important;
+    box-shadow: 0 6px 16px rgba(233, 30, 99, 0.45) !important;
 }
 
-/* Icon Chibi Genshin di Sebelah Kanan Tombol Kecil (Pojok Kanan Bawah) */
-/* Absolute positioning murni agar TIDAK memengaruhi tatanan layout flex */
+/* 5. ICON CHIBI GENSHIN DI KANAN BAWAH (SAMPING TOMBOL KECIL) */
+/* Absolute murni: tidak merusak susunan flex kartu dan aman jika tertimpa */
 .course-card > .card-corner-chibi,
 .course-card > .course-sticker,
 .class-card > .card-corner-chibi,
@@ -11256,7 +11346,7 @@ a.btn-doc-view:hover {
     z-index: 2 !important;
     pointer-events: none !important;
     opacity: 0.96 !important;
-    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.14)) !important;
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.22)) !important;
     transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
     display: block !important;
 }
@@ -11268,7 +11358,7 @@ a.btn-doc-view:hover {
     transform: translateY(-5px) scale(1.08) rotate(-3deg) !important;
 }
 
-/* 5. Responsif Tablet & Mobile */
+/* 6. RESPONSIF TABLET & MOBILE */
 @media (max-width: 768px) {
     .class-grid--three,
     .course-cards,
@@ -11281,7 +11371,8 @@ a.btn-doc-view:hover {
     }
 
     .class-card,
-    .course-card {
+    #dasar .course-card,
+    #lanjutan .course-card {
         padding: 22px 20px 20px !important;
         min-height: auto !important;
     }
