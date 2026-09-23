@@ -32,7 +32,9 @@ html {
     scroll-behavior: smooth;
 }
 
-#proker-list {
+#proker-list,
+#dasar,
+#lanjutan {
     scroll-margin-top: 100px;
 }
 
