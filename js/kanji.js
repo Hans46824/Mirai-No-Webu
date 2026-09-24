@@ -605,6 +605,7 @@ window.initKanjiDictionary = async function initKanjiDictionary() {
 
         // Jalankan player animasi goresan
         player = window.createStrokePlayer(detail.querySelector("[data-stroke-player]"), item.kanji, item.strokes || 4);
+        window.updateQuickStrokeArrow?.();
 
         // Ambil detail dan kosakata secara lazy HANYA saat kanji diklik
         const needsDetail = item._needsDetail;
@@ -822,6 +823,7 @@ window.initKanjiDictionary = async function initKanjiDictionary() {
     // Render grid awal dan inisialisasi tab Kana
     render();
     setupTabs();
+    setupQuickStrokeButton();
 };
 
 /**
@@ -846,6 +848,7 @@ function setupTabs() {
             panel.hidden = panel.dataset.scriptPanel !== mode;
         });
         if (mode !== "kanji") renderKanaPanel(mode);
+        window.updateQuickStrokeArrow?.();
     };
 
     document.querySelectorAll("[data-script-tab]").forEach((tab) => {
@@ -929,6 +932,7 @@ function renderKanaPanel(mode) {
         player = window.createStrokePlayer(detail.querySelector("[data-stroke-player]"), character, 3, {
             showClear: true
         });
+        window.updateQuickStrokeArrow?.();
     };
 
     const render = () => {
@@ -1033,9 +1037,104 @@ function renderKanaPanel(mode) {
     render();
 }
 
+/**
+ * Tombol Cepat Mengikuti (Floating Quick Button) Khusus Kamus:
+ * Geser langsung ke tampilan animasi live stroke (urutan goresan).
+ */
+function setupQuickStrokeButton() {
+    if (!document.body.classList.contains("page-kamus")) return;
+
+    let btn = document.getElementById("quickStrokeBtn");
+    if (!btn) {
+        btn = document.createElement("button");
+        btn.id = "quickStrokeBtn";
+        btn.className = "quick-stroke-btn";
+        btn.type = "button";
+        btn.setAttribute("aria-label", "Geser ke Live Stroke");
+        btn.setAttribute("title", "Geser ke Live Stroke (Urutan Menulis)");
+        btn.innerHTML = `
+            <span class="quick-stroke-icon">✍️</span>
+            <span class="quick-stroke-text">Live Stroke</span>
+            <span class="quick-stroke-arrow">↓</span>
+        `;
+        const toTop = document.querySelector(".to-top");
+        if (toTop && toTop.parentNode) {
+            toTop.parentNode.insertBefore(btn, toTop);
+        } else {
+            document.body.appendChild(btn);
+        }
+    }
+
+    const getActiveLiveStrokeElement = () => {
+        const activePanel = document.querySelector('[data-script-panel]:not([hidden])');
+        if (!activePanel) {
+            return document.querySelector('#stroke-stage, [data-stroke-player], .kana-detail, .kanji-detail');
+        }
+
+        const strokeStage = activePanel.querySelector('#stroke-stage')
+            || activePanel.querySelector('.stroke-stage')
+            || activePanel.querySelector('[data-stroke-player]');
+        if (strokeStage) return strokeStage;
+
+        return activePanel.querySelector('.kana-detail, .kanji-detail');
+    };
+
+    const arrowEl = btn.querySelector(".quick-stroke-arrow");
+
+    const updateArrow = () => {
+        if (!arrowEl) return;
+        const target = getActiveLiveStrokeElement();
+        if (!target) return;
+        const rect = target.getBoundingClientRect();
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+
+        if (rect.top > vh * 0.72) {
+            arrowEl.textContent = "↓";
+        } else if (rect.bottom < vh * 0.28) {
+            arrowEl.textContent = "↑";
+        } else {
+            arrowEl.textContent = "●";
+        }
+    };
+
+    if (!btn.dataset.initialized) {
+        btn.dataset.initialized = "true";
+        btn.addEventListener("click", () => {
+            const target = getActiveLiveStrokeElement();
+            if (!target) return;
+
+            target.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+            const pulseEl = target.closest(".stroke-stage") 
+                || target.querySelector(".stroke-stage") 
+                || target.closest(".kana-detail, .kanji-detail") 
+                || target;
+
+            pulseEl.classList.remove("stroke-target-pulse");
+            void pulseEl.offsetWidth;
+            pulseEl.classList.add("stroke-target-pulse");
+
+            setTimeout(updateArrow, 450);
+        });
+
+        window.addEventListener("scroll", updateArrow, { passive: true });
+        window.addEventListener("resize", updateArrow, { passive: true });
+    }
+
+    window.updateQuickStrokeArrow = updateArrow;
+    updateArrow();
+}
+
 // Inisialisasi otomatis saat dokumen selesai dimuat
 if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => window.initKanjiDictionary?.());
+    document.addEventListener("DOMContentLoaded", () => {
+        window.initKanjiDictionary?.();
+        setupQuickStrokeButton();
+    });
 } else {
     window.initKanjiDictionary?.();
+    setupQuickStrokeButton();
 }

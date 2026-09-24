@@ -12687,5 +12687,126 @@ main .feedback-feature-card p,
     }
 }
 
+/* ==========================================================================
+   QUICK FLOATING BUTTON: GESER LANGSUNG KE LIVE STROKE (KHUSUS KAMUS)
+   - Mengikuti pergerakan scroll (fixed position)
+   - Hanya muncul di halaman Kamus (body.page-kamus)
+   - Indikator panah otomatis menyesuaikan posisi live stroke (atas / bawah / terlihat)
+   ========================================================================== */
+
+/* Pastikan tidak muncul di halaman non-kamus */
+body:not(.page-kamus) .quick-stroke-btn {
+    display: none !important;
+}
+
+.quick-stroke-btn {
+    position: fixed !important;
+    right: 24px !important;
+    bottom: 80px !important;
+    z-index: 99 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    min-height: 44px !important;
+    padding: 10px 18px 10px 14px !important;
+    border-radius: 50px !important;
+    background: linear-gradient(135deg, #ff659b 0%, #e91e63 100%) !important;
+    color: #ffffff !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
+    box-shadow: 0 8px 24px rgba(233, 30, 99, 0.38), 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+    cursor: pointer !important;
+    font-family: inherit !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.6px !important;
+    text-transform: uppercase !important;
+    text-decoration: none !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    transition: transform 0.24s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.24s ease, background 0.24s ease, opacity 0.24s ease !important;
+    opacity: 0.96;
+}
+
+.quick-stroke-btn:hover {
+    transform: translateY(-3px) scale(1.04) !important;
+    background: linear-gradient(135deg, #ff4081 0%, #c2185b 100%) !important;
+    box-shadow: 0 12px 30px rgba(233, 30, 99, 0.55), 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    opacity: 1 !important;
+}
+
+.quick-stroke-btn:active {
+    transform: translateY(1px) scale(0.97) !important;
+    box-shadow: 0 4px 14px rgba(233, 30, 99, 0.4) !important;
+}
+
+.quick-stroke-icon {
+    font-size: 16px !important;
+    line-height: 1 !important;
+    display: inline-block !important;
+    transition: transform 0.24s ease !important;
+}
+
+.quick-stroke-btn:hover .quick-stroke-icon {
+    transform: rotate(-12deg) scale(1.15) !important;
+}
+
+.quick-stroke-text {
+    white-space: nowrap !important;
+    font-size: 12.5px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.8px !important;
+}
+
+.quick-stroke-arrow {
+    font-size: 14px !important;
+    line-height: 1 !important;
+    display: inline-block !important;
+    font-weight: 900 !important;
+    transition: transform 0.24s ease !important;
+}
+
+.quick-stroke-btn:hover .quick-stroke-arrow {
+    transform: translateY(2px) !important;
+}
+
+/* Animasi pulse highlight saat stroke stage digeser */
+@keyframes strokeTargetGlow {
+    0% {
+        box-shadow: 0 0 0 0 rgba(233, 30, 99, 0.7);
+        outline: 3px solid rgba(233, 30, 99, 0.8);
+    }
+    50% {
+        box-shadow: 0 0 28px rgba(233, 30, 99, 0.55);
+        outline: 3px solid rgba(233, 30, 99, 1);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(233, 30, 99, 0);
+        outline: 3px solid transparent;
+    }
+}
+
+.stroke-target-pulse {
+    animation: strokeTargetGlow 1.2s ease-out !important;
+}
+
+/* Responsif Mobile untuk Quick Button */
+@media (max-width: 600px) {
+    .quick-stroke-btn {
+        right: 16px !important;
+        bottom: 70px !important;
+        min-height: 40px !important;
+        padding: 8px 14px 8px 12px !important;
+    }
+
+    .quick-stroke-text {
+        font-size: 11.5px !important;
+    }
+
+    .quick-stroke-icon {
+        font-size: 14px !important;
+    }
+}
+
 
 
