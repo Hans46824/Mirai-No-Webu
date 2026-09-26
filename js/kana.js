@@ -389,9 +389,7 @@
             if (totalMatches === 0) {
                 const emptyEl = document.createElement("div");
                 emptyEl.className = "kana-empty-state";
-                const emptyText = document.createElement("p");
-                emptyText.textContent = `Tidak ada karakter yang cocok dengan pencarian “${query}”.`;
-                emptyEl.append(emptyText);
+                emptyEl.innerHTML = `<p>Tidak ada karakter yang cocok dengan pencarian “${query}”.</p>`;
                 grid.append(emptyEl);
             } else if (firstMatchedButton && !query) {
                 firstMatchedButton.button.classList.add("is-selected");

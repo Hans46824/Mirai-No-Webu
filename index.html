@@ -4,13 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MIRAI NO HANA — Nihongo Kurabu</title>
-<link rel="stylesheet" href="style.css?v=7">
+<link rel="stylesheet" href="style.css?v=4">
 
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://sora-proxy.aqmarboli.workers.dev https://api.mymemory.translated.net https://cdn.jsdelivr.net https://kanjiapi.dev; media-src 'self'; frame-src 'self' https://www.youtube.com https://www.google.com https://forms.gle; object-src 'none'; base-uri 'self';">
-
-<!-- Library Markdown & Sanitizer untuk Chatbot Sora (Pinned Version & Subresource Integrity) -->
-<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js" integrity="sha384-/TQbtLCAerC3jgaim+N78RZSDYV7ryeoBCVqTuzRrFec2akfBkHS7ACQ3PQhvMVi" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.2/dist/purify.min.js" integrity="sha384-Y2u+tbsy03z8jtFrNMeiCU+7VdECSbkt7TIkTU95qOc01ZuCLYXbHnfuJa6WHLHw" crossorigin="anonymous"></script>
+<!-- Library Markdown & Sanitizer untuk Chatbot Sora -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
 
 <style>
 /* --- CHATBOT SORA (WHATSAPP MINIMALIST STYLE) --- */
@@ -735,7 +733,6 @@ body.sora-fullscreen-active .menu-btn {
     </aside>
 
     <main>
-        <!-- ================= SECTION: HERO ================= -->
         <section class="hero">
             <div class="hero-text-box">
                 <p class="hero-subtitle" style="font-size: clamp(2rem, 5vw, 4rem); font-weight: 800; letter-spacing: 0px; color: #fff; margin-bottom: 5px; text-shadow: 2px 4px 10px rgba(0,0,0,0.5);">ようこそ</p>
@@ -743,17 +740,16 @@ body.sora-fullscreen-active .menu-btn {
             </div>
         </section>
 
-        <!-- ================= SECTION: TENTANG KAMI ================= -->
         <section class="section about-preview">
             <div class="section-intro">
-                <p class="kicker">TENTANG KAMI</p>
-                <h2 class="heading">Apa itu<br><span>Mirai no Webu?</span></h2>
+                <p class="kicker">TENTANG KAMI · 私たちについて</p>
+                <h2 class="heading">Apa itu<br><span>Mirai no Hana?</span></h2>
             </div>
             <div class="about-feature-card">
                 <div class="about-feature-header">
                     <span class="about-feature-badge">
                         <span class="badge-dot"></span>
-                        PUSAT BELAJAR DIGITAL
+                        PUSAT BELAJAR DIGITAL · デジタル学習
                     </span>
                     <span class="about-feature-tag">MIRAI NO WEBU</span>
                 </div>
@@ -776,40 +772,9 @@ body.sora-fullscreen-active .menu-btn {
             </div>
         </section>
 
-        <!-- ================= SECTION: JALUR BELAJAR (JOURNEY) ================= -->
-        <section class="section journey-section">
-            <div class="section-intro">
-                <p class="kicker">BELAJAR DI MIRAI NO HANA</p>
-                <h2 class="heading">Mulai<br><span>perjalananmu.</span></h2>
-            </div>
-            <p class="copy">Pilih jalur yang ingin kamu jelajahi. Setiap ruang belajar dibuat agar mudah dilanjutkan sesuai ritmemu.</p>
-            <div class="start-grid">
-                <a class="start-card" href="kelas.html#dasar">
-                    <img class="card-corner-chibi" src="images/mirai/icon/Al.png" alt="Mascot Al" aria-hidden="true">
-                    <span>01</span>
-                    <h3>Kelas Dasar</h3>
-                    <p>Hiragana, katakana, dan fondasi belajar.</p>
-                    <b>→</b>
-                </a>
-                <a class="start-card" href="kelas.html#lanjutan">
-                    <img class="card-corner-chibi" src="images/mirai/icon/Lo.png" alt="Mascot Lo" aria-hidden="true">
-                    <span>02</span>
-                    <h3>Kelas Lanjutan</h3>
-                    <p>Kanji dan pemahaman bahasa yang lebih dalam.</p>
-                    <b>→</b>
-                </a>
-                <a class="start-card" href="kamus.html">
-                    <img class="card-corner-chibi" src="images/mirai/icon/Fu.png" alt="Mascot Fu" aria-hidden="true">
-                    <span>03</span>
-                    <h3>Kamus</h3>
-                    <p>Cari kana, kanji, arti, bacaan, dan contoh.</p>
-                    <b>→</b>
-                </a>
-            </div>
-        </section>
+        <section class="section journey-section"><div class="section-intro"><p class="kicker">BELAJAR DI MIRAI NO HANA</p><h2 class="heading">Mulai<br><span>perjalananmu.</span></h2></div><p class="copy">Pilih jalur yang ingin kamu jelajahi. Setiap ruang belajar dibuat agar mudah dilanjutkan sesuai ritmemu.</p><div class="start-grid"><a class="start-card" href="kelas.html#dasar"><img class="card-corner-chibi" src="images/mirai/icon/Al.png" alt=""><span>01</span><h3>Kelas Dasar</h3><p>Hiragana, katakana, dan fondasi belajar.</p><b>→</b></a><a class="start-card" href="kelas.html#lanjutan"><img class="card-corner-chibi" src="images/mirai/icon/Lo.png" alt=""><span>02</span><h3>Kelas Lanjutan</h3><p>Kanji dan pemahaman bahasa yang lebih dalam.</p><b>→</b></a><a class="start-card" href="kamus.html"><img class="card-corner-chibi" src="images/mirai/icon/Fu.png" alt=""><span>03</span><h3>Kamus</h3><p>Cari kana, kanji, arti, bacaan, dan contoh.</p><b>→</b></a></div></section>
 
-        <!-- ================= SECTION: KEGIATAN & PROKER ================= -->
-        <section class="section home-activities-dark-section">
+<section class="section home-activities-dark-section">
   <div class="section-intro">
     <p class="kicker">KEGIATAN</p>
     <h2 class="heading">Ruang berkarya,<br><span>tumbuh bersama.</span></h2>
@@ -837,7 +802,6 @@ body.sora-fullscreen-active .menu-btn {
   </div>
 </section>
 
-        <!-- ================= SECTION: MASUKAN & SARAN ================= -->
         <section class="section feedback-preview" id="masukan">
             <div class="feedback-feature-card">
                 <div class="feedback-feature-header">
@@ -867,8 +831,7 @@ body.sora-fullscreen-active .menu-btn {
         </section>
     </main>
 
-    <!-- ================= FOOTER ================= -->
-    <footer class="global-footer">
+<footer class="global-footer">
     <div class="global-footer-main">
         <div class="global-footer-col left">
             <img class="footer-logo"  src="images/mirai/logo/MNH1-nav.png" alt="MIRAI NO HANA">
@@ -953,6 +916,7 @@ body.sora-fullscreen-active .menu-btn {
 
     <script src="js/sora.js"></script>
     <script src="js/main.js"></script>
+    <script src="script.js"></script>
 
     <!-- Script Interaktif Chatbot Asora Aokita -->
     <script>
