@@ -12101,7 +12101,7 @@ body.page-kurikulum .doc-back-btn:hover,
 /* =====================================================
    8. FEATURE CARD: APA ITU MIRAI NO WEBU? (INDEX.HTML)
    - Latar: Gradien Obsidian Gelap (#1c1523 -> #130f18)
-   - Pattern: w1b.jpeg (mix-blend-mode: screen)
+   - Pattern: c1b.jpeg (mix-blend-mode: screen)
    - Icon: Chibi Mascot Ayato (Ay.png) di pojok kanan bawah
    - Button: Tombol Magenta Elegan ke tentang.html
    ===================================================== */
@@ -12181,7 +12181,7 @@ body.page-kurikulum .doc-back-btn:hover,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/pattern/w1b.jpeg") !important;
+    background-image: url("images/mirai/pattern/c1b.jpeg") !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
@@ -12404,7 +12404,7 @@ main .about-feature-card p,
 /* =====================================================
    KARTU MASUKAN & SARAN (FEEDBACK FEATURE CARD)
    - Latar: Gradien Obsidian Gelap (#1c1523 -> #130f18)
-   - Pattern: w1b.jpeg (mix-blend-mode: screen; opacity: 0.16)
+   - Pattern: c1b.jpeg (mix-blend-mode: screen; opacity: 0.16)
    - Icon: Chibi Mascot Faruzan (Fa.png) di pojok kanan bawah
    - Button: Primary CTA (Google Form ↗)
    ===================================================== */
@@ -12457,7 +12457,7 @@ main .about-feature-card p,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/pattern/w1b.jpeg") !important;
+    background-image: url("images/mirai/pattern/c1b.jpeg") !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
