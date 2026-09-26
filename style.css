@@ -12110,6 +12110,35 @@ body.page-kurikulum .doc-back-btn:hover,
     padding: 70px 7vw 80px !important;
 }
 
+.about-preview .section-intro {
+    max-width: 1200px !important;
+    margin: 0 auto 36px auto !important;
+    text-align: left !important;
+}
+
+.about-preview .section-intro .kicker {
+    color: #ff659b !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    letter-spacing: 2px !important;
+    text-transform: uppercase !important;
+    margin: 0 0 12px 0 !important;
+    display: block !important;
+}
+
+.about-preview .section-intro .heading {
+    font-size: clamp(32px, 4.5vw, 54px) !important;
+    line-height: 1.15 !important;
+    margin: 0 !important;
+    color: #ffffff !important;
+    font-weight: 900 !important;
+    letter-spacing: -0.5px !important;
+}
+
+.about-preview .section-intro .heading span {
+    color: var(--pink, #ff659b) !important;
+}
+
 .about-feature-card {
     position: relative !important;
     overflow: hidden !important;
@@ -12336,6 +12365,10 @@ main .about-feature-card p,
         padding: 50px 5vw 60px !important;
     }
 
+    .about-preview .section-intro {
+        margin-bottom: 24px !important;
+    }
+
     .about-feature-card {
         padding: 30px 22px 28px !important;
         border-radius: 20px !important;
@@ -12371,9 +12404,9 @@ main .about-feature-card p,
 /* =====================================================
    KARTU MASUKAN & SARAN (FEEDBACK FEATURE CARD)
    - Latar: Gradien Obsidian Gelap (#1c1523 -> #130f18)
-   - Pattern: c1b.jpeg (mix-blend-mode: screen; opacity: 0.16)
+   - Pattern: w1b.jpeg (mix-blend-mode: screen; opacity: 0.16)
    - Icon: Chibi Mascot Faruzan (Fa.png) di pojok kanan bawah
-   - Button: Dual CTA (Google Form ↗ + Tentang Kami →)
+   - Button: Primary CTA (Google Form ↗)
    ===================================================== */
 .feedback-preview,
 .feedback-section--home {
@@ -12424,7 +12457,7 @@ main .about-feature-card p,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/pattern/c1b.jpeg") !important;
+    background-image: url("images/mirai/pattern/w1b.jpeg") !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
@@ -12807,6 +12840,7 @@ body:not(.page-kamus) .quick-stroke-btn {
         font-size: 14px !important;
     }
 }
+
 
 
 
