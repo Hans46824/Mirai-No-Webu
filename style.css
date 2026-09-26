@@ -1,3 +1,19 @@
+/* ==========================================================================
+   MIRAI NO WEBU — Master Stylesheet
+   Design System: Obsidian Dark & Pure Light, Wagara Patterns, Responsive
+   
+   Table of Contents:
+   1. Root CSS Custom Properties (--pink, --bg-odd, --bg-even, etc.)
+   2. Global Reset, Base Typography, & Layout Foundations
+   3. Header, Navigation, & Off-canvas Mobile Sidebar
+   4. Hero, Feature Banners, & Section Layouts
+   5. Card Components (About Feature Card, Feedback Feature Card, Start Cards)
+   6. Learning App & Dictionary (Kana, Kanji, JLPT, Stroke Order Animations)
+   7. Proker Gallery, Division Showcase, & Curriculums
+   8. Chatbot Sora Floating Widget & Dialog Styles
+   9. Media Queries & Mobile Responsiveness
+   ========================================================================== */
+
 :root {
     --bg-odd: #ffffff; /* Putih bersih */
     --bg-even: #0e0b12; /* Hitam pekat obsidian */

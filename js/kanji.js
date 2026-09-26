@@ -288,10 +288,24 @@ window.formatKanaReadings = formatKanaReadings;
  * @param {Object} w - Objek kata ({ word, reading, meaning })
  * @returns {string} - String HTML untuk tag <li>
  */
+function escapeHtml(str) {
+    if (str == null) return "";
+    return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+}
+window.escapeHtml = escapeHtml;
+
 function formatWordItem(w) {
+    const word = escapeHtml(w.word);
+    const reading = escapeHtml(w.reading);
+    const meaning = escapeHtml(w.meaning);
     const romaji = kanaToRomaji(w.reading);
-    const readingText = romaji ? `${w.reading} (${romaji})` : w.reading;
-    return `<li><b>${w.word}</b> <span>${readingText}</span> — ${w.meaning}</li>`;
+    const readingText = romaji ? `${reading} (${escapeHtml(romaji)})` : reading;
+    return `<li><b>${word}</b> <span>${readingText}</span> — ${meaning}</li>`;
 }
 window.formatWordItem = formatWordItem;
 
@@ -1019,7 +1033,9 @@ function renderKanaPanel(mode) {
         if (totalVisible === 0) {
             const emptyEl = document.createElement("div");
             emptyEl.className = "kana-empty-state";
-            emptyEl.innerHTML = `<p>Tidak ada karakter yang cocok dengan pencarian “${query}”.</p>`;
+            const emptyText = document.createElement("p");
+            emptyText.textContent = `Tidak ada karakter yang cocok dengan pencarian “${query}”.`;
+            emptyEl.append(emptyText);
             container.append(emptyEl);
         } else if (!selectedChar && firstButton) {
             show(firstButton.character);

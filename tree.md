@@ -109,3 +109,5 @@ Mirai-No-Webu/
    Struktur subdirektori diselaraskan dengan isi aktual repositori (`anggota/`, `background/`, `dokumentasi/`, `icon/`, `identitas/`, `logo/`, `pattern/`, `sora/`, `stiker/`).
 3. **Pengelompokan Halaman Web:**  
    Pemisahan kategori secara sistematis antara Halaman Utama, Halaman Divisi, Program Kerja, Materi Pembelajaran (*Mirai no Buuku*), dan Halaman Pengalihan (*Redirect*).
+4. **Pembersihan Direktori Yatim (Orphaned Folders):**  
+   Folder `file/` dan direktori `stiker/` duplikat di root telah dibersihkan secara aman tanpa merusak tautan aset proyek (seluruh aset resmi kini terpusat rapi di `images/mirai/stiker/`).
