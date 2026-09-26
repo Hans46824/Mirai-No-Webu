@@ -1,113 +1,111 @@
-# Struktur Direktori Proyek Mirai no Webu
+# Peta Struktur Direktori Proyek — Mirai no Webu
+**Website Resmi Klub Bahasa & Kebudayaan Jepang MIRAI NO HANA**  
+*SMASYIMDUTA (SMA YPM 2 Sukodono, Sidoarjo)*
 
-Dokumen ini memetakan susunan file dan folder setelah proses pembersihan dan pengorganisasian (*cleanup & reorganization*).
+Dokumen ini memetakan seluruh susunan folder, file kode, aset visual, dan modul pembelajaran terkini dalam repositori `Mirai-No-Webu`.
+
+---
 
 ```text
 Mirai-No-Webu/
-├── ai_scripts/                     # Skrip otomasi & manipulasi agen AI (.py)
-│   ├── add_nametag.py
-│   ├── fix_heroes.py
-│   ├── fix_index_links.py
-│   ├── fix_japanese.py
-│   ├── fix_sora.py
-│   ├── fix_sora2.py
-│   ├── move_menu_btn.py
-│   ├── replace_cards.py
-│   ├── replace_cards_revert.py
-│   ├── replace_sidebar_text.py
-│   ├── replace_sora_grid.py
-│   ├── update_carousel.py
-│   ├── update_carousel_js.py
-│   ├── update_index_hero.py
-│   └── update_kelas.py
 │
-├── archive/                        # Arsip file pengujian & halaman cadangan lama
-│   ├── advance.html                # (Placeholder materi lanjutan lama)
-│   ├── reguler.html                # (Placeholder materi reguler lama)
-│   ├── test-card.html              # (File uji coba komponen CSS)
-│   ├── proker-gathering.html       # (Arsip layout proker lama)
-│   ├── proker-konbini.html         # (Arsip layout proker lama)
-│   ├── proker-matsuri.html         # (Arsip layout proker lama)
-│   └── proker-rajio.html           # (Arsip layout proker lama)
+├── 📂 data/                                # Data kamus, metadata aksara, dan lisensi
+│   ├── kana.json                           # Data aksara Hiragana & Katakana
+│   ├── kanji.json                          # Database lokal karakter Kanji
+│   ├── kanji-meta.json                     # Metadata jumlah goresan & grade Kanji
+│   └── STROKES-LICENSE.md                  # Lisensi data goresan KanjiVG
 │
-├── data/                           # Data JSON kamus & aksara Jepang
-│   ├── kana.json
-│   ├── kanji.json
-│   ├── kanji-meta.json
-│   └── STROKES-LICENSE.md
+├── 📂 docs/                                # Dokumen pedoman & kurikulum resmi
+│   └── kurikulum/
+│       ├── kurikulum-pembelajaran.pdf      # Silabus materi pembelajaran bertingkat
+│       ├── tata-cara-mengajar.pdf          # Buku panduan tutor & metode pengajaran
+│       └── README.txt                      # Catatan pembaruan berkas kurikulum
 │
-├── images/                         # Aset visual (logo, karakter, icon, background)
-│   ├── mirai/
-│   │   ├── background/
-│   │   ├── banner/
-│   │   ├── haori/
-│   │   ├── icon/
-│   │   ├── logo/
-│   │   ├── profil/
-│   │   └── stiker/
-│   └── ...
+├── 📂 images/mirai/                        # Sentral aset grafis, foto, dan visual klub
+│   ├── anggota/                            # Foto resmi ketua angkatan (Angkatan 1–8)
+│   ├── background/                         # Ilustrasi latar belakang (Sora.png)
+│   ├── dokumentasi/                        # Foto arsip dokumentasi kegiatan klub
+│   ├── icon/                               # Ikon chibi maskot klub (Ay, Fa, Fu, Hu, Ka, Lo, dll.)
+│   ├── identitas/                          # Atribut resmi (Haori, ID card, lanyard, nametag, pin)
+│   ├── logo/                               # Logo resmi klub (MNH1, NK) & logo program kerja
+│   ├── pattern/                            # Motif Wagara Jepang (w1b, w1w, w2w, c1b, c1w)
+│   ├── sora/                               # Aset visual chatbot Asora Aokita
+│   └── stiker/                             # Foto formal ketua angkatan & stiker klub
 │
-├── js/                             # Logika interaktif & clientside JavaScript
-│   ├── api.js
-│   ├── carousel.js
-│   ├── kana.js
-│   ├── kanji.js
-│   ├── main.js
-│   ├── proker-slider.js
-│   ├── sora.js
-│   ├── stroke.js
-│   ├── stroke-data.js
-│   └── translator.js
+├── 📂 js/                                  # Modul logika JavaScript (Frontend & Client-side)
+│   ├── api.js                              # Client API Kanji & Kana dengan sistem caching
+│   ├── carousel.js                         # Handler carousel interaktif
+│   ├── kana.js                             # Mesin pencarian, audio, & tabel aksara Kana
+│   ├── kanji.js                            # Kamus Kanji lengkap (JLPT N5–N1) & stroke player
+│   ├── main.js                             # Logika global (Navigasi sidebar, Back to Top, Lightbox, Reveal)
+│   ├── proker-slider.js                    # Slider galeri untuk halaman kegiatan & proker
+│   ├── sora.js                             # Modul AI Chatbot Sora & fallback respons lokal
+│   ├── stroke.js                           # Mesin render animasi goresan SVG (KanjiVG)
+│   ├── stroke-data.js                      # Vektor koordinat goresan stroke Hiragana & Kanji
+│   └── translator.js                       # Terjemahan arti definisi Kanji (Inggris ke Indonesia)
 │
-├── materi/                         # Modul pembelajaran Mirai no Buuku
-│   ├── dasar/
-│   │   ├── index.html              # Daftar isi Mirai no Buuku Dasar
-│   │   ├── hiragana.html           # Panduan Aksara Hiragana (Dasar 10)
-│   │   ├── katakana.html           # Panduan Aksara Katakana (Dasar 11)
-│   │   └── jikoshokai.html         # Modul Perkenalan Diri (Dasar 01)
-│   └── lanjutan/
-│       ├── index.html              # Daftar isi Mirai no Buuku Lanjutan
-│       ├── kanji.html              # Panduan Aksara Kanji & JLPT (Lanjutan 02)
-│       └── grammar.html            # Modul Tata Bahasa Lanjutan (Lanjutan 01)
+├── 📂 materi/                              # Modul artikel pembelajaran digital (Mirai no Buuku)
+│   ├── dasar/                              # Seri Buuku Kelas Dasar
+│   │   ├── index.html                      # Daftar isi materi kelas dasar
+│   │   ├── hiragana.html                   # Panduan Aksara Hiragana (Dasar 10)
+│   │   ├── katakana.html                   # Panduan Aksara Katakana (Dasar 11)
+│   │   └── jikoshokai.html                 # Panduan Perkenalan Diri (Dasar 01)
+│   └── lanjutan/                           # Seri Buuku Kelas Lanjutan
+│       ├── index.html                      # Daftar isi materi kelas lanjutan
+│       ├── kanji.html                      # Panduan Aksara Kanji & JLPT (Lanjutan 02)
+│       └── grammar.html                    # Panduan Pola Kalimat & Tata Bahasa (Lanjutan 01)
 │
-├── sora/                           # Ruang eksplorasi maskot Sora
-│   └── index.html
+├── 📂 sora/                                # Antarmuka mandiri chatbot maskot
+│   └── index.html                          # Kanvas mandiri chatbot Asora Aokita
 │
-├── video/                          # Aset media video
+├── 📂 video/                               # Aset media video
+│   └── recording_20260822_19-15-48.mp4     # Rekaman dokumentasi klub
 │
-├── [HALAMAN UTAMA WEBSITE]
-│   ├── index.html                  # Beranda / Homepage utama
-│   ├── tentang.html                # Profil, sejarah, dan makna klub
-│   ├── kegiatan.html               # Halaman kegiatan (Divisi & Program Kerja)
-│   ├── kelas.html                  # Hub kelas belajar (Dasar, Lanjutan, Kurikulum)
-│   ├── kamus.html                  # Kamus interaktif Hiragana, Katakana, dan Kanji
-│   ├── kanji.html                  # Kamus Kanji lengkap (2.136+ Jōyō Kanji)
-│   ├── latihan.html                # Modul latihan kuis Kana interaktif
-│   ├── kurikulum.html              # Peta belajar kurikulum
-│   ├── kelas-dasar.html            # Ikhtisar materi kelas dasar
-│   ├── kelas-lanjutan.html         # Ikhtisar materi kelas lanjutan
-│   │
-│   ├── [Halaman Divisi]
-│   ├── divisi-bahasa.html          # Divisi Bahasa & Budaya
-│   ├── divisi-cosplay.html         # Divisi Cosplay & Seni Peran
-│   ├── divisi-desain.html          # Divisi Desain & Kreatif
-│   ├── divisi-kewirausahaan.html   # Divisi Kewirausahaan
-│   │
-│   ├── [Halaman Program Kerja]
-│   ├── ktn.html                    # 01. Kimi To Nippon (Orientasi)
-│   ├── njr.html                    # 02. Nihon Go Rajio (Radio Sekolah)
-│   ├── konbini.html                # 03. Mirai no Konbini (Kewirausahaan)
-│   ├── ramadhan.html               # 04. Mirai no Ramadhan (Bulan Puasa)
-│   │
-│   ├── [Halaman Redirect / Kompatibilitas]
-│   ├── about.html                  # Pengalihan ke tentang.html
-│   ├── hiragana.html               # Pengalihan ke kamus.html?tab=hiragana
-│   ├── katakana.html               # Pengalihan ke kamus.html?tab=katakana
-│   └── masukan.html                # Pengalihan ke Google Form
+├── 📂 ai_scripts/                          # Skrip Python utilitas & otomasi pengembang
 │
-├── [ASSET INTI GLOBAL]
-│   ├── style.css                   # Master stylesheet (termasuk Dark Mode & Sora)
-│   └── script.js                   # Master script interaktif global
-└── tree.md                         # Dokumentasi struktur direktori ini
+├── 📄 [HALAMAN UTAMA WEBSITE]
+│   ├── index.html                          # Beranda utama (Hero, Tentang Card, Jalur Belajar, Kegiatan, Masukan)
+│   ├── tentang.html                        # Profil lengkap klub, filosofi, visi-misi, sejarah, haori, & kepengurusan
+│   ├── kegiatan.html                       # Hub aktivitas (Struktur 4 Divisi & Galeri 4 Program Kerja)
+│   ├── kelas.html                          # Hub ruang belajar (Kelas Dasar, Kelas Lanjutan, & Kurikulum)
+│   ├── kelas-dasar.html                    # Silabus & ringkasan materi kelas dasar
+│   ├── kelas-lanjutan.html                 # Silabus & ringkasan materi kelas lanjutan
+│   ├── kurikulum.html                      # Peta kurikulum pembelajaran & portal unduh dokumen PDF
+│   ├── kamus.html                          # Kamus interaktif terpadu (Kanji, Hiragana, Katakana, Live Stroke)
+│   └── latihan.html                        # Arena kuis latihan interaktif (KanaQuest)
+│
+├── 📄 [HALAMAN DIVISI KLUB]
+│   ├── divisi-bahasa.html                  # Profil Divisi Bahasa & Kebudayaan Jepang
+│   ├── divisi-cosplay.html                 # Profil Divisi Cosplay & Seni Peran
+│   ├── divisi-desain.html                  # Profil Divisi Desain Grafis & Kreatif
+│   └── divisi-kewirausahaan.html           # Profil Divisi Kewirausahaan
+│
+├── 📄 [HALAMAN PROGRAM KERJA]
+│   ├── ktn.html                            # Proker 01: Kimi To Nippon (Orientasi Anggota Baru)
+│   ├── njr.html                            # Proker 02: Nihon Go Rajio (Siaran Radio Jepang Sekolah)
+│   ├── konbini.html                        # Proker 03: Mirai no Konbini (Kewirausahaan & Kuliner)
+│   └── ramadhan.html                       # Proker 04: Mirai no Ramadhan (Bagi Takjil & Buka Puasa)
+│
+├── 📄 [HALAMAN PENGALIHAN / REDIRECT STUBS]
+│   ├── about.html                          # Pengalihan otomatis (HTTP-Refresh) ke tentang.html
+│   ├── hiragana.html                       # Pengalihan otomatis ke kamus.html?tab=hiragana
+│   ├── katakana.html                       # Pengalihan otomatis ke kamus.html?tab=katakana
+│   ├── kanji.html                          # Halaman cadangan/pengalihan ke kamus.html
+│   └── masukan.html                        # Pengalihan langsung ke Google Form aspirasi
+│
+└── 📄 [BERKAS INTI GLOBAL]
+    ├── style.css                           # Master stylesheet desain (Obsidian Dark, Wagara Patterns, Responsif)
+    ├── script.js                           # Engine kuis latihan KanaQuest (latihan.html)
+    └── tree.md                             # Dokumentasi peta struktur proyek (berkas ini)
 ```
 
+---
+
+## 📌 Ringkasan Pembaruan Terakhir
+
+1. **Penghapusan Folder `archive/`:**  
+   Folder `archive/` yang berisi draf uji coba lawas (`advance.html`, `reguler.html`, `test-card.html`, dan proker arsip) telah dihapus permanen dari proyek karena seluruh fiturnya sudah digantikan oleh halaman rilis resmi dan tidak terhubung lagi dengan navigasi situs aktif.
+2. **Pembaruan Peta Aset `images/mirai/`:**  
+   Struktur subdirektori diselaraskan dengan isi aktual repositori (`anggota/`, `background/`, `dokumentasi/`, `icon/`, `identitas/`, `logo/`, `pattern/`, `sora/`, `stiker/`).
+3. **Pengelompokan Halaman Web:**  
+   Pemisahan kategori secara sistematis antara Halaman Utama, Halaman Divisi, Program Kerja, Materi Pembelajaran (*Mirai no Buuku*), dan Halaman Pengalihan (*Redirect*).
