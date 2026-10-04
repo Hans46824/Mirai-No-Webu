@@ -448,21 +448,28 @@
             40% { transform: translateY(-3px); opacity: 1; }
         }
 
-        /* Quick Chips & Mode Bar */
+        /* Quick Chips & Mode Bar (Scrollable Horizontal) */
         #drawer .suggestions {
-            padding: 8px 12px;
+            padding: 8px 10px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
             gap: 8px;
             background: #14151c;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            touch-action: pan-x;
+            scrollbar-width: none;
+        }
+        #drawer .suggestions::-webkit-scrollbar {
+            display: none;
         }
         .mode-control-group {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            min-width: 0;
+            flex-shrink: 0;
         }
         #drawer .mode-switch-btn {
             display: inline-flex;
@@ -478,6 +485,7 @@
             transition: all 0.25s ease;
             user-select: none;
             outline: none;
+            flex-shrink: 0;
         }
         #drawer .mode-switch-btn:hover {
             transform: translateY(-1px);
@@ -534,7 +542,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            margin-left: auto;
+            flex-shrink: 0;
         }
 
         #drawer .sticker-random-btn {
@@ -553,6 +561,7 @@
             user-select: none;
             outline: none;
             white-space: nowrap;
+            flex-shrink: 0;
         }
         #drawer .sticker-random-btn:hover {
             background: rgba(233, 30, 99, 0.3);
@@ -574,6 +583,7 @@
             font-size: 12px;
             cursor: pointer;
             transition: all 0.2s ease;
+            flex-shrink: 0;
         }
         #drawer #clearBtn:hover {
             background: rgba(239, 68, 68, 0.2);
@@ -1279,6 +1289,17 @@
 
         if (randomStickerBtn) {
             randomStickerBtn.addEventListener('click', sendRandomStickerFromSora);
+        }
+
+        // Dukungan Scroll Halus Roda Mouse pada Bar Tombol Suggestions
+        const suggestionsBox = drawer ? drawer.querySelector('.suggestions') : null;
+        if (suggestionsBox) {
+            suggestionsBox.addEventListener('wheel', (e) => {
+                if (e.deltaY !== 0 && suggestionsBox.scrollWidth > suggestionsBox.clientWidth) {
+                    e.preventDefault();
+                    suggestionsBox.scrollLeft += e.deltaY;
+                }
+            }, { passive: false });
         }
 
         updateModeUI();

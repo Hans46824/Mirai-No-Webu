@@ -12845,6 +12845,24 @@ body:not(.page-kamus) .quick-stroke-btn {
     }
 }
 
-
-
-
+/* ==========================================================================
+   DRAWER SORA: SUGGESTIONS & MODE BAR SCROLLABLE HORIZONTAL FIX
+   ========================================================================== */
+#drawer .suggestions {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: pan-x !important;
+    scrollbar-width: none !important;
+}
+#drawer .suggestions::-webkit-scrollbar {
+    display: none !important;
+}
+#drawer .suggestions .mode-control-group,
+#drawer .suggestions .suggestions-actions,
+#drawer .suggestions .mode-switch-btn,
+#drawer .suggestions .sticker-random-btn,
+#drawer .suggestions #clearBtn {
+    flex-shrink: 0 !important;
+}
