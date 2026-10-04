@@ -81,8 +81,18 @@ window.getStrokeDataAsync = async function getStrokeDataAsync(character) {
             while ((match = regex.exec(svgText)) !== null) {
                 paths.push(match[1]);
             }
+            const numbers = [];
+            const numRegex = /<text[^>]+transform="matrix\([^)]+\s+([\d\.]+)\s+([\d\.]+)\)"[^>]*>([^<]+)<\/text>/g;
+            let numMatch;
+            while ((numMatch = numRegex.exec(svgText)) !== null) {
+                numbers.push({
+                    x: parseFloat(numMatch[1]),
+                    y: parseFloat(numMatch[2]),
+                    text: numMatch[3].trim()
+                });
+            }
             if (paths.length > 0) {
-                const record = { viewBox: "0 0 109 109", paths, source: "KanjiVG-CDN" };
+                const record = { viewBox: "0 0 109 109", paths, numbers, source: "KanjiVG-CDN" };
                 if (!window.MIRAI_STROKE_DATA) window.MIRAI_STROKE_DATA = {};
                 window.MIRAI_STROKE_DATA[character] = record;
                 try {
@@ -102,6 +112,58 @@ window.getStrokeDataAsync = async function getStrokeDataAsync(character) {
 
     return null;
 };
+
+// Helper cerdas menghitung posisi label angka urutan goresan pada canvas KanjiVG
+function calculateStrokeNumbers(paths, officialNumbers) {
+    if (Array.isArray(officialNumbers) && officialNumbers.length >= paths.length) {
+        return officialNumbers.map((n, i) => ({
+            x: n.x,
+            y: n.y,
+            text: n.text || String(i + 1)
+        }));
+    }
+
+    const placed = [];
+    paths.forEach((d, i) => {
+        let sx = 25, sy = 25;
+        const m = /^[Mm]\s*([-\d\.]+)[,\s]+([-\d\.]+)/.exec(d);
+        if (m) {
+            sx = parseFloat(m[1]);
+            sy = parseFloat(m[2]);
+        }
+
+        let nx = sx >= 10 ? sx - 7 : sx + 6;
+        let ny = sy >= 10 ? sy - 2 : sy + 7;
+
+        // Penghindaran tabrakan posisi antar-angka dalam satu karakter
+        for (let attempt = 0; attempt < 4; attempt++) {
+            let collision = false;
+            for (let j = 0; j < placed.length; j++) {
+                const dx = nx - placed[j].x;
+                const dy = ny - placed[j].y;
+                if (Math.hypot(dx, dy) < 7.5) {
+                    collision = true;
+                    break;
+                }
+            }
+            if (collision) {
+                if (ny > 16) {
+                    ny -= 6;
+                } else {
+                    nx += 8;
+                }
+            } else {
+                break;
+            }
+        }
+
+        nx = Math.max(3, Math.min(101, nx));
+        ny = Math.max(7, Math.min(103, ny));
+        placed.push({ x: nx, y: ny, text: String(i + 1) });
+    });
+
+    return placed;
+}
 
 window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallbackCount, options = {}) {
 
@@ -142,7 +204,7 @@ window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallba
                 <button id="btn-toggle-pen" class="btn-pen-style" type="button" onclick="togglePenSize()">${currentPenLabel}</button>
             </div>
             <div class="stroke-status">Goresan <b data-stroke-number>1</b> dari ${totalStrokes}</div>
-            <p class="stroke-guide" data-stroke-guide role="status" aria-live="polite">Langkah 1: ikuti garis merah dari awal hingga akhir.</p>
+            <p class="stroke-guide" data-stroke-guide role="status" aria-live="polite">Ikuti angka urutan goresan di kanvas atau tekan PUTAR untuk animasi.</p>
             <ol class="stroke-order" aria-label="Urutan goresan">${Array.from({ length: totalStrokes }, (_, index) => `<li data-stroke-step="${index}">${index + 1}</li>`).join("")}</ol>
             <div class="stroke-controls">
                 <button type="button" data-stroke-play>PUTAR</button>
@@ -157,10 +219,8 @@ window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallba
         `;
 
         // 2. Isolasi Instance Render (JS)
-        // - Kosongkan container utama
         const strokeStage = host.querySelector('.stroke-stage');
         strokeStage.innerHTML = "";
-        // - Jadikan container utama flexbox
         strokeStage.style.display = 'flex';
         strokeStage.style.flexDirection = 'row';
         strokeStage.style.justifyContent = 'center';
@@ -168,9 +228,9 @@ window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallba
         strokeStage.style.gap = '10px';
         strokeStage.style.flexWrap = 'wrap';
 
-        // - Gunakan Array.from(kanaString).forEach((char, index) => { ... })
+        let globalStrokeOffset = 0;
+
         Array.from(kanaString).forEach((char, index) => {
-            // 3. Buat Container Unik: Di DALAM forEach
             let charWrapper = document.createElement('div');
             charWrapper.id = 'stroke-char-' + index;
             charWrapper.className = 'kanjivg-char-box';
@@ -185,8 +245,6 @@ window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallba
                 charWrapper.classList.add('single-char');
             }
 
-            // 4 & 5. Isolasi Tag SVG:
-            // Pastikan hasil akhir di DOM adalah: SETIAP charWrapper memiliki SATU tag <svg viewBox="0 0 109 109"> di dalamnya.
             const rec = records[index];
             const paths = rec?.paths?.length
                 ? rec.paths
@@ -201,15 +259,51 @@ window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallba
             svg.style.position = 'relative';
             svg.style.display = 'block';
 
+            // Layer 1 (Dasar): Goresan Panduan Transparan (Transparent Guide Strokes)
+            const guideGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+            guideGroup.setAttribute("class", "stroke-guide-group");
+            paths.forEach((d) => {
+                const guidePath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                guidePath.setAttribute("class", "stroke-guide-path");
+                guidePath.setAttribute("d", d);
+                guidePath.setAttribute("stroke-linecap", "round");
+                guidePath.setAttribute("stroke-linejoin", "round");
+                guidePath.setAttribute("fill", "none");
+                guideGroup.appendChild(guidePath);
+            });
+            svg.appendChild(guideGroup);
+
+            // Layer 2 (Tengah): Goresan Animasi Solid (Active Animated Strokes)
+            const activeGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+            activeGroup.setAttribute("class", "stroke-active-group");
             paths.forEach((d, pathIndex) => {
                 const pathEl = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                pathEl.setAttribute("class", "stroke-active-path");
                 pathEl.setAttribute("data-stroke", `${index}-${pathIndex}`);
                 pathEl.setAttribute("d", d);
                 pathEl.setAttribute("stroke-linecap", "round");
                 pathEl.setAttribute("stroke-linejoin", "round");
                 pathEl.setAttribute("fill", "none");
-                svg.appendChild(pathEl);
+                activeGroup.appendChild(pathEl);
             });
+            svg.appendChild(activeGroup);
+
+            // Layer 3 (Atas): Angka Penunjuk Urutan Goresan (Stroke Order Numbers)
+            const numbersGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+            numbersGroup.setAttribute("class", "stroke-numbers-group");
+            const numPositions = calculateStrokeNumbers(paths, rec?.numbers);
+            numPositions.forEach((pos, pathIndex) => {
+                const textEl = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                textEl.setAttribute("class", "stroke-number-label");
+                textEl.setAttribute("x", String(pos.x));
+                textEl.setAttribute("y", String(pos.y));
+                textEl.setAttribute("data-stroke-num", `${index}-${pathIndex}`);
+                textEl.textContent = String(globalStrokeOffset + pathIndex + 1);
+                numbersGroup.appendChild(textEl);
+            });
+            svg.appendChild(numbersGroup);
+
+            globalStrokeOffset += paths.length;
 
             charWrapper.appendChild(svg);
 
@@ -225,8 +319,9 @@ window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallba
             strokeStage.appendChild(charWrapper);
         });
 
-        // Kumpulkan semua path berurutan secara chronologis
-        const lines = [...strokeStage.querySelectorAll("path")];
+        // Kumpulkan semua path aktif berurutan secara kronologis
+        const lines = [...strokeStage.querySelectorAll("path[data-stroke]")];
+        const numberLabels = [...strokeStage.querySelectorAll(".stroke-number-label")];
         const number = host.querySelector("[data-stroke-number]");
         const guide = host.querySelector("[data-stroke-guide]");
         const order = [...host.querySelectorAll("[data-stroke-step]")];
@@ -245,10 +340,16 @@ window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallba
                 ? "Tampilan goresan dibersihkan. Tekan PUTAR untuk menampilkan ulang."
                 : step >= lines.length
                     ? "Selesai! Semua goresan sudah ditampilkan."
-                    : `Langkah ${visibleStep}: ikuti garis merah dari awal hingga akhir.`;
+                    : (playing
+                        ? `Memutar goresan ke-${visibleStep} dari ${lines.length}...`
+                        : `Langkah ${visibleStep}: ikuti goresan pink atau angka urutan di atas.`);
             order.forEach((item, index) => {
                 item.classList.toggle("is-active", index === step && playing);
                 item.classList.toggle("is-done", index < step);
+            });
+            numberLabels.forEach((numLabel, index) => {
+                numLabel.classList.toggle("is-active", index === step && playing);
+                numLabel.classList.toggle("is-done", index < step);
             });
         }
 
@@ -340,6 +441,34 @@ window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallba
                 animation = undefined;
                 drawCurrentStroke();
             }
+        });
+
+        // Interaksi klik angka urutan: pengguna bisa klik angka di kanvas atau di bawah untuk melihat goresan
+        order.forEach((item, index) => {
+            item.style.cursor = "pointer";
+            item.title = `Lihat goresan ke-${index + 1}`;
+            item.addEventListener("click", () => {
+                animation?.cancel();
+                animation = undefined;
+                step = index;
+                cleared = false;
+                playing = true;
+                hideFutureStrokes();
+                drawCurrentStroke();
+            });
+        });
+
+        numberLabels.forEach((numLabel, index) => {
+            numLabel.style.cursor = "pointer";
+            numLabel.addEventListener("click", () => {
+                animation?.cancel();
+                animation = undefined;
+                step = index;
+                cleared = false;
+                playing = true;
+                hideFutureStrokes();
+                drawCurrentStroke();
+            });
         });
 
         reset();
