@@ -454,23 +454,42 @@ body.sora-fullscreen-active .menu-btn {
     box-shadow: 0 0 14px rgba(236, 72, 153, 0.4);
 }
 
-.mode-tooltip-label {
-    font-size: 10px;
-    color: #94a3b8;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px dashed rgba(255, 255, 255, 0.15);
-    padding: 3px 8px;
-    border-radius: 12px;
+#drawer .suggestions-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+}
+
+#drawer .sticker-random-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 12px;
+    border-radius: 18px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #ffd2e3;
+    background: rgba(233, 30, 99, 0.15);
+    border: 1px solid rgba(233, 30, 99, 0.4);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    outline: none;
     white-space: nowrap;
 }
-@media (max-width: 480px) {
-    .mode-tooltip-label {
-        display: none;
-    }
+#drawer .sticker-random-btn:hover {
+    background: rgba(233, 30, 99, 0.3);
+    border-color: rgba(233, 30, 99, 0.7);
+    box-shadow: 0 0 10px rgba(233, 30, 99, 0.3);
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+#drawer .sticker-random-btn:active {
+    transform: scale(0.95);
 }
 
 #drawer #clearBtn {
-    margin-left: auto;
     color: #94a3b8;
     background: #1e2029;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -484,6 +503,17 @@ body.sora-fullscreen-active .menu-btn {
     background: rgba(239, 68, 68, 0.2);
     color: #f87171;
     border-color: #ef4444;
+}
+
+#drawer .bubble .md img {
+    max-width: 175px;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    display: block;
+    margin: 6px 0 8px 0;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 /* System Notice Message in Chat */
@@ -890,9 +920,14 @@ body.sora-fullscreen-active .menu-btn {
                     <span class="mode-text">SORA MODE: PELAJAR</span>
                     <span class="mode-arrow" aria-hidden="true">🔄</span>
                 </button>
-                <span class="mode-tooltip-label">Klik untuk ganti mode</span>
             </div>
-            <button id="clearBtn" type="button" title="Hapus riwayat obrolan" aria-label="Hapus riwayat obrolan">🗑️</button>
+            <div class="suggestions-actions">
+                <button id="randomStickerBtn" type="button" class="sticker-random-btn" title="Minta stiker random dari Sora" aria-label="Kirim Stiker Random">
+                    <span class="sticker-btn-icon">✨</span>
+                    <span class="sticker-btn-text">Stiker</span>
+                </button>
+                <button id="clearBtn" type="button" title="Hapus riwayat obrolan" aria-label="Hapus riwayat obrolan">🗑️</button>
+            </div>
         </div>
 
         <div class="input-area">
@@ -916,7 +951,6 @@ body.sora-fullscreen-active .menu-btn {
 
     <script src="js/sora.js"></script>
     <script src="js/main.js"></script>
-    <script src="script.js"></script>
 
     <!-- Script Interaktif Chatbot Asora Aokita -->
     <script>
@@ -928,6 +962,7 @@ body.sora-fullscreen-active .menu-btn {
         const input = document.getElementById('input');
         const sendBtn = document.getElementById('sendBtn');
         const clearBtn = document.getElementById('clearBtn');
+        const randomStickerBtn = document.getElementById('randomStickerBtn');
         const typing = document.getElementById('typing');
         const modeSwitchBtn = document.getElementById('modeSwitchBtn');
 
@@ -1279,6 +1314,73 @@ body.sora-fullscreen-active .menu-btn {
                     closeClearModal();
                 }
             });
+        }
+
+        // Koleksi Stiker Resmi dari folder images/mirai/stiker/
+        const SORA_STICKERS = [
+            "be.jpeg", "beli.jpeg", "cer.jpeg", "don.jpeg", "yan.jpeg", "yat.jpeg",
+            "dik.jpeg", "ada.jpeg", "dip.jpeg", "kok.jpeg", "sor.jpeg", "kar.jpeg",
+            "mas.jpeg", "woy.jpeg", "ita.jpeg", "bel.jpeg", "hua.jpeg", "iki.jpeg",
+            "sul.jpeg", "gom.jpeg", "eet.jpeg", "ber.jpeg", "jaw.jpeg", "log.jpeg",
+            "aku.jpeg", "ala.jpeg", "iwa.jpeg", "peg.jpeg"
+        ];
+
+        function sendRandomStickerFromSora() {
+            if (typing && typing.classList.contains('show')) return;
+
+            const randomFile = SORA_STICKERS[Math.floor(Math.random() * SORA_STICKERS.length)];
+            const imagePath = `images/mirai/stiker/${randomFile}`;
+
+            let caption = "";
+            if (currentSoraMode === "husbu") {
+                const husbuQuotes = [
+                    "Ini stiker spesial dari aku buat kamu sayang~ 🥰💖",
+                    "Nih stiker gemas buat kamu, jangan lupa tersenyum ya manis~ 💕",
+                    "Kukirimin stiker ini biar harimu makin ceria ya sayang! ✨🌸",
+                    "Lucu kan stikernya? Tapi masih lebih manis kamu sih hehe~ 💖",
+                    "Ini stiker buat nemenin kamu hari ini, semangat terus ya cintaku~ 🥰"
+                ];
+                caption = husbuQuotes[Math.floor(Math.random() * husbuQuotes.length)];
+            } else if (currentSoraMode === "bercanda") {
+                const jokeQuotes = [
+                    "Nih stiker random drop! Jangan ngakak ya wkwkwk 🗿🤣",
+                    "Wkwkwk muka siapa nih di stiker? Pas banget kan! 😎",
+                    "Random stiker buat nemenin kegabutanmu hari ini wkwk 🤣",
+                    "Dapet stiker ini! Cocok nggak dijadiin meme? wkwk 🗿",
+                    "Nih stiker buat kamu, jangan disave buat bahan roasting ya! wkwk 😂"
+                ];
+                caption = jokeQuotes[Math.floor(Math.random() * jokeQuotes.length)];
+            } else {
+                const studyQuotes = [
+                    "Ini stiker penyemangat belajar buat kamu! Semangat terus yaa 📚✨",
+                    "Nih stiker ekspresiku hari ini! Tetap fokus dan ganbatte! ☁️🌸",
+                    "Biar belajarnya nggak jenuh, kukirimin stiker lucu ini ya! 🎌✨",
+                    "Semoga stiker ini bikin harimu di Mirai no Hana lebih seru! 🌸",
+                    "Yatta! Nih stiker buat nemenin belajarmu hari ini! ☁️✨"
+                ];
+                caption = studyQuotes[Math.floor(Math.random() * studyQuotes.length)];
+            }
+
+            messages.push({
+                role: "user",
+                content: "Minta stiker random dong Sora! 🎭"
+            });
+            render();
+
+            setBusy(true);
+            setTimeout(() => {
+                messages.push({
+                    role: "assistant",
+                    content: `![Stiker Sora](${imagePath})\n\n${caption}`,
+                    mode: currentSoraMode
+                });
+                setBusy(false);
+                render();
+            }, 500);
+        }
+
+        if (randomStickerBtn) {
+            randomStickerBtn.addEventListener('click', sendRandomStickerFromSora);
         }
 
         updateModeUI();
