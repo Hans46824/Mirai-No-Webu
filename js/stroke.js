@@ -146,8 +146,6 @@ window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallba
             <ol class="stroke-order" aria-label="Urutan goresan">${Array.from({ length: totalStrokes }, (_, index) => `<li data-stroke-step="${index}">${index + 1}</li>`).join("")}</ol>
             <div class="stroke-controls">
                 <button type="button" data-stroke-play>PUTAR</button>
-                <button type="button" data-stroke-pause>JEDA</button>
-                <button type="button" data-stroke-replay>ULANG</button>
                 ${showClearControl ? `<button type="button" data-stroke-clear aria-label="Bersihkan tampilan urutan goresan ${kanaString}">BERSIHKAN</button>` : ""}
                 <label>Kecepatan<select data-stroke-speed aria-label="Kecepatan animasi stroke">
                     <option value="1.6">0.5×</option>
@@ -287,7 +285,11 @@ window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallba
         }
 
         function play() {
-            if (step >= lines.length) reset();
+            if (playing && animation) {
+                reset();
+            } else if (step >= lines.length) {
+                reset();
+            }
             cleared = false;
             playing = true;
             if (animation?.playState === "paused") {
@@ -326,8 +328,8 @@ window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallba
         }
 
         host.querySelector("[data-stroke-play]").addEventListener("click", play);
-        host.querySelector("[data-stroke-pause]").addEventListener("click", pause);
-        host.querySelector("[data-stroke-replay]").addEventListener("click", () => {
+        host.querySelector("[data-stroke-pause]")?.addEventListener("click", pause);
+        host.querySelector("[data-stroke-replay]")?.addEventListener("click", () => {
             reset();
             play();
         });

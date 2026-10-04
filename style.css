@@ -12725,10 +12725,10 @@ main .feedback-feature-card p,
 }
 
 /* ==========================================================================
-   QUICK FLOATING BUTTON: GESER LANGSUNG KE LIVE STROKE (KHUSUS KAMUS)
+   QUICK FLOATING BUTTON: GESER LANGSUNG KE URUTAN GORESAN (KHUSUS KAMUS)
    - Mengikuti pergerakan scroll (fixed position)
    - Hanya muncul di halaman Kamus (body.page-kamus)
-   - Indikator panah otomatis menyesuaikan posisi live stroke (atas / bawah / terlihat)
+   - Indikator panah otomatis menyesuaikan posisi urutan goresan (atas / bawah / terlihat)
    ========================================================================== */
 
 /* Pastikan tidak muncul di halaman non-kamus */

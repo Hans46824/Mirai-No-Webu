@@ -1055,7 +1055,7 @@ function renderKanaPanel(mode) {
 
 /**
  * Tombol Cepat Mengikuti (Floating Quick Button) Khusus Kamus:
- * Geser langsung ke tampilan animasi live stroke (urutan goresan).
+ * Geser langsung ke tampilan animasi urutan goresan (stroke order).
  */
 function setupQuickStrokeButton() {
     if (!document.body.classList.contains("page-kamus")) return;
@@ -1066,11 +1066,11 @@ function setupQuickStrokeButton() {
         btn.id = "quickStrokeBtn";
         btn.className = "quick-stroke-btn";
         btn.type = "button";
-        btn.setAttribute("aria-label", "Geser ke Live Stroke");
-        btn.setAttribute("title", "Geser ke Live Stroke (Urutan Menulis)");
+        btn.setAttribute("aria-label", "Geser ke Urutan Goresan");
+        btn.setAttribute("title", "Geser ke Urutan Goresan");
         btn.innerHTML = `
             <span class="quick-stroke-icon">✍️</span>
-            <span class="quick-stroke-text">Live Stroke</span>
+            <span class="quick-stroke-text">Urutan Goresan</span>
             <span class="quick-stroke-arrow">↓</span>
         `;
         const toTop = document.querySelector(".to-top");
