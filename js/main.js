@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setupLearningPanel();
     setupManagementSlider();
     setupImageLightbox();
+    setupFooterQuoteSlider();
     window.initKanjiDictionary?.();
     window.initSora?.();
 });
@@ -53,7 +54,7 @@ function normalizeNavigation() {
     document.querySelectorAll('[data-nav-menu] a[href="kanji.html"]').forEach((link) => { link.href = "kamus.html"; link.textContent = "KAMUS"; });
     document.querySelectorAll('[data-nav-menu] a[href="about.html"]').forEach((link) => { link.href = "tentang.html"; });
 
-    // Re-enable all navigation links (Coming Soon overlay removed).
+    // Aktifkan kembali seluruh tautan navigasi (lapisan Coming Soon telah dihapus).
     document.querySelectorAll('[data-nav-menu] a.nav-coming-soon, .nav .links a.nav-coming-soon').forEach((link) => {
         const navText = link.querySelector('.nav-text');
         const label = navText ? navText.textContent.trim().toUpperCase() : link.textContent.replace('COMING SOON', '').trim().toUpperCase();
@@ -66,7 +67,7 @@ function normalizeNavigation() {
         link.textContent = label;
     });
 
-    // Re-enable brand links that were disabled.
+    // Aktifkan kembali tautan brand yang sebelumnya dinonaktifkan.
     document.querySelectorAll('.brand.brand-disabled').forEach((brand) => {
         brand.classList.remove('brand-disabled');
         brand.setAttribute('href', 'index.html');
@@ -130,7 +131,7 @@ function setupSidebarNav() {
         sidebarOverlay.addEventListener("click", closeSidebar);
     }
 
-    // Close on escape key
+    // Tutup saat tombol Escape ditekan
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape" && sidebarNav && sidebarNav.classList.contains("active")) {
             closeSidebar();
@@ -430,7 +431,7 @@ function setupImageLightbox() {
         }, 260);
     }
 
-    // Double-click detection for Desktop
+    // Deteksi klik ganda (double-click) untuk Desktop
     document.addEventListener("dblclick", (e) => {
         const img = e.target.closest("img");
         if (!img) return;
@@ -440,7 +441,7 @@ function setupImageLightbox() {
         openLightbox(img);
     });
 
-    // Double-tap detection for Mobile (tap twice within 320ms)
+    // Deteksi ketukan ganda (double-tap) untuk Mobile (ketuk dua kali dalam 320ms)
     let lastTapTime = 0;
     let lastTapTarget = null;
     document.addEventListener("touchend", (e) => {
@@ -462,3 +463,326 @@ function setupImageLightbox() {
         }
     }, { passive: false });
 }
+
+/* ==========================================================================
+   FOOTER QUOTE SLIDER (KATA MOTIVASI DI ATAS DISCLAIMER)
+   ========================================================================== */
+function setupFooterQuoteSlider() {
+    // Jangan pasang slider jika berada di halaman arsip motivasi itu sendiri
+    if (document.body.classList.contains("page-motivasi")) return;
+
+    const footer = document.querySelector(".global-footer");
+    if (!footer) return;
+
+    // Hindari duplikasi
+    if (document.getElementById("footerQuoteSliderSection")) return;
+
+    // Deteksi base relative path
+    const logo = document.querySelector(".footer-logo, .home-header .brand img");
+    const logoSrc = logo ? (logo.getAttribute("src") || "") : "";
+    const basePath = logoSrc.startsWith("../../") ? "../../" : "";
+
+    const quotes = [
+        {
+            id: 1,
+            animeId: "one-piece",
+            tokohBadge: "TOKOH 01 · 麦わらのルフィ",
+            tag: "ONE PIECE · EIICHIRO ODA",
+            name: "Monkey D. Luffy",
+            anime: "One Piece",
+            sticker: "sor.jpeg",
+            chibi: "Ay.png",
+            kanji: "海賊王に、おれはなる！",
+            romaji: "Kaizoku-ou ni, ore wa naru!",
+            literal: 'Arti Harfiah: "Aku akan menjadi Raja Bajak Laut!"',
+            meaningTitle: "Berani Bermimpi Besar Tanpa Ragu",
+            meaningText: "Deklarasi tanpa kompromi untuk menancapkan tujuan hidup setinggi-tingginya. Jangan takut memimpikan hal yang dianggap mustahil oleh orang lain; ucapkan dengan yakin dan kejarlah dengan seluruh tenaga.",
+            accent: "#ff5252",
+            glow: "rgba(255, 82, 82, 0.4)",
+            line: "linear-gradient(90deg, #ff5252, #ffb142)",
+            border: "rgba(255, 82, 82, 0.35)",
+            badgeBg: "rgba(255, 82, 82, 0.16)",
+            badgeBorder: "rgba(255, 82, 82, 0.45)"
+        },
+        {
+            id: 2,
+            animeId: "attack-on-titan",
+            tokohBadge: "TOKOH 02 · 調査兵団",
+            tag: "ATTACK ON TITAN · SHINGEKI NO KYOJIN",
+            name: "Eren Yeager & Pasukan Penyelidik",
+            anime: "Attack on Titan",
+            sticker: "mas.jpeg",
+            chibi: "Ka.png",
+            kanji: "心臓を捧げよ！",
+            romaji: "Shinzou o sasageyo!",
+            literal: 'Arti Harfiah: "Persembahkan hatimu!"',
+            meaningTitle: "Dedikasi Total & Berikan yang Terbaik",
+            meaningText: 'Memberikan "hati" bukan berarti mengorbankan nyawa secara sia-sia, melainkan mencurahkan 100% komitmen, energi, dan ketulusan pada apa yang sedang diperjuangkan (seperti belajar, berkarya, atau memajukan komunitas).',
+            accent: "#10b981",
+            glow: "rgba(16, 185, 129, 0.4)",
+            line: "linear-gradient(90deg, #10b981, #34d399)",
+            border: "rgba(16, 185, 129, 0.35)",
+            badgeBg: "rgba(16, 185, 129, 0.16)",
+            badgeBorder: "rgba(16, 185, 129, 0.45)"
+        },
+        {
+            id: 3,
+            animeId: "naruto",
+            tokohBadge: "TOKOH 03 · うずまきナルト",
+            tag: "NARUTO · MASASHI KISHIMOTO",
+            name: "Uzumaki Naruto",
+            anime: "Naruto",
+            sticker: "ita.jpeg",
+            chibi: "Lo.png",
+            kanji: "まっすぐ自分の言葉は曲げねぇ。それが俺の忍道だ！",
+            romaji: "Massugu jibun no kotoba wa magenee. Sore ga ore no nindou da!",
+            literal: 'Arti Harfiah: "Aku tidak akan menarik kembali kata-kataku. Itulah jalan ninjaku!"',
+            meaningTitle: "Integritas & Memegang Teguh Prinsip",
+            meaningText: "Komitmen sejati terhadap janji dan tujuan diri sendiri. Apabila sudah menetapkan target untuk berkembang, jangan goyah oleh godaan rasa malas atau omongan orang lain.",
+            accent: "#f97316",
+            glow: "rgba(249, 115, 22, 0.4)",
+            line: "linear-gradient(90deg, #f97316, #fbbf24)",
+            border: "rgba(249, 115, 22, 0.35)",
+            badgeBg: "rgba(249, 115, 22, 0.16)",
+            badgeBorder: "rgba(249, 115, 22, 0.45)"
+        },
+        {
+            id: 4,
+            animeId: "my-hero-academia",
+            tokohBadge: "TOKOH 04 · デク · PLUS ULTRA",
+            tag: "MY HERO ACADEMIA · BOKU NO HERO",
+            name: "Midoriya Izuku / Deku",
+            anime: "My Hero Academia",
+            sticker: "kok.jpeg",
+            chibi: "Al.png",
+            kanji: "限界を超えて、さらに向こうへ！プルス・ウルトラ！",
+            romaji: "Genkai o koete, sara ni mukou e! Purusu Urutora! (Plus Ultra)",
+            literal: 'Arti Harfiah: "Lampaui batas, melangkah lebih jauh lagi! Plus Ultra!"',
+            meaningTitle: "Terus Mengembangkan Diri Tanpa Batas",
+            meaningText: "Saat merasa sudah berada di ujung kemampuan, itu adalah tanda bahwa potensi diri sedang siap naik ke tingkat berikutnya. Selalu ada ruang untuk melangkah satu langkah lebih jauh dari kemarin.",
+            accent: "#06b6d4",
+            glow: "rgba(6, 182, 212, 0.4)",
+            line: "linear-gradient(90deg, #06b6d4, #10b981)",
+            border: "rgba(6, 182, 212, 0.35)",
+            badgeBg: "rgba(6, 182, 212, 0.16)",
+            badgeBorder: "rgba(6, 182, 212, 0.45)"
+        },
+        {
+            id: 5,
+            animeId: "demon-slayer",
+            tokohBadge: "TOKOH 05 · 竈門炭治郎",
+            tag: "DEMON SLAYER · KIMETSU NO YAIBA",
+            name: "Tanjiro Kamado",
+            anime: "Kimetsu no Yaiba",
+            sticker: "kar.jpeg",
+            chibi: "Fu.png",
+            kanji: "頑張れ炭治郎、頑張れ！俺は今までよくやってきた！",
+            romaji: "Ganbare Tanjiro, ganbare! Ore wa ima made yoku yatte kita!",
+            literal: 'Arti Harfiah: "Semangat Tanjiro, semangat! Selama ini aku sudah berjuang dengan baik!"',
+            meaningTitle: "Apresiasi Diri Sendiri (Self-Compassion)",
+            meaningText: "Saat menghadapi rintangan berat, jangan terburu-buru mengkritik diri sendiri. Beri semangat pada diri, hargai proses perjuangan yang telah dilewati, lalu bangkit lagi dengan kepala tegak.",
+            accent: "#38bdf8",
+            glow: "rgba(56, 189, 248, 0.4)",
+            line: "linear-gradient(90deg, #38bdf8, #ef4444)",
+            border: "rgba(56, 189, 248, 0.35)",
+            badgeBg: "rgba(56, 189, 248, 0.16)",
+            badgeBorder: "rgba(56, 189, 248, 0.45)"
+        },
+        {
+            id: 6,
+            animeId: "black-clover",
+            tokohBadge: "TOKOH 06 · アスタ · 諦めない",
+            tag: "BLACK CLOVER · YŪKI TABATA",
+            name: "Asta",
+            anime: "Black Clover",
+            sticker: "jaw.jpeg",
+            chibi: "Ki.png",
+            kanji: "諦めないのが、俺の魔法だ！",
+            romaji: "Akiramenai no ga, ore no mahou da!",
+            literal: 'Arti Harfiah: "Tidak menyerah adalah sihirku!"',
+            meaningTitle: "Kerja Keras Mengalahkan Bakat Alami",
+            meaningText: "Tidak punya keistimewaan sejak awal bukan alasan untuk mundur. Ketekunan dan sifat pantang menyerah adalah kekuatan terbesar yang bisa mengimbangi siapa pun yang berbakat.",
+            accent: "#e11d48",
+            glow: "rgba(225, 29, 72, 0.4)",
+            line: "linear-gradient(90deg, #e11d48, #a855f7)",
+            border: "rgba(225, 29, 72, 0.35)",
+            badgeBg: "rgba(225, 29, 72, 0.16)",
+            badgeBorder: "rgba(225, 29, 72, 0.45)"
+        },
+        {
+            id: 7,
+            animeId: "haikyuu",
+            tokohBadge: "TOKOH 07 · 烏野高校 · 飛べ",
+            tag: "HAIKYUU!! · HARUICHI FURUDATE",
+            name: "Kageyama Tobio & Hinata Shoyo",
+            anime: "Haikyuu!!",
+            sticker: "ber.jpeg",
+            chibi: "Fa.png",
+            kanji: "飛べ！",
+            romaji: "Tobe!",
+            literal: 'Arti Harfiah: "Terbanglah!"',
+            meaningTitle: "Lepaskan Rasa Takut & Percaya pada Sayapmu Sendiri",
+            meaningText: "Slogan ikonik spanduk Karasuno yang mengajak siapa pun untuk melepaskan beban keraguan dan berani melompat tinggi menyambut peluang baru.",
+            accent: "#f59e0b",
+            glow: "rgba(245, 158, 11, 0.4)",
+            line: "linear-gradient(90deg, #f59e0b, #f97316)",
+            border: "rgba(245, 158, 11, 0.35)",
+            badgeBg: "rgba(245, 158, 11, 0.16)",
+            badgeBorder: "rgba(245, 158, 11, 0.45)"
+        }
+    ];
+
+    let currentIndex = 0;
+    let autoTimer = null;
+
+    // Buat elemen section slider independen (halaman/blok hitam mandiri, terpisah dari disclaimer)
+    const section = document.createElement("section");
+    section.className = "section-quote-slider";
+    section.id = "footerQuoteSliderSection";
+    section.setAttribute("aria-label", "Kata-Kata Motivasi Karakter Anime");
+    section.innerHTML = `
+        <div class="footer-quote-slider-section">
+            <div class="footer-quote-slider-header">
+                <div class="footer-quote-header-left">
+                    <span class="footer-quote-pill">
+                        <span class="badge-dot"></span>
+                        KUTIPAN INSPIRATIF · 名言
+                    </span>
+                    <h3 class="footer-quote-heading">Kata-Kata Motivasi Karakter Anime</h3>
+                </div>
+                <div class="footer-quote-controls">
+                    <button type="button" class="footer-quote-btn" id="footerQuotePrevBtn" aria-label="Kutipan Sebelumnya">‹</button>
+                    <span class="footer-quote-counter" id="footerQuoteCounter">1 / ${quotes.length}</span>
+                    <button type="button" class="footer-quote-btn" id="footerQuoteNextBtn" aria-label="Kutipan Selanjutnya">›</button>
+                </div>
+            </div>
+            <div class="footer-quote-card-container" id="footerQuoteCardContainer"></div>
+            <div class="footer-quote-dots" id="footerQuoteDots">
+                ${quotes.map((_, i) => `<button type="button" class="footer-quote-dot ${i === 0 ? "active" : ""}" data-quote-dot="${i}" aria-label="Pilih kutipan ${i + 1}"></button>`).join("")}
+            </div>
+        </div>
+    `;
+
+    // Pasang sebelum .global-footer sehingga menjadi section tersendiri di atas disclaimer
+    footer.parentNode.insertBefore(section, footer);
+
+    const cardContainer = section.querySelector("#footerQuoteCardContainer");
+    const counterEl = section.querySelector("#footerQuoteCounter");
+    const prevBtn = section.querySelector("#footerQuotePrevBtn");
+    const nextBtn = section.querySelector("#footerQuoteNextBtn");
+    const dots = section.querySelectorAll(".footer-quote-dot");
+
+    function renderSlide(index) {
+        currentIndex = (index + quotes.length) % quotes.length;
+        const q = quotes[currentIndex];
+
+        cardContainer.innerHTML = `
+            <article class="quote-card quote-slide-enter" data-anime="${q.animeId}" style="--quote-accent: ${q.accent}; --quote-glow: ${q.glow}; --quote-line: ${q.line}; --quote-border: ${q.border}; --quote-badge-bg: ${q.badgeBg}; --quote-badge-border: ${q.badgeBorder};">
+                <div class="quote-card-header">
+                    <span class="quote-card-badge">
+                        <span class="badge-dot"></span>
+                        ${q.tokohBadge}
+                    </span>
+                    <span class="quote-card-tag">${q.tag}</span>
+                </div>
+                <div class="quote-card-body">
+                    <!-- BARIS ATAS: 2 BOX (KIRI FOTO & IDENTITAS, KANAN KUTIPAN) -->
+                    <div class="quote-top-row">
+                        <div class="quote-author-profile">
+                            <div class="quote-avatar-wrap">
+                                <img class="quote-avatar-img" src="${basePath}images/mirai/stiker/${q.sticker}" alt="${q.name}">
+                            </div>
+                            <h3 class="quote-author-name">${q.name}</h3>
+                            <span class="quote-anime-title">${q.anime}</span>
+                        </div>
+                        <div class="quote-box">
+                            <h4 class="quote-kanji">${q.kanji}</h4>
+                            <p class="quote-romaji">${q.romaji}</p>
+                            <div class="quote-literal">
+                                <span>${q.literal}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BARIS BAWAH: 1 BOX MEMANJANG (MAKNA KUTIPAN) -->
+                    <div class="quote-meaning-card">
+                        <div class="quote-meaning-head">
+                            <span class="quote-meaning-badge">🌟 Makna Kutipan</span>
+                            <h5 class="quote-meaning-title">${q.meaningTitle}</h5>
+                        </div>
+                        <p class="quote-meaning-body">${q.meaningText}</p>
+                    </div>
+                </div>
+            </article>
+        `;
+
+        if (counterEl) counterEl.textContent = `${currentIndex + 1} / ${quotes.length}`;
+
+        dots.forEach((dot, i) => {
+            dot.classList.toggle("active", i === currentIndex);
+            if (i === currentIndex) {
+                dot.style.setProperty("--quote-accent", q.accent);
+            }
+        });
+    }
+
+    function startAutoTimer() {
+        stopAutoTimer();
+        autoTimer = setInterval(() => {
+            renderSlide(currentIndex + 1);
+        }, 6500);
+    }
+
+    function stopAutoTimer() {
+        if (autoTimer) {
+            clearInterval(autoTimer);
+            autoTimer = null;
+        }
+    }
+
+    prevBtn?.addEventListener("click", () => {
+        renderSlide(currentIndex - 1);
+        startAutoTimer();
+    });
+
+    nextBtn?.addEventListener("click", () => {
+        renderSlide(currentIndex + 1);
+        startAutoTimer();
+    });
+
+    dots.forEach((dot, i) => {
+        dot.addEventListener("click", () => {
+            renderSlide(i);
+            startAutoTimer();
+        });
+    });
+
+    // Jeda otomatis jika kursor berada di atas kartu kutipan
+    section.addEventListener("mouseenter", stopAutoTimer);
+    section.addEventListener("mouseleave", startAutoTimer);
+
+    // Gestur geser layar sentuh (touch swipe) untuk perangkat mobile
+    let touchStartX = 0;
+    section.addEventListener("touchstart", (e) => {
+        touchStartX = e.touches[0].clientX;
+        stopAutoTimer();
+    }, { passive: true });
+
+    section.addEventListener("touchend", (e) => {
+        const touchEndX = e.changedTouches[0].clientX;
+        const diffX = touchEndX - touchStartX;
+        if (Math.abs(diffX) > 45) {
+            if (diffX < 0) {
+                renderSlide(currentIndex + 1);
+            } else {
+                renderSlide(currentIndex - 1);
+            }
+        }
+        startAutoTimer();
+    }, { passive: true });
+
+    // Render kartu pertama dan jalankan timer otomatis
+    renderSlide(0);
+    startAutoTimer();
+}
+

@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informasi Lomba &amp; Acara Jejepangan — MIRAI NO HANA</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Noto+Serif+JP:wght@600;700;900&display=swap" rel="stylesheet">
+</head>
+<body class="page-lomba">
+    <header class="home-header">
+        <a class="brand" href="index.html">
+            <img src="images/mirai/logo/MNH1-nav.png" alt="MIRAI NO HANA">
+        </a>
+    </header>
+    <button class="menu-btn" type="button" aria-label="Buka Menu" aria-expanded="false">MENU ☰</button>
+
+    <div class="sidebar-overlay" aria-hidden="true"></div>
+    <aside class="sidebar-nav" aria-label="Menu Navigasi">
+        <div class="sidebar-header">
+            <span class="sidebar-label">MENU</span>
+            <button class="close-btn" type="button" aria-label="Tutup Menu">✕</button>
+        </div>
+        <nav class="sidebar-links">
+            <a href="index.html">BERANDA</a>
+            <a href="kelas.html">KELAS</a>
+            <a href="kamus.html">KAMUS</a>
+            <a href="kegiatan.html">KEGIATAN</a>
+            <a href="rekomendasi.html">REKOMENDASI</a>
+            <a href="peringkat.html">PAPAN PERINGKAT</a>
+            <a class="active" href="lomba.html">LOMBA & ACARA</a>
+            <a href="tentang.html">TENTANG</a>
+        </nav>
+        <div class="sidebar-footer">
+            <img class="sidebar-footer-logo" src="images/mirai/logo/MNH1-nav.png" alt="MIRAI NO HANA">
+            <p class="sidebar-footer-desc">Website Materi Klub Jepang MIRAI NO HANA SMASYIMDUTA Sidoarjo.<br><br><span class="sidebar-footer-sub">Website ini dikelola oleh kepengurusan Klub Jepang MIRAI NO HANA dan tidak ada campur tangan oleh pihak sekolah.</span></p>
+            <div class="sidebar-footer-social">
+                <a class="sidebar-social-link" href="https://www.instagram.com/mirainohana_smawh2?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" aria-label="Instagram Mirai No Hana">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    <span>@mirainohana_smawh2</span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <main>
+        <!-- HERO -->
+        <section class="page-hero lomba-hero">
+            <div>
+                <h1 class="page-title">Informasi Lomba &amp;<br><span>Acara Jejepangan</span></h1>
+            </div>
+        </section>
+
+        <!-- BAGIAN 1: INFO LOMBA (PAGE 1) -->
+        <section class="section lomba-upcoming-section" id="infoLomba">
+            <div class="section-intro">
+                <p class="kicker">AGENDA &amp; JADWAL KOMPETISI</p>
+                <h2 class="heading">Info Lomba</h2>
+                <p class="copy">Jadwal resmi perlombaan dan festival Jepang yang siap diikuti anggota Mirai No Hana. Informasi lengkap juknis dan kontak pendamping ekskul tersedia di bawah.</p>
+            </div>
+
+            <!-- Filter Tingkat Lomba -->
+            <div class="lomba-filter-bar" role="tablist" aria-label="Filter Tingkat Lomba">
+                <button type="button" class="lomba-filter-chip active" data-level="all">Semua Tingkat (4)</button>
+                <button type="button" class="lomba-filter-chip" data-level="sidoarjo">Tingkat Sidoarjo</button>
+                <button type="button" class="lomba-filter-chip" data-level="surabaya">Tingkat Surabaya</button>
+                <button type="button" class="lomba-filter-chip" data-level="jatim">Tingkat Jawa Timur</button>
+                <button type="button" class="lomba-filter-chip" data-level="nasional">Tingkat Nasional</button>
+            </div>
+
+            <!-- Grid Event Lomba -->
+            <div class="lomba-events-grid" id="eventsGrid">
+
+                <!-- 1. Bunkasai SMA Jawa Timur -->
+                <article class="event-card" data-level="jatim" style="--event-border: #f97316; --event-border-rgb: 249, 115, 22;">
+                    <div class="event-card-header">
+                        <span class="event-level-badge level-jatim">Tingkat Jawa Timur</span>
+                        <span class="event-status-tag status-open">🟢 Pendaftaran Dibuka</span>
+                    </div>
+                    <div class="event-card-banner">
+                        <img src="images/mirai/stiker/beli.jpeg" alt="Bunkasai SMA Jawa Timur" class="event-banner-img">
+                    </div>
+                    <div class="event-card-content">
+                        <h3 class="event-title">Festival Bunkasai SMA Se-Jawa Timur 2026</h3>
+                        <div class="event-organizer-tag">
+                            <span>🏢 MGMP Bahasa Jepang Provinsi Jawa Timur</span>
+                        </div>
+
+                        <div class="event-meta-grid">
+                            <div class="meta-item">
+                                <span class="meta-icon">📅</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Pelaksanaan</span>
+                                    <span class="meta-val">16 – 17 Mei 2026</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">⏳</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Batas Pendaftaran</span>
+                                    <span class="meta-val">30 April 2026</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">📍</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Lokasi Acara</span>
+                                    <span class="meta-val">Balai Pemuda &amp; Gedung Budaya Surabaya</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">🏆</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Cabang Lomba</span>
+                                    <span class="meta-val">Rodoku, Shodou, Cerdas Cermat, Cosplay Walk, Desain Maskot</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="event-mentor-box">
+                            <span class="mentor-badge">👤 Pendamping Ekskul:</span>
+                            <p class="mentor-desc">Senpai Arya &amp; Pembina Divisi Bahasa (WhatsApp: 0812-3456-7890)</p>
+                        </div>
+
+                        <div class="event-card-actions">
+                            <button type="button" class="btn-juknis" data-event-modal="modal-jatim">
+                                <span>📄 Buka Petunjuk Teknis (Juknis)</span>
+                            </button>
+                            <a href="https://www.instagram.com/mirainohana_smawh2" target="_blank" rel="noopener noreferrer" class="btn-daftar-ekskul">
+                                <span>Hubungi Pendamping →</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 2. Japan Fest Sidoarjo Pelajar -->
+                <article class="event-card" data-level="sidoarjo" style="--event-border: #38bdf8; --event-border-rgb: 56, 189, 248;">
+                    <div class="event-card-header">
+                        <span class="event-level-badge level-sidoarjo">Tingkat Sidoarjo</span>
+                        <span class="event-status-tag status-open">🟢 Pendaftaran Dibuka</span>
+                    </div>
+                    <div class="event-card-banner">
+                        <img src="images/mirai/stiker/ala.jpeg" alt="Japan Fest Sidoarjo" class="event-banner-img">
+                    </div>
+                    <div class="event-card-content">
+                        <h3 class="event-title">Japan Fest Sidoarjo Pelajar 2026</h3>
+                        <div class="event-organizer-tag">
+                            <span>🏢 Komunitas Budaya Jepang Delta Sidoarjo</span>
+                        </div>
+
+                        <div class="event-meta-grid">
+                            <div class="meta-item">
+                                <span class="meta-icon">📅</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Pelaksanaan</span>
+                                    <span class="meta-val">20 Juni 2026</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">⏳</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Batas Pendaftaran</span>
+                                    <span class="meta-val">5 Juni 2026</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">📍</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Lokasi Acara</span>
+                                    <span class="meta-val">Aula Serbaguna Sidoarjo</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">🏆</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Cabang Lomba</span>
+                                    <span class="meta-val">Cerdas Cermat, Anisong Singing Contest, Kana Speed Challenge</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="event-mentor-box">
+                            <span class="mentor-badge">👤 Pendamping Ekskul:</span>
+                            <p class="mentor-desc">Ketua Ekskul Mirai No Hana (WhatsApp: 0821-9876-5432)</p>
+                        </div>
+
+                        <div class="event-card-actions">
+                            <button type="button" class="btn-juknis" data-event-modal="modal-sidoarjo">
+                                <span>📄 Buka Petunjuk Teknis (Juknis)</span>
+                            </button>
+                            <a href="https://www.instagram.com/mirainohana_smawh2" target="_blank" rel="noopener noreferrer" class="btn-daftar-ekskul">
+                                <span>Hubungi Pendamping →</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 3. Festival Bunkasai Surabaya -->
+                <article class="event-card" data-level="surabaya" style="--event-border: #10b981; --event-border-rgb: 16, 185, 129;">
+                    <div class="event-card-header">
+                        <span class="event-level-badge level-surabaya">Tingkat Surabaya</span>
+                        <span class="event-status-tag status-soon">🟡 Segera Hadir</span>
+                    </div>
+                    <div class="event-card-banner">
+                        <img src="images/mirai/stiker/cer.jpeg" alt="Bunkasai Surabaya" class="event-banner-img">
+                    </div>
+                    <div class="event-card-content">
+                        <h3 class="event-title">Bunkasai Surabaya Pelajar &amp; Mahasiswa 2026</h3>
+                        <div class="event-organizer-tag">
+                            <span>🏢 Himpunan Mahasiswa Bahasa Jepang Surabaya</span>
+                        </div>
+
+                        <div class="event-meta-grid">
+                            <div class="meta-item">
+                                <span class="meta-icon">📅</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Pelaksanaan</span>
+                                    <span class="meta-val">4 – 5 Juli 2026</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">⏳</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Batas Pendaftaran</span>
+                                    <span class="meta-val">20 Juni 2026</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">📍</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Lokasi Acara</span>
+                                    <span class="meta-val">Kampus Lidah Wetan Surabaya</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">🏆</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Cabang Lomba</span>
+                                    <span class="meta-val">Shodou, Cosplay Solo/Duo, Rodoku, Karaoke Anisong</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="event-mentor-box">
+                            <span class="mentor-badge">👤 Pendamping Ekskul:</span>
+                            <p class="mentor-desc">Pembina Divisi Desain &amp; Cosplay (WhatsApp: 0857-1122-3344)</p>
+                        </div>
+
+                        <div class="event-card-actions">
+                            <button type="button" class="btn-juknis" data-event-modal="modal-surabaya">
+                                <span>📄 Buka Petunjuk Teknis (Juknis)</span>
+                            </button>
+                            <a href="https://www.instagram.com/mirainohana_smawh2" target="_blank" rel="noopener noreferrer" class="btn-daftar-ekskul">
+                                <span>Hubungi Pendamping →</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 4. Olimpiade Bahasa Jepang Nasional -->
+                <article class="event-card" data-level="nasional" style="--event-border: #e11d48; --event-border-rgb: 225, 29, 72;">
+                    <div class="event-card-header">
+                        <span class="event-level-badge level-nasional">Tingkat Nasional</span>
+                        <span class="event-status-tag status-open">🟢 Pendaftaran Dibuka</span>
+                    </div>
+                    <div class="event-card-banner">
+                        <img src="images/mirai/stiker/dip.jpeg" alt="Olimpiade Nasional" class="event-banner-img">
+                    </div>
+                    <div class="event-card-content">
+                        <h3 class="event-title">Olimpiade Bahasa Jepang Pelajar Nasional 2026</h3>
+                        <div class="event-organizer-tag">
+                            <span>🏢 Asosiasi Guru Bahasa Jepang Indonesia (AGBJI)</span>
+                        </div>
+
+                        <div class="event-meta-grid">
+                            <div class="meta-item">
+                                <span class="meta-icon">📅</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Pelaksanaan</span>
+                                    <span class="meta-val">12 – 13 Agustus 2026</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">⏳</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Batas Pendaftaran</span>
+                                    <span class="meta-val">25 Juli 2026</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">📍</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Lokasi Acara</span>
+                                    <span class="meta-val">Daring (Penyisihan) &amp; Balai Budaya Jakarta (Final)</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">🏆</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Cabang Lomba</span>
+                                    <span class="meta-val">Benron Taikai (Pidato Jepang) &amp; Standarisasi JLPT</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="event-mentor-box">
+                            <span class="mentor-badge">👤 Pendamping Ekskul:</span>
+                            <p class="mentor-desc">Guru Pembina Utama Klub Jepang SMASYIMDUTA (Ruang Guru)</p>
+                        </div>
+
+                        <div class="event-card-actions">
+                            <button type="button" class="btn-juknis" data-event-modal="modal-nasional">
+                                <span>📄 Buka Petunjuk Teknis (Juknis)</span>
+                            </button>
+                            <a href="https://www.instagram.com/mirainohana_smawh2" target="_blank" rel="noopener noreferrer" class="btn-daftar-ekskul">
+                                <span>Hubungi Pendamping →</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- BAGIAN 2: KATEGORI PERLOMBAAN (PAGE 2) -->
+        <section class="section lomba-catalog-section" id="kategoriLomba">
+            <div class="section-intro">
+                <p class="kicker">KATEGORI PERLOMBAAN · 競技一覧</p>
+                <h2 class="heading">Kategori Perlombaan,<br><span>Kuasai Materi &amp; Tampil Percaya Diri.</span></h2>
+                <p class="copy">Pelajari standar penilaian juri, tips pembawaan, hingga etika kompetisi di setiap cabang lomba agar persiapan delegasi klub matang dan maksimal.</p>
+            </div>
+
+            <div class="lomba-cards-stack">
+
+                <!-- 1. RODOKU -->
+                <article class="lomba-detail-card" style="--lomba-accent: #0284c7; --lomba-accent-rgb: 2, 132, 199;">
+                    <div class="lomba-card-top">
+                        <div class="lomba-card-badge">
+                            <span class="badge-dot"></span>
+                            CABANG 01 · 朗読
+                        </div>
+                        <span class="lomba-card-tag">MEMBACA TEKS BAHASA JEPANG</span>
+                    </div>
+
+                    <div class="lomba-card-header-compact">
+                        <div class="lomba-cat-icon">🎙️</div>
+                        <div class="lomba-head-info">
+                            <h3 class="lomba-name">Rodoku (朗読)</h3>
+                            <span class="lomba-subtitle">Seni Membaca Teks Cerita Tradisional Jepang</span>
+                            <span class="lomba-stat-pill">🎯 Fokus: Intonasi &amp; Penjiwaan</span>
+                        </div>
+                    </div>
+
+                    <div class="lomba-card-content-compact">
+                        <div class="lomba-guide-box">
+                            <h4 class="guide-title">🎙️ Tips Intonasi &amp; Kejelasan Lafal (Hatsuon):</h4>
+                            <ul class="guide-list">
+                                <li><strong>Aksen Nada (Pitch Accent):</strong> Kuasai tinggi-rendah nada kata bahasa Jepang (<em>Atamadaka, Nakadaka, Odaka, Heiban</em>), bukan penekanan keras seperti bahasa Indonesia.</li>
+                                <li><strong>Presisi Vokal &amp; Konsonan:</strong> Jaga panjang vokal (<em>chouon</em>: <em>obaasan</em> vs <em>obasan</em>) dan jeda konsonan rangkap (<em>sokuon</em>: <em>kitta</em> vs <em>kita</em>) sesuai durasi mora.</li>
+                                <li><strong>Jeda Bernapas (Ma 間):</strong> Manfaatkan koma (、) dan titik (。) untuk mengambil nafas tanpa memutus kesatuan makna frasa.</li>
+                                <li><strong>Ekspresi &amp; Kontak Mata:</strong> Walaupun membaca teks, sesekali arahkan pandangan ke dewan juri untuk memperkuat emosi dialog.</li>
+                            </ul>
+                        </div>
+
+                        <div class="lomba-sample-box">
+                            <h4 class="sample-title">📜 Contoh Teks Latihan Lomba:</h4>
+                            <div class="sample-text-area">
+                                <p class="sample-kanji">昔々、ある所に、おじいさんとおばあさんが住んでいました。おじいさんは山へ柴刈りに、おばあさんは川へ洗濯に行きました。</p>
+                                <p class="sample-romaji">Mukashi mukashi, aru tokoro ni, ojiisan to obaasan ga sunde imashita. Ojiisan wa yama e shibakari ni, obaasan wa kawa e sentaku ni ikimashita.</p>
+                                <p class="sample-artinya"><em>"Dahulu kala, di suatu tempat, hiduplah sepasang kakek dan nenek. Kakek pergi ke gunung mencari kayu bakar, nenek pergi ke sungai mencuci pakaian."</em></p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 2. SHODOU -->
+                <article class="lomba-detail-card" style="--lomba-accent: #d97706; --lomba-accent-rgb: 217, 119, 6;">
+                    <div class="lomba-card-top">
+                        <div class="lomba-card-badge">
+                            <span class="badge-dot"></span>
+                            CABANG 02 · 書道
+                        </div>
+                        <span class="lomba-card-tag">KALIGRAFI TRADISIONAL JEPANG</span>
+                    </div>
+
+                    <div class="lomba-card-header-compact">
+                        <div class="lomba-cat-icon">🖌️</div>
+                        <div class="lomba-head-info">
+                            <h3 class="lomba-name">Shodou (書道)</h3>
+                            <span class="lomba-subtitle">Keindahan Harmoni Guratan Tinta Kuas</span>
+                            <span class="lomba-stat-pill">🖌️ Fokus: Presisi &amp; Keseimbangan</span>
+                        </div>
+                    </div>
+
+                    <div class="lomba-card-content-compact">
+                        <div class="lomba-guide-box">
+                            <h4 class="guide-title">🧰 Perlengkapan Wajib Kaligrafi (Bunbou Shihou):</h4>
+                            <div class="tools-grid">
+                                <div class="tool-tag"><strong>Fude (筆):</strong> Kuas bulu alami untuk tebal-tipis garis.</div>
+                                <div class="tool-tag"><strong>Sumi (墨):</strong> Batang tinta hitam tradisional pekat.</div>
+                                <div class="tool-tag"><strong>Hanshi (半紙):</strong> Kertas tipis berserat penyerap tinta.</div>
+                                <div class="tool-tag"><strong>Suzuri (硯):</strong> Batu asah pelarut tinta dengan air.</div>
+                                <div class="tool-tag"><strong>Shitajiki (下敷き):</strong> Kain felt lembut pelindung meja.</div>
+                                <div class="tool-tag"><strong>Bunchin (文鎮):</strong> Batang logam pemberat kertas.</div>
+                            </div>
+                        </div>
+
+                        <div class="lomba-sample-box">
+                            <h4 class="sample-title">⚖️ Tiga Teknik Guratan Pokok &amp; Penilaian:</h4>
+                            <ul class="guide-list">
+                                <li><strong>Tome (止め):</strong> Menghentikan sapuan kuas dengan tekanan mantap di akhir garis tanpa ada tinta yang melenceng.</li>
+                                <li><strong>Hane (跳ね):</strong> Melentingkan ujung kuas ke atas/samping secara lincah dan berenergi.</li>
+                                <li><strong>Harai (払い):</strong> Menyapu kuas meluncur keluar secara perlahan hingga ujung goresan meruncing anggun.</li>
+                                <li><strong>Kriteria Penilaian:</strong> Keseimbangan bidang ruang kertas (<em>kousei</em>), kebersihan goresan, keteguhan sikap duduk (<em>shisei</em>), dan ritme tarikan nafas.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 3. CERDAS CERMAT -->
+                <article class="lomba-detail-card" style="--lomba-accent: #059669; --lomba-accent-rgb: 5, 150, 105;">
+                    <div class="lomba-card-top">
+                        <div class="lomba-card-badge">
+                            <span class="badge-dot"></span>
+                            CABANG 03 · ベンキョウ
+                        </div>
+                        <span class="lomba-card-tag">CERDAS CERMAT &amp; KUIS BUDAYA</span>
+                    </div>
+
+                    <div class="lomba-card-header-compact">
+                        <div class="lomba-cat-icon">🧠</div>
+                        <div class="lomba-head-info">
+                            <h3 class="lomba-name">Benkyou Contest</h3>
+                            <span class="lomba-subtitle">Adu Cepat Wawasan Budaya &amp; Tata Bahasa</span>
+                            <span class="lomba-stat-pill">🧠 Fokus: Wawasan, Kanji &amp; Kecepatan</span>
+                        </div>
+                    </div>
+
+                    <div class="lomba-card-content-compact">
+                        <div class="lomba-guide-box">
+                            <h4 class="guide-title">📚 Kisi-Kisi Materi Ujian &amp; Pertanyaan:</h4>
+                            <ul class="guide-list">
+                                <li><strong>Kebudayaan Umum Jepang:</strong> Perayaan kalender tahunan (<em>Hatsumode, Setsubun, Hinamatsuri, Tanabata, Obon</em>), upacara minum teh (<em>Chado</em>), pakaian tradisional (<em>Yukata, Kimono</em>), dan kuliner khas (<em>Washoku</em>).</li>
+                                <li><strong>Geografi &amp; Prefektur:</strong> 4 pulau utama (<em>Honshu, Hokkaido, Kyushu, Shikoku</em>), Gunung Fuji, serta keunikan prefektur (Tokyo, Kyoto, Osaka, Nara, Hiroshima).</li>
+                                <li><strong>Tata Bahasa (Bunpou) JLPT N5–N4:</strong> Partikel krusial (<em>wa, ga, o, ni, de, to, mo, kara, made</em>) serta ragam konjugasi kata kerja (<em>~te, ~nai, ~ta, ~masu</em>).</li>
+                                <li><strong>Aksara Kanji &amp; Kosakata:</strong> Mengenali radikal (<em>bushu</em>), jumlah goresan (<em>kakusuu</em>), dan bacaan Onyomi/Kunyomi dasar tingkat N5.</li>
+                            </ul>
+                        </div>
+
+                        <div class="lomba-sample-box">
+                            <h4 class="sample-title">⚡ Taktik Sukses Lomba Cerdas Cermat:</h4>
+                            <p class="sample-artinya">Bagi timmu (3 orang) menjadi spesialis: 1 orang fokus pada tombol bel &amp; tata bahasa cepat, 1 orang ahli menghafal sejarah/budaya, dan 1 orang penguasa kanji &amp; angka. Komunikasi bisik cepat tanpa panik adalah kunci kemenangan!</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 4. COSPLAY & ANISONG -->
+                <article class="lomba-detail-card" style="--lomba-accent: #e11d48; --lomba-accent-rgb: 225, 29, 72;">
+                    <div class="lomba-card-top">
+                        <div class="lomba-card-badge">
+                            <span class="badge-dot"></span>
+                            CABANG 04 · コスプレ＆アニソン
+                        </div>
+                        <span class="lomba-card-tag">PERFORMA PANGGUNG &amp; VOKAL</span>
+                    </div>
+
+                    <div class="lomba-card-header-compact">
+                        <div class="lomba-cat-icon">🎭</div>
+                        <div class="lomba-head-info">
+                            <h3 class="lomba-name">Cosplay &amp; Anisong</h3>
+                            <span class="lomba-subtitle">Kreativitas Kostum Karakter &amp; Bakat Vokal</span>
+                            <span class="lomba-stat-pill">🎭 Fokus: Karakter, Vokal &amp; Etika</span>
+                        </div>
+                    </div>
+
+                    <div class="lomba-card-content-compact">
+                        <div class="lomba-guide-box">
+                            <h4 class="guide-title">⭐ Kriteria Penilaian Dewan Juri:</h4>
+                            <ul class="guide-list">
+                                <li><strong>Cosplay (Craftsmanship &amp; Performance):</strong> Kemiripan visual dengan referensi asli (<em>screen accuracy</em>), teknik styling wig, kerapian jahitan/armor prop, serta penjiwaan watak peran (<em>in-character</em>) saat tampil di panggung.</li>
+                                <li><strong>Anisong (Vocal &amp; Stage Presence):</strong> Ketepatan nada (<em>pitch</em>), tempo, penguasaan lirik bahasa Jepang tanpa contek, dinamika emosi, artikulasi suara jelas, dan penguasaan panggung (<em>eye contact</em>).</li>
+                            </ul>
+                        </div>
+
+                        <div class="lomba-sample-box">
+                            <h4 class="sample-title">🛡️ Etika &amp; Regulasi Keselamatan Lomba:</h4>
+                            <ul class="guide-list">
+                                <li><strong>Prinsip 'Cosplay is Not Consent':</strong> Wajib saling menghargai privasi dan batasan fisik peserta lain. Selalu minta izin sebelum memotret atau merekam.</li>
+                                <li><strong>Keamanan Senjata/Properti Tiruan:</strong> Dilarang keras membawa senjata berbahan logam tajam, mesiu, atau benda berbahaya. Gunakan bahan aman seperti busa hati (<em>EVA foam</em>).</li>
+                                <li><strong>Etika Ruang Ganti &amp; Panggung:</strong> Wajib berganti pakaian di bilik resmi yang disediakan panitia dan menjaga kebersihan ruangan bersama.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL POPUP JUKNIS (PANDUAN LOMBA) -->
+    <div id="juknisModal" class="juknis-modal-backdrop" aria-hidden="true">
+        <div class="juknis-modal-box">
+            <button type="button" class="juknis-close-btn" id="juknisCloseBtn" aria-label="Tutup Panduan Juknis">✕</button>
+            <div class="modal-badge-row">
+                <span class="modal-tag" id="modalTag">PETUNJUK TEKNIS RESMI</span>
+            </div>
+            <h3 class="modal-title" id="modalTitle">Panduan Teknis Perlombaan</h3>
+            <p class="modal-desc" id="modalDesc">Berikut adalah rangkuman juknis penting untuk persiapan delegasi ekskul.</p>
+            
+            <div class="modal-rules-box" id="modalRules">
+                <h4>Persyaratan Umum Delegasi Mirai No Hana:</h4>
+                <ol>
+                    <li>Peserta adalah siswa/i aktif SMASYIMDUTA dan anggota terdaftar Klub Jepang Mirai No Hana.</li>
+                    <li>Wajib mengikuti bimbingan intensif bersama senpai pendamping divisi minimal 2 minggu sebelum hari lomba.</li>
+                    <li>Seluruh biaya pendaftaran dan konsumsi delegasi dikoordinasikan bersama pihak sekolah &amp; kas ekskul.</li>
+                    <li>Peserta diwajibkan menjunjung tinggi sportivitas, etika berbicara, dan nama baik almamater sekolah.</li>
+                </ol>
+            </div>
+
+            <div class="modal-actions-row">
+                <a href="https://www.instagram.com/mirainohana_smawh2" target="_blank" rel="noopener" class="modal-btn-download">
+                    <span>💬 Hubungi Pendamping di Instagram</span>
+                </a>
+                <button type="button" class="modal-btn-close" id="modalOkBtn">Tutup Juknis</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- GLOBAL FOOTER -->
+    <footer class="global-footer">
+        <div class="global-footer-main">
+            <div class="global-footer-col left">
+                <img class="footer-logo" src="images/mirai/logo/MNH1-nav.png" alt="MIRAI NO HANA">
+                <p class="global-footer-disclaimer"><strong>PENYANGKALAN</strong> Beberapa aset di dalam website ini mungkin saja adalah bukan hasil dari karya kami sendiri dan kami tidak memiliki maksud untuk mengambil kepemilikan atas aset itu dan hanya digunakan sebatas untuk edukasi.</p>
+            </div>
+            <div class="global-footer-col right">
+                <h4 class="global-footer-heading">Media Sosial</h4>
+                <a class="global-footer-social" href="https://www.instagram.com/mirainohana_smawh2?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" aria-label="Instagram Mirai No Hana">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    <span>@mirainohana_smawh2</span>
+                </a>
+            </div>
+        </div>
+        <div class="global-footer-bottom">
+            <p>© 2026 MIRAI NO HANA | Kabinet Sora | Ditenagai oleh Github</p>
+        </div>
+    </footer>
+
+    <button class="to-top" type="button" aria-label="Kembali ke atas">↑</button>
+
+    <!-- SCRIPT FILTER EVENT & MODAL JUKNIS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Filter Tingkat Lomba
+            const filterChips = document.querySelectorAll('.lomba-filter-chip');
+            const eventCards = document.querySelectorAll('.event-card');
+
+            filterChips.forEach(chip => {
+                chip.addEventListener('click', () => {
+                    filterChips.forEach(c => c.classList.remove('active'));
+                    chip.classList.add('active');
+
+                    const level = chip.getAttribute('data-level');
+                    eventCards.forEach(card => {
+                        if (level === 'all' || card.getAttribute('data-level') === level) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // 2. Modal Juknis
+            const modal = document.getElementById('juknisModal');
+            const closeBtn = document.getElementById('juknisCloseBtn');
+            const okBtn = document.getElementById('modalOkBtn');
+            const juknisBtns = document.querySelectorAll('.btn-juknis');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalDesc = document.getElementById('modalDesc');
+
+            const juknisData = {
+                'modal-jatim': {
+                    title: "Juknis Bunkasai SMA Se-Jawa Timur 2026",
+                    desc: "Panduan resmi cabang Rodoku, Shodou, dan Cerdas Cermat. Delegasi diwajibkan mengumpulkan berkas formulir dan surat tugas sekolah paling lambat 30 April 2026."
+                },
+                'modal-sidoarjo': {
+                    title: "Juknis Japan Fest Sidoarjo 2026",
+                    desc: "Petunjuk teknis cabang Cerdas Cermat, Anisong, dan Kana Speed Challenge. Lomba bertempat di Aula Serbaguna Sidoarjo pada 20 Juni 2026."
+                },
+                'modal-surabaya': {
+                    title: "Juknis Bunkasai Surabaya 2026",
+                    desc: "Panduan lomba Shodou, Cosplay, dan Karaoke Anisong. Properti cosplay wajib lolos inspeksi keamanan prop saat gladi bersih."
+                },
+                'modal-nasional': {
+                    title: "Juknis Olimpiade Bahasa Jepang Nasional 2026",
+                    desc: "Petunjuk teknis Benron Taikai (Pidato Bahasa Jepang) bertema 'Jembatan Masa Depan Generasi Muda'. Babak penyisihan dilakukan melalui rekaman video tanpa cut."
+                }
+            };
+
+            juknisBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const key = btn.getAttribute('data-event-modal');
+                    const info = juknisData[key];
+                    if (info) {
+                        modalTitle.innerText = info.title;
+                        modalDesc.innerText = info.desc;
+                    }
+                    modal.classList.add('active');
+                    modal.setAttribute('aria-hidden', 'false');
+                });
+            });
+
+            function closeModal() {
+                modal.classList.remove('active');
+                modal.setAttribute('aria-hidden', 'true');
+            }
+
+            if (closeBtn) closeBtn.addEventListener('click', closeModal);
+            if (okBtn) okBtn.addEventListener('click', closeModal);
+            if (modal) {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal();
+                });
+            }
+        });
+    </script>
+
+    <script src="js/sora.js"></script>
+    <script src="js/main.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+

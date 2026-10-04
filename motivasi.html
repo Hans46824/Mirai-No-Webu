@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kata-Kata Motivasi Karakter Anime — MIRAI NO HANA</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Noto+Serif+JP:wght@600;700;900&display=swap" rel="stylesheet">
+</head>
+<body class="page-motivasi">
+    <header class="home-header">
+        <a class="brand" href="index.html">
+            <img src="images/mirai/logo/MNH1-nav.png" alt="MIRAI NO HANA">
+        </a>
+    </header>
+    <button class="menu-btn" type="button" aria-label="Buka Menu" aria-expanded="false">MENU ☰</button>
+
+    <div class="sidebar-overlay" aria-hidden="true"></div>
+    <aside class="sidebar-nav" aria-label="Menu Navigasi">
+        <div class="sidebar-header">
+            <span class="sidebar-label">MENU</span>
+            <button class="close-btn" type="button" aria-label="Tutup Menu">✕</button>
+        </div>
+        <nav class="sidebar-links">
+            <a href="index.html">BERANDA</a>
+            <a href="kelas.html">KELAS</a>
+            <a href="kamus.html">KAMUS</a>
+            <a href="kegiatan.html">KEGIATAN</a>
+            <a href="rekomendasi.html">REKOMENDASI</a>
+            <a href="peringkat.html">PAPAN PERINGKAT</a>
+            <a href="lomba.html">LOMBA & ACARA</a>
+            <a href="tentang.html">TENTANG</a>
+        </nav>
+        <div class="sidebar-footer">
+            <img class="sidebar-footer-logo" src="images/mirai/logo/MNH1-nav.png" alt="MIRAI NO HANA">
+            <p class="sidebar-footer-desc">Website Materi Klub Jepang MIRAI NO HANA SMASYIMDUTA Sidoarjo.<br><br><span class="sidebar-footer-sub">Website ini dikelola oleh kepengurusan Klub Jepang MIRAI NO HANA dan tidak ada campur tangan oleh pihak sekolah.</span></p>
+            <div class="sidebar-footer-social">
+                <a class="sidebar-social-link" href="https://www.instagram.com/mirainohana_smawh2?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" aria-label="Instagram Mirai No Hana">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    <span>@mirainohana_smawh2</span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <main>
+        <!-- HERO -->
+        <section class="page-hero motivasi-hero">
+            <div>
+                <p class="eyebrow">KUTIPAN INSPIRATIF · 名言集</p>
+                <h1 class="page-title">Kata-Kata Motivasi<br><span>Karakter Anime.</span></h1>
+                <p class="hero-lead" style="max-width: 760px; margin: 18px auto 0; color: rgba(255, 255, 255, 0.88); line-height: 1.75; font-size: clamp(14px, 1.25vw, 16.5px);">
+                    Kutipan paling legendaris dan ikonis dari para tokoh utama anime populer, lengkap dengan aksara Kanji asli, pelafalan Romaji, arti harfiah, serta tafsir makna positifnya untuk membakar semangat belajar, berkarya, dan berjuang meraih impian.
+                </p>
+            </div>
+        </section>
+
+        <!-- KONTEN UTAMA KUTIPAN -->
+        <section class="section motivasi-section">
+            <!-- SOROTAN KUTIPAN ACAK HARI INI -->
+            <div class="motivasi-spotlight-wrap">
+                <div class="motivasi-spotlight-card">
+                    <div class="spotlight-left">
+                        <span class="spotlight-badge">
+                            <span class="badge-dot"></span>
+                            INSPIRASI INSTAN HARI INI
+                        </span>
+                        <h2 class="spotlight-title">Butuh Suntikan Semangat Cepat?</h2>
+                        <p class="spotlight-desc">Klik tombol di samping untuk mengacak salah satu kutipan anime legendaris sebagai pemantik tekad dan fokus belajarmu hari ini.</p>
+                    </div>
+                    <button type="button" class="spotlight-btn" id="randomQuoteBtn">
+                        <span>🎲 Acak Kutipan Hari Ini</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- FILTER CHIPS -->
+            <div class="motivasi-filter-bar" role="tablist" aria-label="Filter Anime">
+                <button type="button" class="motivasi-chip active" data-filter="all">Semua Anime (7)</button>
+                <button type="button" class="motivasi-chip" data-filter="one-piece">One Piece</button>
+                <button type="button" class="motivasi-chip" data-filter="attack-on-titan">Attack on Titan</button>
+                <button type="button" class="motivasi-chip" data-filter="naruto">Naruto</button>
+                <button type="button" class="motivasi-chip" data-filter="my-hero-academia">My Hero Academia</button>
+                <button type="button" class="motivasi-chip" data-filter="demon-slayer">Demon Slayer</button>
+                <button type="button" class="motivasi-chip" data-filter="black-clover">Black Clover</button>
+                <button type="button" class="motivasi-chip" data-filter="haikyuu">Haikyuu!!</button>
+            </div>
+
+            <!-- DAFTAR KARTU KUTIPAN ANIME -->
+            <div class="quote-cards-grid" id="quoteGrid">
+                
+                <!-- 1. Monkey D. Luffy (One Piece) -->
+                <article class="quote-card" data-anime="one-piece" style="--quote-accent: #ff5252; --quote-glow: rgba(255, 82, 82, 0.4); --quote-line: linear-gradient(90deg, #ff5252, #ffb142); --quote-border: rgba(255, 82, 82, 0.35); --quote-badge-bg: rgba(255, 82, 82, 0.16); --quote-badge-border: rgba(255, 82, 82, 0.45);">
+                    <div class="quote-card-header">
+                        <span class="quote-card-badge">
+                            <span class="badge-dot"></span>
+                            TOKOH 01 · 麦わらのルフィ
+                        </span>
+                        <span class="quote-card-tag">ONE PIECE · EIICHIRO ODA</span>
+                    </div>
+                    <div class="quote-card-body">
+                        <!-- Baris Atas: 2 Box (Kiri Foto & Identitas, Kanan Kutipan) -->
+                        <div class="quote-top-row">
+                            <div class="quote-author-profile">
+                                <div class="quote-avatar-wrap">
+                                    <img class="quote-avatar-img" src="images/mirai/stiker/sor.jpeg" alt="Monkey D. Luffy">
+                                </div>
+                                <h3 class="quote-author-name">Monkey D. Luffy</h3>
+                                <span class="quote-anime-title">One Piece</span>
+                            </div>
+                            <div class="quote-box">
+                                <h4 class="quote-kanji">海賊王に、おれはなる！</h4>
+                                <p class="quote-romaji">Kaizoku-ou ni, ore wa naru!</p>
+                                <div class="quote-literal">
+                                    <span>Arti Harfiah: &quot;Aku akan menjadi Raja Bajak Laut!&quot;</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Baris Bawah: 1 Box Memanjang Penuh (Makna Kutipan) -->
+                        <div class="quote-meaning-card">
+                            <div class="quote-meaning-head">
+                                <span class="quote-meaning-badge">🌟 Makna Kutipan</span>
+                                <h5 class="quote-meaning-title">Berani Bermimpi Besar Tanpa Ragu</h5>
+                            </div>
+                            <p class="quote-meaning-body">Deklarasi tanpa kompromi untuk menancapkan tujuan hidup setinggi-tingginya. Jangan takut memimpikan hal yang dianggap mustahil oleh orang lain; ucapkan dengan yakin dan kejarlah dengan seluruh tenaga.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 2. Eren Yeager & Pasukan Penyelidik (Attack on Titan) -->
+                <article class="quote-card" data-anime="attack-on-titan" style="--quote-accent: #10b981; --quote-glow: rgba(16, 185, 129, 0.4); --quote-line: linear-gradient(90deg, #10b981, #34d399); --quote-border: rgba(16, 185, 129, 0.35); --quote-badge-bg: rgba(16, 185, 129, 0.16); --quote-badge-border: rgba(16, 185, 129, 0.45);">
+                    <div class="quote-card-header">
+                        <span class="quote-card-badge">
+                            <span class="badge-dot"></span>
+                            TOKOH 02 · 調査兵団
+                        </span>
+                        <span class="quote-card-tag">ATTACK ON TITAN · SHINGEKI NO KYOJIN</span>
+                    </div>
+                    <div class="quote-card-body">
+                        <!-- Baris Atas: 2 Box (Kiri Foto & Identitas, Kanan Kutipan) -->
+                        <div class="quote-top-row">
+                            <div class="quote-author-profile">
+                                <div class="quote-avatar-wrap">
+                                    <img class="quote-avatar-img" src="images/mirai/stiker/mas.jpeg" alt="Eren Yeager & Pasukan Penyelidik">
+                                </div>
+                                <h3 class="quote-author-name">Eren Yeager &amp; Pasukan Penyelidik</h3>
+                                <span class="quote-anime-title">Attack on Titan</span>
+                            </div>
+                            <div class="quote-box">
+                                <h4 class="quote-kanji">心臓を捧げよ！</h4>
+                                <p class="quote-romaji">Shinzou o sasageyo!</p>
+                                <div class="quote-literal">
+                                    <span>Arti Harfiah: &quot;Persembahkan hatimu!&quot;</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Baris Bawah: 1 Box Memanjang Penuh (Makna Kutipan) -->
+                        <div class="quote-meaning-card">
+                            <div class="quote-meaning-head">
+                                <span class="quote-meaning-badge">🌟 Makna Kutipan</span>
+                                <h5 class="quote-meaning-title">Dedikasi Total &amp; Berikan yang Terbaik</h5>
+                            </div>
+                            <p class="quote-meaning-body">Memberikan &quot;hati&quot; bukan berarti mengorbankan nyawa secara sia-sia, melainkan mencurahkan 100% komitmen, energi, dan ketulusan pada apa yang sedang diperjuangkan (seperti belajar, berkarya, atau memajukan komunitas).</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 3. Uzumaki Naruto (Naruto) -->
+                <article class="quote-card" data-anime="naruto" style="--quote-accent: #f97316; --quote-glow: rgba(249, 115, 22, 0.4); --quote-line: linear-gradient(90deg, #f97316, #fbbf24); --quote-border: rgba(249, 115, 22, 0.35); --quote-badge-bg: rgba(249, 115, 22, 0.16); --quote-badge-border: rgba(249, 115, 22, 0.45);">
+                    <div class="quote-card-header">
+                        <span class="quote-card-badge">
+                            <span class="badge-dot"></span>
+                            TOKOH 03 · うずまきナルト
+                        </span>
+                        <span class="quote-card-tag">NARUTO · MASASHI KISHIMOTO</span>
+                    </div>
+                    <div class="quote-card-body">
+                        <!-- Baris Atas: 2 Box (Kiri Foto & Identitas, Kanan Kutipan) -->
+                        <div class="quote-top-row">
+                            <div class="quote-author-profile">
+                                <div class="quote-avatar-wrap">
+                                    <img class="quote-avatar-img" src="images/mirai/stiker/ita.jpeg" alt="Uzumaki Naruto">
+                                </div>
+                                <h3 class="quote-author-name">Uzumaki Naruto</h3>
+                                <span class="quote-anime-title">Naruto</span>
+                            </div>
+                            <div class="quote-box">
+                                <h4 class="quote-kanji">まっすぐ自分の言葉は曲げねぇ。それが俺の忍道だ！</h4>
+                                <p class="quote-romaji">Massugu jibun no kotoba wa magenee. Sore ga ore no nindou da!</p>
+                                <div class="quote-literal">
+                                    <span>Arti Harfiah: &quot;Aku tidak akan menarik kembali kata-kataku. Itulah jalan ninjaku!&quot;</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Baris Bawah: 1 Box Memanjang Penuh (Makna Kutipan) -->
+                        <div class="quote-meaning-card">
+                            <div class="quote-meaning-head">
+                                <span class="quote-meaning-badge">🌟 Makna Kutipan</span>
+                                <h5 class="quote-meaning-title">Integritas &amp; Memegang Teguh Prinsip</h5>
+                            </div>
+                            <p class="quote-meaning-body">Komitmen sejati terhadap janji dan tujuan diri sendiri. Apabila sudah menetapkan target untuk berkembang, jangan goyah oleh godaan rasa malas atau omongan orang lain.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 4. Midoriya Izuku / Deku (My Hero Academia) -->
+                <article class="quote-card" data-anime="my-hero-academia" style="--quote-accent: #06b6d4; --quote-glow: rgba(6, 182, 212, 0.4); --quote-line: linear-gradient(90deg, #06b6d4, #10b981); --quote-border: rgba(6, 182, 212, 0.35); --quote-badge-bg: rgba(6, 182, 212, 0.16); --quote-badge-border: rgba(6, 182, 212, 0.45);">
+                    <div class="quote-card-header">
+                        <span class="quote-card-badge">
+                            <span class="badge-dot"></span>
+                            TOKOH 04 · デク · PLUS ULTRA
+                        </span>
+                        <span class="quote-card-tag">MY HERO ACADEMIA · BOKU NO HERO</span>
+                    </div>
+                    <div class="quote-card-body">
+                        <!-- Baris Atas: 2 Box (Kiri Foto & Identitas, Kanan Kutipan) -->
+                        <div class="quote-top-row">
+                            <div class="quote-author-profile">
+                                <div class="quote-avatar-wrap">
+                                    <img class="quote-avatar-img" src="images/mirai/stiker/kok.jpeg" alt="Midoriya Izuku / Deku">
+                                </div>
+                                <h3 class="quote-author-name">Midoriya Izuku / Deku</h3>
+                                <span class="quote-anime-title">My Hero Academia</span>
+                            </div>
+                            <div class="quote-box">
+                                <h4 class="quote-kanji">限界を超えて、さらに向こうへ！プルス・ウルトラ！</h4>
+                                <p class="quote-romaji">Genkai o koete, sara ni mukou e! Purusu Urutora! (Plus Ultra)</p>
+                                <div class="quote-literal">
+                                    <span>Arti Harfiah: &quot;Lampaui batas, melangkah lebih jauh lagi! Plus Ultra!&quot;</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Baris Bawah: 1 Box Memanjang Penuh (Makna Kutipan) -->
+                        <div class="quote-meaning-card">
+                            <div class="quote-meaning-head">
+                                <span class="quote-meaning-badge">🌟 Makna Kutipan</span>
+                                <h5 class="quote-meaning-title">Terus Mengembangkan Diri Tanpa Batas</h5>
+                            </div>
+                            <p class="quote-meaning-body">Saat merasa sudah berada di ujung kemampuan, itu adalah tanda bahwa potensi diri sedang siap naik ke tingkat berikutnya. Selalu ada ruang untuk melangkah satu langkah lebih jauh dari kemarin.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 5. Tanjiro Kamado (Demon Slayer) -->
+                <article class="quote-card" data-anime="demon-slayer" style="--quote-accent: #38bdf8; --quote-glow: rgba(56, 189, 248, 0.4); --quote-line: linear-gradient(90deg, #38bdf8, #ef4444); --quote-border: rgba(56, 189, 248, 0.35); --quote-badge-bg: rgba(56, 189, 248, 0.16); --quote-badge-border: rgba(56, 189, 248, 0.45);">
+                    <div class="quote-card-header">
+                        <span class="quote-card-badge">
+                            <span class="badge-dot"></span>
+                            TOKOH 05 · 竈門炭治郎
+                        </span>
+                        <span class="quote-card-tag">DEMON SLAYER · KIMETSU NO YAIBA</span>
+                    </div>
+                    <div class="quote-card-body">
+                        <!-- Baris Atas: 2 Box (Kiri Foto & Identitas, Kanan Kutipan) -->
+                        <div class="quote-top-row">
+                            <div class="quote-author-profile">
+                                <div class="quote-avatar-wrap">
+                                    <img class="quote-avatar-img" src="images/mirai/stiker/kar.jpeg" alt="Tanjiro Kamado">
+                                </div>
+                                <h3 class="quote-author-name">Tanjiro Kamado</h3>
+                                <span class="quote-anime-title">Kimetsu no Yaiba</span>
+                            </div>
+                            <div class="quote-box">
+                                <h4 class="quote-kanji">頑張れ炭治郎、頑張れ！俺は今までよくやってきた！</h4>
+                                <p class="quote-romaji">Ganbare Tanjiro, ganbare! Ore wa ima made yoku yatte kita!</p>
+                                <div class="quote-literal">
+                                    <span>Arti Harfiah: &quot;Semangat Tanjiro, semangat! Selama ini aku sudah berjuang dengan baik!&quot;</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Baris Bawah: 1 Box Memanjang Penuh (Makna Kutipan) -->
+                        <div class="quote-meaning-card">
+                            <div class="quote-meaning-head">
+                                <span class="quote-meaning-badge">🌟 Makna Kutipan</span>
+                                <h5 class="quote-meaning-title">Apresiasi Diri Sendiri (Self-Compassion)</h5>
+                            </div>
+                            <p class="quote-meaning-body">Saat menghadapi rintangan berat, jangan terburu-buru mengkritik diri sendiri. Beri semangat pada diri, hargai proses perjuangan yang telah dilewati, lalu bangkit lagi dengan kepala tegak.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 6. Asta (Black Clover) -->
+                <article class="quote-card" data-anime="black-clover" style="--quote-accent: #e11d48; --quote-glow: rgba(225, 29, 72, 0.4); --quote-line: linear-gradient(90deg, #e11d48, #a855f7); --quote-border: rgba(225, 29, 72, 0.35); --quote-badge-bg: rgba(225, 29, 72, 0.16); --quote-badge-border: rgba(225, 29, 72, 0.45);">
+                    <div class="quote-card-header">
+                        <span class="quote-card-badge">
+                            <span class="badge-dot"></span>
+                            TOKOH 06 · アスタ · 諦めない
+                        </span>
+                        <span class="quote-card-tag">BLACK CLOVER · YŪKI TABATA</span>
+                    </div>
+                    <div class="quote-card-body">
+                        <!-- Baris Atas: 2 Box (Kiri Foto & Identitas, Kanan Kutipan) -->
+                        <div class="quote-top-row">
+                            <div class="quote-author-profile">
+                                <div class="quote-avatar-wrap">
+                                    <img class="quote-avatar-img" src="images/mirai/stiker/jaw.jpeg" alt="Asta">
+                                </div>
+                                <h3 class="quote-author-name">Asta</h3>
+                                <span class="quote-anime-title">Black Clover</span>
+                            </div>
+                            <div class="quote-box">
+                                <h4 class="quote-kanji">諦めないのが、俺の魔法だ！</h4>
+                                <p class="quote-romaji">Akiramenai no ga, ore no mahou da!</p>
+                                <div class="quote-literal">
+                                    <span>Arti Harfiah: &quot;Tidak menyerah adalah sihirku!&quot;</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Baris Bawah: 1 Box Memanjang Penuh (Makna Kutipan) -->
+                        <div class="quote-meaning-card">
+                            <div class="quote-meaning-head">
+                                <span class="quote-meaning-badge">🌟 Makna Kutipan</span>
+                                <h5 class="quote-meaning-title">Kerja Keras Mengalahkan Bakat Alami</h5>
+                            </div>
+                            <p class="quote-meaning-body">Tidak punya keistimewaan sejak awal bukan alasan untuk mundur. Ketekunan dan sifat pantang menyerah adalah kekuatan terbesar yang bisa mengimbangi siapa pun yang berbakat.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 7. Kageyama Tobio & Hinata Shoyo (Haikyuu!!) -->
+                <article class="quote-card" data-anime="haikyuu" style="--quote-accent: #f59e0b; --quote-glow: rgba(245, 158, 11, 0.4); --quote-line: linear-gradient(90deg, #f59e0b, #f97316); --quote-border: rgba(245, 158, 11, 0.35); --quote-badge-bg: rgba(245, 158, 11, 0.16); --quote-badge-border: rgba(245, 158, 11, 0.45);">
+                    <div class="quote-card-header">
+                        <span class="quote-card-badge">
+                            <span class="badge-dot"></span>
+                            TOKOH 07 · 烏野高校 · 飛べ
+                        </span>
+                        <span class="quote-card-tag">HAIKYUU!! · HARUICHI FURUDATE</span>
+                    </div>
+                    <div class="quote-card-body">
+                        <!-- Baris Atas: 2 Box (Kiri Foto & Identitas, Kanan Kutipan) -->
+                        <div class="quote-top-row">
+                            <div class="quote-author-profile">
+                                <div class="quote-avatar-wrap">
+                                    <img class="quote-avatar-img" src="images/mirai/stiker/ber.jpeg" alt="Kageyama Tobio & Hinata Shoyo">
+                                </div>
+                                <h3 class="quote-author-name">Kageyama Tobio &amp; Hinata Shoyo</h3>
+                                <span class="quote-anime-title">Haikyuu!!</span>
+                            </div>
+                            <div class="quote-box">
+                                <h4 class="quote-kanji">飛べ！</h4>
+                                <p class="quote-romaji">Tobe!</p>
+                                <div class="quote-literal">
+                                    <span>Arti Harfiah: &quot;Terbanglah!&quot;</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Baris Bawah: 1 Box Memanjang Penuh (Makna Kutipan) -->
+                        <div class="quote-meaning-card">
+                            <div class="quote-meaning-head">
+                                <span class="quote-meaning-badge">🌟 Makna Kutipan</span>
+                                <h5 class="quote-meaning-title">Lepaskan Rasa Takut &amp; Percaya pada Sayapmu Sendiri</h5>
+                            </div>
+                            <p class="quote-meaning-body">Slogan ikonik spanduk Karasuno yang mengajak siapa pun untuk melepaskan beban keraguan dan berani melompat tinggi menyambut peluang baru.</p>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- TOAST PEMBERITAHUAN SALIN -->
+    <div id="quoteToast" class="quote-toast" role="status" aria-live="polite">Teks kutipan berhasil disalin! ✨</div>
+
+    <!-- GLOBAL FOOTER -->
+    <footer class="global-footer">
+        <div class="global-footer-main">
+            <div class="global-footer-col left">
+                <img class="footer-logo" src="images/mirai/logo/MNH1-nav.png" alt="MIRAI NO HANA">
+                <p class="global-footer-disclaimer"><strong>PENYANGKALAN</strong> Beberapa aset di dalam website ini mungkin saja adalah bukan hasil dari karya kami sendiri dan kami tidak memiliki maksud untuk mengambil kepemilikan atas aset itu dan hanya digunakan sebatas untuk edukasi.</p>
+            </div>
+            <div class="global-footer-col right">
+                <h4 class="global-footer-heading">Media Sosial</h4>
+                <a class="global-footer-social" href="https://www.instagram.com/mirainohana_smawh2?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" aria-label="Instagram Mirai No Hana">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    <span>@mirainohana_smawh2</span>
+                </a>
+            </div>
+        </div>
+        <div class="global-footer-bottom">
+            <p>© 2026 MIRAI NO HANA | Kabinet Sora | Ditenagai oleh Github</p>
+        </div>
+    </footer>
+
+    <button class="to-top" type="button" aria-label="Kembali ke atas">↑</button>
+
+    <!-- SCRIPT LOGIKA HALAMAN MOTIVASI -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterChips = document.querySelectorAll('.motivasi-chip');
+            const quoteCards = document.querySelectorAll('.quote-card');
+            const toast = document.getElementById('quoteToast');
+            const randomBtn = document.getElementById('randomQuoteBtn');
+
+            // 1. Filter Chips Kategori Anime
+            filterChips.forEach(chip => {
+                chip.addEventListener('click', () => {
+                    filterChips.forEach(c => c.classList.remove('active'));
+                    chip.classList.add('active');
+
+                    const filterValue = chip.getAttribute('data-filter');
+                    quoteCards.forEach(card => {
+                        if (filterValue === 'all' || card.getAttribute('data-anime') === filterValue) {
+                            card.style.display = 'block';
+                            card.style.animation = 'fadeIn 0.35s ease';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // 2. Tombol Salin Kutipan
+            const copyButtons = document.querySelectorAll('.quote-copy-btn');
+            copyButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const targetId = btn.getAttribute('data-copy-target');
+                    const targetEl = document.getElementById(targetId);
+                    if (!targetEl) return;
+
+                    const kanji = targetEl.querySelector('.quote-kanji')?.innerText || '';
+                    const romaji = targetEl.querySelector('.quote-romaji')?.innerText || '';
+                    const literal = targetEl.querySelector('.quote-literal span')?.innerText || '';
+                    const meaningTitle = targetEl.querySelector('.quote-meaning-title')?.innerText || '';
+                    const meaningBody = targetEl.querySelector('.quote-meaning-body')?.innerText || '';
+                    const characterName = btn.closest('.quote-card')?.querySelector('.quote-author-name')?.innerText || '';
+                    const animeName = btn.closest('.quote-card')?.querySelector('.quote-anime-title')?.innerText || '';
+
+                    const textToCopy = `"${kanji}" (${romaji})\n${literal}\n\nTokoh: ${characterName} (${animeName})\nMakna Positif: ${meaningTitle}\n${meaningBody}\n\n— Mirai No Hana (Klub Jepang SMASYIMDUTA)`;
+
+                    navigator.clipboard.writeText(textToCopy).then(() => {
+                        showToast("Kutipan berhasil disalin ke papan klip! ✨");
+                    }).catch(() => {
+                        showToast("Kutipan berhasil disalin! ✨");
+                    });
+                });
+            });
+
+            // 3. Tombol Acak Kutipan Hari Ini
+            if (randomBtn) {
+                randomBtn.addEventListener('click', () => {
+                    // Reset filter ke 'all'
+                    filterChips.forEach(c => c.classList.remove('active'));
+                    document.querySelector('.motivasi-chip[data-filter="all"]')?.classList.add('active');
+                    quoteCards.forEach(card => card.style.display = 'block');
+
+                    // Pilih kartu secara acak
+                    const randomIndex = Math.floor(Math.random() * quoteCards.length);
+                    const targetCard = quoteCards[randomIndex];
+
+                    if (targetCard) {
+                        targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        targetCard.style.transition = 'box-shadow 0.4s ease, transform 0.4s ease';
+                        targetCard.style.boxShadow = '0 0 45px var(--quote-accent, #ff4f91), 0 0 20px rgba(255, 255, 255, 0.5)';
+                        targetCard.style.transform = 'translateY(-8px) scale(1.02)';
+
+                        setTimeout(() => {
+                            targetCard.style.boxShadow = '';
+                            targetCard.style.transform = '';
+                        }, 1800);
+
+                        const charName = targetCard.querySelector('.quote-author-name')?.innerText || 'Karakter Anime';
+                        showToast(`Menampilkan kutipan inspiratif dari ${charName}! 🌸`);
+                    }
+                });
+            }
+
+            function showToast(msg) {
+                if (!toast) return;
+                toast.innerText = msg;
+                toast.classList.add('show');
+                clearTimeout(toast.timeoutId);
+                toast.timeoutId = setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 2600);
+            }
+        });
+    </script>
+
+    <script src="js/sora.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
