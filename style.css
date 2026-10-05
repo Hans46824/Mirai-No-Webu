@@ -11634,6 +11634,24 @@ body.page-kurikulum .doc-back-btn:hover,
     margin-top: 0 !important;
 }
 
+/* =====================================================
+   RESPACING MINIMAL UNTUK HALAMAN KEGIATAN (.page-kegiatan)
+   ===================================================== */
+.page-kegiatan .section {
+    padding: 48px 7vw 54px !important;
+}
+
+.page-kegiatan .division-section .heading,
+.page-kegiatan .program-section .heading {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.page-kegiatan .division-grid,
+.page-kegiatan .program-grid {
+    margin-top: 24px !important;
+}
+
 /* 2. PILIH JALUR BELAJAR (class-overview): HALAMAN HITAM PEKAT (#111111) DENGAN POLA w1b.jpeg */
 .class-overview {
     background-color: #111111 !important;
