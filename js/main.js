@@ -697,7 +697,10 @@ function setupFooterQuoteSlider() {
                         <span class="badge-dot"></span>
                         ${q.tokohBadge}
                     </span>
-                    <span class="quote-card-tag">${q.tag}</span>
+                    <span class="quote-card-tag">
+                        <span class="badge-dot"></span>
+                        ${q.tag}
+                    </span>
                 </div>
                 <div class="quote-card-body">
                     <!-- BARIS ATAS: 2 BOX (KIRI FOTO & IDENTITAS, KANAN KUTIPAN) -->
