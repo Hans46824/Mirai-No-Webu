@@ -13450,22 +13450,6 @@ body:not(.page-kamus) .quick-stroke-btn {
     transform: scaleX(1) !important;
 }
 
-/* Pattern w1b.jpeg overlay pada kartu kutipan */
-.quote-card::after {
-    content: "" !important;
-    position: absolute !important;
-    inset: 0 !important;
-    background-image: url("images/mirai/pattern/w1b.jpeg") !important;
-    background-size: cover !important;
-    background-repeat: no-repeat !important;
-    background-position: center !important;
-    opacity: 0.18 !important;
-    mix-blend-mode: screen !important;
-    pointer-events: none !important;
-    z-index: 1 !important;
-    display: block !important;
-}
-
 .quote-card > * {
     position: relative !important;
     z-index: 2 !important;
