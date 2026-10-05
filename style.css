@@ -2089,8 +2089,11 @@ body.sora-fullscreen-active .menu-btn {
         font-size: clamp(62px, 20vw, 88px);
     }
 
-    .page-title {
-        font-size: clamp(54px, 17vw, 80px);
+    .page-title,
+    .rekomendasi-hero .page-title,
+    .peringkat-hero .page-title,
+    .lomba-hero .page-title {
+        font-size: clamp(54px, 17vw, 80px) !important;
     }
 
     .lead {
@@ -14046,18 +14049,19 @@ body:not(.page-kamus) .quick-stroke-btn {
    HERO REKOMENDASI (DUA WARNA: PUTIH DI ATAS, PINK DI BAWAH)
    ========================================================================== */
 .rekomendasi-hero .page-title {
-    color: #ffffff !important;
-    font-size: clamp(38px, 6vw, 68px) !important;
-    font-weight: 900 !important;
-    line-height: 1.12 !important;
-    letter-spacing: -0.04em !important;
+    color: var(--white, #ffffff) !important;
+    font-size: clamp(58px, 8vw, 116px) !important;
+    font-weight: 800 !important;
+    letter-spacing: -.08em !important;
+    line-height: .86 !important;
+    margin: 24px 0 !important;
 }
 
 .rekomendasi-hero .page-title span {
-    color: #ff4f91 !important;
-    display: block !important;
-    margin-top: 6px !important;
-    text-shadow: 0 0 30px rgba(255, 79, 145, 0.4) !important;
+    color: var(--pink, #ff659b) !important;
+    display: inline !important;
+    margin-top: 0 !important;
+    text-shadow: none !important;
 }
 
 /* ==========================================================================
@@ -14429,18 +14433,19 @@ body:not(.page-kamus) .quick-stroke-btn {
 }
 
 .peringkat-hero .page-title {
-    color: #ffffff !important;
-    font-size: clamp(40px, 6vw, 70px) !important;
-    font-weight: 900 !important;
-    line-height: 1.12 !important;
-    letter-spacing: -0.04em !important;
+    color: var(--white, #ffffff) !important;
+    font-size: clamp(58px, 8vw, 116px) !important;
+    font-weight: 800 !important;
+    letter-spacing: -.08em !important;
+    line-height: .86 !important;
+    margin: 24px 0 !important;
 }
 
 .peringkat-hero .page-title span {
-    color: #ff4f91 !important;
-    display: block !important;
-    margin-top: 6px !important;
-    text-shadow: 0 0 30px rgba(255, 79, 145, 0.4) !important;
+    color: var(--pink, #ff659b) !important;
+    display: inline !important;
+    margin-top: 0 !important;
+    text-shadow: none !important;
 }
 
 .peringkat-section {
@@ -15399,18 +15404,19 @@ body:not(.page-kamus) .quick-stroke-btn {
 }
 
 .lomba-hero .page-title {
-    color: #ffffff !important;
-    font-size: clamp(38px, 6vw, 68px) !important;
-    font-weight: 900 !important;
-    line-height: 1.12 !important;
-    letter-spacing: -0.04em !important;
+    color: var(--white, #ffffff) !important;
+    font-size: clamp(58px, 8vw, 116px) !important;
+    font-weight: 800 !important;
+    letter-spacing: -.08em !important;
+    line-height: .86 !important;
+    margin: 24px 0 !important;
 }
 
 .lomba-hero .page-title span {
-    color: #ff4f91 !important;
-    display: block !important;
-    margin-top: 6px !important;
-    text-shadow: 0 0 30px rgba(255, 79, 145, 0.4) !important;
+    color: var(--pink, #ff659b) !important;
+    display: inline !important;
+    margin-top: 0 !important;
+    text-shadow: none !important;
 }
 
 .lomba-quick-nav {
