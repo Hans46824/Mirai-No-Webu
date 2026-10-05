@@ -11579,6 +11579,64 @@ body.page-kurikulum .doc-back-btn:hover,
     max-width: calc(100% - 65px) !important;
 }
 
+/* =====================================================
+   RESPACING MINIMAL UNTUK HALAMAN KELAS (.page-kelas)
+   ===================================================== */
+.page-kelas .section {
+    padding: 44px 7vw 48px !important;
+}
+
+.page-kelas .page-hero.class-hero {
+    padding: 38px 7vw 30px !important;
+    min-height: auto !important;
+}
+
+.page-kelas .class-overview {
+    background-color: #111111 !important;
+    background: #111111 !important;
+    color: #f5edf4 !important;
+    padding: 44px 7vw 48px !important;
+}
+
+.page-kelas .class-overview .heading {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.page-kelas .class-grid {
+    margin-top: 24px !important;
+    gap: 20px !important;
+}
+
+.page-kelas .class-card {
+    min-height: 230px !important;
+    padding: 24px 22px 20px !important;
+}
+
+.page-kelas .learning-path {
+    padding: 44px 7vw 48px !important;
+}
+
+.page-kelas .learning-path .heading {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.page-kelas .course-cards,
+.page-kelas .course-cards--two,
+.page-kelas #dasar .course-cards,
+.page-kelas #lanjutan .course-cards {
+    margin-top: 24px !important;
+    margin-bottom: 0 !important;
+    gap: 20px !important;
+}
+
+.page-kelas #dasar .course-card,
+.page-kelas #lanjutan .course-card {
+    min-height: 240px !important;
+    padding: 24px 24px 20px !important;
+}
+
 /* 2. PILIH JALUR BELAJAR (class-overview): HALAMAN HITAM PEKAT (#111111) DENGAN POLA w1b.jpeg */
 .class-overview {
     background-color: #111111 !important;
