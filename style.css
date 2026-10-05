@@ -11655,6 +11655,79 @@ body.page-kurikulum .doc-back-btn:hover,
     margin-top: 24px !important;
 }
 
+/* =====================================================
+   RESPACING MINIMAL UNTUK HALAMAN TENTANG (.page-tentang)
+   ===================================================== */
+.page-tentang .section-intro {
+    margin-bottom: 28px !important;
+}
+
+.page-tentang .section-intro .heading {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+/* =====================================================
+   RESPACING MINIMAL UNTUK HALAMAN LOMBA (.page-lomba)
+   ===================================================== */
+.page-lomba .lomba-upcoming-section,
+.page-lomba .lomba-catalog-section {
+    padding: 56px 7vw 80px !important;
+}
+
+.page-lomba .section-intro {
+    margin-bottom: 28px !important;
+}
+
+.page-lomba .section-intro .heading {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+/* =====================================================
+   RESPACING MINIMAL UNTUK HALAMAN PERINGKAT (.page-peringkat)
+   ===================================================== */
+.page-peringkat .lb-category-desc-card {
+    padding: 16px 24px !important;
+    margin-bottom: 24px !important;
+    text-align: center !important;
+}
+
+.page-peringkat .lb-desc-title {
+    margin: 0 !important;
+    font-size: clamp(1.2rem, 2.5vw, 1.55rem) !important;
+}
+
+.page-peringkat .lb-info-head {
+    margin-bottom: 22px !important;
+}
+
+.page-peringkat .lb-info-title {
+    margin: 0 !important;
+}
+
+/* =====================================================
+   RESPACING MINIMAL UNTUK HALAMAN REKOMENDASI (.page-rekomendasi)
+   ===================================================== */
+.page-rekomendasi .rek-cat-explain-card {
+    padding: 18px 26px !important;
+    margin-bottom: 24px !important;
+    text-align: center !important;
+}
+
+.page-rekomendasi .rek-explain-title {
+    margin: 0 !important;
+    font-size: clamp(1.15rem, 2.2vw, 1.45rem) !important;
+}
+
+.page-rekomendasi .media-header-wrap {
+    margin-bottom: 32px !important;
+}
+
+.page-rekomendasi .media-header-title {
+    margin: 0 !important;
+}
+
 /* 2. PILIH JALUR BELAJAR (class-overview): HALAMAN HITAM PEKAT (#111111) DENGAN POLA w1b.jpeg */
 .class-overview {
     background-color: #111111 !important;

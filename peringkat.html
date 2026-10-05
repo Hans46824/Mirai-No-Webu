@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Papan Peringkat — MIRAI NO HANA</title>
-    <link rel="stylesheet" href="style.css?v=20261005d">
+    <link rel="stylesheet" href="style.css?v=20261005e">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Noto+Serif+JP:wght@600;700;900&display=swap" rel="stylesheet">
@@ -85,9 +85,7 @@
 
             <!-- DESKRIPSI KATEGORI AKTIF -->
             <div class="lb-category-desc-card">
-                <span class="lb-desc-badge" id="categoryBadge">PAPAN PERINGKAT · NIHONGO RAJIO</span>
                 <h2 class="lb-desc-title" id="categoryTitle">Papan Peringkat Nihongo Rajio</h2>
-                <p class="lb-desc-p" id="categoryDesc">Dihitung berdasarkan jumlah keikutsertaan menyimak siaran rutin mingguan Nihon Go Rajio dan keaktifan menjawab kuis interaktif bahasa Jepang.</p>
             </div>
 
             <!-- PODIUM TIGA BESAR (RANK 1, 2, 3) -->
@@ -174,9 +172,7 @@
             <!-- INFO SISTEM PENILAIAN -->
             <div class="lb-system-info-card">
                 <div class="lb-info-head">
-                    <span class="lb-info-badge">ℹ️ SISTEM APRESIASI</span>
                     <h3 class="lb-info-title">Kriteria Penilaian Papan Peringkat</h3>
-                    <p class="lb-info-sub">Setiap dedikasi dan keaktifan yang kamu berikan untuk Mirai No Hana diapresiasi secara transparan dan berkala sepanjang periode kepengurusan 2025/2026!</p>
                 </div>
 
                 <div class="lb-points-grid">
@@ -899,9 +895,12 @@
             if (!data) return;
 
             // Update info
-            document.getElementById('categoryBadge').innerText = data.badge;
-            document.getElementById('categoryTitle').innerHTML = data.title;
-            document.getElementById('categoryDesc').innerHTML = data.desc;
+            const badgeEl = document.getElementById('categoryBadge');
+            if (badgeEl) badgeEl.innerText = data.badge;
+            const titleEl = document.getElementById('categoryTitle');
+            if (titleEl) titleEl.innerHTML = data.title;
+            const descEl = document.getElementById('categoryDesc');
+            if (descEl) descEl.innerHTML = data.desc;
 
             // Update Top 3
             // Rank 1
