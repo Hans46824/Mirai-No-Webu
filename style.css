@@ -12901,9 +12901,22 @@ body.page-kurikulum .doc-back-btn:hover,
 .about-feature-body.stacked-layout {
     display: flex !important;
     flex-direction: column !important;
-    gap: 18px !important;
+    gap: 16px !important;
     align-items: flex-start !important;
     max-width: 860px !important;
+}
+
+.about-feature-body.stacked-layout .about-card-title {
+    margin: 0 !important;
+    font-size: clamp(26px, 3.4vw, 38px) !important;
+    font-weight: 900 !important;
+    line-height: 1.25 !important;
+    color: #ffffff !important;
+    letter-spacing: -0.5px !important;
+}
+
+.about-feature-body.stacked-layout .about-card-title span.highlight {
+    color: var(--pink, #e91e63) !important;
 }
 
 .about-feature-body.stacked-layout .about-card-desc {
@@ -12911,6 +12924,7 @@ body.page-kurikulum .doc-back-btn:hover,
     line-height: 1.8 !important;
     margin: 0 !important;
     max-width: 800px !important;
+    color: #ece4ec !important;
 }
 
 .about-feature-body.stacked-layout .about-feature-action {
