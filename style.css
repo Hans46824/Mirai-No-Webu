@@ -2147,8 +2147,9 @@ body.sora-fullscreen-active .menu-btn {
 }
 
 /* Halaman pembelajaran MIRAI */
-.journey-section { display:grid; grid-template-columns: .75fr 1fr; gap: 7vw; align-items:end; }
-.start-grid { grid-column:1/-1; display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:10px; }
+.journey-section { display: block !important; }
+.journey-section .section-intro { margin-bottom: 28px !important; }
+.start-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:0; }
 .start-card { position:relative; min-height:210px; padding:24px; border:1px solid var(--pink-border); background:#fff; transition:.25s ease; }
 .start-card:hover { transform:translateY(-6px); box-shadow:0 18px 36px rgba(233,30,99,.13); border-color:var(--pink); }
 .start-card span,.start-card b { color:var(--pink); font-size:11px; letter-spacing:1.5px; }.start-card h3 { margin:45px 0 8px; font-size:25px; }.start-card p { margin:0; color:var(--muted); line-height:1.55; }.start-card b { position:absolute; right:22px; bottom:20px; font-size:22px; }
@@ -8530,7 +8531,7 @@ body.theme-dark .menu-toggle {
 .home-activities-dark-section .heading {
     font-size: clamp(32px, 4.5vw, 54px);
     line-height: 1.1;
-    margin: 0 0 16px;
+    margin: 0 0 32px !important;
 }
 .home-activities-dark-section .heading span {
     color: var(--pink-accent, var(--pink));
