@@ -10076,19 +10076,21 @@ body.theme-dark .faq-chat-bubble::before {
 .card-corner-chibi {
     width: 88px;
     height: 88px;
-    object-fit: contain;
-    position: absolute;
-    right: 12px;
-    bottom: 6px;
-    pointer-events: none;
-    opacity: 0.96;
-    z-index: 2;
+    object-fit: contain !important;
+    position: absolute !important;
+    right: 12px !important;
+    bottom: 8px !important;
+    pointer-events: none !important;
+    opacity: 0.96 !important;
+    z-index: 2 !important;
     filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.14));
     transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: block !important;
 }
 
 .card:hover .card-corner-chibi,
 .start-card:hover .card-corner-chibi,
+.start-card:hover img.card-corner-chibi,
 .activity-start-card:hover .card-corner-chibi,
 .achievement-card:hover .card-corner-chibi,
 .class-card:hover .card-corner-chibi,
@@ -10097,7 +10099,24 @@ body.theme-dark .faq-chat-bubble::before {
 .division-card-link:hover .card-corner-chibi,
 .program-card:hover .card-corner-chibi,
 .program-card-link:hover .card-corner-chibi {
-    transform: translateY(-6px) scale(1.1) rotate(-3deg);
+    transform: translateY(-6px) scale(1.08) rotate(-3deg);
+}
+
+.start-card > .card-corner-chibi,
+.start-card img.card-corner-chibi {
+    right: 12px !important;
+    bottom: 8px !important;
+    width: 88px !important;
+    height: 88px !important;
+    filter: drop-shadow(0 6px 14px rgba(233, 30, 99, 0.18)) !important;
+}
+
+.activity-start-card > .card-corner-chibi {
+    right: 16px !important;
+    bottom: 12px !important;
+    width: 86px !important;
+    height: 86px !important;
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.55)) !important;
 }
 
 /* Penyesuaian Nomor & Arrow Berbentuk Lingkaran Elegan di Kartu Beranda */
@@ -10156,11 +10175,15 @@ body.theme-dark .faq-chat-bubble::before {
 }
 
 .start-card h3 {
+    position: relative !important;
+    z-index: 3 !important;
     margin-top: 18px !important;
     max-width: 62% !important;
 }
 
 .start-card p {
+    position: relative !important;
+    z-index: 3 !important;
     max-width: 60% !important;
 }
 
@@ -10225,11 +10248,26 @@ body.theme-dark .faq-chat-bubble::before {
 }
 
 .activity-start-card h3 {
+    position: relative !important;
+    z-index: 3 !important;
     margin-top: 18px !important;
 }
 
 .activity-start-card p {
+    position: relative !important;
+    z-index: 3 !important;
     max-width: 62% !important;
+}
+
+@media (max-width: 600px) {
+    .start-card > .card-corner-chibi,
+    .start-card img.card-corner-chibi,
+    .activity-start-card > .card-corner-chibi {
+        width: 68px !important;
+        height: 68px !important;
+        right: 10px !important;
+        bottom: 8px !important;
+    }
 }
 
 /* Lingkaran nomor pada kartu kurikulum & kelas */
@@ -13675,8 +13713,7 @@ body:not(.page-kamus) .quick-stroke-btn {
 }
 
 /* Hapus maskot chibi dari seluruh kata motivasi */
-.quote-card .card-corner-chibi,
-.card-corner-chibi {
+.quote-card .card-corner-chibi {
     display: none !important;
 }
 
