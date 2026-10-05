@@ -11637,6 +11637,18 @@ body.page-kurikulum .doc-back-btn:hover,
     padding: 24px 24px 20px !important;
 }
 
+/* =====================================================
+   RESPACING MINIMAL UNTUK HALAMAN KAMUS (.page-kamus)
+   ===================================================== */
+.page-kamus .dictionary-section {
+    padding-top: clamp(32px, 4.5vw, 48px) !important;
+}
+
+.page-kamus .dictionary-section .script-tabs {
+    margin-top: 0 !important;
+}
+
+
 /* 2. PILIH JALUR BELAJAR (class-overview): HALAMAN HITAM PEKAT (#111111) DENGAN POLA w1b.jpeg */
 .class-overview {
     background-color: #111111 !important;
