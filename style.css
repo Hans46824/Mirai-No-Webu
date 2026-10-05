@@ -8552,13 +8552,13 @@ body.theme-dark .menu-toggle {
 }
 .activities-two-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 520px));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     justify-content: center;
-    gap: 24px;
+    gap: 22px;
     margin-top: 10px;
     width: 100%;
 }
-@media (max-width: 850px) {
+@media (max-width: 680px) {
     .activities-two-grid {
         grid-template-columns: 1fr;
     }
@@ -12400,7 +12400,24 @@ body.page-kurikulum .doc-back-btn:hover,
     align-items: center !important;
 }
 
-.about-card-title,
+.about-feature-body.stacked-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 18px !important;
+    align-items: flex-start !important;
+    max-width: 860px !important;
+}
+
+.about-feature-body.stacked-layout .about-card-desc {
+    font-size: 16px !important;
+    line-height: 1.8 !important;
+    margin: 0 !important;
+    max-width: 800px !important;
+}
+
+.about-feature-body.stacked-layout .about-feature-action {
+    margin-top: 6px !important;
+}
 main .about-feature-card h2,
 main .about-feature-card .heading,
 .about-feature-card h2.heading,
@@ -12676,7 +12693,38 @@ main .about-feature-card p,
     align-items: center !important;
 }
 
-.feedback-card-title,
+.feedback-feature-body.stacked-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+    align-items: flex-start !important;
+    max-width: 860px !important;
+}
+
+.feedback-feature-body.stacked-layout .feedback-card-title {
+    margin: 0 !important;
+    font-size: clamp(26px, 3.4vw, 38px) !important;
+    font-weight: 900 !important;
+    line-height: 1.25 !important;
+    color: #ffffff !important;
+    letter-spacing: -0.5px !important;
+}
+
+.feedback-feature-body.stacked-layout .feedback-card-title span.highlight {
+    color: #ff659b !important;
+}
+
+.feedback-feature-body.stacked-layout .feedback-card-desc {
+    font-size: 16px !important;
+    line-height: 1.8 !important;
+    margin: 0 !important;
+    max-width: 800px !important;
+    color: #ece4ec !important;
+}
+
+.feedback-feature-body.stacked-layout .feedback-feature-action {
+    margin-top: 6px !important;
+}
 main .feedback-feature-card h2,
 main .feedback-feature-card .heading,
 .feedback-feature-card h2.heading,
