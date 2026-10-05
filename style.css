@@ -12256,12 +12256,12 @@ body.page-kurikulum .doc-back-btn:hover,
    ===================================================== */
 .about-preview {
     display: block !important;
-    padding: 70px 7vw 80px !important;
+    padding: 48px 7vw 56px !important;
 }
 
 .about-preview .section-intro {
     max-width: 1200px !important;
-    margin: 0 auto 36px auto !important;
+    margin: 0 auto 26px auto !important;
     text-align: left !important;
 }
 
@@ -12276,7 +12276,7 @@ body.page-kurikulum .doc-back-btn:hover,
 }
 
 .about-preview .section-intro .heading {
-    font-size: clamp(32px, 4.5vw, 54px) !important;
+    font-size: clamp(30px, 4vw, 48px) !important;
     line-height: 1.15 !important;
     margin: 0 !important;
     color: #ffffff !important;
@@ -12294,7 +12294,7 @@ body.page-kurikulum .doc-back-btn:hover,
     box-sizing: border-box !important;
     max-width: 1200px !important;
     margin: 0 auto !important;
-    padding: 44px 48px 40px !important;
+    padding: 34px 40px 30px !important;
     background: linear-gradient(165deg, #1c1523 0%, #130f18 100%) !important;
     border: 1.5px solid rgba(255, 101, 155, 0.25) !important;
     border-radius: 24px !important;
@@ -12357,7 +12357,7 @@ body.page-kurikulum .doc-back-btn:hover,
     align-items: center !important;
     justify-content: space-between !important;
     gap: 16px !important;
-    margin-bottom: 24px !important;
+    margin-bottom: 20px !important;
     flex-wrap: wrap !important;
 }
 
@@ -12396,7 +12396,7 @@ body.page-kurikulum .doc-back-btn:hover,
 .about-feature-body {
     display: grid !important;
     grid-template-columns: 1.05fr 1fr !important;
-    gap: 48px !important;
+    gap: 36px !important;
     align-items: center !important;
 }
 
@@ -12407,7 +12407,7 @@ main .about-feature-card .heading,
 .about-feature-card .heading,
 .about-feature-left .heading {
     margin: 0 !important;
-    font-size: clamp(28px, 3.4vw, 42px) !important;
+    font-size: clamp(26px, 3.2vw, 38px) !important;
     font-weight: 900 !important;
     line-height: 1.25 !important;
     color: #ffffff !important;
@@ -12426,7 +12426,7 @@ main .about-feature-card .heading span.highlight,
 }
 
 .about-card-lead {
-    margin: 14px 0 0 0 !important;
+    margin: 12px 0 0 0 !important;
     color: #f3a8c5 !important;
     font-size: 13px !important;
     font-weight: 700 !important;
@@ -12441,9 +12441,9 @@ main .about-feature-card p,
 .about-feature-right .copy,
 .about-feature-card p.copy {
     color: #ece4ec !important;
-    font-size: 15.5px !important;
-    line-height: 1.8 !important;
-    margin: 0 0 26px 0 !important;
+    font-size: 15px !important;
+    line-height: 1.65 !important;
+    margin: 0 0 20px 0 !important;
     max-width: calc(100% - 60px) !important;
 }
 
@@ -12560,7 +12560,7 @@ main .about-feature-card p,
 .feedback-preview,
 .feedback-section--home {
     display: block !important;
-    padding: 70px 7vw 80px !important;
+    padding: 48px 7vw 56px !important;
     border-top: none !important;
 }
 
@@ -12570,7 +12570,7 @@ main .about-feature-card p,
     box-sizing: border-box !important;
     max-width: 1200px !important;
     margin: 0 auto !important;
-    padding: 44px 48px 40px !important;
+    padding: 34px 40px 30px !important;
     background: linear-gradient(165deg, #1c1523 0%, #130f18 100%) !important;
     border: 1.5px solid rgba(255, 101, 155, 0.25) !important;
     border-radius: 24px !important;
@@ -12633,7 +12633,7 @@ main .about-feature-card p,
     align-items: center !important;
     justify-content: space-between !important;
     gap: 16px !important;
-    margin-bottom: 24px !important;
+    margin-bottom: 20px !important;
     flex-wrap: wrap !important;
 }
 
@@ -12672,7 +12672,7 @@ main .about-feature-card p,
 .feedback-feature-body {
     display: grid !important;
     grid-template-columns: 1.05fr 1fr !important;
-    gap: 48px !important;
+    gap: 36px !important;
     align-items: center !important;
 }
 
@@ -12683,7 +12683,7 @@ main .feedback-feature-card .heading,
 .feedback-feature-card .heading,
 .feedback-feature-left .heading {
     margin: 0 !important;
-    font-size: clamp(28px, 3.4vw, 42px) !important;
+    font-size: clamp(26px, 3.2vw, 38px) !important;
     font-weight: 900 !important;
     line-height: 1.25 !important;
     color: #ffffff !important;
@@ -12702,7 +12702,7 @@ main .feedback-feature-card .heading span.highlight,
 }
 
 .feedback-card-lead {
-    margin: 14px 0 0 0 !important;
+    margin: 12px 0 0 0 !important;
     color: #f3a8c5 !important;
     font-size: 13px !important;
     font-weight: 700 !important;
@@ -12717,9 +12717,9 @@ main .feedback-feature-card p,
 .feedback-feature-right .copy,
 .feedback-feature-card p.copy {
     color: #ece4ec !important;
-    font-size: 15.5px !important;
-    line-height: 1.8 !important;
-    margin: 0 0 26px 0 !important;
+    font-size: 15px !important;
+    line-height: 1.65 !important;
+    margin: 0 0 20px 0 !important;
     max-width: calc(100% - 60px) !important;
 }
 
