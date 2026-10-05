@@ -99,6 +99,26 @@ main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not
     color: var(--pink, #e91e63) !important;
 }
 
+/* Master Uniform Two-Tone Heading Pink Accent (Standar Seluruh Halaman Mirai no Webu) */
+.heading span,
+.heading span.highlight,
+.page-title span,
+.section-title span,
+.section-intro .heading span,
+.lb-desc-title span,
+.media-header-title span,
+.spotlight-title span,
+.proker-section-title span,
+.kabinet-title span,
+.feedback-card-title span,
+.about-card-title span,
+h1 span,
+h2 span,
+h3 span.highlight,
+.highlight {
+    color: var(--pink, #e91e63) !important;
+}
+
 main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.feedback-preview):not(.about-preview):not(.media-rekomendasi-page):not(.lomba-catalog-section):not(.lomba-upcoming-section) p,
 main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.feedback-preview):not(.about-preview):not(.media-rekomendasi-page):not(.lomba-catalog-section):not(.lomba-upcoming-section) .copy,
 main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.feedback-preview):not(.about-preview):not(.media-rekomendasi-page):not(.lomba-catalog-section):not(.lomba-upcoming-section) .lead,
@@ -273,7 +293,7 @@ main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):no
 main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) h3 span,
 main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .page-title span,
 main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .quest-section h2 span {
-    color: #ff659b !important;
+    color: var(--pink, #e91e63) !important;
 }
 
 main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) p,
@@ -287,7 +307,7 @@ main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):no
 main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .kicker,
 main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .eyebrow,
 main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .dokumentasi-row h3 {
-    color: #ff659b !important;
+    color: var(--pink, #e91e63) !important;
 }
 
 main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) a.text-link {
@@ -462,7 +482,7 @@ main:has(.proker-hero) > section:nth-of-type(even) .proker-section-title {
 .proker-hero ~ section:nth-of-type(even) .proker-section-title span,
 main:has(.proker-hero) > section:nth-of-type(even) .heading span,
 main:has(.proker-hero) > section:nth-of-type(even) .proker-section-title span {
-    color: #ff659b !important;
+    color: var(--pink, #e91e63) !important;
 }
 
 .proker-hero ~ section:nth-of-type(even) .proker-section-subtitle,
@@ -471,7 +491,7 @@ main:has(.proker-hero) > section:nth-of-type(even) .proker-section-title span {
 main:has(.proker-hero) > section:nth-of-type(even) .proker-section-subtitle,
 main:has(.proker-hero) > section:nth-of-type(even) .kicker,
 main:has(.proker-hero) > section:nth-of-type(even) .dokumentasi-row h3 {
-    color: #ff659b !important;
+    color: var(--pink, #e91e63) !important;
 }
 
 .proker-hero ~ section:nth-of-type(even) p,
@@ -4634,7 +4654,7 @@ body.dark-mode .quest-hero p:not(.eyebrow) {
 
 body.theme-dark .kicker,
 body.theme-dark .eyebrow {
-    color: #ff659b !important;
+    color: var(--pink, #e91e63) !important;
 }
 
 /* Navbar Global dalam Mode Gelap */
@@ -5167,7 +5187,7 @@ body.dark-mode .buuku-lesson .heading span,
 body.dark-mode .buuku-lesson h2 span,
 body.theme-dark .buuku-lesson .heading span,
 body.theme-dark .buuku-lesson h2 span {
-    color: #ff659b !important;
+    color: var(--pink, #e91e63) !important;
 }
 
 body.dark-mode .buuku-lesson p,
@@ -5200,7 +5220,7 @@ body.theme-dark .buuku-card {
 
 body.dark-mode .buuku-card-title,
 body.theme-dark .buuku-card-title {
-    color: #ff659b !important;
+    color: var(--pink, #e91e63) !important;
 }
 
 body.dark-mode .buuku-card-list li,
@@ -6467,7 +6487,7 @@ body.theme-dark .kana-empty-state {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
 }
 .proker-hero .eyebrow {
-    color: #ff659b !important;
+    color: var(--pink, #e91e63) !important;
     font-size: 13px !important;
     letter-spacing: 0.14em !important;
     font-weight: 800 !important;
@@ -6483,7 +6503,7 @@ body.theme-dark .kana-empty-state {
     color: #ffffff !important;
     text-shadow: 0 2px 14px rgba(0, 0, 0, 0.5) !important;
 }
-.proker-hero h1 span { color: #ff659b !important; }
+.proker-hero h1 span { color: var(--pink, #e91e63) !important; }
 .proker-hero-inner p:not(.eyebrow) {
     display: none !important;
 }
@@ -11102,7 +11122,7 @@ img:not(.img-lightbox-img) {
 
 .kurikulum-page-section .section-intro .kicker {
     text-align: left !important;
-    color: #ff659b !important;
+    color: var(--pink, #e91e63) !important;
     font-size: 0.85rem !important;
     font-weight: 800 !important;
     letter-spacing: 2px !important;
@@ -11120,7 +11140,7 @@ img:not(.img-lightbox-img) {
 }
 
 .kurikulum-page-section .section-intro .heading span {
-    color: #ff659b !important;
+    color: var(--pink, #e91e63) !important;
 }
 
 .kurikulum-page-section .section-intro .copy {
@@ -11749,7 +11769,7 @@ body.page-kurikulum .doc-back-btn:hover,
 }
 
 #lanjutan .heading span {
-    color: #ff659b !important;
+    color: var(--pink, #e91e63) !important;
 }
 
 #lanjutan .copy {
@@ -11757,7 +11777,7 @@ body.page-kurikulum .doc-back-btn:hover,
 }
 
 #lanjutan .kicker {
-    color: #ff659b !important;
+    color: var(--pink, #e91e63) !important;
 }
 
 /* Kartu di Kelas Lanjutan: Kartu Gelap Elegan dengan Pola w1b.jpeg */
@@ -11876,7 +11896,7 @@ body.page-kurikulum .doc-back-btn:hover,
 }
 
 .class-hero .page-title span {
-    color: var(--pink, #ff659b) !important;
+    color: var(--pink, #e91e63) !important;
     display: inline !important;
     margin-top: 0 !important;
     text-shadow: none !important;
@@ -12053,11 +12073,11 @@ body.page-kurikulum .doc-back-btn:hover,
 }
 
 .class-overview .heading span {
-    color: #ff659b !important;
+    color: var(--pink, #e91e63) !important;
 }
 
 .class-overview .kicker {
-    color: #ff659b !important;
+    color: var(--pink, #e91e63) !important;
 }
 
 .class-grid {
@@ -12727,7 +12747,7 @@ body.page-kurikulum .doc-back-btn:hover,
 }
 
 .about-preview .section-intro .kicker {
-    color: #ff659b !important;
+    color: var(--pink, #e91e63) !important;
     font-size: 11px !important;
     font-weight: 800 !important;
     letter-spacing: 2px !important;
@@ -12746,7 +12766,7 @@ body.page-kurikulum .doc-back-btn:hover,
 }
 
 .about-preview .section-intro .heading span {
-    color: var(--pink, #ff659b) !important;
+    color: var(--pink, #e91e63) !important;
 }
 
 .about-feature-card {
@@ -12900,7 +12920,7 @@ main .about-feature-card .heading span.highlight,
 .about-feature-card .heading span,
 .about-feature-left .heading span.highlight,
 .about-feature-left .heading span {
-    color: #ff659b !important;
+    color: var(--pink, #e91e63) !important;
 }
 
 .about-card-lead {
@@ -13172,7 +13192,7 @@ main .about-feature-card p,
 }
 
 .feedback-feature-body.stacked-layout .feedback-card-title span.highlight {
-    color: #ff659b !important;
+    color: var(--pink, #e91e63) !important;
 }
 
 .feedback-feature-body.stacked-layout .feedback-card-desc {
@@ -13207,7 +13227,7 @@ main .feedback-feature-card .heading span.highlight,
 .feedback-feature-card .heading span,
 .feedback-feature-left .heading span.highlight,
 .feedback-feature-left .heading span {
-    color: #ff659b !important;
+    color: var(--pink, #e91e63) !important;
 }
 
 .feedback-card-lead {
@@ -14426,7 +14446,7 @@ body:not(.page-kamus) .quick-stroke-btn {
 }
 
 .rekomendasi-hero .page-title span {
-    color: var(--pink, #ff659b) !important;
+    color: var(--pink, #e91e63) !important;
     display: inline !important;
     margin-top: 0 !important;
     text-shadow: none !important;
@@ -14810,7 +14830,7 @@ body:not(.page-kamus) .quick-stroke-btn {
 }
 
 .peringkat-hero .page-title span {
-    color: var(--pink, #ff659b) !important;
+    color: var(--pink, #e91e63) !important;
     display: inline !important;
     margin-top: 0 !important;
     text-shadow: none !important;
@@ -15781,7 +15801,7 @@ body:not(.page-kamus) .quick-stroke-btn {
 }
 
 .lomba-hero .page-title span {
-    color: var(--pink, #ff659b) !important;
+    color: var(--pink, #e91e63) !important;
     display: inline !important;
     margin-top: 0 !important;
     text-shadow: none !important;
@@ -15825,7 +15845,7 @@ body:not(.page-kamus) .quick-stroke-btn {
 }
 
 .lomba-upcoming-section .kicker {
-    color: #ff4f91 !important;
+    color: var(--pink, #e91e63) !important;
     font-size: 13px !important;
     font-weight: 800 !important;
     letter-spacing: 2px !important;
@@ -15885,7 +15905,7 @@ body:not(.page-kamus) .quick-stroke-btn {
 }
 
 .lomba-catalog-section .heading span {
-    color: #ff4f91 !important;
+    color: var(--pink, #e91e63) !important;
 }
 
 .lomba-catalog-section .copy {
