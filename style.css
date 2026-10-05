@@ -11581,15 +11581,15 @@ body.page-kurikulum .doc-back-btn:hover,
     display: flex !important;
     align-items: flex-end !important;
     min-height: 59svh !important;
-    padding: 130px 7vw 68px !important;
+    padding: 130px 0 68px !important;
 }
 
 .class-hero .page-title {
     color: var(--white, #ffffff) !important;
-    font-size: clamp(58px, 8vw, 116px) !important;
+    font-size: clamp(66px, 9vw, 122px) !important;
     font-weight: 800 !important;
     letter-spacing: -.08em !important;
-    line-height: .86 !important;
+    line-height: .82 !important;
     margin: 24px 0 !important;
 }
 
@@ -11604,12 +11604,22 @@ body.page-kurikulum .doc-back-btn:hover,
     background-color: #111111 !important;
     background: #111111 !important;
     color: #f5edf4 !important;
-    padding: 44px 7vw 48px !important;
+    padding: 80px 7vw 64px !important;
+}
+
+.page-kelas .class-overview .section-intro {
+    max-width: 800px !important;
+    margin-bottom: 28px !important;
 }
 
 .page-kelas .class-overview .heading {
     margin-top: 0 !important;
     margin-bottom: 0 !important;
+    font-size: clamp(42px, 5.5vw, 80px) !important;
+    font-weight: 800 !important;
+    letter-spacing: -.065em !important;
+    line-height: .96 !important;
+    color: #ffffff !important;
 }
 
 .page-kelas .class-grid {
