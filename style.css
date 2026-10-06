@@ -9747,6 +9747,362 @@ body.theme-dark .stroke-number-label.is-done {
 }
 
 /* ==========================================================================
+   MODEL JUMLAH PRESTASI MIRAI NO HANA & STATISTIK KOMPETISI
+   ========================================================================== */
+.prestasi-overview-wrap {
+    margin-top: 28px;
+    margin-bottom: 24px;
+}
+
+.prestasi-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.prestasi-stat-box {
+    position: relative;
+    background: linear-gradient(145deg, #1f1826 0%, #15101a 100%);
+    border: 1.5px solid rgba(255, 79, 145, 0.25);
+    border-radius: 18px;
+    padding: 22px 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.prestasi-stat-box::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("images/mirai/pattern/w1b.jpeg");
+    background-size: cover;
+    background-position: center;
+    opacity: 0.12;
+    mix-blend-mode: screen;
+    pointer-events: none;
+}
+
+.prestasi-stat-box:hover {
+    transform: translateY(-4px);
+    border-color: var(--pink, #ff2e7e);
+    box-shadow: 0 12px 32px rgba(255, 46, 126, 0.22);
+}
+
+.prestasi-stat-top {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.prestasi-stat-icon-wrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(255, 46, 126, 0.12);
+    border: 1.5px solid rgba(255, 46, 126, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}
+
+.prestasi-stat-pill {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--pink, #ff2e7e);
+    background: rgba(255, 46, 126, 0.12);
+    border: 1px solid rgba(255, 46, 126, 0.25);
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+}
+
+.prestasi-stat-num {
+    position: relative;
+    z-index: 2;
+    font-size: clamp(32px, 3.8vw, 44px);
+    font-weight: 900;
+    line-height: 1.05;
+    color: #ffffff;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #ffffff 40%, #ffd1e5 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.prestasi-stat-label {
+    position: relative;
+    z-index: 2;
+    font-size: 15px;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 6px;
+}
+
+.prestasi-stat-desc {
+    position: relative;
+    z-index: 2;
+    font-size: 12px;
+    line-height: 1.45;
+    color: var(--muted, #b5a9b8);
+    margin-top: auto;
+}
+
+/* Trophy Breakdown Bar */
+.prestasi-breakdown-bar {
+    position: relative;
+    background: rgba(31, 24, 38, 0.7);
+    border: 1px solid rgba(255, 79, 145, 0.2);
+    border-radius: 16px;
+    padding: 12px 18px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.prestasi-breakdown-title {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--pink, #ff2e7e);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.prestasi-breakdown-pills {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+.prestasi-pill-item {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #f1e9f4;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 4px 12px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.prestasi-pill-item b {
+    color: var(--pink, #ff2e7e);
+    font-weight: 800;
+}
+
+/* Filter Controls Bar */
+.prestasi-filter-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.prestasi-filter-tabs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.prestasi-filter-btn {
+    font-family: inherit;
+    font-size: 12.5px;
+    font-weight: 700;
+    padding: 8px 18px;
+    border-radius: 25px;
+    border: 1.5px solid rgba(255, 79, 145, 0.25);
+    background: rgba(25, 20, 30, 0.8);
+    color: #ddd3e0;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.prestasi-filter-btn:hover {
+    border-color: var(--pink, #ff2e7e);
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.prestasi-filter-btn.active {
+    background: var(--pink, #e91e63);
+    border-color: var(--pink, #e91e63);
+    color: #ffffff;
+    box-shadow: 0 4px 16px rgba(233, 30, 99, 0.35);
+}
+
+.prestasi-to-lb-btn {
+    font-family: inherit;
+    font-size: 12.5px;
+    font-weight: 700;
+    padding: 8px 18px;
+    border-radius: 25px;
+    border: 1.5px solid rgba(255, 79, 145, 0.3);
+    background: rgba(233, 30, 99, 0.12);
+    color: var(--pink, #ff2e7e);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.25s ease;
+}
+
+.prestasi-to-lb-btn:hover {
+    background: var(--pink, #e91e63);
+    color: #ffffff;
+    border-color: var(--pink, #e91e63);
+    box-shadow: 0 4px 16px rgba(233, 30, 99, 0.35);
+    transform: translateY(-2px);
+}
+
+/* Badges on Cards */
+.achievement-type-pill {
+    font-size: 11px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    letter-spacing: 0.2px;
+}
+
+.achievement-type-pill.win {
+    color: #34d399;
+    background: rgba(52, 211, 153, 0.12);
+    border: 1px solid rgba(52, 211, 153, 0.3);
+}
+
+.achievement-type-pill.part {
+    color: #38bdf8;
+    background: rgba(56, 189, 248, 0.12);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.achievement-lb-tag {
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--pink, #ff2e7e);
+    background: rgba(255, 79, 145, 0.1);
+    border: 1px solid rgba(255, 79, 145, 0.25);
+    padding: 3px 8px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Expand / Collapse Button */
+.prestasi-expand-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.prestasi-expand-btn {
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 800;
+    color: #ffffff;
+    background: linear-gradient(135deg, #e91e63 0%, #c2185b 100%);
+    border: none;
+    border-radius: 30px;
+    padding: 12px 28px;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(233, 30, 99, 0.3);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.prestasi-expand-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(233, 30, 99, 0.45);
+}
+
+/* Light Mode Overrides */
+body:not(.theme-dark):not(.dark-mode) .prestasi-stat-box {
+    background: linear-gradient(145deg, #ffffff 0%, #fff6fa 100%);
+    border-color: var(--pink-border, #fcd1e5);
+    box-shadow: 0 6px 20px rgba(72, 32, 52, 0.06);
+}
+body:not(.theme-dark):not(.dark-mode) .prestasi-stat-num {
+    background: linear-gradient(135deg, #1f1826 40%, #e91e63 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+body:not(.theme-dark):not(.dark-mode) .prestasi-stat-label {
+    color: #211c27;
+}
+body:not(.theme-dark):not(.dark-mode) .prestasi-stat-desc {
+    color: #665b6e;
+}
+body:not(.theme-dark):not(.dark-mode) .prestasi-breakdown-bar {
+    background: #ffffff;
+    border-color: var(--pink-border, #fcd1e5);
+}
+body:not(.theme-dark):not(.dark-mode) .prestasi-pill-item {
+    color: #33263a;
+    background: rgba(233, 30, 99, 0.04);
+    border-color: rgba(233, 30, 99, 0.15);
+}
+body:not(.theme-dark):not(.dark-mode) .prestasi-filter-btn {
+    background: #ffffff;
+    color: #55445d;
+    border-color: var(--pink-border, #fcd1e5);
+}
+body:not(.theme-dark):not(.dark-mode) .prestasi-filter-btn.active {
+    background: var(--pink, #e91e63);
+    color: #ffffff;
+}
+
+@media (max-width: 950px) {
+    .prestasi-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 580px) {
+    .prestasi-stats-grid {
+        grid-template-columns: 1fr;
+    }
+    .prestasi-filter-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .prestasi-filter-tabs {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 6px;
+    }
+    .prestasi-to-lb-btn {
+        justify-content: center;
+    }
+}
+
+/* ==========================================================================
    FAQ INTERAKTIF (Tanya Sora - Details / Summary Accordion)
    ========================================================================== */
 .faq-section {

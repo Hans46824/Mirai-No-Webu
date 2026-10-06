@@ -354,105 +354,579 @@
             </script>
         </section>
 
-        <!-- PAPAN PRESTASI (WALL OF FAME - JEJAK KEBANGGAAN) -->
-        <section class="section wall-of-fame-section">
+        <!-- PAPAN PRESTASI (MODEL JUMLAH PRESTASI MIRAI NO HANA) -->
+        <section class="section wall-of-fame-section" id="prestasi">
             <div class="section-intro">
                 <h2 class="heading">Prestasi &amp; Penghargaan <span>Mirai no Hana</span></h2>
+                <p class="copy" style="margin-top: 10px; color: var(--muted); font-size: 14px;">
+                    Rekapitulasi capaian kejuaraan, trofi, serta keikutsertaan delegasi klub Mirai no Hana dalam berbagai ajang festival budaya dan kompetisi akademik bahasa Jepang.
+                </p>
             </div>
 
-            <div class="achievement-bento">
-                <!-- Card 1 -->
-                <article class="achievement-card">
-                    <div class="achievement-winner-wrap">
-                        <img class="achievement-winner-img" src="images/mirai/sora/sorachat.jpeg" alt="Asora Aokita">
-                        <span class="achievement-winner-name">Asora Aokita</span>
-                    </div>
-                    <div class="achievement-info">
-                        <div class="achievement-meta-row">
-                            <span class="achievement-division-pill">Divisi Bahasa</span>
-                            <span class="achievement-date-pill">
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                                18 Oktober 2024
-                            </span>
-                            <span class="achievement-trophy-icon">🏆</span>
+            <!-- MODEL JUMLAH PRESTASI MIRAI NO HANA -->
+            <div class="prestasi-overview-wrap">
+                <div class="prestasi-stats-grid">
+                    <!-- Stat 1: Jumlah Prestasi (Menang lomba dpt hadiah) -->
+                    <div class="prestasi-stat-box">
+                        <div class="prestasi-stat-top">
+                            <div class="prestasi-stat-icon-wrap">🏆</div>
+                            <span class="prestasi-stat-pill">Podium &amp; Juara</span>
                         </div>
-                        <h3 class="achievement-rank">Juara 1 Cerdas Cermat Bahasa Jepang (N4 Level)</h3>
-                        <p class="achievement-name">Festival Budaya Jepang Bunkasai Tingkat Jawa Timur — Berhasil mengungguli puluhan perwakilan sekolah dalam penguasaan Kanji, tata bahasa, dan budaya umum Jepang.</p>
-                        <div class="achievement-badge-wrap">
-                            <span class="achievement-badge">Tingkat Provinsi · Bidang Akademik</span>
-                        </div>
+                        <div class="prestasi-stat-num" id="statTotalPrestasi">21</div>
+                        <div class="prestasi-stat-label">Jumlah Prestasi</div>
+                        <p class="prestasi-stat-desc">Perolehan juara &amp; kemenangan lomba yang berhasil membawa pulang hadiah, trofi, dan penghargaan resmi.</p>
                     </div>
-                </article>
 
-                <!-- Card 2 -->
-                <article class="achievement-card">
-                    <div class="achievement-winner-wrap">
-                        <img class="achievement-winner-img" src="images/mirai/sora/sorachat.jpeg" alt="Asora Aokita">
-                        <span class="achievement-winner-name">Asora Aokita</span>
-                    </div>
-                    <div class="achievement-info">
-                        <div class="achievement-meta-row">
-                            <span class="achievement-division-pill">Divisi Desain Kreatif</span>
-                            <span class="achievement-date-pill">
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                                12 Agustus 2023
-                            </span>
-                            <span class="achievement-trophy-icon">🥇</span>
+                    <!-- Stat 2: Jumlah Partisipasi (Seberapa ikut lomba menang kalah dihitung) -->
+                    <div class="prestasi-stat-box">
+                        <div class="prestasi-stat-top">
+                            <div class="prestasi-stat-icon-wrap">🎯</div>
+                            <span class="prestasi-stat-pill">Total Delegasi</span>
                         </div>
-                        <h3 class="achievement-rank">Juara 1 Desain Maskot Digital</h3>
-                        <p class="achievement-name">Kompetisi Desain Karakter Pelajar se-Gerbangkertosusila.</p>
-                        <div class="achievement-badge-wrap">
-                            <span class="achievement-badge">Tingkat Pelajar · Desain Maskot</span>
-                        </div>
+                        <div class="prestasi-stat-num" id="statTotalPartisipasi">27</div>
+                        <div class="prestasi-stat-label">Jumlah Partisipasi</div>
+                        <p class="prestasi-stat-desc">Total seluruh keikutsertaan delegasi klub dalam berbagai kompetisi (menang maupun kalah dihitung secara terbuka).</p>
                     </div>
-                </article>
 
-                <!-- Card 3 -->
-                <article class="achievement-card">
-                    <div class="achievement-winner-wrap">
-                        <img class="achievement-winner-img" src="images/mirai/sora/sorachat.jpeg" alt="Asora Aokita">
-                        <span class="achievement-winner-name">Asora Aokita</span>
-                    </div>
-                    <div class="achievement-info">
-                        <div class="achievement-meta-row">
-                            <span class="achievement-division-pill">Divisi Cosplay</span>
-                            <span class="achievement-date-pill">
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                                20 Mei 2023
-                            </span>
-                            <span class="achievement-trophy-icon">🥈</span>
+                    <!-- Stat 3: Tingkat Regional & Provinsi -->
+                    <div class="prestasi-stat-box">
+                        <div class="prestasi-stat-top">
+                            <div class="prestasi-stat-icon-wrap">🌐</div>
+                            <span class="prestasi-stat-pill">Cakupan Wilayah</span>
                         </div>
-                        <h3 class="achievement-rank">Juara 2 Best Costume &amp; Performance</h3>
-                        <p class="achievement-name">Cosplay Walk Competition SMASYIMDUTA Youth Fest.</p>
-                        <div class="achievement-badge-wrap">
-                            <span class="achievement-badge">Youth Fest · Performance</span>
-                        </div>
+                        <div class="prestasi-stat-num" id="statTingkatRegional">18+</div>
+                        <div class="prestasi-stat-label">Kejuaraan Jatim &amp; Kota</div>
+                        <p class="prestasi-stat-desc">Ajang bergengsi Bunkasai se-Jawa Timur, Surabaya, Sidoarjo, hingga tingkat pelajar Gerbangkertosusila.</p>
                     </div>
-                </article>
 
-                <!-- Card 4 -->
-                <article class="achievement-card">
-                    <div class="achievement-winner-wrap">
-                        <img class="achievement-winner-img" src="images/mirai/sora/sorachat.jpeg" alt="Asora Aokita">
-                        <span class="achievement-winner-name">Asora Aokita</span>
-                    </div>
-                    <div class="achievement-info">
-                        <div class="achievement-meta-row">
-                            <span class="achievement-division-pill">Divisi Bahasa</span>
-                            <span class="achievement-date-pill">
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                                15 September 2022
-                            </span>
-                            <span class="achievement-trophy-icon">🎖️</span>
+                    <!-- Stat 4: Rasio Kemenangan (Win Rate) -->
+                    <div class="prestasi-stat-box">
+                        <div class="prestasi-stat-top">
+                            <div class="prestasi-stat-icon-wrap">📈</div>
+                            <span class="prestasi-stat-pill">Efektivitas Tim</span>
                         </div>
-                        <h3 class="achievement-rank">Juara Harapan 1 Lomba Pidato Bahasa Jepang</h3>
-                        <p class="achievement-name">Ajang bergengsi unjuk kemampuan orasi dan pemahaman wawasan kebudayaan Jepang tingkat SMA/SMK se-Jawa Timur.</p>
-                        <div class="achievement-badge-wrap">
-                            <span class="achievement-badge">Tingkat SMA/SMK · Benron Taikai</span>
-                        </div>
+                        <div class="prestasi-stat-num" id="statWinRate">78%</div>
+                        <div class="prestasi-stat-label">Tingkat Podium Juara</div>
+                        <p class="prestasi-stat-desc">Persentase delegasi anggota klub yang berhasil menembus podium juara 1, 2, 3, dan juara harapan.</p>
                     </div>
-                </article>
+                </div>
+
+                <!-- Trophy Breakdown Bar -->
+                <div class="prestasi-breakdown-bar">
+                    <span class="prestasi-breakdown-title">🎖️ Koleksi Gelar &amp; Trofi:</span>
+                    <div class="prestasi-breakdown-pills" id="prestasiBreakdownPills">
+                        <span class="prestasi-pill-item">🏆 <b>5</b> Juara 1 &amp; Terbaik</span>
+                        <span class="prestasi-pill-item">🥈 <b>5</b> Juara 2</span>
+                        <span class="prestasi-pill-item">🥉 <b>4</b> Juara 3</span>
+                        <span class="prestasi-pill-item">🎖️ <b>7</b> Harapan &amp; Favorit</span>
+                        <span class="prestasi-pill-item">🎯 <b>6</b> Partisipasi Delegasi</span>
+                    </div>
+                </div>
+
+                <!-- Filter Controls & Tombol ke Leaderboard -->
+                <div class="prestasi-filter-controls">
+                    <div class="prestasi-filter-tabs" role="tablist">
+                        <button type="button" class="prestasi-filter-btn active" data-filter="all" id="tabFilterAll">
+                            Semua Partisipasi (<span id="countFilterAll">27</span>)
+                        </button>
+                        <button type="button" class="prestasi-filter-btn" data-filter="prestasi" id="tabFilterPrestasi">
+                            🏆 Prestasi &amp; Juara (<span id="countFilterPrestasi">21</span>)
+                        </button>
+                        <button type="button" class="prestasi-filter-btn" data-filter="partisipasi" id="tabFilterPartisipasi">
+                            🎯 Partisipasi Delegasi (<span id="countFilterPartisipasi">6</span>)
+                        </button>
+                    </div>
+
+                    <a href="peringkat.html" class="prestasi-to-lb-btn">
+                        <span>Papan Peringkat Anggota</span>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
             </div>
+
+            <!-- GRID KARTU PRESTASI (BENTO) -->
+            <div class="achievement-bento" id="achievementBentoGrid">
+                <!-- Diisi secara dinamis oleh skrip data prestasi -->
+            </div>
+
+            <!-- Tombol Tampilkan Lebih Banyak / Ciutkan -->
+            <div class="prestasi-expand-wrap" id="prestasiExpandWrap">
+                <button type="button" class="prestasi-expand-btn" id="prestasiExpandBtn">
+                    <span id="prestasiExpandText">Tampilkan Seluruh 27 Prestasi &amp; Partisipasi</span>
+                    <span id="prestasiExpandIcon">▾</span>
+                </button>
+            </div>
+
+            <!-- SKRIP DATA & MODEL JUMLAH PRESTASI (MENGIKUTI PAPAN PERINGKAT PRESTASI) -->
+            <script>
+                (function() {
+                    const miraiPrestasiData = [
+                        // --- TOP 1 DI PAPAN PERINGKAT: ARYA MITSUKI ---
+                        {
+                            nama: "Arya Mitsuki",
+                            avatar: "images/mirai/stiker/hua.jpeg",
+                            divisi: "Divisi Desain Kreatif",
+                            tgl: "18 Jan 2026",
+                            trophy: "🏆",
+                            judul: "Juara 1 Digital Fanart & Desain Karakter",
+                            deskripsi: "Festival Budaya Jepang Bunkasai SMA Jawa Timur — Meraih nilai karya ilustrasi digital terbaik se-Jawa Timur.",
+                            tingkat: "Tingkat Provinsi Jatim · Bunkasai",
+                            tipe: "prestasi",
+                            peringkatKlub: "#1 di Papan Peringkat"
+                        },
+                        {
+                            nama: "Arya Mitsuki",
+                            avatar: "images/mirai/stiker/hua.jpeg",
+                            divisi: "Divisi Desain Kreatif",
+                            tgl: "22 Nov 2025",
+                            trophy: "🥈",
+                            judul: "Juara 2 Lomba Poster Kebudayaan Jepang",
+                            deskripsi: "Bunkasai Wilayah Surabaya — Kompetisi desain visual poster budaya antar-SMA se-Gerbangkertosusila.",
+                            tingkat: "Kejuaraan Antar-SMA · Surabaya",
+                            tipe: "prestasi",
+                            peringkatKlub: "#1 di Papan Peringkat"
+                        },
+                        {
+                            nama: "Arya Mitsuki",
+                            avatar: "images/mirai/stiker/hua.jpeg",
+                            divisi: "Divisi Desain Kreatif",
+                            tgl: "28 Sep 2025",
+                            trophy: "🎖️",
+                            judul: "Juara Harapan 1 Desain Komik Strip Mini",
+                            deskripsi: "Manga Fest — Lomba ilustrasi komik strip 4-panel bernuansa kearifan lokal & budaya Jepang.",
+                            tingkat: "Kompetisi Kreatif Pelajar",
+                            tipe: "prestasi",
+                            peringkatKlub: "#1 di Papan Peringkat"
+                        },
+
+                        // --- TOP 2 DI PAPAN PERINGKAT: SITI HANABI ---
+                        {
+                            nama: "Siti Hanabi",
+                            avatar: "images/mirai/stiker/iki.jpeg",
+                            divisi: "Divisi Bahasa",
+                            tgl: "25 Jan 2026",
+                            trophy: "🥈",
+                            judul: "Juara 2 Lomba Rodoku (Membaca Teks Bahasa Jepang)",
+                            deskripsi: "Bunkasai Tingkat Universitas se-Jawa Timur — Membaca teks sastra Jepang dengan intonasi dan pengucapan fasih.",
+                            tingkat: "Tingkat Jawa Timur · Bunkasai",
+                            tipe: "prestasi",
+                            peringkatKlub: "#2 di Papan Peringkat"
+                        },
+                        {
+                            nama: "Siti Hanabi",
+                            avatar: "images/mirai/stiker/iki.jpeg",
+                            divisi: "Divisi Bahasa",
+                            tgl: "14 Nov 2025",
+                            trophy: "🥉",
+                            judul: "Juara 3 Cerdas Cermat Bahasa Jepang (Nihongo Quiz)",
+                            deskripsi: "Kompetisi Akademik Tingkat SMA — Cepat tepat seputar Kanji, grammar, dan wawasan umum Jepang.",
+                            tingkat: "Tingkat SMA · Cerdas Cermat",
+                            tipe: "prestasi",
+                            peringkatKlub: "#2 di Papan Peringkat"
+                        },
+                        {
+                            nama: "Siti Hanabi",
+                            avatar: "images/mirai/stiker/iki.jpeg",
+                            divisi: "Divisi Bahasa",
+                            tgl: "05 Sep 2025",
+                            trophy: "🎖️",
+                            judul: "Juara Harapan 1 Lomba Pidato Bahasa Jepang (Benron Taikai)",
+                            deskripsi: "Ajang orasi bahasa Jepang bertema persahabatan generasi muda antarbangsa.",
+                            tingkat: "Lomba Pidato Pelajar Se-Jatim",
+                            tipe: "prestasi",
+                            peringkatKlub: "#2 di Papan Peringkat"
+                        },
+
+                        // --- TOP 3 DI PAPAN PERINGKAT: VINO TAIGA ---
+                        {
+                            nama: "Vino Taiga",
+                            avatar: "images/mirai/stiker/iwa.jpeg",
+                            divisi: "Divisi Cosplay",
+                            tgl: "10 Nov 2025",
+                            trophy: "🥈",
+                            judul: "Juara 2 Kostum Kreatif Budaya Populer",
+                            deskripsi: "Bunkasai Pelajar se-Jawa Timur — Desain kostum dan prop karya mandiri dengan detail akurasi tinggi.",
+                            tingkat: "Festival Kreatif Pelajar · Jatim",
+                            tipe: "prestasi",
+                            peringkatKlub: "#3 di Papan Peringkat"
+                        },
+                        {
+                            nama: "Vino Taiga",
+                            avatar: "images/mirai/stiker/iwa.jpeg",
+                            divisi: "Divisi Cosplay",
+                            tgl: "20 Jan 2026",
+                            trophy: "🎖️",
+                            judul: "Juara Harapan 1 Cosplay Walk & Armor Showcase",
+                            deskripsi: "Festival SMA Se-Derajat — Penampilan panggung memukau dengan peragaan armor buatan tangan.",
+                            tingkat: "Kejuaraan Seni Panggung Pelajar",
+                            tipe: "prestasi",
+                            peringkatKlub: "#3 di Papan Peringkat"
+                        },
+
+                        // --- TOP 4 DI PAPAN PERINGKAT: CLARA YUKI ---
+                        {
+                            nama: "Clara Yuki",
+                            avatar: "images/mirai/stiker/mas.jpeg",
+                            divisi: "Divisi Desain",
+                            tgl: "14 Jan 2026",
+                            trophy: "🥈",
+                            judul: "Juara 2 Lomba Ilustrasi Tradisional Bunkasai",
+                            deskripsi: "Kompetisi Seni Ilustrasi Bunkasai SMA Se-Jawa Timur dengan teknik gambar manual bertema musim semi.",
+                            tingkat: "Kejuaraan Seni Ilustrasi · Jatim",
+                            tipe: "prestasi",
+                            peringkatKlub: "#4 di Papan Peringkat"
+                        },
+                        {
+                            nama: "Clara Yuki",
+                            avatar: "images/mirai/stiker/mas.jpeg",
+                            divisi: "Divisi Desain",
+                            tgl: "18 Nov 2025",
+                            trophy: "🎖️",
+                            judul: "Juara Harapan 2 Desain Karakter Orisinil",
+                            deskripsi: "Festival Seni Pelajar — Karakter bertema mitologi dan budaya folklore Jepang.",
+                            tingkat: "Kompetisi Karakter Desain",
+                            tipe: "prestasi",
+                            peringkatKlub: "#4 di Papan Peringkat"
+                        },
+
+                        // --- TOP 5 DI PAPAN PERINGKAT: FANDI KAITO ---
+                        {
+                            nama: "Fandi Kaito",
+                            avatar: "images/mirai/stiker/peg.jpeg",
+                            divisi: "Divisi Bahasa",
+                            tgl: "10 Des 2025",
+                            trophy: "🥉",
+                            judul: "Juara 3 Lomba Menulis Esai Bahasa Jepang Pemula",
+                            deskripsi: "Kompetisi Menulis Esai — Karangan ilmiah populer tentang pembelajaran bahasa Jepang interaktif.",
+                            tingkat: "Kompetisi Menulis Esai Tingkat SMA",
+                            tipe: "prestasi",
+                            peringkatKlub: "#5 di Papan Peringkat"
+                        },
+                        {
+                            nama: "Fandi Kaito",
+                            avatar: "images/mirai/stiker/peg.jpeg",
+                            divisi: "Divisi Bahasa",
+                            tgl: "12 Jan 2026",
+                            trophy: "🎯",
+                            judul: "Finalis 5 Besar Cerdas Cermat Pengetahuan Umum Jepang",
+                            deskripsi: "Lolos babak penyisihan dan melaju hingga babak final cerdas cermat Bunkasai antar-sekolah.",
+                            tingkat: "Partisipasi Delegasi · Finalis 5 Besar",
+                            tipe: "partisipasi",
+                            peringkatKlub: "#5 di Papan Peringkat"
+                        },
+
+                        // --- TOP 6 DI PAPAN PERINGKAT: NABILA SAKURA ---
+                        {
+                            nama: "Nabila Sakura",
+                            avatar: "images/mirai/stiker/sor.jpeg",
+                            divisi: "Divisi Kewirausahaan",
+                            tgl: "18 Jan 2026",
+                            trophy: "🏆",
+                            judul: "Predikat Stan Kewirausahaan Terbaik Festival Sekolah",
+                            deskripsi: "Festival Budaya Sekolah — Menghadirkan booth kuliner Jepang terlengkap dengan manajemen stan paling kreatif.",
+                            tingkat: "Penghargaan Stan Terbaik Festival",
+                            tipe: "prestasi",
+                            peringkatKlub: "#6 di Papan Peringkat"
+                        },
+                        {
+                            nama: "Nabila Sakura",
+                            avatar: "images/mirai/stiker/sor.jpeg",
+                            divisi: "Divisi Kewirausahaan",
+                            tgl: "12 Nov 2025",
+                            trophy: "🥉",
+                            judul: "Juara 3 Manajemen Usaha Mandiri Kreatif Siswa",
+                            deskripsi: "Kompetisi Usaha Kreatif Pelajar — Rintisan produk merchandise & kuliner tematik klub.",
+                            tingkat: "Kompetisi Usaha Kreatif Pelajar",
+                            tipe: "prestasi",
+                            peringkatKlub: "#6 di Papan Peringkat"
+                        },
+
+                        // --- TOP 7 DI PAPAN PERINGKAT: REZA SHIN ---
+                        {
+                            nama: "Reza Shin",
+                            avatar: "images/mirai/stiker/sul.jpeg",
+                            divisi: "Divisi Cosplay",
+                            tgl: "15 Jan 2026",
+                            trophy: "✨",
+                            judul: "Juara Kostum Cosplay Terfavorit Penonton Bunkasai",
+                            deskripsi: "Piala Favorit Festival — Memikat audiens lewat kostum otentik dan aksi teatrikal berkarakter.",
+                            tingkat: "Piala Terfavorit Penonton · Bunkasai",
+                            tipe: "prestasi",
+                            peringkatKlub: "#7 di Papan Peringkat"
+                        },
+                        {
+                            nama: "Reza Shin",
+                            avatar: "images/mirai/stiker/sul.jpeg",
+                            divisi: "Divisi Cosplay",
+                            tgl: "16 Okt 2025",
+                            trophy: "🎖️",
+                            judul: "Juara Harapan 1 Cosplay Performance Individu",
+                            deskripsi: "Kompetisi Panggung SMA — Koreografi pedang dan akting dramatis berdurasi 3 menit.",
+                            tingkat: "Kompetisi Seni Pertunjukan",
+                            tipe: "prestasi",
+                            peringkatKlub: "#7 di Papan Peringkat"
+                        },
+
+                        // --- TOP 8 DI PAPAN PERINGKAT: TANIA RIKO ---
+                        {
+                            nama: "Tania Riko",
+                            avatar: "images/mirai/stiker/woy.jpeg",
+                            divisi: "Divisi Desain",
+                            tgl: "10 Jan 2026",
+                            trophy: "🥉",
+                            judul: "Juara 3 Desain Logo & Tipografi Kebudayaan",
+                            deskripsi: "Kompetisi Desain Grafis — Tipografi Kanji modern dengan perpaduan ornamen tradisional.",
+                            tingkat: "Kompetisi Desain Grafis Pelajar",
+                            tipe: "prestasi",
+                            peringkatKlub: "#8 di Papan Peringkat"
+                        },
+
+                        // --- TOP 9 DI PAPAN PERINGKAT: YOGA DAIKI ---
+                        {
+                            nama: "Yoga Daiki",
+                            avatar: "images/mirai/stiker/yan.jpeg",
+                            divisi: "Divisi Bahasa",
+                            tgl: "25 Okt 2025",
+                            trophy: "🎖️",
+                            judul: "Juara Harapan 2 Lomba Terjemahan Teks Bahasa Jepang",
+                            deskripsi: "Kompetisi Penerjemahan Teks Cerita Rakyat Jepang ke Bahasa Indonesia secara akurat dan bernas.",
+                            tingkat: "Kompetisi Penerjemahan Antar-Siswa",
+                            tipe: "prestasi",
+                            peringkatKlub: "#9 di Papan Peringkat"
+                        },
+
+                        // --- TOP 10 DI PAPAN PERINGKAT: AMELIA NONOKA ---
+                        {
+                            nama: "Amelia Nonoka",
+                            avatar: "images/mirai/stiker/yat.jpeg",
+                            divisi: "Divisi Bahasa",
+                            tgl: "16 Jan 2026",
+                            trophy: "🎯",
+                            judul: "Finalis Lomba Kaligrafi Jepang (Shodou 书道) Bunkasai",
+                            deskripsi: "Berhasil melaju ke babak demonstrasi langsung penulisan Kanji kuas di atas panggung Bunkasai SMA.",
+                            tingkat: "Partisipasi Delegasi · Finalis Shodou",
+                            tipe: "partisipasi",
+                            peringkatKlub: "#10 di Papan Peringkat"
+                        },
+
+                        // --- HISTORIS MASKOT & ALUMNI BERPRESTASI: ASORA AOKITA ---
+                        {
+                            nama: "Asora Aokita",
+                            avatar: "images/mirai/sora/sorachat.jpeg",
+                            divisi: "Divisi Bahasa",
+                            tgl: "18 Okt 2024",
+                            trophy: "🏆",
+                            judul: "Juara 1 Cerdas Cermat Bahasa Jepang (N4 Level)",
+                            deskripsi: "Festival Budaya Jepang Bunkasai Tingkat Jawa Timur — Berhasil mengungguli puluhan perwakilan sekolah dalam penguasaan Kanji, tata bahasa, dan budaya umum Jepang.",
+                            tingkat: "Tingkat Provinsi Jatim · Bidang Akademik",
+                            tipe: "prestasi",
+                            peringkatKlub: "Delegasi Kebanggaan Klub"
+                        },
+                        {
+                            nama: "Asora Aokita",
+                            avatar: "images/mirai/sora/sorachat.jpeg",
+                            divisi: "Divisi Desain Kreatif",
+                            tgl: "12 Agu 2023",
+                            trophy: "🏆",
+                            judul: "Juara 1 Desain Maskot Digital Pelajar",
+                            deskripsi: "Kompetisi Desain Karakter Pelajar se-Gerbangkertosusila — Perancangan maskot klub dengan filosofi bunga masa depan.",
+                            tingkat: "Tingkat Pelajar · Desain Maskot",
+                            tipe: "prestasi",
+                            peringkatKlub: "Delegasi Kebanggaan Klub"
+                        },
+                        {
+                            nama: "Asora Aokita",
+                            avatar: "images/mirai/sora/sorachat.jpeg",
+                            divisi: "Divisi Cosplay",
+                            tgl: "20 Mei 2023",
+                            trophy: "🥈",
+                            judul: "Juara 2 Best Costume & Performance",
+                            deskripsi: "Cosplay Walk Competition SMASYIMDUTA Youth Fest — Kostum tradisional haori berornamen ombak samudra.",
+                            tingkat: "Youth Fest · Performance",
+                            tipe: "prestasi",
+                            peringkatKlub: "Delegasi Kebanggaan Klub"
+                        },
+                        {
+                            nama: "Asora Aokita",
+                            avatar: "images/mirai/sora/sorachat.jpeg",
+                            divisi: "Divisi Bahasa",
+                            tgl: "15 Sep 2022",
+                            trophy: "🎖️",
+                            judul: "Juara Harapan 1 Lomba Pidato Bahasa Jepang",
+                            deskripsi: "Ajang bergengsi unjuk kemampuan orasi dan pemahaman wawasan kebudayaan Jepang tingkat SMA/SMK se-Jawa Timur.",
+                            tingkat: "Tingkat SMA/SMK · Benron Taikai",
+                            tipe: "prestasi",
+                            peringkatKlub: "Delegasi Kebanggaan Klub"
+                        },
+
+                        // --- DELEGASI PARTISIPASI KLUB (KOMPETISI LAIN) ---
+                        {
+                            nama: "Delegasi Klub Mirai",
+                            avatar: "images/mirai/logo/MNH1-nav.png",
+                            divisi: "Divisi Bahasa",
+                            tgl: "10 Nov 2025",
+                            trophy: "🎯",
+                            judul: "Delegasi Peserta Olimpiade Budaya & Kanji Pelajar",
+                            deskripsi: "Partisipasi kontingen klub dalam babak penyisihan olimpiade kebudayaan dan literasi Kanji se-Jawa Timur.",
+                            tingkat: "Partisipasi Delegasi · Tingkat Provinsi",
+                            tipe: "partisipasi",
+                            peringkatKlub: "Delegasi Klub"
+                        },
+                        {
+                            nama: "Delegasi Klub Mirai",
+                            avatar: "images/mirai/logo/MNH1-nav.png",
+                            divisi: "Divisi Seni & Suara",
+                            tgl: "08 Des 2025",
+                            trophy: "🎯",
+                            judul: "Delegasi Peserta Anime Song Singing Contest Bunkasai",
+                            deskripsi: "Keikutsertaan delegasi vokal klub membawakan lagu tema anime di panggung festival budaya Bunkasai Surabaya.",
+                            tingkat: "Partisipasi Delegasi · Lomba Vokal",
+                            tipe: "partisipasi",
+                            peringkatKlub: "Delegasi Klub"
+                        },
+                        {
+                            nama: "Delegasi Klub Mirai",
+                            avatar: "images/mirai/logo/MNH1-nav.png",
+                            divisi: "Divisi Desain",
+                            tgl: "22 Nov 2025",
+                            trophy: "🎯",
+                            judul: "Delegasi Peserta Lomba Shodou & Origami Pelajar",
+                            deskripsi: "Keikutsertaan kontingen klub dalam festival seni kreasi melipat kertas origami dan penulisan kaligrafi tradisional.",
+                            tingkat: "Partisipasi Delegasi · Seni Budaya",
+                            tipe: "partisipasi",
+                            peringkatKlub: "Delegasi Klub"
+                        },
+                        {
+                            nama: "Delegasi Klub Mirai",
+                            avatar: "images/mirai/logo/MNH1-nav.png",
+                            divisi: "Divisi Cosplay",
+                            tgl: "15 Jan 2026",
+                            trophy: "🎯",
+                            judul: "Delegasi Peserta Cosplay Walk Bunkasai Pelajar",
+                            deskripsi: "Unjuk kebolehan parade kostum karakter anime bersama puluhan komunitas jejepangan sekolah se-Surabaya dan Sidoarjo.",
+                            tingkat: "Partisipasi Delegasi · Parade Panggung",
+                            tipe: "partisipasi",
+                            peringkatKlub: "Delegasi Klub"
+                        }
+                    ];
+
+                    // Hitung jumlah otomatis dari data yang mengikuti Papan Peringkat Prestasi
+                    const totalPartisipasi = miraiPrestasiData.length;
+                    const totalPrestasi = miraiPrestasiData.filter(d => d.tipe === 'prestasi').length;
+                    const totalPartisipasiDelegasi = miraiPrestasiData.filter(d => d.tipe === 'partisipasi').length;
+                    const totalRegional = miraiPrestasiData.filter(d => 
+                        d.tingkat.includes('Jatim') || d.tingkat.includes('Jawa Timur') || 
+                        d.tingkat.includes('Provinsi') || d.tingkat.includes('Surabaya') || 
+                        d.tingkat.includes('Wilayah')
+                    ).length;
+                    const winRate = Math.round((totalPrestasi / totalPartisipasi) * 100);
+
+                    // Update Angka Statistik
+                    const statPrestasiEl = document.getElementById('statTotalPrestasi');
+                    const statPartisipasiEl = document.getElementById('statTotalPartisipasi');
+                    const statRegionalEl = document.getElementById('statTingkatRegional');
+                    const statWinRateEl = document.getElementById('statWinRate');
+
+                    if (statPrestasiEl) statPrestasiEl.textContent = totalPrestasi;
+                    if (statPartisipasiEl) statPartisipasiEl.textContent = totalPartisipasi;
+                    if (statRegionalEl) statRegionalEl.textContent = totalRegional + '+';
+                    if (statWinRateEl) statWinRateEl.textContent = winRate + '%';
+
+                    // Update Filter Tab Badge Counts
+                    const countAllEl = document.getElementById('countFilterAll');
+                    const countPrestasiEl = document.getElementById('countFilterPrestasi');
+                    const countPartisipasiEl = document.getElementById('countFilterPartisipasi');
+
+                    if (countAllEl) countAllEl.textContent = totalPartisipasi;
+                    if (countPrestasiEl) countPrestasiEl.textContent = totalPrestasi;
+                    if (countPartisipasiEl) countPartisipasiEl.textContent = totalPartisipasiDelegasi;
+
+                    // Render Cards
+                    const container = document.getElementById('achievementBentoGrid');
+                    const expandBtn = document.getElementById('prestasiExpandBtn');
+                    const expandWrap = document.getElementById('prestasiExpandWrap');
+                    const expandText = document.getElementById('prestasiExpandText');
+                    const expandIcon = document.getElementById('prestasiExpandIcon');
+
+                    let currentFilter = 'all';
+                    let isExpanded = false;
+                    const INITIAL_LIMIT = 8;
+
+                    function renderCards() {
+                        if (!container) return;
+                        const filtered = miraiPrestasiData.filter(item => {
+                            if (currentFilter === 'all') return true;
+                            return item.tipe === currentFilter;
+                        });
+
+                        const displayed = isExpanded ? filtered : filtered.slice(0, INITIAL_LIMIT);
+
+                        container.innerHTML = displayed.map(item => `
+                            <article class="achievement-card" data-tipe="${item.tipe}">
+                                <div class="achievement-winner-wrap">
+                                    <img class="achievement-winner-img" src="${item.avatar}" alt="${item.nama}">
+                                    <span class="achievement-winner-name">${item.nama}</span>
+                                </div>
+                                <div class="achievement-info">
+                                    <div class="achievement-meta-row">
+                                        <span class="achievement-division-pill">${item.divisi}</span>
+                                        <span class="achievement-date-pill">
+                                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                            ${item.tgl}
+                                        </span>
+                                        <span class="achievement-type-pill ${item.tipe === 'prestasi' ? 'win' : 'part'}">
+                                            ${item.tipe === 'prestasi' ? '🏆 Prestasi' : '🎯 Partisipasi'}
+                                        </span>
+                                        <span class="achievement-trophy-icon">${item.trophy}</span>
+                                    </div>
+                                    <h3 class="achievement-rank">${item.judul}</h3>
+                                    <p class="achievement-name">${item.deskripsi}</p>
+                                    <div class="achievement-badge-wrap" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
+                                        <span class="achievement-badge">${item.tingkat}</span>
+                                        <span class="achievement-lb-tag">${item.peringkatKlub}</span>
+                                    </div>
+                                </div>
+                            </article>
+                        `).join('');
+
+                        // Tampilkan/sembunyikan tombol expand
+                        if (expandWrap) {
+                            if (filtered.length <= INITIAL_LIMIT) {
+                                expandWrap.style.display = 'none';
+                            } else {
+                                expandWrap.style.display = 'flex';
+                                if (isExpanded) {
+                                    expandText.textContent = 'Ciutkan Tampilan';
+                                    expandIcon.textContent = '▴';
+                                } else {
+                                    expandText.textContent = 'Tampilkan Seluruh ' + filtered.length + ' Data';
+                                    expandIcon.textContent = '▾';
+                                }
+                            }
+                        }
+                    }
+
+                    // Event listener tabs
+                    document.querySelectorAll('.prestasi-filter-btn').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            document.querySelectorAll('.prestasi-filter-btn').forEach(b => b.classList.remove('active'));
+                            this.classList.add('active');
+                            currentFilter = this.getAttribute('data-filter');
+                            isExpanded = false;
+                            renderCards();
+                        });
+                    });
+
+                    if (expandBtn) {
+                        expandBtn.addEventListener('click', function() {
+                            isExpanded = !isExpanded;
+                            renderCards();
+                        });
+                    }
+
+                    renderCards();
+                })();
+            </script>
         </section>
 
         <!-- SECTION 3: HAORI -->
