@@ -315,18 +315,7 @@ window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallba
             gridGroup.appendChild(vLine);
             svg.appendChild(gridGroup);
 
-            // Layer 1: Bentuk Asli Karakter Standar (Ghost Reference Glyph)
-            const bgGlyph = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            bgGlyph.setAttribute("x", "54.5");
-            bgGlyph.setAttribute("y", "54.5");
-            bgGlyph.setAttribute("text-anchor", "middle");
-            bgGlyph.setAttribute("dominant-baseline", "central");
-            bgGlyph.setAttribute("class", "stroke-bg-reference-glyph");
-            bgGlyph.setAttribute("aria-hidden", "true");
-            bgGlyph.textContent = char;
-            svg.appendChild(bgGlyph);
-
-            // Layer 2 (Dasar): Goresan Panduan Transparan (Transparent Guide Strokes)
+            // Layer 1 (Dasar): Goresan Panduan Transparan Urutan (Transparent Guide Strokes)
             const guideGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
             guideGroup.setAttribute("class", "stroke-guide-group");
             paths.forEach((d) => {

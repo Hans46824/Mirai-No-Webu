@@ -8989,22 +8989,7 @@ body.theme-dark svg .stroke-grid-line {
     stroke: rgba(255, 255, 255, 0.15) !important;
 }
 
-/* Watermark Bentuk Karakter Standar (Ghost Reference Glyph) */
-.stroke-bg-reference-glyph,
-svg .stroke-bg-reference-glyph {
-    font-family: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", "MS Mincho", "Meiryo", "Hiragino Sans", "Yu Gothic", "Noto Sans JP", serif, sans-serif !important;
-    font-size: 80px !important;
-    font-weight: 500 !important;
-    fill: rgba(30, 25, 35, 0.08) !important;
-    stroke: none !important;
-    pointer-events: none !important;
-    user-select: none !important;
-}
-
-body.theme-dark .stroke-bg-reference-glyph,
-body.theme-dark svg .stroke-bg-reference-glyph {
-    fill: rgba(255, 255, 255, 0.1) !important;
-}
+/* Panduan Urutan Goresan (Stroke Guide Path) */
 
 .stroke-guide-path,
 svg .stroke-guide-path {
