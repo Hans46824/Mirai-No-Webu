@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Papan Peringkat — MIRAI NO HANA</title>
-    <link rel="stylesheet" href="style.css?v=20261005e">
+    <link rel="stylesheet" href="style.css?v=20261006c">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Noto+Serif+JP:wght@600;700;900&display=swap" rel="stylesheet">
@@ -54,10 +54,10 @@
         </section>
 
         <!-- KONTEN UTAMA PERINGKAT -->
-        <section class="section peringkat-section">
+        <section class="section peringkat-section" id="papan-peringkat">
             
             <!-- LEADERBOARD TABS SWITCHER -->
-            <div class="leaderboard-tabs-wrap">
+            <div class="leaderboard-tabs-wrap" id="prestasi">
                 <div class="leaderboard-tabs" role="tablist" aria-label="Kategori Papan Peringkat">
                     <button type="button" class="lb-tab-btn active" data-tab="rajio">
                         <span class="lb-tab-icon">📻</span>
@@ -1017,7 +1017,32 @@
                 });
             });
 
-            renderLeaderboard('rajio');
+            // Mendeteksi tab dari parameter URL atau hash (misal: ?tab=prestasi atau #prestasi)
+            const urlParams = new URLSearchParams(window.location.search);
+            const hashTab = (window.location.hash || '').replace('#', '').toLowerCase();
+            const requestedTab = urlParams.get('tab') || (['rajio', 'kehadiran', 'prestasi'].includes(hashTab) ? hashTab : null) || 'rajio';
+            const validTabs = ['rajio', 'kehadiran', 'prestasi'];
+            const activeTabKey = validTabs.includes(requestedTab) ? requestedTab : 'rajio';
+
+            tabs.forEach(t => {
+                if (t.getAttribute('data-tab') === activeTabKey) {
+                    t.classList.add('active');
+                } else {
+                    t.classList.remove('active');
+                }
+            });
+
+            renderLeaderboard(activeTabKey);
+
+            // Geser langsung secara halus ke bagian papan peringkat jika diakses dengan parameter atau hash
+            if (urlParams.get('tab') || hashTab) {
+                setTimeout(() => {
+                    const targetEl = document.getElementById('prestasi') || document.getElementById('papan-peringkat') || document.querySelector('.leaderboard-tabs-wrap');
+                    if (targetEl) {
+                        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 200);
+            }
         });
     </script>
 
