@@ -710,10 +710,6 @@ function setupFooterQuoteSlider() {
                                 <img class="quote-avatar-img" src="${basePath}images/mirai/stiker/${q.sticker}" alt="${q.name}">
                             </div>
                             <h3 class="quote-author-name">${q.name}</h3>
-                            <div class="quote-anime-meta">
-                                <span class="quote-anime-title">${q.anime} (${q.animeJP})</span>
-                                <span class="quote-anime-author">Karya: ${q.author}</span>
-                            </div>
                         </div>
                         <div class="quote-box">
                             <h4 class="quote-kanji">${q.kanji}</h4>
