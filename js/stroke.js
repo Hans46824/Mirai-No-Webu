@@ -35,13 +35,27 @@ window.togglePenSize = function togglePenSize() {
     });
 };
 
+try {
+    for (let i = localStorage.length - 1; i >= 0; i--) {
+        const k = localStorage.key(i);
+        if (k && (k.startsWith("mirai_stroke_v1_") || k.startsWith("mirai_stroke_v2_"))) {
+            localStorage.removeItem(k);
+        }
+    }
+} catch (e) {}
+
 /* Animated player for local & dynamic KanjiVG-derived SVG paths. */
 window.getStrokeDataAsync = async function getStrokeDataAsync(character) {
     if (!character) return null;
 
-    const cacheKey = "mirai_stroke_v2_" + character;
+    // 1. Curated local data takes absolute first priority (hand-verified standard)
+    if (window.MIRAI_STROKE_DATA?.[character]) {
+        return window.MIRAI_STROKE_DATA[character];
+    }
 
-    // 1. Check localStorage cache first (previously fetched from CDN = accurate)
+    const cacheKey = "mirai_stroke_v3_" + character;
+
+    // 2. Check localStorage cache (v3)
     try {
         const cached = localStorage.getItem(cacheKey);
         if (cached) {
@@ -67,7 +81,7 @@ window.getStrokeDataAsync = async function getStrokeDataAsync(character) {
         }
     }
 
-    // 2. Fetch official accurate SVG from KanjiVG via jsDelivr CDN
+    // 3. Fetch official SVG from KanjiVG via jsDelivr CDN
     try {
         const cp = character.codePointAt(0);
         if (!cp) return null;
@@ -105,7 +119,7 @@ window.getStrokeDataAsync = async function getStrokeDataAsync(character) {
         console.warn("Gagal memuat stroke KanjiVG CDN untuk:", character, err);
     }
 
-    // 3. Fallback: use local stroke-data.js (offline backup, may be less accurate)
+    // 4. Fallback if any
     if (window.MIRAI_STROKE_DATA?.[character]) {
         return window.MIRAI_STROKE_DATA[character];
     }
@@ -115,28 +129,42 @@ window.getStrokeDataAsync = async function getStrokeDataAsync(character) {
 
 // Helper cerdas menghitung posisi label angka urutan goresan pada canvas KanjiVG
 function calculateStrokeNumbers(paths, officialNumbers) {
-    if (Array.isArray(officialNumbers) && officialNumbers.length >= paths.length) {
-        return officialNumbers.map((n, i) => ({
-            x: n.x,
-            y: n.y,
-            text: n.text || String(i + 1)
-        }));
-    }
-
-    const placed = [];
-    paths.forEach((d, i) => {
+    function parseStart(d) {
         let sx = 25, sy = 25;
         const m = /^[Mm]\s*([-\d\.]+)[,\s]+([-\d\.]+)/.exec(d);
         if (m) {
             sx = parseFloat(m[1]);
             sy = parseFloat(m[2]);
         }
+        return { sx, sy };
+    }
 
-        let nx = sx >= 10 ? sx - 7 : sx + 6;
-        let ny = sy >= 10 ? sy - 2 : sy + 7;
+    const hasOfficial = Array.isArray(officialNumbers) && officialNumbers.length >= paths.length;
+    const placed = [];
 
-        // Penghindaran tabrakan posisi antar-angka dalam satu karakter
-        for (let attempt = 0; attempt < 4; attempt++) {
+    paths.forEach((d, i) => {
+        const { sx, sy } = parseStart(d);
+        let nx, ny;
+
+        if (hasOfficial && officialNumbers[i] && typeof officialNumbers[i].x === 'number') {
+            const off = officialNumbers[i];
+            const dist = Math.hypot(off.x - sx, off.y - sy);
+            // Validasi: nomor tidak boleh terlalu jauh dari awal goresan (<= 20) dan dalam batas kanvas yang nyaman [9, 100]
+            if (dist <= 20 && off.x >= 9 && off.x <= 100 && off.y >= 9 && off.y <= 100) {
+                nx = off.x;
+                ny = off.y;
+            } else {
+                // Re-anchor dekat titik awal goresan agar tidak melenceng jauh
+                nx = sx >= 12 ? sx - 6.5 : sx + 6;
+                ny = sy >= 12 ? sy - 2.5 : sy + 7;
+            }
+        } else {
+            nx = sx >= 12 ? sx - 6.5 : sx + 6;
+            ny = sy >= 12 ? sy - 2.5 : sy + 7;
+        }
+
+        // Hindari tabrakan visual antar-label nomor
+        for (let attempt = 0; attempt < 5; attempt++) {
             let collision = false;
             for (let j = 0; j < placed.length; j++) {
                 const dx = nx - placed[j].x;
@@ -148,18 +176,23 @@ function calculateStrokeNumbers(paths, officialNumbers) {
             }
             if (collision) {
                 if (ny > 16) {
-                    ny -= 6;
+                    ny -= 5.5;
                 } else {
-                    nx += 8;
+                    nx += 6.5;
                 }
             } else {
                 break;
             }
         }
 
-        nx = Math.max(3, Math.min(101, nx));
-        ny = Math.max(7, Math.min(103, ny));
-        placed.push({ x: nx, y: ny, text: String(i + 1) });
+        nx = Math.max(7, Math.min(101, nx));
+        ny = Math.max(9, Math.min(102, ny));
+
+        placed.push({
+            x: nx,
+            y: ny,
+            text: (hasOfficial && officialNumbers[i]?.text) ? officialNumbers[i].text : String(i + 1)
+        });
     });
 
     return placed;
@@ -200,7 +233,7 @@ window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallba
         host.innerHTML = `
             <div class="stroke-stage ${currentPenClass}" id="stroke-stage" aria-label="Animasi urutan menulis ${kanaString}"></div>
             <div style="display:flex; justify-content:space-between; align-items:center; margin:8px 0 4px; gap:10px;">
-                <p class="stroke-source" style="margin:0;">${isMulti ? "Animasi multi-karakter (KanjiVG)" : "Data urutan goresan: KanjiVG"}</p>
+                <p class="stroke-source" style="margin:0;">${isMulti ? "Animasi multi-karakter" : "Standar Penulisan Karakter Jepang"}</p>
                 <button id="btn-toggle-pen" class="btn-pen-style" type="button" onclick="togglePenSize()">${currentPenLabel}</button>
             </div>
             <div class="stroke-status">Goresan <b data-stroke-number>1</b> dari ${totalStrokes}</div>
@@ -259,7 +292,41 @@ window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallba
             svg.style.position = 'relative';
             svg.style.display = 'block';
 
-            // Layer 1 (Dasar): Goresan Panduan Transparan (Transparent Guide Strokes)
+            // Layer 0: Garis Kotak Panduan Latihan (Genkouyoushi Practice Grid Crosshair)
+            const gridGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+            gridGroup.setAttribute("class", "stroke-grid-group");
+            gridGroup.setAttribute("aria-hidden", "true");
+
+            const hLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            hLine.setAttribute("x1", "5");
+            hLine.setAttribute("y1", "54.5");
+            hLine.setAttribute("x2", "104");
+            hLine.setAttribute("y2", "54.5");
+            hLine.setAttribute("class", "stroke-grid-line");
+
+            const vLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            vLine.setAttribute("x1", "54.5");
+            vLine.setAttribute("y1", "5");
+            vLine.setAttribute("x2", "54.5");
+            vLine.setAttribute("y2", "104");
+            vLine.setAttribute("class", "stroke-grid-line");
+
+            gridGroup.appendChild(hLine);
+            gridGroup.appendChild(vLine);
+            svg.appendChild(gridGroup);
+
+            // Layer 1: Bentuk Asli Karakter Standar (Ghost Reference Glyph)
+            const bgGlyph = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            bgGlyph.setAttribute("x", "54.5");
+            bgGlyph.setAttribute("y", "54.5");
+            bgGlyph.setAttribute("text-anchor", "middle");
+            bgGlyph.setAttribute("dominant-baseline", "central");
+            bgGlyph.setAttribute("class", "stroke-bg-reference-glyph");
+            bgGlyph.setAttribute("aria-hidden", "true");
+            bgGlyph.textContent = char;
+            svg.appendChild(bgGlyph);
+
+            // Layer 2 (Dasar): Goresan Panduan Transparan (Transparent Guide Strokes)
             const guideGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
             guideGroup.setAttribute("class", "stroke-guide-group");
             paths.forEach((d) => {
@@ -273,7 +340,7 @@ window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallba
             });
             svg.appendChild(guideGroup);
 
-            // Layer 2 (Tengah): Goresan Animasi Solid (Active Animated Strokes)
+            // Layer 3 (Tengah): Goresan Animasi Solid (Active Animated Strokes)
             const activeGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
             activeGroup.setAttribute("class", "stroke-active-group");
             paths.forEach((d, pathIndex) => {
@@ -288,7 +355,7 @@ window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallba
             });
             svg.appendChild(activeGroup);
 
-            // Layer 3 (Atas): Angka Penunjuk Urutan Goresan (Stroke Order Numbers)
+            // Layer 4 (Atas): Angka Penunjuk Urutan Goresan (Stroke Order Numbers)
             const numbersGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
             numbersGroup.setAttribute("class", "stroke-numbers-group");
             const numPositions = calculateStrokeNumbers(paths, rec?.numbers);

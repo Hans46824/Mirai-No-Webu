@@ -8974,9 +8974,41 @@ body:not(.dark-mode):not(.theme-dark) main > section:nth-of-type(odd):not(.home-
 /* ==========================================================================
    URUTAN GORESAN: GORESAN TRANSPARAN & ANGKA NOMOR URUTAN (KANJIVG)
    ========================================================================== */
+/* Garis Kotak Panduan Genkouyoushi (Japanese Practice Grid) */
+.stroke-grid-line,
+svg .stroke-grid-line {
+    stroke: rgba(233, 30, 99, 0.16) !important;
+    stroke-width: 0.9px !important;
+    stroke-dasharray: 4, 4 !important;
+    fill: none !important;
+    pointer-events: none !important;
+}
+
+body.theme-dark .stroke-grid-line,
+body.theme-dark svg .stroke-grid-line {
+    stroke: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Watermark Bentuk Karakter Standar (Ghost Reference Glyph) */
+.stroke-bg-reference-glyph,
+svg .stroke-bg-reference-glyph {
+    font-family: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", "MS Mincho", "Meiryo", "Hiragino Sans", "Yu Gothic", "Noto Sans JP", serif, sans-serif !important;
+    font-size: 80px !important;
+    font-weight: 500 !important;
+    fill: rgba(30, 25, 35, 0.08) !important;
+    stroke: none !important;
+    pointer-events: none !important;
+    user-select: none !important;
+}
+
+body.theme-dark .stroke-bg-reference-glyph,
+body.theme-dark svg .stroke-bg-reference-glyph {
+    fill: rgba(255, 255, 255, 0.1) !important;
+}
+
 .stroke-guide-path,
 svg .stroke-guide-path {
-    stroke: rgba(233, 30, 99, 0.22) !important;
+    stroke: rgba(233, 30, 99, 0.35) !important;
     fill: none !important;
     stroke-linecap: round !important;
     stroke-linejoin: round !important;
@@ -8985,16 +9017,16 @@ svg .stroke-guide-path {
 }
 
 .stroke-thin .stroke-guide-path {
-    stroke-width: 1.6px !important;
+    stroke-width: 1.8px !important;
 }
 
 .stroke-thick .stroke-guide-path {
-    stroke-width: 2.8px !important;
+    stroke-width: 3px !important;
 }
 
 body.theme-dark .stroke-guide-path,
 body.theme-dark svg .stroke-guide-path {
-    stroke: rgba(255, 255, 255, 0.2) !important;
+    stroke: rgba(255, 255, 255, 0.28) !important;
 }
 
 /* Goresan Aktif Berwarna (Active Animated Strokes) */
