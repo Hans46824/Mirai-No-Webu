@@ -14401,8 +14401,12 @@ body:not(.page-kamus) .quick-stroke-btn {
 /* ==========================================================================
    HALAMAN REKOMENDASI (POP CULTURE, ANIME, MANGA, LIGHT NOVEL, MUSIK)
    ========================================================================== */
+body.page-rekomendasi,
 .page-rekomendasi {
     min-height: 100vh;
+    background-color: #0e0b12 !important;
+    background: #0e0b12 !important;
+    color: #e2e8f0 !important;
 }
 
 .rekomendasi-hero {
@@ -14413,6 +14417,8 @@ body:not(.page-kamus) .quick-stroke-btn {
 .rekomendasi-section {
     padding: 60px 7vw 110px !important;
     position: relative !important;
+    background-color: #0e0b12 !important;
+    background: #0e0b12 !important;
 }
 
 .rekomendasi-filter-container {
@@ -14976,25 +14982,30 @@ body:not(.page-kamus) .quick-stroke-btn {
 }
 
 /* ==========================================================================
-   PAGE PUTIH: REKOMENDASI MEDIA (WEB & APLIKASI ANIME, MANGA, MUSIK)
+   HALAMAN MEDIA REKOMENDASI (WEB & APLIKASI LEGAL ANIME, MANGA, MUSIK)
+   Menyatu dengan Tema Obsidian Mirai No Hana
    ========================================================================= */
 .media-rekomendasi-page {
     position: relative !important;
-    background: #ffffff !important;
-    color: #0f172a !important;
-    padding: 90px 7vw 120px !important;
-    border-top: 2px solid #e2e8f0 !important;
+    background: linear-gradient(180deg, #130e1b 0%, #0e0b12 45%, #08050b 100%) !important;
+    color: #e2e8f0 !important;
+    padding: 85px 7vw 115px !important;
+    border-top: 1px solid rgba(255, 79, 145, 0.18) !important;
+    overflow: hidden !important;
 }
 
+/* Hilangkan pattern peta kontur w1w putih dan gantikan dengan ambient glow gelap yang elegan */
 .media-rekomendasi-page::before {
     content: "" !important;
     position: absolute !important;
-    inset: 0 !important;
-    background-image: url("images/mirai/pattern/w1w.jpeg") !important;
-    background-size: 320px !important;
-    opacity: 0.08 !important;
-    mix-blend-mode: multiply !important;
+    top: -150px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 900px !important;
+    height: 450px !important;
+    background: radial-gradient(ellipse at center, rgba(233, 30, 99, 0.1) 0%, rgba(168, 85, 247, 0.05) 45%, transparent 70%) !important;
     pointer-events: none !important;
+    z-index: 1 !important;
 }
 
 .media-page-inner {
@@ -15006,39 +15017,53 @@ body:not(.page-kamus) .quick-stroke-btn {
 
 .media-header-wrap {
     text-align: center !important;
-    margin-bottom: 56px !important;
+    margin-bottom: 52px !important;
 }
 
 .media-header-badge {
     display: inline-flex !important;
     align-items: center !important;
     gap: 8px !important;
-    padding: 7px 20px !important;
-    border-radius: 22px !important;
-    background: rgba(233, 30, 99, 0.08) !important;
-    border: 1.5px solid rgba(233, 30, 99, 0.25) !important;
-    color: #e91e63 !important;
-    font-size: 12px !important;
+    padding: 6px 18px !important;
+    border-radius: 999px !important;
+    background: rgba(255, 79, 145, 0.12) !important;
+    border: 1px solid rgba(255, 79, 145, 0.3) !important;
+    color: #ff659f !important;
+    font-size: 11.5px !important;
     font-weight: 800 !important;
-    letter-spacing: 1px !important;
+    letter-spacing: 0.8px !important;
     text-transform: uppercase !important;
-    margin-bottom: 14px !important;
+    margin-bottom: 16px !important;
+    box-shadow: 0 0 16px rgba(255, 79, 145, 0.15) !important;
+}
+
+.media-header-badge svg {
+    color: #ff659f !important;
+    flex-shrink: 0 !important;
 }
 
 .media-header-title {
-    font-size: clamp(2.1rem, 3.4vw, 2.85rem) !important;
+    font-size: clamp(2rem, 3.4vw, 2.75rem) !important;
     font-weight: 900 !important;
-    color: #0f172a !important;
-    margin: 0 0 16px 0 !important;
-    letter-spacing: -0.03em !important;
+    color: #ffffff !important;
+    margin: 0 0 14px 0 !important;
+    letter-spacing: -0.025em !important;
+    line-height: 1.15 !important;
+}
+
+.media-header-title span {
+    color: var(--pink, #e91e63) !important;
+    background: linear-gradient(135deg, #ff4f91, #e91e63) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
 }
 
 .media-header-desc {
-    max-width: 760px !important;
+    max-width: 720px !important;
     margin: 0 auto !important;
-    font-size: 15.5px !important;
+    font-size: 14.5px !important;
     line-height: 1.75 !important;
-    color: #475569 !important;
+    color: #94a3b8 !important;
 }
 
 /* 3 Kolom Kategori Media (Anime, Manga, Musik) */
@@ -15046,24 +15071,37 @@ body:not(.page-kamus) .quick-stroke-btn {
     display: grid !important;
     grid-template-columns: repeat(3, 1fr) !important;
     gap: 28px !important;
-    margin-bottom: 48px !important;
+    margin-bottom: 44px !important;
 }
 
 .media-col-card {
-    background: #f8fafc !important;
-    border: 1.5px solid #e2e8f0 !important;
+    position: relative !important;
+    background: linear-gradient(175deg, #181220 0%, #110d17 100%) !important;
+    border: 1.5px solid rgba(var(--col-accent-rgb, 255, 79, 145), 0.22) !important;
     border-radius: 24px !important;
-    padding: 28px 24px !important;
-    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04) !important;
+    padding: 28px 22px !important;
+    box-shadow: 0 16px 38px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.07) !important;
     display: flex !important;
     flex-direction: column !important;
     transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease !important;
 }
 
+.media-col-card::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 24px !important;
+    right: 24px !important;
+    height: 2.5px !important;
+    background: linear-gradient(90deg, transparent, var(--col-accent, #ff4f91), transparent) !important;
+    border-radius: 2px !important;
+    pointer-events: none !important;
+}
+
 .media-col-card:hover {
     transform: translateY(-5px) !important;
-    box-shadow: 0 20px 42px rgba(15, 23, 42, 0.09) !important;
-    border-color: #cbd5e1 !important;
+    border-color: var(--col-accent, #ff4f91) !important;
+    box-shadow: 0 22px 50px rgba(0, 0, 0, 0.6), 0 0 26px rgba(var(--col-accent-rgb, 255, 79, 145), 0.2) !important;
 }
 
 .media-col-header {
@@ -15072,33 +15110,34 @@ body:not(.page-kamus) .quick-stroke-btn {
     gap: 14px !important;
     padding-bottom: 18px !important;
     margin-bottom: 20px !important;
-    border-bottom: 1.5px solid #e2e8f0 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
 .media-col-icon {
-    width: 50px !important;
-    height: 50px !important;
+    width: 48px !important;
+    height: 48px !important;
     border-radius: 14px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    font-size: 26px !important;
-    background: #ffffff !important;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06) !important;
-    border: 1px solid #e2e8f0 !important;
+    font-size: 24px !important;
+    background: rgba(var(--col-accent-rgb, 255, 79, 145), 0.12) !important;
+    border: 1px solid rgba(var(--col-accent-rgb, 255, 79, 145), 0.3) !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25), 0 0 16px rgba(var(--col-accent-rgb, 255, 79, 145), 0.18) !important;
     flex-shrink: 0 !important;
 }
 
 .media-col-title-wrap h3 {
     margin: 0 0 3px 0 !important;
-    font-size: 1.25rem !important;
+    font-size: 1.22rem !important;
     font-weight: 800 !important;
-    color: #0f172a !important;
+    color: #ffffff !important;
+    letter-spacing: -0.01em !important;
 }
 
 .media-col-title-wrap span {
-    font-size: 12px !important;
-    color: #64748b !important;
+    font-size: 11.5px !important;
+    color: #94a3b8 !important;
     font-weight: 600 !important;
     display: block !important;
 }
@@ -15106,104 +15145,131 @@ body:not(.page-kamus) .quick-stroke-btn {
 .media-items-list {
     display: flex !important;
     flex-direction: column !important;
-    gap: 16px !important;
+    gap: 14px !important;
     flex: 1 !important;
 }
 
 .media-app-item {
-    background: #ffffff !important;
-    border: 1px solid #e2e8f0 !important;
+    background: rgba(255, 255, 255, 0.032) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
     border-radius: 16px !important;
-    padding: 16px 18px !important;
-    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03) !important;
+    padding: 15px 17px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
     transition: all 0.22s ease !important;
 }
 
 .media-app-item:hover {
-    border-color: #ff4f91 !important;
-    box-shadow: 0 6px 20px rgba(233, 30, 99, 0.1) !important;
-    transform: translateX(3px) !important;
+    background: rgba(255, 255, 255, 0.065) !important;
+    border-color: var(--col-accent, #ff4f91) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 16px rgba(var(--col-accent-rgb, 255, 79, 145), 0.2) !important;
+    transform: translateY(-2px) !important;
 }
 
 .media-app-head {
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
-    margin-bottom: 6px !important;
+    margin-bottom: 5px !important;
     gap: 8px !important;
+    flex-wrap: wrap !important;
 }
 
 .media-app-name {
-    font-size: 14.5px !important;
+    font-size: 14px !important;
     font-weight: 800 !important;
-    color: #0f172a !important;
+    color: #ffffff !important;
     margin: 0 !important;
+    letter-spacing: -0.01em !important;
 }
 
 .media-app-badge {
     font-size: 10.5px !important;
     font-weight: 700 !important;
-    padding: 3px 8px !important;
-    border-radius: 6px !important;
-    background: #f1f5f9 !important;
-    color: #475569 !important;
+    padding: 2.5px 9px !important;
+    border-radius: 999px !important;
     white-space: nowrap !important;
+    letter-spacing: 0.3px !important;
+    line-height: 1.2 !important;
 }
 
 .media-app-badge.free {
-    background: #dcfce7 !important;
-    color: #15803d !important;
+    background: rgba(34, 197, 94, 0.14) !important;
+    border: 1px solid rgba(34, 197, 94, 0.35) !important;
+    color: #4ade80 !important;
 }
 
 .media-app-badge.official {
-    background: #fce7f3 !important;
-    color: #be185d !important;
+    background: rgba(var(--col-accent-rgb, 255, 79, 145), 0.14) !important;
+    border: 1px solid rgba(var(--col-accent-rgb, 255, 79, 145), 0.35) !important;
+    color: var(--col-accent, #ff75a0) !important;
 }
 
 .media-app-type {
     font-size: 11.5px !important;
-    color: #64748b !important;
+    color: #94a3b8 !important;
     font-weight: 600 !important;
     margin-bottom: 6px !important;
-    display: block !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+}
+
+.media-app-type svg {
+    color: var(--col-accent, #ff4f91) !important;
+    flex-shrink: 0 !important;
 }
 
 .media-app-desc {
     font-size: 12.5px !important;
-    color: #334155 !important;
+    color: #cbd5e1 !important;
     line-height: 1.6 !important;
     margin: 0 !important;
 }
 
-/* Kotak Tips Edukatif di Bawah Page Putih */
+/* Kotak Tips Edukatif di Bawah Page */
 .media-tips-card {
-    background: linear-gradient(135deg, #fff5f7 0%, #fdf2f8 100%) !important;
-    border: 1.5px solid rgba(233, 30, 99, 0.25) !important;
+    background: linear-gradient(135deg, rgba(233, 30, 99, 0.12) 0%, rgba(24, 17, 30, 0.88) 100%) !important;
+    border: 1.5px solid rgba(255, 79, 145, 0.32) !important;
     border-radius: 22px !important;
-    padding: 28px 34px !important;
+    padding: 24px 30px !important;
     display: flex !important;
-    align-items: flex-start !important;
+    align-items: center !important;
     gap: 20px !important;
-    box-shadow: 0 8px 24px rgba(233, 30, 99, 0.05) !important;
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
 }
 
 .media-tips-icon {
-    font-size: 32px !important;
+    font-size: 28px !important;
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 15px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: rgba(255, 79, 145, 0.18) !important;
+    border: 1px solid rgba(255, 79, 145, 0.35) !important;
+    box-shadow: 0 0 20px rgba(255, 79, 145, 0.22) !important;
     flex-shrink: 0 !important;
 }
 
 .media-tips-content h4 {
     margin: 0 0 6px 0 !important;
-    font-size: 1.15rem !important;
+    font-size: 1.12rem !important;
     font-weight: 800 !important;
-    color: #9d174d !important;
+    color: #ffffff !important;
+    letter-spacing: -0.01em !important;
 }
 
 .media-tips-content p {
     margin: 0 !important;
     font-size: 13.5px !important;
-    color: #475569 !important;
+    color: #cbd5e1 !important;
     line-height: 1.7 !important;
+}
+
+.media-tips-content strong {
+    color: #ff94ba !important;
+    font-weight: 700 !important;
 }
 
 @media (max-width: 920px) {
@@ -15212,8 +15278,9 @@ body:not(.page-kamus) .quick-stroke-btn {
     }
     .media-tips-card {
         flex-direction: column !important;
-        gap: 12px !important;
-        padding: 22px 24px !important;
+        align-items: flex-start !important;
+        gap: 14px !important;
+        padding: 22px 22px !important;
     }
 }
 
