@@ -7228,19 +7228,116 @@ body:not(.theme-dark) .njr-dot {
    TENTANG (ABOUT) PAGE – CLEAN LAPTOP & MOBILE LAYOUT
    ===================================================== */
 
-/* BAGIAN 1: FILOSOFI NAMA (LEBAR PENUH DI LAPTOP, 2 KARTU SEIMBANG) */
+/* BAGIAN 1: TENTANG MIRAI NO HANA NIHONGO KURABU (SEKSI HITAM) */
+.about-intro-section {
+    display: block !important;
+    padding: 80px 7vw !important;
+}
+.about-intro-section .section-intro {
+    max-width: 1200px;
+    margin: 0 auto 36px auto;
+}
+.about-intro-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: stretch;
+}
+.about-intro-card {
+    display: flex;
+    flex-direction: column;
+}
+.flag-visual-frame {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 101, 155, 0.28);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    min-height: 120px;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+.flag-img-preview {
+    max-width: 100%;
+    max-height: 100px;
+    object-fit: contain;
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.5));
+    transition: transform 0.28s ease;
+}
+.about-intro-card:hover .flag-img-preview {
+    transform: scale(1.05);
+}
+.intro-tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 10px;
+}
+.intro-pill {
+    display: inline-flex;
+    align-items: center;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #ff94bd !important;
+    background: rgba(255, 101, 155, 0.12);
+    border: 1px solid rgba(255, 101, 155, 0.3);
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+}
+.intro-activity-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: #d5ccd3 !important;
+}
+.intro-activity-list li {
+    position: relative;
+    padding-left: 18px;
+}
+.intro-activity-list li::before {
+    content: "✦";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--pink, #e91e63);
+    font-size: 11px;
+}
+.intro-activity-list strong {
+    color: #ffffff !important;
+}
+@media (max-width: 992px) {
+    .about-intro-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+/* BAGIAN 2: FILOSOFI NAMA (LEBAR PENUH DI LAPTOP, 2 KARTU SEIMBANG - SEKSI PUTIH) */
 .about-filosofi-section {
     display: block !important;
     padding: 90px 7vw !important;
 }
 .about-filosofi-section .section-intro {
-    max-width: 800px;
-    margin-bottom: 36px;
+    max-width: 1200px;
+    margin: 0 auto 36px auto;
 }
 .about-name-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 28px;
+    max-width: 1200px;
+    margin: 0 auto;
     width: 100%;
 }
 .about-name-card {
@@ -12808,8 +12905,8 @@ body.page-kurikulum .doc-back-btn:hover,
    - Section Putih: Pattern w1w.jpeg (mix-blend-mode: multiply)
    ===================================================== */
 
-/* (A) BAGIAN HITAM: .about-name-card, .slogan-card, .achievement-card, .accessory-card */
-.about-name-card,
+/* (A) BAGIAN HITAM: .about-intro-card, .slogan-hero-card, .slogan-card, .achievement-card, .accessory-card, .accessory-banner-card */
+.about-intro-card,
 .slogan-hero-card,
 .slogan-card,
 .achievement-card,
@@ -12822,7 +12919,7 @@ body.page-kurikulum .doc-back-btn:hover,
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
 }
 
-.about-name-card::after,
+.about-intro-card::after,
 .slogan-hero-card::after,
 .slogan-card::after,
 .achievement-card::after,
@@ -12843,7 +12940,7 @@ body.page-kurikulum .doc-back-btn:hover,
     transition: opacity 0.3s ease, transform 0.3s ease !important;
 }
 
-.about-name-card:hover::after,
+.about-intro-card:hover::after,
 .slogan-hero-card:hover::after,
 .slogan-card:hover::after,
 .achievement-card:hover::after,
@@ -12853,7 +12950,7 @@ body.page-kurikulum .doc-back-btn:hover,
     transform: scale(1.02) !important;
 }
 
-.about-name-card > *,
+.about-intro-card > *,
 .slogan-hero-card > *,
 .slogan-card > *,
 .achievement-card > *,
@@ -12863,20 +12960,20 @@ body.page-kurikulum .doc-back-btn:hover,
     z-index: 2 !important;
 }
 
-.about-name-card {
+.about-intro-card {
     background: linear-gradient(165deg, #1c1523 0%, #130f18 100%) !important;
     border: 1.5px solid rgba(255, 101, 155, 0.22) !important;
-    padding: 34px 30px !important;
+    padding: 34px 28px !important;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
 }
 
-.about-name-card:hover {
+.about-intro-card:hover {
     transform: translateY(-5px) !important;
     border-color: var(--pink, #e91e63) !important;
     box-shadow: 0 18px 40px rgba(233, 30, 99, 0.22) !important;
 }
 
-.about-name-badge {
+.about-intro-badge {
     color: #ff659b !important;
     font-size: 11px !important;
     font-weight: 800 !important;
@@ -12886,21 +12983,23 @@ body.page-kurikulum .doc-back-btn:hover,
     display: inline-block !important;
 }
 
-.about-name-card h3 {
+.about-intro-card h3 {
     margin: 0 0 14px !important;
-    font-size: 21px !important;
-    line-height: 1.4 !important;
+    font-size: 20px !important;
+    line-height: 1.38 !important;
     color: #ffffff !important;
     font-weight: 800 !important;
 }
 
-.about-name-card p {
+.about-intro-card p {
     color: #d5ccd3 !important;
-    font-size: 14.5px !important;
+    font-size: 14px !important;
     line-height: 1.75 !important;
+    margin: 0 0 14px 0 !important;
 }
 
-/* (B) BAGIAN PUTIH: .logo-meaning-card, .haori-card, .pembina-card, .management-card */
+/* (B) BAGIAN PUTIH: .about-name-card, .logo-meaning-badge-col, .logo-meaning-card, .haori-card, .pembina-card, .management-card */
+.about-name-card,
 .logo-meaning-badge-col,
 .logo-meaning-card,
 .haori-card,
@@ -12914,6 +13013,7 @@ body.page-kurikulum .doc-back-btn:hover,
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
 }
 
+.about-name-card::after,
 .logo-meaning-badge-col::after,
 .logo-meaning-card::after,
 .haori-card::after,
@@ -12935,6 +13035,7 @@ body.page-kurikulum .doc-back-btn:hover,
     transition: opacity 0.3s ease, transform 0.3s ease !important;
 }
 
+.about-name-card:hover::after,
 .logo-meaning-badge-col:hover::after,
 .logo-meaning-card:hover::after,
 .haori-card:hover::after,
@@ -12945,6 +13046,7 @@ body.page-kurikulum .doc-back-btn:hover,
     transform: scale(1.02) !important;
 }
 
+.about-name-card > *,
 .logo-meaning-badge-col > *,
 .logo-meaning-card > *,
 .haori-card > *,
@@ -12953,6 +13055,47 @@ body.page-kurikulum .doc-back-btn:hover,
 .management-card > * {
     position: relative !important;
     z-index: 2 !important;
+}
+
+.about-name-card {
+    background: #ffffff !important;
+    border: 1.5px solid #ffccd9 !important;
+    border-left: 5px solid var(--pink, #e91e63) !important;
+    box-shadow: 0 8px 24px rgba(72, 32, 52, 0.05) !important;
+    padding: 34px 30px !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.about-name-card:hover {
+    transform: translateY(-4px) !important;
+    border-color: var(--pink, #e91e63) !important;
+    box-shadow: 0 16px 34px rgba(233, 30, 99, 0.14) !important;
+}
+
+.about-name-badge {
+    color: var(--pink, #e91e63) !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1.6px !important;
+    margin-bottom: 12px !important;
+    text-transform: uppercase !important;
+    display: inline-block !important;
+}
+
+.about-name-card h3 {
+    margin: 0 0 14px !important;
+    font-size: 21px !important;
+    line-height: 1.4 !important;
+    color: #1a151e !important;
+    font-weight: 800 !important;
+}
+
+.about-name-card p {
+    color: #554857 !important;
+    font-size: 14.5px !important;
+    line-height: 1.75 !important;
+    margin: 0 !important;
 }
 
 .logo-meaning-badge-col,
@@ -17292,5 +17435,127 @@ body.page-rekomendasi,
     }
 }
 
+/* =====================================================
+   HALAMAN TENTANG: PENETAPAN TEMA WARNA PER-SEKSI EKSPLISIT
+   Memastikan Urutan Selang-Seling Hitam & Putih Sempurna
+   ===================================================== */
+body.page-tentang main > section.about-intro-section {
+    background-color: #111111 !important;
+    color: #f5edf4 !important;
+}
+body.page-tentang main > section.about-intro-section .heading {
+    color: #ffffff !important;
+}
+body.page-tentang main > section.about-intro-section .heading span {
+    color: var(--pink, #e91e63) !important;
+}
 
+body.page-tentang main > section.about-filosofi-section {
+    background-color: #ffffff !important;
+    color: #18151b !important;
+}
+body.page-tentang main > section.about-filosofi-section .heading {
+    color: #18151b !important;
+}
+body.page-tentang main > section.about-filosofi-section .heading span {
+    color: var(--pink, #e91e63) !important;
+}
 
+body.page-tentang main > section.logo-meaning-section {
+    background-color: #ffffff !important;
+    color: #18151b !important;
+}
+body.page-tentang main > section.logo-meaning-section .heading {
+    color: #18151b !important;
+}
+body.page-tentang main > section.logo-meaning-section .heading span {
+    color: var(--pink, #e91e63) !important;
+}
+
+body.page-tentang main > section.slogan-section {
+    background-color: #111111 !important;
+    color: #f5edf4 !important;
+}
+body.page-tentang main > section.slogan-section .heading {
+    color: #ffffff !important;
+}
+body.page-tentang main > section.slogan-section .heading span {
+    color: var(--pink, #e91e63) !important;
+}
+
+body.page-tentang main > section.vision-mission-section {
+    background-color: #ffffff !important;
+    color: #18151b !important;
+}
+body.page-tentang main > section.vision-mission-section .heading {
+    color: #18151b !important;
+}
+body.page-tentang main > section.vision-mission-section .heading span {
+    color: var(--pink, #e91e63) !important;
+}
+
+body.page-tentang main > section.timeline-section {
+    background-color: #111111 !important;
+    color: #f5edf4 !important;
+}
+body.page-tentang main > section.timeline-section .heading {
+    color: #ffffff !important;
+}
+body.page-tentang main > section.timeline-section .heading span {
+    color: var(--pink, #e91e63) !important;
+}
+
+body.page-tentang main > section.sora-profile-section {
+    background-color: #ffffff !important;
+    color: #18151b !important;
+}
+body.page-tentang main > section.sora-profile-section .heading {
+    color: #18151b !important;
+}
+body.page-tentang main > section.sora-profile-section .heading span {
+    color: var(--pink, #e91e63) !important;
+}
+
+body.page-tentang main > section.wall-of-fame-section {
+    background-color: #111111 !important;
+    color: #f5edf4 !important;
+}
+body.page-tentang main > section.wall-of-fame-section .heading {
+    color: #ffffff !important;
+}
+body.page-tentang main > section.wall-of-fame-section .heading span {
+    color: var(--pink, #e91e63) !important;
+}
+
+body.page-tentang main > section.haori-section {
+    background-color: #ffffff !important;
+    color: #18151b !important;
+}
+body.page-tentang main > section.haori-section .heading {
+    color: #18151b !important;
+}
+body.page-tentang main > section.haori-section .heading span {
+    color: var(--pink, #e91e63) !important;
+}
+
+body.page-tentang main > section.accessories-section {
+    background-color: #111111 !important;
+    color: #f5edf4 !important;
+}
+body.page-tentang main > section.accessories-section .heading {
+    color: #ffffff !important;
+}
+body.page-tentang main > section.accessories-section .heading span {
+    color: var(--pink, #e91e63) !important;
+}
+
+body.page-tentang main > section.management-section {
+    background-color: #ffffff !important;
+    color: #18151b !important;
+}
+body.page-tentang main > section.management-section .heading {
+    color: #18151b !important;
+}
+body.page-tentang main > section.management-section .heading span {
+    color: var(--pink, #e91e63) !important;
+}
