@@ -396,70 +396,29 @@
                 </div>
             </div>
 
-            <!-- SKRIP DATA & MODEL JUMLAH PRESTASI (MENGIKUTI PAPAN PERINGKAT PRESTASI) -->
+            <!-- SKRIP DATA & MODEL JUMLAH PRESTASI (MENGIKUTI PAPAN PERINGKAT PRESTASI SECARA DINAMIS) -->
+            <script src="js/leaderboard-data.js"></script>
             <script>
                 (function() {
-                    const miraiPrestasiData = [
-                        // --- TOP 1 DI PAPAN PERINGKAT: ARYA MITSUKI ---
-                        { nama: "Arya Mitsuki", tipe: "prestasi" },
-                        { nama: "Arya Mitsuki", tipe: "prestasi" },
-                        { nama: "Arya Mitsuki", tipe: "prestasi" },
+                    function syncPrestasiStats() {
+                        const stats = (typeof window.getLeaderboardPrestasiStats === 'function')
+                            ? window.getLeaderboardPrestasiStats()
+                            : { prestasi: 21, partisipasi: 27 };
 
-                        // --- TOP 2 DI PAPAN PERINGKAT: SITI HANABI ---
-                        { nama: "Siti Hanabi", tipe: "prestasi" },
-                        { nama: "Siti Hanabi", tipe: "prestasi" },
-                        { nama: "Siti Hanabi", tipe: "prestasi" },
+                        const statPrestasiEl = document.getElementById('statTotalPrestasi');
+                        const statPartisipasiEl = document.getElementById('statTotalPartisipasi');
 
-                        // --- TOP 3 DI PAPAN PERINGKAT: VINO TAIGA ---
-                        { nama: "Vino Taiga", tipe: "prestasi" },
-                        { nama: "Vino Taiga", tipe: "prestasi" },
+                        if (statPrestasiEl) statPrestasiEl.textContent = stats.prestasi;
+                        if (statPartisipasiEl) statPartisipasiEl.textContent = stats.partisipasi;
+                    }
 
-                        // --- TOP 4 DI PAPAN PERINGKAT: CLARA YUKI ---
-                        { nama: "Clara Yuki", tipe: "prestasi" },
-                        { nama: "Clara Yuki", tipe: "prestasi" },
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', syncPrestasiStats);
+                    } else {
+                        syncPrestasiStats();
+                    }
 
-                        // --- TOP 5 DI PAPAN PERINGKAT: FANDI KAITO ---
-                        { nama: "Fandi Kaito", tipe: "prestasi" },
-                        { nama: "Fandi Kaito", tipe: "partisipasi" },
-
-                        // --- TOP 6 DI PAPAN PERINGKAT: NABILA SAKURA ---
-                        { nama: "Nabila Sakura", tipe: "prestasi" },
-                        { nama: "Nabila Sakura", tipe: "prestasi" },
-
-                        // --- TOP 7 DI PAPAN PERINGKAT: REZA SHIN ---
-                        { nama: "Reza Shin", tipe: "prestasi" },
-                        { nama: "Reza Shin", tipe: "prestasi" },
-
-                        // --- TOP 8 DI PAPAN PERINGKAT: TANIA RIKO ---
-                        { nama: "Tania Riko", tipe: "prestasi" },
-
-                        // --- TOP 9 DI PAPAN PERINGKAT: YOGA DAIKI ---
-                        { nama: "Yoga Daiki", tipe: "prestasi" },
-
-                        // --- TOP 10 DI PAPAN PERINGKAT: AMELIA NONOKA ---
-                        { nama: "Amelia Nonoka", tipe: "partisipasi" },
-
-                        // --- HISTORIS MASKOT & ALUMNI BERPRESTASI: ASORA AOKITA ---
-                        { nama: "Asora Aokita", tipe: "prestasi" },
-                        { nama: "Asora Aokita", tipe: "prestasi" },
-                        { nama: "Asora Aokita", tipe: "prestasi" },
-                        { nama: "Asora Aokita", tipe: "prestasi" },
-
-                        // --- DELEGASI PARTISIPASI KLUB (KOMPETISI LAIN) ---
-                        { nama: "Delegasi Klub Mirai", tipe: "partisipasi" },
-                        { nama: "Delegasi Klub Mirai", tipe: "partisipasi" },
-                        { nama: "Delegasi Klub Mirai", tipe: "partisipasi" },
-                        { nama: "Delegasi Klub Mirai", tipe: "partisipasi" }
-                    ];
-
-                    const totalPartisipasi = miraiPrestasiData.length;
-                    const totalPrestasi = miraiPrestasiData.filter(d => d.tipe === 'prestasi').length;
-
-                    const statPrestasiEl = document.getElementById('statTotalPrestasi');
-                    const statPartisipasiEl = document.getElementById('statTotalPartisipasi');
-
-                    if (statPrestasiEl) statPrestasiEl.textContent = totalPrestasi;
-                    if (statPartisipasiEl) statPartisipasiEl.textContent = totalPartisipasi;
+                    window.addEventListener('leaderboardDataUpdated', syncPrestasiStats);
                 })();
             </script>
         </section>
