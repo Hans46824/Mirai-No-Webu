@@ -12354,14 +12354,14 @@ body.page-kurikulum .doc-back-btn:hover,
    RESPACING MINIMAL UNTUK HALAMAN REKOMENDASI (.page-rekomendasi)
    ===================================================== */
 .page-rekomendasi .rek-cat-explain-card {
-    padding: 18px 26px !important;
+    padding: 24px 30px !important;
     margin-bottom: 24px !important;
-    text-align: center !important;
+    text-align: left !important;
 }
 
 .page-rekomendasi .rek-explain-title {
-    margin: 0 !important;
-    font-size: clamp(1.15rem, 2.2vw, 1.45rem) !important;
+    margin: 0 0 10px 0 !important;
+    font-size: clamp(1.2rem, 2vw, 1.45rem) !important;
 }
 
 .page-rekomendasi .media-header-wrap {
@@ -14552,7 +14552,7 @@ body:not(.page-kamus) .quick-stroke-btn {
     gap: 32px;
 }
 
-/* Kartu Rekomendasi (Gaya Obsidian Masukan & Saran) */
+/* Kartu Rekomendasi (Gaya Obsidian Masukan & Saran Tanpa Pattern) */
 .rek-card {
     position: relative !important;
     overflow: hidden !important;
@@ -14566,6 +14566,11 @@ body:not(.page-kamus) .quick-stroke-btn {
     border-radius: 24px !important;
     box-shadow: 0 16px 44px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
     transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease !important;
+}
+
+.rek-card.is-hidden,
+.rek-card[hidden] {
+    display: none !important;
 }
 
 .rek-card:hover {
@@ -14592,18 +14597,10 @@ body:not(.page-kamus) .quick-stroke-btn {
     transform: scaleX(1) !important;
 }
 
+/* Hilangkan pattern latar c1b pada card */
 .rek-card::after {
-    content: "" !important;
-    position: absolute !important;
-    inset: 0 !important;
-    background-image: url("images/mirai/pattern/c1b.jpeg") !important;
-    background-size: cover !important;
-    background-repeat: no-repeat !important;
-    background-position: center !important;
-    opacity: 0.16 !important;
-    mix-blend-mode: screen !important;
-    pointer-events: none !important;
-    z-index: 0 !important;
+    display: none !important;
+    content: none !important;
 }
 
 .rek-card > * {
@@ -14689,53 +14686,30 @@ body:not(.page-kamus) .quick-stroke-btn {
     margin-left: 8px;
 }
 
+/* Media Info Badge (Pojok Kanan Atas) */
 .rek-media-info {
-    font-size: 12px;
-    color: rgba(255, 255, 255, 0.5);
-    font-weight: 700;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    font-size: 11.5px !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.22) !important;
+    border-radius: 999px !important;
+    padding: 4px 12px !important;
+    line-height: 1.2 !important;
+    letter-spacing: 0.3px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
 }
 
-/* JLPT Level Tags */
-.rek-jlpt-tag {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 16px;
-    border-radius: 14px;
-    border: 1.5px solid rgba(255, 255, 255, 0.1);
+.rek-media-info svg {
+    color: var(--card-accent, #ff4f91) !important;
+    stroke: var(--card-accent, #ff4f91) !important;
+    flex-shrink: 0 !important;
 }
 
-.jlpt-beginner {
-    background: rgba(34, 197, 94, 0.1);
-    border-color: rgba(34, 197, 94, 0.35);
-}
-.jlpt-beginner strong { color: #4ade80; }
-
-.jlpt-intermediate {
-    background: rgba(245, 158, 11, 0.1);
-    border-color: rgba(245, 158, 11, 0.35);
-}
-.jlpt-intermediate strong { color: #fbbf24; }
-
-.jlpt-upper {
-    background: rgba(168, 85, 247, 0.1);
-    border-color: rgba(168, 85, 247, 0.35);
-}
-.jlpt-upper strong { color: #c084fc; }
-
-.jlpt-info strong {
-    display: block;
-    font-size: 13px;
-    font-weight: 800;
-}
-
-.jlpt-info small {
-    display: block;
-    font-size: 12px;
-    color: #e2e8f0;
-}
-
-/* Sinopsis & Reason */
+/* Sinopsis */
 .rek-subheading {
     font-size: 12px;
     font-weight: 800;
@@ -14752,26 +14726,65 @@ body:not(.page-kamus) .quick-stroke-btn {
     margin: 0;
 }
 
-.rek-reason-box {
-    padding: 14px 18px;
-    border-radius: 14px;
-    background: rgba(14, 11, 18, 0.65);
-    border: 1px dashed rgba(var(--card-accent-rgb, 255, 79, 145), 0.35);
+/* Kotak Karakter Utama / Terkenal */
+.rek-char-box {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    padding: 13px 18px !important;
+    border-radius: 14px !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
-.reason-badge {
-    display: inline-block;
-    font-size: 11.5px;
-    font-weight: 800;
-    color: var(--card-accent, #ff4f91);
-    margin-bottom: 6px;
+.rek-char-head {
+    display: flex !important;
+    align-items: center !important;
+    gap: 7px !important;
+    font-size: 11.5px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.6px !important;
+    text-transform: uppercase !important;
+    color: var(--card-accent, #ff4f91) !important;
 }
 
-.rek-reason-text {
-    font-size: 13px;
-    line-height: 1.6;
-    color: #e2d9e4;
-    margin: 0;
+.rek-char-head svg {
+    color: var(--card-accent, #ff4f91) !important;
+    stroke: var(--card-accent, #ff4f91) !important;
+    flex-shrink: 0 !important;
+}
+
+.rek-char-list {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+}
+
+.rek-char-pill {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    padding: 4px 11px !important;
+    border-radius: 999px !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    color: #f1f5f9 !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease !important;
+}
+
+.rek-char-pill:hover {
+    background: rgba(var(--card-accent-rgb, 255, 79, 145), 0.18) !important;
+    border-color: var(--card-accent, #ff4f91) !important;
+    color: #ffffff !important;
+    transform: translateY(-1px) !important;
+}
+
+.rek-char-jp {
+    font-size: 11px !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+    font-weight: 500 !important;
 }
 
 .rek-card-footer {
@@ -14783,12 +14796,28 @@ body:not(.page-kamus) .quick-stroke-btn {
     flex-wrap: wrap;
 }
 
+/* Status Badge di Footer Bawah */
 .rek-status-tag {
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.45);
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.8px !important;
+    text-transform: uppercase !important;
+    color: var(--card-accent, #ff4f91) !important;
+    background: rgba(var(--card-accent-rgb, 255, 79, 145), 0.12) !important;
+    border: 1.2px solid rgba(var(--card-accent-rgb, 255, 79, 145), 0.38) !important;
+    border-radius: 999px !important;
+    padding: 5px 14px !important;
+    line-height: 1.2 !important;
+    box-shadow: 0 2px 10px rgba(var(--card-accent-rgb, 255, 79, 145), 0.15) !important;
+}
+
+.rek-status-tag svg {
+    color: var(--card-accent, #ff4f91) !important;
+    fill: var(--card-accent, #ff4f91) !important;
+    flex-shrink: 0 !important;
 }
 
 .rek-action-btn {
@@ -14856,15 +14885,8 @@ body:not(.page-kamus) .quick-stroke-btn {
 }
 
 .rek-cat-explain-card::before {
-    content: "" !important;
-    position: absolute !important;
-    inset: 0 !important;
-    background-image: url("images/mirai/pattern/c1b.jpeg") !important;
-    background-size: cover !important;
-    opacity: 0.12 !important;
-    mix-blend-mode: screen !important;
-    pointer-events: none !important;
-    z-index: 0 !important;
+    display: none !important;
+    content: none !important;
 }
 
 .rek-cat-explain-card > * {

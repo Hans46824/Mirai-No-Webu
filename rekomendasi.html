@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rekomendasi Anime Manga Musik — MIRAI NO HANA</title>
-    <link rel="stylesheet" href="style.css?v=20261005e">
+    <link rel="stylesheet" href="style.css?v=20261008b">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Noto+Serif+JP:wght@600;700;900&display=swap" rel="stylesheet">
@@ -77,7 +77,9 @@
 
             <!-- KOTAK PENJELASAN KATEGORI DINAMIS -->
             <div class="rek-cat-explain-card" id="rekCatExplainCard">
+                <span class="rek-explain-badge" id="rekExplainBadge">🌟 Kurasi Mirai No Hana</span>
                 <h3 class="rek-explain-title" id="rekExplainTitle">Eksplorasi Anime, Manga, &amp; Musik Jepang</h3>
+                <div class="rek-explain-body" id="rekExplainBody"></div>
             </div>
 
             <!-- HASIL JUMLAH DATA -->
@@ -97,16 +99,10 @@
                     <div class="rek-card-content">
                         <div class="rek-card-header">
                             <h3 class="rek-title">Yuru Camp△ <small class="rek-jp-title">ゆるキャン△</small></h3>
-                            <span class="rek-media-info">12 Episode / Season · C-Station</span>
-                        </div>
-
-                        <!-- Tag Level Bahasa Jepang -->
-                        <div class="rek-jlpt-tag jlpt-beginner">
-                            <span class="jlpt-icon">🟢</span>
-                            <div class="jlpt-info">
-                                <strong>Level JLPT N5 / N4</strong>
-                                <small>Kosakata santai, tempo tenang &amp; dialog harian sangat mudah dipahami</small>
-                            </div>
+                            <span class="rek-media-info">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                <span>12 Episode / Season · C-Station</span>
+                            </span>
                         </div>
 
                         <!-- Sinopsis -->
@@ -115,16 +111,26 @@
                             <p class="rek-synopsis">Rin Shima gemar berkemah sendirian di tepi danau berlatar pemandangan Gunung Fuji. Pertemuannya dengan Nadeshiko Kagamihara membuka petualangan berkemah santai bersama klub aktivitas luar ruangan SMA mereka.</p>
                         </div>
 
-                        <!-- Alasan Anak Nihongo Kurabu Wajib Nonton -->
-                        <div class="rek-reason-box">
-                            <div class="rek-reason-head">
-                                <span class="reason-badge">💡 Kenapa Anak Nihongo Kurabu Wajib Nonton?</span>
+                        <!-- Karakter Utama -->
+                        <div class="rek-char-box">
+                            <div class="rek-char-head">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                                <span>Karakter Utama:</span>
                             </div>
-                            <p class="rek-reason-text">Artikulasi suara karakternya sangat jernih tanpa aksen rumit. Kamu akan belajar banyak kosakata alam, perlengkapan kamping, memasak, dan sapaan sehari-hari dalam konteks nyata yang hangat dan menenangkan.</p>
+                            <div class="rek-char-list">
+                                <span class="rek-char-pill">Rin Shima <span class="rek-char-jp">志摩 リン</span></span>
+                                <span class="rek-char-pill">Nadeshiko Kagamihara <span class="rek-char-jp">各務原 なでしこ</span></span>
+                                <span class="rek-char-pill">Aoi Inuyama <span class="rek-char-jp">犬山 あおい</span></span>
+                                <span class="rek-char-pill">Chiaki Oogaki <span class="rek-char-jp">大垣 千明</span></span>
+                                <span class="rek-char-pill">Ena Saitou <span class="rek-char-jp">斉藤 恵那</span></span>
+                            </div>
                         </div>
 
                         <div class="rek-card-footer">
-                            <span class="rek-status-tag">Rekomendasi Pemula #1</span>
+                            <span class="rek-status-tag">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <span>Rekomendasi Pemula #1</span>
+                            </span>
                         </div>
                     </div>
                 </article>
@@ -138,34 +144,38 @@
                     <div class="rek-card-content">
                         <div class="rek-card-header">
                             <h3 class="rek-title">Haikyuu!! <small class="rek-jp-title">ハイキュー!!</small></h3>
-                            <span class="rek-media-info">4 Season + Movie · Production I.G</span>
-                        </div>
-
-                        <!-- Tag Level Bahasa Jepang -->
-                        <div class="rek-jlpt-tag jlpt-intermediate">
-                            <span class="jlpt-icon">🟡</span>
-                            <div class="jlpt-info">
-                                <strong>Level JLPT N4 / N3</strong>
-                                <small>Ragam bahasa kasual, teriakan semangat, kalimat perintah &amp; kerja tim</small>
-                            </div>
+                            <span class="rek-media-info">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                <span>4 Season + Movie · Production I.G</span>
+                            </span>
                         </div>
 
                         <!-- Sinopsis -->
                         <div class="rek-synopsis-box">
                             <h4 class="rek-subheading">Sinopsis Singkat:</h4>
-                            <p class="rek-synopsis">Shoyo Hinata yang bertubuh pendek bertekad menjadi spiker hebat layaknya "Raksasa Kecil". Bersama setter jenius Tobio Kageyama, mereka membangkitkan kembali kejayaan tim voli SMA Karasuno.</p>
+                            <p class="rek-synopsis">Shoyo Hinata yang bertubuh pendek bertekad menjadi spiker hebat layaknya &quot;Raksasa Kecil&quot;. Bersama setter jenius Tobio Kageyama, mereka membangkitkan kembali kejayaan tim voli SMA Karasuno.</p>
                         </div>
 
-                        <!-- Alasan Anak Nihongo Kurabu Wajib Nonton -->
-                        <div class="rek-reason-box">
-                            <div class="rek-reason-head">
-                                <span class="reason-badge">💡 Kenapa Anak Nihongo Kurabu Wajib Nonton?</span>
+                        <!-- Karakter Utama -->
+                        <div class="rek-char-box">
+                            <div class="rek-char-head">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                                <span>Karakter Utama:</span>
                             </div>
-                            <p class="rek-reason-text">Sangat cocok untuk belajar tata bahasa kasual (*tameguchi*), percakapan antar senior-junior (*senpai-kouhai*), dan ragam kalimat perintah spontan yang sering muncul di dunia ekstrakurikuler sekolah Jepang.</p>
+                            <div class="rek-char-list">
+                                <span class="rek-char-pill">Shoyo Hinata <span class="rek-char-jp">日向 翔陽</span></span>
+                                <span class="rek-char-pill">Tobio Kageyama <span class="rek-char-jp">影山 飛雄</span></span>
+                                <span class="rek-char-pill">Toru Oikawa <span class="rek-char-jp">及川 徹</span></span>
+                                <span class="rek-char-pill">Yu Nishinoya <span class="rek-char-jp">西谷 夕</span></span>
+                                <span class="rek-char-pill">Kenma Kozume <span class="rek-char-jp">孤爪 研磨</span></span>
+                            </div>
                         </div>
 
                         <div class="rek-card-footer">
-                            <span class="rek-status-tag">Paling Membakar Semangat</span>
+                            <span class="rek-status-tag">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <span>Paling Membakar Semangat</span>
+                            </span>
                         </div>
                     </div>
                 </article>
@@ -179,16 +189,10 @@
                     <div class="rek-card-content">
                         <div class="rek-card-header">
                             <h3 class="rek-title">Natsume Yuujinchou <small class="rek-jp-title">夏目友人帳</small></h3>
-                            <span class="rek-media-info">6+ Season · Brain's Base / Shuka</span>
-                        </div>
-
-                        <!-- Tag Level Bahasa Jepang -->
-                        <div class="rek-jlpt-tag jlpt-upper">
-                            <span class="jlpt-icon">🟣</span>
-                            <div class="jlpt-info">
-                                <strong>Level JLPT N3 / N2</strong>
-                                <small>Kosakata folklor, dialog santun puitis, &amp; keigo sederhana antar generasi</small>
-                            </div>
+                            <span class="rek-media-info">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                <span>6+ Season · Brain's Base / Shuka</span>
+                            </span>
                         </div>
 
                         <!-- Sinopsis -->
@@ -197,16 +201,26 @@
                             <p class="rek-synopsis">Takashi Natsume memiliki kemampuan melihat roh (youkai). Bersama pengawal kucing gendut berkekuatan dewa (Madara / Nyanko-sensei), Natsume berusaha mengembalikan nama-nama roh yang terikat dalam warisan buku neneknya.</p>
                         </div>
 
-                        <!-- Alasan Anak Nihongo Kurabu Wajib Nonton -->
-                        <div class="rek-reason-box">
-                            <div class="rek-reason-head">
-                                <span class="reason-badge">💡 Kenapa Anak Nihongo Kurabu Wajib Nonton?</span>
+                        <!-- Karakter Utama -->
+                        <div class="rek-char-box">
+                            <div class="rek-char-head">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                                <span>Karakter Utama:</span>
                             </div>
-                            <p class="rek-reason-text">Kaya akan terminologi mitologi Jepang (shinto, yokai, matsuri) dan pemilihan kata sastra yang halus. Kamu bisa belajar cara berbicara yang sopan, penuh empati, serta mendalami budaya menghargai sesama makhluk.</p>
+                            <div class="rek-char-list">
+                                <span class="rek-char-pill">Takashi Natsume <span class="rek-char-jp">夏目 貴志</span></span>
+                                <span class="rek-char-pill">Nyanko-sensei / Madara <span class="rek-char-jp">ニャンコ先生 / 斑</span></span>
+                                <span class="rek-char-pill">Reiko Natsume <span class="rek-char-jp">夏目 レイコ</span></span>
+                                <span class="rek-char-pill">Shuuichi Natori <span class="rek-char-jp">名取 周一</span></span>
+                                <span class="rek-char-pill">Kaname Tanuma <span class="rek-char-jp">田沼 要</span></span>
+                            </div>
                         </div>
 
                         <div class="rek-card-footer">
-                            <span class="rek-status-tag">Nilai Budaya Tertinggi</span>
+                            <span class="rek-status-tag">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <span>Nilai Budaya Tertinggi</span>
+                            </span>
                         </div>
                     </div>
                 </article>
@@ -220,16 +234,10 @@
                     <div class="rek-card-content">
                         <div class="rek-card-header">
                             <h3 class="rek-title">Yotsuba to! <small class="rek-jp-title">よつばと!</small></h3>
-                            <span class="rek-media-info">Karya Kiyohiko Azuma · Dengeki Daioh</span>
-                        </div>
-
-                        <!-- Tag Level Bahasa Jepang -->
-                        <div class="rek-jlpt-tag jlpt-beginner">
-                            <span class="jlpt-icon">🟢</span>
-                            <div class="jlpt-info">
-                                <strong>Level JLPT N5 (Lengkap Furigana)</strong>
-                                <small>Paling ramah pemula di dunia! Seluruh kanji ada cara baca di atasnya</small>
-                            </div>
+                            <span class="rek-media-info">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                                <span>Karya Kiyohiko Azuma · Dengeki Daioh</span>
+                            </span>
                         </div>
 
                         <!-- Sinopsis -->
@@ -238,16 +246,26 @@
                             <p class="rek-synopsis">Keseharian gadis kecil lincah berambut hijau bernama Yotsuba Koiwai dan ayah angkatnya di lingkungan perumahan baru. Setiap hal sederhana di matanya selalu berubah menjadi petualangan menakjubkan.</p>
                         </div>
 
-                        <!-- Alasan Anak Nihongo Kurabu Wajib Baca -->
-                        <div class="rek-reason-box">
-                            <div class="rek-reason-head">
-                                <span class="reason-badge">💡 Kenapa Anak Nihongo Kurabu Wajib Baca?</span>
+                        <!-- Karakter Utama -->
+                        <div class="rek-char-box">
+                            <div class="rek-char-head">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                                <span>Karakter Utama:</span>
                             </div>
-                            <p class="rek-reason-text">Ini adalah 'buku suci' wajib bagi siapa pun yang baru belajar membaca kanji dan pola kalimat. Dialognya singkat, visualnya sangat ekspresif, dan kamu tidak perlu pusing membuka kamus terus-menerus berkat furigana penuh.</p>
+                            <div class="rek-char-list">
+                                <span class="rek-char-pill">Yotsuba Koiwai <span class="rek-char-jp">小岩井 よつば</span></span>
+                                <span class="rek-char-pill">Yousuke Koiwai (Ayah) <span class="rek-char-jp">小岩井 葉介</span></span>
+                                <span class="rek-char-pill">Fuuka Ayase <span class="rek-char-jp">綾瀬 風香</span></span>
+                                <span class="rek-char-pill">Asagi Ayase <span class="rek-char-jp">綾瀬 あさぎ</span></span>
+                                <span class="rek-char-pill">Danbo <span class="rek-char-jp">ダンボー</span></span>
+                            </div>
                         </div>
 
                         <div class="rek-card-footer">
-                            <span class="rek-status-tag">Manga Pertama Terbaik</span>
+                            <span class="rek-status-tag">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <span>Manga Pertama Terbaik</span>
+                            </span>
                         </div>
                     </div>
                 </article>
@@ -261,16 +279,10 @@
                     <div class="rek-card-content">
                         <div class="rek-card-header">
                             <h3 class="rek-title">Bakuman。 <small class="rek-jp-title">バクマン。</small></h3>
-                            <span class="rek-media-info">Tsugumi Ohba &amp; Takeshi Obata · Shueisha</span>
-                        </div>
-
-                        <!-- Tag Level Bahasa Jepang -->
-                        <div class="rek-jlpt-tag jlpt-intermediate">
-                            <span class="jlpt-icon">🟡</span>
-                            <div class="jlpt-info">
-                                <strong>Level JLPT N4 / N3</strong>
-                                <small>Istilah industri kreatif, etos kerja Jepang, &amp; negosiasi profesional</small>
-                            </div>
+                            <span class="rek-media-info">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                                <span>Tsugumi Ohba &amp; Takeshi Obata · Shueisha</span>
+                            </span>
                         </div>
 
                         <!-- Sinopsis -->
@@ -279,16 +291,26 @@
                             <p class="rek-synopsis">Moritaka Mashiro dan Akito Takagi bersumpah menjadi komikus profesional di Shonen Jump demi mewujudkan janji masa depan untuk menikahi gadis impian mereka saat manganya berhasil dianimasikan.</p>
                         </div>
 
-                        <!-- Alasan Anak Nihongo Kurabu Wajib Baca -->
-                        <div class="rek-reason-box">
-                            <div class="rek-reason-head">
-                                <span class="reason-badge">💡 Kenapa Anak Nihongo Kurabu Wajib Baca?</span>
+                        <!-- Karakter Utama -->
+                        <div class="rek-char-box">
+                            <div class="rek-char-head">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                                <span>Karakter Utama:</span>
                             </div>
-                            <p class="rek-reason-text">Membuka rahasia dapur industri komik Jepang! Kamu akan belajar istilah deadline (*shimekiri*), skrip naskah (*name*), hingga cara profesional berkomunikasi dengan editor dan rekan kerja di Jepang.</p>
+                            <div class="rek-char-list">
+                                <span class="rek-char-pill">Moritaka Mashiro <span class="rek-char-jp">真城 最高</span></span>
+                                <span class="rek-char-pill">Akito Takagi <span class="rek-char-jp">高木 秋人</span></span>
+                                <span class="rek-char-pill">Miho Azuki <span class="rek-char-jp">亜豆 美保</span></span>
+                                <span class="rek-char-pill">Eiji Nizuma <span class="rek-char-jp">新妻 エイジ</span></span>
+                                <span class="rek-char-pill">Kazuya Hiramaru <span class="rek-char-jp">平丸 一也</span></span>
+                            </div>
                         </div>
 
                         <div class="rek-card-footer">
-                            <span class="rek-status-tag">Wawasan Industri Nyata</span>
+                            <span class="rek-status-tag">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <span>Wawasan Industri Nyata</span>
+                            </span>
                         </div>
                     </div>
                 </article>
@@ -302,16 +324,10 @@
                     <div class="rek-card-content">
                         <div class="rek-card-header">
                             <h3 class="rek-title">Pretender <small class="rek-jp-title">Official髭男dism (Higedan)</small></h3>
-                            <span class="rek-media-info">Rilis 2019 · Single Hits Billboard Japan</span>
-                        </div>
-
-                        <!-- Tag Level Bahasa Jepang -->
-                        <div class="rek-jlpt-tag jlpt-beginner">
-                            <span class="jlpt-icon">🟢</span>
-                            <div class="jlpt-info">
-                                <strong>Level JLPT N4 (Lirik Edukatif)</strong>
-                                <small>Pola ~Te Form, kalimat pengandaian (~tara), &amp; tempo vokal sedang</small>
-                            </div>
+                            <span class="rek-media-info">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+                                <span>Rilis 2019 · Single Hits Billboard Japan</span>
+                            </span>
                         </div>
 
                         <!-- Sinopsis -->
@@ -320,16 +336,25 @@
                             <p class="rek-synopsis">Lagu balada pop tentang seseorang yang sadar bahwa dirinya bukanlah sosok yang ditakdirkan untuk pasangannya, namun tetap memilih mendampingi sebagai pendukung setia dari kejauhan.</p>
                         </div>
 
-                        <!-- Alasan Anak Nihongo Kurabu Wajib Dengar -->
-                        <div class="rek-reason-box">
-                            <div class="rek-reason-head">
-                                <span class="reason-badge">💡 Kenapa Anak Nihongo Kurabu Wajib Dengar?</span>
+                        <!-- Anggota Musisi Band -->
+                        <div class="rek-char-box">
+                            <div class="rek-char-head">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+                                <span>Musisi / Personel Band:</span>
                             </div>
-                            <p class="rek-reason-text">Vokalis bernyanyi dengan pelafalan konsonan (*hatsuon*) yang sangat tegas dan berima. Lirik "Kimi no unmei no hito wa boku ja nai..." sangat mudah dihafal dan dijadikan materi belajar sambungan kata sifat.</p>
+                            <div class="rek-char-list">
+                                <span class="rek-char-pill">Satoshi Fujihara <span class="rek-char-jp">藤原 聡 (Vocal/Piano)</span></span>
+                                <span class="rek-char-pill">Daisuke Ozasa <span class="rek-char-jp">小笹 大輔 (Guitar)</span></span>
+                                <span class="rek-char-pill">Makoto Narazaki <span class="rek-char-jp">楢﨑 誠 (Bass/Sax)</span></span>
+                                <span class="rek-char-pill">Masaki Matsuura <span class="rek-char-jp">松浦 匡希 (Drums)</span></span>
+                            </div>
                         </div>
 
                         <div class="rek-card-footer">
-                            <span class="rek-status-tag">Lagu Karaoke Wajib</span>
+                            <span class="rek-status-tag">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <span>Lagu Karaoke Wajib</span>
+                            </span>
                         </div>
                     </div>
                 </article>
@@ -343,16 +368,10 @@
                     <div class="rek-card-content">
                         <div class="rek-card-header">
                             <h3 class="rek-title">Gunjou (Blue) <small class="rek-jp-title">群青 · YOASOBI</small></h3>
-                            <span class="rek-media-info">Lirik &amp; Musik: Ayase · Vokal: Ikura</span>
-                        </div>
-
-                        <!-- Tag Level Bahasa Jepang -->
-                        <div class="rek-jlpt-tag jlpt-intermediate">
-                            <span class="jlpt-icon">🟡</span>
-                            <div class="jlpt-info">
-                                <strong>Level JLPT N3</strong>
-                                <small>Kaya kosakata motivasi seni, kata benda abstrak, &amp; dinamika vokal cepat</small>
-                            </div>
+                            <span class="rek-media-info">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+                                <span>Lirik &amp; Musik: Ayase · Vokal: Ikura</span>
+                            </span>
                         </div>
 
                         <!-- Sinopsis -->
@@ -361,16 +380,25 @@
                             <p class="rek-synopsis">Terinspirasi dari kisah manga seni *Blue Period*, lagu ini menggambarkan perjuangan mengatasi ketakutan dan kegagalan saat mengejar impian tulus dari lubuk hati terdalam.</p>
                         </div>
 
-                        <!-- Alasan Anak Nihongo Kurabu Wajib Dengar -->
-                        <div class="rek-reason-box">
-                            <div class="rek-reason-head">
-                                <span class="reason-badge">💡 Kenapa Anak Nihongo Kurabu Wajib Dengar?</span>
+                        <!-- Musisi & Tokoh Terkait -->
+                        <div class="rek-char-box">
+                            <div class="rek-char-head">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+                                <span>Musisi &amp; Karakter Terkait:</span>
                             </div>
-                            <p class="rek-reason-text">Liriknya adalah karya puisi motivasi modern! Kamu akan menguasai banyak kosakata kanji emosi seperti 'kattou' (konflik batin), 'yuuki' (keberanian), dan 'kibou' (harapan). Wajib diputar saat sesi belajar kelompok!</p>
+                            <div class="rek-char-list">
+                                <span class="rek-char-pill">Ayase <span class="rek-char-jp">Ayase (Komposer)</span></span>
+                                <span class="rek-char-pill">ikura <span class="rek-char-jp">幾田 りら (Vocal)</span></span>
+                                <span class="rek-char-pill">Yatora Yaguchi <span class="rek-char-jp">矢口 八虎 (Blue Period)</span></span>
+                                <span class="rek-char-pill">Ryuji Ayukawa <span class="rek-char-jp">鮎川 龍二 (Blue Period)</span></span>
+                            </div>
                         </div>
 
                         <div class="rek-card-footer">
-                            <span class="rek-status-tag">Anthem Semangat Klub</span>
+                            <span class="rek-status-tag">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <span>Anthem Semangat Klub</span>
+                            </span>
                         </div>
                     </div>
                 </article>
@@ -384,16 +412,10 @@
                     <div class="rek-card-content">
                         <div class="rek-card-header">
                             <h3 class="rek-title">Kaikai Kitan <small class="rek-jp-title">廻廻奇譚 · Eve</small></h3>
-                            <span class="rek-media-info">Opening Jujutsu Kaisen · Toy's Factory</span>
-                        </div>
-
-                        <!-- Tag Level Bahasa Jepang -->
-                        <div class="rek-jlpt-tag jlpt-upper">
-                            <span class="jlpt-icon">🟣</span>
-                            <div class="jlpt-info">
-                                <strong>Level JLPT N3 / N2 (Tantangan Kelincahan)</strong>
-                                <small>Tempo rap kilat, permainan rima kanji kuno, &amp; metafora misterius</small>
-                            </div>
+                            <span class="rek-media-info">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+                                <span>Opening Jujutsu Kaisen · Toy's Factory</span>
+                            </span>
                         </div>
 
                         <!-- Sinopsis -->
@@ -402,16 +424,26 @@
                             <p class="rek-synopsis">Lagu rock alternatif bertenaga tinggi yang menyuarakan siklus kutukan dunia dan tekad seseorang untuk menembus kegelapan takdir demi melindungi yang berharga.</p>
                         </div>
 
-                        <!-- Alasan Anak Nihongo Kurabu Wajib Dengar -->
-                        <div class="rek-reason-box">
-                            <div class="rek-reason-head">
-                                <span class="reason-badge">💡 Kenapa Anak Nihongo Kurabu Wajib Dengar?</span>
+                        <!-- Musisi & Tokoh Terkait -->
+                        <div class="rek-char-box">
+                            <div class="rek-char-head">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+                                <span>Musisi &amp; Karakter Terkait:</span>
                             </div>
-                            <p class="rek-reason-text">Latihan terbaik untuk melatih kelenturan lidah (*tongue-twister*) dan ritme bicara cepat. Jika kamu bisa menyanyikan lagu ini dengan artikulasi tepat, kemampuan membaca kanji dan refleks bicaramu akan meningkat drastis!</p>
+                            <div class="rek-char-list">
+                                <span class="rek-char-pill">Eve <span class="rek-char-jp">いぶ (Singer-Songwriter)</span></span>
+                                <span class="rek-char-pill">Yuji Itadori <span class="rek-char-jp">虎杖 悠仁</span></span>
+                                <span class="rek-char-pill">Satoru Gojo <span class="rek-char-jp">五条 悟</span></span>
+                                <span class="rek-char-pill">Megumi Fushiguro <span class="rek-char-jp">伏黒 恵</span></span>
+                                <span class="rek-char-pill">Nobara Kugisaki <span class="rek-char-jp">釘崎 野薔薇</span></span>
+                            </div>
                         </div>
 
                         <div class="rek-card-footer">
-                            <span class="rek-status-tag">Latihan Kecepatan Lidah</span>
+                            <span class="rek-status-tag">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <span>Latihan Kecepatan Lidah</span>
+                            </span>
                         </div>
                     </div>
                 </article>
@@ -673,12 +705,13 @@
                     if (matchCat) {
                         card.classList.remove('is-hidden');
                         card.removeAttribute('hidden');
-                        card.style.display = 'grid';
+                        card.style.removeProperty('display');
+                        card.style.setProperty('display', 'grid', 'important');
                         visibleCount++;
                     } else {
                         card.classList.add('is-hidden');
                         card.setAttribute('hidden', '');
-                        card.style.display = 'none';
+                        card.style.setProperty('display', 'none', 'important');
                     }
                 });
 
@@ -703,7 +736,8 @@
             }
 
             catButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
                     catButtons.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
                     activeCategory = btn.getAttribute('data-category');
