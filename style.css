@@ -3576,8 +3576,8 @@ body.theme-dark .quest-hero::before {
 .stroke-order li { display:grid; width:27px; height:27px; place-items:center; color:var(--muted); background:#fff; border:1px solid var(--pink-border); border-radius:50%; font-size:11px; font-weight:700; }
 .stroke-order li.is-active { color:#fff; background:var(--pink); border-color:var(--pink); box-shadow:0 0 0 4px rgba(233,30,99,.16); }
 .stroke-order li.is-done { color:#fff; background:#28232b; border-color:#28232b; }
-.dictionary-practice-link { display:flex; align-items:center; justify-content:space-between; gap:25px; padding:24px 28px; margin-top:42px; background:var(--pink-soft); border:1px solid var(--pink-border); }.dictionary-practice-link h3 { margin:5px 0 0; font-size:22px; }.dictionary-practice-link .btn { flex-shrink:0; }
-.dictionary-practice-link { flex-wrap:wrap; }.dictionary-practice-link h3 { flex:1 1 240px; min-width:0; }.dictionary-practice-link > .kicker { flex-basis:100%; }
+.dictionary-practice-link { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:12px 24px; margin-top:20px; background:var(--pink-soft); border:1px solid var(--pink-border); }.dictionary-practice-link h3 { margin:0; font-size:18px; }.dictionary-practice-link .btn { flex-shrink:0; }
+.dictionary-practice-link { flex-wrap:nowrap; }.dictionary-practice-link h3 { flex:none; min-width:0; }.dictionary-practice-link > .kicker { flex-basis:100%; }
 .learning-app .level-card-top b { display:none; }
 .learning-app .level-card-top span { display:none; }
 .learning-app .level-card { min-width:0; overflow:hidden; }
@@ -10907,22 +10907,26 @@ main > .dictionary-section {
     overflow: hidden !important;
     box-sizing: border-box !important;
     max-width: 100% !important;
-    margin: 22px auto 14px auto !important;
-    padding: 16px 22px 16px !important;
+    margin: 16px auto 8px auto !important;
+    padding: 12px 24px 12px 20px !important;
     background: linear-gradient(145deg, #ffffff 0%, #fff4f8 100%) !important;
     border: 1.5px solid rgba(233, 30, 99, 0.2) !important;
-    border-radius: 16px !important;
-    box-shadow: 0 8px 22px rgba(233, 30, 99, 0.08), 0 2px 6px rgba(0, 0, 0, 0.03) !important;
+    border-radius: 14px !important;
+    box-shadow: 0 4px 16px rgba(233, 30, 99, 0.06), 0 1px 3px rgba(0, 0, 0, 0.02) !important;
     display: flex !important;
-    flex-direction: column !important;
-    gap: 0 !important;
-    transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 16px !important;
+    min-height: 0 !important;
+    height: auto !important;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
 }
 
 .dictionary-practice-link:hover {
     transform: translateY(-2px) !important;
     border-color: var(--pink, #e91e63) !important;
-    box-shadow: 0 12px 30px rgba(233, 30, 99, 0.14), 0 4px 10px rgba(0, 0, 0, 0.04) !important;
+    box-shadow: 0 8px 24px rgba(233, 30, 99, 0.12), 0 2px 6px rgba(0, 0, 0, 0.04) !important;
 }
 
 /* Garis aksen atas */
@@ -10946,10 +10950,23 @@ main > .dictionary-section {
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
-    opacity: 0.14 !important;
+    opacity: 0.10 !important;
     mix-blend-mode: multiply !important;
     pointer-events: none !important;
     z-index: 1 !important;
+}
+
+/* Bagian Kiri: Info & Teks */
+.practice-feature-text,
+.practice-feature-body {
+    position: relative !important;
+    z-index: 2 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    gap: 2px !important;
 }
 
 /* Header Kartu: Badge & Tag */
@@ -10959,60 +10976,58 @@ main > .dictionary-section {
     display: flex !important;
     align-items: center !important;
     justify-content: flex-start !important;
-    gap: 10px !important;
-    margin-bottom: 4px !important;
+    gap: 8px !important;
+    margin: 0 !important;
     flex-wrap: wrap !important;
 }
 
 .practice-feature-badge {
     display: inline-flex !important;
     align-items: center !important;
-    gap: 6px !important;
-    padding: 3px 10px !important;
+    gap: 5px !important;
+    padding: 2px 8px !important;
     border-radius: 999px !important;
     background: rgba(233, 30, 99, 0.08) !important;
     border: 1px solid rgba(233, 30, 99, 0.2) !important;
     color: var(--pink, #e91e63) !important;
-    font-size: 10.5px !important;
+    font-size: 10px !important;
     font-weight: 800 !important;
-    letter-spacing: 1.2px !important;
+    letter-spacing: 1px !important;
     text-transform: uppercase !important;
 }
 
 .practice-feature-badge .badge-dot {
-    width: 6px !important;
-    height: 6px !important;
+    width: 5px !important;
+    height: 5px !important;
     border-radius: 50% !important;
     background: var(--pink, #e91e63) !important;
-    box-shadow: 0 0 6px var(--pink, #e91e63) !important;
+    box-shadow: 0 0 5px var(--pink, #e91e63) !important;
     display: inline-block !important;
 }
 
 .practice-feature-tag {
-    font-size: 10.5px !important;
+    font-size: 10px !important;
     font-weight: 800 !important;
-    letter-spacing: 1.2px !important;
+    letter-spacing: 1px !important;
     color: var(--muted, #888888) !important;
     text-transform: uppercase !important;
 }
 
-/* Body Kartu */
-.practice-feature-body {
-    position: relative !important;
-    z-index: 2 !important;
-    display: flex !important;
-    flex-direction: column !important;
-}
-
+/* Judul Banner */
+.dictionary-practice-link h3,
 .practice-card-title {
-    margin: 2px 0 10px 0 !important;
-    font-size: clamp(17px, 2.2vw, 22px) !important;
+    flex: none !important;
+    margin: 2px 0 0 0 !important;
+    padding: 0 !important;
+    font-size: clamp(16px, 1.8vw, 19px) !important;
     font-weight: 800 !important;
     line-height: 1.25 !important;
     color: #18151b !important;
     letter-spacing: -0.3px !important;
     position: relative !important;
     z-index: 2 !important;
+    min-height: 0 !important;
+    height: auto !important;
 }
 
 .practice-card-title .highlight {
@@ -11023,25 +11038,34 @@ main > .dictionary-section {
     display: none !important;
 }
 
-/* Tombol Panjang (Full Width) */
-.dictionary-practice-link .practice-cta-btn {
+/* Bagian Kanan: Tombol Aksi */
+.practice-feature-action {
+    position: relative !important;
+    z-index: 2 !important;
+    flex-shrink: 0 !important;
     display: flex !important;
     align-items: center !important;
+}
+
+.dictionary-practice-link .practice-cta-btn {
+    display: inline-flex !important;
+    align-items: center !important;
     justify-content: center !important;
-    width: 100% !important;
-    min-height: 42px !important;
-    padding: 10px 20px !important;
+    width: auto !important;
+    min-height: 38px !important;
+    padding: 8px 18px !important;
     box-sizing: border-box !important;
-    border-radius: 11px !important;
+    border-radius: 10px !important;
     background: linear-gradient(135deg, #ff4f91 0%, #e91e63 100%) !important;
     border: none !important;
     color: #ffffff !important;
-    font-size: 12.5px !important;
+    font-size: 11.5px !important;
     font-weight: 800 !important;
-    letter-spacing: 1.2px !important;
+    letter-spacing: 1px !important;
     text-transform: uppercase !important;
     text-decoration: none !important;
-    box-shadow: 0 6px 18px rgba(233, 30, 99, 0.28) !important;
+    white-space: nowrap !important;
+    box-shadow: 0 4px 14px rgba(233, 30, 99, 0.25) !important;
     transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
     cursor: pointer !important;
     position: relative !important;
@@ -11049,42 +11073,43 @@ main > .dictionary-section {
 }
 
 .dictionary-practice-link .practice-cta-btn:hover {
-    transform: translateY(-2px) scale(1.005) !important;
-    box-shadow: 0 10px 24px rgba(233, 30, 99, 0.42) !important;
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: 0 8px 20px rgba(233, 30, 99, 0.38) !important;
     background: linear-gradient(135deg, #ff659b 0%, #d81557 100%) !important;
     color: #ffffff !important;
 }
 
 .dictionary-practice-link .practice-cta-btn .btn-arrow {
-    margin-left: 8px !important;
-    font-size: 16px !important;
+    margin-left: 6px !important;
+    font-size: 15px !important;
     line-height: 1 !important;
     transition: transform 0.25s ease !important;
     display: inline-block !important;
 }
 
 .dictionary-practice-link .practice-cta-btn:hover .btn-arrow {
-    transform: translateX(5px) !important;
+    transform: translateX(4px) !important;
 }
 
-/* Maskot Chibi Dekorasi: murni hiasan, aman ketimpa tombol/card, tidak merusak tata letak */
+/* Maskot Chibi Dekorasi: murni hiasan di pojok kanan, tidak memakan ruang */
 .practice-card-chibi {
     position: absolute !important;
-    top: 8px !important;
-    right: 18px !important;
-    width: 65px !important;
-    height: 65px !important;
+    right: 6px !important;
+    bottom: -4px !important;
+    top: auto !important;
+    width: 48px !important;
+    height: 48px !important;
     object-fit: contain !important;
     pointer-events: none !important;
     z-index: 1 !important;
-    opacity: 0.88 !important;
-    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.12)) !important;
+    opacity: 0.8 !important;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.1)) !important;
     transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
     display: block !important;
 }
 
 .dictionary-practice-link:hover .practice-card-chibi {
-    transform: translateY(-3px) scale(1.05) rotate(-2deg) !important;
+    transform: translateY(-2px) scale(1.08) rotate(-2deg) !important;
 }
 
 /* Mode Gelap (Dark Theme) */
@@ -11092,19 +11117,19 @@ body.theme-dark .dictionary-practice-link,
 body.dark-mode .dictionary-practice-link {
     background: linear-gradient(165deg, #1f1826 0%, #140e1b 100%) !important;
     border-color: rgba(255, 101, 155, 0.25) !important;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
 }
 
 body.theme-dark .dictionary-practice-link:hover,
 body.dark-mode .dictionary-practice-link:hover {
     border-color: var(--pink, #e91e63) !important;
-    box-shadow: 0 16px 36px rgba(233, 30, 99, 0.2), 0 4px 12px rgba(0, 0, 0, 0.55) !important;
+    box-shadow: 0 12px 28px rgba(233, 30, 99, 0.2), 0 2px 8px rgba(0, 0, 0, 0.55) !important;
 }
 
 body.theme-dark .dictionary-practice-link::after,
 body.dark-mode .dictionary-practice-link::after {
     background-image: url("images/mirai/pattern/c1b.jpeg") !important;
-    opacity: 0.18 !important;
+    opacity: 0.14 !important;
     mix-blend-mode: screen !important;
 }
 
@@ -11120,29 +11145,43 @@ body.dark-mode .practice-feature-tag {
 
 /* Responsif Mobile & Layar Kecil */
 @media (max-width: 680px) {
+    .dictionary-section .dictionary-practice-link,
     .dictionary-practice-link {
-        padding: 12px 16px 14px !important;
-        margin-top: 18px !important;
-        border-radius: 14px !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+        padding: 12px 14px !important;
+        margin-top: 14px !important;
+        border-radius: 12px !important;
+    }
+
+    .practice-feature-text,
+    .practice-feature-body {
+        gap: 3px !important;
     }
 
     .practice-card-title {
-        font-size: 16.5px !important;
-        margin-bottom: 8px !important;
+        font-size: 16px !important;
     }
 
-    .practice-card-chibi {
-        width: 50px !important;
-        height: 50px !important;
-        top: 6px !important;
-        right: 12px !important;
-        opacity: 0.75 !important;
+    .practice-feature-action {
+        width: 100% !important;
     }
 
     .dictionary-practice-link .practice-cta-btn {
+        width: 100% !important;
         min-height: 38px !important;
         font-size: 11.5px !important;
         padding: 8px 16px !important;
+    }
+
+    .practice-card-chibi {
+        width: 40px !important;
+        height: 40px !important;
+        bottom: auto !important;
+        top: 6px !important;
+        right: 8px !important;
+        opacity: 0.7 !important;
     }
 }
 
