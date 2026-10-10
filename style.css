@@ -13376,7 +13376,7 @@ body.page-kurikulum .doc-back-btn:hover,
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
-    opacity: 0.15 !important;
+    opacity: 0.05 !important;
     mix-blend-mode: screen !important;
     pointer-events: none !important;
     z-index: 1 !important;
@@ -13391,7 +13391,7 @@ body.page-kurikulum .doc-back-btn:hover,
 .achievement-card:hover::after,
 .accessory-card:hover::after,
 .accessory-banner-card:hover::after {
-    opacity: 0.24 !important;
+    opacity: 0.09 !important;
     transform: scale(1.02) !important;
 }
 
@@ -13475,7 +13475,7 @@ body.page-kurikulum .doc-back-btn:hover,
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
-    opacity: 0.11 !important;
+    opacity: 0.04 !important;
     mix-blend-mode: multiply !important;
     pointer-events: none !important;
     z-index: 1 !important;
@@ -13491,7 +13491,7 @@ body.page-kurikulum .doc-back-btn:hover,
 .haori-photo-card:hover::after,
 .pembina-card:hover::after,
 .management-card:hover::after {
-    opacity: 0.18 !important;
+    opacity: 0.07 !important;
     transform: scale(1.02) !important;
 }
 
