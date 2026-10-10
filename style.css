@@ -9813,196 +9813,242 @@ body.theme-dark .stroke-number-label.is-done {
     }
 }
 
+/* ==========================================================================
+   TIMELINE SEJARAH KLUB (Horizontal Sequential Stream - Redesign Modern)
+   - Layout: Sejajar Horizontal 1 Baris (Clean & Simetris, Bukan Zig-zag Aneh)
+   - Grafis Garis: Garis Horizontal Ramping Bercahaya (linear-gradient)
+   - Titik Simpul: Glowing Pink Node + Vertical Stem Connector
+   - Ukuran Foto: 124px x 124px (Besar & Tajam, Menampilkan Stiker/Ketua Jelas)
+   - Kartu: Obsidian Gelap 220px Ber-border Pink Halus & Hover Glow
+   ========================================================================== */
+
 .timeline-wrapper {
-    position: relative;
-    width: 100%;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    padding: 30px 0 20px;
-    -webkit-overflow-scrolling: touch;
+    position: relative !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    scrollbar-width: thin !important;
+    scrollbar-color: rgba(233, 30, 99, 0.45) rgba(255, 255, 255, 0.04) !important;
+    padding: 20px 0 24px 0 !important;
+    -webkit-overflow-scrolling: touch !important;
+    box-sizing: border-box !important;
 }
 
 .timeline-wrapper::-webkit-scrollbar {
-    display: none;
+    height: 6px !important;
+    display: block !important;
+}
+
+.timeline-wrapper::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border-radius: 999px !important;
+    margin: 0 40px !important;
+}
+
+.timeline-wrapper::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, rgba(233, 30, 99, 0.5), #ff659b) !important;
+    border-radius: 999px !important;
+}
+
+.timeline-wrapper::-webkit-scrollbar-thumb:hover {
+    background: var(--pink, #e91e63) !important;
 }
 
 .timeline-track {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    min-width: 1180px;
-    padding: 175px 40px;
+    position: relative !important;
+    display: flex !important;
+    align-items: stretch !important;
+    gap: 26px !important;
+    width: max-content !important;
+    min-width: 100% !important;
+    padding: 38px 40px 16px 40px !important;
+    box-sizing: border-box !important;
 }
 
-/* Garis horizontal tengah */
+/* Garis horizontal ramping bercahaya yang menghubungkan setiap node titik simpul */
 .timeline-track::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 40px;
-    right: 40px;
-    height: 4px;
-    background: linear-gradient(90deg, var(--pink), var(--pink2));
-    transform: translateY(-50%);
-    border-radius: 2px;
-    z-index: 1;
+    content: "" !important;
+    position: absolute !important;
+    top: 45px !important;
+    left: 40px !important;
+    right: 40px !important;
+    height: 2px !important;
+    background: linear-gradient(90deg, rgba(233, 30, 99, 0.2) 0%, #ff659b 20%, #e91e63 80%, rgba(233, 30, 99, 0.2) 100%) !important;
+    box-shadow: 0 0 10px rgba(233, 30, 99, 0.5) !important;
+    border-radius: 999px !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
 }
 
 .timeline-node {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 125px;
-    flex-shrink: 0;
-    scroll-snap-align: center;
-    z-index: 2;
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: 220px !important;
+    flex: 0 0 220px !important;
+    scroll-snap-align: center !important;
+    z-index: 2 !important;
+    transition: transform 0.28s ease !important;
 }
 
-/* Titik Simpul (Node) */
+/* Titik Simpul (Node Dot) Elegan */
 .timeline-dot {
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background: var(--pink);
-    border: 4px solid var(--white);
-    box-shadow: 0 0 0 3px var(--pink), 0 4px 12px rgba(233, 30, 99, 0.35);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-    cursor: default;
+    position: relative !important;
+    order: 1 !important;
+    width: 14px !important;
+    height: 14px !important;
+    border-radius: 50% !important;
+    background: #1c1523 !important;
+    border: 2.5px solid var(--pink, #e91e63) !important;
+    box-shadow: 0 0 10px rgba(233, 30, 99, 0.65), inset 0 0 4px var(--pink, #e91e63) !important;
+    margin-bottom: 18px !important;
+    cursor: pointer !important;
+    z-index: 3 !important;
+    transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.28s ease, background 0.28s ease, border-color 0.28s ease !important;
+}
+
+/* Garis vertikal penghubung (Stem line) dari titik simpul ke kartu di bawahnya */
+.timeline-dot::after {
+    content: "" !important;
+    position: absolute !important;
+    top: 100% !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 2px !important;
+    height: 18px !important;
+    background: linear-gradient(180deg, var(--pink, #e91e63), rgba(255, 101, 155, 0.25)) !important;
+    pointer-events: none !important;
 }
 
 .timeline-node:hover .timeline-dot {
-    transform: scale(1.3);
-    box-shadow: 0 0 0 5px var(--pink), 0 6px 16px rgba(233, 30, 99, 0.5);
+    transform: scale(1.35) !important;
+    background: #ff659b !important;
+    border-color: #ffffff !important;
+    box-shadow: 0 0 18px rgba(255, 101, 155, 0.95) !important;
 }
 
-/* Kartu Konten Simpul (Node) */
+/* Kartu Angkatan Modern (Sejajar Lurus, Bukan Zig-Zag) */
 .timeline-content {
-    position: absolute;
-    width: 145px;
-    padding: 12px 10px;
-    text-align: center;
-    background: var(--white);
-    border: 1px solid var(--pink-border);
-    border-radius: 14px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    position: relative !important;
+    order: 2 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 22px 18px 20px !important;
+    text-align: center !important;
+    background: linear-gradient(165deg, #1c1523 0%, #130f18 100%) !important;
+    border: 1.5px solid rgba(255, 101, 155, 0.22) !important;
+    border-radius: 18px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease !important;
+    overflow: hidden !important;
+}
+
+/* Reset mutlak posisi zig-zag dan segitiga lama */
+.timeline-node:nth-child(odd) .timeline-content,
+.timeline-node:nth-child(even) .timeline-content {
+    position: relative !important;
+    top: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    transform: none !important;
+}
+
+.timeline-content::after,
+.timeline-node:nth-child(odd) .timeline-content::after,
+.timeline-node:nth-child(even) .timeline-content::after {
+    display: none !important;
 }
 
 .timeline-node:hover .timeline-content {
-    transform: translateX(-50%) translateY(-3px);
-    box-shadow: 0 8px 24px rgba(233, 30, 99, 0.16);
-    border-color: var(--pink);
+    transform: translateY(-6px) !important;
+    border-color: var(--pink, #e91e63) !important;
+    box-shadow: 0 18px 44px rgba(233, 30, 99, 0.25), 0 4px 14px rgba(0, 0, 0, 0.6) !important;
 }
 
-/* Zig-zag: Simpul ganjil di atas garis */
-.timeline-node:nth-child(odd) .timeline-content {
-    bottom: calc(50% + 22px);
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.timeline-node:nth-child(odd) .timeline-content::after {
-    content: "";
-    position: absolute;
-    bottom: -6px;
-    left: 50%;
-    transform: translateX(-50%) rotate(45deg);
-    width: 10px;
-    height: 10px;
-    background: var(--white);
-    border-right: 1px solid var(--pink-border);
-    border-bottom: 1px solid var(--pink-border);
-}
-
-/* Zig-zag: Simpul genap di bawah garis */
-.timeline-node:nth-child(even) .timeline-content {
-    top: calc(50% + 22px);
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.timeline-node:nth-child(even) .timeline-content::after {
-    content: "";
-    position: absolute;
-    top: -6px;
-    left: 50%;
-    transform: translateX(-50%) rotate(45deg);
-    width: 10px;
-    height: 10px;
-    background: var(--white);
-    border-left: 1px solid var(--pink-border);
-    border-top: 1px solid var(--pink-border);
-}
-
+/* Badge Tahun Angkatan */
 .timeline-year {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 0.8px;
-    color: var(--pink);
-    background: var(--pink-soft);
-    padding: 2px 8px;
-    border-radius: 20px;
-    margin-bottom: 5px;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 12px !important;
+    font-weight: 850 !important;
+    letter-spacing: 1px !important;
+    color: #ff8ab6 !important;
+    background: rgba(233, 30, 99, 0.16) !important;
+    border: 1px solid rgba(255, 101, 155, 0.35) !important;
+    padding: 4px 14px !important;
+    border-radius: 20px !important;
+    margin-bottom: 14px !important;
 }
 
+/* Frame Foto Ketua / Stiker Jauh Lebih Besar (124px x 124px) */
 .timeline-photo-wrap {
-    width: 48px;
-    height: 58px;
-    margin: 5px auto 6px;
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1.5px solid var(--pink-border);
-    background: rgba(255, 255, 255, 0.05);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    width: 124px !important;
+    height: 124px !important;
+    margin: 0 auto 16px auto !important;
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    border: 2px solid rgba(255, 101, 155, 0.3) !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.28s ease, box-shadow 0.28s ease !important;
+    flex-shrink: 0 !important;
 }
 
 .timeline-photo {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
 }
 
 .timeline-node:hover .timeline-photo-wrap {
-    border-color: var(--pink);
-    transform: scale(1.06);
-    box-shadow: 0 4px 12px rgba(233, 30, 99, 0.35);
+    border-color: #ff659b !important;
+    transform: scale(1.05) !important;
+    box-shadow: 0 10px 26px rgba(233, 30, 99, 0.4) !important;
 }
 
+/* Judul Angkatan & Info Ketua */
 .timeline-title {
-    font-size: 13px;
-    font-weight: 700;
-    margin: 0 0 3px;
-    color: var(--ink);
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    margin: 0 0 5px 0 !important;
+    color: #ffffff !important;
+    line-height: 1.3 !important;
+    letter-spacing: -0.2px !important;
 }
 
 .timeline-ketua {
-    font-size: 11px;
-    color: var(--muted);
-    margin: 0;
-    line-height: 1.35;
+    font-size: 12.5px !important;
+    color: #c9bcc8 !important;
+    margin: 0 !important;
+    line-height: 1.4 !important;
 }
 
 .timeline-ketua strong {
-    color: var(--pink);
-    font-weight: 700;
+    color: #ff659b !important;
+    font-weight: 750 !important;
+}
+
+.timeline-ketua em {
+    color: #ded1dc !important;
+    font-style: normal !important;
 }
 
 .timeline-hint {
-    text-align: center;
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 15px;
-    letter-spacing: 0.5px;
+    text-align: center !important;
+    font-size: 12.5px !important;
+    color: #bfaec0 !important;
+    margin-top: 18px !important;
+    letter-spacing: 0.5px !important;
 }
 
 /* ==========================================================================
