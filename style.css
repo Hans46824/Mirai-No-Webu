@@ -16163,42 +16163,42 @@ body.page-rekomendasi,
 /* PODIUM TIGA BESAR */
 .podium-section-wrap {
     max-width: 1200px;
-    margin: 0 auto 48px auto;
+    margin: 0 auto 32px auto;
 }
 
 .podium-container {
     display: grid;
-    grid-template-columns: 1fr 1.15fr 1fr;
-    gap: 24px;
+    grid-template-columns: 1fr 1.12fr 1fr;
+    gap: 18px;
     align-items: flex-end;
 }
 
 .podium-card {
     position: relative;
     box-sizing: border-box;
-    padding: 32px 24px 28px;
-    border-radius: 22px;
+    padding: 18px 16px 16px;
+    border-radius: 18px;
     text-align: center;
     background: linear-gradient(165deg, #1d1626 0%, #120e18 100%);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
-    transition: transform 0.28s ease, box-shadow 0.28s ease;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .podium-card:hover {
-    transform: translateY(-6px);
+    transform: translateY(-4px);
 }
 
 /* Emas (Rank 1) */
 .podium-gold {
-    padding-top: 42px;
+    padding-top: 26px;
     border: 2px solid #ffd700;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 32px rgba(255, 215, 0, 0.28);
+    box-shadow: 0 16px 42px rgba(0, 0, 0, 0.5), 0 0 28px rgba(255, 215, 0, 0.25);
 }
 
 .podium-crown {
-    font-size: 32px;
+    font-size: 26px;
     position: absolute;
-    top: -20px;
+    top: -16px;
     left: 50%;
     transform: translateX(-50%);
     animation: crownFloat 2s ease-in-out infinite alternate;
@@ -16206,12 +16206,12 @@ body.page-rekomendasi,
 
 @keyframes crownFloat {
     from { transform: translateX(-50%) translateY(0); }
-    to { transform: translateX(-50%) translateY(-6px); }
+    to { transform: translateX(-50%) translateY(-5px); }
 }
 
 .podium-gold .podium-avatar-wrap {
     border-color: #ffd700;
-    box-shadow: 0 0 22px rgba(255, 215, 0, 0.45);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.45);
 }
 
 .podium-gold .podium-rank-tag {
@@ -16222,12 +16222,12 @@ body.page-rekomendasi,
 /* Perak (Rank 2) */
 .podium-silver {
     border: 1.5px solid #94a3b8;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), 0 0 24px rgba(148, 163, 184, 0.2);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45), 0 0 20px rgba(148, 163, 184, 0.2);
 }
 
 .podium-silver .podium-avatar-wrap {
     border-color: #cbd5e1;
-    box-shadow: 0 0 18px rgba(203, 213, 225, 0.35);
+    box-shadow: 0 0 16px rgba(203, 213, 225, 0.35);
 }
 
 .podium-silver .podium-rank-tag {
@@ -16238,12 +16238,12 @@ body.page-rekomendasi,
 /* Perunggu (Rank 3) */
 .podium-bronze {
     border: 1.5px solid #f97316;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), 0 0 24px rgba(249, 115, 22, 0.2);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45), 0 0 20px rgba(249, 115, 22, 0.2);
 }
 
 .podium-bronze .podium-avatar-wrap {
     border-color: #f97316;
-    box-shadow: 0 0 18px rgba(249, 115, 22, 0.35);
+    box-shadow: 0 0 16px rgba(249, 115, 22, 0.35);
 }
 
 .podium-bronze .podium-rank-tag {
@@ -16255,28 +16255,28 @@ body.page-rekomendasi,
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 4px 14px;
-    border-radius: 16px;
+    padding: 3px 12px;
+    border-radius: 14px;
     background: rgba(255, 255, 255, 0.08);
     font-size: 11px;
     font-weight: 800;
-    letter-spacing: 1px;
+    letter-spacing: 0.8px;
     color: #ffffff;
-    margin-bottom: 16px;
+    margin-bottom: 10px;
 }
 
 .podium-avatar-wrap {
     position: relative;
-    width: 90px;
-    height: 90px;
-    margin: 0 auto 16px auto;
+    width: 78px;
+    height: 78px;
+    margin: 0 auto 10px auto;
     border-radius: 50%;
-    border: 3px solid #ffffff;
+    border: 2.5px solid #ffffff;
 }
 
 .podium-gold .podium-avatar-wrap {
-    width: 105px;
-    height: 105px;
+    width: 90px;
+    height: 90px;
 }
 
 .podium-avatar-img {
@@ -16287,85 +16287,63 @@ body.page-rekomendasi,
 }
 
 .podium-rank-tag {
-    position: absolute;
-    bottom: -6px;
-    right: -6px;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    font-weight: 900;
+    display: none !important;
 }
 
 .podium-name {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     font-weight: 800;
     color: #ffffff;
-    margin: 0 0 4px 0;
+    margin: 0 0 2px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .podium-class-info {
-    font-size: 12px;
-    color: rgba(255, 255, 255, 0.6);
+    font-size: 11.5px;
+    color: rgba(255, 255, 255, 0.65);
     display: block;
-    margin-bottom: 14px;
+    margin-bottom: 10px;
 }
 
 .podium-period-pill {
     display: inline-block;
-    padding: 2px 8px;
-    border-radius: 8px;
+    padding: 2px 7px;
+    border-radius: 6px;
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.15);
     color: #cbd5e1;
-    font-size: 11px;
+    font-size: 10.5px;
     font-weight: 700;
-    margin-left: 6px;
+    margin-left: 5px;
     vertical-align: middle;
 }
 
 .podium-score-pill {
     display: inline-block;
-    padding: 8px 18px;
-    border-radius: 14px;
+    padding: 6px 14px;
+    border-radius: 12px;
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.12);
-    margin-bottom: 12px;
+    margin-bottom: 0;
 }
 
 .podium-score-pill strong {
-    font-size: 16px;
+    font-size: 15px;
     color: #ffffff;
     display: block;
+    line-height: 1.25;
 }
 
 .podium-score-pill small {
-    font-size: 11px;
+    font-size: 10.5px;
     color: rgba(255, 255, 255, 0.55);
 }
 
-.podium-quote {
-    font-size: 12.5px;
-    font-style: italic;
-    color: #cbd5e1;
-    margin: 0;
-    line-height: 1.5;
-}
-
+.podium-quote,
 .podium-mvp-ribbon {
-    display: inline-block;
-    margin-top: 14px;
-    padding: 5px 14px;
-    border-radius: 12px;
-    background: rgba(255, 215, 0, 0.18);
-    border: 1px solid rgba(255, 215, 0, 0.45);
-    color: #ffd700;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 1px;
+    display: none !important;
 }
 
 /* Tabel Peringkat 4 - 10 */
@@ -16426,10 +16404,11 @@ body.page-rekomendasi,
 }
 
 .lb-row-rank {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 800;
-    color: rgba(255, 255, 255, 0.5);
+    color: #cbd5e1;
     text-align: center;
+    min-width: 28px;
 }
 
 .lb-row-user {
