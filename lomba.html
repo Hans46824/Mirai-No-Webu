@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Informasi Lomba &amp; Acara Jejepangan — MIRAI NO HANA</title>
-    <link rel="stylesheet" href="style.css?v=20261005e">
+    <link rel="stylesheet" href="style.css?v=20261010f">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Noto+Serif+JP:wght@600;700;900&display=swap" rel="stylesheet">
@@ -53,28 +53,47 @@
             </div>
         </section>
 
-        <!-- BAGIAN 1: INFO LOMBA (PAGE 1) -->
+        <!-- BAGIAN 1: INFO LOMBA & ACARA JEJEPANGAN -->
         <section class="section lomba-upcoming-section" id="infoLomba">
             <div class="section-intro">
-                <h2 class="heading">Info <span>Lomba</span></h2>
+                <h2 class="heading">Info Lomba &amp; <span>Acara Jejepangan</span></h2>
             </div>
 
-            <!-- Filter Tingkat Lomba -->
-            <div class="lomba-filter-bar" role="tablist" aria-label="Filter Tingkat Lomba">
-                <button type="button" class="lomba-filter-chip active" data-level="all">Semua Tingkat (4)</button>
-                <button type="button" class="lomba-filter-chip" data-level="sidoarjo">Tingkat Sidoarjo</button>
-                <button type="button" class="lomba-filter-chip" data-level="surabaya">Tingkat Surabaya</button>
-                <button type="button" class="lomba-filter-chip" data-level="jatim">Tingkat Jawa Timur</button>
-                <button type="button" class="lomba-filter-chip" data-level="nasional">Tingkat Nasional</button>
+            <!-- Filter Kategori & Wilayah -->
+            <div class="lomba-filter-wrapper">
+                <!-- Baris 1: Filter Kategori Kegiatan -->
+                <div class="filter-group-wrap">
+                    <span class="filter-group-label">Kategori Kegiatan:</span>
+                    <div class="lomba-filter-bar type-filters" role="tablist" aria-label="Filter Kategori Kegiatan">
+                        <button type="button" class="lomba-filter-chip active" data-type="all">Semua Kegiatan</button>
+                        <button type="button" class="lomba-filter-chip" data-type="lomba">🏆 Lomba &amp; Kompetisi</button>
+                        <button type="button" class="lomba-filter-chip" data-type="acara">🎌 Acara Jejepangan &amp; Cosplay</button>
+                    </div>
+                </div>
+
+                <!-- Baris 2: Filter Wilayah Pelaksanaan -->
+                <div class="filter-group-wrap">
+                    <span class="filter-group-label">Wilayah Pelaksanaan:</span>
+                    <div class="lomba-filter-bar level-filters" role="tablist" aria-label="Filter Wilayah Pelaksanaan">
+                        <button type="button" class="lomba-filter-chip active" data-level="all">Semua Wilayah</button>
+                        <button type="button" class="lomba-filter-chip" data-level="sidoarjo">Tingkat Sidoarjo</button>
+                        <button type="button" class="lomba-filter-chip" data-level="surabaya">Tingkat Surabaya</button>
+                        <button type="button" class="lomba-filter-chip" data-level="jatim">Tingkat Jawa Timur</button>
+                        <button type="button" class="lomba-filter-chip" data-level="nasional">Tingkat Nasional</button>
+                    </div>
+                </div>
             </div>
 
-            <!-- Grid Event Lomba -->
+            <!-- Grid Event Lomba & Acara -->
             <div class="lomba-events-grid" id="eventsGrid">
 
-                <!-- 1. Bunkasai SMA Jawa Timur -->
-                <article class="event-card" data-level="jatim" style="--event-border: #f97316; --event-border-rgb: 249, 115, 22;">
+                <!-- 1. Bunkasai SMA Jawa Timur (Lomba, Jatim) -->
+                <article class="event-card" data-type="lomba" data-level="jatim" style="--event-border: #f97316; --event-border-rgb: 249, 115, 22;">
                     <div class="event-card-header">
-                        <span class="event-level-badge level-jatim">Tingkat Jawa Timur</span>
+                        <div class="event-badges-wrap">
+                            <span class="event-type-badge type-lomba">🏆 Lomba</span>
+                            <span class="event-level-badge level-jatim">Tingkat Jawa Timur</span>
+                        </div>
                         <span class="event-status-tag status-open">🟢 Pendaftaran Dibuka</span>
                     </div>
                     <div class="event-card-banner">
@@ -85,7 +104,6 @@
                         <div class="event-organizer-tag">
                             <span>🏢 MGMP Bahasa Jepang Provinsi Jawa Timur</span>
                         </div>
-
                         <div class="event-meta-grid">
                             <div class="meta-item">
                                 <span class="meta-icon">📅</span>
@@ -116,14 +134,12 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="event-mentor-box">
                             <span class="mentor-badge">👤 Pendamping Ekskul:</span>
-                            <p class="mentor-desc">Senpai Arya &amp; Pembina Divisi Bahasa (WhatsApp: 0812-3456-7890)</p>
+                            <p class="mentor-desc">Senpai Arya &amp; Pembina Divisi Bahasa</p>
                         </div>
-
                         <div class="event-card-actions">
-                            <button type="button" class="btn-juknis" data-event-modal="modal-jatim">
+                            <button type="button" class="btn-juknis" data-event-modal="modal-bunkasai-jatim">
                                 <span>📄 Buka Petunjuk Teknis (Juknis)</span>
                             </button>
                             <a href="https://www.instagram.com/mirainohana_smawh2" target="_blank" rel="noopener noreferrer" class="btn-daftar-ekskul">
@@ -133,10 +149,13 @@
                     </div>
                 </article>
 
-                <!-- 2. Japan Fest Sidoarjo Pelajar -->
-                <article class="event-card" data-level="sidoarjo" style="--event-border: #38bdf8; --event-border-rgb: 56, 189, 248;">
+                <!-- 2. Japan Fest Sidoarjo Pelajar (Lomba, Sidoarjo) -->
+                <article class="event-card" data-type="lomba" data-level="sidoarjo" style="--event-border: #38bdf8; --event-border-rgb: 56, 189, 248;">
                     <div class="event-card-header">
-                        <span class="event-level-badge level-sidoarjo">Tingkat Sidoarjo</span>
+                        <div class="event-badges-wrap">
+                            <span class="event-type-badge type-lomba">🏆 Lomba</span>
+                            <span class="event-level-badge level-sidoarjo">Tingkat Sidoarjo</span>
+                        </div>
                         <span class="event-status-tag status-open">🟢 Pendaftaran Dibuka</span>
                     </div>
                     <div class="event-card-banner">
@@ -147,7 +166,6 @@
                         <div class="event-organizer-tag">
                             <span>🏢 Komunitas Budaya Jepang Delta Sidoarjo</span>
                         </div>
-
                         <div class="event-meta-grid">
                             <div class="meta-item">
                                 <span class="meta-icon">📅</span>
@@ -178,14 +196,12 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="event-mentor-box">
                             <span class="mentor-badge">👤 Pendamping Ekskul:</span>
                             <p class="mentor-desc">Ketua Ekskul Mirai No Hana (WhatsApp: 0821-9876-5432)</p>
                         </div>
-
                         <div class="event-card-actions">
-                            <button type="button" class="btn-juknis" data-event-modal="modal-sidoarjo">
+                            <button type="button" class="btn-juknis" data-event-modal="modal-japanfest-sda">
                                 <span>📄 Buka Petunjuk Teknis (Juknis)</span>
                             </button>
                             <a href="https://www.instagram.com/mirainohana_smawh2" target="_blank" rel="noopener noreferrer" class="btn-daftar-ekskul">
@@ -195,10 +211,13 @@
                     </div>
                 </article>
 
-                <!-- 3. Festival Bunkasai Surabaya -->
-                <article class="event-card" data-level="surabaya" style="--event-border: #10b981; --event-border-rgb: 16, 185, 129;">
+                <!-- 3. Bunkasai Surabaya Pelajar & Mahasiswa (Lomba, Surabaya) -->
+                <article class="event-card" data-type="lomba" data-level="surabaya" style="--event-border: #10b981; --event-border-rgb: 16, 185, 129;">
                     <div class="event-card-header">
-                        <span class="event-level-badge level-surabaya">Tingkat Surabaya</span>
+                        <div class="event-badges-wrap">
+                            <span class="event-type-badge type-lomba">🏆 Lomba</span>
+                            <span class="event-level-badge level-surabaya">Tingkat Surabaya</span>
+                        </div>
                         <span class="event-status-tag status-soon">🟡 Segera Hadir</span>
                     </div>
                     <div class="event-card-banner">
@@ -209,7 +228,6 @@
                         <div class="event-organizer-tag">
                             <span>🏢 Himpunan Mahasiswa Bahasa Jepang Surabaya</span>
                         </div>
-
                         <div class="event-meta-grid">
                             <div class="meta-item">
                                 <span class="meta-icon">📅</span>
@@ -240,14 +258,12 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="event-mentor-box">
                             <span class="mentor-badge">👤 Pendamping Ekskul:</span>
-                            <p class="mentor-desc">Pembina Divisi Desain &amp; Cosplay (WhatsApp: 0857-1122-3344)</p>
+                            <p class="mentor-desc">Pembina Divisi Desain &amp; Cosplay</p>
                         </div>
-
                         <div class="event-card-actions">
-                            <button type="button" class="btn-juknis" data-event-modal="modal-surabaya">
+                            <button type="button" class="btn-juknis" data-event-modal="modal-bunkasai-sby">
                                 <span>📄 Buka Petunjuk Teknis (Juknis)</span>
                             </button>
                             <a href="https://www.instagram.com/mirainohana_smawh2" target="_blank" rel="noopener noreferrer" class="btn-daftar-ekskul">
@@ -257,10 +273,13 @@
                     </div>
                 </article>
 
-                <!-- 4. Olimpiade Bahasa Jepang Nasional -->
-                <article class="event-card" data-level="nasional" style="--event-border: #e11d48; --event-border-rgb: 225, 29, 72;">
+                <!-- 4. Olimpiade Bahasa Jepang Nasional (Lomba, Nasional) -->
+                <article class="event-card" data-type="lomba" data-level="nasional" style="--event-border: #e11d48; --event-border-rgb: 225, 29, 72;">
                     <div class="event-card-header">
-                        <span class="event-level-badge level-nasional">Tingkat Nasional</span>
+                        <div class="event-badges-wrap">
+                            <span class="event-type-badge type-lomba">🏆 Lomba</span>
+                            <span class="event-level-badge level-nasional">Tingkat Nasional</span>
+                        </div>
                         <span class="event-status-tag status-open">🟢 Pendaftaran Dibuka</span>
                     </div>
                     <div class="event-card-banner">
@@ -271,7 +290,6 @@
                         <div class="event-organizer-tag">
                             <span>🏢 Asosiasi Guru Bahasa Jepang Indonesia (AGBJI)</span>
                         </div>
-
                         <div class="event-meta-grid">
                             <div class="meta-item">
                                 <span class="meta-icon">📅</span>
@@ -302,14 +320,12 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="event-mentor-box">
                             <span class="mentor-badge">👤 Pendamping Ekskul:</span>
-                            <p class="mentor-desc">Guru Pembina Utama Klub Jepang SMASYIMDUTA (Ruang Guru)</p>
+                            <p class="mentor-desc">Guru Pembina Utama Klub Jepang SMASYIMDUTA</p>
                         </div>
-
                         <div class="event-card-actions">
-                            <button type="button" class="btn-juknis" data-event-modal="modal-nasional">
+                            <button type="button" class="btn-juknis" data-event-modal="modal-olimpiade-nasional">
                                 <span>📄 Buka Petunjuk Teknis (Juknis)</span>
                             </button>
                             <a href="https://www.instagram.com/mirainohana_smawh2" target="_blank" rel="noopener noreferrer" class="btn-daftar-ekskul">
@@ -319,7 +335,763 @@
                     </div>
                 </article>
 
+                <!-- 5. Delta Japanese Speech & Kanji Cup (Lomba, Sidoarjo) -->
+                <article class="event-card" data-type="lomba" data-level="sidoarjo" style="--event-border: #38bdf8; --event-border-rgb: 56, 189, 248;">
+                    <div class="event-card-header">
+                        <div class="event-badges-wrap">
+                            <span class="event-type-badge type-lomba">🏆 Lomba</span>
+                            <span class="event-level-badge level-sidoarjo">Tingkat Sidoarjo</span>
+                        </div>
+                        <span class="event-status-tag status-open">🟢 Pendaftaran Dibuka</span>
+                    </div>
+                    <div class="event-card-banner">
+                        <img src="images/mirai/stiker/kok.jpeg" alt="Delta Speech Contest" class="event-banner-img">
+                    </div>
+                    <div class="event-card-content">
+                        <h3 class="event-title">Delta Japanese Speech &amp; Kanji Cup 2026</h3>
+                        <div class="event-organizer-tag">
+                            <span>🏢 Forum Guru Bahasa Asing Kabupaten Sidoarjo</span>
+                        </div>
+                        <div class="event-meta-grid">
+                            <div class="meta-item">
+                                <span class="meta-icon">📅</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Pelaksanaan</span>
+                                    <span class="meta-val">25 Juli 2026</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">⏳</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Batas Pendaftaran</span>
+                                    <span class="meta-val">10 Juli 2026</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">📍</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Lokasi Acara</span>
+                                    <span class="meta-val">Aula Dispendik Kabupaten Sidoarjo</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">🏆</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Cabang Lomba</span>
+                                    <span class="meta-val">Benron Taikai (Pidato Jepang), Kecepatan Kanji, Kuis Budaya</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="event-mentor-box">
+                            <span class="mentor-badge">👤 Pendamping Ekskul:</span>
+                            <p class="mentor-desc">Senpai Divisi Bahasa Mirai No Hana</p>
+                        </div>
+                        <div class="event-card-actions">
+                            <button type="button" class="btn-juknis" data-event-modal="modal-speech-sda">
+                                <span>📄 Buka Petunjuk Teknis (Juknis)</span>
+                            </button>
+                            <a href="https://www.instagram.com/mirainohana_smawh2" target="_blank" rel="noopener noreferrer" class="btn-daftar-ekskul">
+                                <span>Hubungi Pendamping →</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 6. Surabaya Cosplay Championship (Lomba, Surabaya) -->
+                <article class="event-card" data-type="lomba" data-level="surabaya" style="--event-border: #10b981; --event-border-rgb: 16, 185, 129;">
+                    <div class="event-card-header">
+                        <div class="event-badges-wrap">
+                            <span class="event-type-badge type-lomba">🏆 Lomba</span>
+                            <span class="event-level-badge level-surabaya">Tingkat Surabaya</span>
+                        </div>
+                        <span class="event-status-tag status-open">🟢 Pendaftaran Dibuka</span>
+                    </div>
+                    <div class="event-card-banner">
+                        <img src="images/mirai/stiker/ada.jpeg" alt="Surabaya Cosplay Championship" class="event-banner-img">
+                    </div>
+                    <div class="event-card-content">
+                        <h3 class="event-title">Surabaya Cosplay Championship 2026</h3>
+                        <div class="event-organizer-tag">
+                            <span>🏢 Surabaya Otaku Community &amp; Cosplay Arena</span>
+                        </div>
+                        <div class="event-meta-grid">
+                            <div class="meta-item">
+                                <span class="meta-icon">📅</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Pelaksanaan</span>
+                                    <span class="meta-val">22 – 23 Agustus 2026</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">⏳</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Batas Pendaftaran</span>
+                                    <span class="meta-val">5 Agustus 2026</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">📍</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Lokasi Acara</span>
+                                    <span class="meta-val">Main Atrium Tunjungan Plaza Surabaya</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">🏆</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Cabang Lomba</span>
+                                    <span class="meta-val">Cosplay Single Walk, Armor Craftsmanship, Duo Performance</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="event-mentor-box">
+                            <span class="mentor-badge">👤 Pendamping Ekskul:</span>
+                            <p class="mentor-desc">Senpai Divisi Cosplay Mirai No Hana</p>
+                        </div>
+                        <div class="event-card-actions">
+                            <button type="button" class="btn-juknis" data-event-modal="modal-cosplay-sby">
+                                <span>📄 Buka Petunjuk Teknis (Juknis)</span>
+                            </button>
+                            <a href="https://www.instagram.com/mirainohana_smawh2" target="_blank" rel="noopener noreferrer" class="btn-daftar-ekskul">
+                                <span>Hubungi Pendamping →</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 7. East Java Manga & Digital Art Contest (Lomba, Jatim) -->
+                <article class="event-card" data-type="lomba" data-level="jatim" style="--event-border: #f97316; --event-border-rgb: 249, 115, 22;">
+                    <div class="event-card-header">
+                        <div class="event-badges-wrap">
+                            <span class="event-type-badge type-lomba">🏆 Lomba</span>
+                            <span class="event-level-badge level-jatim">Tingkat Jawa Timur</span>
+                        </div>
+                        <span class="event-status-tag status-soon">🟡 Segera Hadir</span>
+                    </div>
+                    <div class="event-card-banner">
+                        <img src="images/mirai/stiker/sor.jpeg" alt="Manga Art Contest Jatim" class="event-banner-img">
+                    </div>
+                    <div class="event-card-content">
+                        <h3 class="event-title">East Java Manga &amp; Digital Art Contest 2026</h3>
+                        <div class="event-organizer-tag">
+                            <span>🏢 Dewan Kreatif Budaya Populer Jawa Timur</span>
+                        </div>
+                        <div class="event-meta-grid">
+                            <div class="meta-item">
+                                <span class="meta-icon">📅</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Pelaksanaan</span>
+                                    <span class="meta-val">5 September 2026</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">⏳</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Batas Pendaftaran</span>
+                                    <span class="meta-val">25 Agustus 2026</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">📍</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Lokasi Acara</span>
+                                    <span class="meta-val">Gedung Kesenian Cak Durasim Surabaya</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">🏆</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Cabang Lomba</span>
+                                    <span class="meta-val">Ilustrasi Digital Anime, 4-Koma Manga, Desain Maskot</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="event-mentor-box">
+                            <span class="mentor-badge">👤 Pendamping Ekskul:</span>
+                            <p class="mentor-desc">Senpai Divisi Desain Grafis Mirai No Hana</p>
+                        </div>
+                        <div class="event-card-actions">
+                            <button type="button" class="btn-juknis" data-event-modal="modal-manga-jatim">
+                                <span>📄 Buka Petunjuk Teknis (Juknis)</span>
+                            </button>
+                            <a href="https://www.instagram.com/mirainohana_smawh2" target="_blank" rel="noopener noreferrer" class="btn-daftar-ekskul">
+                                <span>Hubungi Pendamping →</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 8. National Cosplay Grand Prix Indonesia (Lomba, Nasional) -->
+                <article class="event-card" data-type="lomba" data-level="nasional" style="--event-border: #e11d48; --event-border-rgb: 225, 29, 72;">
+                    <div class="event-card-header">
+                        <div class="event-badges-wrap">
+                            <span class="event-type-badge type-lomba">🏆 Lomba</span>
+                            <span class="event-level-badge level-nasional">Tingkat Nasional</span>
+                        </div>
+                        <span class="event-status-tag status-open">🟢 Pendaftaran Dibuka</span>
+                    </div>
+                    <div class="event-card-banner">
+                        <img src="images/mirai/stiker/kar.jpeg" alt="National Cosplay Grand Prix" class="event-banner-img">
+                    </div>
+                    <div class="event-card-content">
+                        <h3 class="event-title">National Cosplay Grand Prix Indonesia 2026</h3>
+                        <div class="event-organizer-tag">
+                            <span>🏢 Indonesian Cosplay League &amp; WCS Affiliate</span>
+                        </div>
+                        <div class="event-meta-grid">
+                            <div class="meta-item">
+                                <span class="meta-icon">📅</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Pelaksanaan</span>
+                                    <span class="meta-val">17 – 18 Oktober 2026</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">⏳</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Batas Pendaftaran</span>
+                                    <span class="meta-val">20 September 2026</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">📍</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Lokasi Acara</span>
+                                    <span class="meta-val">Hall Basket Gelora Bung Karno Jakarta</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">🏆</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Cabang Lomba</span>
+                                    <span class="meta-val">Cosplay Skit Performance, Armor Crafting, Seleksi WCS</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="event-mentor-box">
+                            <span class="mentor-badge">👤 Pendamping Ekskul:</span>
+                            <p class="mentor-desc">Tim Pembina Cosplay &amp; Properti Ekskul</p>
+                        </div>
+                        <div class="event-card-actions">
+                            <button type="button" class="btn-juknis" data-event-modal="modal-ncgp-nasional">
+                                <span>📄 Buka Petunjuk Teknis (Juknis)</span>
+                            </button>
+                            <a href="https://www.instagram.com/mirainohana_smawh2" target="_blank" rel="noopener noreferrer" class="btn-daftar-ekskul">
+                                <span>Hubungi Pendamping →</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 9. Chibicon Surabaya Cosplay Fest (Acara, Surabaya) -->
+                <article class="event-card" data-type="acara" data-level="surabaya" style="--event-border: #a855f7; --event-border-rgb: 168, 85, 247;">
+                    <div class="event-card-header">
+                        <div class="event-badges-wrap">
+                            <span class="event-type-badge type-acara">🎌 Acara &amp; Cosplay</span>
+                            <span class="event-level-badge level-surabaya">Tingkat Surabaya</span>
+                        </div>
+                        <span class="event-status-tag status-open">🟢 Tiket Tersedia</span>
+                    </div>
+                    <div class="event-card-banner">
+                        <img src="images/mirai/stiker/be.jpeg" alt="Chibicon Surabaya Fest" class="event-banner-img">
+                    </div>
+                    <div class="event-card-content">
+                        <h3 class="event-title">Chibicon Surabaya Cosplay Fest 2026</h3>
+                        <div class="event-organizer-tag">
+                            <span>🏢 Chibicon Project &amp; Pop Culture Surabaya</span>
+                        </div>
+                        <div class="event-meta-grid">
+                            <div class="meta-item">
+                                <span class="meta-icon">📅</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Pelaksanaan</span>
+                                    <span class="meta-val">11 – 12 Juli 2026</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">⏳</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Batas Tiket Presale</span>
+                                    <span class="meta-val">5 Juli 2026</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">📍</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Lokasi Acara</span>
+                                    <span class="meta-val">Exhibition Hall Grand City Mall Surabaya</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">🎭</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Aktivitas Utama</span>
+                                    <span class="meta-val">Meet Guest Cosplayer, Cosplay Parade, Anisong DJ, Creators Market</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="event-mentor-box">
+                            <span class="mentor-badge">👥 Info Kunjungan:</span>
+                            <p class="mentor-desc">Rombongan Ekskul Mirai No Hana berangkat bareng di hari pertama!</p>
+                        </div>
+                        <div class="event-card-actions">
+                            <button type="button" class="btn-juknis" data-event-modal="modal-chibicon">
+                                <span>ℹ️ Info Acara &amp; Tiket</span>
+                            </button>
+                            <a href="https://www.instagram.com/mirainohana_smawh2" target="_blank" rel="noopener noreferrer" class="btn-daftar-ekskul">
+                                <span>Ikut Rombongan →</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 10. Delta Cosplay Matsuri Sidoarjo (Acara, Sidoarjo) -->
+                <article class="event-card" data-type="acara" data-level="sidoarjo" style="--event-border: #38bdf8; --event-border-rgb: 56, 189, 248;">
+                    <div class="event-card-header">
+                        <div class="event-badges-wrap">
+                            <span class="event-type-badge type-acara">🎌 Acara &amp; Cosplay</span>
+                            <span class="event-level-badge level-sidoarjo">Tingkat Sidoarjo</span>
+                        </div>
+                        <span class="event-status-tag status-open">🟢 Tiket Masuk Gratis</span>
+                    </div>
+                    <div class="event-card-banner">
+                        <img src="images/mirai/stiker/don.jpeg" alt="Delta Cosplay Matsuri" class="event-banner-img">
+                    </div>
+                    <div class="event-card-content">
+                        <h3 class="event-title">Delta Cosplay Matsuri Sidoarjo 2026</h3>
+                        <div class="event-organizer-tag">
+                            <span>🏢 Sidoarjo Otaku Community &amp; Delta Pop Culture</span>
+                        </div>
+                        <div class="event-meta-grid">
+                            <div class="meta-item">
+                                <span class="meta-icon">📅</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Pelaksanaan</span>
+                                    <span class="meta-val">27 September 2026</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">⏳</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Status Acara</span>
+                                    <span class="meta-val">Terbuka Untuk Umum</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">📍</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Lokasi Acara</span>
+                                    <span class="meta-val">Main Atrium Lippo Plaza Sidoarjo</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">🎭</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Aktivitas Utama</span>
+                                    <span class="meta-val">Parade Cosplay Pelajar, Photobooth Anime, Karaoke Anisong Bebas</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="event-mentor-box">
+                            <span class="mentor-badge">👥 Info Kunjungan:</span>
+                            <p class="mentor-desc">Divisi Cosplay SMASYIMDUTA membuka stan makeup &amp; wig fix!</p>
+                        </div>
+                        <div class="event-card-actions">
+                            <button type="button" class="btn-juknis" data-event-modal="modal-cosplay-matsuri-sda">
+                                <span>ℹ️ Info Acara &amp; Tiket</span>
+                            </button>
+                            <a href="https://www.instagram.com/mirainohana_smawh2" target="_blank" rel="noopener noreferrer" class="btn-daftar-ekskul">
+                                <span>Kunjungi Stan Kami →</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 11. Japan Matsuri Surabaya (Acara, Surabaya) -->
+                <article class="event-card" data-type="acara" data-level="surabaya" style="--event-border: #10b981; --event-border-rgb: 16, 185, 129;">
+                    <div class="event-card-header">
+                        <div class="event-badges-wrap">
+                            <span class="event-type-badge type-acara">🎌 Acara &amp; Cosplay</span>
+                            <span class="event-level-badge level-surabaya">Tingkat Surabaya</span>
+                        </div>
+                        <span class="event-status-tag status-open">🟢 Tiket Tersedia</span>
+                    </div>
+                    <div class="event-card-banner">
+                        <img src="images/mirai/stiker/yan.jpeg" alt="Japan Matsuri Surabaya" class="event-banner-img">
+                    </div>
+                    <div class="event-card-content">
+                        <h3 class="event-title">Japan Matsuri Surabaya (JMS) 2026</h3>
+                        <div class="event-organizer-tag">
+                            <span>🏢 JMS Committee &amp; Yayasan Kebudayaan Surabaya</span>
+                        </div>
+                        <div class="event-meta-grid">
+                            <div class="meta-item">
+                                <span class="meta-icon">📅</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Pelaksanaan</span>
+                                    <span class="meta-val">8 – 9 Agustus 2026</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">⏳</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Batas Registrasi</span>
+                                    <span class="meta-val">31 Juli 2026</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">📍</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Lokasi Acara</span>
+                                    <span class="meta-val">Balai Pemuda &amp; Alun-Alun Surabaya</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">🎭</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Aktivitas Utama</span>
+                                    <span class="meta-val">Kuliner Yatai Jepang, Tarian Yosakoi &amp; Bon Odori, Coswalk Party</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="event-mentor-box">
+                            <span class="mentor-badge">👥 Info Kunjungan:</span>
+                            <p class="mentor-desc">Ada pawai Haori bersama komunitas jejepangan Surabaya!</p>
+                        </div>
+                        <div class="event-card-actions">
+                            <button type="button" class="btn-juknis" data-event-modal="modal-jms-sby">
+                                <span>ℹ️ Info Acara &amp; Tiket</span>
+                            </button>
+                            <a href="https://www.instagram.com/mirainohana_smawh2" target="_blank" rel="noopener noreferrer" class="btn-daftar-ekskul">
+                                <span>Ikut Rombongan →</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 12. Daisuki Anime Fest Jawa Timur (Acara, Jatim) -->
+                <article class="event-card" data-type="acara" data-level="jatim" style="--event-border: #f97316; --event-border-rgb: 249, 115, 22;">
+                    <div class="event-card-header">
+                        <div class="event-badges-wrap">
+                            <span class="event-type-badge type-acara">🎌 Acara &amp; Cosplay</span>
+                            <span class="event-level-badge level-jatim">Tingkat Jawa Timur</span>
+                        </div>
+                        <span class="event-status-tag status-open">🟢 Tiket Presale Dibuka</span>
+                    </div>
+                    <div class="event-card-banner">
+                        <img src="images/mirai/stiker/yat.jpeg" alt="Daisuki Anime Fest" class="event-banner-img">
+                    </div>
+                    <div class="event-card-content">
+                        <h3 class="event-title">Daisuki Anime Fest Jawa Timur 2026</h3>
+                        <div class="event-organizer-tag">
+                            <span>🏢 Daisuki Event Organizer Malang - Jatim</span>
+                        </div>
+                        <div class="event-meta-grid">
+                            <div class="meta-item">
+                                <span class="meta-icon">📅</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Pelaksanaan</span>
+                                    <span class="meta-val">10 – 11 Oktober 2026</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">⏳</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Batas Presale 1</span>
+                                    <span class="meta-val">15 September 2026</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">📍</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Lokasi Acara</span>
+                                    <span class="meta-val">UMM Dome / Graha Cakrawala Malang</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">🎭</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Aktivitas Utama</span>
+                                    <span class="meta-val">Festival Pop Culture Terbesar Jatim, Konser Idol Group, 100+ Booth Doujin</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="event-mentor-box">
+                            <span class="mentor-badge">👥 Info Kunjungan:</span>
+                            <p class="mentor-desc">Event tahunan paling ramai yang wajib dikunjungi warga ekskul!</p>
+                        </div>
+                        <div class="event-card-actions">
+                            <button type="button" class="btn-juknis" data-event-modal="modal-daisuki-jatim">
+                                <span>ℹ️ Info Acara &amp; Tiket</span>
+                            </button>
+                            <a href="https://www.instagram.com/mirainohana_smawh2" target="_blank" rel="noopener noreferrer" class="btn-daftar-ekskul">
+                                <span>Info Tiket Ekskul →</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 13. Matsuri Budaya Sidoarjo Harmoni Sakura (Acara, Sidoarjo) -->
+                <article class="event-card" data-type="acara" data-level="sidoarjo" style="--event-border: #38bdf8; --event-border-rgb: 56, 189, 248;">
+                    <div class="event-card-header">
+                        <div class="event-badges-wrap">
+                            <span class="event-type-badge type-acara">🎌 Acara &amp; Cosplay</span>
+                            <span class="event-level-badge level-sidoarjo">Tingkat Sidoarjo</span>
+                        </div>
+                        <span class="event-status-tag status-open">🟢 Registrasi Dibuka</span>
+                    </div>
+                    <div class="event-card-banner">
+                        <img src="images/mirai/stiker/iwa.jpeg" alt="Matsuri Budaya Sidoarjo" class="event-banner-img">
+                    </div>
+                    <div class="event-card-content">
+                        <h3 class="event-title">Matsuri Budaya Sidoarjo Harmoni Sakura 2026</h3>
+                        <div class="event-organizer-tag">
+                            <span>🏢 Aliansi Klub Jepang SMASYIMDUTA &amp; Sekolah Sahabat</span>
+                        </div>
+                        <div class="event-meta-grid">
+                            <div class="meta-item">
+                                <span class="meta-icon">📅</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Pelaksanaan</span>
+                                    <span class="meta-val">15 November 2026</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">⏳</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Batas Pendaftaran</span>
+                                    <span class="meta-val">5 November 2026</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">📍</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Lokasi Acara</span>
+                                    <span class="meta-val">Gedung Serbaguna Rohmatul Ummah Sidoarjo</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">🎭</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Aktivitas Utama</span>
+                                    <span class="meta-val">Pameran Haori Tradisional, Stan Kuliner Konbini, Workshop Shodou</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="event-mentor-box">
+                            <span class="mentor-badge">👥 Info Kunjungan:</span>
+                            <p class="mentor-desc">Mirai No Hana menjadi salah satu tuan rumah stan kebudayaan!</p>
+                        </div>
+                        <div class="event-card-actions">
+                            <button type="button" class="btn-juknis" data-event-modal="modal-matsuri-sda">
+                                <span>ℹ️ Info Acara &amp; Tiket</span>
+                            </button>
+                            <a href="https://www.instagram.com/mirainohana_smawh2" target="_blank" rel="noopener noreferrer" class="btn-daftar-ekskul">
+                                <span>Daftar Pengunjung →</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 14. Comic Frontier (Comifuro) (Acara, Nasional) -->
+                <article class="event-card" data-type="acara" data-level="nasional" style="--event-border: #e11d48; --event-border-rgb: 225, 29, 72;">
+                    <div class="event-card-header">
+                        <div class="event-badges-wrap">
+                            <span class="event-type-badge type-acara">🎌 Acara &amp; Cosplay</span>
+                            <span class="event-level-badge level-nasional">Tingkat Nasional</span>
+                        </div>
+                        <span class="event-status-tag status-open">🟢 Tiket Reguler Tersedia</span>
+                    </div>
+                    <div class="event-card-banner">
+                        <img src="images/mirai/stiker/dik.jpeg" alt="Comic Frontier Comifuro" class="event-banner-img">
+                    </div>
+                    <div class="event-card-content">
+                        <h3 class="event-title">Comic Frontier (Comifuro) 2026</h3>
+                        <div class="event-organizer-tag">
+                            <span>🏢 Comic Frontier Committee Indonesia</span>
+                        </div>
+                        <div class="event-meta-grid">
+                            <div class="meta-item">
+                                <span class="meta-icon">📅</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Pelaksanaan</span>
+                                    <span class="meta-val">14 – 15 November 2026</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">⏳</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Tiket Online</span>
+                                    <span class="meta-val">Tersedia di Portal Resmi</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">📍</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Lokasi Acara</span>
+                                    <span class="meta-val">Hall 8-10 ICE BSD City, Tangerang</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">🎭</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Aktivitas Utama</span>
+                                    <span class="meta-val">Pasar Kreator Pop Culture Terbesar, Ribuan Cosplayer Nasional, Indie Games</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="event-mentor-box">
+                            <span class="mentor-badge">👥 Info Kunjungan:</span>
+                            <p class="mentor-desc">Pameran merchandise doujinshi karya kreator lokal se-Indonesia!</p>
+                        </div>
+                        <div class="event-card-actions">
+                            <button type="button" class="btn-juknis" data-event-modal="modal-comifuro-nasional">
+                                <span>ℹ️ Info Acara &amp; Tiket</span>
+                            </button>
+                            <a href="https://www.instagram.com/mirainohana_smawh2" target="_blank" rel="noopener noreferrer" class="btn-daftar-ekskul">
+                                <span>Pelajari Lebih Lanjut →</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 15. Indonesia Comic Con (ICC) (Acara, Nasional) -->
+                <article class="event-card" data-type="acara" data-level="nasional" style="--event-border: #e11d48; --event-border-rgb: 225, 29, 72;">
+                    <div class="event-card-header">
+                        <div class="event-badges-wrap">
+                            <span class="event-type-badge type-acara">🎌 Acara &amp; Cosplay</span>
+                            <span class="event-level-badge level-nasional">Tingkat Nasional</span>
+                        </div>
+                        <span class="event-status-tag status-open">🟢 Tiket Early Bird Dibuka</span>
+                    </div>
+                    <div class="event-card-banner">
+                        <img src="images/mirai/stiker/sul.jpeg" alt="Indonesia Comic Con" class="event-banner-img">
+                    </div>
+                    <div class="event-card-content">
+                        <h3 class="event-title">Indonesia Comic Con (ICC) 2026</h3>
+                        <div class="event-organizer-tag">
+                            <span>🏢 Panorama Media &amp; ReedPop Indonesia</span>
+                        </div>
+                        <div class="event-meta-grid">
+                            <div class="meta-item">
+                                <span class="meta-icon">📅</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Pelaksanaan</span>
+                                    <span class="meta-val">24 – 25 Oktober 2026</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">⏳</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Batas Early Bird</span>
+                                    <span class="meta-val">30 September 2026</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">📍</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Lokasi Acara</span>
+                                    <span class="meta-val">Jakarta Convention Center (JCC) Senayan</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">🎭</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Aktivitas Utama</span>
+                                    <span class="meta-val">Ekshibisi Pop Culture Global, Guest Bintang Cosplay Internasional, Championship</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="event-mentor-box">
+                            <span class="mentor-badge">👥 Info Kunjungan:</span>
+                            <p class="mentor-desc">Ajang berkumpulnya pegiat anime, gaming, cosplay, dan komik internasional!</p>
+                        </div>
+                        <div class="event-card-actions">
+                            <button type="button" class="btn-juknis" data-event-modal="modal-icc-nasional">
+                                <span>ℹ️ Info Acara &amp; Tiket</span>
+                            </button>
+                            <a href="https://www.instagram.com/mirainohana_smawh2" target="_blank" rel="noopener noreferrer" class="btn-daftar-ekskul">
+                                <span>Pelajari Lebih Lanjut →</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 16. East Java Bunkasai Grand Carnival (Acara, Jatim) -->
+                <article class="event-card" data-type="acara" data-level="jatim" style="--event-border: #f97316; --event-border-rgb: 249, 115, 22;">
+                    <div class="event-card-header">
+                        <div class="event-badges-wrap">
+                            <span class="event-type-badge type-acara">🎌 Acara &amp; Cosplay</span>
+                            <span class="event-level-badge level-jatim">Tingkat Jawa Timur</span>
+                        </div>
+                        <span class="event-status-tag status-soon">🟡 Segera Hadir</span>
+                    </div>
+                    <div class="event-card-banner">
+                        <img src="images/mirai/stiker/mas.jpeg" alt="East Java Bunkasai Carnival" class="event-banner-img">
+                    </div>
+                    <div class="event-card-content">
+                        <h3 class="event-title">East Java Bunkasai Grand Carnival 2026</h3>
+                        <div class="event-organizer-tag">
+                            <span>🏢 Paguyuban Klub Budaya Jepang Jawa Timur</span>
+                        </div>
+                        <div class="event-meta-grid">
+                            <div class="meta-item">
+                                <span class="meta-icon">📅</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Pelaksanaan</span>
+                                    <span class="meta-val">5 – 6 Desember 2026</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">⏳</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Batas Pendaftaran</span>
+                                    <span class="meta-val">15 November 2026</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">📍</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Lokasi Acara</span>
+                                    <span class="meta-val">Jatim Expo (JX International) Surabaya</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">🎭</span>
+                                <div class="meta-text">
+                                    <span class="meta-label">Aktivitas Utama</span>
+                                    <span class="meta-val">Karnaval Matsuri Penutup Tahun, Konser Anisong, 500+ Cosplayer Parade</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="event-mentor-box">
+                            <span class="mentor-badge">👥 Info Kunjungan:</span>
+                            <p class="mentor-desc">Pentas penutup tahun spektakuler bersama seluruh klub Jepang Jawa Timur!</p>
+                        </div>
+                        <div class="event-card-actions">
+                            <button type="button" class="btn-juknis" data-event-modal="modal-carnival-jatim">
+                                <span>ℹ️ Info Acara &amp; Tiket</span>
+                            </button>
+                            <a href="https://www.instagram.com/mirainohana_smawh2" target="_blank" rel="noopener noreferrer" class="btn-daftar-ekskul">
+                                <span>Pelajari Lebih Lanjut →</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Empty State jika filter tidak menemukan hasil -->
+                <div class="lomba-empty-state" id="lombaEmptyState" style="display: none;">
+                    <span class="empty-icon">🔍</span>
+                    <h3>Tidak Ada Kegiatan yang Cocok</h3>
+                    <p>Belum ada lomba atau acara jejepangan yang sesuai dengan kombinasi filter yang kamu pilih. Coba pilih wilayah atau kategori lain!</p>
+                </div>
+
             </div>
+
+            <!-- Kontrol Navigasi Halaman (Pagination 4 item / halaman) -->
+            <nav class="lomba-pagination" id="lombaPagination" aria-label="Navigasi Halaman Kegiatan">
+                <!-- Dihasilkan secara dinamis oleh JavaScript -->
+            </nav>
         </section>
 
         <!-- BAGIAN 2: KATEGORI PERLOMBAAN (PAGE 2) -->
@@ -546,58 +1318,228 @@
 
     <button class="to-top" type="button" aria-label="Kembali ke atas">↑</button>
 
-    <!-- SCRIPT FILTER EVENT & MODAL JUKNIS -->
+    <!-- SCRIPT FILTER EVENT, PAGINATION & MODAL JUKNIS -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // 1. Filter Tingkat Lomba
-            const filterChips = document.querySelectorAll('.lomba-filter-chip');
-            const eventCards = document.querySelectorAll('.event-card');
+            const typeChips = document.querySelectorAll('.type-filters .lomba-filter-chip');
+            const levelChips = document.querySelectorAll('.level-filters .lomba-filter-chip');
+            const eventCards = Array.from(document.querySelectorAll('.event-card'));
+            const paginationNav = document.getElementById('lombaPagination');
+            const emptyState = document.getElementById('lombaEmptyState');
 
-            filterChips.forEach(chip => {
+            let currentType = 'all';
+            let currentLevel = 'all';
+            let currentPage = 1;
+            const itemsPerPage = 4;
+
+            // 1. Event Listener Filter Tipe Kegiatan
+            typeChips.forEach(chip => {
                 chip.addEventListener('click', () => {
-                    filterChips.forEach(c => c.classList.remove('active'));
+                    typeChips.forEach(c => c.classList.remove('active'));
                     chip.classList.add('active');
-
-                    const level = chip.getAttribute('data-level');
-                    eventCards.forEach(card => {
-                        if (level === 'all' || card.getAttribute('data-level') === level) {
-                            card.style.display = 'flex';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
+                    currentType = chip.getAttribute('data-type') || 'all';
+                    currentPage = 1;
+                    applyFilterAndPagination();
                 });
             });
 
-            // 2. Modal Juknis
+            // 2. Event Listener Filter Wilayah Kegiatan
+            levelChips.forEach(chip => {
+                chip.addEventListener('click', () => {
+                    levelChips.forEach(c => c.classList.remove('active'));
+                    chip.classList.add('active');
+                    currentLevel = chip.getAttribute('data-level') || 'all';
+                    currentPage = 1;
+                    applyFilterAndPagination();
+                });
+            });
+
+            // 3. Fungsi Filter & Pagination Dinamis (4 item / halaman)
+            function applyFilterAndPagination() {
+                const matched = eventCards.filter(card => {
+                    const cardType = card.getAttribute('data-type') || 'lomba';
+                    const cardLevel = card.getAttribute('data-level') || 'all';
+                    const matchType = (currentType === 'all' || cardType === currentType);
+                    const matchLevel = (currentLevel === 'all' || cardLevel === currentLevel);
+                    return matchType && matchLevel;
+                });
+
+                const totalItems = matched.length;
+                const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
+
+                if (currentPage > totalPages) currentPage = totalPages;
+                if (currentPage < 1) currentPage = 1;
+
+                // Tampilkan Empty State jika tidak ada yang cocok
+                if (totalItems === 0) {
+                    eventCards.forEach(c => c.style.display = 'none');
+                    if (emptyState) emptyState.style.display = 'block';
+                    if (paginationNav) paginationNav.innerHTML = '';
+                    return;
+                } else {
+                    if (emptyState) emptyState.style.display = 'none';
+                }
+
+                // Hitung index halaman aktif
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+
+                // Tampilkan kartu yang sesuai halaman aktif, sembunyikan sisanya
+                eventCards.forEach(card => card.style.display = 'none');
+                matched.forEach((card, index) => {
+                    if (index >= startIndex && index < endIndex) {
+                        card.style.display = 'flex';
+                    }
+                });
+
+                renderPagination(totalPages);
+            }
+
+            // 4. Render Tombol Navigasi Halaman
+            function renderPagination(totalPages) {
+                if (!paginationNav) return;
+                paginationNav.innerHTML = '';
+
+                if (totalPages <= 1) return; // Hanya 1 halaman, tombol pagination tidak diperlukan
+
+                // Tombol Sebelumnya (Prev)
+                const prevBtn = document.createElement('button');
+                prevBtn.type = 'button';
+                prevBtn.className = 'pagination-btn';
+                prevBtn.innerHTML = '← Sebelumnya';
+                prevBtn.disabled = (currentPage === 1);
+                prevBtn.setAttribute('aria-label', 'Halaman Sebelumnya');
+                prevBtn.addEventListener('click', () => {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        applyFilterAndPagination();
+                        scrollToSectionTop();
+                    }
+                });
+                paginationNav.appendChild(prevBtn);
+
+                // Tombol Angka Halaman (1, 2, 3, dst.)
+                for (let i = 1; i <= totalPages; i++) {
+                    const pageBtn = document.createElement('button');
+                    pageBtn.type = 'button';
+                    pageBtn.className = 'pagination-btn' + (i === currentPage ? ' active' : '');
+                    pageBtn.innerText = i;
+                    pageBtn.setAttribute('aria-label', 'Buka Halaman ' + i);
+                    pageBtn.addEventListener('click', () => {
+                        if (currentPage !== i) {
+                            currentPage = i;
+                            applyFilterAndPagination();
+                            scrollToSectionTop();
+                        }
+                    });
+                    paginationNav.appendChild(pageBtn);
+                }
+
+                // Tombol Selanjutnya (Next)
+                const nextBtn = document.createElement('button');
+                nextBtn.type = 'button';
+                nextBtn.className = 'pagination-btn';
+                nextBtn.innerHTML = 'Selanjutnya →';
+                nextBtn.disabled = (currentPage === totalPages);
+                nextBtn.setAttribute('aria-label', 'Halaman Selanjutnya');
+                nextBtn.addEventListener('click', () => {
+                    if (currentPage < totalPages) {
+                        currentPage++;
+                        applyFilterAndPagination();
+                        scrollToSectionTop();
+                    }
+                });
+                paginationNav.appendChild(nextBtn);
+            }
+
+            function scrollToSectionTop() {
+                const target = document.getElementById('infoLomba');
+                if (target) {
+                    const offset = target.getBoundingClientRect().top + window.pageYOffset - 75;
+                    window.scrollTo({ top: offset, behavior: 'smooth' });
+                }
+            }
+
+            // Inisialisasi awal
+            applyFilterAndPagination();
+
+            // 5. Modal Juknis & Info Acara
             const modal = document.getElementById('juknisModal');
             const closeBtn = document.getElementById('juknisCloseBtn');
             const okBtn = document.getElementById('modalOkBtn');
-            const juknisBtns = document.querySelectorAll('.btn-juknis');
             const modalTitle = document.getElementById('modalTitle');
             const modalDesc = document.getElementById('modalDesc');
 
             const juknisData = {
-                'modal-jatim': {
+                'modal-bunkasai-jatim': {
                     title: "Juknis Bunkasai SMA Se-Jawa Timur 2026",
                     desc: "Panduan resmi cabang Rodoku, Shodou, dan Cerdas Cermat. Delegasi diwajibkan mengumpulkan berkas formulir dan surat tugas sekolah paling lambat 30 April 2026."
                 },
-                'modal-sidoarjo': {
+                'modal-japanfest-sda': {
                     title: "Juknis Japan Fest Sidoarjo 2026",
                     desc: "Petunjuk teknis cabang Cerdas Cermat, Anisong, dan Kana Speed Challenge. Lomba bertempat di Aula Serbaguna Sidoarjo pada 20 Juni 2026."
                 },
-                'modal-surabaya': {
+                'modal-bunkasai-sby': {
                     title: "Juknis Bunkasai Surabaya 2026",
                     desc: "Panduan lomba Shodou, Cosplay, dan Karaoke Anisong. Properti cosplay wajib lolos inspeksi keamanan prop saat gladi bersih."
                 },
-                'modal-nasional': {
+                'modal-olimpiade-nasional': {
                     title: "Juknis Olimpiade Bahasa Jepang Nasional 2026",
                     desc: "Petunjuk teknis Benron Taikai (Pidato Bahasa Jepang) bertema 'Jembatan Masa Depan Generasi Muda'. Babak penyisihan dilakukan melalui rekaman video tanpa cut."
+                },
+                'modal-speech-sda': {
+                    title: "Juknis Delta Japanese Speech & Kanji Cup 2026",
+                    desc: "Pedoman lomba pidato bahasa Jepang tingkat pelajar SMA/SMK se-Sidoarjo. Naskah orisinal berdurasi 4-5 menit dengan sesi tanya jawab spontan dewan juri."
+                },
+                'modal-cosplay-sby': {
+                    title: "Juknis Surabaya Cosplay Championship 2026",
+                    desc: "Regulasi kompetisi Cosplay Single Walk & Craftsmanship. Dilarang membawa senjata tajam logam. Penilaian mencakup akurasi kostum, prop crafting, dan stage action."
+                },
+                'modal-manga-jatim': {
+                    title: "Juknis East Java Manga & Digital Art Contest 2026",
+                    desc: "Panduan lomba kreasi komik 4-koma dan ilustrasi karakter orisinal. Format karya RGB A4 300 DPI dikumpulkan dalam bentuk softcopy beserta lembar konsep."
+                },
+                'modal-ncgp-nasional': {
+                    title: "Juknis National Cosplay Grand Prix Indonesia 2026",
+                    desc: "Kompetisi cosplay performa tim tingkat nasional dan seleksi menuju panggung internasional. Durasi tampil panggung maksimal 2 menit 30 detik."
+                },
+                'modal-chibicon': {
+                    title: "Info & Panduan Pengunjung Chibicon Surabaya 2026",
+                    desc: "Festival pop culture & cosplay akbar di Grand City Surabaya. Pengunjung wajib mematuhi aturan 'Cosplay is Not Consent' dan menjaga kenyamanan area hall."
+                },
+                'modal-cosplay-matsuri-sda': {
+                    title: "Info Kegiatan Delta Cosplay Matsuri Sidoarjo 2026",
+                    desc: "Gathering santai cosplayer dan wibu Sidoarjo di Lippo Plaza. Terbuka gratis untuk umum dengan panggung karaoke anisong bebas dan photobooth interaktif."
+                },
+                'modal-jms-sby': {
+                    title: "Info Japan Matsuri Surabaya (JMS) 2026",
+                    desc: "Festival budaya Jepang kota Surabaya di Balai Pemuda. Menampilkan pertunjukan tradisional taiko, tarian yosakoi, deretan stan yatai makanan, dan parade cosplay."
+                },
+                'modal-daisuki-jatim': {
+                    title: "Info Daisuki Anime Fest Jawa Timur 2026",
+                    desc: "Festival anime legendaris Jawa Timur di UMM Dome Malang. Tiket presale mencakup akses penuh panggung utama konser anisong dan ratusan booth kreator anime."
+                },
+                'modal-matsuri-sda': {
+                    title: "Info Matsuri Budaya Sidoarjo Harmoni Sakura 2026",
+                    desc: "Kolaborasi tahunan klub Jepang pelajar se-Sidoarjo. Menampilkan stan kebudayaan, photobooth yukata tradisional, kuliner khas Jepang, dan pameran haori ekskul."
+                },
+                'modal-comifuro-nasional': {
+                    title: "Info Comic Frontier (Comifuro) 2026",
+                    desc: "Pameran pasar karya kreator independen pop culture Jepang terbesar se-Indonesia di ICE BSD. Dihadiri ribuan komikus, cosplayer, dan musisi indie nasional."
+                },
+                'modal-icc-nasional': {
+                    title: "Info Indonesia Comic Con (ICC) 2026",
+                    desc: "Konvensi pop culture internasional terakbar di JCC Senayan Jakarta. Menghadirkan guest cosplayer mancanegara, turnamen gaming, dan World Championship of Cosplay."
+                },
+                'modal-carnival-jatim': {
+                    title: "Info East Java Bunkasai Grand Carnival 2026",
+                    desc: "Pentas puncak akhir tahun seluruh klub Jepang se-Jawa Timur di Jatim Expo Surabaya. Menghadirkan panggung musik anisong spektakuler dan pesta kembang api matsuri."
                 }
             };
 
-            juknisBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
+            document.addEventListener('click', (e) => {
+                const btn = e.target.closest('.btn-juknis');
+                if (btn) {
                     const key = btn.getAttribute('data-event-modal');
                     const info = juknisData[key];
                     if (info) {
@@ -606,7 +1548,7 @@
                     }
                     modal.classList.add('active');
                     modal.setAttribute('aria-hidden', 'false');
-                });
+                }
             });
 
             function closeModal() {
