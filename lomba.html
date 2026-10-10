@@ -1665,8 +1665,8 @@
             // 3. Fungsi Filter & Pagination Dinamis (4 item / halaman)
             function applyFilterAndPagination() {
                 const matched = eventCards.filter(card => {
-                    const cardType = card.getAttribute('data-type') || 'lomba';
-                    const cardLevel = card.getAttribute('data-level') || 'all';
+                    const cardType = (card.getAttribute('data-type') || 'lomba').toLowerCase().trim();
+                    const cardLevel = (card.getAttribute('data-level') || 'all').toLowerCase().trim();
                     const matchType = (currentType === 'all' || cardType === currentType);
                     const matchLevel = (currentLevel === 'all' || cardLevel === currentLevel);
                     return matchType && matchLevel;
@@ -1680,23 +1680,32 @@
 
                 // Tampilkan Empty State jika tidak ada yang cocok
                 if (totalItems === 0) {
-                    eventCards.forEach(c => c.style.display = 'none');
-                    if (emptyState) emptyState.style.display = 'block';
+                    eventCards.forEach(c => {
+                        c.classList.add('is-hidden');
+                        c.style.setProperty('display', 'none', 'important');
+                    });
+                    if (emptyState) emptyState.style.setProperty('display', 'block', 'important');
                     if (paginationNav) paginationNav.innerHTML = '';
                     return;
                 } else {
-                    if (emptyState) emptyState.style.display = 'none';
+                    if (emptyState) emptyState.style.setProperty('display', 'none', 'important');
                 }
 
                 // Hitung index halaman aktif
                 const startIndex = (currentPage - 1) * itemsPerPage;
                 const endIndex = startIndex + itemsPerPage;
 
-                // Tampilkan kartu yang sesuai halaman aktif, sembunyikan sisanya
-                eventCards.forEach(card => card.style.display = 'none');
+                // Sembunyikan semua kartu terlebih dahulu
+                eventCards.forEach(card => {
+                    card.classList.add('is-hidden');
+                    card.style.setProperty('display', 'none', 'important');
+                });
+
+                // Tampilkan kartu yang sesuai filter dan rentang halaman aktif
                 matched.forEach((card, index) => {
                     if (index >= startIndex && index < endIndex) {
-                        card.style.display = 'flex';
+                        card.classList.remove('is-hidden');
+                        card.style.setProperty('display', 'flex', 'important');
                     }
                 });
 

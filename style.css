@@ -17470,7 +17470,7 @@ body.page-lomba,
 .event-card {
     position: relative !important;
     box-sizing: border-box !important;
-    display: flex !important;
+    display: flex;
     flex-direction: column !important;
     border-radius: 24px !important;
     overflow: hidden !important;
@@ -17479,6 +17479,11 @@ body.page-lomba,
     border: 1.5px solid rgba(255, 255, 255, 0.09) !important;
     box-shadow: 0 16px 44px rgba(0, 0, 0, 0.65) !important;
     transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease !important;
+}
+
+.event-card.is-hidden,
+.event-card[hidden] {
+    display: none !important;
 }
 
 .event-card:hover {
