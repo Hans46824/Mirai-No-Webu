@@ -1373,7 +1373,7 @@ body.sora-fullscreen-active .menu-btn {
     background-size: cover, 280px auto;
     background-repeat: no-repeat, repeat;
     background-position: center, center;
-    opacity: 0.22;
+    opacity: 0.10;
     mix-blend-mode: screen;
     pointer-events: none;
     z-index: 0;
@@ -9077,7 +9077,7 @@ body.theme-dark .activity-card-locked {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    opacity: 0.20;
+    opacity: 0.28;
     mix-blend-mode: multiply;
     pointer-events: none;
     z-index: 1;
@@ -9088,7 +9088,7 @@ body.theme-dark .activity-card-locked {
 .curriculum-cards a:hover::after,
 .course-card:hover::after,
 .program-card:hover::after {
-    opacity: 0.32;
+    opacity: 0.38;
     transform: scale(1.02);
 }
 
@@ -9108,7 +9108,7 @@ body.theme-dark .program-card::after {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    opacity: 0.24;
+    opacity: 0.10;
     mix-blend-mode: screen;
 }
 
@@ -9123,7 +9123,7 @@ body.theme-dark .course-card:hover::after,
 main > section:nth-of-type(even) .program-card:hover::after,
 body.dark-mode .program-card:hover::after,
 body.theme-dark .program-card:hover::after {
-    opacity: 0.34;
+    opacity: 0.15;
 }
 
 /* 2. Tombol Besar pada Halaman/Section Hitam (c1b.jpeg) */
@@ -9170,7 +9170,7 @@ body.theme-dark .program-card:hover::after {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    opacity: 0.24;
+    opacity: 0.10;
     mix-blend-mode: screen;
     pointer-events: none;
     z-index: 1;
@@ -9182,7 +9182,7 @@ body.theme-dark .program-card:hover::after {
 .division-card:hover::after,
 .division-card-link:hover .division-card::after,
 .class-card:hover::after {
-    opacity: 0.34;
+    opacity: 0.15;
     transform: scale(1.02);
 }
 
@@ -9192,7 +9192,7 @@ body:not(.dark-mode):not(.theme-dark) main > section:nth-of-type(odd):not(.home-
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    opacity: 0.22;
+    opacity: 0.28;
     mix-blend-mode: multiply;
 }
 
@@ -9958,9 +9958,8 @@ body.theme-dark .stroke-number-label.is-done {
     transform: none !important;
 }
 
-.timeline-content::after,
-.timeline-node:nth-child(odd) .timeline-content::after,
-.timeline-node:nth-child(even) .timeline-content::after {
+.timeline-node:nth-child(odd) .timeline-content::before,
+.timeline-node:nth-child(even) .timeline-content::before {
     display: none !important;
 }
 
@@ -10454,9 +10453,6 @@ body.theme-dark .stroke-number-label.is-done {
     flex-direction: column;
 }
 
-.prestasi-stat-box::after {
-    display: none !important;
-}
 
 .prestasi-stat-box:hover {
     transform: translateY(-5px);
@@ -11560,7 +11556,7 @@ main > .dictionary-section {
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
-    opacity: 0.10 !important;
+    opacity: 0.28 !important;
     mix-blend-mode: multiply !important;
     pointer-events: none !important;
     z-index: 1 !important;
@@ -11739,7 +11735,7 @@ body.dark-mode .dictionary-practice-link:hover {
 body.theme-dark .dictionary-practice-link::after,
 body.dark-mode .dictionary-practice-link::after {
     background-image: url("images/mirai/background/c1b.jpeg") !important;
-    opacity: 0.14 !important;
+    opacity: 0.10 !important;
     mix-blend-mode: screen !important;
 }
 
@@ -12237,7 +12233,7 @@ img:not(.img-lightbox-img) {
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
-    opacity: 0.14 !important;
+    opacity: 0.10 !important;
     mix-blend-mode: screen !important;
     pointer-events: none !important;
     z-index: 0 !important;
@@ -12247,7 +12243,7 @@ img:not(.img-lightbox-img) {
 
 .kurikulum-page-section .doc-big-card:hover::after,
 .doc-big-card:hover::after {
-    opacity: 0.22 !important;
+    opacity: 0.15 !important;
 }
 
 .kurikulum-page-section .doc-big-card > *,
@@ -12768,7 +12764,7 @@ body.page-kurikulum .doc-back-btn:hover,
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
-    opacity: 0.16 !important;
+    opacity: 0.09 !important;
     mix-blend-mode: screen !important;
     pointer-events: none !important;
     z-index: 1 !important;
@@ -12777,7 +12773,7 @@ body.page-kurikulum .doc-back-btn:hover,
 }
 
 #lanjutan .course-card:hover::after {
-    opacity: 0.26 !important;
+    opacity: 0.14 !important;
     transform: scale(1.02) !important;
 }
 
@@ -13088,7 +13084,7 @@ body.page-kurikulum .doc-back-btn:hover,
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
-    opacity: 0.16 !important;
+    opacity: 0.09 !important;
     mix-blend-mode: screen !important;
     pointer-events: none !important;
     z-index: 1 !important;
@@ -13097,7 +13093,7 @@ body.page-kurikulum .doc-back-btn:hover,
 }
 
 .class-card:hover::after {
-    opacity: 0.26 !important;
+    opacity: 0.14 !important;
     transform: scale(1.02) !important;
 }
 
@@ -13255,7 +13251,7 @@ body.page-kurikulum .doc-back-btn:hover,
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
-    opacity: 0.12 !important;
+    opacity: 0.28 !important;
     mix-blend-mode: multiply !important;
     pointer-events: none !important;
     z-index: 1 !important;
@@ -13264,7 +13260,7 @@ body.page-kurikulum .doc-back-btn:hover,
 }
 
 #dasar .course-card:hover::after {
-    opacity: 0.20 !important;
+    opacity: 0.38 !important;
     transform: scale(1.02) !important;
 }
 
@@ -13418,28 +13414,41 @@ body.page-kurikulum .doc-back-btn:hover,
    - Section Putih: Pattern w1w.jpeg (mix-blend-mode: multiply)
    ===================================================== */
 
-/* (A) BAGIAN HITAM: .about-intro-card, .history-origin-card, .slogan-hero-card, .slogan-card, .achievement-card, .accessory-card, .accessory-banner-card */
+/* (A) BAGIAN HITAM: .about-intro-card, .history-origin-card, .origin-phase-item, .slogan-hero-card, .slogan-card, .achievement-card, .accessory-card, .accessory-banner-card, .timeline-content, .prestasi-stat-box, .event-card, .podium-card, .lb-category-desc-card, .rek-cat-explain-card */
 .about-intro-card,
 .history-origin-card,
+.origin-phase-item,
 .slogan-hero-card,
 .slogan-card,
 .achievement-card,
 .accessory-card,
-.accessory-banner-card {
+.accessory-banner-card,
+.timeline-content,
+.prestasi-stat-box,
+.event-card,
+.podium-card,
+.lb-category-desc-card,
+.rek-cat-explain-card {
     position: relative !important;
     overflow: hidden !important;
     box-sizing: border-box !important;
-    border-radius: 18px !important;
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
 }
 
 .about-intro-card::after,
 .history-origin-card::after,
+.origin-phase-item::after,
 .slogan-hero-card::after,
 .slogan-card::after,
 .achievement-card::after,
 .accessory-card::after,
-.accessory-banner-card::after {
+.accessory-banner-card::after,
+.timeline-content::after,
+.prestasi-stat-box::after,
+.event-card::after,
+.podium-card::after,
+.lb-category-desc-card::after,
+.rek-cat-explain-card::after {
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
@@ -13447,7 +13456,7 @@ body.page-kurikulum .doc-back-btn:hover,
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
-    opacity: 0.05 !important;
+    opacity: 0.08 !important;
     mix-blend-mode: screen !important;
     pointer-events: none !important;
     z-index: 1 !important;
@@ -13457,22 +13466,36 @@ body.page-kurikulum .doc-back-btn:hover,
 
 .about-intro-card:hover::after,
 .history-origin-card:hover::after,
+.origin-phase-item:hover::after,
 .slogan-hero-card:hover::after,
 .slogan-card:hover::after,
 .achievement-card:hover::after,
 .accessory-card:hover::after,
-.accessory-banner-card:hover::after {
-    opacity: 0.09 !important;
+.accessory-banner-card:hover::after,
+.timeline-node:hover .timeline-content::after,
+.prestasi-stat-box:hover::after,
+.event-card:hover::after,
+.podium-card:hover::after,
+.lb-category-desc-card:hover::after,
+.rek-cat-explain-card:hover::after {
+    opacity: 0.12 !important;
     transform: scale(1.02) !important;
 }
 
 .about-intro-card > *,
 .history-origin-card > *,
+.origin-phase-item > *,
 .slogan-hero-card > *,
 .slogan-card > *,
 .achievement-card > *,
 .accessory-card > *,
-.accessory-banner-card > * {
+.accessory-banner-card > *,
+.timeline-content > *,
+.prestasi-stat-box > *,
+.event-card > *,
+.podium-card > *,
+.lb-category-desc-card > *,
+.rek-cat-explain-card > * {
     position: relative !important;
     z-index: 2 !important;
 }
@@ -13480,6 +13503,7 @@ body.page-kurikulum .doc-back-btn:hover,
 .about-intro-card {
     background: linear-gradient(165deg, #1c1523 0%, #130f18 100%) !important;
     border: 1.5px solid rgba(255, 101, 155, 0.22) !important;
+    border-radius: 18px !important;
     padding: 34px 28px !important;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
 }
@@ -13515,7 +13539,7 @@ body.page-kurikulum .doc-back-btn:hover,
     margin: 0 0 14px 0 !important;
 }
 
-/* (B) BAGIAN PUTIH: .flag-feature-card, .about-name-card, .logo-meaning-badge-col, .logo-meaning-card, .haori-card, .pembina-card, .management-card */
+/* (B) BAGIAN PUTIH: .flag-feature-card, .about-name-card, .logo-meaning-badge-col, .logo-meaning-card, .haori-card, .haori-photo-card, .pembina-card, .management-card, .vision-card, .mission-box, .proker-benefit-card, .proker-detail-card */
 .flag-feature-card,
 .about-name-card,
 .logo-meaning-badge-col,
@@ -13523,11 +13547,14 @@ body.page-kurikulum .doc-back-btn:hover,
 .haori-card,
 .haori-photo-card,
 .pembina-card,
-.management-card {
+.management-card,
+.vision-card,
+.mission-box,
+.proker-benefit-card,
+.proker-detail-card {
     position: relative !important;
     overflow: hidden !important;
     box-sizing: border-box !important;
-    border-radius: 18px !important;
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
 }
 
@@ -13538,7 +13565,11 @@ body.page-kurikulum .doc-back-btn:hover,
 .haori-card::after,
 .haori-photo-card::after,
 .pembina-card::after,
-.management-card::after {
+.management-card::after,
+.vision-card::after,
+.mission-box::after,
+.proker-benefit-card::after,
+.proker-detail-card::after {
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
@@ -13546,7 +13577,7 @@ body.page-kurikulum .doc-back-btn:hover,
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
-    opacity: 0.04 !important;
+    opacity: 0.28 !important;
     mix-blend-mode: multiply !important;
     pointer-events: none !important;
     z-index: 1 !important;
@@ -13561,8 +13592,12 @@ body.page-kurikulum .doc-back-btn:hover,
 .haori-card:hover::after,
 .haori-photo-card:hover::after,
 .pembina-card:hover::after,
-.management-card:hover::after {
-    opacity: 0.07 !important;
+.management-card:hover::after,
+.vision-card:hover::after,
+.mission-box:hover::after,
+.proker-benefit-card:hover::after,
+.proker-detail-card:hover::after {
+    opacity: 0.38 !important;
     transform: scale(1.02) !important;
 }
 
@@ -13573,7 +13608,11 @@ body.page-kurikulum .doc-back-btn:hover,
 .haori-card > *,
 .haori-photo-card > *,
 .pembina-card > *,
-.management-card > * {
+.management-card > *,
+.vision-card > *,
+.mission-box > *,
+.proker-benefit-card > *,
+.proker-detail-card > * {
     position: relative !important;
     z-index: 2 !important;
 }
@@ -13714,7 +13753,7 @@ body.page-kurikulum .doc-back-btn:hover,
     background-image: url("images/mirai/background/w1w.jpeg") !important;
     background-size: cover !important;
     background-position: center !important;
-    opacity: 0.11 !important;
+    opacity: 0.28 !important;
     mix-blend-mode: multiply !important;
     pointer-events: none !important;
     z-index: 1 !important;
@@ -13727,7 +13766,7 @@ body.page-kurikulum .doc-back-btn:hover,
     background-image: url("images/mirai/background/w1b.jpeg") !important;
     background-size: cover !important;
     background-position: center !important;
-    opacity: 0.15 !important;
+    opacity: 0.09 !important;
     mix-blend-mode: screen !important;
     pointer-events: none !important;
     z-index: 1 !important;
@@ -13825,7 +13864,7 @@ body.page-kurikulum .doc-back-btn:hover,
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
-    opacity: 0.16 !important;
+    opacity: 0.09 !important;
     mix-blend-mode: screen !important;
     pointer-events: none !important;
     z-index: 0 !important;
@@ -13834,7 +13873,7 @@ body.page-kurikulum .doc-back-btn:hover,
 }
 
 .about-feature-card:hover::after {
-    opacity: 0.26 !important;
+    opacity: 0.14 !important;
     transform: scale(1.02) !important;
 }
 
@@ -14149,7 +14188,7 @@ main .about-feature-card p,
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
-    opacity: 0.16 !important;
+    opacity: 0.09 !important;
     mix-blend-mode: screen !important;
     pointer-events: none !important;
     z-index: 0 !important;
@@ -14158,7 +14197,7 @@ main .about-feature-card p,
 }
 
 .feedback-feature-card:hover::after {
-    opacity: 0.26 !important;
+    opacity: 0.14 !important;
     transform: scale(1.02) !important;
 }
 
@@ -14646,7 +14685,7 @@ body:not(.page-kamus) .quick-stroke-btn {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    opacity: 0.18;
+    opacity: 0.10;
     mix-blend-mode: screen;
     pointer-events: none;
     z-index: 0;
@@ -15301,10 +15340,26 @@ body.page-rekomendasi,
     transform: scaleX(1) !important;
 }
 
-/* Hilangkan pattern latar c1b pada card */
+/* Pattern Wagara Halus w1b pada Card Rekomendasi */
 .rek-card::after {
-    display: none !important;
-    content: none !important;
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background-image: url("images/mirai/background/w1b.jpeg") !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    opacity: 0.08 !important;
+    mix-blend-mode: screen !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+    display: block !important;
+    transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+
+.rek-card:hover::after {
+    opacity: 0.12 !important;
+    transform: scale(1.02) !important;
 }
 
 .rek-card > * {
@@ -17137,8 +17192,24 @@ body.page-lomba,
 }
 
 .lomba-detail-card::after {
-    display: none !important;
-    content: none !important;
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background-image: url("images/mirai/background/w1w.jpeg") !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    opacity: 0.28 !important;
+    mix-blend-mode: multiply !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+    display: block !important;
+    transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+
+.lomba-detail-card:hover::after {
+    opacity: 0.38 !important;
+    transform: scale(1.02) !important;
 }
 
 .lomba-detail-card > * {
@@ -17567,6 +17638,8 @@ body.page-lomba,
 
 /* SISI KIRI: INFORMASI EVENT (MINIM SPACE) */
 .event-card-info {
+    position: relative !important;
+    z-index: 2 !important;
     padding: 20px 24px !important;
     display: flex !important;
     flex-direction: column !important;
@@ -17709,6 +17782,7 @@ body.page-lomba,
 /* SISI KANAN: POSTER POTRAIT PANJANG (STIKER) */
 .event-card-poster {
     position: relative !important;
+    z-index: 2 !important;
     width: 100% !important;
     height: 100% !important;
     min-height: 260px !important;
