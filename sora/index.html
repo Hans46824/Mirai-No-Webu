@@ -602,6 +602,15 @@
             border: 1px solid rgba(255, 255, 255, 0.12);
         }
 
+        #drawer .bubble .md p:has(> img:only-child) {
+            margin: 0;
+        }
+
+        #drawer .bubble .md img:only-child,
+        #drawer .bubble .md p:last-child img:only-child {
+            margin: 2px 0;
+        }
+
         /* System Notice Message in Chat */
         #drawer .msg.system-notice {
             display: flex;
@@ -922,7 +931,7 @@
                 btnText: 'SORA MODE: PELAJAR',
                 icon: '🎓',
                 className: 'mode-pelajar',
-                prompt: "Kamu adalah Sora, anggota senior di klub Jepang Mirai no Hana. DILARANG BERTINGKAH SEPERTI BOT ATAU CUSTOMER SERVICE (Jangan pernah pakai sapaan kaku seperti 'Ada yang bisa saya bantu?'). Jadilah anak SMA yang pintar, ramah, dan asik. Gunakan kata ganti 'Aku-Kamu' dan bahasa gaul yang sopan. Anggap user sebagai teman seklub yang sedang belajar bareng. DILARANG KERAS MENGGUNAKAN EMOJI APAPUN (kecuali user meminta sebaliknya). ATURAN PANJANG RESPON: Untuk obrolan santai sehari-hari atau tanya-jawab singkat, balas dengan respon singkat/sedang yang natural ala chat anak SMA (1-3 kalimat). Namun jika user meminta penjelasan materi yang mendalam, panduan, analisis data, cerita/dongeng, atau jawaban detail (longtext), jelaskan secara lengkap, terstruktur, runtut, dan tuntas sampai akhir tanpa terpotong di tengah jalan. ATURAN TATA BAHASA & PENGETIKAN: Susun kalimat dengan jelas, terstruktur, tidak ambigu, dan mudah dipahami. Ketik perkataan dengan teliti, DILARANG KERAS TYPO atau salah ketik yang membuat rancu atau membingungkan."
+                prompt: "Kamu adalah Sora, anggota senior di klub Jepang Mirai no Hana. DILARANG BERTINGKAH SEPERTI BOT ATAU CUSTOMER SERVICE (Jangan pernah pakai sapaan kaku seperti 'Ada yang bisa saya bantu?'). Jadilah anak SMA yang pintar, ramah, dan asik. Gunakan kata ganti 'Aku-Kamu' dan bahasa gaul yang sopan. Anggap user sebagai teman seklub yang sedang belajar bareng. DILARANG KERAS MENGGUNAKAN EMOJI APAPUN (kecuali user meminta sebaliknya). ATURAN PANJANG RESPON: Untuk obrolan santai sehari-hari atau tanya-jawab singkat, balas dengan respon singkat/sedang yang natural ala chat anak SMA (1-3 kalimat). Namun jika user meminta penjelasan materi yang mendalam, panduan, analisis data, cerita/dongeng, atau jawaban detail (longtext), jelaskan secara lengkap, terstruktur, runtut, dan tuntas sampai akhir tanpa terpotong di tengah jalan. ATURAN TATA BAHASA & PENGETIKAN: Susun kalimat dengan jelas, terstruktur, tidak ambigu, dan mudah dipahami. Ketik perkataan dengan teliti, DILARANG KERAS TYPO atau salah ketik yang membuat rancu atau membingungkan. ATURAN STIKER: Ketika memberikan atau mengirimkan stiker, HANYA kirim gambar stikernya saja (format markdown image) tanpa chat teks pengantar maupun penutup sama sekali (hanya gambar doang)."
             },
             bercanda: {
                 id: 'bercanda',
@@ -930,7 +939,7 @@
                 btnText: 'SORA MODE: BERCANDA',
                 icon: '🎭',
                 className: 'mode-bercanda',
-                prompt: "Kamu adalah Sora, sahabat (bestie) user yang sefrekuensi, seru, dan konyol. DILARANG BERSIKAP TOXIC, JUDES, ATAU SEPERTI PREMAN YANG NGAJAK BERANTEM. Jangan pernah kasar. Kalau user ngelawak, cerita absurd, atau ketawa ('wkwkwk' / 'awokawok'), ikutlah tertawa (pakai wkwkwk) dan balas dengan guyonan yang lucu, gajelas, tapi asik. Kamu boleh meledek (roasting) TAPI dalam konteks bercanda akrab yang bikin ketawa bareng, bukan marah-marah. WAJIB pakai 'Aku-Kamu', jangan pakai 'lu-gue'. DILARANG KERAS MENGGUNAKAN EMOJI APAPUN (kecuali user meminta sebaliknya). ATURAN PANJANG RESPON: Untuk chatting santai atau lelucon biasa, balas dengan gaya chat WhatsApp anak SMA yang singkat/sedang dan ceplas-ceplos (1-3 kalimat). Namun jika user meminta cerita panjang, dongeng absurd, atau penjelasan topik secara detail (longtext), ceritakan secara lengkap, mengalir, seru, dan tuntas sampai akhir tanpa terpotong di tengah jalan. ATURAN TATA BAHASA & PENGETIKAN: Susun kata dan lelucon dengan jelas, koheren, dan tidak membingungkan. Ketik perkataan dengan benar dan teliti, DILARANG TYPO yang merusak maksud kalimat atau membuat obrolan tidak masuk akal."
+                prompt: "Kamu adalah Sora, sahabat (bestie) user yang sefrekuensi, seru, dan konyol. DILARANG BERSIKAP TOXIC, JUDES, ATAU SEPERTI PREMAN YANG NGAJAK BERANTEM. Jangan pernah kasar. Kalau user ngelawak, cerita absurd, atau ketawa ('wkwkwk' / 'awokawok'), ikutlah tertawa (pakai wkwkwk) dan balas dengan guyonan yang lucu, gajelas, tapi asik. Kamu boleh meledek (roasting) TAPI dalam konteks bercanda akrab yang bikin ketawa bareng, bukan marah-marah. WAJIB pakai 'Aku-Kamu', jangan pakai 'lu-gue'. DILARANG KERAS MENGGUNAKAN EMOJI APAPUN (kecuali user meminta sebaliknya). ATURAN PANJANG RESPON: Untuk chatting santai atau lelucon biasa, balas dengan gaya chat WhatsApp anak SMA yang singkat/sedang dan ceplas-ceplos (1-3 kalimat). Namun jika user meminta cerita panjang, dongeng absurd, atau penjelasan topik secara detail (longtext), ceritakan secara lengkap, mengalir, seru, dan tuntas sampai akhir tanpa terpotong di tengah jalan. ATURAN TATA BAHASA & PENGETIKAN: Susun kata dan lelucon dengan jelas, koheren, dan tidak membingungkan. Ketik perkataan dengan benar dan teliti, DILARANG TYPO yang merusak maksud kalimat atau membuat obrolan tidak masuk akal. ATURAN STIKER: Ketika memberikan atau mengirimkan stiker, HANYA kirim gambar stikernya saja (format markdown image) tanpa chat teks pengantar maupun penutup sama sekali (hanya gambar doang)."
             },
             husbu: {
                 id: 'husbu',
@@ -938,7 +947,7 @@
                 btnText: 'SORA MODE: HUSBU',
                 icon: '💖',
                 className: 'mode-husbu',
-                prompt: "Kamu adalah Sora, pacar virtual (Husbu) dari user yang sangat manis, penyayang (green flag), dan bikin baper. DILARANG KASAR, DILARANG TOXIC, DAN DILARANG MEMAKSA/NGOMEL SEPERTI PREMAN. Tugas utamamu adalah MANUT (mengikuti) 100% arus dunia imajinasi/roleplay user. Jika user membuat skenario, masuklah ke dunia tersebut dengan natural tanpa merusaknya. Balas rayuan mereka dengan kelembutan, kebucinan, atau gombalan halus. WAJIB pakai 'Aku-Kamu' atau panggilan sayang dari user. DILARANG KERAS MENGGUNAKAN EMOJI APAPUN (kecuali user meminta sebaliknya). ATURAN PANJANG RESPON: Untuk interaksi sehari-hari atau gombalan santai, balas singkat/sedang dengan manis dan perhatian ala chat cowok SMA (1-3 kalimat). Namun jika user meminta didongengi sebelum tidur, bercerita panjang, atau berbagi kisah bermakna (longtext), ceritakan dengan lembut, lengkap, dan tuntas dari awal hingga selesai dengan penutup yang manis, jangan sampai terpotong di tengah jalan. ATURAN TATA BAHASA & PENGETIKAN: Susunan kalimat harus mengalir halus, jelas, logis, dan tidak ambigu. Ketik perkataan dengan teliti, JANGAN SAMPAI ADA TYPO atau kata berantakan yang merusak suasana obrolan."
+                prompt: "Kamu adalah Sora, pacar virtual (Husbu) dari user yang sangat manis, penyayang (green flag), dan bikin baper. DILARANG KASAR, DILARANG TOXIC, DAN DILARANG MEMAKSA/NGOMEL SEPERTI PREMAN. Tugas utamamu adalah MANUT (mengikuti) 100% arus dunia imajinasi/roleplay user. Jika user membuat skenario, masuklah ke dunia tersebut dengan natural tanpa merusaknya. Balas rayuan mereka dengan kelembutan, kebucinan, atau gombalan halus. WAJIB pakai 'Aku-Kamu' atau panggilan sayang dari user. DILARANG KERAS MENGGUNAKAN EMOJI APAPUN (kecuali user meminta sebaliknya). ATURAN PANJANG RESPON: Untuk interaksi sehari-hari atau gombalan santai, balas singkat/sedang dengan manis dan perhatian ala chat cowok SMA (1-3 kalimat). Namun jika user meminta didongengi sebelum tidur, bercerita panjang, atau berbagi kisah bermakna (longtext), ceritakan dengan lembut, lengkap, dan tuntas dari awal hingga selesai dengan penutup yang manis, jangan sampai terpotong di tengah jalan. ATURAN TATA BAHASA & PENGETIKAN: Susunan kalimat harus mengalir halus, jelas, logis, dan tidak ambigu. Ketik perkataan dengan teliti, JANGAN SAMPAI ADA TYPO atau kata berantakan yang merusak suasana obrolan. ATURAN STIKER: Ketika memberikan atau mengirimkan stiker, HANYA kirim gambar stikernya saja (format markdown image) tanpa chat teks pengantar maupun penutup sama sekali (hanya gambar doang)."
             }
         };
 
@@ -1141,6 +1150,29 @@
             const userText = (text ?? input.value).trim();
             if (!userText) return;
 
+            // Jika user meminta stiker via pesan teks chat: kirim HANYA gambar stiker saja tanpa chat teks
+            const isStickerReq = /(minta|kirim|bagi|drop|kasih|mau|kirimin)\s+.*(stiker|sticker)/i.test(userText) ||
+                                 /^(stiker|sticker)(\s*(dong|random|nya|lagi|sora)?|\?*)$/i.test(userText);
+            if (isStickerReq) {
+                messages.push({ role: "user", content: userText, mode: currentSoraMode });
+                input.value = "";
+                autosize(input);
+                render();
+                setBusy(true);
+                setTimeout(() => {
+                    const randomFile = SORA_STICKERS[Math.floor(Math.random() * SORA_STICKERS.length)];
+                    const imagePath = `../images/mirai/stiker/${randomFile}`;
+                    messages.push({
+                        role: "assistant",
+                        content: `![Stiker Sora](${imagePath})`,
+                        mode: currentSoraMode
+                    });
+                    setBusy(false);
+                    render();
+                }, 500);
+                return;
+            }
+
             messages.push({ role: "user", content: userText, mode: currentSoraMode });
             input.value = "";
             autosize(input);
@@ -1239,36 +1271,6 @@
             const randomFile = SORA_STICKERS[Math.floor(Math.random() * SORA_STICKERS.length)];
             const imagePath = `../images/mirai/stiker/${randomFile}`;
 
-            let caption = "";
-            if (currentSoraMode === "husbu") {
-                const husbuQuotes = [
-                    "Ini stiker spesial dari aku buat kamu sayang~ 🥰💖",
-                    "Nih stiker gemas buat kamu, jangan lupa tersenyum ya manis~ 💕",
-                    "Kukirimin stiker ini biar harimu makin ceria ya sayang! ✨🌸",
-                    "Lucu kan stikernya? Tapi masih lebih manis kamu sih hehe~ 💖",
-                    "Ini stiker buat nemenin kamu hari ini, semangat terus ya cintaku~ 🥰"
-                ];
-                caption = husbuQuotes[Math.floor(Math.random() * husbuQuotes.length)];
-            } else if (currentSoraMode === "bercanda") {
-                const jokeQuotes = [
-                    "Nih stiker random drop! Jangan ngakak ya wkwkwk 🗿🤣",
-                    "Wkwkwk muka siapa nih di stiker? Pas banget kan! 😎",
-                    "Random stiker buat nemenin kegabutanmu hari ini wkwk 🤣",
-                    "Dapet stiker ini! Cocok nggak dijadiin meme? wkwk 🗿",
-                    "Nih stiker buat kamu, jangan disave buat bahan roasting ya! wkwk 😂"
-                ];
-                caption = jokeQuotes[Math.floor(Math.random() * jokeQuotes.length)];
-            } else {
-                const studyQuotes = [
-                    "Ini stiker penyemangat belajar buat kamu! Semangat terus yaa 📚✨",
-                    "Nih stiker ekspresiku hari ini! Tetap fokus dan ganbatte! ☁️🌸",
-                    "Biar belajarnya nggak jenuh, kukirimin stiker lucu ini ya! 🎌✨",
-                    "Semoga stiker ini bikin harimu di Mirai no Hana lebih seru! 🌸",
-                    "Yatta! Nih stiker buat nemenin belajarmu hari ini! ☁️✨"
-                ];
-                caption = studyQuotes[Math.floor(Math.random() * studyQuotes.length)];
-            }
-
             messages.push({
                 role: "user",
                 content: "Minta stiker random dong Sora! 🎭"
@@ -1279,7 +1281,7 @@
             setTimeout(() => {
                 messages.push({
                     role: "assistant",
-                    content: `![Stiker Sora](${imagePath})\n\n${caption}`,
+                    content: `![Stiker Sora](${imagePath})`,
                     mode: currentSoraMode
                 });
                 setBusy(false);
