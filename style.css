@@ -9678,10 +9678,14 @@ body.theme-dark .stroke-number-label.is-done {
 }
 
 .origin-highlight-icon {
-    font-size: 15px;
-    line-height: 1.2;
+    font-size: 20px;
+    line-height: 1;
+    color: var(--pink, #e91e63);
     flex-shrink: 0;
-    margin-top: 1px;
+    margin-top: 2px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .origin-highlight-text {
@@ -9729,7 +9733,7 @@ body.theme-dark .stroke-number-label.is-done {
 
 .origin-phase-item {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 12px;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 101, 155, 0.16);
@@ -9755,6 +9759,7 @@ body.theme-dark .stroke-number-label.is-done {
     white-space: nowrap;
     flex-shrink: 0;
     letter-spacing: 0.5px;
+    margin-top: 1px;
 }
 
 .origin-phase-info {
@@ -9775,6 +9780,26 @@ body.theme-dark .stroke-number-label.is-done {
     font-size: 11px;
     color: #baaebb !important;
     line-height: 1.25;
+}
+
+.origin-cycle-hint {
+    margin-top: 11px;
+    font-size: 11px;
+    color: #ded1dc !important;
+    line-height: 1.45;
+    padding: 8px 12px;
+    background: rgba(233, 30, 99, 0.08);
+    border: 1px dashed rgba(255, 101, 155, 0.28);
+    border-radius: 8px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.origin-cycle-icon {
+    flex-shrink: 0;
+    font-size: 12px;
+    margin-top: 1px;
 }
 
 @media (max-width: 900px) {
