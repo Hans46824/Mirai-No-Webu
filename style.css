@@ -9534,9 +9534,205 @@ body.theme-dark .stroke-number-label.is-done {
 /* ==========================================================================
    SEJARAH KLUB (Horizontal Timeline - Angkatan 1 s/d 8)
    ========================================================================== */
-.timeline-section {
-    position: relative;
-    overflow: hidden;
+/* Card Asal Usul Sejarah Berdirinya Klub (Minim Space & Visual Elegan) */
+.history-origin-container {
+    max-width: 1200px;
+    margin: 0 auto 32px auto;
+    width: 100%;
+}
+
+.history-origin-card {
+    position: relative !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+    border-radius: 20px !important;
+    background: linear-gradient(165deg, #1c1523 0%, #130f18 100%) !important;
+    border: 1.5px solid rgba(255, 101, 155, 0.25) !important;
+    border-left: 6px solid var(--pink, #e91e63) !important;
+    padding: 28px 32px !important;
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.45) !important;
+    display: grid !important;
+    grid-template-columns: 1.18fr 0.82fr !important;
+    gap: 30px !important;
+    align-items: center !important;
+    transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease !important;
+}
+
+.history-origin-card:hover {
+    transform: translateY(-3px) !important;
+    border-color: var(--pink, #e91e63) !important;
+    box-shadow: 0 16px 40px rgba(233, 30, 99, 0.2) !important;
+}
+
+.history-origin-card > * {
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+.origin-story-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.origin-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    background: rgba(233, 30, 99, 0.15) !important;
+    border: 1px solid rgba(255, 101, 155, 0.35) !important;
+    color: #ff659b !important;
+    border-radius: 999px !important;
+    padding: 4px 12px !important;
+    font-size: 10.5px !important;
+    font-weight: 850 !important;
+    letter-spacing: 1.4px !important;
+    text-transform: uppercase !important;
+    width: fit-content !important;
+    margin-bottom: 10px !important;
+}
+
+.origin-title {
+    margin: 0 0 10px 0 !important;
+    font-size: clamp(18px, 1.9vw, 22px) !important;
+    color: #ffffff !important;
+    font-weight: 800 !important;
+    line-height: 1.35 !important;
+}
+
+.origin-desc {
+    color: #d5ccd3 !important;
+    font-size: 13.5px !important;
+    line-height: 1.7 !important;
+    margin: 0 0 12px 0 !important;
+}
+
+.origin-desc em {
+    color: #ff8ab6;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.origin-highlight-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 101, 155, 0.15);
+    border-left: 3.5px solid var(--pink, #e91e63);
+    border-radius: 0 10px 10px 0;
+    padding: 10px 14px;
+}
+
+.origin-highlight-icon {
+    font-size: 15px;
+    line-height: 1.2;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.origin-highlight-text {
+    color: #f3e9f2 !important;
+    font-size: 12.5px !important;
+    line-height: 1.6 !important;
+    margin: 0 !important;
+}
+
+.origin-status-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.24);
+    border: 1px solid rgba(255, 101, 155, 0.2);
+    border-radius: 16px;
+    padding: 18px 20px;
+}
+
+.origin-status-header-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.origin-status-icon {
+    font-size: 14px;
+    line-height: 1;
+}
+
+.origin-status-header {
+    font-size: 11px;
+    font-weight: 850;
+    color: #ff659b !important;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.origin-phases-list {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.origin-phase-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 101, 155, 0.16);
+    border-radius: 10px;
+    padding: 9px 13px;
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.origin-phase-item:hover {
+    transform: translateX(3px);
+    border-color: var(--pink, #e91e63);
+    background: rgba(233, 30, 99, 0.08);
+}
+
+.origin-phase-badge {
+    font-size: 10px;
+    font-weight: 850;
+    color: #ff8ab6 !important;
+    background: rgba(233, 30, 99, 0.22);
+    border: 1px solid rgba(255, 101, 155, 0.35);
+    padding: 3px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    letter-spacing: 0.5px;
+}
+
+.origin-phase-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.origin-phase-title {
+    font-size: 12.5px;
+    font-weight: 750;
+    color: #ffffff !important;
+    line-height: 1.25;
+}
+
+.origin-phase-desc {
+    font-size: 11px;
+    color: #baaebb !important;
+    line-height: 1.25;
+}
+
+@media (max-width: 900px) {
+    .history-origin-card {
+        grid-template-columns: 1fr !important;
+        padding: 22px 20px !important;
+        gap: 20px !important;
+    }
+    .origin-status-col {
+        padding: 14px 16px !important;
+    }
 }
 
 .timeline-wrapper {
@@ -13094,8 +13290,9 @@ body.page-kurikulum .doc-back-btn:hover,
    - Section Putih: Pattern w1w.jpeg (mix-blend-mode: multiply)
    ===================================================== */
 
-/* (A) BAGIAN HITAM: .about-intro-card, .slogan-hero-card, .slogan-card, .achievement-card, .accessory-card, .accessory-banner-card */
+/* (A) BAGIAN HITAM: .about-intro-card, .history-origin-card, .slogan-hero-card, .slogan-card, .achievement-card, .accessory-card, .accessory-banner-card */
 .about-intro-card,
+.history-origin-card,
 .slogan-hero-card,
 .slogan-card,
 .achievement-card,
@@ -13109,6 +13306,7 @@ body.page-kurikulum .doc-back-btn:hover,
 }
 
 .about-intro-card::after,
+.history-origin-card::after,
 .slogan-hero-card::after,
 .slogan-card::after,
 .achievement-card::after,
@@ -13130,6 +13328,7 @@ body.page-kurikulum .doc-back-btn:hover,
 }
 
 .about-intro-card:hover::after,
+.history-origin-card:hover::after,
 .slogan-hero-card:hover::after,
 .slogan-card:hover::after,
 .achievement-card:hover::after,
@@ -13140,6 +13339,7 @@ body.page-kurikulum .doc-back-btn:hover,
 }
 
 .about-intro-card > *,
+.history-origin-card > *,
 .slogan-hero-card > *,
 .slogan-card > *,
 .achievement-card > *,
@@ -17728,6 +17928,27 @@ body.page-tentang main > section.timeline-section .heading {
 }
 body.page-tentang main > section.timeline-section .heading span {
     color: var(--pink, #e91e63) !important;
+}
+
+/* Proteksi Spesifisitas Tinggi Kartu Asal Usul Sejarah */
+body.page-tentang main > section.timeline-section .history-origin-card {
+    background: linear-gradient(165deg, #1c1523 0%, #130f18 100%) !important;
+    border-color: rgba(255, 101, 155, 0.25) !important;
+}
+body.page-tentang main > section.timeline-section .history-origin-card h3,
+body.page-tentang main > section.timeline-section .history-origin-card .origin-title,
+body.page-tentang main > section.timeline-section .history-origin-card .origin-phase-title {
+    color: #ffffff !important;
+}
+body.page-tentang main > section.timeline-section .history-origin-card p,
+body.page-tentang main > section.timeline-section .history-origin-card .origin-desc {
+    color: #d5ccd3 !important;
+}
+body.page-tentang main > section.timeline-section .history-origin-card .origin-highlight-text {
+    color: #f3e9f2 !important;
+}
+body.page-tentang main > section.timeline-section .history-origin-card .origin-phase-desc {
+    color: #baaebb !important;
 }
 
 body.page-tentang main > section.sora-profile-section {
