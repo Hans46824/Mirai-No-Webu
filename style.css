@@ -17601,7 +17601,8 @@ body.page-lomba,
 }
 
 /* Pagination Nav */
-.lomba-pagination {
+.lomba-pagination,
+.rekomendasi-pagination {
     max-width: 1200px;
     margin: 44px auto 0 auto;
     display: flex;
