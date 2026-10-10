@@ -7488,7 +7488,7 @@ body:not(.theme-dark) .njr-dot {
     margin: 0 auto 36px auto;
 }
 .flag-showcase-container {
-    max-width: 1200px;
+    max-width: 820px;
     margin: 0 auto;
 }
 .flag-feature-card {
@@ -7499,11 +7499,10 @@ body:not(.theme-dark) .njr-dot {
     background: #ffffff !important;
     border: 1.5px solid #ffccd9 !important;
     border-left: 6px solid var(--pink, #e91e63) !important;
-    padding: 40px 42px !important;
+    padding: 36px 40px !important;
     box-shadow: 0 10px 32px rgba(72, 32, 52, 0.06) !important;
-    display: grid !important;
-    grid-template-columns: 340px 1fr !important;
-    gap: 38px !important;
+    display: flex !important;
+    justify-content: center !important;
     align-items: center !important;
     transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease !important;
 }
@@ -7517,21 +7516,23 @@ body:not(.theme-dark) .njr-dot {
     z-index: 2 !important;
 }
 .flag-preview-col {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    max-width: 680px !important;
 }
 .flag-mockup-frame {
-    width: 100%;
+    width: 100% !important;
     background: linear-gradient(145deg, #fff2f7 0%, #ffeaf3 100%) !important;
     border: 1.5px solid #ffccd9 !important;
     border-radius: 18px !important;
-    padding: 24px !important;
+    padding: 32px 36px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     box-shadow: inset 0 2px 10px rgba(233, 30, 99, 0.04), 0 8px 24px rgba(72, 32, 52, 0.06) !important;
-    min-height: 210px;
+    min-height: 220px !important;
     transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
 }
 .flag-feature-card:hover .flag-mockup-frame {
@@ -7539,109 +7540,27 @@ body:not(.theme-dark) .njr-dot {
     box-shadow: inset 0 2px 12px rgba(233, 30, 99, 0.08), 0 12px 28px rgba(233, 30, 99, 0.12) !important;
 }
 .flag-mockup-img {
-    max-width: 100%;
-    max-height: 165px;
-    object-fit: contain;
-    filter: drop-shadow(0 10px 22px rgba(45, 20, 32, 0.2));
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    max-width: 100% !important;
+    max-height: 185px !important;
+    width: auto !important;
+    object-fit: contain !important;
+    filter: drop-shadow(0 10px 22px rgba(45, 20, 32, 0.2)) !important;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
 }
 .flag-feature-card:hover .flag-mockup-img {
-    transform: scale(1.05);
-    filter: drop-shadow(0 14px 28px rgba(233, 30, 99, 0.3));
+    transform: scale(1.04) !important;
+    filter: drop-shadow(0 14px 28px rgba(233, 30, 99, 0.3)) !important;
 }
-.flag-info-col {
-    display: flex;
-    flex-direction: column;
-}
-.flag-badge {
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 6px !important;
-    background: #fff0f5 !important;
-    border: 1px solid #ffd2e2 !important;
-    color: var(--pink, #e91e63) !important;
-    border-radius: 999px !important;
-    padding: 5px 14px !important;
-    font-size: 11px !important;
-    font-weight: 850 !important;
-    letter-spacing: 1.5px !important;
-    text-transform: uppercase !important;
-    width: fit-content !important;
-    margin-bottom: 12px !important;
-}
-.flag-info-col h3,
-.flag-info-col h3.flag-title,
-.flag-title {
-    margin: 0 0 14px 0 !important;
-    font-size: clamp(22px, 2.5vw, 26px) !important;
-    color: #18151b !important;
-    font-weight: 850 !important;
-    line-height: 1.35 !important;
-}
-.flag-desc {
-    color: #554857 !important;
-    font-size: 14.5px !important;
-    line-height: 1.75 !important;
-    margin: 0 0 24px 0 !important;
-}
-.flag-badges-row {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 14px !important;
-    width: 100% !important;
-}
-.flag-badge-pill {
-    background: #fff5f8 !important;
-    border: 1.5px solid #ffd2e2 !important;
-    border-radius: 14px !important;
-    padding: 12px 16px !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 12px !important;
-    box-shadow: 0 4px 12px rgba(233, 30, 99, 0.04) !important;
-    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease !important;
-}
-.flag-badge-pill:hover {
-    transform: translateY(-2px) !important;
-    border-color: var(--pink, #e91e63) !important;
-    box-shadow: 0 6px 18px rgba(233, 30, 99, 0.15) !important;
-}
-.flag-badge-icon {
-    font-size: 20px !important;
-    line-height: 1 !important;
-    flex-shrink: 0 !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-}
-.flag-badge-content {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 2px !important;
-    min-width: 0 !important;
-}
-.flag-badge-tag {
-    font-size: 10px !important;
-    font-weight: 850 !important;
-    color: var(--pink, #e91e63) !important;
-    letter-spacing: 1px !important;
-    text-transform: uppercase !important;
-    line-height: 1.2 !important;
-}
-.flag-badge-val {
-    font-size: 13px !important;
-    font-weight: 750 !important;
-    color: #18151b !important;
-    line-height: 1.35 !important;
-}
-@media (max-width: 900px) {
+@media (max-width: 600px) {
     .flag-feature-card {
-        grid-template-columns: 1fr !important;
-        padding: 28px 24px !important;
-        gap: 24px !important;
+        padding: 20px 16px !important;
     }
-    .flag-badges-row {
-        grid-template-columns: 1fr !important;
+    .flag-mockup-frame {
+        padding: 20px 16px !important;
+        min-height: 140px !important;
+    }
+    .flag-mockup-img {
+        max-height: 120px !important;
     }
 }
 
