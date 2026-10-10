@@ -108,9 +108,89 @@ function initIndependentSliders() {
   });
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initIndependentSliders);
-} else {
+// Slideable Horizontal Track untuk Divisi dan Program Kerja
+// Mendukung drag mouse (desktop), touch swipe (mobile/tablet), dan mouse pad / trackpad gesture
+function initCardSliders() {
+  const tracks = document.querySelectorAll('.division-grid, .program-grid');
+
+  tracks.forEach((track) => {
+    if (track.dataset.sliderInit) return;
+    track.dataset.sliderInit = 'true';
+
+    let isDown = false;
+    let startX = 0;
+    let scrollStart = 0;
+    let hasDragged = false;
+    let dragDist = 0;
+
+    // Cegah image ghost drag bawaan browser
+    track.querySelectorAll('img').forEach((img) => {
+      img.addEventListener('dragstart', (e) => e.preventDefault());
+    });
+
+    track.addEventListener('mousedown', (e) => {
+      if (e.button !== 0) return; // Hanya tangani klik tombol kiri
+      isDown = true;
+      hasDragged = false;
+      dragDist = 0;
+      startX = e.pageX - track.offsetLeft;
+      scrollStart = track.scrollLeft;
+      track.classList.add('is-dragging');
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (!isDown) return;
+      isDown = false;
+      track.classList.remove('is-dragging');
+      setTimeout(() => {
+        hasDragged = false;
+        dragDist = 0;
+      }, 50);
+    });
+
+    track.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      const x = e.pageX - track.offsetLeft;
+      const walk = x - startX;
+      dragDist = Math.abs(walk);
+
+      if (dragDist > 6) {
+        hasDragged = true;
+        e.preventDefault();
+        track.scrollLeft = scrollStart - (walk * 1.3);
+      }
+    });
+
+    // Cegah klik berpindah halaman jika user sedang melakukan drag geser kartu
+    track.addEventListener('click', (e) => {
+      if (hasDragged || dragDist > 6) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }, true);
+
+    // Navigasi horizontal menggunakan wheel / trackpad
+    track.addEventListener('wheel', (e) => {
+      // Jika deltaX dominan (misal touchpad 2 jari swipe horizontal), biarkan native browser berjalan
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+
+      // Jika user menekan Shift sambil scroll wheel mouse
+      if (e.shiftKey && Math.abs(e.deltaY) > 0) {
+        e.preventDefault();
+        track.scrollBy({ left: e.deltaY * 1.2, behavior: 'auto' });
+      }
+    }, { passive: false });
+  });
+}
+
+function initAllSliders() {
   initIndependentSliders();
+  initCardSliders();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initAllSliders);
+} else {
+  initAllSliders();
 }
 
