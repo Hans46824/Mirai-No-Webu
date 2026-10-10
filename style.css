@@ -245,10 +245,6 @@ main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not
     border-left: 3px solid var(--pink, #e91e63) !important;
 }
 
-main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .timeline-content::after {
-    background: #ffffff !important;
-    border-color: var(--pink-border, #f4bfd3) !important;
-}
 
 main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .timeline-dot {
     border-color: #ffffff !important;
@@ -431,10 +427,6 @@ main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):no
     border-left: 3px solid #ff659b !important;
 }
 
-main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .timeline-content::after {
-    background: #19141f !important;
-    border-color: #3d3040 !important;
-}
 
 main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .timeline-dot {
     border-color: #19141f !important;
@@ -9970,12 +9962,42 @@ body.theme-dark .stroke-number-label.is-done {
     transform: none !important;
 }
 
-.timeline-content::after,
-.timeline-node:nth-child(odd) .timeline-content::after,
-.timeline-node:nth-child(even) .timeline-content::after,
+/* Reset mutlak segitiga lama ::before */
+.timeline-content::before,
 .timeline-node:nth-child(odd) .timeline-content::before,
 .timeline-node:nth-child(even) .timeline-content::before {
     display: none !important;
+    content: none !important;
+}
+
+/* Pattern Wagara Halus w1b pada Kartu Angkatan Timeline */
+.timeline-content::after,
+.timeline-node:nth-child(odd) .timeline-content::after,
+.timeline-node:nth-child(even) .timeline-content::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background-image: url("images/mirai/background/w1b.jpeg") !important;
+    background-size: 260px auto !important;
+    background-repeat: repeat !important;
+    background-position: top left !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+    display: block !important;
+    transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+
+.timeline-node:hover .timeline-content::after,
+.timeline-content:hover::after {
+    opacity: 0.08 !important;
+    transform: scale(1.02) !important;
+}
+
+.timeline-content > * {
+    position: relative !important;
+    z-index: 2 !important;
 }
 
 .timeline-node:hover .timeline-content {
@@ -10928,14 +10950,6 @@ body.theme-dark .timeline-dot {
     border-color: var(--bg-card);
 }
 body.theme-dark .timeline-content {
-    background: var(--bg-card);
-    border-color: var(--border-card);
-}
-body.theme-dark .timeline-node:nth-child(odd) .timeline-content::after {
-    background: var(--bg-card);
-    border-color: var(--border-card);
-}
-body.theme-dark .timeline-node:nth-child(even) .timeline-content::after {
     background: var(--bg-card);
     border-color: var(--border-card);
 }
