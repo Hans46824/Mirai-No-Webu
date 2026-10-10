@@ -1094,175 +1094,483 @@
             </nav>
         </section>
 
-        <!-- BAGIAN 2: KATEGORI PERLOMBAAN (PAGE 2) -->
+        <!-- BAGIAN 2: KATEGORI PERLOMBAAN DAN ACARA JEJEPANGAN -->
         <section class="section lomba-catalog-section" id="kategoriLomba">
             <div class="section-intro">
-                <h2 class="heading">Kategori <span>Perlombaan</span></h2>
+                <h2 class="heading">Kategori Perlombaan dan <span>Acara Jejepangan</span></h2>
+                <p class="copy">Panduan ringkas cabang lomba resmi serta serba-serbi keseruan festival Jejepangan (cosplay, stan yatai, hingga panggung anisong) yang dikemas secara visual dan interaktif.</p>
             </div>
 
-            <div class="lomba-cards-stack">
+            <!-- Switcher Halaman 1 (Lomba) & Halaman 2 (Acara) -->
+            <div class="catalog-page-switcher" role="tablist" aria-label="Pilihan Halaman Kategori">
+                <button type="button" class="catalog-tab-btn active" data-catalog-tab="1" role="tab" aria-selected="true">
+                    <span class="tab-badge-num">1</span>
+                    <span>🏆 Kategori Perlombaan</span>
+                </button>
+                <button type="button" class="catalog-tab-btn" data-catalog-tab="2" role="tab" aria-selected="false">
+                    <span class="tab-badge-num">2</span>
+                    <span>🎌 Serba-Serbi Acara Jejepangan</span>
+                </button>
+            </div>
 
-                <!-- 1. RODOKU -->
-                <article class="lomba-detail-card" style="--lomba-accent: #0284c7; --lomba-accent-rgb: 2, 132, 199;">
-                    <div class="lomba-card-top">
-                        <div class="lomba-card-badge">
-                            <span class="badge-dot"></span>
-                            CABANG 01 · 朗読
-                        </div>
-                        <span class="lomba-card-tag">MEMBACA TEKS BAHASA JEPANG</span>
-                    </div>
+            <!-- ==============================================
+                 HALAMAN 1: KATEGORI PERLOMBAAN (VISUAL BADGE CARDS)
+                 ============================================== -->
+            <div class="catalog-page-pane active" id="catalogPage1">
+                <div class="lomba-cards-stack">
 
-                    <div class="lomba-card-header-compact">
-                        <div class="lomba-cat-icon">🎙️</div>
-                        <div class="lomba-head-info">
-                            <h3 class="lomba-name">Rodoku (朗読)</h3>
-                            <span class="lomba-subtitle">Seni Membaca Teks Cerita Tradisional Jepang</span>
-                            <span class="lomba-stat-pill">🎯 Fokus: Intonasi &amp; Penjiwaan</span>
-                        </div>
-                    </div>
-
-                    <div class="lomba-card-content-compact">
-                        <div class="lomba-guide-box">
-                            <h4 class="guide-title">🎙️ Tips Intonasi &amp; Kejelasan Lafal (Hatsuon):</h4>
-                            <ul class="guide-list">
-                                <li><strong>Aksen Nada (Pitch Accent):</strong> Kuasai tinggi-rendah nada kata bahasa Jepang (<em>Atamadaka, Nakadaka, Odaka, Heiban</em>), bukan penekanan keras seperti bahasa Indonesia.</li>
-                                <li><strong>Presisi Vokal &amp; Konsonan:</strong> Jaga panjang vokal (<em>chouon</em>: <em>obaasan</em> vs <em>obasan</em>) dan jeda konsonan rangkap (<em>sokuon</em>: <em>kitta</em> vs <em>kita</em>) sesuai durasi mora.</li>
-                                <li><strong>Jeda Bernapas (Ma 間):</strong> Manfaatkan koma (、) dan titik (。) untuk mengambil nafas tanpa memutus kesatuan makna frasa.</li>
-                                <li><strong>Ekspresi &amp; Kontak Mata:</strong> Walaupun membaca teks, sesekali arahkan pandangan ke dewan juri untuk memperkuat emosi dialog.</li>
-                            </ul>
-                        </div>
-
-                        <div class="lomba-sample-box">
-                            <h4 class="sample-title">📜 Contoh Teks Latihan Lomba:</h4>
-                            <div class="sample-text-area">
-                                <p class="sample-kanji">昔々、ある所に、おじいさんとおばあさんが住んでいました。おじいさんは山へ柴刈りに、おばあさんは川へ洗濯に行きました。</p>
-                                <p class="sample-romaji">Mukashi mukashi, aru tokoro ni, ojiisan to obaasan ga sunde imashita. Ojiisan wa yama e shibakari ni, obaasan wa kawa e sentaku ni ikimashita.</p>
-                                <p class="sample-artinya"><em>"Dahulu kala, di suatu tempat, hiduplah sepasang kakek dan nenek. Kakek pergi ke gunung mencari kayu bakar, nenek pergi ke sungai mencuci pakaian."</em></p>
+                    <!-- 1. RODOKU -->
+                    <article class="lomba-detail-card" style="--lomba-accent: #0284c7; --lomba-accent-rgb: 2, 132, 199;">
+                        <div class="lomba-card-top">
+                            <div class="lomba-card-badge">
+                                <span class="badge-dot"></span>
+                                CABANG 01 · 朗読
                             </div>
+                            <span class="lomba-card-tag">MEMBACA TEKS BAHASA JEPANG</span>
                         </div>
-                    </div>
-                </article>
 
-                <!-- 2. SHODOU -->
-                <article class="lomba-detail-card" style="--lomba-accent: #d97706; --lomba-accent-rgb: 217, 119, 6;">
-                    <div class="lomba-card-top">
-                        <div class="lomba-card-badge">
-                            <span class="badge-dot"></span>
-                            CABANG 02 · 書道
-                        </div>
-                        <span class="lomba-card-tag">KALIGRAFI TRADISIONAL JEPANG</span>
-                    </div>
-
-                    <div class="lomba-card-header-compact">
-                        <div class="lomba-cat-icon">🖌️</div>
-                        <div class="lomba-head-info">
-                            <h3 class="lomba-name">Shodou (書道)</h3>
-                            <span class="lomba-subtitle">Keindahan Harmoni Guratan Tinta Kuas</span>
-                            <span class="lomba-stat-pill">🖌️ Fokus: Presisi &amp; Keseimbangan</span>
-                        </div>
-                    </div>
-
-                    <div class="lomba-card-content-compact">
-                        <div class="lomba-guide-box">
-                            <h4 class="guide-title">🧰 Perlengkapan Wajib Kaligrafi (Bunbou Shihou):</h4>
-                            <div class="tools-grid">
-                                <div class="tool-tag"><strong>Fude (筆):</strong> Kuas bulu alami untuk tebal-tipis garis.</div>
-                                <div class="tool-tag"><strong>Sumi (墨):</strong> Batang tinta hitam tradisional pekat.</div>
-                                <div class="tool-tag"><strong>Hanshi (半紙):</strong> Kertas tipis berserat penyerap tinta.</div>
-                                <div class="tool-tag"><strong>Suzuri (硯):</strong> Batu asah pelarut tinta dengan air.</div>
-                                <div class="tool-tag"><strong>Shitajiki (下敷き):</strong> Kain felt lembut pelindung meja.</div>
-                                <div class="tool-tag"><strong>Bunchin (文鎮):</strong> Batang logam pemberat kertas.</div>
+                        <div class="lomba-card-header-compact">
+                            <div class="lomba-cat-icon">🎙️</div>
+                            <div class="lomba-head-info">
+                                <h3 class="lomba-name">Rodoku (朗読)</h3>
+                                <span class="lomba-subtitle">Seni Membaca Teks Cerita Tradisional Jepang</span>
+                                <div class="card-meta-pills">
+                                    <span class="meta-pill">👤 Format: Individu</span>
+                                    <span class="meta-pill">⏱️ Durasi: 3–5 Menit</span>
+                                    <span class="meta-pill">🎯 Tingkat: N5–N4</span>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="lomba-sample-box">
-                            <h4 class="sample-title">⚖️ Tiga Teknik Guratan Pokok &amp; Penilaian:</h4>
-                            <ul class="guide-list">
-                                <li><strong>Tome (止め):</strong> Menghentikan sapuan kuas dengan tekanan mantap di akhir garis tanpa ada tinta yang melenceng.</li>
-                                <li><strong>Hane (跳ね):</strong> Melentingkan ujung kuas ke atas/samping secara lincah dan berenergi.</li>
-                                <li><strong>Harai (払い):</strong> Menyapu kuas meluncur keluar secara perlahan hingga ujung goresan meruncing anggun.</li>
-                                <li><strong>Kriteria Penilaian:</strong> Keseimbangan bidang ruang kertas (<em>kousei</em>), kebersihan goresan, keteguhan sikap duduk (<em>shisei</em>), dan ritme tarikan nafas.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </article>
+                        <div class="lomba-card-content-compact">
+                            <div class="visual-badge-grid">
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">🎵 Pitch Accent</span>
+                                    <p class="badge-card-desc">Fokus tinggi-rendah nada kata Jepang (Atamadaka, Nakadaka, Heiban), bukan penekanan keras.</p>
+                                </div>
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">⏱️ Durasi Mora</span>
+                                    <p class="badge-card-desc">Presisi vokal panjang (chouon) &amp; jeda konsonan rangkap (sokuon) sesuai hitungan ketukan.</p>
+                                </div>
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">⏸️ Jeda Napas (Ma 間)</span>
+                                    <p class="badge-card-desc">Ambil napas alami di tanda koma (、) dan titik (。) tanpa memutus keutuhan makna kalimat.</p>
+                                </div>
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">👀 Kontak Mata Juri</span>
+                                    <p class="badge-card-desc">Sesekali tatap dewan juri pada dialog puncak cerita untuk memperkuat emosi ekspresi.</p>
+                                </div>
+                            </div>
 
-                <!-- 3. CERDAS CERMAT -->
-                <article class="lomba-detail-card" style="--lomba-accent: #059669; --lomba-accent-rgb: 5, 150, 105;">
-                    <div class="lomba-card-top">
-                        <div class="lomba-card-badge">
-                            <span class="badge-dot"></span>
-                            CABANG 03 · ベンキョウ
+                            <div class="card-footer-box">
+                                <strong>⚖️ Kunci Penilaian Dewan Juri:</strong>
+                                <div class="tags-row">
+                                    <span class="footer-tag">Kelancaran Lafal (40%)</span>
+                                    <span class="footer-tag">Penjiwaan Karakter (35%)</span>
+                                    <span class="footer-tag">Etika &amp; Sikap Duduk (25%)</span>
+                                </div>
+                            </div>
                         </div>
-                        <span class="lomba-card-tag">CERDAS CERMAT &amp; KUIS BUDAYA</span>
-                    </div>
+                    </article>
 
-                    <div class="lomba-card-header-compact">
-                        <div class="lomba-cat-icon">🧠</div>
-                        <div class="lomba-head-info">
-                            <h3 class="lomba-name">Benkyou Contest</h3>
-                            <span class="lomba-subtitle">Adu Cepat Wawasan Budaya &amp; Tata Bahasa</span>
-                            <span class="lomba-stat-pill">🧠 Fokus: Wawasan, Kanji &amp; Kecepatan</span>
-                        </div>
-                    </div>
-
-                    <div class="lomba-card-content-compact">
-                        <div class="lomba-guide-box">
-                            <h4 class="guide-title">📚 Kisi-Kisi Materi Ujian &amp; Pertanyaan:</h4>
-                            <ul class="guide-list">
-                                <li><strong>Kebudayaan Umum Jepang:</strong> Perayaan kalender tahunan (<em>Hatsumode, Setsubun, Hinamatsuri, Tanabata, Obon</em>), upacara minum teh (<em>Chado</em>), pakaian tradisional (<em>Yukata, Kimono</em>), dan kuliner khas (<em>Washoku</em>).</li>
-                                <li><strong>Geografi &amp; Prefektur:</strong> 4 pulau utama (<em>Honshu, Hokkaido, Kyushu, Shikoku</em>), Gunung Fuji, serta keunikan prefektur (Tokyo, Kyoto, Osaka, Nara, Hiroshima).</li>
-                                <li><strong>Tata Bahasa (Bunpou) JLPT N5–N4:</strong> Partikel krusial (<em>wa, ga, o, ni, de, to, mo, kara, made</em>) serta ragam konjugasi kata kerja (<em>~te, ~nai, ~ta, ~masu</em>).</li>
-                                <li><strong>Aksara Kanji &amp; Kosakata:</strong> Mengenali radikal (<em>bushu</em>), jumlah goresan (<em>kakusuu</em>), dan bacaan Onyomi/Kunyomi dasar tingkat N5.</li>
-                            </ul>
-                        </div>
-
-                        <div class="lomba-sample-box">
-                            <h4 class="sample-title">⚡ Taktik Sukses Lomba Cerdas Cermat:</h4>
-                            <p class="sample-artinya">Bagi timmu (3 orang) menjadi spesialis: 1 orang fokus pada tombol bel &amp; tata bahasa cepat, 1 orang ahli menghafal sejarah/budaya, dan 1 orang penguasa kanji &amp; angka. Komunikasi bisik cepat tanpa panik adalah kunci kemenangan!</p>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- 4. COSPLAY & ANISONG -->
-                <article class="lomba-detail-card" style="--lomba-accent: #e11d48; --lomba-accent-rgb: 225, 29, 72;">
-                    <div class="lomba-card-top">
-                        <div class="lomba-card-badge">
-                            <span class="badge-dot"></span>
-                            CABANG 04 · コスプレ＆アニソン
-                        </div>
-                        <span class="lomba-card-tag">PERFORMA PANGGUNG &amp; VOKAL</span>
-                    </div>
-
-                    <div class="lomba-card-header-compact">
-                        <div class="lomba-cat-icon">🎭</div>
-                        <div class="lomba-head-info">
-                            <h3 class="lomba-name">Cosplay &amp; Anisong</h3>
-                            <span class="lomba-subtitle">Kreativitas Kostum Karakter &amp; Bakat Vokal</span>
-                            <span class="lomba-stat-pill">🎭 Fokus: Karakter, Vokal &amp; Etika</span>
-                        </div>
-                    </div>
-
-                    <div class="lomba-card-content-compact">
-                        <div class="lomba-guide-box">
-                            <h4 class="guide-title">⭐ Kriteria Penilaian Dewan Juri:</h4>
-                            <ul class="guide-list">
-                                <li><strong>Cosplay (Craftsmanship &amp; Performance):</strong> Kemiripan visual dengan referensi asli (<em>screen accuracy</em>), teknik styling wig, kerapian jahitan/armor prop, serta penjiwaan watak peran (<em>in-character</em>) saat tampil di panggung.</li>
-                                <li><strong>Anisong (Vocal &amp; Stage Presence):</strong> Ketepatan nada (<em>pitch</em>), tempo, penguasaan lirik bahasa Jepang tanpa contek, dinamika emosi, artikulasi suara jelas, dan penguasaan panggung (<em>eye contact</em>).</li>
-                            </ul>
+                    <!-- 2. SHODOU -->
+                    <article class="lomba-detail-card" style="--lomba-accent: #d97706; --lomba-accent-rgb: 217, 119, 6;">
+                        <div class="lomba-card-top">
+                            <div class="lomba-card-badge">
+                                <span class="badge-dot"></span>
+                                CABANG 02 · 書道
+                            </div>
+                            <span class="lomba-card-tag">KALIGRAFI TINTA TRADISIONAL</span>
                         </div>
 
-                        <div class="lomba-sample-box">
-                            <h4 class="sample-title">🛡️ Etika &amp; Regulasi Keselamatan Lomba:</h4>
-                            <ul class="guide-list">
-                                <li><strong>Prinsip 'Cosplay is Not Consent':</strong> Wajib saling menghargai privasi dan batasan fisik peserta lain. Selalu minta izin sebelum memotret atau merekam.</li>
-                                <li><strong>Keamanan Senjata/Properti Tiruan:</strong> Dilarang keras membawa senjata berbahan logam tajam, mesiu, atau benda berbahaya. Gunakan bahan aman seperti busa hati (<em>EVA foam</em>).</li>
-                                <li><strong>Etika Ruang Ganti &amp; Panggung:</strong> Wajib berganti pakaian di bilik resmi yang disediakan panitia dan menjaga kebersihan ruangan bersama.</li>
-                            </ul>
+                        <div class="lomba-card-header-compact">
+                            <div class="lomba-cat-icon">🖌️</div>
+                            <div class="lomba-head-info">
+                                <h3 class="lomba-name">Shodou (書道)</h3>
+                                <span class="lomba-subtitle">Keindahan Harmoni Guratan Tinta Kuas</span>
+                                <div class="card-meta-pills">
+                                    <span class="meta-pill">👤 Format: Individu</span>
+                                    <span class="meta-pill">⏱️ Waktu: 20–30 Menit</span>
+                                    <span class="meta-pill">📜 Media: Kertas Hanshi</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </article>
 
+                        <div class="lomba-card-content-compact">
+                            <div class="visual-badge-grid">
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">🛑 Tome (Hentian Mantap)</span>
+                                    <p class="badge-card-desc">Mengunci tarikan garis kuas dengan tekanan mantap di ujung guratan tanpa meleset.</p>
+                                </div>
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">🏹 Hane (Lentingan Kuas)</span>
+                                    <p class="badge-card-desc">Melentingkan ujung kuas ke atas/samping secara lincah dan berenergi penuh.</p>
+                                </div>
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">🍃 Harai (Sapuan Anggun)</span>
+                                    <p class="badge-card-desc">Menyapu kuas keluar perlahan hingga garis meruncing halus dan seimbang.</p>
+                                </div>
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">🧰 Perlengkapan Wajib</span>
+                                    <p class="badge-card-desc">Fude (kuas bulu), Sumi (tinta hitam), Suzuri (batu asah), dan Bunchin (pemberat).</p>
+                                </div>
+                            </div>
+
+                            <div class="card-footer-box">
+                                <strong>⚖️ Kunci Penilaian Dewan Juri:</strong>
+                                <div class="tags-row">
+                                    <span class="footer-tag">Keseimbangan Ruang (40%)</span>
+                                    <span class="footer-tag">Teknik Guratan Kuas (35%)</span>
+                                    <span class="footer-tag">Kebersihan Kertas (25%)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 3. CERDAS CERMAT -->
+                    <article class="lomba-detail-card" style="--lomba-accent: #059669; --lomba-accent-rgb: 5, 150, 105;">
+                        <div class="lomba-card-top">
+                            <div class="lomba-card-badge">
+                                <span class="badge-dot"></span>
+                                CABANG 03 · ベンキョウ
+                            </div>
+                            <span class="lomba-card-tag">ADU CEPAT KUIS BUDAYA &amp; KANJI</span>
+                        </div>
+
+                        <div class="lomba-card-header-compact">
+                            <div class="lomba-cat-icon">🧠</div>
+                            <div class="lomba-head-info">
+                                <h3 class="lomba-name">Benkyou Contest</h3>
+                                <span class="lomba-subtitle">Cerdas Cermat Wawasan Budaya &amp; Bahasa</span>
+                                <div class="card-meta-pills">
+                                    <span class="meta-pill">👥 Format: Regu (3 Orang)</span>
+                                    <span class="meta-pill">⚡ Sistem: Cepat Tepat Bel</span>
+                                    <span class="meta-pill">📚 Materi: N5–N4 + Budaya</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="lomba-card-content-compact">
+                            <div class="visual-badge-grid">
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">🏯 Budaya &amp; Matsuri</span>
+                                    <p class="badge-card-desc">Tradisi kalender tahunan (Tanabata, Obon), geografi 4 pulau utama, serta kuliner khas.</p>
+                                </div>
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">🈸 Aksara Kanji &amp; Radikal</span>
+                                    <p class="badge-card-desc">Menebak Onyomi/Kunyomi, jumlah goresan (kakusuu), dan radikal bushu secara kilat.</p>
+                                </div>
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">📖 Tata Bahasa Bunpou</span>
+                                    <p class="badge-card-desc">Presisi partikel (wa, ga, ni, de, o) serta konjugasi bentuk kata kerja cepat.</p>
+                                </div>
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">🤝 Spesialisasi Tim Juara</span>
+                                    <p class="badge-card-desc">Bagi peran regu: 1 spesialis bel cepat, 1 ahli sejarah/budaya, dan 1 penguasa kanji.</p>
+                                </div>
+                            </div>
+
+                            <div class="card-footer-box">
+                                <strong>⚖️ Kunci Kemenangan Lomba:</strong>
+                                <div class="tags-row">
+                                    <span class="footer-tag">Kecepatan Menekan Bel</span>
+                                    <span class="footer-tag">Ketepatan Jawaban</span>
+                                    <span class="footer-tag">Komunikasi Tanpa Panik</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 4. COSPLAY & ANISONG -->
+                    <article class="lomba-detail-card" style="--lomba-accent: #e11d48; --lomba-accent-rgb: 225, 29, 72;">
+                        <div class="lomba-card-top">
+                            <div class="lomba-card-badge">
+                                <span class="badge-dot"></span>
+                                CABANG 04 · コスプレ＆アニソン
+                            </div>
+                            <span class="lomba-card-tag">PERFORMA PANGGUNG &amp; VOKAL</span>
+                        </div>
+
+                        <div class="lomba-card-header-compact">
+                            <div class="lomba-cat-icon">🎭</div>
+                            <div class="lomba-head-info">
+                                <h3 class="lomba-name">Cosplay &amp; Anisong</h3>
+                                <span class="lomba-subtitle">Kreativitas Kostum Karakter &amp; Tarik Suara</span>
+                                <div class="card-meta-pills">
+                                    <span class="meta-pill">🎭 Format: Solo / Duo / Tim</span>
+                                    <span class="meta-pill">⏱️ Tampil: 2–3 Menit</span>
+                                    <span class="meta-pill">🎤 Musik: Minus One / BGM</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="lomba-card-content-compact">
+                            <div class="visual-badge-grid">
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">👗 Craftsmanship Kostum</span>
+                                    <p class="badge-card-desc">Akurasi visual referensi asli, kerapian jahitan, wig styling, dan detailing armor prop.</p>
+                                </div>
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">🌟 Stage Presence</span>
+                                    <p class="badge-card-desc">Penjiwaan watak (in-character), pose ikonik karakter, dan sinkronisasi audio panggung.</p>
+                                </div>
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">🎤 Vokal &amp; Lafal Anisong</span>
+                                    <p class="badge-card-desc">Ketepatan nada (pitch), tempo, pelafalan bahasa Jepang fasih tanpa teks contekan.</p>
+                                </div>
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">🛡️ Standar Keselamatan Prop</span>
+                                    <p class="badge-card-desc">Wajib menggunakan bahan aman seperti busa hati (EVA foam), tanpa logam tajam.</p>
+                                </div>
+                            </div>
+
+                            <div class="card-footer-box">
+                                <strong>⚖️ Etika &amp; Prinsip Wajib:</strong>
+                                <div class="tags-row">
+                                    <span class="footer-tag">Cosplay is Not Consent</span>
+                                    <span class="footer-tag">Ganti di Bilik Resmi</span>
+                                    <span class="footer-tag">Jaga Sportivitas</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+
+            <!-- ==============================================
+                 HALAMAN 2: SERBA-SERBI ACARA JEJEPANGAN (VISUAL BADGE CARDS)
+                 ============================================== -->
+            <div class="catalog-page-pane" id="catalogPage2">
+                <div class="lomba-cards-stack">
+
+                    <!-- ACARA 1: MENGENAL COSPLAY -->
+                    <article class="lomba-detail-card" style="--lomba-accent: #a855f7; --lomba-accent-rgb: 168, 85, 247;">
+                        <div class="lomba-card-top">
+                            <div class="lomba-card-badge">
+                                <span class="badge-dot"></span>
+                                ZONA 01 · コスプレの世界
+                            </div>
+                            <span class="lomba-card-tag">SENI PERAN &amp; KREATIF KARAKTER</span>
+                        </div>
+
+                        <div class="lomba-card-header-compact">
+                            <div class="lomba-cat-icon">👘</div>
+                            <div class="lomba-head-info">
+                                <h3 class="lomba-name">Mengenal Dunia Cosplay</h3>
+                                <span class="lomba-subtitle">Costume Play: Menghidupkan Karakter Fiksi ke Dunia Nyata</span>
+                                <div class="card-meta-pills">
+                                    <span class="meta-pill">✨ Hobi Populer</span>
+                                    <span class="meta-pill">🎨 Seni Rias &amp; Kostum</span>
+                                    <span class="meta-pill">🤝 Komunitas Suportif</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="lomba-card-content-compact">
+                            <div class="visual-badge-grid">
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">🚶 Coswalk (Cosplay Walk)</span>
+                                    <p class="badge-card-desc">Parade panggung santai di mana cosplayer berjalan, berpose ikonik, dan menyapa penonton.</p>
+                                </div>
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">⚔️ Skit Drama &amp; Action</span>
+                                    <p class="badge-card-desc">Pertunjukan sandiwara panggung berdurasi singkat lengkap dengan koreografi laga dan audio.</p>
+                                </div>
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">✂️ Wig Styling &amp; Makeup</span>
+                                    <p class="badge-card-desc">Teknik menata rambut palsu sintetis dengan hairspray serta riasan wajah agar mirip karakter.</p>
+                                </div>
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">🛠️ Crafting Armor EVA Foam</span>
+                                    <p class="badge-card-desc">Membuat replika senjata dan zirah ringan menggunakan busa hati, lem bakar, dan cat akrilik.</p>
+                                </div>
+                            </div>
+
+                            <div class="card-footer-box">
+                                <strong>🛡️ Etika Emas Pengunjung Cosplay:</strong>
+                                <div class="tags-row">
+                                    <span class="footer-tag">Wajib Izin Sebelum Foto</span>
+                                    <span class="footer-tag">Jangan Sentuh Tanpa Izin</span>
+                                    <span class="footer-tag">Hargai Privasi Cosplayer</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- ACARA 2: STAND KULINER YATAI -->
+                    <article class="lomba-detail-card" style="--lomba-accent: #f97316; --lomba-accent-rgb: 249, 115, 22;">
+                        <div class="lomba-card-top">
+                            <div class="lomba-card-badge">
+                                <span class="badge-dot"></span>
+                                ZONA 02 · 屋台グルメ
+                            </div>
+                            <span class="lomba-card-tag">KULINER FESTIVAL MUSIM PANAS</span>
+                        </div>
+
+                        <div class="lomba-card-header-compact">
+                            <div class="lomba-cat-icon">🍡</div>
+                            <div class="lomba-head-info">
+                                <h3 class="lomba-name">Stand Kuliner Yatai &amp; Konbini</h3>
+                                <span class="lomba-subtitle">Sensasi Jajanan Khas Matsuri Jepang yang Menggugah Selera</span>
+                                <div class="card-meta-pills">
+                                    <span class="meta-pill">🏮 Suasana Matsuri</span>
+                                    <span class="meta-pill">🍱 Fresh &amp; Hangat</span>
+                                    <span class="meta-pill">😋 Ramah Kantong Pelajar</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="lomba-card-content-compact">
+                            <div class="visual-badge-grid">
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">🐙 Takoyaki &amp; Okonomiyaki</span>
+                                    <p class="badge-card-desc">Bola gurita hangat dan panekuk sayur khas Kansai berlumur saus manis, mayones, dan katsuobushi.</p>
+                                </div>
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">🐟 Taiyaki &amp; Dorayaki</span>
+                                    <p class="badge-card-desc">Wafel berbentuk ikan dengan isian pasta kacang merah/cokelat manis, serta kue favorit Doraemon.</p>
+                                </div>
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">🍜 Ramen &amp; Yakisoba</span>
+                                    <p class="badge-card-desc">Mie kuah kaldu gurih panas serta mie goreng saus khas festival yang dimasak live di atas wajan besi.</p>
+                                </div>
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">🍵 Matcha &amp; Ramune Soda</span>
+                                    <p class="badge-card-desc">Minuman teh hijau dingin autentik serta minuman soda botol kelereng legendaris khas Jepang.</p>
+                                </div>
+                            </div>
+
+                            <div class="card-footer-box">
+                                <strong>🏮 Serunya Berburu Makanan di Event:</strong>
+                                <div class="tags-row">
+                                    <span class="footer-tag">Sensasi Live Cooking Yatai</span>
+                                    <span class="footer-tag">Stan Mirai no Konbini</span>
+                                    <span class="footer-tag">Makan Bareng Teman Ekskul</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- ACARA 3: PASAR KREATOR DOUJIN -->
+                    <article class="lomba-detail-card" style="--lomba-accent: #ec4899; --lomba-accent-rgb: 236, 72, 153;">
+                        <div class="lomba-card-top">
+                            <div class="lomba-card-badge">
+                                <span class="badge-dot"></span>
+                                ZONA 03 · クリエイター市場
+                            </div>
+                            <span class="lomba-card-tag">PASAR MERCHANDISE &amp; KARYA INDIE</span>
+                        </div>
+
+                        <div class="lomba-card-header-compact">
+                            <div class="lomba-cat-icon">🎨</div>
+                            <div class="lomba-head-info">
+                                <h3 class="lomba-name">Pasar Kreator (Doujin Market)</h3>
+                                <span class="lomba-subtitle">Wadah Seniman Independen Menjual Fanart &amp; Merchandise Kreatif</span>
+                                <div class="card-meta-pills">
+                                    <span class="meta-pill">🖌️ Karya Orisinal &amp; Fanart</span>
+                                    <span class="meta-pill">🎁 Merchandise Eksklusif</span>
+                                    <span class="meta-pill">💖 Dukung Seniman Lokal</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="lomba-card-content-compact">
+                            <div class="visual-badge-grid">
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">🔑 Keychain &amp; Standee Akrilik</span>
+                                    <p class="badge-card-desc">Gantungan kunci akrilik berkilau dan hiasan meja karakter anime yang digambar seniman lokal.</p>
+                                </div>
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">🏷️ Stiker Vinyl Die-Cut</span>
+                                    <p class="badge-card-desc">Stiker tahan air anti luntur untuk ditempel di laptop, tumbler, helm, dan casing handphone.</p>
+                                </div>
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">🖼️ Art Print &amp; Photocard</span>
+                                    <p class="badge-card-desc">Poster mini cetak tebal premium dan koleksi photocard karakter anime dan vtuber favorit.</p>
+                                </div>
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">📚 Komik Doujin &amp; Artbook</span>
+                                    <p class="badge-card-desc">Buku komik independen fiksi dan kompilasi buku ilustrasi eksklusif yang hanya ada di event.</p>
+                                </div>
+                            </div>
+
+                            <div class="card-footer-box">
+                                <strong>💡 Tips Menikmati Creators Market:</strong>
+                                <div class="tags-row">
+                                    <span class="footer-tag">Siapkan Uang Pas / QRIS</span>
+                                    <span class="footer-tag">Sapa &amp; Minta Izin Kreator</span>
+                                    <span class="footer-tag">Koleksi Merch Idola</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- ACARA 4: PANGGUNG ANISONG & MATSURI EXPERIENCE -->
+                    <article class="lomba-detail-card" style="--lomba-accent: #10b981; --lomba-accent-rgb: 16, 185, 129;">
+                        <div class="lomba-card-top">
+                            <div class="lomba-card-badge">
+                                <span class="badge-dot"></span>
+                                ZONA 04 · 祭り体験とステージ
+                            </div>
+                            <span class="lomba-card-tag">PANGGUNG MUSIK &amp; BUDAYA TRADISIONAL</span>
+                        </div>
+
+                        <div class="lomba-card-header-compact">
+                            <div class="lomba-cat-icon">🎶</div>
+                            <div class="lomba-head-info">
+                                <h3 class="lomba-name">Panggung Anisong &amp; Area Interaktif</h3>
+                                <span class="lomba-subtitle">Energi Konser Musik Anime, Tarian Wotagei, dan Budaya Tradisional</span>
+                                <div class="card-meta-pills">
+                                    <span class="meta-pill">🎸 Konser Band Live</span>
+                                    <span class="meta-pill">🪄 Lightstick Wotagei</span>
+                                    <span class="meta-pill">📸 Photobooth Yukata</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="lomba-card-content-compact">
+                            <div class="visual-badge-grid">
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">🎤 Band Anisong &amp; Idol Stage</span>
+                                    <p class="badge-card-desc">Penampilan musisi membawakan lagu tema anime terkenal secara live yang mengajak penonton bernyanyi bersama.</p>
+                                </div>
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">🪄 Wotagei &amp; Chant Sorakan</span>
+                                    <p class="badge-card-desc">Tarian energik mengayunkan glowstick berirama serempak menyemangati artis di panggung utama.</p>
+                                </div>
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">👘 Photobooth Sewa Yukata</span>
+                                    <p class="badge-card-desc">Pengalaman mengenakan pakaian tradisional musim panas Jepang dengan spot foto torii gerbang kuil.</p>
+                                </div>
+                                <div class="badge-card-item">
+                                    <span class="badge-card-label">🚗 Mobil Itasha &amp; Mini Games</span>
+                                    <p class="badge-card-desc">Pameran kendaraan berstiker anime keren serta permainan tradisional matsuri lempar gelang berhadiah.</p>
+                                </div>
+                            </div>
+
+                            <div class="card-footer-box">
+                                <strong>🎉 Pengalaman Tak Terlupakan:</strong>
+                                <div class="tags-row">
+                                    <span class="footer-tag">Sing-Along Lagu Anime</span>
+                                    <span class="footer-tag">Foto Berlatar Tradisional</span>
+                                    <span class="footer-tag">Solidaritas Sesama Wibu</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+
+            <!-- Navigasi Halaman Bawah Katalog (Switcher Halaman 1 & 2) -->
+            <div class="catalog-bottom-pagination">
+                <button type="button" class="catalog-nav-btn" id="catPrevBtn" disabled aria-label="Buka Halaman Sebelumnya">← Halaman 1</button>
+                <div class="catalog-page-numbers" role="tablist">
+                    <button type="button" class="catalog-num-btn active" data-page-target="1" aria-label="Buka Halaman 1">1</button>
+                    <button type="button" class="catalog-num-btn" data-page-target="2" aria-label="Buka Halaman 2">2</button>
+                </div>
+                <button type="button" class="catalog-nav-btn" id="catNextBtn" aria-label="Buka Halaman Selanjutnya">Halaman 2 →</button>
             </div>
         </section>
     </main>
@@ -1561,6 +1869,89 @@
             if (modal) {
                 modal.addEventListener('click', (e) => {
                     if (e.target === modal) closeModal();
+                });
+            }
+
+            // 4. Katalog Halaman 1 (Lomba) & Halaman 2 (Acara Jejepangan) Switcher
+            let currentCatalogPage = 1;
+            const catalogTabBtns = document.querySelectorAll('.catalog-tab-btn');
+            const catalogNumBtns = document.querySelectorAll('.catalog-num-btn');
+            const catPrevBtn = document.getElementById('catPrevBtn');
+            const catNextBtn = document.getElementById('catNextBtn');
+            const page1El = document.getElementById('catalogPage1');
+            const page2El = document.getElementById('catalogPage2');
+
+            function switchCatalogPage(targetPage, scrollIntoView = false) {
+                const pageNum = parseInt(targetPage, 10);
+                if (pageNum !== 1 && pageNum !== 2) return;
+                currentCatalogPage = pageNum;
+
+                // Toggle tabs
+                catalogTabBtns.forEach(btn => {
+                    const tabVal = parseInt(btn.getAttribute('data-catalog-tab'), 10);
+                    const isActive = tabVal === pageNum;
+                    btn.classList.toggle('active', isActive);
+                    btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+                });
+
+                // Toggle pagination numbers
+                catalogNumBtns.forEach(btn => {
+                    const numVal = parseInt(btn.getAttribute('data-page-target'), 10);
+                    btn.classList.toggle('active', numVal === pageNum);
+                });
+
+                // Toggle prev/next buttons
+                if (catPrevBtn) {
+                    catPrevBtn.disabled = pageNum === 1;
+                }
+                if (catNextBtn) {
+                    catNextBtn.disabled = pageNum === 2;
+                }
+
+                // Toggle panes
+                if (pageNum === 1) {
+                    if (page1El) page1El.classList.add('active');
+                    if (page2El) page2El.classList.remove('active');
+                } else {
+                    if (page1El) page1El.classList.remove('active');
+                    if (page2El) page2El.classList.add('active');
+                }
+
+                if (scrollIntoView) {
+                    const section = document.getElementById('kategoriLomba');
+                    if (section) {
+                        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            }
+
+            catalogTabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const target = btn.getAttribute('data-catalog-tab');
+                    switchCatalogPage(target);
+                });
+            });
+
+            catalogNumBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const target = btn.getAttribute('data-page-target');
+                    switchCatalogPage(target, true);
+                });
+            });
+
+            if (catPrevBtn) {
+                catPrevBtn.addEventListener('click', () => {
+                    if (currentCatalogPage > 1) {
+                        switchCatalogPage(currentCatalogPage - 1, true);
+                    }
+                });
+            }
+
+            if (catNextBtn) {
+                catNextBtn.addEventListener('click', () => {
+                    if (currentCatalogPage < 2) {
+                        switchCatalogPage(currentCatalogPage + 1, true);
+                    }
                 });
             }
         });
