@@ -253,30 +253,39 @@
         #drawer .header-actions {
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
         }
 
         #drawer #closeBtn,
         #drawer #fullscreenBtn {
-            background: none;
-            border: none;
-            color: #cbd5e1;
+            background: linear-gradient(135deg, #ff4f91, #e91e63);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #ffffff;
             cursor: pointer;
-            font-size: 15px;
-            padding: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 0;
             border-radius: 50%;
             width: 28px;
             height: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(233, 30, 99, 0.45);
+            transition: all 0.22s ease;
         }
 
         #drawer #closeBtn:hover,
         #drawer #fullscreenBtn:hover {
             color: #ffffff;
-            background-color: rgba(255, 255, 255, 0.15);
+            background: linear-gradient(135deg, #ff659b, #d81b60);
+            transform: scale(1.1);
+            box-shadow: 0 4px 14px rgba(233, 30, 99, 0.65);
+        }
+
+        #drawer #closeBtn:active,
+        #drawer #fullscreenBtn:active {
+            transform: scale(0.92);
         }
 
         /* Chat Area - Wallpaper Doodle chat.jpeg */
