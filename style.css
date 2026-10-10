@@ -1369,7 +1369,7 @@ body.sora-fullscreen-active .menu-btn {
     inset: 0;
     background-image:
         radial-gradient(ellipse at 50% 0%, rgba(233, 30, 99, 0.09) 0%, transparent 70%),
-        url("images/mirai/pattern/c1b.jpeg");
+        url("images/mirai/background/c1b.jpeg");
     background-size: cover, 280px auto;
     background-repeat: no-repeat, repeat;
     background-position: center, center;
@@ -9072,7 +9072,7 @@ body.theme-dark .activity-card-locked {
     content: "";
     position: absolute;
     inset: 0;
-    background-image: url("images/mirai/pattern/c1w.jpeg");
+    background-image: url("images/mirai/background/c1w.jpeg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -9103,7 +9103,7 @@ body.theme-dark .course-card::after,
 main > section:nth-of-type(even) .program-card::after,
 body.dark-mode .program-card::after,
 body.theme-dark .program-card::after {
-    background-image: url("images/mirai/pattern/c1b.jpeg");
+    background-image: url("images/mirai/background/c1b.jpeg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -9165,7 +9165,7 @@ body.theme-dark .program-card:hover::after {
     content: "";
     position: absolute;
     inset: 0;
-    background-image: url("images/mirai/pattern/c1b.jpeg");
+    background-image: url("images/mirai/background/c1b.jpeg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -9187,7 +9187,7 @@ body.theme-dark .program-card:hover::after {
 
 /* Jika .activity-start-card berada di section terang/putih */
 body:not(.dark-mode):not(.theme-dark) main > section:nth-of-type(odd):not(.home-activities-dark-section) .activity-start-card::after {
-    background-image: url("images/mirai/pattern/c1w.jpeg");
+    background-image: url("images/mirai/background/c1w.jpeg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -11484,7 +11484,7 @@ main > .dictionary-section {
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/pattern/c1w.jpeg") !important;
+    background-image: url("images/mirai/background/c1w.jpeg") !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
@@ -11666,7 +11666,7 @@ body.dark-mode .dictionary-practice-link:hover {
 
 body.theme-dark .dictionary-practice-link::after,
 body.dark-mode .dictionary-practice-link::after {
-    background-image: url("images/mirai/pattern/c1b.jpeg") !important;
+    background-image: url("images/mirai/background/c1b.jpeg") !important;
     opacity: 0.14 !important;
     mix-blend-mode: screen !important;
 }
@@ -12161,7 +12161,7 @@ img:not(.img-lightbox-img) {
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/pattern/c1b.jpeg") !important;
+    background-image: url("images/mirai/background/c1b.jpeg") !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
@@ -12692,7 +12692,7 @@ body.page-kurikulum .doc-back-btn:hover,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/pattern/w1b.jpeg") !important;
+    background-image: url("images/mirai/background/w1b.jpeg") !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
@@ -13012,7 +13012,7 @@ body.page-kurikulum .doc-back-btn:hover,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/pattern/w1b.jpeg") !important;
+    background-image: url("images/mirai/background/w1b.jpeg") !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
@@ -13179,7 +13179,7 @@ body.page-kurikulum .doc-back-btn:hover,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/pattern/w1w.jpeg") !important;
+    background-image: url("images/mirai/background/w1w.jpeg") !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
@@ -13371,7 +13371,7 @@ body.page-kurikulum .doc-back-btn:hover,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/pattern/w1b.jpeg") !important;
+    background-image: url("images/mirai/background/w1b.jpeg") !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
@@ -13470,7 +13470,7 @@ body.page-kurikulum .doc-back-btn:hover,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/pattern/w1w.jpeg") !important;
+    background-image: url("images/mirai/background/w1w.jpeg") !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
@@ -13639,7 +13639,7 @@ body.page-kurikulum .doc-back-btn:hover,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/pattern/w1w.jpeg") !important;
+    background-image: url("images/mirai/background/w1w.jpeg") !important;
     background-size: cover !important;
     background-position: center !important;
     opacity: 0.11 !important;
@@ -13652,7 +13652,7 @@ body.page-kurikulum .doc-back-btn:hover,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/pattern/w1b.jpeg") !important;
+    background-image: url("images/mirai/background/w1b.jpeg") !important;
     background-size: cover !important;
     background-position: center !important;
     opacity: 0.15 !important;
@@ -13749,7 +13749,7 @@ body.page-kurikulum .doc-back-btn:hover,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/pattern/c1b.jpeg") !important;
+    background-image: url("images/mirai/background/c1b.jpeg") !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
@@ -14073,7 +14073,7 @@ main .about-feature-card p,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/pattern/c1b.jpeg") !important;
+    background-image: url("images/mirai/background/c1b.jpeg") !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
@@ -14570,7 +14570,7 @@ body:not(.page-kamus) .quick-stroke-btn {
     content: "";
     position: absolute;
     inset: 0;
-    background-image: url("images/mirai/pattern/c1b.jpeg");
+    background-image: url("images/mirai/background/c1b.jpeg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
