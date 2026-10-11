@@ -148,12 +148,12 @@ Koleksi 20 stiker chibi resmi Genshin Impact untuk profil anggota, papan peringk
 - Ukuran tombol harus pas dan proporsional dengan isi teksnya (tidak boleh melar memenuhi seluruh kartu).
 
 ### I. Aturan Penataan Foto, Poster, dan Avatar
-- **Carousel Poster Hemat Ruang**: Jika sebuah kartu memiliki lebih dari 1 poster, jangan ditumpuk vertikal ke bawah karena akan membuat kartu melar tinggi dan jelek di laptop. Satukan ke dalam frame carousel 1 poster:
-  - Bisa digeser memakai sentuhan jari (swipe touch) di ponsel dan tablet.
-  - Bisa digeser memakai tombol panah kiri dan kanan (‹ dan ›).
-  - Bisa digeser dengan drag mouse di laptop.
-  - Gambar bisa diklik untuk membuka foto resolusi penuh (modal lightbox).
-  - Dilengkapi keterangan nomor halaman yang jelas (contoh: 1 dari 2).
+- **Frame 1 Poster & Carousel Geser Mandiri**: Wadah poster di kartu event wajib berukuran 1 poster tunggal yang utuh (Single Poster View), tidak boleh menampilkan poster bertumpuk vertikal ataupun berdampingan terpotong:
+  - Jika event memiliki lebih dari 1 poster/halaman (seperti ITS & UNESA), gunakan carousel horizontal yang bisa digeser dengan panah, drag mouse di desktop, atau swipe jari di HP.
+  - **Tombol Panah Navigasi**: Wajib berada tepat di **bagian tengah samping kiri (‹) dan kanan (›)** poster dengan gaya semi-transparan ber-blur dan efek pendar pink saat disorot. Jika poster hanya ada 1 lembar, tombol panah otomatis disembunyikan.
+  - **Tanpa Keterangan Counter Angka**: Dilarang menampilkan teks counter angka seperti "1 dari 2" atau "1 dari 1".
+  - **Tombol Aksi Semantik**: Tombol aksi kartu dibedakan secara tegas: **"🔗 Buka Link Lomba"** untuk kategori lomba, dan **"🔗 Buka Link Acara Jejepangan"** untuk kategori festival/acara.
+  - Gambar poster bisa diklik untuk membuka modal tampilan penuh resolusi tinggi (lightbox).
 - **Avatar Lingkaran**: Wadah avatar profil atau juara wajib memiliki latar belakang putih (#ffffff) dengan gambar berukuran contain dan sedikit padding, agar bagian telinga, rambut, atau topi chibi tidak terpotong garis tepi lingkaran.
 
 ### J. Aturan Spasi dan Tata Letak (Layout)

@@ -17899,7 +17899,7 @@ body.theme-dark .lomba-detail-card:hover::after {
     position: relative !important;
     box-sizing: border-box !important;
     display: grid !important;
-    grid-template-columns: 1fr 240px !important; /* Info di Kiri, Poster Potrait Panjang di Kanan */
+    grid-template-columns: 1fr 260px !important; /* Info di Kiri, Poster Potrait Panjang di Kanan */
     border-radius: 20px !important;
     overflow: hidden !important;
     background: #111115 !important;
@@ -18066,44 +18066,153 @@ body.theme-dark .lomba-detail-card:hover::after {
     color: #e2e8f0 !important;
 }
 
-/* SISI KANAN: POSTER POTRAIT PANJANG (STIKER) */
+/* SISI KANAN: POSTER CAROUSEL MANDIRI (1 POSTER PER VIEW) */
 .event-card-poster {
     position: relative !important;
     z-index: 2 !important;
     width: 100% !important;
     height: 100% !important;
-    min-height: 260px !important;
+    min-height: 280px !important;
     background: #09090d !important;
     overflow: hidden !important;
     border-left: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.event-poster-carousel {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.poster-slides-track {
+    display: flex !important;
+    flex-direction: row !important;
+    width: 100% !important;
+    height: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+    scroll-behavior: smooth !important;
+}
+
+.poster-slides-track::-webkit-scrollbar {
+    display: none !important;
+}
+
+.poster-slide {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    height: 100% !important;
+    scroll-snap-align: start !important;
+    scroll-snap-stop: always !important;
+    position: relative !important;
+    overflow: hidden !important;
+    cursor: pointer !important;
+    background: #09090d !important;
 }
 
 .event-poster-img {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
-    object-position: center center !important;
+    object-position: center top !important;
     display: block !important;
     transition: transform 0.35s ease !important;
+    user-select: none !important;
+    -webkit-user-drag: none !important;
 }
 
-.event-card:hover .event-poster-img {
-    transform: scale(1.05) !important;
+.poster-slide:hover .event-poster-img {
+    transform: scale(1.04) !important;
+}
+
+/* TOMBOL NAVIGASI DI TENGAH SAMPING KIRI & KANAN POSTER */
+.poster-nav-btn {
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 10 !important;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 50% !important;
+    background: rgba(14, 11, 18, 0.78) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
+    color: #ffffff !important;
+    font-size: 22px !important;
+    line-height: 1 !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6) !important;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    user-select: none !important;
+    outline: none !important;
+}
+
+.poster-nav-btn.prev {
+    left: 8px !important;
+}
+
+.poster-nav-btn.next {
+    right: 8px !important;
+}
+
+.poster-nav-btn:hover {
+    background: var(--pink, #e91e63) !important;
+    border-color: transparent !important;
+    transform: translateY(-50%) scale(1.12) !important;
+    box-shadow: 0 0 16px rgba(233, 30, 99, 0.7) !important;
+    color: #ffffff !important;
+}
+
+.poster-nav-btn:active {
+    transform: translateY(-50%) scale(0.94) !important;
+}
+
+.poster-nav-btn:disabled {
+    opacity: 0.25 !important;
+    cursor: not-allowed !important;
+    pointer-events: none !important;
+}
+
+/* Tag Poster Resmi di Pojok Bawah */
+.poster-carousel-footer {
+    position: absolute !important;
+    bottom: 8px !important;
+    right: 8px !important;
+    z-index: 8 !important;
+    pointer-events: none !important;
 }
 
 .poster-tag {
-    position: absolute;
-    bottom: 8px;
-    right: 8px;
-    padding: 3px 8px;
-    border-radius: 6px;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: #cbd5e1;
-    font-size: 9px;
-    font-weight: 800;
-    letter-spacing: 0.8px;
+    display: inline-block !important;
+    padding: 3px 8px !important;
+    border-radius: 6px !important;
+    background: rgba(0, 0, 0, 0.78) !important;
+    backdrop-filter: blur(4px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+    color: #cbd5e1 !important;
+    font-size: 9.5px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.8px !important;
+    text-transform: uppercase !important;
+}
+
+/* Sembunyikan Keterangan Counter Angka */
+.poster-counter {
+    display: none !important;
 }
 
 .event-headline-wrap {

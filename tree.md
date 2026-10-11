@@ -21,7 +21,7 @@ Mirai-No-Webu/
 │   ├── kamus.html                  # Kamus interaktif pencarian Kana & Kanji
 │   ├── kanji.html                  # Ensiklopedia lengkap 2.136+ Jōyō Kanji
 │   ├── peringkat.html              # Papan peringkat (Leaderboard Rajio, Kehadiran, Prestasi)
-│   ├── lomba.html                  # Informasi 18 lomba & festival jejepangan (Carousel poster)
+│   ├── lomba.html                  # Informasi 18 lomba & festival jejepangan (Carousel poster 1-view & link kegiatan)
 │   ├── motivasi.html               # Kumpulan kata motivasi & mutiara bahasa Jepang
 │   ├── rekomendasi.html            # Rekomendasi media belajar (Anime, musik, dorama)
 │   ├── tomodachi.html              # Forum perkenalan & jejaring teman belajar
