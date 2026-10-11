@@ -943,6 +943,8 @@ function initKanaQuest() {
             levelGrid.dataset.script = script;
         }
 
+        const scriptLabel = script === "katakana" ? "Katakana" : "Hiragana";
+
         $("[data-level-grid]").innerHTML = allLevels.map((level) => {
             const unlocked = level.id <= saved[script].unlocked || saved[script].completed.includes(level.id);
             const completed = saved[script].completed.includes(level.id);
@@ -955,13 +957,15 @@ function initKanaQuest() {
                     </div>
                     <h3>${level.label}</h3>
                     <strong>${displayChars(level.chars)}</strong>
-                    <small>
-                        ${completed
-                            ? "Siap diulang kapan saja"
-                            : unlocked
-                                ? "Mulai dari sini"
-                                : `Selesaikan ${level.id - 1 < 11 ? `LV ${level.id - 1}` : "level sebelumnya"}`}
-                    </small>
+                    <div class="level-badges">
+                        <span class="level-badge level-badge--count">20 Soal</span>
+                        <span class="level-badge">${scriptLabel} → Romaji</span>
+                        <span class="level-badge">Romaji → ${scriptLabel}</span>
+                        <span class="level-badge">✍️ Goresan</span>
+                        <span class="level-badge">Kosakata</span>
+                        ${completed ? '<span class="level-badge level-badge--done">✓ Selesai</span>' : ""}
+                        ${!unlocked ? '<span class="level-badge level-badge--locked">🔒 Terkunci</span>' : ""}
+                    </div>
                     <button class="start-level" data-level="${level.id}" ${unlocked ? "" : "disabled"}>
                         ${completed ? "Latih Lagi →" : "Mulai Latihan →"}
                     </button>
