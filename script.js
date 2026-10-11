@@ -938,12 +938,17 @@ function initKanaQuest() {
         $("[data-script-progress]").textContent = `${progress}%`;
         $("[data-script-progress-bar]").style.width = `${progress}%`;
 
+        const levelGrid = $("[data-level-grid]");
+        if (levelGrid) {
+            levelGrid.dataset.script = script;
+        }
+
         $("[data-level-grid]").innerHTML = allLevels.map((level) => {
             const unlocked = level.id <= saved[script].unlocked || saved[script].completed.includes(level.id);
             const completed = saved[script].completed.includes(level.id);
 
             return `
-                <article class="level-card ${unlocked ? "is-unlocked" : "is-locked"} ${completed ? "is-completed" : ""}">
+                <article class="level-card level-card--${script} ${unlocked ? "is-unlocked" : "is-locked"} ${completed ? "is-completed" : ""}" data-script="${script}">
                     <div class="level-card-top">
                         <span>${completed ? "✓ Completed" : unlocked ? "🔓 Unlocked" : "🔒 Locked"}</span>
                         <b>LV ${level.id}</b>

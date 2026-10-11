@@ -186,6 +186,16 @@ Koleksi 20 stiker chibi resmi Genshin Impact untuk profil anggota, papan peringk
   - **Tata Letak Minim Space & Fokus Fitur Fungsional**: Dilarang menampilkan tombol "Ulangi Goresan" yang memakan ruang atau teks baris petunjuk panjang di bawah kanvas. Subtitle soal disembunyikan dan indikator langkah disederhanakan menjadi deretan *pills* bulat kompak (1, 2, 3) tepat di atas kanvas. Ukuran kanvas proporsional (`min(240px, 52vmin)`) sehingga seluruh antarmuka muat 1 layar penuh (*no-scroll viewport*) di HP maupun laptop *split-view*.
   - **Kanvas Bersih Tanpa Bantuan di Awal**: Kanvas hanya menampilkan kisi Genkouyoushi dan goresan langkah sebelumnya yang sudah selesai. Garis panduan putus-putus dan titik awal lingkaran **HANYA muncul saat pengguna membuat goresan keliru** untuk memandu gerakan yang benar. Begitu berhasil dan pindah ke langkah berikutnya, garis panduan kembali bersih.
   - **Toleransi Keakuratan Bersahabat (Menceng Dikit Tetap Benar)**: Validasi memeriksa kedekatan titik awal (≤18 unit), titik akhir (≤19 unit), panjang goresan (≥50%), cakupan kurva (coverage ≥60%), deviasi rata-rata (≤14.5 unit), deviasi maksimal (≤25 unit), dan arah progresif. Tetap menolak sentuhan/geseran mini tanpa bentuk dan arah terbalik, namun memberikan toleransi wajar untuk goyangan jari atau goresan yang sedikit melenceng (*menceng dikit ada koreksi benarnya*).
+- **Pola Motif Kartu & Tipografi Latihan Kana (`latihan.html`)**:
+  - **Pola Motif Kartu Level (Hiragana vs Katakana)**:
+    - Kartu Hiragana menggunakan motif Wagara ombak gelap (`images/mirai/background/w1b.jpeg`) via `.level-card--hiragana::after` / `[data-script="hiragana"] .level-card::after`.
+    - Kartu Katakana menggunakan motif awan Kumo gelap (`images/mirai/background/c1b.jpeg`) via `.level-card--katakana::after` / `[data-script="katakana"] .level-card::after`.
+    - Keduanya menggunakan `mix-blend-mode: screen` dengan opacity halus (0.045 hingga 0.08 saat hover) agar menyatu anggun di atas kartu tanpa mengganggu keterbacaan teks.
+  - **Pola Motif Kartu Latihan Gabungan (`.mode-card`)**:
+    - Kartu mode campuran menggunakan motif Wagara terang (`images/mirai/background/w1w.jpeg`) dengan `mix-blend-mode: multiply` dan opacity 0.10 (0.16 saat hover) pada tema terang, dan berganti ke `w1b.jpeg` pada tema gelap (`body.theme-dark`).
+  - **Tipografi Bersih & Bebas Teks Redundan**:
+    - Hero banner dilarang menampilkan eyebrow teks redundan "Kelas Dasar · Latihan Mandiri".
+    - Seksi Latihan Gabungan menggunakan judul utama Two-Tone yang kokoh: `<h2>Latihan <span>Gabungan</span></h2>` dengan kicker kategori `<p class="kicker">MODE TANTANGAN</p>`. Dilarang menampilkan teks usang seperti "Campur materi" maupun kalimat deskripsi panjang "Pilih cakupan latihan. Materi yang terkunci tidak akan masuk ke soal." agar layout tetap bersih, minimalis, dan seragam.
 
 ---
 

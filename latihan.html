@@ -748,6 +748,112 @@ body.theme-dark .stroke-hint-bar.is-success {
     border-color: #24553b;
     color: #6be3a1;
 }
+
+/* ==========================================================================
+   POLA PATTERN KARTU LATIHAN KANA (latihan.html)
+   1. Hiragana Level Cards: Wagara Gelap (w1b.jpeg)
+   2. Katakana Level Cards: Kumo Awan Gelap (c1b.jpeg)
+   3. Latihan Gabungan Mode Cards: Wagara Terang (w1w.jpeg)
+   ========================================================================== */
+
+/* Level Cards Base Setup */
+.level-card {
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.level-card > * {
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+.level-card::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background-size: 260px auto !important;
+    background-repeat: repeat !important;
+    background-position: top left !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
+    pointer-events: none !important;
+    transition: opacity 0.3s ease !important;
+    z-index: 1 !important;
+}
+
+.level-card:hover::after {
+    opacity: 0.08 !important;
+}
+
+/* Hiragana Level Card: Pola Ombak Wagara Gelap (w1b.jpeg) */
+.level-card--hiragana::after,
+[data-script="hiragana"] .level-card::after {
+    background-image: url("images/mirai/background/w1b.jpeg") !important;
+}
+
+/* Katakana Level Card: Pola Awan Kumo Gelap (c1b.jpeg) */
+.level-card--katakana::after,
+[data-script="katakana"] .level-card::after {
+    background-image: url("images/mirai/background/c1b.jpeg") !important;
+}
+
+/* Latihan Gabungan Mode Cards: Pola Ombak Wagara Terang (w1w.jpeg) */
+.mode-card {
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.mode-card > * {
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+.mode-card::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background-image: url("images/mirai/background/w1w.jpeg") !important;
+    background-size: 260px auto !important;
+    background-repeat: repeat !important;
+    background-position: top left !important;
+    opacity: 0.10 !important;
+    mix-blend-mode: multiply !important;
+    pointer-events: none !important;
+    transition: opacity 0.3s ease !important;
+    z-index: 1 !important;
+}
+
+.mode-card:hover::after {
+    opacity: 0.16 !important;
+}
+
+/* Mode Gelap untuk Latihan Gabungan Cards */
+body.theme-dark .mode-card::after {
+    background-image: url("images/mirai/background/w1b.jpeg") !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
+}
+
+body.theme-dark .mode-card:hover::after {
+    opacity: 0.08 !important;
+}
+
+/* Judul Latihan Gabungan Two-Tone */
+.mix-section .section-heading h2 {
+    font-size: clamp(32px, 4vw, 52px) !important;
+    font-weight: 800 !important;
+    color: var(--ink) !important;
+    letter-spacing: -0.04em !important;
+    margin: 6px 0 0 !important;
+}
+
+.mix-section .section-heading h2 span {
+    color: var(--pink, #e91e63) !important;
+}
+
+body.theme-dark .mix-section .section-heading h2 {
+    color: #ffffff !important;
+}
 </style>
 </head>
 <body class="learning-app page-latihan">
@@ -787,9 +893,9 @@ body.theme-dark .stroke-hint-bar.is-success {
         </div>
     </aside>
 <main class="quest-main">
-<section class="quest-hero"><span data-review-count hidden>0</span><span data-streak hidden>1</span><span data-user-level hidden>1</span><span data-total-xp hidden>0</span><span data-level-xp hidden>0</span><span data-xp-bar hidden></span><div><p class="eyebrow">Kelas Dasar · Latihan Mandiri</p><h1>Latihan<br><span>Kana</span></h1></div> </section>
+<section class="quest-hero"><span data-review-count hidden>0</span><span data-streak hidden>1</span><span data-user-level hidden>1</span><span data-total-xp hidden>0</span><span data-level-xp hidden>0</span><span data-xp-bar hidden></span><div><h1>Latihan<br><span>Kana</span></h1></div> </section>
 <section class="quest-section quest-overview"><div class="script-tabs" role="tablist"><button class="is-active" data-script="hiragana" role="tab">ひらがな <small>Hiragana</small></button><button data-script="katakana" role="tab">カタカナ <small>Katakana</small></button></div><div class="progress-heading"><div><p class="kicker">PILIH MATERI</p><h2 data-script-title>Hiragana <span>ひらがな</span></h2></div><div class="path-meter"><strong data-script-progress>0%</strong><div class="progress-track"><i data-script-progress-bar></i></div></div></div><div class="level-grid" data-level-grid></div></section>
-<section class="quest-section mix-section"><div class="section-heading"><div><p class="kicker">LATIHAN GABUNGAN</p><h2>Campur <span>materi</span></h2></div><p>Pilih cakupan latihan. Materi yang terkunci tidak akan masuk ke soal.</p></div><div class="mode-grid" data-mode-grid></div></section>
+<section class="quest-section mix-section"><div class="section-heading"><div><p class="kicker">MODE TANTANGAN</p><h2>Latihan <span>Gabungan</span></h2></div></div><div class="mode-grid" data-mode-grid></div></section>
 </main>
 
 <footer class="global-footer">
@@ -815,6 +921,6 @@ body.theme-dark .stroke-hint-bar.is-success {
 
 </div></section>
 
-<button class="to-top" type="button" aria-label="Kembali ke atas">↑</button><script src="js/stroke-data.js?v=20261011j"></script><script src="js/sora.js"></script><script src="js/main.js"></script><script src="script.js?v=20261011j"></script>
+<button class="to-top" type="button" aria-label="Kembali ke atas">↑</button><script src="js/stroke-data.js?v=20261011k"></script><script src="js/sora.js"></script><script src="js/main.js"></script><script src="script.js?v=20261011k"></script>
 </body>
 </html>
