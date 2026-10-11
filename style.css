@@ -18032,8 +18032,6 @@ body.theme-dark .lomba-detail-card:hover::after {
 .pagination-btn {
     min-width: 42px;
     height: 42px;
-    padding: 0 
-... [truncated for diff preview]
     padding: 0 16px;
     border-radius: 12px;
     background: #141418;
