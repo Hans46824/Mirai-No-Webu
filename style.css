@@ -17741,7 +17741,7 @@ body.page-lomba,
     position: relative !important;
     box-sizing: border-box !important;
     display: grid !important;
-    grid-template-columns: 1fr 240px !important; /* Info di Kiri, Poster Potrait Panjang di Kanan */
+    grid-template-columns: minmax(0, 1fr) 280px !important; /* Proporsi seimbang & estetik di laptop */
     border-radius: 20px !important;
     overflow: hidden !important;
     background: #111115 !important;
@@ -17749,7 +17749,8 @@ body.page-lomba,
     border: 1.5px solid rgba(255, 255, 255, 0.09) !important;
     box-shadow: 0 10px 32px rgba(0, 0, 0, 0.55) !important;
     transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease !important;
-    min-height: 260px;
+    min-height: 360px !important;
+    height: auto !important;
 }
 
 .event-card.is-hidden,
@@ -17763,16 +17764,18 @@ body.page-lomba,
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(var(--event-border-rgb, 255, 79, 145), 0.2) !important;
 }
 
-/* SISI KIRI: INFORMASI EVENT (MINIM SPACE) */
+/* SISI KIRI: INFORMASI EVENT (TERTATA RAPI & ELEGAN) */
 .event-card-info {
     position: relative !important;
     z-index: 2 !important;
-    padding: 20px 24px !important;
+    padding: 22px 26px !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: space-between !important;
-    gap: 10px !important;
+    justify-content: flex-start !important;
+    gap: 12px !important;
     min-width: 0 !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
 }
 
 .event-card-header {
@@ -17812,82 +17815,6 @@ body.page-lomba,
     border: 1px solid rgba(168, 85, 247, 0.45) !important;
 }
 
-/* Pagination Nav */
-.lomba-pagination,
-.rekomendasi-pagination {
-    max-width: 1200px;
-    margin: 44px auto 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
-.pagination-btn {
-    min-width: 42px;
-    height: 42px;
-    padding: 0 
-... [truncated for diff preview]
-    padding: 0 16px;
-    border-radius: 12px;
-    background: #141418;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    color: #cbd5e1;
-    font-size: 13.5px;
-    font-weight: 700;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-}
-
-.pagination-btn:hover:not(:disabled) {
-    color: #ffffff;
-    background: #1e1e24;
-    border-color: rgba(233, 30, 99, 0.5);
-    transform: translateY(-2px);
-}
-
-.pagination-btn.active {
-    background: var(--pink, #e91e63);
-    color: #ffffff;
-    border-color: var(--pink, #e91e63);
-    box-shadow: 0 4px 16px rgba(233, 30, 99, 0.45);
-}
-
-.pagination-btn:disabled {
-    opacity: 0.35;
-    cursor: not-allowed;
-    transform: none;
-}
-
-.lomba-empty-state {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 64px 24px;
-    background: #111115;
-    border: 1px dashed rgba(255, 255, 255, 0.15);
-    border-radius: 20px;
-    color: #94a3b8;
-}
-.lomba-empty-state .empty-icon {
-    font-size: 44px;
-    margin-bottom: 12px;
-    display: block;
-}
-.lomba-empty-state h3 {
-    color: #ffffff;
-    font-size: 18px;
-    margin: 0 0 8px 0;
-}
-.lomba-empty-state p {
-    font-size: 14px;
-    margin: 0;
-    color: #94a3b8;
-}
-
 .event-level-badge {
     padding: 4px 12px !important;
     border-radius: 12px !important;
@@ -17908,81 +17835,56 @@ body.page-lomba,
     color: #e2e8f0 !important;
 }
 
-/* SISI KANAN: POSTER POTRAIT PANJANG (STIKER) */
-.event-card-poster {
-    position: relative !important;
-    z-index: 2 !important;
-    width: 100% !important;
-    height: 100% !important;
-    min-height: 260px !important;
-    background: #09090d !important;
-    overflow: hidden !important;
-    border-left: 1px solid rgba(255, 255, 255, 0.08) !important;
-}
-
-.event-poster-img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    object-position: center center !important;
-    display: block !important;
-    transition: transform 0.35s ease !important;
-}
-
-.event-card:hover .event-poster-img {
-    transform: scale(1.05) !important;
-}
-
-.poster-tag {
-    position: absolute;
-    bottom: 8px;
-    right: 8px;
-    padding: 3px 8px;
-    border-radius: 6px;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: #cbd5e1;
-    font-size: 9px;
-    font-weight: 800;
-    letter-spacing: 0.8px;
-}
-
 .event-headline-wrap {
     display: flex !important;
     flex-direction: column !important;
-    gap: 5px !important;
+    gap: 6px !important;
 }
 
 .event-title {
-    font-size: 1.22rem !important;
+    font-size: 1.25rem !important;
     font-weight: 800 !important;
     color: #ffffff !important;
     margin: 0 !important;
-    line-height: 1.35 !important;
+    line-height: 1.34 !important;
+    letter-spacing: -0.2px !important;
 }
 
 .event-organizer-tag {
     display: inline-flex !important;
     align-items: center !important;
     gap: 6px !important;
-    padding: 3px 10px !important;
+    padding: 4px 10px !important;
     border-radius: 8px !important;
-    background: rgba(255, 79, 145, 0.1) !important;
-    border: 1px solid rgba(255, 79, 145, 0.22) !important;
-    color: #ff8fb7 !important;
-    font-size: 11px !important;
+    background: rgba(255, 79, 145, 0.12) !important;
+    border: 1px solid rgba(255, 79, 145, 0.28) !important;
+    color: #ff9dc0 !important;
+    font-size: 11.5px !important;
     font-weight: 700 !important;
     width: fit-content !important;
     margin: 0 !important;
 }
 
-/* META GRID: 2 KOLOM RINGKAS (MINIM SPACE) */
+/* DESKRIPSI EVENT / CAPTION PENJELAS */
+.event-desc {
+    font-size: 13px !important;
+    line-height: 1.55 !important;
+    color: #cbd5e1 !important;
+    margin: 0 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+/* META GRID: 2 KOLOM RAPI & COMPACT */
 .event-meta-grid {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 8px 12px !important;
-    margin: 0 !important;
+    margin-top: auto !important; /* Dorong ke bawah dengan luwes */
+    margin-bottom: 2px !important;
 }
 
 .meta-item {
@@ -17991,9 +17893,14 @@ body.page-lomba,
     gap: 10px !important;
     padding: 7px 12px !important;
     border-radius: 10px !important;
-    background: rgba(255, 255, 255, 0.035) !important;
-    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.07) !important;
     min-width: 0 !important;
+    transition: background 0.2s ease, border-color 0.2s ease !important;
+}
+.meta-item:hover {
+    background: rgba(255, 255, 255, 0.07) !important;
+    border-color: rgba(255, 255, 255, 0.14) !important;
 }
 
 .meta-icon {
@@ -18027,32 +17934,190 @@ body.page-lomba,
     text-overflow: ellipsis !important;
 }
 
-/* ACTIONS: HANYA TOMBOL JUKNIS / INFO ACARA */
+/* ACTIONS: TOMBOL JUKNIS / KONTAK */
 .event-card-actions {
     display: flex !important;
     align-items: center !important;
-    gap: 10px !important;
-    margin-top: 4px !important;
+    gap: 12px !important;
+    margin-top: 2px !important;
 }
 
 .btn-juknis {
     width: 100% !important;
     max-width: 320px !important;
-    padding: 9px 18px !important;
-    border-radius: 11px !important;
+    padding: 10px 18px !important;
+    border-radius: 12px !important;
     background: linear-gradient(135deg, #ff4f91 0%, #e91e63 100%) !important;
-    border: none !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
     color: #ffffff !important;
     font-size: 12px !important;
     font-weight: 800 !important;
     cursor: pointer !important;
     box-shadow: 0 4px 14px rgba(233, 30, 99, 0.35) !important;
     transition: all 0.2s ease !important;
+    text-align: center !important;
 }
 
 .btn-juknis:hover {
     transform: translateY(-2px) !important;
     box-shadow: 0 6px 20px rgba(233, 30, 99, 0.5) !important;
+}
+
+/* SISI KANAN: POSTER CAROUSEL (HEMAT SPACE, SLIDE DENGAN JARI & TOMBOL) */
+.event-card-poster {
+    position: relative !important;
+    z-index: 2 !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    background: #09090d !important;
+    overflow: hidden !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.08) !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.event-poster-carousel {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    flex: 1 1 0% !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.poster-slides-track {
+    display: flex !important;
+    flex-direction: row !important;
+    width: 100% !important;
+    height: 100% !important;
+    flex: 1 1 0% !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-snap-type: x mandatory !important;
+    scroll-behavior: smooth !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    cursor: grab !important;
+}
+.poster-slides-track::-webkit-scrollbar {
+    display: none !important;
+}
+.poster-slides-track:active {
+    cursor: grabbing !important;
+}
+
+.poster-slide {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    height: 100% !important;
+    scroll-snap-align: start !important;
+    scroll-snap-stop: always !important;
+    position: relative !important;
+    overflow: hidden !important;
+    user-select: none !important;
+    -webkit-user-drag: none !important;
+}
+
+.event-poster-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center top !important;
+    display: block !important;
+    transition: transform 0.35s ease !important;
+    cursor: zoom-in !important;
+}
+.poster-slide:hover .event-poster-img {
+    transform: scale(1.04) !important;
+}
+
+/* TOMBOL GESER KIRI DAN KANAN */
+.poster-nav-btn {
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 6 !important;
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    background: rgba(12, 12, 18, 0.78) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    color: #ffffff !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    font-size: 19px !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6) !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    padding: 0 !important;
+    user-select: none !important;
+}
+.poster-nav-btn.prev {
+    left: 8px !important;
+}
+.poster-nav-btn.next {
+    right: 8px !important;
+}
+.poster-nav-btn:hover:not(:disabled) {
+    background: var(--pink, #e91e63) !important;
+    border-color: var(--pink, #e91e63) !important;
+    transform: translateY(-50%) scale(1.14) !important;
+    box-shadow: 0 4px 18px rgba(233, 30, 99, 0.6) !important;
+}
+.poster-nav-btn:disabled {
+    opacity: 0.2 !important;
+    cursor: not-allowed !important;
+    pointer-events: none !important;
+}
+
+/* FOOTER POSTER (TAG & JUMLAH HALAMAN) */
+.poster-carousel-footer {
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 5 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 12px 10px 8px 10px !important;
+    background: linear-gradient(180deg, transparent 0%, rgba(9, 9, 13, 0.94) 100%) !important;
+    pointer-events: none !important;
+}
+.poster-tag {
+    position: static !important;
+    padding: 3px 8px !important;
+    border-radius: 6px !important;
+    background: rgba(0, 0, 0, 0.75) !important;
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+    color: #e2e8f0 !important;
+    font-size: 9px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.8px !important;
+    text-transform: uppercase !important;
+}
+.poster-counter {
+    padding: 3px 8px !important;
+    border-radius: 6px !important;
+    background: rgba(0, 0, 0, 0.75) !important;
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+    color: #ffffff !important;
+    font-size: 9.5px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.5px !important;
 }
 
 /* MODAL JUKNIS */
@@ -18237,7 +18302,9 @@ body.page-lomba,
 
 @media (max-width: 820px) {
     .event-card {
-        grid-template-columns: 1fr 180px !important;
+        grid-template-columns: minmax(0, 1fr) 220px !important;
+        min-height: auto !important;
+        height: auto !important;
     }
     .event-meta-grid {
         grid-template-columns: 1fr !important;
@@ -18247,10 +18314,12 @@ body.page-lomba,
 @media (max-width: 600px) {
     .event-card {
         grid-template-columns: 1fr !important;
+        min-height: auto !important;
+        height: auto !important;
     }
     .event-card-poster {
-        height: 210px !important;
-        min-height: 210px !important;
+        height: 250px !important;
+        min-height: 250px !important;
         border-left: none !important;
         border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
         order: -1 !important;
