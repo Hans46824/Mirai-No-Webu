@@ -157,8 +157,13 @@ Koleksi 20 stiker chibi resmi Genshin Impact untuk profil anggota, papan peringk
 
 ### J. Aturan Spasi dan Tata Letak (Layout)
 - **Anti Ruang Hampa**: Di layar laptop, kartu tidak boleh menyisakan ruang kosong hitam atau putih yang melompong di tengah antara judul dan tombol bawah. Susun elemen secara padat dan seimbang.
-- **Pemusatan Kartu Ganjil**: Jika jumlah kartu dalam satu seksi berjumlah ganjil (seperti 11 kartu pengurus Kabinet Clover), kartu pada baris terakhir wajib diletakkan tepat di posisi tengah (rata tengah), tidak boleh miring sendirian di sebelah kiri.
-- **Format Nama Bersih**: Nama anggota atau pengurus ditulis rapi tanpa embel-embel keterangan kelas jika diminta.
+- **Pemusatan Kartu Ganjil**: Jika jumlah kartu dalam satu seksi berjumlah ganjil (seperti 11 kartu pengurus Kabinet Clover), kartu pada baris terakhir diletakkan tepat di posisi tengah (rata tengah), tidak boleh miring sendirian di sebelah kiri.
+- **Format Nama Bersih & Tunggal Jabatan**:
+  - Jabatan pengurus **hanya muncul 1 kali saja** di atas nama pengurus (`.member-label`). Dilarang menduplikasi nama jabatan di bawah nama pengurus.
+  - Nama anggota atau pengurus ditulis rapi tanpa embel-embel keterangan kelas jika diminta.
+- **Scroll Vertikal Kepengurusan (Anti Gap Space Slider)**:
+  - Pada slider multi-periode kepengurusan (Kabinet Sora 8 kartu vs Kabinet Clover 11 kartu), tinggi area kartu dikunci pas setinggi 2 baris kartu (tinggi Kabinet Sora).
+  - Kabinet Clover (11 orang) dibuat *scrollable* atas-bawah (vertikal) di dalam gridnya, sehingga 3 orang di baris ketiga dapat dilihat dengan menggulir ke bawah tanpa membuat Slide 1 melar dan menyisakan ruang kosong putih aneh di bawahnya.
 
 ---
 

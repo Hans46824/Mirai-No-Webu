@@ -364,7 +364,24 @@ function setupManagementSlider() {
         }, 60);
     }, { passive: true });
 
+    function syncManagementGridHeight() {
+        const soraSlide = track.querySelector('.mgmt-slide[data-slide-index="0"]');
+        const cloverGrid = track.querySelector('.mgmt-slide[data-slide-index="1"] .management-grid--11');
+        if (soraSlide && cloverGrid) {
+            const soraGrid = soraSlide.querySelector('.management-grid');
+            if (soraGrid) {
+                const soraHeight = soraGrid.getBoundingClientRect().height || soraGrid.offsetHeight;
+                if (soraHeight > 100) {
+                    cloverGrid.style.maxHeight = `${Math.round(soraHeight)}px`;
+                }
+            }
+        }
+    }
+
     updateState(0);
+    syncManagementGridHeight();
+    window.addEventListener("resize", syncManagementGridHeight, { passive: true });
+    window.addEventListener("load", syncManagementGridHeight, { passive: true });
 }
 
 function setupImageLightbox() {

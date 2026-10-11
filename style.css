@@ -8334,6 +8334,7 @@ body.theme-dark .mission-content p {
 }
 .mgmt-slider-track {
     display: flex;
+    align-items: flex-start;
     width: 100%;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
@@ -8430,13 +8431,42 @@ body.theme-dark .mission-content p {
     color: var(--muted);
 }
 
-/* Khusus Grid Kepengurusan 11 Slot (Centering 3 slot di baris terakhir) */
+/* Khusus Grid Kepengurusan 11 Slot: Scrollable vertikal agar tidak menyisakan gap space kosong pada slide pertama */
 .management-grid.management-grid--11 {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 16px;
+    max-height: 490px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 6px;
+    padding-bottom: 12px;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--pink, #e91e63) rgba(255, 101, 155, 0.12);
 }
+
+.management-grid.management-grid--11::-webkit-scrollbar {
+    width: 6px;
+}
+
+.management-grid.management-grid--11::-webkit-scrollbar-track {
+    background: rgba(255, 101, 155, 0.08);
+    border-radius: 10px;
+}
+
+.management-grid.management-grid--11::-webkit-scrollbar-thumb {
+    background: var(--pink, #e91e63);
+    border-radius: 10px;
+}
+
+.management-grid.management-grid--11::-webkit-scrollbar-thumb:hover {
+    background: #ff4f91;
+}
+
 .management-grid.management-grid--11 .management-card {
     flex: 0 0 calc((100% - 48px) / 4);
     max-width: calc((100% - 48px) / 4);
