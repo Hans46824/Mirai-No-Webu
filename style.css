@@ -9479,12 +9479,12 @@ body:not(.dark-mode):not(.theme-dark) main > section:nth-of-type(odd):not(.home-
 /* Kelas Ukuran Pena Dinamis (Tipis / Tebal) */
 .stroke-thin svg path,
 .stroke-thin path {
-    stroke-width: 1.8px !important;
+    stroke-width: 2.2px !important;
 }
 
 .stroke-thick svg path,
 .stroke-thick path {
-    stroke-width: 3.5px !important;
+    stroke-width: 4.2px !important;
 }
 
 /* ==========================================================================
@@ -9518,11 +9518,11 @@ svg .stroke-guide-path {
 }
 
 .stroke-thin .stroke-guide-path {
-    stroke-width: 1.8px !important;
+    stroke-width: 2.2px !important;
 }
 
 .stroke-thick .stroke-guide-path {
-    stroke-width: 3px !important;
+    stroke-width: 3.6px !important;
 }
 
 body.theme-dark .stroke-guide-path,

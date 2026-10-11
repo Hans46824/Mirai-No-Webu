@@ -38,7 +38,7 @@ window.togglePenSize = function togglePenSize() {
 try {
     for (let i = localStorage.length - 1; i >= 0; i--) {
         const k = localStorage.key(i);
-        if (k && (k.startsWith("mirai_stroke_v1_") || k.startsWith("mirai_stroke_v2_"))) {
+        if (k && (k.startsWith("mirai_stroke_v1_") || k.startsWith("mirai_stroke_v2_") || k.startsWith("mirai_stroke_v3_"))) {
             localStorage.removeItem(k);
         }
     }

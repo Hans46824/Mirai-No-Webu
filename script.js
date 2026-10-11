@@ -1212,9 +1212,9 @@ function initKanaQuest() {
 
             // Toleransi ramah sentuhan layar: cukup akurat namun menoleransi goyangan & menceng wajar
             const isShortStroke = refLen < 22;
-            const startTol = isShortStroke ? Math.max(12.0, refLen * 0.80) : 18.0;
-            const endTol = isShortStroke ? Math.max(13.0, refLen * 0.85) : 19.0;
-            const minLenRatio = isShortStroke ? 0.45 : 0.50;
+            const startTol = isShortStroke ? Math.max(13.0, refLen * 0.85) : 21.5;
+            const endTol = isShortStroke ? Math.max(14.0, refLen * 0.90) : 22.5;
+            const minLenRatio = isShortStroke ? 0.40 : 0.44;
 
             // 1. Kedekatan titik awal
             const startCandidates = userPoints.slice(0, Math.min(4, userPoints.length));
@@ -1251,7 +1251,7 @@ function initKanaQuest() {
             }
 
             // 4. Kelengkapan kurva (Coverage)
-            const matchThresh = isShortStroke ? Math.max(11.0, refLen * 0.75) : 17.0;
+            const matchThresh = isShortStroke ? Math.max(12.0, refLen * 0.80) : 19.5;
             let coveredCount = 0;
             refPoints.forEach((r) => {
                 let minD = Infinity;
@@ -1263,7 +1263,7 @@ function initKanaQuest() {
                     coveredCount++;
                 }
             });
-            const reqCoverage = isShortStroke ? 0.52 : 0.60;
+            const reqCoverage = isShortStroke ? 0.46 : 0.52;
             if ((coveredCount / refPoints.length) < reqCoverage) {
                 return { isValid: false, reason: "low-coverage" };
             }
@@ -1287,8 +1287,8 @@ function initKanaQuest() {
 
             const meanDist = userDists.reduce((sum, d) => sum + d, 0) / userDists.length;
             const maxDist = Math.max(...userDists);
-            const maxAllowedMean = isShortStroke ? 11.0 : 14.5;
-            const maxAllowedPeak = isShortStroke ? 18.0 : 25.0;
+            const maxAllowedMean = isShortStroke ? 12.8 : 16.8;
+            const maxAllowedPeak = isShortStroke ? 21.0 : 29.5;
 
             if (meanDist > maxAllowedMean) {
                 return { isValid: false, reason: "mean-deviation" };
@@ -1302,7 +1302,7 @@ function initKanaQuest() {
                 const nQ = Math.max(1, Math.floor(userMatchedIdx.length / 4));
                 const firstQAvg = userMatchedIdx.slice(0, nQ).reduce((s, v) => s + v, 0) / nQ;
                 const lastQAvg = userMatchedIdx.slice(-nQ).reduce((s, v) => s + v, 0) / nQ;
-                if (lastQAvg <= firstQAvg || (lastQAvg - firstQAvg) < refPoints.length * 0.22) {
+                if (lastQAvg <= firstQAvg || (lastQAvg - firstQAvg) < refPoints.length * 0.15) {
                     return { isValid: false, reason: "wrong-direction" };
                 }
             }
@@ -1420,7 +1420,7 @@ function initKanaQuest() {
             ctx.beginPath();
             ctx.moveTo(pt.px, pt.py);
             const rect = canvas.getBoundingClientRect();
-            ctx.lineWidth = 14 * (rect.width / 109);
+            ctx.lineWidth = 17 * (rect.width / 109);
             ctx.lineCap = "round";
             ctx.lineJoin = "round";
             ctx.strokeStyle = "#e91e63";
