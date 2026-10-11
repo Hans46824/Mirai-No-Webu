@@ -18162,7 +18162,7 @@ body.theme-dark .lomba-detail-card:hover::after {
     scroll-snap-stop: always !important;
     position: relative !important;
     overflow: hidden !important;
-    cursor: pointer !important;
+    cursor: default !important;
     background: #09090d !important;
 }
 
@@ -18178,7 +18178,7 @@ body.theme-dark .lomba-detail-card:hover::after {
 }
 
 .poster-slide:hover .event-poster-img {
-    transform: scale(1.04) !important;
+    transform: scale(1.03) !important;
 }
 
 /* TOMBOL NAVIGASI DI TENGAH SAMPING KIRI & KANAN POSTER */
@@ -18234,31 +18234,12 @@ body.theme-dark .lomba-detail-card:hover::after {
     pointer-events: none !important;
 }
 
-/* Tag Poster Resmi di Pojok Bawah */
-.poster-carousel-footer {
-    position: absolute !important;
-    bottom: 8px !important;
-    right: 8px !important;
-    z-index: 8 !important;
-    pointer-events: none !important;
-}
-
-.poster-tag {
-    display: inline-block !important;
-    padding: 3px 8px !important;
-    border-radius: 6px !important;
-    background: rgba(0, 0, 0, 0.78) !important;
-    backdrop-filter: blur(4px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.16) !important;
-    color: #cbd5e1 !important;
-    font-size: 9.5px !important;
-    font-weight: 800 !important;
-    letter-spacing: 0.8px !important;
-    text-transform: uppercase !important;
-}
-
-/* Sembunyikan Keterangan Counter Angka */
-.poster-counter {
+/* Sembunyikan Keterangan Tag Poster & Counter Angka */
+.poster-carousel-footer,
+.poster-tag,
+.poster-counter,
+#posterLightbox,
+.poster-lightbox-backdrop {
     display: none !important;
 }
 
