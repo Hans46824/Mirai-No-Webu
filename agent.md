@@ -105,7 +105,7 @@ Koleksi 20 stiker chibi resmi Genshin Impact untuk profil anggota, papan peringk
   1. **Beranda**: Menggunakan Pola Awan Kumo — **c1b.jpeg** (kartu seksi gelap) & **c1w.jpeg** (kartu seksi terang).
   2. **Kelas**: Menggunakan Pola Ombak Wagara Seigaiha — **w1b.jpeg** (kartu seksi gelap) & **w1w.jpeg** (kartu seksi terang).
   3. **Kamus**: Menggunakan Pola Awan Kumo — **c1b.jpeg** (kartu seksi gelap) & **c1w.jpeg** (kartu seksi terang).
-  4. **Kegiatan & Fasilitas**: Menggunakan Pola Ombak Wagara Seigaiha — **w1b.jpeg** (kartu divisi & seksi fasilitas kelas/gelap) & **w1w.jpeg** (kartu program kerja/terang).
+  4. **Divisi, Program Kerja, & Fasilitas**: Menggunakan Pola Ombak Wagara Seigaiha — **w1b.jpeg** (kartu divisi & seksi fasilitas kelas/gelap) & **w1w.jpeg** (kartu program kerja/terang).
   5. **Rekomendasi**: Menggunakan Pola Awan Kumo — **c1b.jpeg** (kartu seksi gelap) & **c1w.jpeg** (kartu seksi terang).
   6. **Papan Peringkat**: Menggunakan Pola Ombak Wagara Seigaiha — **w1b.jpeg** (kartu podium & tabel gelap) & **w1w.jpeg** (kartu terang).
   7. **Lomba & Acara**: Menggunakan Pola Awan Kumo — **c1b.jpeg** (kartu acara gelap) & **c1w.jpeg** (kartu detail terang).
@@ -134,6 +134,7 @@ Koleksi 20 stiker chibi resmi Genshin Impact untuk profil anggota, papan peringk
 - Gunakan gaya Two-Tone: Teks judul berwarna putih atau hitam dipadukan dengan kata kunci penting berwarna pink sakura di dalam tag span.
 - Judul harus berbobot tegas (font-weight 800 ke atas) dan proporsional di layar laptop maupun ponsel.
 - Dilarang memakai penomoran angka berawalan nol (seperti 01 atau 02) dan dilarang memakai garis miring (/) yang kaku.
+- **Judul Bersih Mandiri**: Pada seksi spesifik seperti Fasilitas, judul dibuat mandiri tanpa kicker/sub-judul atau deskripsi bertele-tele yang membuang ruang.
 
 ### G. Aturan Deskripsi dan Teks Pendukung
 - Deskripsi harus padat dan ringkas (cukup 2 sampai 3 baris kalimat).
@@ -158,6 +159,9 @@ Koleksi 20 stiker chibi resmi Genshin Impact untuk profil anggota, papan peringk
 ### J. Aturan Spasi dan Tata Letak (Layout)
 - **Anti Ruang Hampa**: Di layar laptop, kartu tidak boleh menyisakan ruang kosong hitam atau putih yang melompong di tengah antara judul dan tombol bawah. Susun elemen secara padat dan seimbang.
 - **Pemusatan Kartu Ganjil**: Jika jumlah kartu dalam satu seksi berjumlah ganjil (seperti 11 kartu pengurus Kabinet Clover), kartu pada baris terakhir diletakkan tepat di posisi tengah (rata tengah), tidak boleh miring sendirian di sebelah kiri.
+- **Keseragaman Kartu Program Kerja & Divisi**: Ukuran kartu Program Kerja (tinggi, padding, border-radius, font judul, dan posisi tombol) wajib disamaratakan persis dengan kartu Divisi agar tampilan sejajar dan rapi.
+- **Format Kartu Fasilitas Landscape**: Fasilitas Mirai no Hana menggunakan format kartu Landscape memanjang (2 kartu: Ruang Pertemuan dan Mirai no Webu). Deskripsi kartu Mirai no Webu diselaraskan dengan teks Beranda, dan tombol aksi di bawah digantikan oleh badge status resmi.
+- **Grid Penelusuran Beranda (6 Kartu)**: Menu kartu beranda menyusun 6 kartu seimbang (1. Struktur Divisi, 2. Program Kerja, 3. Fasilitas, 4. Rekomendasi, 5. Papan Peringkat, 6. Lomba & Acara).
 - **Format Nama Bersih & Tunggal Jabatan**:
   - Jabatan pengurus **hanya muncul 1 kali saja** di atas nama pengurus (`.member-label`). Dilarang menduplikasi nama jabatan di bawah nama pengurus.
   - Nama anggota atau pengurus ditulis rapi tanpa embel-embel keterangan kelas jika diminta.

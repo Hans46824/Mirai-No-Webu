@@ -6880,21 +6880,24 @@ body.theme-dark .program-section .copy {
 }
 .program-card {
     width: 100%;
-    min-height: 280px;
-    padding: 28px 20px 24px;
-    background: var(--white);
+    height: 100%;
+    min-height: 310px;
+    padding: 28px 22px 24px;
+    background: #fff;
     border: 1px solid var(--pink-border);
-    border-radius: 12px;
+    border-radius: 14px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    box-shadow: 0 6px 20px rgba(72, 32, 52, 0.05);
-    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+    box-shadow: 0 8px 24px rgba(72, 32, 52, 0.05);
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    box-sizing: border-box;
 }
 .program-card-link:hover .program-card {
+    transform: translateY(-6px);
     border-color: var(--pink);
-    box-shadow: 0 16px 32px rgba(233, 30, 99, 0.2);
+    box-shadow: 0 18px 32px rgba(233, 30, 99, 0.2);
 }
 .program-card img {
     display: block;
@@ -6904,8 +6907,9 @@ body.theme-dark .program-section .copy {
     padding: 0;
     object-fit: cover;
     background: #fff;
+    border: 2px solid rgba(255, 101, 155, 0.4);
     border-radius: 50%;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 .program-card-link:hover .program-card img {
@@ -6913,25 +6917,28 @@ body.theme-dark .program-section .copy {
     box-shadow: 0 10px 26px rgba(233, 30, 99, 0.35);
 }
 .program-card .card-number {
-    margin: 0 0 8px;
+    margin: 0 auto 8px;
     color: var(--pink);
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 1.6px;
     text-transform: uppercase;
+    text-align: center;
 }
 .program-card h3 {
-    margin: 0 0 10px;
-    font-size: 19px;
+    margin: 0 auto 10px;
+    font-size: 20px;
     color: var(--ink);
-    font-weight: 700;
+    font-weight: 800;
+    text-align: center;
     line-height: 1.3;
 }
 .program-card .program-desc {
-    margin: 0 0 20px;
+    margin: 0 auto 20px;
     color: var(--muted);
-    font-size: 13px;
-    line-height: 1.6;
+    font-size: 13.5px;
+    line-height: 1.65;
+    text-align: center;
     flex-grow: 1;
 }
 body.dark-mode .program-card,
@@ -6952,16 +6959,19 @@ body.theme-dark .program-card .program-desc {
     align-items: center !important;
     justify-content: center !important;
     margin-top: auto;
-    padding: 10px 20px !important;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px 22px !important;
     font-size: 13px !important;
     font-weight: 700 !important;
     color: #ffffff !important;
     background-color: var(--pink, #e91e63) !important;
     border: none !important;
     border-radius: 6px !important;
-    letter-spacing: 0.5px;
+    gap: 6px;
     transition: all 0.25s ease !important;
     text-decoration: none !important;
+    white-space: nowrap;
     box-shadow: 0 4px 14px rgba(233, 30, 99, 0.3) !important;
 }
 .program-card-link:hover .program-btn {
@@ -18892,26 +18902,15 @@ body.theme-dark .page-lomba .lomba-detail-card:hover::after {
 }
 
 .facility-grid {
-    display: grid !important;
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-    gap: 22px !important;
-    max-width: 1200px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 24px !important;
+    max-width: 1100px !important;
     margin: 0 auto !important;
+    width: 100% !important;
 }
 
-@media (max-width: 1040px) {
-    .facility-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    }
-}
-
-@media (max-width: 680px) {
-    .facility-grid {
-        grid-template-columns: 1fr !important;
-    }
-}
-
-/* KARTU FASILITAS */
+/* KARTU FASILITAS (FORMAT LANDSCAPE) */
 .facility-card {
     position: relative !important;
     overflow: hidden !important;
@@ -18920,16 +18919,17 @@ body.theme-dark .page-lomba .lomba-detail-card:hover::after {
     flex-direction: column !important;
     background: linear-gradient(165deg, #1c1523 0%, #130f18 100%) !important;
     border: 1.5px solid rgba(255, 101, 155, 0.22) !important;
-    border-radius: 20px !important;
-    padding: 26px 24px 22px !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45) !important;
+    border-radius: 24px !important;
+    padding: 34px 38px 28px !important;
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.45) !important;
     transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease !important;
+    width: 100% !important;
 }
 
 .facility-card:hover {
-    transform: translateY(-5px) !important;
+    transform: translateY(-4px) !important;
     border-color: var(--pink, #e91e63) !important;
-    box-shadow: 0 20px 44px rgba(233, 30, 99, 0.24), 0 4px 14px rgba(0, 0, 0, 0.6) !important;
+    box-shadow: 0 20px 44px rgba(233, 30, 99, 0.22), 0 6px 16px rgba(0, 0, 0, 0.6) !important;
 }
 
 /* Garis Aksen Atas Slide */
@@ -18951,7 +18951,7 @@ body.theme-dark .page-lomba .lomba-detail-card:hover::after {
     transform: scaleX(1) !important;
 }
 
-/* Pattern Wagara Gelap w1b (Menu Genap 4 - Kegiatan & Fasilitas) */
+/* Pattern Wagara Gelap w1b (Menu Genap 4) */
 .facility-card::after {
     content: "" !important;
     position: absolute !important;
@@ -18983,22 +18983,23 @@ body.theme-dark .page-lomba .lomba-detail-card:hover::after {
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
-    gap: 10px !important;
-    margin-bottom: 14px !important;
+    gap: 12px !important;
+    margin-bottom: 16px !important;
+    flex-wrap: wrap !important;
 }
 
 .facility-badge {
     display: inline-flex !important;
     align-items: center !important;
     gap: 7px !important;
-    padding: 5px 12px !important;
+    padding: 5px 14px !important;
     border-radius: 16px !important;
     background: rgba(233, 30, 99, 0.16) !important;
     border: 1px solid rgba(233, 30, 99, 0.35) !important;
     color: #ff659b !important;
-    font-size: 10.5px !important;
+    font-size: 11px !important;
     font-weight: 800 !important;
-    letter-spacing: 1.2px !important;
+    letter-spacing: 1px !important;
     text-transform: uppercase !important;
 }
 
@@ -19012,23 +19013,24 @@ body.theme-dark .page-lomba .lomba-detail-card:hover::after {
 }
 
 .facility-room-tag {
-    font-size: 10.5px !important;
+    font-size: 11px !important;
     font-weight: 700 !important;
     color: #c9bed0 !important;
     background: rgba(255, 255, 255, 0.06) !important;
     border: 1px solid rgba(255, 255, 255, 0.12) !important;
-    padding: 4px 10px !important;
+    padding: 4px 12px !important;
     border-radius: 12px !important;
     white-space: nowrap !important;
 }
 
 /* Judul & Deskripsi */
 .facility-card-body h3 {
-    margin: 0 0 8px 0 !important;
-    font-size: 19px !important;
+    margin: 0 0 10px 0 !important;
+    font-size: clamp(22px, 2.4vw, 28px) !important;
     color: #ffffff !important;
-    font-weight: 800 !important;
-    line-height: 1.32 !important;
+    font-weight: 900 !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.3px !important;
 }
 
 .facility-card-body h3 span {
@@ -19036,131 +19038,106 @@ body.theme-dark .page-lomba .lomba-detail-card:hover::after {
 }
 
 .facility-card-desc {
-    font-size: 13px !important;
-    line-height: 1.65 !important;
-    color: #cbd5e1 !important;
-    margin: 0 0 16px 0 !important;
-}
-
-/* Grid Fasilitas / Spesifikasi Mini (2 Kolom Compact) */
-.facility-feature-list {
-    display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 8px !important;
-    margin-bottom: 18px !important;
-}
-
-@media (max-width: 420px) {
-    .facility-feature-list {
-        grid-template-columns: 1fr !important;
-    }
-}
-
-.facility-feature-item {
-    display: flex !important;
-    align-items: flex-start !important;
-    gap: 8px !important;
-    padding: 7px 9px !important;
-    background: rgba(255, 255, 255, 0.035) !important;
-    border: 1px solid rgba(255, 255, 255, 0.07) !important;
-    border-radius: 10px !important;
-    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease !important;
-    box-sizing: border-box !important;
-}
-
-.facility-feature-item:hover {
-    background: rgba(233, 30, 99, 0.12) !important;
-    border-color: rgba(255, 101, 155, 0.3) !important;
-    transform: translateY(-1px) !important;
-}
-
-.feature-icon {
     font-size: 15px !important;
-    line-height: 1.2 !important;
-    flex-shrink: 0 !important;
-    margin-top: 1px !important;
+    line-height: 1.75 !important;
+    color: #ece4ec !important;
+    margin: 0 0 20px 0 !important;
+    max-width: 860px !important;
 }
 
-.feature-text {
-    flex: 1 !important;
-    min-width: 0 !important;
+/* Chips Spesifikasi Fasilitas Mini */
+.facility-feature-chips {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    margin-bottom: 22px !important;
+    max-width: 860px !important;
 }
 
-.feature-text strong {
-    display: block !important;
-    font-size: 11.5px !important;
-    font-weight: 700 !important;
+.facility-chip {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 7px !important;
+    padding: 7px 14px !important;
+    border-radius: 12px !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.09) !important;
+    color: #e2e8f0 !important;
+    font-size: 12.5px !important;
+    font-weight: 600 !important;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease !important;
+}
+
+.facility-chip:hover {
+    background: rgba(233, 30, 99, 0.14) !important;
+    border-color: rgba(255, 101, 155, 0.35) !important;
+    transform: translateY(-1px) !important;
     color: #ffffff !important;
-    line-height: 1.25 !important;
-    margin-bottom: 2px !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
 }
 
-.feature-text p {
-    margin: 0 !important;
-    font-size: 10px !important;
-    color: #9da3af !important;
-    line-height: 1.35 !important;
-    display: -webkit-box !important;
-    -webkit-line-clamp: 2 !important;
-    -webkit-box-orient: vertical !important;
-    overflow: hidden !important;
+.facility-chip .chip-icon {
+    font-size: 14px !important;
+    line-height: 1 !important;
 }
 
-/* Footer Kartu */
+/* Footer Kartu: Status Pill Bersih (Tanpa Tombol Link Ekstra) */
 .facility-card-footer {
     margin-top: auto !important;
     display: flex !important;
     align-items: center !important;
-    justify-content: space-between !important;
-    padding-top: 10px !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+    justify-content: flex-start !important;
+    padding-top: 14px !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.07) !important;
 }
 
 .facility-status-pill {
-    font-size: 11px !important;
+    font-size: 12px !important;
     font-weight: 700 !important;
     color: #ff8ab6 !important;
-    background: rgba(233, 30, 99, 0.12) !important;
-    padding: 5px 12px !important;
-    border-radius: 14px !important;
-    border: 1px solid rgba(255, 101, 155, 0.25) !important;
-    display: inline-block !important;
-}
-
-.facility-cta-btn {
+    background: rgba(233, 30, 99, 0.14) !important;
+    padding: 6px 14px !important;
+    border-radius: 16px !important;
+    border: 1px solid rgba(255, 101, 155, 0.3) !important;
     display: inline-flex !important;
     align-items: center !important;
     gap: 6px !important;
-    padding: 6px 16px !important;
-    background: linear-gradient(90deg, #ff4f91, #e91e63) !important;
-    color: #ffffff !important;
-    font-size: 11.5px !important;
-    font-weight: 800 !important;
-    border-radius: 8px !important;
-    text-decoration: none !important;
-    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
 }
 
-.facility-cta-btn:hover {
-    transform: translateY(-2px) !important;
-    box-shadow: 0 6px 18px rgba(233, 30, 99, 0.4) !important;
-    color: #ffffff !important;
-}
-
-/* Chibi Mascot Pemanis Sudut */
+/* Chibi Mascot Pemanis Sudut Landscape */
 .facility-card .card-corner-chibi {
     position: absolute !important;
-    bottom: -8px !important;
-    right: -8px !important;
-    width: 72px !important;
-    height: auto !important;
-    opacity: 0.9 !important;
+    bottom: 16px !important;
+    right: 22px !important;
+    width: 92px !important;
+    height: 92px !important;
+    object-fit: contain !important;
+    opacity: 0.95 !important;
     pointer-events: none !important;
     z-index: 1 !important;
-    transition: transform 0.28s ease, opacity 0.28s ease !important;
+    transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.4)) !important;
+}
+
+.facility-card:hover .card-corner-chibi {
+    transform: translateY(-4px) scale(1.08) rotate(-2deg) !important;
+}
+
+@media (max-width: 850px) {
+    .facility-card {
+        padding: 26px 22px 22px !important;
+        border-radius: 20px !important;
+    }
+    .facility-card-desc {
+        font-size: 14px !important;
+        line-height: 1.7 !important;
+        max-width: 100% !important;
+    }
+    .facility-card .card-corner-chibi {
+        width: 68px !important;
+        height: 68px !important;
+        bottom: 12px !important;
+        right: 14px !important;
+    }
 }
 
 .facility-card:hover .card-corner-chibi {
