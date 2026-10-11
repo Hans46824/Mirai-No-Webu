@@ -9682,14 +9682,21 @@ body.theme-dark .stroke-number-label.is-done {
 }
 
 /* Slider Dokumentasi Independen (Portrait & Landscape) */
+.documentation-section {
+    position: relative;
+    padding-top: 10px;
+}
+
 .dokumentasi-row {
-    max-width: 960px;
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 0 10px;
+    padding: 0 4px;
 }
 
 .slider-wrapper {
     position: relative;
+    overflow: hidden;
+    border-radius: 20px;
 }
 
 .independent-slider {
@@ -9697,8 +9704,8 @@ body.theme-dark .stroke-number-label.is-done {
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-    gap: 15px;
-    padding-bottom: 10px;
+    gap: 18px;
+    padding: 12px 6px 22px 6px;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE/Edge */
     -webkit-overflow-scrolling: touch;
@@ -9726,37 +9733,58 @@ body.theme-dark .stroke-number-label.is-done {
 }
 
 .independent-slider img {
-    scroll-snap-align: start; /* Supaya gesernya pas di pinggir foto */
+    scroll-snap-align: start;
     object-fit: cover;
-    border-radius: 15px;
+    border-radius: 18px;
     flex-shrink: 0;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    border: 2px solid rgba(233, 30, 99, 0.14);
+    box-shadow: 0 8px 24px rgba(72, 32, 52, 0.08);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.independent-slider img:hover {
+    transform: translateY(-8px) scale(1.025);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18), 0 0 20px rgba(233, 30, 99, 0.28);
+    border-color: var(--pink, #e91e63);
+}
+
+body.theme-dark .independent-slider img {
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 26px rgba(0, 0, 0, 0.45);
+}
+
+body.theme-dark .independent-slider img:hover {
+    border-color: var(--pink, #e91e63);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(233, 30, 99, 0.4);
 }
 
 .indep-portrait {
-    width: 45%; /* Di mobile akan muat ~2 foto di layar */
+    width: 45%;
     aspect-ratio: 3 / 4;
-    max-width: 200px;
+    max-width: 210px;
 }
 
 .indep-landscape {
-    width: 85%; /* Di mobile akan muat 1 foto menyisakan sedikit foto sebelahnya */
+    width: 85%;
     aspect-ratio: 16 / 9;
-    max-width: 400px;
+    max-width: 380px;
 }
 
 @media (max-width: 600px) {
     .independent-slider {
         gap: 12px;
+        padding: 10px 4px 16px 4px;
     }
     .independent-slider img {
-        border-radius: 12px;
+        border-radius: 14px;
     }
-    .prev-btn {
-        left: 2px;
+    .indep-portrait {
+        max-width: 165px;
     }
-    .next-btn {
-        right: 2px;
+    .indep-landscape {
+        max-width: 290px;
     }
 }
 

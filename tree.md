@@ -12,7 +12,7 @@ Mirai-No-Webu/
 ├── [HALAMAN UTAMA WEBSITE]
 │   ├── index.html                  # Beranda utama (Hero, modul, maskot Sora, feedback)
 │   ├── tentang.html                # Profil klub (Sejarah, filosofi, bendera, Haori, 11 pengurus)
-│   ├── kegiatan.html               # Hub Program & Fasilitas (4 Divisi, 5 Program Kerja, & Fasilitas Sekolah/Web)
+│   ├── kegiatan.html               # Hub Program & Fasilitas (4 Divisi, 5 Program Kerja, Fasilitas, & Galeri Foto)
 │   ├── kelas.html                  # Hub kelas belajar (Kelas Dasar, Lanjutan, Kurikulum)
 │   ├── kelas-dasar.html            # Modul Kelas Dasar (Hiragana & Katakana)
 │   ├── kelas-lanjutan.html         # Modul Kelas Lanjutan (Kanji & Tata Bahasa)
