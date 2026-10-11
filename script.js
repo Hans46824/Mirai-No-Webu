@@ -805,16 +805,80 @@ function buildMatchQuestion(scriptType = "hiragana", levels = null) {
     };
 }
 
+function buildStrokeQuestion(pool, scriptType = "hiragana", previous = null, fullPool = pool) {
+    const strokeDataMap = window.MIRAI_STROKE_DATA || {};
+
+    // Prioritaskan karakter dari active pool yang memiliki data path goresan
+    let candidates = pool.filter((item) => item && item.character && strokeDataMap[item.character] && strokeDataMap[item.character].paths?.length);
+
+    // Jika di active pool kurang dari 5 (misal level yoon/kombo), ambil single kana dari fullPool
+    if (candidates.length < 5 && fullPool && fullPool.length) {
+        const extra = fullPool.filter((item) => item && item.character && strokeDataMap[item.character] && strokeDataMap[item.character].paths?.length);
+        candidates = [...candidates, ...extra];
+    }
+
+    // Fallback cadangan jika data belum termuat
+    if (candidates.length === 0) {
+        const defaultList = scriptType === "katakana"
+            ? ["ア", "イ", "ウ", "エ", "オ", "カ", "キ", "ク", "ケ", "コ"]
+            : ["あ", "い", "う", "え", "お", "か", "き", "く", "け", "こ"];
+        candidates = defaultList.map((c) => ({
+            character: c,
+            romaji: c,
+            level: 1,
+            category: "Kana dasar"
+        }));
+    }
+
+    const nonPrev = candidates.filter((item) => item.character !== previous?.answer?.character);
+    const choicePool = nonPrev.length ? nonPrev : candidates;
+    const answer = choicePool[Math.floor(Math.random() * choicePool.length)];
+
+    return {
+        type: "stroke",
+        answer,
+        character: answer.character,
+        romaji: answer.romaji,
+        category: answer.category || "Kana dasar",
+        strokeData: strokeDataMap[answer.character] || null
+    };
+}
+
 function buildPracticeQuestions(levels, pool, scriptType = "hiragana", fullPool = pool) {
+    // 5 Soal pilihan ganda normal
     const standardQuestions = [];
-    while (standardQuestions.length < 10) {
+    while (standardQuestions.length < 5) {
         standardQuestions.push(buildNormalQuestion(pool, standardQuestions.at(-1), fullPool));
+    }
+
+    // 5 Soal interaktif goresan kana ala Duolingo
+    const strokeQuestions = [];
+    const usedStrokeChars = new Set();
+    while (strokeQuestions.length < 5) {
+        const availablePool = pool.filter((item) => !usedStrokeChars.has(item.character));
+        const effectivePool = availablePool.length ? availablePool : pool;
+        const sq = buildStrokeQuestion(effectivePool, scriptType, strokeQuestions.at(-1), fullPool);
+        if (sq && sq.answer) {
+            usedStrokeChars.add(sq.answer.character);
+            strokeQuestions.push(sq);
+        } else {
+            strokeQuestions.push(buildNormalQuestion(pool, strokeQuestions.at(-1), fullPool));
+        }
+    }
+
+    // Gabungkan berselang-seling pada 10 soal pertama:
+    // [normal, stroke, normal, stroke, normal, stroke, normal, stroke, normal, stroke]
+    const firstTen = [];
+    for (let i = 0; i < 5; i++) {
+        firstTen.push(standardQuestions[i]);
+        firstTen.push(strokeQuestions[i]);
     }
 
     const wordQuestions = buildWordQuestions(scriptType, levels);
     const matchQuestion = buildMatchQuestion(scriptType, levels);
 
-    return [...standardQuestions, ...wordQuestions, matchQuestion];
+    // Total 15 soal: 10 soal pertama (5 pilihan ganda + 5 goresan) + 4 kosakata + 1 pasangkan kata
+    return [...firstTen, ...wordQuestions, matchQuestion];
 }
 
 function initKanaQuest() {
@@ -965,10 +1029,435 @@ function initKanaQuest() {
         renderQuestion();
     }
 
+    function playStrokeChime(isFinal) {
+        try {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (!AudioCtx) return;
+            const audioCtx = new AudioCtx();
+            const now = audioCtx.currentTime;
+
+            if (!isFinal) {
+                // Suara nada ding berhasil 2 ketuk: E5 -> A5
+                [659.25, 880].forEach((freq, idx) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = "sine";
+                    osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+                    gain.gain.setValueAtTime(0.12, now + idx * 0.08);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.22);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now + idx * 0.08);
+                    osc.stop(now + idx * 0.08 + 0.25);
+                });
+            } else {
+                // Akor mayor perayaan selesai karakter utuh: C5 -> E5 -> G5 -> C6
+                [523.25, 659.25, 783.99, 1046.5].forEach((freq, idx) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = "sine";
+                    osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+                    gain.gain.setValueAtTime(0.15, now + idx * 0.08);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.4);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now + idx * 0.08);
+                    osc.stop(now + idx * 0.08 + 0.45);
+                });
+            }
+        } catch (e) {}
+    }
+
+    function sampleSvgPath(pathStr, sampleCount = 25) {
+        let helperSvg = document.getElementById("miraiStrokeSamplerSvg");
+        if (!helperSvg) {
+            helperSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            helperSvg.id = "miraiStrokeSamplerSvg";
+            helperSvg.style.cssText = "position:absolute; width:0; height:0; opacity:0; pointer-events:none; visibility:hidden;";
+            document.body.appendChild(helperSvg);
+        }
+        let pathEl = helperSvg.querySelector("path");
+        if (!pathEl) {
+            pathEl = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            helperSvg.appendChild(pathEl);
+        }
+        pathEl.setAttribute("d", pathStr);
+        const totalLen = pathEl.getTotalLength();
+        const pts = [];
+        for (let i = 0; i < sampleCount; i++) {
+            const dist = (i / (sampleCount - 1)) * totalLen;
+            const p = pathEl.getPointAtLength(dist);
+            pts.push({ x: p.x, y: p.y });
+        }
+        return { points: pts, totalLength: totalLen };
+    }
+
+    function renderInteractiveStroke(question) {
+        const char = question.answer.character;
+        const romaji = question.answer.romaji;
+        const strokeRecord = question.strokeData || (window.MIRAI_STROKE_DATA && window.MIRAI_STROKE_DATA[char]);
+        const paths = (strokeRecord && strokeRecord.paths && strokeRecord.paths.length)
+            ? strokeRecord.paths
+            : ["M30,30 L79,30", "M55,18 L55,90"];
+        const totalStrokes = paths.length;
+
+        let currentStep = 0;
+        let completedPaths = [];
+        let isDrawing = false;
+        let currentStrokePoints = [];
+        let isLocked = false;
+        let currentSampled = null;
+
+        $("[data-answer-grid]").innerHTML = `
+            <div class="stroke-practice-board">
+                <div class="stroke-board-header">
+                    <div class="stroke-step-indicator">
+                        <span class="stroke-step-label">Goresan ke-<b id="strokeCurStep">1</b> dari <span>${totalStrokes}</span></span>
+                        <div class="stroke-step-pills" id="strokeStepPills">
+                            ${Array.from({ length: totalStrokes }, (_, i) => `
+                                <span class="stroke-step-pill ${i === 0 ? "is-active" : ""}" data-step-idx="${i}">${i + 1}</span>
+                            `).join("")}
+                        </div>
+                    </div>
+                    <div class="stroke-actions-bar">
+                        <button type="button" class="stroke-tool-btn" id="strokeUndoBtn" title="Ulangi goresan aktif">↺ Ulangi Goresan</button>
+                    </div>
+                </div>
+
+                <div class="stroke-canvas-wrapper" id="strokeCanvasWrapper">
+                    <div class="stroke-grid-bg">
+                        <div class="stroke-grid-line horizontal"></div>
+                        <div class="stroke-grid-line vertical"></div>
+                    </div>
+                    <svg class="stroke-svg-layer" id="strokeSvgLayer" viewBox="0 0 109 109" role="img" aria-label="Panduan goresan ${char}">
+                        <g class="stroke-ghost-group" id="strokeGhostGroup">
+                            ${paths.map((p) => `<path class="stroke-ghost-path" d="${p}" />`).join("")}
+                        </g>
+                        <g class="stroke-completed-group" id="strokeCompletedGroup"></g>
+                        <g class="stroke-guide-group" id="strokeGuideGroup"></g>
+                        <g class="stroke-start-marker" id="strokeStartMarker"></g>
+                    </svg>
+                    <canvas class="stroke-draw-canvas" id="strokeDrawCanvas"></canvas>
+                </div>
+
+                <div class="stroke-hint-bar" id="strokeHintBar">
+                    <span class="stroke-hint-icon">💡</span>
+                    <span class="stroke-hint-text" id="strokeHintText">Sentuh lingkaran merah muda ⚪ lalu tarik garis mengikuti arah pola</span>
+                </div>
+            </div>
+        `;
+
+        const wrapper = document.getElementById("strokeCanvasWrapper");
+        const canvas = document.getElementById("strokeDrawCanvas");
+        const ctx = canvas.getContext("2d");
+        const completedGroup = document.getElementById("strokeCompletedGroup");
+        const guideGroup = document.getElementById("strokeGuideGroup");
+        const startMarker = document.getElementById("strokeStartMarker");
+        const curStepEl = document.getElementById("strokeCurStep");
+        const pillsContainer = document.getElementById("strokeStepPills");
+        const hintBar = document.getElementById("strokeHintBar");
+        const hintText = document.getElementById("strokeHintText");
+        const undoBtn = document.getElementById("strokeUndoBtn");
+
+        function resizeCanvas() {
+            if (!canvas || !wrapper) return;
+            const rect = wrapper.getBoundingClientRect();
+            const dpr = window.devicePixelRatio || 1;
+            const size = Math.round(rect.width || 280);
+            canvas.width = size * dpr;
+            canvas.height = size * dpr;
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+            ctx.scale(dpr, dpr);
+        }
+        resizeCanvas();
+
+        function setupStep(stepIdx) {
+            currentStep = stepIdx;
+            if (curStepEl) curStepEl.textContent = stepIdx + 1;
+
+            if (pillsContainer) {
+                const pills = pillsContainer.querySelectorAll(".stroke-step-pill");
+                pills.forEach((p, idx) => {
+                    p.classList.remove("is-active");
+                    if (idx < stepIdx) {
+                        p.classList.add("is-done");
+                        p.textContent = "✓";
+                    } else if (idx === stepIdx) {
+                        p.classList.remove("is-done");
+                        p.classList.add("is-active");
+                        p.textContent = idx + 1;
+                    } else {
+                        p.classList.remove("is-done");
+                        p.textContent = idx + 1;
+                    }
+                });
+            }
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            currentSampled = sampleSvgPath(paths[stepIdx], 25);
+            const startPt = currentSampled.points[0];
+
+            if (guideGroup) {
+                guideGroup.innerHTML = `<path class="stroke-guide-path" d="${paths[stepIdx]}" />`;
+            }
+
+            if (startMarker) {
+                startMarker.innerHTML = `
+                    <circle class="stroke-start-ring" cx="${startPt.x}" cy="${startPt.y}" r="6" />
+                    <circle class="stroke-start-core" cx="${startPt.x}" cy="${startPt.y}" r="4" />
+                `;
+            }
+
+            if (hintBar) hintBar.classList.remove("is-error", "is-success");
+            if (hintText) {
+                hintText.textContent = stepIdx === 0
+                    ? "Sentuh lingkaran merah muda ⚪ lalu tarik garis mengikuti arah pola"
+                    : `Bagus! Lanjut goreskan langkah ke-${stepIdx + 1} ✨`;
+            }
+        }
+        setupStep(0);
+
+        function validateAttempt(userPoints, refPoints, refLen) {
+            if (!userPoints || userPoints.length < 3) {
+                return { isValid: false, reason: "too-short" };
+            }
+
+            const pStart = refPoints[0];
+            const pEnd = refPoints[refPoints.length - 1];
+
+            // 1. Kedekatan titik awal
+            let minStartDist = Infinity;
+            const startCandidates = userPoints.slice(0, Math.min(5, userPoints.length));
+            startCandidates.forEach((p) => {
+                const d = Math.hypot(p.x - pStart.x, p.y - pStart.y);
+                if (d < minStartDist) minStartDist = d;
+            });
+            const startTol = refLen < 25 ? 34 : 28;
+            if (minStartDist > startTol) {
+                return { isValid: false, reason: "start-far" };
+            }
+
+            // 2. Kedekatan titik akhir
+            let minEndDist = Infinity;
+            const endCandidates = userPoints.slice(Math.max(0, userPoints.length - 5));
+            endCandidates.forEach((p) => {
+                const d = Math.hypot(p.x - pEnd.x, p.y - pEnd.y);
+                if (d < minEndDist) minEndDist = d;
+            });
+            const endTol = refLen < 25 ? 34 : 30;
+            if (minEndDist > endTol) {
+                return { isValid: false, reason: "end-far" };
+            }
+
+            // 3. Pemeriksaan panjang goresan
+            let userLen = 0;
+            for (let i = 1; i < userPoints.length; i++) {
+                userLen += Math.hypot(userPoints[i].x - userPoints[i - 1].x, userPoints[i].y - userPoints[i - 1].y);
+            }
+            if (refLen >= 25 && userLen < refLen * 0.38) {
+                return { isValid: false, reason: "too-short" };
+            }
+
+            // 4. Deviasi bentuk & arah
+            const matchedIndices = userPoints.map((u) => {
+                let bestDist = Infinity;
+                let bestIdx = 0;
+                refPoints.forEach((r, idx) => {
+                    const d = Math.hypot(u.x - r.x, u.y - r.y);
+                    if (d < bestDist) {
+                        bestDist = d;
+                        bestIdx = idx;
+                    }
+                });
+                return { idx: bestIdx, dist: bestDist };
+            });
+
+            const meanDist = matchedIndices.reduce((sum, item) => sum + item.dist, 0) / matchedIndices.length;
+            if (meanDist > 26) {
+                return { isValid: false, reason: "deviation" };
+            }
+
+            // Arah maju (tidak digoreskan terbalik)
+            if (refLen >= 25) {
+                const firstThird = matchedIndices.slice(0, Math.ceil(matchedIndices.length / 3));
+                const lastThird = matchedIndices.slice(Math.floor((matchedIndices.length * 2) / 3));
+                const avgFirst = firstThird.reduce((sum, item) => sum + item.idx, 0) / (firstThird.length || 1);
+                const avgLast = lastThird.reduce((sum, item) => sum + item.idx, 0) / (lastThird.length || 1);
+                if (avgLast <= avgFirst) {
+                    return { isValid: false, reason: "wrong-direction" };
+                }
+            }
+
+            return { isValid: true };
+        }
+
+        function handleStepSuccess() {
+            isLocked = true;
+            playStrokeChime(false);
+
+            completedPaths.push(paths[currentStep]);
+            if (completedGroup) {
+                completedGroup.innerHTML = completedPaths.map((p) => `<path class="stroke-completed-path" d="${p}" />`).join("");
+            }
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const nextStep = currentStep + 1;
+            if (nextStep < totalStrokes) {
+                setTimeout(() => {
+                    isLocked = false;
+                    setupStep(nextStep);
+                }, 220);
+            } else {
+                // Semua goresan selesai sempurna!
+                playStrokeChime(true);
+                if (guideGroup) guideGroup.innerHTML = "";
+                if (startMarker) startMarker.innerHTML = "";
+                if (curStepEl) curStepEl.textContent = totalStrokes;
+                if (pillsContainer) {
+                    pillsContainer.querySelectorAll(".stroke-step-pill").forEach((p) => {
+                        p.classList.remove("is-active");
+                        p.classList.add("is-done");
+                        p.textContent = "✓";
+                    });
+                }
+
+                if (wrapper) wrapper.classList.add("is-completed-glow");
+                if (hintBar) {
+                    hintBar.classList.remove("is-error");
+                    hintBar.classList.add("is-success");
+                }
+                if (hintText) {
+                    hintText.textContent = `Hebat! Huruf “${char}” (${romaji}) selesai sempurna! 🎉`;
+                }
+
+                const feedback = $("[data-feedback]");
+                if (feedback) {
+                    feedback.hidden = false;
+                    feedback.className = "feedback is-good";
+                    feedback.innerHTML = `<strong>Goresan Sempurna! 🎉</strong><span>Huruf <b>${char}</b> (${romaji}) selesai ditulis dengan urutan tepat.</span>`;
+                }
+
+                currentSession.results[currentSession.index] = {
+                    state: "is-correct",
+                    question,
+                    value: char,
+                    userChoice: `Goresan ${char} Selesai`,
+                    correctChoice: char
+                };
+                currentSession.streak += 1;
+                currentSession.best = Math.max(currentSession.best, currentSession.streak);
+
+                setTimeout(() => {
+                    currentSession.index += 1;
+                    if (currentSession.index >= currentSession.questions.length) {
+                        finishPractice();
+                    } else {
+                        renderQuestion();
+                    }
+                }, 750);
+            }
+        }
+
+        function handleStepFailure(reason) {
+            isLocked = true;
+            if (wrapper) {
+                wrapper.classList.add("is-shaking");
+                setTimeout(() => wrapper.classList.remove("is-shaking"), 460);
+            }
+
+            let msg = "Bentuk goresan belum tepat, yuk ulangi lagi!";
+            if (reason === "start-far") {
+                msg = "Mulai goresan tepat dari lingkaran titik ⚪ ya!";
+            } else if (reason === "end-far" || reason === "too-short") {
+                msg = "Tarik garis lebih panjang sampai ke ujung pola.";
+            } else if (reason === "wrong-direction") {
+                msg = "Goreskan searah dari lingkaran awal ke ujung ↗";
+            }
+
+            if (hintBar) hintBar.classList.add("is-error");
+            if (hintText) hintText.textContent = msg;
+
+            ctx.strokeStyle = "rgba(231, 76, 60, 0.85)";
+            ctx.stroke();
+
+            setTimeout(() => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                isLocked = false;
+            }, 380);
+        }
+
+        function getSvgPoint(e) {
+            const rect = canvas.getBoundingClientRect();
+            const px = e.clientX - rect.left;
+            const py = e.clientY - rect.top;
+            return {
+                x: (px / rect.width) * 109,
+                y: (py / rect.height) * 109,
+                px,
+                py
+            };
+        }
+
+        canvas.addEventListener("pointerdown", (e) => {
+            if (isLocked) return;
+            canvas.setPointerCapture(e.pointerId);
+            isDrawing = true;
+            const pt = getSvgPoint(e);
+            currentStrokePoints = [pt];
+
+            ctx.beginPath();
+            ctx.moveTo(pt.px, pt.py);
+            const rect = canvas.getBoundingClientRect();
+            ctx.lineWidth = 14 * (rect.width / 109);
+            ctx.lineCap = "round";
+            ctx.lineJoin = "round";
+            ctx.strokeStyle = "#e91e63";
+        });
+
+        canvas.addEventListener("pointermove", (e) => {
+            if (!isDrawing || isLocked) return;
+            const pt = getSvgPoint(e);
+            currentStrokePoints.push(pt);
+            ctx.lineTo(pt.px, pt.py);
+            ctx.stroke();
+        });
+
+        const endDrawing = () => {
+            if (!isDrawing) return;
+            isDrawing = false;
+
+            if (currentStrokePoints.length < 3) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                return;
+            }
+
+            const validation = validateAttempt(currentStrokePoints, currentSampled.points, currentSampled.totalLength);
+            if (validation.isValid) {
+                handleStepSuccess();
+            } else {
+                handleStepFailure(validation.reason);
+            }
+        };
+
+        canvas.addEventListener("pointerup", endDrawing);
+        canvas.addEventListener("pointercancel", endDrawing);
+
+        if (undoBtn) {
+            undoBtn.addEventListener("click", () => {
+                if (isLocked) return;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                if (hintBar) hintBar.classList.remove("is-error", "is-success");
+                if (hintText) hintText.textContent = `Silakan ulangi goresan ke-${currentStep + 1}`;
+            });
+        }
+    }
+
     function renderQuestion() {
         const question = currentSession.questions[currentSession.index];
 
-        $("[data-practice-label]").textContent = `${script[0].toUpperCase() + script.slice(1)} • ${question.type === "match-table" ? "PASANGKAN KATA" : question.type === "word" ? "KOSAKATA" : question.answer?.category || "KANA"}`;
+        $("[data-practice-label]").textContent = `${script[0].toUpperCase() + script.slice(1)} • ${question.type === "match-table" ? "PASANGKAN KATA" : question.type === "word" ? "KOSAKATA" : question.type === "stroke" ? "TULIS GORESAN" : question.answer?.category || "KANA"}`;
         $("[data-question-total]").textContent = currentSession.questions.length;
         $("[data-question-number]").textContent = currentSession.index + 1;
         $("[data-question-progress]").style.width = `${(currentSession.index / currentSession.questions.length) * 100}%`;
@@ -987,7 +1476,7 @@ function initKanaQuest() {
 
         if (question.type === "match-table") {
             $("[data-answer-grid]").classList.add("is-match-grid");
-            $("[data-answer-grid]").style.cssText = "display: block !important; width: 100% !important; max-width: 100% !important; margin: 0 auto !important; grid-template-columns: none !important;";
+            $("[data-answer-grid]").style.cssText = "display: block !important; width: 100% !important; max-width: 580px !important; margin: 0 auto !important; grid-template-columns: none !important;";
             const { match } = question;
             $("[data-question-kind]").textContent = "PASANGKAN KATA";
             $("[data-question-prompt]").innerHTML = `
@@ -1047,6 +1536,27 @@ function initKanaQuest() {
                 button.addEventListener("click", () => handleMatchSelection(button.dataset.matchSide, button.dataset.matchId));
             });
 
+            return;
+        }
+
+        if (question.type === "stroke") {
+            $("[data-answer-grid]").classList.remove("is-match-grid");
+            $("[data-answer-grid]").style.cssText = "display: block !important; width: 100% !important; max-width: 540px !important; margin: 0 auto !important; grid-template-columns: none !important;";
+
+            if (defaultSub) {
+                defaultSub.hidden = false;
+                defaultSub.textContent = "Goreskan garis mengikuti pola panduan per langkah";
+            }
+
+            $("[data-question-kind]").textContent = "LATIHAN GORESAN KANA";
+            $("[data-question-prompt]").innerHTML = `
+                <div class="stroke-prompt-wrap">
+                    <span class="stroke-prompt-char">${question.answer.character}</span>
+                    <span class="stroke-prompt-romaji">${question.answer.romaji}</span>
+                </div>
+            `;
+
+            renderInteractiveStroke(question);
             return;
         }
 
@@ -1318,6 +1828,33 @@ function initKanaQuest() {
             return;
         }
 
+        if (question.type === "stroke") {
+            if (state === "skipped") {
+                currentSession.results[currentSession.index] = {
+                    state: "skipped",
+                    question,
+                    value: "Dilewati",
+                    userChoice: "Dilewati",
+                    correctChoice: `Goresan ${question.answer.character} (${question.answer.romaji})`
+                };
+                const feedback = $("[data-feedback]");
+                if (feedback) {
+                    feedback.hidden = false;
+                    feedback.className = "feedback is-skip";
+                    feedback.innerHTML = `<strong>Soal Dilewati</strong><span>Huruf: <b>${question.answer.character}</b> = <b>${question.answer.romaji}</b></span>`;
+                }
+                setTimeout(() => {
+                    currentSession.index += 1;
+                    if (currentSession.index >= currentSession.questions.length) {
+                        finishPractice();
+                    } else {
+                        renderQuestion();
+                    }
+                }, 500);
+            }
+            return;
+        }
+
         const correct = state !== "skipped" && value === question.answer.character;
 
         const displayKind = question.kind === "kana" || question.kind === "audio" ? "romaji" : "character";
@@ -1455,6 +1992,16 @@ function initKanaQuest() {
         wrong.forEach((result) => {
             const q = result.question;
             if (q.type === "match-table") {
+                return;
+            }
+            if (q.type === "stroke") {
+                allMistakes.push({
+                    badge: "GORESAN KANA",
+                    prompt: `${q.answer.character} (${q.answer.romaji})`,
+                    userAns: result.userChoice || "Dilewati",
+                    correctAns: `Goresan Huruf ${q.answer.character} (${q.answer.romaji})`,
+                    explanation: `Latihan menulis goresan huruf “${q.answer.character}” (${q.answer.romaji}) sesuai urutan baku goresan kana.`
+                });
                 return;
             }
             const isWord = q.type === "word";
