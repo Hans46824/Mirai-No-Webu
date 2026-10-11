@@ -180,10 +180,11 @@ Koleksi 20 stiker chibi resmi Genshin Impact untuk profil anggota, papan peringk
 - **Format Bersih Badge Podium Papan Peringkat**:
   - Pada 3 kartu podium teratas di halaman `peringkat.html`, label badge medali hanya mencantumkan nomor peringkat ringkas: **"PERINGKAT 1"**, **"PERINGKAT 2"**, dan **"PERINGKAT 3"**.
   - Dilarang menambahkan embel-embel teks predikat logam (seperti "· JUARA EMAS", "· PERAK", atau "· PERUNGGU") agar lencana tetap bersih, minimalis, dan proporsional.
-- **Latihan Mandiri Kana Interaktif (Duolingo-Style Stroke Tracing)**:
-  - Pada kuis latihan mandiri (total 15 soal), 5 soal dari 10 soal pertama disisipkan tantangan interaktif menulis goresan kana langkah demi langkah secara bergantian dengan soal pilihan ganda.
-  - Kanvas sentuh/geser dilengkapi kisi Genkouyoushi, siluet bayangan huruf, garis panduan aktif, dan titik awal beranimasi pendar (*pulsing start dot*).
-  - Sistem validasi per langkah (*step-by-step*): Jika goresan benar, garis otomatis terkunci rapi dengan efek nada lonceng (*chime*) dan melangkah ke urutan selanjutnya. Jika gerakan salah/terbalik, hanya langkah yang salah tersebut yang bergetar dan diulang kembali sampai berhasil tanpa menghapus goresan langkah sebelumnya.
+- **Latihan Mandiri Kana Interaktif (20 Soal Acak & Duolingo-Style Stroke Tracing)**:
+  - Total kuis latihan mandiri berjumlah **20 soal**, terdiri dari **10 soal pilihan ganda huruf biasa** (kana → romaji dan romaji → kana) + **5 soal tantangan interaktif menulis goresan kana** yang posisinya **diacak secara random** (tidak berselang-seling kaku), ditambah 4 soal kosakata dan 1 soal pasangkan kata.
+  - **Kanvas Bersih Tanpa Bantuan di Awal**: Kanvas hanya menampilkan kisi Genkouyoushi dan goresan yang sudah berhasil diselesaikan. Garis panduan putus-putus dan titik awal lingkaran berdenyut **HANYA muncul saat pengguna membuat goresan keliru** untuk memandu gerakan yang benar.
+  - **Validasi Goresan Presisi Tinggi (Strict Accuracy)**: Validasi memeriksa kedekatan titik pangkal awal (≤13 unit), titik akhir (≤14 unit), rasio panjang minimum (≥70%), cakupan kurva (coverage ≥80%), deviasi rata-rata (≤9 unit), deviasi maksimal (≤17 unit), dan arah progresif. Goresan kecil/geser mini tanpa bentuk, arah terbalik, atau garis melenceng akan langsung ditolak dan diminta mengulang langkah tersebut.
+  - Jika goresan benar, garis otomatis terkunci rapi dengan efek nada lonceng (*chime*) dan melangkah ke urutan berikutnya. Pada langkah baru, garis panduan kembali disembunyikan sampai terjadi kesalahan.
 
 ---
 

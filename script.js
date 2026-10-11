@@ -845,9 +845,9 @@ function buildStrokeQuestion(pool, scriptType = "hiragana", previous = null, ful
 }
 
 function buildPracticeQuestions(levels, pool, scriptType = "hiragana", fullPool = pool) {
-    // 5 Soal pilihan ganda normal
+    // 10 Soal pilihan ganda normal (kana -> romaji, romaji -> kana)
     const standardQuestions = [];
-    while (standardQuestions.length < 5) {
+    while (standardQuestions.length < 10) {
         standardQuestions.push(buildNormalQuestion(pool, standardQuestions.at(-1), fullPool));
     }
 
@@ -866,19 +866,14 @@ function buildPracticeQuestions(levels, pool, scriptType = "hiragana", fullPool 
         }
     }
 
-    // Gabungkan berselang-seling pada 10 soal pertama:
-    // [normal, stroke, normal, stroke, normal, stroke, normal, stroke, normal, stroke]
-    const firstTen = [];
-    for (let i = 0; i < 5; i++) {
-        firstTen.push(standardQuestions[i]);
-        firstTen.push(strokeQuestions[i]);
-    }
+    // Gabungkan 10 soal normal + 5 soal goresan dan acak posisinya (random, bukan selang-seling tetap)
+    const firstPart = shuffle([...standardQuestions, ...strokeQuestions]);
 
     const wordQuestions = buildWordQuestions(scriptType, levels);
     const matchQuestion = buildMatchQuestion(scriptType, levels);
 
-    // Total 15 soal: 10 soal pertama (5 pilihan ganda + 5 goresan) + 4 kosakata + 1 pasangkan kata
-    return [...firstTen, ...wordQuestions, matchQuestion];
+    // Total 20 soal: 15 soal kana acak (10 pilihan ganda + 5 goresan) + 4 kosakata + 1 pasangkan kata
+    return [...firstPart, ...wordQuestions, matchQuestion];
 }
 
 function initKanaQuest() {
@@ -992,7 +987,7 @@ function initKanaQuest() {
                 <button class="mode-card" data-mode="${index}">
                     <b>${index === 9 ? "✦" : "→"}</b>
                     <span>${mode.label}</span>
-                    <small>15 soal • campuran</small>
+                    <small>20 soal • campuran</small>
                 </button>
             `;
         }).join("");
@@ -1129,10 +1124,7 @@ function initKanaQuest() {
                         <div class="stroke-grid-line horizontal"></div>
                         <div class="stroke-grid-line vertical"></div>
                     </div>
-                    <svg class="stroke-svg-layer" id="strokeSvgLayer" viewBox="0 0 109 109" role="img" aria-label="Panduan goresan ${char}">
-                        <g class="stroke-ghost-group" id="strokeGhostGroup">
-                            ${paths.map((p) => `<path class="stroke-ghost-path" d="${p}" />`).join("")}
-                        </g>
+                    <svg class="stroke-svg-layer" id="strokeSvgLayer" viewBox="0 0 109 109" role="img" aria-label="Kanvas goresan ${char}">
                         <g class="stroke-completed-group" id="strokeCompletedGroup"></g>
                         <g class="stroke-guide-group" id="strokeGuideGroup"></g>
                         <g class="stroke-start-marker" id="strokeStartMarker"></g>
@@ -1141,8 +1133,8 @@ function initKanaQuest() {
                 </div>
 
                 <div class="stroke-hint-bar" id="strokeHintBar">
-                    <span class="stroke-hint-icon">💡</span>
-                    <span class="stroke-hint-text" id="strokeHintText">Sentuh lingkaran merah muda ⚪ lalu tarik garis mengikuti arah pola</span>
+                    <span class="stroke-hint-icon">✍️</span>
+                    <span class="stroke-hint-text" id="strokeHintText">Tulis goresan langkah ke-1 untuk huruf “${char}” (${romaji})</span>
                 </div>
             </div>
         `;
@@ -1195,25 +1187,21 @@ function initKanaQuest() {
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            currentSampled = sampleSvgPath(paths[stepIdx], 25);
-            const startPt = currentSampled.points[0];
+            currentSampled = sampleSvgPath(paths[stepIdx], 30);
 
+            // Awal langkah TANPA garis panduan atau titik bantuan (kanvas bersih)
             if (guideGroup) {
-                guideGroup.innerHTML = `<path class="stroke-guide-path" d="${paths[stepIdx]}" />`;
+                guideGroup.innerHTML = "";
             }
-
             if (startMarker) {
-                startMarker.innerHTML = `
-                    <circle class="stroke-start-ring" cx="${startPt.x}" cy="${startPt.y}" r="6" />
-                    <circle class="stroke-start-core" cx="${startPt.x}" cy="${startPt.y}" r="4" />
-                `;
+                startMarker.innerHTML = "";
             }
 
             if (hintBar) hintBar.classList.remove("is-error", "is-success");
             if (hintText) {
                 hintText.textContent = stepIdx === 0
-                    ? "Sentuh lingkaran merah muda ⚪ lalu tarik garis mengikuti arah pola"
-                    : `Bagus! Lanjut goreskan langkah ke-${stepIdx + 1} ✨`;
+                    ? `Tulis goresan ke-1 untuk huruf “${char}” (${romaji}) pada kanvas.`
+                    : `Bagus! Lanjut tulis goresan ke-${stepIdx + 1} pada kanvas ✨`;
             }
         }
         setupStep(0);
@@ -1226,41 +1214,68 @@ function initKanaQuest() {
             const pStart = refPoints[0];
             const pEnd = refPoints[refPoints.length - 1];
 
-            // 1. Kedekatan titik awal
+            // Skala toleransi disesuaikan jika goresan sangat pendek (misal dakuten tenten)
+            const isShortStroke = refLen < 22;
+            const startTol = isShortStroke ? Math.max(8.5, refLen * 0.65) : 13.0;
+            const endTol = isShortStroke ? Math.max(9.0, refLen * 0.70) : 14.0;
+            const minLenRatio = isShortStroke ? 0.60 : 0.70;
+
+            // 1. Kedekatan titik awal (harus dimulai tepat dekat pangkal garis acuan)
+            const startCandidates = userPoints.slice(0, Math.min(4, userPoints.length));
             let minStartDist = Infinity;
-            const startCandidates = userPoints.slice(0, Math.min(5, userPoints.length));
             startCandidates.forEach((p) => {
                 const d = Math.hypot(p.x - pStart.x, p.y - pStart.y);
                 if (d < minStartDist) minStartDist = d;
             });
-            const startTol = refLen < 25 ? 34 : 28;
             if (minStartDist > startTol) {
                 return { isValid: false, reason: "start-far" };
             }
 
-            // 2. Kedekatan titik akhir
+            // 2. Kedekatan titik akhir (harus diakhiri tepat dekat ujung garis acuan)
+            const endCandidates = userPoints.slice(Math.max(0, userPoints.length - 4));
             let minEndDist = Infinity;
-            const endCandidates = userPoints.slice(Math.max(0, userPoints.length - 5));
             endCandidates.forEach((p) => {
                 const d = Math.hypot(p.x - pEnd.x, p.y - pEnd.y);
                 if (d < minEndDist) minEndDist = d;
             });
-            const endTol = refLen < 25 ? 34 : 30;
             if (minEndDist > endTol) {
                 return { isValid: false, reason: "end-far" };
             }
 
-            // 3. Pemeriksaan panjang goresan
+            // 3. Pemeriksaan panjang goresan (mencegah klik/geser mini tanpa bentuk)
             let userLen = 0;
             for (let i = 1; i < userPoints.length; i++) {
                 userLen += Math.hypot(userPoints[i].x - userPoints[i - 1].x, userPoints[i].y - userPoints[i - 1].y);
             }
-            if (refLen >= 25 && userLen < refLen * 0.38) {
+            if (userLen < refLen * minLenRatio) {
                 return { isValid: false, reason: "too-short" };
             }
+            if (userLen > refLen * 1.85) {
+                return { isValid: false, reason: "too-long" };
+            }
 
-            // 4. Deviasi bentuk & arah
-            const matchedIndices = userPoints.map((u) => {
+            // 4. Kelengkapan penutupan kurva (Coverage acuan ke goresan user)
+            const matchThresh = isShortStroke ? Math.max(8.0, refLen * 0.65) : 13.0;
+            let coveredCount = 0;
+            refPoints.forEach((r) => {
+                let minD = Infinity;
+                for (let i = 0; i < userPoints.length; i++) {
+                    const d = Math.hypot(r.x - userPoints[i].x, r.y - userPoints[i].y);
+                    if (d < minD) minD = d;
+                }
+                if (minD <= matchThresh) {
+                    coveredCount++;
+                }
+            });
+            const reqCoverage = isShortStroke ? 0.70 : 0.80;
+            if ((coveredCount / refPoints.length) < reqCoverage) {
+                return { isValid: false, reason: "low-coverage" };
+            }
+
+            // 5. Deviasi bentuk & kelencengan (Jarak setiap titik user ke kurva acuan)
+            const userDists = [];
+            const userMatchedIdx = [];
+            userPoints.forEach((u) => {
                 let bestDist = Infinity;
                 let bestIdx = 0;
                 refPoints.forEach((r, idx) => {
@@ -1270,21 +1285,28 @@ function initKanaQuest() {
                         bestIdx = idx;
                     }
                 });
-                return { idx: bestIdx, dist: bestDist };
+                userDists.push(bestDist);
+                userMatchedIdx.push(bestIdx);
             });
 
-            const meanDist = matchedIndices.reduce((sum, item) => sum + item.dist, 0) / matchedIndices.length;
-            if (meanDist > 26) {
-                return { isValid: false, reason: "deviation" };
+            const meanDist = userDists.reduce((sum, d) => sum + d, 0) / userDists.length;
+            const maxDist = Math.max(...userDists);
+            const maxAllowedMean = isShortStroke ? 7.5 : 9.0;
+            const maxAllowedPeak = isShortStroke ? 12.0 : 17.0;
+
+            if (meanDist > maxAllowedMean) {
+                return { isValid: false, reason: "mean-deviation" };
+            }
+            if (maxDist > maxAllowedPeak) {
+                return { isValid: false, reason: "max-deviation" };
             }
 
-            // Arah maju (tidak digoreskan terbalik)
-            if (refLen >= 25) {
-                const firstThird = matchedIndices.slice(0, Math.ceil(matchedIndices.length / 3));
-                const lastThird = matchedIndices.slice(Math.floor((matchedIndices.length * 2) / 3));
-                const avgFirst = firstThird.reduce((sum, item) => sum + item.idx, 0) / (firstThird.length || 1);
-                const avgLast = lastThird.reduce((sum, item) => sum + item.idx, 0) / (lastThird.length || 1);
-                if (avgLast <= avgFirst) {
+            // 6. Pemeriksaan arah penulisan (tidak boleh digoreskan terbalik)
+            if (refLen >= 18) {
+                const nQ = Math.max(1, Math.floor(userMatchedIdx.length / 4));
+                const firstQAvg = userMatchedIdx.slice(0, nQ).reduce((s, v) => s + v, 0) / nQ;
+                const lastQAvg = userMatchedIdx.slice(-nQ).reduce((s, v) => s + v, 0) / nQ;
+                if (lastQAvg <= firstQAvg || (lastQAvg - firstQAvg) < refPoints.length * 0.35) {
                     return { isValid: false, reason: "wrong-direction" };
                 }
             }
@@ -1367,16 +1389,35 @@ function initKanaQuest() {
                 setTimeout(() => wrapper.classList.remove("is-shaking"), 460);
             }
 
-            let msg = "Bentuk goresan belum tepat, yuk ulangi lagi!";
+            // KETIKA SALAH: Tampilkan garis panduan dan penanda titik awal yang benar!
+            const startPt = currentSampled.points[0];
+            if (guideGroup) {
+                guideGroup.innerHTML = `<path class="stroke-guide-path" d="${paths[currentStep]}" />`;
+            }
+            if (startMarker) {
+                startMarker.innerHTML = `
+                    <circle class="stroke-start-ring" cx="${startPt.x}" cy="${startPt.y}" r="6" />
+                    <circle class="stroke-start-core" cx="${startPt.x}" cy="${startPt.y}" r="4" />
+                `;
+            }
+
+            let msg = "Goresan belum tepat. Perhatikan garis bantu yang kini muncul!";
             if (reason === "start-far") {
                 msg = "Mulai goresan tepat dari lingkaran titik ⚪ ya!";
             } else if (reason === "end-far" || reason === "too-short") {
-                msg = "Tarik garis lebih panjang sampai ke ujung pola.";
+                msg = "Garis kependekan! Tarik penuh mengikuti garis panduan sampai ujung.";
             } else if (reason === "wrong-direction") {
-                msg = "Goreskan searah dari lingkaran awal ke ujung ↗";
+                msg = "Arah goresan terbalik! Tarik dari lingkaran ⚪ menuju ujung garis.";
+            } else if (reason === "max-deviation" || reason === "mean-deviation" || reason === "low-coverage") {
+                msg = "Goresan melenceng dari pola! Ikuti garis panduan merah muda yang muncul.";
+            } else if (reason === "too-long") {
+                msg = "Goresan terlalu panjang atau berputar! Tarik rapi sesuai garis panduan.";
             }
 
-            if (hintBar) hintBar.classList.add("is-error");
+            if (hintBar) {
+                hintBar.classList.remove("is-success");
+                hintBar.classList.add("is-error");
+            }
             if (hintText) hintText.textContent = msg;
 
             ctx.strokeStyle = "rgba(231, 76, 60, 0.85)";
@@ -1545,7 +1586,7 @@ function initKanaQuest() {
 
             if (defaultSub) {
                 defaultSub.hidden = false;
-                defaultSub.textContent = "Goreskan garis mengikuti pola panduan per langkah";
+                defaultSub.textContent = "Tuliskan huruf kana sesuai urutan goresan pada kanvas";
             }
 
             $("[data-question-kind]").textContent = "LATIHAN GORESAN KANA";
