@@ -834,13 +834,16 @@ function buildStrokeQuestion(pool, scriptType = "hiragana", previous = null, ful
     const choicePool = nonPrev.length ? nonPrev : candidates;
     const answer = choicePool[Math.floor(Math.random() * choicePool.length)];
 
+    const promptDisplay = Math.random() < 0.5 ? "romaji" : "kana";
+
     return {
         type: "stroke",
         answer,
         character: answer.character,
         romaji: answer.romaji,
         category: answer.category || "Kana dasar",
-        strokeData: strokeDataMap[answer.character] || null
+        strokeData: strokeDataMap[answer.character] || null,
+        promptDisplay
     };
 }
 
@@ -1105,18 +1108,10 @@ function initKanaQuest() {
 
         $("[data-answer-grid]").innerHTML = `
             <div class="stroke-practice-board">
-                <div class="stroke-board-header">
-                    <div class="stroke-step-indicator">
-                        <span class="stroke-step-label">Goresan ke-<b id="strokeCurStep">1</b> dari <span>${totalStrokes}</span></span>
-                        <div class="stroke-step-pills" id="strokeStepPills">
-                            ${Array.from({ length: totalStrokes }, (_, i) => `
-                                <span class="stroke-step-pill ${i === 0 ? "is-active" : ""}" data-step-idx="${i}">${i + 1}</span>
-                            `).join("")}
-                        </div>
-                    </div>
-                    <div class="stroke-actions-bar">
-                        <button type="button" class="stroke-tool-btn" id="strokeUndoBtn" title="Ulangi goresan aktif">↺ Ulangi Goresan</button>
-                    </div>
+                <div class="stroke-step-pills" id="strokeStepPills">
+                    ${Array.from({ length: totalStrokes }, (_, i) => `
+                        <span class="stroke-step-pill ${i === 0 ? "is-active" : ""}" data-step-idx="${i}">${i + 1}</span>
+                    `).join("")}
                 </div>
 
                 <div class="stroke-canvas-wrapper" id="strokeCanvasWrapper">
@@ -1131,11 +1126,6 @@ function initKanaQuest() {
                     </svg>
                     <canvas class="stroke-draw-canvas" id="strokeDrawCanvas"></canvas>
                 </div>
-
-                <div class="stroke-hint-bar" id="strokeHintBar">
-                    <span class="stroke-hint-icon">✍️</span>
-                    <span class="stroke-hint-text" id="strokeHintText">Tulis goresan langkah ke-1 untuk huruf “${char}” (${romaji})</span>
-                </div>
             </div>
         `;
 
@@ -1145,17 +1135,13 @@ function initKanaQuest() {
         const completedGroup = document.getElementById("strokeCompletedGroup");
         const guideGroup = document.getElementById("strokeGuideGroup");
         const startMarker = document.getElementById("strokeStartMarker");
-        const curStepEl = document.getElementById("strokeCurStep");
         const pillsContainer = document.getElementById("strokeStepPills");
-        const hintBar = document.getElementById("strokeHintBar");
-        const hintText = document.getElementById("strokeHintText");
-        const undoBtn = document.getElementById("strokeUndoBtn");
 
         function resizeCanvas() {
             if (!canvas || !wrapper) return;
             const rect = wrapper.getBoundingClientRect();
             const dpr = window.devicePixelRatio || 1;
-            const size = Math.round(rect.width || 280);
+            const size = Math.round(rect.width || 240);
             canvas.width = size * dpr;
             canvas.height = size * dpr;
             ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -1165,7 +1151,6 @@ function initKanaQuest() {
 
         function setupStep(stepIdx) {
             currentStep = stepIdx;
-            if (curStepEl) curStepEl.textContent = stepIdx + 1;
 
             if (pillsContainer) {
                 const pills = pillsContainer.querySelectorAll(".stroke-step-pill");
@@ -1196,13 +1181,6 @@ function initKanaQuest() {
             if (startMarker) {
                 startMarker.innerHTML = "";
             }
-
-            if (hintBar) hintBar.classList.remove("is-error", "is-success");
-            if (hintText) {
-                hintText.textContent = stepIdx === 0
-                    ? `Tulis goresan ke-1 untuk huruf “${char}” (${romaji}) pada kanvas.`
-                    : `Bagus! Lanjut tulis goresan ke-${stepIdx + 1} pada kanvas ✨`;
-            }
         }
         setupStep(0);
 
@@ -1214,13 +1192,13 @@ function initKanaQuest() {
             const pStart = refPoints[0];
             const pEnd = refPoints[refPoints.length - 1];
 
-            // Skala toleransi disesuaikan jika goresan sangat pendek (misal dakuten tenten)
+            // Toleransi ramah sentuhan layar: cukup akurat namun menoleransi goyangan & menceng wajar
             const isShortStroke = refLen < 22;
-            const startTol = isShortStroke ? Math.max(8.5, refLen * 0.65) : 13.0;
-            const endTol = isShortStroke ? Math.max(9.0, refLen * 0.70) : 14.0;
-            const minLenRatio = isShortStroke ? 0.60 : 0.70;
+            const startTol = isShortStroke ? Math.max(12.0, refLen * 0.80) : 18.0;
+            const endTol = isShortStroke ? Math.max(13.0, refLen * 0.85) : 19.0;
+            const minLenRatio = isShortStroke ? 0.45 : 0.50;
 
-            // 1. Kedekatan titik awal (harus dimulai tepat dekat pangkal garis acuan)
+            // 1. Kedekatan titik awal
             const startCandidates = userPoints.slice(0, Math.min(4, userPoints.length));
             let minStartDist = Infinity;
             startCandidates.forEach((p) => {
@@ -1231,7 +1209,7 @@ function initKanaQuest() {
                 return { isValid: false, reason: "start-far" };
             }
 
-            // 2. Kedekatan titik akhir (harus diakhiri tepat dekat ujung garis acuan)
+            // 2. Kedekatan titik akhir
             const endCandidates = userPoints.slice(Math.max(0, userPoints.length - 4));
             let minEndDist = Infinity;
             endCandidates.forEach((p) => {
@@ -1242,7 +1220,7 @@ function initKanaQuest() {
                 return { isValid: false, reason: "end-far" };
             }
 
-            // 3. Pemeriksaan panjang goresan (mencegah klik/geser mini tanpa bentuk)
+            // 3. Pemeriksaan panjang goresan (mencegah klik/flick mini tanpa garis)
             let userLen = 0;
             for (let i = 1; i < userPoints.length; i++) {
                 userLen += Math.hypot(userPoints[i].x - userPoints[i - 1].x, userPoints[i].y - userPoints[i - 1].y);
@@ -1250,12 +1228,12 @@ function initKanaQuest() {
             if (userLen < refLen * minLenRatio) {
                 return { isValid: false, reason: "too-short" };
             }
-            if (userLen > refLen * 1.85) {
+            if (userLen > refLen * 2.8) {
                 return { isValid: false, reason: "too-long" };
             }
 
-            // 4. Kelengkapan penutupan kurva (Coverage acuan ke goresan user)
-            const matchThresh = isShortStroke ? Math.max(8.0, refLen * 0.65) : 13.0;
+            // 4. Kelengkapan kurva (Coverage)
+            const matchThresh = isShortStroke ? Math.max(11.0, refLen * 0.75) : 17.0;
             let coveredCount = 0;
             refPoints.forEach((r) => {
                 let minD = Infinity;
@@ -1267,12 +1245,12 @@ function initKanaQuest() {
                     coveredCount++;
                 }
             });
-            const reqCoverage = isShortStroke ? 0.70 : 0.80;
+            const reqCoverage = isShortStroke ? 0.52 : 0.60;
             if ((coveredCount / refPoints.length) < reqCoverage) {
                 return { isValid: false, reason: "low-coverage" };
             }
 
-            // 5. Deviasi bentuk & kelencengan (Jarak setiap titik user ke kurva acuan)
+            // 5. Deviasi bentuk & kelencengan (menoleransi menceng sedikit)
             const userDists = [];
             const userMatchedIdx = [];
             userPoints.forEach((u) => {
@@ -1291,8 +1269,8 @@ function initKanaQuest() {
 
             const meanDist = userDists.reduce((sum, d) => sum + d, 0) / userDists.length;
             const maxDist = Math.max(...userDists);
-            const maxAllowedMean = isShortStroke ? 7.5 : 9.0;
-            const maxAllowedPeak = isShortStroke ? 12.0 : 17.0;
+            const maxAllowedMean = isShortStroke ? 11.0 : 14.5;
+            const maxAllowedPeak = isShortStroke ? 18.0 : 25.0;
 
             if (meanDist > maxAllowedMean) {
                 return { isValid: false, reason: "mean-deviation" };
@@ -1306,7 +1284,7 @@ function initKanaQuest() {
                 const nQ = Math.max(1, Math.floor(userMatchedIdx.length / 4));
                 const firstQAvg = userMatchedIdx.slice(0, nQ).reduce((s, v) => s + v, 0) / nQ;
                 const lastQAvg = userMatchedIdx.slice(-nQ).reduce((s, v) => s + v, 0) / nQ;
-                if (lastQAvg <= firstQAvg || (lastQAvg - firstQAvg) < refPoints.length * 0.35) {
+                if (lastQAvg <= firstQAvg || (lastQAvg - firstQAvg) < refPoints.length * 0.22) {
                     return { isValid: false, reason: "wrong-direction" };
                 }
             }
@@ -1336,7 +1314,6 @@ function initKanaQuest() {
                 playStrokeChime(true);
                 if (guideGroup) guideGroup.innerHTML = "";
                 if (startMarker) startMarker.innerHTML = "";
-                if (curStepEl) curStepEl.textContent = totalStrokes;
                 if (pillsContainer) {
                     pillsContainer.querySelectorAll(".stroke-step-pill").forEach((p) => {
                         p.classList.remove("is-active");
@@ -1346,13 +1323,6 @@ function initKanaQuest() {
                 }
 
                 if (wrapper) wrapper.classList.add("is-completed-glow");
-                if (hintBar) {
-                    hintBar.classList.remove("is-error");
-                    hintBar.classList.add("is-success");
-                }
-                if (hintText) {
-                    hintText.textContent = `Hebat! Huruf “${char}” (${romaji}) selesai sempurna! 🎉`;
-                }
 
                 const feedback = $("[data-feedback]");
                 if (feedback) {
@@ -1400,25 +1370,6 @@ function initKanaQuest() {
                     <circle class="stroke-start-core" cx="${startPt.x}" cy="${startPt.y}" r="4" />
                 `;
             }
-
-            let msg = "Goresan belum tepat. Perhatikan garis bantu yang kini muncul!";
-            if (reason === "start-far") {
-                msg = "Mulai goresan tepat dari lingkaran titik ⚪ ya!";
-            } else if (reason === "end-far" || reason === "too-short") {
-                msg = "Garis kependekan! Tarik penuh mengikuti garis panduan sampai ujung.";
-            } else if (reason === "wrong-direction") {
-                msg = "Arah goresan terbalik! Tarik dari lingkaran ⚪ menuju ujung garis.";
-            } else if (reason === "max-deviation" || reason === "mean-deviation" || reason === "low-coverage") {
-                msg = "Goresan melenceng dari pola! Ikuti garis panduan merah muda yang muncul.";
-            } else if (reason === "too-long") {
-                msg = "Goresan terlalu panjang atau berputar! Tarik rapi sesuai garis panduan.";
-            }
-
-            if (hintBar) {
-                hintBar.classList.remove("is-success");
-                hintBar.classList.add("is-error");
-            }
-            if (hintText) hintText.textContent = msg;
 
             ctx.strokeStyle = "rgba(231, 76, 60, 0.85)";
             ctx.stroke();
@@ -1484,15 +1435,6 @@ function initKanaQuest() {
 
         canvas.addEventListener("pointerup", endDrawing);
         canvas.addEventListener("pointercancel", endDrawing);
-
-        if (undoBtn) {
-            undoBtn.addEventListener("click", () => {
-                if (isLocked) return;
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                if (hintBar) hintBar.classList.remove("is-error", "is-success");
-                if (hintText) hintText.textContent = `Silakan ulangi goresan ke-${currentStep + 1}`;
-            });
-        }
     }
 
     function renderQuestion() {
@@ -1580,26 +1522,31 @@ function initKanaQuest() {
             return;
         }
 
+        const cardEl = document.querySelector(".question-card");
+
         if (question.type === "stroke") {
+            if (cardEl) cardEl.classList.add("is-stroke-mode");
+
             $("[data-answer-grid]").classList.remove("is-match-grid");
-            $("[data-answer-grid]").style.cssText = "display: block !important; width: 100% !important; max-width: 540px !important; margin: 0 auto !important; grid-template-columns: none !important;";
+            $("[data-answer-grid]").style.cssText = "display: block !important; width: 100% !important; max-width: 420px !important; margin: 0 auto !important; grid-template-columns: none !important;";
 
             if (defaultSub) {
-                defaultSub.hidden = false;
-                defaultSub.textContent = "Tuliskan huruf kana sesuai urutan goresan pada kanvas";
+                defaultSub.hidden = true;
             }
 
-            $("[data-question-kind]").textContent = "LATIHAN GORESAN KANA";
+            const isRomajiPrompt = question.promptDisplay === "romaji";
+            $("[data-question-kind]").textContent = isRomajiPrompt ? "TULIS KANA (DARI ROMAJI)" : "TULIS GORESAN KANA";
             $("[data-question-prompt]").innerHTML = `
                 <div class="stroke-prompt-wrap">
-                    <span class="stroke-prompt-char">${question.answer.character}</span>
-                    <span class="stroke-prompt-romaji">${question.answer.romaji}</span>
+                    <span class="stroke-prompt-char ${isRomajiPrompt ? "is-romaji" : ""}">${isRomajiPrompt ? question.answer.romaji : question.answer.character}</span>
                 </div>
             `;
 
             renderInteractiveStroke(question);
             return;
         }
+
+        if (cardEl) cardEl.classList.remove("is-stroke-mode");
 
         $("[data-answer-grid]").classList.remove("is-match-grid");
         $("[data-answer-grid]").style.cssText = "";

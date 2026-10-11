@@ -450,27 +450,23 @@ body.theme-dark .perfect-note p {
 /* Interactive Stroke Practice ala Duolingo */
 .stroke-prompt-wrap {
     display: inline-flex;
-    align-items: baseline;
+    align-items: center;
     justify-content: center;
-    gap: 12px;
+    margin: 0 auto;
 }
 
 .stroke-prompt-char {
-    font-size: clamp(52px, 9vw, 76px);
+    font-size: clamp(44px, 8vw, 64px);
     font-weight: 900;
     line-height: 1;
     color: var(--ink);
     letter-spacing: -1px;
 }
 
-.stroke-prompt-romaji {
-    font-size: clamp(20px, 3.5vw, 26px);
-    font-weight: 700;
+.stroke-prompt-char.is-romaji {
     color: var(--pink, #e91e63);
-    background: rgba(233, 30, 99, 0.1);
-    padding: 2px 14px;
-    border-radius: 99px;
-    border: 1px solid rgba(233, 30, 99, 0.2);
+    font-weight: 800;
+    letter-spacing: 0.5px;
 }
 
 .stroke-practice-board {
@@ -478,53 +474,28 @@ body.theme-dark .perfect-note p {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    max-width: 440px;
+    max-width: 380px;
     margin: 0 auto;
-    gap: 14px;
-    box-sizing: border-box;
-}
-
-.stroke-board-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding: 2px 6px;
-    box-sizing: border-box;
-    flex-wrap: wrap;
     gap: 8px;
-}
-
-.stroke-step-indicator {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.stroke-step-label {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--ink);
-}
-
-.stroke-step-label b {
-    color: var(--pink, #e91e63);
+    box-sizing: border-box;
 }
 
 .stroke-step-pills {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
+    margin-bottom: 2px;
 }
 
 .stroke-step-pill {
-    width: 25px;
-    height: 25px;
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 800;
     background: #f1e6ed;
     color: #8c7a88;
@@ -536,8 +507,8 @@ body.theme-dark .perfect-note p {
     background: #fde8f0;
     color: var(--pink, #e91e63);
     border-color: var(--pink, #e91e63);
-    box-shadow: 0 0 10px rgba(233, 30, 99, 0.35);
-    transform: scale(1.1);
+    box-shadow: 0 0 8px rgba(233, 30, 99, 0.35);
+    transform: scale(1.08);
 }
 
 .stroke-step-pill.is-done {
@@ -546,37 +517,51 @@ body.theme-dark .perfect-note p {
     border-color: #2ecc71;
 }
 
-.stroke-tool-btn {
-    padding: 7px 14px;
-    font-size: 12px;
-    font-weight: 700;
-    border-radius: 8px;
-    background: #f6f0f4;
-    border: 1px solid #e5d5df;
-    color: var(--ink);
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.stroke-tool-btn:hover {
-    background: #ede2ea;
-    border-color: #d1bccb;
-    transform: translateY(-1px);
-}
-
 .stroke-canvas-wrapper {
     position: relative;
-    width: min(290px, 80vw);
-    height: min(290px, 80vw);
+    width: min(240px, 52vmin);
+    height: min(240px, 52vmin);
     background: #ffffff;
-    border-radius: 22px;
+    border-radius: 18px;
     border: 2px solid #ecd3dc;
-    box-shadow: 0 14px 34px rgba(35, 20, 32, 0.08);
+    box-shadow: 0 10px 28px rgba(35, 20, 32, 0.08);
     overflow: hidden;
     user-select: none;
     -webkit-user-select: none;
     touch-action: none;
     transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Compact layout mode for stroke question */
+.question-card.is-stroke-mode {
+    padding: 12px 16px 10px !important;
+}
+
+.question-card.is-stroke-mode .question-kind {
+    margin-bottom: 2px !important;
+}
+
+.question-card.is-stroke-mode .question-prompt {
+    min-height: auto !important;
+    margin: 2px 0 6px !important;
+    line-height: 1 !important;
+}
+
+.is-practicing .practice-shell {
+    padding: 16px 20px 12px !important;
+}
+
+.is-practicing .question-dots {
+    margin: 8px 0 6px !important;
+}
+
+.is-practicing .question-progress {
+    margin: 6px 0 12px !important;
+}
+
+.is-practicing .skip-button {
+    margin-top: 6px !important;
+    padding: 6px !important;
 }
 
 .stroke-canvas-wrapper.is-completed-glow {
@@ -686,41 +671,13 @@ body.theme-dark .perfect-note p {
     cursor: crosshair;
 }
 
-.stroke-hint-bar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 10px 18px;
-    border-radius: 12px;
-    background: #fbf7f9;
-    border: 1px solid #ecdde4;
-    font-size: 13px;
-    line-height: 1.4;
-    color: var(--ink);
-    text-align: center;
-    box-sizing: border-box;
-    width: 100%;
-    max-width: 380px;
-    transition: all 0.25s ease;
-}
-
-.stroke-hint-bar.is-error {
-    background: #fff0f2;
-    border-color: #f9ccd3;
-    color: #a82337;
-}
-
-.stroke-hint-bar.is-success {
-    background: #eefaf3;
-    border-color: #c4eed5;
-    color: #15693c;
-    font-weight: 700;
-}
-
 /* Dark mode for stroke practice */
 body.theme-dark .stroke-prompt-char {
     color: #ffffff;
+}
+
+body.theme-dark .stroke-prompt-char.is-romaji {
+    color: var(--pink, #ff65a3);
 }
 
 body.theme-dark .stroke-canvas-wrapper {
@@ -858,6 +815,6 @@ body.theme-dark .stroke-hint-bar.is-success {
 
 </div></section>
 
-<button class="to-top" type="button" aria-label="Kembali ke atas">↑</button><script src="js/stroke-data.js?v=20261011i"></script><script src="js/sora.js"></script><script src="js/main.js"></script><script src="script.js?v=20261011i"></script>
+<button class="to-top" type="button" aria-label="Kembali ke atas">↑</button><script src="js/stroke-data.js?v=20261011j"></script><script src="js/sora.js"></script><script src="js/main.js"></script><script src="script.js?v=20261011j"></script>
 </body>
 </html>
