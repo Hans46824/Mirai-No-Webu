@@ -18333,6 +18333,12 @@ body.theme-dark .lomba-detail-card:hover::after {
 }
 
 .btn-juknis {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    box-sizing: border-box !important;
     width: 100% !important;
     max-width: 320px !important;
     padding: 9px 18px !important;
@@ -18350,6 +18356,7 @@ body.theme-dark .lomba-detail-card:hover::after {
 .btn-juknis:hover {
     transform: translateY(-2px) !important;
     box-shadow: 0 6px 20px rgba(233, 30, 99, 0.5) !important;
+    color: #ffffff !important;
 }
 
 /* MODAL JUKNIS */
