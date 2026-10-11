@@ -1,113 +1,155 @@
 # Struktur Direktori Proyek Mirai no Webu
 
-Dokumen ini memetakan susunan file dan folder setelah proses pembersihan dan pengorganisasian (*cleanup & reorganization*).
+Dokumen ini memetakan seluruh susunan file, folder, halaman web, aset gambar, data, dan logika skrip yang aktif di website **Mirai no Webu**.
 
 ```text
 Mirai-No-Webu/
-├── ai_scripts/                     # Skrip otomasi & manipulasi agen AI (.py)
-│   ├── add_nametag.py
-│   ├── fix_heroes.py
-│   ├── fix_index_links.py
-│   ├── fix_japanese.py
-│   ├── fix_sora.py
-│   ├── fix_sora2.py
-│   ├── move_menu_btn.py
-│   ├── replace_cards.py
-│   ├── replace_cards_revert.py
-│   ├── replace_sidebar_text.py
-│   ├── replace_sora_grid.py
-│   ├── update_carousel.py
-│   ├── update_carousel_js.py
-│   ├── update_index_hero.py
-│   └── update_kelas.py
-│
-├── archive/                        # Arsip file pengujian & halaman cadangan lama
-│   ├── advance.html                # (Placeholder materi lanjutan lama)
-│   ├── reguler.html                # (Placeholder materi reguler lama)
-│   ├── test-card.html              # (File uji coba komponen CSS)
-│   ├── proker-gathering.html       # (Arsip layout proker lama)
-│   ├── proker-konbini.html         # (Arsip layout proker lama)
-│   ├── proker-matsuri.html         # (Arsip layout proker lama)
-│   └── proker-rajio.html           # (Arsip layout proker lama)
-│
-├── data/                           # Data JSON kamus & aksara Jepang
-│   ├── kana.json
-│   ├── kanji.json
-│   ├── kanji-meta.json
-│   └── STROKES-LICENSE.md
-│
-├── images/                         # Aset visual (logo, karakter, icon, background)
-│   ├── mirai/
-│   │   ├── background/
-│   │   ├── banner/
-│   │   ├── haori/
-│   │   ├── icon/
-│   │   ├── logo/
-│   │   ├── profil/
-│   │   └── stiker/
-│   └── ...
-│
-├── js/                             # Logika interaktif & clientside JavaScript
-│   ├── api.js
-│   ├── carousel.js
-│   ├── kana.js
-│   ├── kanji.js
-│   ├── main.js
-│   ├── proker-slider.js
-│   ├── sora.js
-│   ├── stroke.js
-│   ├── stroke-data.js
-│   └── translator.js
-│
-├── materi/                         # Modul pembelajaran Mirai no Buuku
-│   ├── dasar/
-│   │   ├── index.html              # Daftar isi Mirai no Buuku Dasar
-│   │   ├── hiragana.html           # Panduan Aksara Hiragana (Dasar 10)
-│   │   ├── katakana.html           # Panduan Aksara Katakana (Dasar 11)
-│   │   └── jikoshokai.html         # Modul Perkenalan Diri (Dasar 01)
-│   └── lanjutan/
-│       ├── index.html              # Daftar isi Mirai no Buuku Lanjutan
-│       ├── kanji.html              # Panduan Aksara Kanji & JLPT (Lanjutan 02)
-│       └── grammar.html            # Modul Tata Bahasa Lanjutan (Lanjutan 01)
-│
-├── sora/                           # Ruang eksplorasi maskot Sora
-│   └── index.html
-│
-├── video/                          # Aset media video
+├── agent.md                        # Pedoman aturan desain, fungsi, dan persona AI
+├── tree.md                         # Peta lengkap struktur direktori proyek ini
+├── style.css                       # Master stylesheet CSS (Tema gelap, terang, & komponen)
+├── script.js                       # Master JavaScript interaktif global
 │
 ├── [HALAMAN UTAMA WEBSITE]
-│   ├── index.html                  # Beranda / Homepage utama
-│   ├── tentang.html                # Profil, sejarah, dan makna klub
-│   ├── kegiatan.html               # Halaman kegiatan (Divisi & Program Kerja)
-│   ├── kelas.html                  # Hub kelas belajar (Dasar, Lanjutan, Kurikulum)
-│   ├── kamus.html                  # Kamus interaktif Hiragana, Katakana, dan Kanji
-│   ├── kanji.html                  # Kamus Kanji lengkap (2.136+ Jōyō Kanji)
-│   ├── latihan.html                # Modul latihan kuis Kana interaktif
-│   ├── kurikulum.html              # Peta belajar kurikulum
-│   ├── kelas-dasar.html            # Ikhtisar materi kelas dasar
-│   ├── kelas-lanjutan.html         # Ikhtisar materi kelas lanjutan
+│   ├── index.html                  # Beranda utama (Hero, modul, maskot Sora, feedback)
+│   ├── tentang.html                # Profil klub (Sejarah, filosofi, bendera, Haori, 11 pengurus)
+│   ├── kegiatan.html               # Hub kegiatan klub (Divisi & 4 Program Kerja)
+│   ├── kelas.html                  # Hub kelas belajar (Kelas Dasar, Lanjutan, Kurikulum)
+│   ├── kelas-dasar.html            # Modul Kelas Dasar (Hiragana & Katakana)
+│   ├── kelas-lanjutan.html         # Modul Kelas Lanjutan (Kanji & Tata Bahasa)
+│   ├── kurikulum.html              # Peta belajar kurikulum terstruktur
+│   ├── latihan.html                # Kuis interaktif aksara Kana (Hiragana & Katakana)
+│   ├── kamus.html                  # Kamus interaktif pencarian Kana & Kanji
+│   ├── kanji.html                  # Ensiklopedia lengkap 2.136+ Jōyō Kanji
+│   ├── peringkat.html              # Papan peringkat (Leaderboard Rajio, Kehadiran, Prestasi)
+│   ├── lomba.html                  # Informasi 18 lomba & festival jejepangan (Carousel poster)
+│   ├── motivasi.html               # Kumpulan kata motivasi & mutiara bahasa Jepang
+│   ├── rekomendasi.html            # Rekomendasi media belajar (Anime, musik, dorama)
+│   ├── tomodachi.html              # Forum perkenalan & jejaring teman belajar
+│   ├── masukan.html                # Halaman aspirasi & form kritik saran
 │   │
-│   ├── [Halaman Divisi]
+│   ├── [Halaman 4 Divisi Resmi]
 │   ├── divisi-bahasa.html          # Divisi Bahasa & Budaya
 │   ├── divisi-cosplay.html         # Divisi Cosplay & Seni Peran
 │   ├── divisi-desain.html          # Divisi Desain & Kreatif
 │   ├── divisi-kewirausahaan.html   # Divisi Kewirausahaan
 │   │
-│   ├── [Halaman Program Kerja]
-│   ├── ktn.html                    # 01. Kimi To Nippon (Orientasi)
-│   ├── njr.html                    # 02. Nihon Go Rajio (Radio Sekolah)
-│   ├── konbini.html                # 03. Mirai no Konbini (Kewirausahaan)
-│   ├── ramadhan.html               # 04. Mirai no Ramadhan (Bulan Puasa)
+│   ├── [Halaman 4 Program Kerja Unggulan]
+│   ├── ktn.html                    # 1. Kimi To Nippon (Orientasi anggota baru)
+│   ├── njr.html                    # 2. Nihon Go Rajio (Siaran radio mingguan sekolah)
+│   ├── konbini.html                # 3. Mirai no Konbini (Bazaar & merchandise klub)
+│   ├── ramadhan.html               # 4. Mirai no Ramadhan (Bakti sosial & matsuri puasa)
 │   │
-│   ├── [Halaman Redirect / Kompatibilitas]
+│   ├── [Halaman Pengalihan / Redirect]
 │   ├── about.html                  # Pengalihan ke tentang.html
 │   ├── hiragana.html               # Pengalihan ke kamus.html?tab=hiragana
-│   ├── katakana.html               # Pengalihan ke kamus.html?tab=katakana
-│   └── masukan.html                # Pengalihan ke Google Form
+│   └── katakana.html               # Pengalihan ke kamus.html?tab=katakana
 │
-├── [ASSET INTI GLOBAL]
-│   ├── style.css                   # Master stylesheet (termasuk Dark Mode & Sora)
-│   └── script.js                   # Master script interaktif global
-└── tree.md                         # Dokumentasi struktur direktori ini
+├── sora/                           # Ruang obrolan interaktif maskot Sora
+│   └── index.html                  # Halaman playground chat Sora
+│
+├── materi/                         # Buku modul pembelajaran terperinci
+│   ├── dasar/
+│   │   ├── index.html              # Daftar isi materi dasar
+│   │   ├── hiragana.html           # Modul lengkap aksara Hiragana
+│   │   ├── katakana.html           # Modul lengkap aksara Katakana
+│   │   └── jikoshokai.html         # Modul perkenalan diri (Jikoshoukai)
+│   └── lanjutan/
+│       ├── index.html              # Daftar isi materi lanjutan
+│       ├── kanji.html              # Panduan aksara Kanji & JLPT
+│       └── grammar.html            # Panduan tata bahasa (Bunpou) lanjutan
+│
+├── data/                           # Database JSON aksara & kamus
+│   ├── kana.json                   # Data huruf Hiragana & Katakana
+│   ├── kanji.json                  # Data 2.136 karakter Kanji
+│   ├── kanji-meta.json             # Metadata radikal & urutan goresan
+│   └── STROKES-LICENSE.md          # Lisensi data urutan goresan KanjiVG
+│
+├── js/                             # File logika JavaScript modular
+│   ├── main.js                     # Logika navbar, sidebar mobile, tema, & launcher Sora
+│   ├── leaderboard-data.js         # Master data 30 profil peringkat & prestasi
+│   ├── sora.js                     # Logika bot obrolan & fallback jawaban Sora
+│   ├── kanji.js                    # Mesin pencari & filter kamus Kanji
+│   ├── kana.js                     # Logika kartu & audio pelafalan Kana
+│   ├── stroke.js                   # Visualisasi urutan goresan kanvas Kanji
+│   ├── stroke-data.js              # Vektor koordinat garis KanjiVG
+│   ├── carousel.js                 # Logika slider / carousel umum
+│   ├── proker-slider.js            # Slider khusus halaman kegiatan proker
+│   ├── translator.js               # Mesin bantu terjemahan
+│   └── api.js                      # Koneksi endpoint data
+│
+├── images/mirai/                   # Seluruh aset visual klub
+│   ├── background/                 # Pola wagara & wallpaper
+│   │   ├── w1b.jpeg                # Pola garis gelombang wagara gelap
+│   │   ├── w1w.jpeg                # Pola garis gelombang wagara terang
+│   │   ├── w2w.jpeg                # Pola tekstil wagara terang cadangan
+│   │   ├── c1b.jpeg                # Pola awan kumo gelap
+│   │   ├── c1w.jpeg                # Pola awan kumo terang
+│   │   ├── chat.jpeg               # Wallpaper latar ruang obrolan
+│   │   └── Sora.png                # Artwork gambar maskot Sora
+│   │
+│   ├── logo/                       # Logo resmi klub & program kerja
+│   │   ├── MNH1.png                # Logo utama Mirai No Hana
+│   │   ├── MNH1-nav.png            # Logo Mirai No Hana versi navbar
+│   │   ├── NK.png                  # Logo Nihongo Kurabu
+│   │   ├── NGR.png                 # Logo Nihon Go Rajio
+│   │   ├── KTN.png                 # Logo Kimi To Nippon
+│   │   ├── Mirainokonbini.png       # Logo Mirai no Konbini
+│   │   ├── Miraimatsuri.png        # Logo Miraimatsuri
+│   │   ├── Ramadhan.jpeg           # Logo Mirai no Ramadhan
+│   │   └── comingsoon.jpg          # Placeholder acara mendatang
+│   │
+│   ├── icon/                       # Ikon chibi Genshin & simbol
+│   │   ├── Al.png                  # Chibi Alhaitham (PNG transparan)
+│   │   ├── Ay.png                  # Chibi Kamisato Ayato (PNG transparan)
+│   │   ├── Chi.png                 # Chibi Tartaglia Childe (PNG transparan)
+│   │   ├── Fa.png                  # Chibi Faruzan (PNG transparan)
+│   │   ├── Fli.png                 # Chibi Fischl (PNG transparan)
+│   │   ├── Fu.png                  # Chibi Furina (PNG transparan)
+│   │   ├── Hu.png                  # Chibi Hu Tao (PNG transparan)
+│   │   ├── Ka.png                  # Chibi Kaedehara Kazuha (PNG transparan)
+│   │   ├── Ki.png                  # Chibi Kirara (PNG transparan)
+│   │   ├── Lo.png                  # Chibi Layla (PNG transparan)
+│   │   ├── Wa.png                  # Chibi Wanderer Scaramouche (PNG transparan)
+│   │   ├── ang.jpeg                # Chibi Venti
+│   │   ├── bal.jpeg                # Chibi Raiden Shogun Ei
+│   │   ├── bul.jpeg                # Chibi Columbina
+│   │   ├── chi.jpeg                # Chibi Yanfei
+│   │   ├── cil.jpeg                # Chibi Xiao
+│   │   ├── dil.jpeg                # Chibi Diluc
+│   │   ├── nah.jpeg                # Chibi Nahida
+│   │   ├── sar.jpeg                # Chibi Kujou Sara
+│   │   ├── zho.jpeg                # Chibi Zhongli
+│   │   └── chat.jpeg               # Ikon balon obrolan
+│   │
+│   ├── identitas/                  # Aset atribut resmi & merchandise klub
+│   │   ├── haori-depan-new.png     # Tampak depan Haori resmi klub
+│   │   ├── haori-belakang-new.png  # Tampak belakang Haori resmi klub
+│   │   ├── happi.jpeg              # Foto jubah festival Happi
+│   │   ├── idc front.jpeg          # Desain depan kartu tanda anggota (ID Card)
+│   │   ├── idc back.jpeg           # Desain belakang kartu tanda anggota
+│   │   ├── lanyard.jpeg            # Foto tali lanyard klub
+│   │   ├── lanyard-horizontal.png  # Mockup lanyard horizontal
+│   │   ├── lanyard-horizontal-ccw.png # Mockup lanyard rotasi
+│   │   ├── nametag-katakana.jpeg   # Tanda pengenal bertuliskan Katakana
+│   │   ├── pin.jpeg                # Foto pin lencana klub
+│   │   └── pin-clean.png           # Render transparan pin lencana
+│   │
+│   ├── Lomba & Acara/              # Poster resmi kompetisi & matsuri
+│   │   ├── its1.jpeg               # Poster INOCHI ITS (Akademik)
+│   │   ├── its2.jpeg               # Poster INOCHI ITS (Kreatif & Cosplay)
+│   │   ├── una.jpeg                # Poster JWC UNAIR
+│   │   ├── une1.jpeg               # Poster JPC UNESA (Lomba Umum)
+│   │   └── une2.jpeg               # Poster JPC UNESA (Lomba Akademik)
+│   │
+│   ├── sora/                       # Aset khusus maskot Sora
+│   │   ├── soracarousel.png        # Banner showcase maskot Sora
+│   │   └── sorachat.jpeg           # Avatar maskot di kotak obrolan
+│   │
+│   ├── stiker/                     # 28 stiker komunitas (ada, aku, ala, be, dst.)
+│   ├── anggota/                    # 8 foto dokumentasi anggota (1.jpg s.d. 8.jpg)
+│   └── dokumentasi/                # path_to_landscape.jpg & path_to_portrait.jpg
+│
+├── ai_scripts/                     # Koleksi skrip otomasi & pemeliharaan kode (.py)
+├── docs/                           # Dokumentasi pendukung proyek
+└── video/                          # Aset berkas video kegiatan
 ```
-
