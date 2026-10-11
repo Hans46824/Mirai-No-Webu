@@ -9070,24 +9070,16 @@ body.theme-dark .activity-card-locked {
    - Tombol Besar Hitam: Pattern Kumo Awan Gelap (c1b.jpeg)
    ========================================================================== */
 
-/* 1. Tombol Besar pada Halaman/Section Putih (c1w.jpeg) */
-.start-card,
-.curriculum-cards a,
-.course-card,
-.program-card {
-    position: relative;
-    overflow: hidden;
-}
-
+/* 1. Tombol Besar pada Halaman/Section Putih Beranda (c1w.jpeg) */
 .start-card,
 .curriculum-cards a {
+    position: relative;
+    overflow: hidden;
     background-color: #ffffff;
 }
 
 .start-card > *,
-.curriculum-cards a > *,
-.course-card > *,
-.program-card > * {
+.curriculum-cards a > * {
     position: relative;
     z-index: 2;
 }
@@ -9111,9 +9103,7 @@ body.theme-dark .activity-card-locked {
 }
 
 .start-card::after,
-.curriculum-cards a::after,
-.course-card::after,
-.program-card::after {
+.curriculum-cards a::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -9129,25 +9119,17 @@ body.theme-dark .activity-card-locked {
 }
 
 .start-card:hover::after,
-.curriculum-cards a:hover::after,
-.course-card:hover::after,
-.program-card:hover::after {
+.curriculum-cards a:hover::after {
     opacity: 0.16;
     transform: scale(1.02);
 }
 
-/* Dukungan Dark Mode / Section Genap untuk Tombol Besar Halaman Putih */
+/* Dukungan Dark Mode / Section Genap untuk Tombol Besar Halaman Putih Beranda */
 body.dark-mode .start-card::after,
 body.theme-dark .start-card::after,
 main > section:nth-of-type(even) .start-card::after,
 body.dark-mode .curriculum-cards a::after,
-body.theme-dark .curriculum-cards a::after,
-main > section:nth-of-type(even) .course-card::after,
-body.dark-mode .course-card::after,
-body.theme-dark .course-card::after,
-main > section:nth-of-type(even) .program-card::after,
-body.dark-mode .program-card::after,
-body.theme-dark .program-card::after {
+body.theme-dark .curriculum-cards a::after {
     background-image: url("images/mirai/background/c1b.jpeg");
     background-size: 260px auto;
     background-repeat: repeat;
@@ -9160,27 +9142,17 @@ body.dark-mode .start-card:hover::after,
 body.theme-dark .start-card:hover::after,
 main > section:nth-of-type(even) .start-card:hover::after,
 body.dark-mode .curriculum-cards a:hover::after,
-body.theme-dark .curriculum-cards a:hover::after,
-main > section:nth-of-type(even) .course-card:hover::after,
-body.dark-mode .course-card:hover::after,
-body.theme-dark .course-card:hover::after,
-main > section:nth-of-type(even) .program-card:hover::after,
-body.dark-mode .program-card:hover::after,
-body.theme-dark .program-card:hover::after {
+body.theme-dark .curriculum-cards a:hover::after {
     opacity: 0.08;
 }
 
-/* 2. Tombol Besar pada Halaman/Section Hitam (c1b.jpeg) */
-.activity-start-card,
-.division-card,
-.class-card {
+/* 2. Tombol Besar pada Halaman/Section Hitam Beranda (c1b.jpeg) */
+.activity-start-card {
     position: relative;
     overflow: hidden;
 }
 
-.activity-start-card > *,
-.division-card > *,
-.class-card > * {
+.activity-start-card > * {
     position: relative;
     z-index: 2;
 }
@@ -9204,9 +9176,7 @@ body.theme-dark .program-card:hover::after {
     transform: scaleX(1);
 }
 
-.activity-start-card::after,
-.division-card::after,
-.class-card::after {
+.activity-start-card::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -9222,12 +9192,115 @@ body.theme-dark .program-card:hover::after {
 }
 
 .activity-card-active:hover::after,
-.activity-start-card:hover::after,
-.division-card:hover::after,
-.division-card-link:hover .division-card::after,
+.activity-start-card:hover::after {
+    opacity: 0.08;
+    transform: scale(1.02);
+}
+
+/* 3. Kartu Kelas (Menu Genap 2: Pola Ombak w1b & w1w) */
+.class-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.class-card > * {
+    position: relative;
+    z-index: 2;
+}
+
+.class-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("images/mirai/background/w1b.jpeg");
+    background-size: 260px auto;
+    background-repeat: repeat;
+    background-position: top left;
+    opacity: 0.045;
+    mix-blend-mode: screen;
+    pointer-events: none;
+    z-index: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
 .class-card:hover::after {
     opacity: 0.08;
     transform: scale(1.02);
+}
+
+/* 4. Kartu Kegiatan (Menu Genap 4: Pola Ombak w1b & w1w) */
+.division-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.division-card > * {
+    position: relative;
+    z-index: 2;
+}
+
+.division-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("images/mirai/background/w1b.jpeg");
+    background-size: 260px auto;
+    background-repeat: repeat;
+    background-position: top left;
+    opacity: 0.045;
+    mix-blend-mode: screen;
+    pointer-events: none;
+    z-index: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.division-card:hover::after,
+.division-card-link:hover .division-card::after {
+    opacity: 0.08;
+    transform: scale(1.02);
+}
+
+.program-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.program-card > * {
+    position: relative;
+    z-index: 2;
+}
+
+.program-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("images/mirai/background/w1w.jpeg");
+    background-size: 260px auto;
+    background-repeat: repeat;
+    background-position: top left;
+    opacity: 0.10;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    z-index: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.program-card:hover::after,
+.program-card-link:hover .program-card::after {
+    opacity: 0.16;
+    transform: scale(1.02);
+}
+
+body.dark-mode .program-card::after,
+body.theme-dark .program-card::after {
+    background-image: url("images/mirai/background/w1b.jpeg");
+    opacity: 0.045;
+    mix-blend-mode: screen;
+}
+
+body.dark-mode .program-card:hover::after,
+body.theme-dark .program-card:hover::after {
+    opacity: 0.08;
 }
 
 /* Jika .activity-start-card berada di section terang/putih */
@@ -13489,7 +13562,7 @@ body.page-kurikulum .doc-back-btn:hover,
    - Section Putih: Pattern w1w.jpeg (mix-blend-mode: multiply)
    ===================================================== */
 
-/* (A) BAGIAN HITAM: .about-intro-card, .history-origin-card, .slogan-hero-card, .slogan-card, .achievement-card, .accessory-card, .accessory-banner-card, .timeline-content, .prestasi-stat-box, .event-card, .podium-card, .lb-category-desc-card, .rek-cat-explain-card, .lb-table-card, .lb-system-info-card, .quote-card, .media-tips-card */
+/* (A-1) KARTU GELAP HALAMAN GENAP (TENTANG & PERINGKAT): PATTERN w1b.jpeg */
 .about-intro-card,
 .history-origin-card,
 .slogan-hero-card,
@@ -13499,14 +13572,11 @@ body.page-kurikulum .doc-back-btn:hover,
 .accessory-banner-card,
 .timeline-content,
 .prestasi-stat-box,
-.event-card,
 .podium-card,
 .lb-category-desc-card,
-.rek-cat-explain-card,
 .lb-table-card,
 .lb-system-info-card,
-.quote-card,
-.media-tips-card {
+.quote-card {
     position: relative !important;
     overflow: hidden !important;
     box-sizing: border-box !important;
@@ -13523,14 +13593,11 @@ body.page-kurikulum .doc-back-btn:hover,
 .accessory-banner-card::after,
 .timeline-content::after,
 .prestasi-stat-box::after,
-.event-card::after,
 .podium-card::after,
 .lb-category-desc-card::after,
-.rek-cat-explain-card::after,
 .lb-table-card::after,
 .lb-system-info-card::after,
-.quote-card::after,
-.media-tips-card::after {
+.quote-card::after {
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
@@ -13555,14 +13622,11 @@ body.page-kurikulum .doc-back-btn:hover,
 .accessory-banner-card:hover::after,
 .timeline-node:hover .timeline-content::after,
 .prestasi-stat-box:hover::after,
-.event-card:hover::after,
 .podium-card:hover::after,
 .lb-category-desc-card:hover::after,
-.rek-cat-explain-card:hover::after,
 .lb-table-card:hover::after,
 .lb-system-info-card:hover::after,
-.quote-card:hover::after,
-.media-tips-card:hover::after {
+.quote-card:hover::after {
     opacity: 0.08 !important;
     transform: scale(1.02) !important;
 }
@@ -13576,14 +13640,58 @@ body.page-kurikulum .doc-back-btn:hover,
 .accessory-banner-card > *,
 .timeline-content > *,
 .prestasi-stat-box > *,
-.event-card > *,
 .podium-card > *,
 .lb-category-desc-card > *,
-.rek-cat-explain-card > *,
 .lb-table-card > *,
 .lb-system-info-card > *,
-.quote-card > *,
-.media-tips-card > * {
+.quote-card > * {
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+/* (A-2) KARTU GELAP HALAMAN GANJIL (REKOMENDASI & LOMBA): PATTERN c1b.jpeg */
+.event-card,
+.rek-cat-explain-card,
+.media-tips-card,
+.media-col-card {
+    position: relative !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+    border-radius: 18px !important;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
+}
+
+.event-card::after,
+.rek-cat-explain-card::after,
+.media-tips-card::after,
+.media-col-card::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background-image: url("images/mirai/background/c1b.jpeg") !important;
+    background-size: 260px auto !important;
+    background-repeat: repeat !important;
+    background-position: top left !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+    display: block !important;
+    transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+
+.event-card:hover::after,
+.rek-cat-explain-card:hover::after,
+.media-tips-card:hover::after,
+.media-col-card:hover::after {
+    opacity: 0.08 !important;
+    transform: scale(1.02) !important;
+}
+
+.event-card > *,
+.rek-cat-explain-card > *,
+.media-tips-card > *,
+.media-col-card > * {
     position: relative !important;
     z-index: 2 !important;
 }
@@ -15463,15 +15571,12 @@ body.page-rekomendasi,
     transform: scaleX(1) !important;
 }
 
-/* Hilangkan pattern latar c1b pada card */
-/* Pattern Wagara Halus w1b pada Card Rekomendasi */
+/* Pattern Kumo Awan Halus c1b pada Card Rekomendasi (Halaman Ganjil) */
 .rek-card::after {
-    display: none !important;
-    content: none !important;
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/background/w1b.jpeg") !important;
+    background-image: url("images/mirai/background/c1b.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -17317,13 +17422,12 @@ body.page-lomba,
     z-index: 3 !important;
 }
 
+/* Pattern Kumo Awan Halus c1w pada Card Lomba & Acara (Halaman Ganjil) */
 .lomba-detail-card::after {
-    display: none !important;
-    content: none !important;
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/background/w1w.jpeg") !important;
+    background-image: url("images/mirai/background/c1w.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -17338,6 +17442,18 @@ body.page-lomba,
 .lomba-detail-card:hover::after {
     opacity: 0.16 !important;
     transform: scale(1.02) !important;
+}
+
+body.dark-mode .lomba-detail-card::after,
+body.theme-dark .lomba-detail-card::after {
+    background-image: url("images/mirai/background/c1b.jpeg") !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
+}
+
+body.dark-mode .lomba-detail-card:hover::after,
+body.theme-dark .lomba-detail-card:hover::after {
+    opacity: 0.08 !important;
 }
 
 .lomba-detail-card > * {
@@ -18586,4 +18702,108 @@ body.page-tentang main > section.management-section .heading {
 }
 body.page-tentang main > section.management-section .heading span {
     color: var(--pink, #e91e63) !important;
+}
+
+/* ==========================================================================
+   ATURAN PATTERN SELANG-SELING KARTU 8 HALAMAN MENU UTAMA
+   Urutan Menu Navigasi:
+   1. BERANDA        -> Pola Awan: c1b (gelap) & c1w (terang)
+   2. KELAS          -> Pola Ombak: w1b (gelap) & w1w (terang)
+   3. KAMUS          -> Pola Awan: c1b (gelap) & c1w (terang)
+   4. KEGIATAN       -> Pola Ombak: w1b (gelap) & w1w (terang)
+   5. REKOMENDASI    -> Pola Awan: c1b (gelap) & c1w (terang)
+   6. PAPAN PERINGKAT-> Pola Ombak: w1b (gelap) & w1w (terang)
+   7. LOMBA & ACARA  -> Pola Awan: c1b (gelap) & c1w (terang)
+   8. TENTANG        -> Pola Ombak: w1b (gelap) & w1w (terang)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   4. KEGIATAN (.page-kegiatan) - Pola Ombak (w1b & w1w)
+   -------------------------------------------------------------------------- */
+.page-kegiatan .division-card::after {
+    background-image: url("images/mirai/background/w1b.jpeg") !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
+}
+
+.page-kegiatan .division-card:hover::after,
+.page-kegiatan .division-card-link:hover .division-card::after {
+    opacity: 0.08 !important;
+}
+
+.page-kegiatan .program-card::after {
+    background-image: url("images/mirai/background/w1w.jpeg") !important;
+    opacity: 0.10 !important;
+    mix-blend-mode: multiply !important;
+}
+
+.page-kegiatan .program-card:hover::after,
+.page-kegiatan .program-card-link:hover .program-card::after {
+    opacity: 0.16 !important;
+}
+
+body.dark-mode .page-kegiatan .program-card::after,
+body.theme-dark .page-kegiatan .program-card::after {
+    background-image: url("images/mirai/background/w1b.jpeg") !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
+}
+
+body.dark-mode .page-kegiatan .program-card:hover::after,
+body.theme-dark .page-kegiatan .program-card:hover::after {
+    opacity: 0.08 !important;
+}
+
+/* --------------------------------------------------------------------------
+   5. REKOMENDASI (.page-rekomendasi) - Pola Awan (c1b & c1w)
+   -------------------------------------------------------------------------- */
+.page-rekomendasi .rek-card::after,
+.page-rekomendasi .rek-cat-explain-card::after,
+.page-rekomendasi .media-tips-card::after,
+.page-rekomendasi .media-col-card::after {
+    background-image: url("images/mirai/background/c1b.jpeg") !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
+}
+
+.page-rekomendasi .rek-card:hover::after,
+.page-rekomendasi .rek-cat-explain-card:hover::after,
+.page-rekomendasi .media-tips-card:hover::after,
+.page-rekomendasi .media-col-card:hover::after {
+    opacity: 0.08 !important;
+}
+
+/* --------------------------------------------------------------------------
+   7. LOMBA & ACARA (.page-lomba) - Pola Awan (c1b & c1w)
+   -------------------------------------------------------------------------- */
+.page-lomba .event-card::after {
+    background-image: url("images/mirai/background/c1b.jpeg") !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
+}
+
+.page-lomba .event-card:hover::after {
+    opacity: 0.08 !important;
+}
+
+.page-lomba .lomba-detail-card::after {
+    background-image: url("images/mirai/background/c1w.jpeg") !important;
+    opacity: 0.10 !important;
+    mix-blend-mode: multiply !important;
+}
+
+.page-lomba .lomba-detail-card:hover::after {
+    opacity: 0.16 !important;
+}
+
+body.dark-mode .page-lomba .lomba-detail-card::after,
+body.theme-dark .page-lomba .lomba-detail-card::after {
+    background-image: url("images/mirai/background/c1b.jpeg") !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
+}
+
+body.dark-mode .page-lomba .lomba-detail-card:hover::after,
+body.theme-dark .page-lomba .lomba-detail-card:hover::after {
+    opacity: 0.08 !important;
 }

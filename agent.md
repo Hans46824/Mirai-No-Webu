@@ -100,13 +100,20 @@ Koleksi 20 stiker chibi resmi Genshin Impact untuk profil anggota, papan peringk
 - Halaman utama (Beranda, Tentang, Kegiatan, Papan Peringkat, Lomba) memiliki hero visual yang menonjol dan menarik perhatian.
 - Halaman fokus materi (Kelas Dasar, Kelas Lanjutan, Kamus, Kurikulum) memakai hero minimalis tanpa gambar berat, agar pengguna langsung fokus ke modul pembelajaran.
 
-### C. Aturan Pola Background (Pattern) & Tingkat Transparansi
-- **Aturan Mutlak**: Hanya boleh ada 1 pola pattern dalam satu kartu. Dilarang keras menumpuk pattern di dalam kartu yang sudah memiliki pattern karena motifnya akan saling bertabrakan dan terlihat kotor.
-- **Transparansi Wajib Tipis & Halus**:
-  - Pola garis Wagara gelap (w1b.jpeg): transparansi sekitar 4.5% (opacity: 0.045), saat kartu disorot mouse naik sedikit ke 8% (opacity: 0.08).
-  - Pola garis Wagara terang (w1w.jpeg): transparansi sekitar 3.5% sampai 4.5% (opacity: 0.035 sampai 0.045).
-  - Pola awan gelap (c1b.jpeg): dipakai pada tombol besar dan banner gelap dengan transparansi 8% sampai 16% (screen).
-  - Pola awan terang (c1w.jpeg): dipakai pada tombol besar seksi putih dengan transparansi 10% (multiply).
+### C. Aturan Pola Background (Pattern) & Selang-Seling Tiap Halaman Menu
+- **Aturan Selang-Seling 8 Halaman Menu Utama**: Motif pola pada tiap kartu diatur berselang-seling mengikuti urutan menu navigasi dari awal sampai akhir:
+  1. **Beranda**: Menggunakan Pola Awan Kumo — **c1b.jpeg** (kartu seksi gelap) & **c1w.jpeg** (kartu seksi terang).
+  2. **Kelas**: Menggunakan Pola Ombak Wagara Seigaiha — **w1b.jpeg** (kartu seksi gelap) & **w1w.jpeg** (kartu seksi terang).
+  3. **Kamus**: Menggunakan Pola Awan Kumo — **c1b.jpeg** (kartu seksi gelap) & **c1w.jpeg** (kartu seksi terang).
+  4. **Kegiatan**: Menggunakan Pola Ombak Wagara Seigaiha — **w1b.jpeg** (kartu divisi/gelap) & **w1w.jpeg** (kartu program/terang).
+  5. **Rekomendasi**: Menggunakan Pola Awan Kumo — **c1b.jpeg** (kartu seksi gelap) & **c1w.jpeg** (kartu seksi terang).
+  6. **Papan Peringkat**: Menggunakan Pola Ombak Wagara Seigaiha — **w1b.jpeg** (kartu podium & tabel gelap) & **w1w.jpeg** (kartu terang).
+  7. **Lomba & Acara**: Menggunakan Pola Awan Kumo — **c1b.jpeg** (kartu acara gelap) & **c1w.jpeg** (kartu detail terang).
+  8. **Tentang**: Menggunakan Pola Ombak Wagara Seigaiha — **w1b.jpeg** (kartu seksi gelap) & **w1w.jpeg** (kartu seksi terang).
+- **Aturan Mutlak Anti-Tumpuk**: Hanya boleh ada 1 pola pattern dalam satu kartu. Dilarang keras menumpuk pattern di dalam kartu yang sudah memiliki pattern karena motifnya akan saling bertabrakan dan terlihat kotor.
+- **Tingkat Transparansi Wajib Tipis & Halus (Agar Teks Tetap Jelas)**:
+  - Kartu Gelap (c1b / w1b): Transparansi sekitar 4.5% (opacity: 0.045, mix-blend-mode: screen). Saat disorot mouse (hover) naik halus ke 8% (opacity: 0.08).
+  - Kartu Terang (c1w / w1w): Transparansi sekitar 10% (opacity: 0.10, mix-blend-mode: multiply). Saat disorot mouse naik ke 16% (opacity: 0.16).
 
 ### D. Penggunaan Ikon Chibi: Jangan Sampai Mendominasi
 - Ikon chibi diletakkan di sudut kartu (.card-corner-chibi) atau avatar peringkat sebagai aksen pemanis desain saja.

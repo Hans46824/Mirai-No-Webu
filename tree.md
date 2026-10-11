@@ -78,12 +78,12 @@ Mirai-No-Webu/
 │   └── api.js                      # Koneksi endpoint data
 │
 ├── images/mirai/                   # Seluruh aset visual klub
-│   ├── background/                 # Pola wagara & wallpaper
-│   │   ├── w1b.jpeg                # Pola garis gelombang wagara gelap
-│   │   ├── w1w.jpeg                # Pola garis gelombang wagara terang
+│   ├── background/                 # Pola wagara & wallpaper latar
+│   │   ├── c1b.jpeg                # Pola awan kumo gelap (kartu menu ganjil: Beranda, Kamus, Rekomendasi, Lomba)
+│   │   ├── c1w.jpeg                # Pola awan kumo terang (kartu menu ganjil: Beranda, Kamus, Rekomendasi, Lomba)
+│   │   ├── w1b.jpeg                # Pola ombak wagara gelap (kartu menu genap: Kelas, Kegiatan, Peringkat, Tentang)
+│   │   ├── w1w.jpeg                # Pola ombak wagara terang (kartu menu genap: Kelas, Kegiatan, Peringkat, Tentang)
 │   │   ├── w2w.jpeg                # Pola tekstil wagara terang cadangan
-│   │   ├── c1b.jpeg                # Pola awan kumo gelap
-│   │   ├── c1w.jpeg                # Pola awan kumo terang
 │   │   ├── chat.jpeg               # Wallpaper latar ruang obrolan
 │   │   └── Sora.png                # Artwork gambar maskot Sora
 │   │
