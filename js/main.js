@@ -321,7 +321,7 @@ function setupManagementSlider() {
             tab.setAttribute("aria-selected", String(i === currentIndex));
         });
         if (indicator) {
-            indicator.textContent = `${currentIndex + 1} / ${totalSlides}`;
+            indicator.textContent = `${currentIndex + 1} dari ${totalSlides}`;
         }
         if (prevBtn) prevBtn.style.opacity = currentIndex === 0 ? "0.45" : "1";
         if (nextBtn) nextBtn.style.opacity = currentIndex === totalSlides - 1 ? "0.45" : "1";
@@ -486,7 +486,7 @@ function setupFooterQuoteSlider() {
         {
             id: 1,
             animeId: "one-piece",
-            tokohBadge: "TOKOH 01 · 麦わらのルフィ",
+            tokohBadge: "Tokoh 1 · 麦わらのルフィ",
             tag: "ONE PIECE · ワンピース · EIICHIRO ODA",
             name: "Monkey D. Luffy",
             anime: "One Piece",
@@ -509,7 +509,7 @@ function setupFooterQuoteSlider() {
         {
             id: 2,
             animeId: "attack-on-titan",
-            tokohBadge: "TOKOH 02 · 調査兵団",
+            tokohBadge: "Tokoh 2 · 調査兵団",
             tag: "ATTACK ON TITAN · 進撃の巨人 · HAJIME ISAYAMA",
             name: "Eren Yeager & Pasukan Penyelidik",
             anime: "Attack on Titan",
@@ -532,7 +532,7 @@ function setupFooterQuoteSlider() {
         {
             id: 3,
             animeId: "naruto",
-            tokohBadge: "TOKOH 03 · うずまきナルト",
+            tokohBadge: "Tokoh 3 · うずまきナルト",
             tag: "NARUTO · ナルト · MASASHI KISHIMOTO",
             name: "Uzumaki Naruto",
             anime: "Naruto",
@@ -555,9 +555,9 @@ function setupFooterQuoteSlider() {
         {
             id: 4,
             animeId: "my-hero-academia",
-            tokohBadge: "TOKOH 04 · デク · PLUS ULTRA",
+            tokohBadge: "Tokoh 4 · デク · PLUS ULTRA",
             tag: "MY HERO ACADEMIA · 僕のヒーローアカデミア · KOHEI HORIKOSHI",
-            name: "Midoriya Izuku / Deku",
+            name: "Midoriya Izuku (Deku)",
             anime: "My Hero Academia",
             animeJP: "僕のヒーローアカデミア",
             author: "Kohei Horikoshi",
@@ -578,7 +578,7 @@ function setupFooterQuoteSlider() {
         {
             id: 5,
             animeId: "demon-slayer",
-            tokohBadge: "TOKOH 05 · 竈門炭治郎",
+            tokohBadge: "Tokoh 5 · 竈門炭治郎",
             tag: "DEMON SLAYER · 鬼滅の刃 · KOYOHARU GOTOUGE",
             name: "Tanjiro Kamado",
             anime: "Demon Slayer",
@@ -601,7 +601,7 @@ function setupFooterQuoteSlider() {
         {
             id: 6,
             animeId: "black-clover",
-            tokohBadge: "TOKOH 06 · アスタ · 諦めない",
+            tokohBadge: "Tokoh 6 · アスタ · 諦めない",
             tag: "BLACK CLOVER · ブラッククローバー · YŪKI TABATA",
             name: "Asta",
             anime: "Black Clover",
@@ -624,7 +624,7 @@ function setupFooterQuoteSlider() {
         {
             id: 7,
             animeId: "haikyuu",
-            tokohBadge: "TOKOH 07 · 烏野高校 · 飛べ",
+            tokohBadge: "Tokoh 7 · 烏野高校 · 飛べ",
             tag: "HAIKYUU!! · ハイキュー!! · HARUICHI FURUDATE",
             name: "Kageyama Tobio & Hinata Shoyo",
             anime: "Haikyuu!!",
