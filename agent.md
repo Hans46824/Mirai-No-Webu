@@ -1,86 +1,69 @@
 <!-- cspell:disable -->
-# <font color="#ff4f91">MIRAI NO WEBU</font> — Pedoman & Karakter Desain
+# Panduan Desain & Aturan Web Mirai No Webu
 
-> Catatan pegangan buat AI dan pengembang saat mengerjakan website Mirai no Webu (Klub Jepang Mirai no Hana). Ditulis simpel, manusiawi, dan langsung ke intinya.
-
----
-
-## 1. Siapa Kita & Karakter Website
-
-- <font color="#ff4f91">Nama Website:</font> Mirai No Webu
-- <font color="#a855f7">Organisasi:</font> Mirai no Hana Nihongo Kurabu (SMASYIMDUTA Sidoarjo)
-- <font color="#38bdf8">Jiwa Klub:</font> Komunitas pelajar mandiri yang santai, kreatif, hangat, dan estetik. Bukan website sekolah formal yang kaku.
-- <font color="#10b981">Teknologi:</font> Vanilla web murni (HTML5, CSS di style.css, JavaScript modular di js/). Tanpa framework berat supaya loading instan dan mudah diedit langsung.
-- <font color="#f59e0b">Nuansa Warna:</font> Dominan tema gelap modern dengan aksen pendaran pink sakura (#ff4f91), diselingi seksi putih bersih yang kontras dan elegan di bagian filosofi.
+Dokumen ini rangkuman aturan desain, fungsi, dan gaya web Mirai no Webu yang disukai dan sudah diterapkan. Gunakan panduan ini setiap kali membuat atau mengubah halaman web. Penjelasannya singkat, padat, dan langsung ke intinya.
 
 ---
 
-## 2. Bedah 3 Halaman Utama
+## 1. Konsep Halaman & Warna Selang-Seling Hitam Putih
+- Web menerapkan konsep selang-seling seksi hitam dan putih (terutama di halaman Tentang dan penjelasan profil).
+- Tujuannya supaya mata pengunjung tidak jenuh saat scroll ke bawah.
+- Seksi hitam memakai warna dasar gelap (#111111 / #0e0d13) dengan teks putih.
+- Seksi putih memakai latar putih bersih (#ffffff) dengan teks gelap (#18151b).
 
-### A. Beranda (index.html)
-Pintu masuk utama pengunjung. Kesan pertama harus langsung memikat:
-- Bagian atas (Hero) langsung menampilkan judul tegas, tipografi berani, dan tombol aksi ke materi.
-- Ada ringkasan profil klub dengan kartu bertekstur halus khas Jepang.
-- Menghubungkan langsung ke modul belajar, interaksi maskot Sora, hingga form saran.
+## 2. Background Hero Tiap Halaman
+- Tidak semua halaman harus punya background hero gambar besar.
+- Halaman utama (Beranda, Tentang, Kegiatan, Papan Peringkat) punya hero visual dengan nuansa tegas.
+- Halaman materi dan modul (Kelas Dasar, Kelas Lanjutan, Kamus) memakai hero minimalis tanpa gambar berat, supaya pengunjung langsung fokus ke materi belajar.
 
-### B. Hub Kelas Belajar (kelas.html)
-Pusat pembelajaran bahasa Jepang dari nol sampai mahir:
-- Setiap kartu modul dihiasi stiker chibi Genshin di pojok kanan atas supaya suasana belajar terasa santai dan imut.
-- Alur belajarnya terarah: Huruf Dasar (Hiragana dan Katakana) → Tata Bahasa (Bunpou) → Aksara Kanji → Percakapan Sehari-hari.
-- Tulisannya ramah pelajar SMA, tidak berbelit-belit, dan bikin semangat belajar.
+## 3. Aturan Pattern (Pola Wagara) & Transparansi
+- Aturan mutlak: Hanya 1 pattern dalam satu kartu. Dilarang menumpuk pattern di dalam kartu yang sama karena hasilnya tabrakan dan kotor.
+- Transparansi pattern harus sangat halus (tipis saja sebagai tekstur mewah, bukan menutupi teks):
+  - Kartu gelap: Memakai w1b.jpeg dengan transparansi sekitar 4.5% (opacity: 0.045), saat hover naik sedikit ke 8% (opacity: 0.08).
+  - Kartu terang: Memakai w1w.jpeg dengan transparansi sekitar 3.5% sampai 4.5% (opacity: 0.035 - 0.045).
 
-### C. Profil Klub (tentang.html)
-Wajah sejarah, nilai, dan kepengurusan klub:
-- Konsep selang-seling warna: Seksi hitam untuk cerita sejarah dan prestasi, seksi putih untuk bendera resmi, filosofi nama, makna logo, dan pengurus.
-- Garis waktu sejarah: Menceritakan perjalanan komunitas perintis sejak 2018, sempat jadi ekstrakurikuler sekolah, lalu mandiri, dan fleksibel ke depannya.
-- Susunan Pengurus Kabinet Clover: 11 kartu pengurus yang rapi dan simetris, di mana 3 kartu di baris terakhir berada tepat di tengah tanpa keterangan kelas.
+## 4. Penggunaan Ikon Chibi
+- Ikon chibi (Genshin / maskot) ditaruh di pojok kartu atau avatar sebagai pemanis visual saja.
+- Ikon chibi TIDAK BOLEH mendominasi tampilan kartu.
+- Tidak masalah kalau chibi kena timpa stiker atau elemen lain. Yang paling utama adalah teks dan fungsi web.
+- Jangan sampai keberadaan chibi merusak tata letak, menutupi info penting, atau bikin tulisan susah dibaca.
 
----
+## 5. Skema Warna Web (Pink, Putih, Hitam + Multi-Color)
+- Warna dominan: Pink sakura (#ff4f91 dan #e91e63), putih (#ffffff), dan hitam (#09090d / #111115).
+- Warna pelengkap (multi-color) wajib ada pada badge, tag status, dan level agar web tidak monoton:
+  - Biru: Wilayah Sidoarjo, tingkat Jatim, dan info teknis.
+  - Hijau: Wilayah Surabaya, status pendaftaran buka, presensi hadir.
+  - Oranye / Emas: Tingkat provinsi, juara perunggu/emas, status peringatan.
+  - Merah: Tingkat nasional, status tutup, deadline penting.
+  - Ungu: Kategori acara festival, cosplay, dan ruang Sora.
 
-## 3. Filosofi Desain Pengguna (Wajib Dipatuhi)
+## 6. Aturan Judul Tiap Halaman (Heading)
+- Gunakan gaya Two-Tone: Gabungan teks putih/hitam biasa dengan kata aksen pink yang dibungkus tag span.
+- Judul harus tegas, bold, dan proporsional di layar laptop maupun ponsel.
+- Dilarang keras memakai angka berawalan nol (01, 02) atau garis miring (/) yang kaku.
 
-Berikut aturan penting yang harus selalu diingat setiap kali mengerjakan prompt:
+## 7. Aturan Deskripsi & Tulisan
+- Deskripsi harus ringkas dan padat (cukup 2 sampai 3 baris saja).
+- Warna teks deskripsi di tema gelap memakai abu-abu lembut (#cbd5e1 atau #94a3b8), bukan putih murni 100%, agar nyaman dibaca lama.
+- Gunakan bahasa manusia yang ramah, santai, dan akrab khas pelajar/komunitas. Hindari bahasa kaku robot atau istilah klise AI.
 
-### <font color="#ef4444">1. Buatan Manusia Asli (Anti AI Slop)</font>
-- <font color="#ef4444">Haram angka berawalan nol (01, 02, 03):</font> Manusia biasa menulis nomor urut langsung 1, 2, 3. Jangan pakai format kaku mesin.
-- <font color="#ef4444">Haram garis miring kaku (/):</font> Jangan pakai garis miring untuk pemisah tanggal atau status. Gunakan tanda hubung (–), titik tengah (·), atau susun kalimat mengalir.
-- <font color="#10b981">Bahasa Manusiawi:</font> Hindari kata-kata robot seperti "menjelajahi holistik" atau "sinergi mendalam". Gunakan kalimat yang hangat, akrab, dan wajar seperti anak muda Indonesia.
+## 8. Aturan Tombol
+- Bentuk tombol memiliki sudut melengkung halus (border-radius: 12px), bukan kotak kaku dan bukan lonjong oval.
+- Warna gradien pink sakura (#ff4f91 ke #e91e63) dengan bayangan pendar lembut (box-shadow).
+- Saat disorot mouse (hover), tombol naik sedikit (translateY -2px) dan pendaran lebih terang.
+- Ukuran tombol harus pas dan proporsional, tidak boleh melar memenuhi seluruh kartu.
 
-### <font color="#a855f7">2. Aturan Pola Wagara (Pattern)</font>
-- <font color="#ef4444">Maksimal 1 pola per kartu:</font> Jangan pernah menumpuk 2 motif pattern dalam 1 kartu karena hasilnya terlihat tabrakan dan kotor.
-- <font color="#10b981">Transparansi super halus:</font> Pattern hanya berfungsi sebagai tekstur mewah, bukan menutupi teks:
-  - Seksi Gelap: Pola w1b.jpeg dengan opacity sekitar 0.045 (layar) sampai 0.08 saat disentuh.
-  - Seksi Terang: Pola w1w.jpeg dengan opacity sekitar 0.035 sampai 0.045 (multiply).
-
-### <font color="#38bdf8">3. Tata Letak Laptop (Anti Ruang Hampa)</font>
-- <font color="#ef4444">Dilarang ada ruang kosong melompong:</font> Di layar laptop, kartu tidak boleh punya ruang bolong besar di tengah antara judul dan tombol bawah. Isi secara proporsional.
-- <font color="#10b981">Urutan isi kartu yang rapi:</font>
-  Label Kategori → Judul & Penyelenggara → Deskripsi/Caption Ringkas → Kotak Informasi (2 Kolom) → Tombol Juknis.
-- <font color="#ff4f91">Poster Wajib Carousel Hemat Ruang:</font>
-  Jika ada 2 poster, jangan ditumpuk ke bawah sampai kartu melar 700 piksel. Jadikan 1 frame carousel:
-  - Bisa digeser dengan jari (touch swipe) di layar sentuh.
-  - Bisa diklik tombol panah kiri dan kanan (‹ dan ›).
+## 9. Aturan Foto, Poster, & Avatar
+- Jika ada 2 poster dalam satu kartu acara, jangan ditumpuk vertikal ke bawah yang membuat kartu melar tinggi.
+- Gabungkan dalam 1 frame carousel hemat ruang:
+  - Bisa digeser dengan swipe jari di HP/tablet.
+  - Bisa digeser dengan tombol panah kiri-kanan (‹ dan ›).
   - Bisa digeser dengan drag mouse di laptop.
-  - Bisa diklik untuk melihat gambar ukuran penuh (lightbox).
-  - Ada angka halaman yang jelas (contoh: 1 dari 2).
+  - Bisa diklik untuk melihat foto ukuran penuh (popup lightbox).
+  - Ada indikator halaman yang jelas (contoh: 1 dari 2).
+- Avatar anggota/juara lingkaran harus berlatar putih (#ffffff) dengan gambar contain dan sedikit padding, supaya telinga atau topi karakter tidak terpotong garis tepi lingkaran.
 
-### <font color="#f59e0b">4. Standar Foto & Avatar: Chibi Genshin</font>
-- Gunakan foto ikon chibi Genshin Impact resmi dari folder `images/mirai/icon/` (Hu Tao, Alhaitham, Furina, Kazuha, Zhongli, Raiden, Nahida, Venti, dsb).
-- Lingkaran avatar wajib berlatar putih (#ffffff) dengan object-fit contain dan sedikit padding, supaya chibi berlatar transparan maupun putih tidak terpotong telinga atau topinya.
-- Jangan gunakan stiker meme acak yang merusak estetika klub.
-
-### <font color="#10b981">5. Susunan Kartu Ganjil Selalu di Tengah</font>
-- Jika ada kartu berjumlah ganjil (seperti 11 pengurus), baris terakhir tidak boleh menjorok ke kiri sendirian.
-- Tiga kartu terakhir wajib otomatis berada di posisi tengah agar komposisi tetap seimbang dan enak dipandang.
-
-### <font color="#38bdf8">6. Kebersihan Teks & Data</font>
-- Tulis nama pengurus atau anggota secara bersih tanpa keterangan kelas jika diminta.
-- Hapus kalimat pengantar klise jika dirasa hanya membuat halaman terlalu panjang tanpa menambah keindahan.
-
----
-
-## 4. Standar Teknis Kode
-
-1. <font color="#ff4f91">Keseimbangan Kurung CSS:</font> Selalu periksa jumlah kurung kurawal buka dan tutup di style.css agar tidak ada error styling terputus.
-2. <font color="#10b981">Jaga Fitur Lama:</font> Jangan pernah menghapus fungsi JavaScript yang sudah berjalan (modal juknis, lightbox gambar, kuis, canvas kanji, atau menu sidebar).
-3. <font color="#38bdf8">Solusi Nyata Langsung Selesai:</font> Langsung terapkan perubahan di file yang bersangkutan dan berikan laporan ringkas yang enak dibaca.
+## 10. Aturan Spasi & Tata Letak (Layout)
+- Anti ruang hampa: Di layar laptop, dilarang ada ruang hitam/putih kosong melompong di tengah kartu. Isi secara padat dan seimbang dari atas ke bawah.
+- Susunan kartu berjumlah ganjil: Jika jumlah kartu ganjil (seperti 11 kartu pengurus), baris terakhir wajib ditaruh di posisi tengah (rata tengah), tidak boleh jomplang sendirian di kiri.
+- Format nama pengurus/anggota ditulis bersih tanpa embel-embel kelas jika diminta.
