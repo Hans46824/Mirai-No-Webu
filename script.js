@@ -994,9 +994,19 @@ function initKanaQuest() {
             { label: "RANDOM CHALLENGE", levels: allLevelIds.filter((level) => level <= saved[script].unlocked) }
         ];
 
+        const mixSection = document.querySelector(".mix-section");
+        if (mixSection) {
+            mixSection.dataset.script = script;
+        }
+
+        const modeGrid = $("[data-mode-grid]");
+        if (modeGrid) {
+            modeGrid.dataset.script = script;
+        }
+
         $("[data-mode-grid]").innerHTML = modes.map((mode, index) => {
             return `
-                <button class="mode-card" data-mode="${index}">
+                <button class="mode-card mode-card--${script}" data-mode="${index}" data-script="${script}">
                     <b>${index === 9 ? "✦" : "→"}</b>
                     <span>${mode.label}</span>
                     <small>20 soal • campuran</small>

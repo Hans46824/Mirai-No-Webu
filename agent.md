@@ -192,7 +192,9 @@ Koleksi 20 stiker chibi resmi Genshin Impact untuk profil anggota, papan peringk
     - Kartu Katakana menggunakan motif awan Kumo gelap (`images/mirai/background/c1b.jpeg`) via `.level-card--katakana::after` / `[data-script="katakana"] .level-card::after`.
     - Keduanya menggunakan `mix-blend-mode: screen` dengan opacity halus (0.045 hingga 0.08 saat hover) agar menyatu anggun di atas kartu tanpa mengganggu keterbacaan teks.
   - **Pola Motif Kartu Latihan Gabungan (`.mode-card`)**:
-    - Kartu mode campuran menggunakan motif Wagara terang (`images/mirai/background/w1w.jpeg`) dengan `mix-blend-mode: multiply` dan opacity 0.10 (0.16 saat hover) pada tema terang, dan berganti ke `w1b.jpeg` pada tema gelap (`body.theme-dark`).
+    - Kartu mode campuran bersifat adaptif terhadap skrip kana yang sedang aktif:
+      - **Saat membuka Hiragana**: Menggunakan motif Wagara ombak terang (`images/mirai/background/w1w.jpeg`) dengan `mix-blend-mode: multiply` dan opacity 0.10 (0.16 saat hover) pada tema terang, dan berganti ke `w1b.jpeg` pada tema gelap (`body.theme-dark`).
+      - **Saat membuka Katakana**: Menggunakan motif Kumo awan terang (`images/mirai/background/c1w.jpeg`) dengan `mix-blend-mode: multiply` dan opacity 0.10 (0.16 saat hover) pada tema terang, dan berganti ke `c1b.jpeg` pada tema gelap (`body.theme-dark`).
   - **Tipografi Bersih & Bebas Teks Redundan**:
     - Hero banner dilarang menampilkan eyebrow teks redundan "Kelas Dasar · Latihan Mandiri".
     - Seksi Latihan Gabungan menggunakan judul utama Two-Tone yang kokoh: `<h2>Latihan <span>Gabungan</span></h2>` dengan kicker kategori `<p class="kicker">MODE TANTANGAN</p>`. Dilarang menampilkan teks usang seperti "Campur materi" maupun kalimat deskripsi panjang "Pilih cakupan latihan. Materi yang terkunci tidak akan masuk ke soal." agar layout tetap bersih, minimalis, dan seragam.

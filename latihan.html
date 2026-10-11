@@ -797,7 +797,7 @@ body.theme-dark .stroke-hint-bar.is-success {
     background-image: url("images/mirai/background/c1b.jpeg") !important;
 }
 
-/* Latihan Gabungan Mode Cards: Pola Ombak Wagara Terang (w1w.jpeg) */
+/* Latihan Gabungan Mode Cards: Pola Ombak Wagara Terang (w1w.jpeg) vs Kumo Terang (c1w.jpeg) */
 .mode-card {
     position: relative !important;
     overflow: hidden !important;
@@ -819,7 +819,7 @@ body.theme-dark .stroke-hint-bar.is-success {
     opacity: 0.10 !important;
     mix-blend-mode: multiply !important;
     pointer-events: none !important;
-    transition: opacity 0.3s ease !important;
+    transition: opacity 0.3s ease, background-image 0.3s ease !important;
     z-index: 1 !important;
 }
 
@@ -827,9 +827,34 @@ body.theme-dark .stroke-hint-bar.is-success {
     opacity: 0.16 !important;
 }
 
+/* Hiragana Mode Cards: Wagara Terang (w1w.jpeg) */
+.mode-card--hiragana::after,
+[data-script="hiragana"] .mode-card::after,
+.mix-section[data-script="hiragana"] .mode-card::after {
+    background-image: url("images/mirai/background/w1w.jpeg") !important;
+}
+
+/* Katakana Mode Cards: Awan Kumo Terang (c1w.jpeg) */
+.mode-card--katakana::after,
+[data-script="katakana"] .mode-card::after,
+.mix-section[data-script="katakana"] .mode-card::after {
+    background-image: url("images/mirai/background/c1w.jpeg") !important;
+}
+
 /* Mode Gelap untuk Latihan Gabungan Cards */
-body.theme-dark .mode-card::after {
+body.theme-dark .mode-card::after,
+body.theme-dark .mode-card--hiragana::after,
+body.theme-dark [data-script="hiragana"] .mode-card::after,
+body.theme-dark .mix-section[data-script="hiragana"] .mode-card::after {
     background-image: url("images/mirai/background/w1b.jpeg") !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
+}
+
+body.theme-dark .mode-card--katakana::after,
+body.theme-dark [data-script="katakana"] .mode-card::after,
+body.theme-dark .mix-section[data-script="katakana"] .mode-card::after {
+    background-image: url("images/mirai/background/c1b.jpeg") !important;
     opacity: 0.045 !important;
     mix-blend-mode: screen !important;
 }
@@ -1000,7 +1025,7 @@ body.theme-dark .level-card:hover .level-badge--count {
 <main class="quest-main">
 <section class="quest-hero"><span data-review-count hidden>0</span><span data-streak hidden>1</span><span data-user-level hidden>1</span><span data-total-xp hidden>0</span><span data-level-xp hidden>0</span><span data-xp-bar hidden></span><div><h1>Latihan<br><span>Kana</span></h1></div> </section>
 <section class="quest-section quest-overview"><div class="script-tabs" role="tablist"><button class="is-active" data-script="hiragana" role="tab">ひらがな <small>Hiragana</small></button><button data-script="katakana" role="tab">カタカナ <small>Katakana</small></button></div><div class="progress-heading"><div><p class="kicker">PILIH MATERI</p><h2 data-script-title>Hiragana <span>ひらがな</span></h2></div><div class="path-meter"><strong data-script-progress>0%</strong><div class="progress-track"><i data-script-progress-bar></i></div></div></div><div class="level-grid" data-level-grid></div></section>
-<section class="quest-section mix-section"><div class="section-heading"><div><p class="kicker">MODE TANTANGAN</p><h2>Latihan <span>Gabungan</span></h2></div></div><div class="mode-grid" data-mode-grid></div></section>
+<section class="quest-section mix-section" data-script="hiragana"><div class="section-heading"><div><p class="kicker">MODE TANTANGAN</p><h2>Latihan <span>Gabungan</span></h2></div></div><div class="mode-grid" data-mode-grid data-script="hiragana"></div></section>
 </main>
 
 <footer class="global-footer">
@@ -1026,6 +1051,6 @@ body.theme-dark .level-card:hover .level-badge--count {
 
 </div></section>
 
-<button class="to-top" type="button" aria-label="Kembali ke atas">↑</button><script src="js/stroke-data.js?v=20261011l"></script><script src="js/sora.js"></script><script src="js/main.js"></script><script src="script.js?v=20261011l"></script>
+<button class="to-top" type="button" aria-label="Kembali ke atas">↑</button><script src="js/stroke-data.js?v=20261011m"></script><script src="js/sora.js"></script><script src="js/main.js"></script><script src="script.js?v=20261011m"></script>
 </body>
 </html>
