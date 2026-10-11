@@ -882,6 +882,7 @@ body.theme-dark .mix-section .section-heading h2 {
 
 /* ==========================================================================
    BADGE INFORMASI ISI SOAL LATIHAN KANA (Level Card Badges)
+   Semua badge seragam menggunakan gaya aksen pink elegan (seperti 20 Soal)
    ========================================================================== */
 .level-badges {
     display: flex !important;
@@ -896,33 +897,33 @@ body.theme-dark .mix-section .section-heading h2 {
 .level-badge {
     display: inline-flex !important;
     align-items: center !important;
+    justify-content: center !important;
     gap: 4px !important;
-    padding: 3px 8px !important;
+    padding: 3.5px 9px !important;
     font-size: 11px !important;
-    font-weight: 600 !important;
+    font-weight: 700 !important;
     font-family: Arial, Helvetica, sans-serif !important;
     line-height: 1.3 !important;
     letter-spacing: 0.2px !important;
     border-radius: 999px !important;
-    background: #fbf1f5 !important;
-    color: #634b5b !important;
-    border: 1px solid #ebd0dc !important;
+    background: rgba(233, 30, 99, 0.09) !important;
+    color: var(--pink, #e91e63) !important;
+    border: 1px solid rgba(233, 30, 99, 0.3) !important;
     white-space: nowrap !important;
     transition: all 0.2s ease !important;
 }
 
-.level-badge--count {
-    background: rgba(233, 30, 99, 0.09) !important;
-    color: var(--pink, #e91e63) !important;
-    border-color: rgba(233, 30, 99, 0.3) !important;
-    font-weight: 700 !important;
+.level-card:hover .level-badge {
+    background: rgba(233, 30, 99, 0.16) !important;
+    border-color: rgba(233, 30, 99, 0.5) !important;
+    box-shadow: 0 2px 8px rgba(233, 30, 99, 0.15) !important;
 }
 
+/* Status Selesai / Terkunci */
 .level-badge--done {
     background: rgba(46, 204, 113, 0.12) !important;
     color: #27ae60 !important;
     border-color: rgba(46, 204, 113, 0.35) !important;
-    font-weight: 700 !important;
 }
 
 .level-badge--locked {
@@ -931,26 +932,17 @@ body.theme-dark .mix-section .section-heading h2 {
     border-color: rgba(120, 110, 125, 0.25) !important;
 }
 
-.level-card:hover .level-badge {
-    border-color: rgba(233, 30, 99, 0.35) !important;
-}
-
-.level-card:hover .level-badge--count {
-    background: rgba(233, 30, 99, 0.15) !important;
-    box-shadow: 0 2px 8px rgba(233, 30, 99, 0.15) !important;
-}
-
-/* Dark Mode Theme untuk Badge */
+/* Dark Mode Theme untuk Badge (Semua Seragam seperti Desain 20 Soal) */
 body.theme-dark .level-badge {
-    background: #271e29 !important;
-    color: #e2d2df !important;
-    border-color: #4a3646 !important;
-}
-
-body.theme-dark .level-badge--count {
     background: rgba(233, 30, 99, 0.22) !important;
     color: #ff659b !important;
-    border-color: rgba(233, 30, 99, 0.45) !important;
+    border: 1px solid rgba(233, 30, 99, 0.45) !important;
+}
+
+body.theme-dark .level-card:hover .level-badge {
+    background: rgba(233, 30, 99, 0.32) !important;
+    border-color: #ff659b !important;
+    box-shadow: 0 0 10px rgba(233, 30, 99, 0.3) !important;
 }
 
 body.theme-dark .level-badge--done {
@@ -965,18 +957,8 @@ body.theme-dark .level-badge--locked {
     border-color: #382c37 !important;
 }
 
-body.theme-dark .level-card:hover .level-badge {
-    border-color: #63475c !important;
-}
-
-body.theme-dark .level-card:hover .level-badge--count {
-    background: rgba(233, 30, 99, 0.3) !important;
-    border-color: #ff659b !important;
-    box-shadow: 0 0 10px rgba(233, 30, 99, 0.25) !important;
-}
-
 .learning-app .level-card {
-    min-height: 295px !important;
+    min-height: 315px !important;
 }
 
 @media (max-width: 560px) {
@@ -1051,6 +1033,6 @@ body.theme-dark .level-card:hover .level-badge--count {
 
 </div></section>
 
-<button class="to-top" type="button" aria-label="Kembali ke atas">↑</button><script src="js/stroke-data.js?v=20261011m"></script><script src="js/sora.js"></script><script src="js/main.js"></script><script src="script.js?v=20261011m"></script>
+<button class="to-top" type="button" aria-label="Kembali ke atas">↑</button><script src="js/stroke-data.js?v=20261011n"></script><script src="js/sora.js"></script><script src="js/main.js"></script><script src="script.js?v=20261011n"></script>
 </body>
 </html>
