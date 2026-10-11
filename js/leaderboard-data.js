@@ -16,7 +16,7 @@
                         class: "Kelas XI-F1 · Divisi Bahasa <span class=\"podium-period-pill\">Periode 2025–2026</span>",
                         score: "28 Kali",
                         unit: "Siaran & Kuis Rajio",
-                        avatar: "images/mirai/stiker/dik.jpeg",
+                        avatar: "images/mirai/icon/Hu.png",
                         activityLog: [
                             { tgl: "20 Feb 2026", nama: "Nihon Go Rajio Edisi 28: Tanya Jawab Budaya Jepang & Kosakata Populer", rekan: ["Kenzou Arata", "Arya Mitsuki"] },
                             { tgl: "13 Feb 2026", nama: "Nihon Go Rajio Edisi 27: Bedah Lirik Lagu YOASOBI & Partikel Bahasa", rekan: ["Siti Hanabi"] },
@@ -32,7 +32,7 @@
                         class: "Kelas XI-F2 · Divisi Bahasa <span class=\"podium-period-pill\">Periode 2025–2026</span>",
                         score: "24 Kali",
                         unit: "Siaran & Kuis Rajio",
-                        avatar: "images/mirai/stiker/be.jpeg",
+                        avatar: "images/mirai/icon/Al.png",
                         activityLog: [
                             { tgl: "20 Feb 2026", nama: "Nihon Go Rajio Edisi 28: Tanya Jawab Budaya Jepang & Kosakata Populer", rekan: ["Sakura Yuna", "Arya Mitsuki"] },
                             { tgl: "13 Feb 2026", nama: "Nihon Go Rajio Edisi 27: Diskusi Perbedaan Aisatsu Formal dan Kasual", rekan: ["Haikal Daichi"] },
@@ -47,7 +47,7 @@
                         class: "Kelas X-E7 · Divisi Desain <span class=\"podium-period-pill\">Periode 2025–2026</span>",
                         score: "21 Kali",
                         unit: "Siaran & Kuis Rajio",
-                        avatar: "images/mirai/stiker/ala.jpeg",
+                        avatar: "images/mirai/icon/Ka.png",
                         activityLog: [
                             { tgl: "13 Feb 2026", nama: "Nihon Go Rajio Edisi 27: Diskusi Perbedaan Aisatsu Formal dan Kasual", rekan: ["Kenzou Arata"] },
                             { tgl: "6 Feb 2026", nama: "Nihon Go Rajio Edisi 26: Kosakata Sehari-hari & Dialek Kansai", rekan: ["Sakura Yuna", "Aoi Minami"] },
@@ -65,7 +65,7 @@
                         divisi: "Divisi Bahasa",
                         score: "18 Kali",
                         streak: "18 Sesi Rajio",
-                        avatar: "images/mirai/stiker/ada.jpeg",
+                        avatar: "images/mirai/icon/Fu.png",
                         activityLog: [
                             { tgl: "6 Feb 2026", nama: "Nihon Go Rajio Edisi 26: Kosakata Sehari-hari & Dialek Kansai", rekan: ["Sakura Yuna", "Haikal Daichi"] },
                             { tgl: "23 Jan 2026", nama: "Nihon Go Rajio Edisi 24: Pengucapan Intonasi (Pitch Accent) Bahasa Jepang", rekan: ["Kenzou Arata", "Rizky Ren"] },
@@ -80,7 +80,7 @@
                         divisi: "Divisi Cosplay",
                         score: "16 Kali",
                         streak: "16 Sesi Rajio",
-                        avatar: "images/mirai/stiker/aku.jpeg",
+                        avatar: "images/mirai/icon/Wa.png",
                         activityLog: [
                             { tgl: "23 Jan 2026", nama: "Nihon Go Rajio Edisi 24: Kosakata Khusus Dunia Cosplay & Panggung", rekan: ["Zahra Ayumi", "Aoi Minami"] },
                             { tgl: "16 Jan 2026", nama: "Nihon Go Rajio Edisi 23: Panduan Istilah Properti & Kostum Anime", rekan: ["Zahra Ayumi"] },
@@ -95,7 +95,7 @@
                         divisi: "Divisi Kewirausahaan",
                         score: "15 Kali",
                         streak: "15 Sesi Rajio",
-                        avatar: "images/mirai/stiker/bel.jpeg",
+                        avatar: "images/mirai/icon/Ay.png",
                         activityLog: [
                             { tgl: "16 Jan 2026", nama: "Nihon Go Rajio Edisi 23: Kuis Interaktif Kanji & Kosakata Kuliner Jepang", rekan: ["Kenzou Arata"] },
                             { tgl: "9 Jan 2026", nama: "Nihon Go Rajio Edisi 22: Istilah Jual-Beli & Budaya Matsuri", rekan: ["Mei Chiyo", "Bima Ryouta"] },
@@ -110,7 +110,7 @@
                         divisi: "Divisi Bahasa",
                         score: "13 Kali",
                         streak: "13 Sesi Rajio",
-                        avatar: "images/mirai/stiker/beli.jpeg",
+                        avatar: "images/mirai/icon/Chi.png",
                         activityLog: [
                             { tgl: "9 Jan 2026", nama: "Nihon Go Rajio Edisi 22: Kuis Kosakata Ekspresi Karakter Anime", rekan: ["Rizky Ren", "Aoi Minami"] },
                             { tgl: "19 Des 2025", nama: "Nihon Go Rajio Edisi 20: Tata Bahasa Bentuk Sopan (Teinei-go)", rekan: ["Sakura Yuna", "Kenzou Arata"] },
@@ -125,7 +125,7 @@
                         divisi: "Divisi Desain",
                         score: "12 Kali",
                         streak: "12 Sesi Rajio",
-                        avatar: "images/mirai/stiker/ber.jpeg",
+                        avatar: "images/mirai/icon/Ki.png",
                         activityLog: [
                             { tgl: "9 Jan 2026", nama: "Nihon Go Rajio Edisi 22: Istilah Jual-Beli & Budaya Matsuri", rekan: ["Nadia Hinata", "Bima Ryouta"] },
                             { tgl: "19 Des 2025", nama: "Nihon Go Rajio Edisi 20: Tips Sketsa Visual Karakter Chibi", rekan: ["Haikal Daichi"] },
@@ -140,7 +140,7 @@
                         divisi: "Divisi Bahasa",
                         score: "11 Kali",
                         streak: "11 Sesi Rajio",
-                        avatar: "images/mirai/stiker/cer.jpeg",
+                        avatar: "images/mirai/icon/cil.jpeg",
                         activityLog: [
                             { tgl: "9 Jan 2026", nama: "Nihon Go Rajio Edisi 22: Kosakata Seni Ilustrasi & Manga", rekan: ["Mei Chiyo", "Haikal Daichi"] },
                             { tgl: "12 Des 2025", nama: "Nihon Go Rajio Edisi 19: Latihan Mendengarkan (Choukai) Pemula", rekan: ["Fathir Souta"] },
@@ -155,7 +155,7 @@
                         divisi: "Divisi Cosplay",
                         score: "10 Kali",
                         streak: "10 Sesi Rajio",
-                        avatar: "images/mirai/stiker/dip.jpeg",
+                        avatar: "images/mirai/icon/Fa.png",
                         activityLog: [
                             { tgl: "23 Jan 2026", nama: "Nihon Go Rajio Edisi 24: Kosakata Khusus Dunia Cosplay & Panggung", rekan: ["Rizky Ren", "Aoi Minami"] },
                             { tgl: "16 Jan 2026", nama: "Nihon Go Rajio Edisi 23: Panduan Istilah Properti & Kostum Anime", rekan: ["Rizky Ren"] },
@@ -176,7 +176,7 @@
                         class: "Kelas XI-F6 · Divisi Bahasa <span class=\"podium-period-pill\">Periode 2025–2026</span>",
                         score: "24 Kali Hadir",
                         unit: "Dari 24 Pertemuan (100%)",
-                        avatar: "images/mirai/stiker/eet.jpeg",
+                        avatar: "images/mirai/icon/nah.jpeg",
                         activityLog: [
                             { tgl: "21 Feb 2026", nama: "Pertemuan Rutin ke-24: Evaluasi Program Kerja Tengah Semester & Pemantapan Kanji" },
                             { tgl: "14 Feb 2026", nama: "Pertemuan Rutin ke-23: Bedah Pola Kalimat Bentuk Lampau & Percakapan Berpasangan" },
@@ -192,7 +192,7 @@
                         class: "Kelas X-E4 · Divisi Desain <span class=\"podium-period-pill\">Periode 2025–2026</span>",
                         score: "23 Kali Hadir",
                         unit: "Dari 24 Pertemuan (96%)",
-                        avatar: "images/mirai/stiker/cer.jpeg",
+                        avatar: "images/mirai/icon/zho.jpeg",
                         activityLog: [
                             { tgl: "21 Feb 2026", nama: "Pertemuan Rutin ke-24: Evaluasi Program Kerja Tengah Semester & Pemantapan Kanji" },
                             { tgl: "14 Feb 2026", nama: "Pertemuan Rutin ke-23: Bedah Pola Kalimat Bentuk Lampau & Percakapan Berpasangan" },
@@ -208,7 +208,7 @@
                         class: "Kelas XI-F7 · Divisi Kewirausahaan <span class=\"podium-period-pill\">Periode 2025–2026</span>",
                         score: "22 Kali Hadir",
                         unit: "Dari 24 Pertemuan (92%)",
-                        avatar: "images/mirai/stiker/bel.jpeg",
+                        avatar: "images/mirai/icon/bal.jpeg",
                         activityLog: [
                             { tgl: "21 Feb 2026", nama: "Pertemuan Rutin ke-24: Evaluasi Program Kerja Tengah Semester & Pemantapan Kanji" },
                             { tgl: "14 Feb 2026", nama: "Pertemuan Rutin ke-23: Bedah Pola Kalimat Bentuk Lampau & Percakapan Berpasangan" },
@@ -227,7 +227,7 @@
                         divisi: "Divisi Cosplay",
                         score: "21 Kali Hadir",
                         streak: "Presensi 88%",
-                        avatar: "images/mirai/stiker/don.jpeg",
+                        avatar: "images/mirai/icon/dil.jpeg",
                         activityLog: [
                             { tgl: "21 Feb 2026", nama: "Pertemuan Rutin ke-24: Evaluasi Program Kerja Tengah Semester & Pemantapan Kanji" },
                             { tgl: "14 Feb 2026", nama: "Pertemuan Rutin ke-23: Bedah Pola Kalimat Bentuk Lampau & Percakapan Berpasangan" },
@@ -243,7 +243,7 @@
                         divisi: "Divisi Bahasa",
                         score: "20 Kali Hadir",
                         streak: "Presensi 83%",
-                        avatar: "images/mirai/stiker/gom.jpeg",
+                        avatar: "images/mirai/icon/Lo.png",
                         activityLog: [
                             { tgl: "21 Feb 2026", nama: "Pertemuan Rutin ke-24: Evaluasi Program Kerja Tengah Semester & Pemantapan Kanji" },
                             { tgl: "7 Feb 2026", nama: "Pertemuan Rutin ke-22: Workshop Budaya Origami & Pembuatan Mading Klub" },
@@ -259,7 +259,7 @@
                         divisi: "Divisi Desain",
                         score: "20 Kali Hadir",
                         streak: "Presensi 83%",
-                        avatar: "images/mirai/stiker/ita.jpeg",
+                        avatar: "images/mirai/icon/ang.jpeg",
                         activityLog: [
                             { tgl: "21 Feb 2026", nama: "Pertemuan Rutin ke-24: Evaluasi Program Kerja Tengah Semester & Pemantapan Kanji" },
                             { tgl: "14 Feb 2026", nama: "Pertemuan Rutin ke-23: Bedah Pola Kalimat Bentuk Lampau & Percakapan Berpasangan" },
@@ -275,7 +275,7 @@
                         divisi: "Divisi Bahasa",
                         score: "19 Kali Hadir",
                         streak: "Presensi 79%",
-                        avatar: "images/mirai/stiker/jaw.jpeg",
+                        avatar: "images/mirai/icon/Fli.png",
                         activityLog: [
                             { tgl: "14 Feb 2026", nama: "Pertemuan Rutin ke-23: Bedah Pola Kalimat Bentuk Lampau & Percakapan Berpasangan" },
                             { tgl: "7 Feb 2026", nama: "Pertemuan Rutin ke-22: Workshop Budaya Origami & Pembuatan Mading Klub" },
@@ -291,7 +291,7 @@
                         divisi: "Divisi Kewirausahaan",
                         score: "18 Kali Hadir",
                         streak: "Presensi 75%",
-                        avatar: "images/mirai/stiker/kar.jpeg",
+                        avatar: "images/mirai/icon/chi.jpeg",
                         activityLog: [
                             { tgl: "21 Feb 2026", nama: "Pertemuan Rutin ke-24: Evaluasi Program Kerja Tengah Semester & Pemantapan Kanji" },
                             { tgl: "7 Feb 2026", nama: "Pertemuan Rutin ke-22: Workshop Budaya Origami & Pembuatan Mading Klub" },
@@ -307,7 +307,7 @@
                         divisi: "Divisi Cosplay",
                         score: "18 Kali Hadir",
                         streak: "Presensi 75%",
-                        avatar: "images/mirai/stiker/kok.jpeg",
+                        avatar: "images/mirai/icon/bul.jpeg",
                         activityLog: [
                             { tgl: "21 Feb 2026", nama: "Pertemuan Rutin ke-24: Evaluasi Program Kerja Tengah Semester & Pemantapan Kanji" },
                             { tgl: "14 Feb 2026", nama: "Pertemuan Rutin ke-23: Bedah Pola Kalimat Bentuk Lampau & Percakapan Berpasangan" },
@@ -323,7 +323,7 @@
                         divisi: "Divisi Bahasa",
                         score: "17 Kali Hadir",
                         streak: "Presensi 71%",
-                        avatar: "images/mirai/stiker/log.jpeg",
+                        avatar: "images/mirai/icon/sar.jpeg",
                         activityLog: [
                             { tgl: "21 Feb 2026", nama: "Pertemuan Rutin ke-24: Evaluasi Program Kerja Tengah Semester & Pemantapan Kanji" },
                             { tgl: "7 Feb 2026", nama: "Pertemuan Rutin ke-22: Workshop Budaya Origami & Pembuatan Mading Klub" },
@@ -345,7 +345,7 @@
                         class: "Kelas XII-F2 · Divisi Desain <span class=\"podium-period-pill\">Periode 2025–2026</span>",
                         score: "18 Prestasi & Karya",
                         unit: "Kejuaraan & Desain Resmi",
-                        avatar: "images/mirai/stiker/hua.jpeg",
+                        avatar: "images/mirai/icon/Fu.png",
                         activityLog: [
                             { tgl: "18 Jan 2026", nama: "Juara 1 Digital Fanart & Desain Karakter Bunkasai SMA Jawa Timur", kategori: "Kejuaraan Tingkat Provinsi Jatim" },
                             { tgl: "12 Des 2025", nama: "Ilustrator Utama Maskot Resmi Mirai No Hana Kabinet Sora 2025–2026", kategori: "Karya Desain Resmi Klub" },
@@ -361,7 +361,7 @@
                         class: "Kelas XI-F11 · Divisi Bahasa <span class=\"podium-period-pill\">Periode 2025–2026</span>",
                         score: "14 Prestasi & Karya",
                         unit: "Kejuaraan & Artikel Edukasi",
-                        avatar: "images/mirai/stiker/iki.jpeg",
+                        avatar: "images/mirai/icon/Hu.png",
                         activityLog: [
                             { tgl: "25 Jan 2026", nama: "Juara 2 Lomba Rodoku (Membaca Teks Bahasa Jepang) Bunkasai Universitas", kategori: "Kejuaraan Tingkat Jawa Timur" },
                             { tgl: "19 Des 2025", nama: "Penulis Utama Seri Artikel Kebudayaan Jepang Mading Klub", kategori: "Karya Literasi Budaya" },
@@ -377,7 +377,7 @@
                         class: "Kelas XI-F12 · Divisi Cosplay <span class=\"podium-period-pill\">Periode 2025–2026</span>",
                         score: "11 Prestasi & Karya",
                         unit: "Kejuaraan & Properti Kreatif",
-                        avatar: "images/mirai/stiker/iwa.jpeg",
+                        avatar: "images/mirai/icon/Ka.png",
                         activityLog: [
                             { tgl: "20 Jan 2026", nama: "Juara Harapan 1 Cosplay Walk & Armor Showcase Fest SMA Se-Derajat", kategori: "Kejuaraan Seni Panggung" },
                             { tgl: "15 Des 2025", nama: "Koordinator Perancang Properti Panggung & Booth Budaya Matsuri", kategori: "Dedikasi Properti Klub" },
@@ -395,7 +395,7 @@
                         divisi: "Divisi Desain",
                         score: "9 Prestasi",
                         streak: "Juara Fanart",
-                        avatar: "images/mirai/stiker/mas.jpeg",
+                        avatar: "images/mirai/icon/Lo.png",
                         activityLog: [
                             { tgl: "14 Jan 2026", nama: "Juara 2 Lomba Ilustrasi Tradisional Bunkasai Se-Jawa Timur", kategori: "Kejuaraan Seni Ilustrasi" },
                             { tgl: "20 Des 2025", nama: "Kontributor Desain Cover Buku Tahunan Klub Mirai No Hana", kategori: "Karya Desain Klub" },
@@ -410,7 +410,7 @@
                         divisi: "Divisi Bahasa",
                         score: "8 Prestasi",
                         streak: "Finalis Cerdas Cermat",
-                        avatar: "images/mirai/stiker/peg.jpeg",
+                        avatar: "images/mirai/icon/Al.png",
                         activityLog: [
                             { tgl: "12 Jan 2026", nama: "Finalis 5 Besar Cerdas Cermat Pengetahuan Umum Jepang", kategori: "Kompetisi Cerdas Cermat" },
                             { tgl: "10 Des 2025", nama: "Juara 3 Lomba Menulis Esai Bahasa Jepang Pemula", kategori: "Kompetisi Menulis Esai" },
@@ -425,7 +425,7 @@
                         divisi: "Divisi Kewirausahaan",
                         score: "7 Prestasi",
                         streak: "Stan Terbaik Festival",
-                        avatar: "images/mirai/stiker/sor.jpeg",
+                        avatar: "images/mirai/icon/Ki.png",
                         activityLog: [
                             { tgl: "18 Jan 2026", nama: "Peraih Predikat Stan Kewirausahaan Terbaik Festival Budaya Sekolah", kategori: "Penghargaan Stan Festival" },
                             { tgl: "5 Des 2025", nama: "Kreator Produk Kuliner Dorayaki & Onigiri Terlaris Klub", kategori: "Proyek Kewirausahaan" },
@@ -440,7 +440,7 @@
                         divisi: "Divisi Cosplay",
                         score: "6 Prestasi",
                         streak: "Kostum Terfavorit",
-                        avatar: "images/mirai/stiker/sul.jpeg",
+                        avatar: "images/mirai/icon/cil.jpeg",
                         activityLog: [
                             { tgl: "15 Jan 2026", nama: "Juara Kostum Cosplay Terfavorit Pilihan Penonton Bunkasai", kategori: "Piala Favorit Festival" },
                             { tgl: "28 Nov 2025", nama: "Perancang Kostum Haori & Aksesori Budaya Festival Pelajar", kategori: "Karya Desain Kostum" },
@@ -455,7 +455,7 @@
                         divisi: "Divisi Desain",
                         score: "5 Prestasi",
                         streak: "Karya Grafis Digital",
-                        avatar: "images/mirai/stiker/woy.jpeg",
+                        avatar: "images/mirai/icon/nah.jpeg",
                         activityLog: [
                             { tgl: "10 Jan 2026", nama: "Juara 3 Kompetisi Desain Logo & Tipografi Kebudayaan", kategori: "Kompetisi Desain Grafis" },
                             { tgl: "14 Des 2025", nama: "Desainer Grafis Konten Media Sosial Instagram Klub", kategori: "Media & Publikasi Klub" },
@@ -470,7 +470,7 @@
                         divisi: "Divisi Bahasa",
                         score: "5 Prestasi",
                         streak: "Lulus JLPT N3",
-                        avatar: "images/mirai/stiker/yan.jpeg",
+                        avatar: "images/mirai/icon/zho.jpeg",
                         activityLog: [
                             { tgl: "8 Jan 2026", nama: "Lulus Ujian Kemampuan Bahasa Jepang JLPT Resmi Level N3", kategori: "Sertifikasi Resmi Internasional" },
                             { tgl: "20 Nov 2025", nama: "Tutor Sebaya Bimbingan Belajar Kanji Kelas X & XI", kategori: "Program Tutor Sebaya" },
@@ -485,7 +485,7 @@
                         divisi: "Divisi Bahasa",
                         score: "4 Prestasi",
                         streak: "Finalis Shodou",
-                        avatar: "images/mirai/stiker/yat.jpeg",
+                        avatar: "images/mirai/icon/bal.jpeg",
                         activityLog: [
                             { tgl: "16 Jan 2026", nama: "Finalis Lomba Kaligrafi Jepang (Shodou 书道) Bunkasai SMA", kategori: "Kompetisi Seni Tradisional" },
                             { tgl: "2 Des 2025", nama: "Karya Kaligrafi Kanji Terbaik Terpajang di Pameran Klub", kategori: "Pameran Seni Budaya" },
