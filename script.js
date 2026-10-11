@@ -805,36 +805,19 @@ function buildMatchQuestion(scriptType = "hiragana", levels = null) {
     };
 }
 
-function buildStrokeQuestion(pool, scriptType = "hiragana", previous = null, fullPool = pool) {
+function buildStrokeQuestion(pool, scriptType = "hiragana", previous = null) {
     const strokeDataMap = window.MIRAI_STROKE_DATA || {};
 
-    // Prioritaskan karakter dari active pool yang memiliki data path goresan
-    let candidates = pool.filter((item) => item && item.character && strokeDataMap[item.character] && strokeDataMap[item.character].paths?.length);
+    // Karakter goresan WAJIB murni dan eksklusif dari pool level yang sedang dipilih
+    const candidates = pool.filter((item) => item && item.character && strokeDataMap[item.character] && strokeDataMap[item.character].paths?.length);
 
-    // Jika di active pool kurang dari 5 (misal level yoon/kombo), ambil single kana dari fullPool
-    if (candidates.length < 5 && fullPool && fullPool.length) {
-        const extra = fullPool.filter((item) => item && item.character && strokeDataMap[item.character] && strokeDataMap[item.character].paths?.length);
-        candidates = [...candidates, ...extra];
-    }
-
-    // Fallback cadangan jika data belum termuat
     if (candidates.length === 0) {
-        const defaultList = scriptType === "katakana"
-            ? ["ア", "イ", "ウ", "エ", "オ", "カ", "キ", "ク", "ケ", "コ"]
-            : ["あ", "い", "う", "え", "お", "か", "き", "く", "け", "こ"];
-        candidates = defaultList.map((c) => ({
-            character: c,
-            romaji: c,
-            level: 1,
-            category: "Kana dasar"
-        }));
+        return null;
     }
 
     const nonPrev = candidates.filter((item) => item.character !== previous?.answer?.character);
     const choicePool = nonPrev.length ? nonPrev : candidates;
     const answer = choicePool[Math.floor(Math.random() * choicePool.length)];
-
-    const promptDisplay = Math.random() < 0.5 ? "romaji" : "kana";
 
     return {
         type: "stroke",
@@ -843,28 +826,43 @@ function buildStrokeQuestion(pool, scriptType = "hiragana", previous = null, ful
         romaji: answer.romaji,
         category: answer.category || "Kana dasar",
         strokeData: strokeDataMap[answer.character] || null,
-        promptDisplay
+        promptDisplay: "romaji"
     };
 }
 
 function buildPracticeQuestions(levels, pool, scriptType = "hiragana", fullPool = pool) {
-    // 10 Soal pilihan ganda normal (kana -> romaji, romaji -> kana)
+    const strokeDataMap = window.MIRAI_STROKE_DATA || {};
+
+    // 10 Soal pilihan ganda normal (kana -> romaji, romaji -> kana) murni dari pool level terpilih
     const standardQuestions = [];
     while (standardQuestions.length < 10) {
         standardQuestions.push(buildNormalQuestion(pool, standardQuestions.at(-1), fullPool));
     }
 
-    // 5 Soal interaktif goresan kana ala Duolingo
+    // 5 Soal interaktif goresan kana ala Duolingo eksklusif dari pool level terpilih
     const strokeQuestions = [];
-    const usedStrokeChars = new Set();
-    while (strokeQuestions.length < 5) {
-        const availablePool = pool.filter((item) => !usedStrokeChars.has(item.character));
-        const effectivePool = availablePool.length ? availablePool : pool;
-        const sq = buildStrokeQuestion(effectivePool, scriptType, strokeQuestions.at(-1), fullPool);
-        if (sq && sq.answer) {
-            usedStrokeChars.add(sq.answer.character);
-            strokeQuestions.push(sq);
-        } else {
+    const validStrokeItems = pool.filter((item) => item && item.character && strokeDataMap[item.character] && strokeDataMap[item.character].paths?.length);
+
+    if (validStrokeItems.length > 0) {
+        // Ambil karakter unik dari validStrokeItems terlebih dahulu, lalu siklus jika kurang dari 5
+        const shuffledStrokeItems = shuffle([...validStrokeItems]);
+        let pickIndex = 0;
+        while (strokeQuestions.length < 5) {
+            const item = shuffledStrokeItems[pickIndex % shuffledStrokeItems.length];
+            pickIndex++;
+            strokeQuestions.push({
+                type: "stroke",
+                answer: item,
+                character: item.character,
+                romaji: item.romaji,
+                category: item.category || "Kana dasar",
+                strokeData: strokeDataMap[item.character],
+                promptDisplay: "romaji"
+            });
+        }
+    } else {
+        // Fallback jika level terpilih tidak memiliki data stroke (misal level kombinasi), gunakan soal normal dari pool level tersebut
+        while (strokeQuestions.length < 5) {
             strokeQuestions.push(buildNormalQuestion(pool, strokeQuestions.at(-1), fullPool));
         }
     }
@@ -1554,11 +1552,10 @@ function initKanaQuest() {
                 defaultSub.hidden = true;
             }
 
-            const isRomajiPrompt = question.promptDisplay === "romaji";
-            $("[data-question-kind]").textContent = isRomajiPrompt ? "TULIS KANA (DARI ROMAJI)" : "TULIS GORESAN KANA";
+            $("[data-question-kind]").textContent = "TULIS KANA (DARI ROMAJI)";
             $("[data-question-prompt]").innerHTML = `
                 <div class="stroke-prompt-wrap">
-                    <span class="stroke-prompt-char ${isRomajiPrompt ? "is-romaji" : ""}">${isRomajiPrompt ? question.answer.romaji : question.answer.character}</span>
+                    <span class="stroke-prompt-char is-romaji">${question.answer.romaji}</span>
                 </div>
             `;
 
