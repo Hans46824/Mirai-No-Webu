@@ -9415,7 +9415,7 @@ body:not(.dark-mode):not(.theme-dark) main > section:nth-of-type(odd):not(.home-
     flex-direction: row !important;
     justify-content: center !important;
     align-items: center !important;
-    gap: 10px !important;
+    gap: 14px !important;
     flex-wrap: wrap !important;
     position: relative !important;
     min-height: 220px !important;
@@ -9428,11 +9428,30 @@ body:not(.dark-mode):not(.theme-dark) main > section:nth-of-type(odd):not(.home-
     align-items: center !important;
     width: 90px;
     height: 90px;
+    flex-shrink: 0 !important;
 }
 
 .kanjivg-char-box.single-char {
     width: 200px !important;
     height: 200px !important;
+}
+
+/* Karakter Yoon (Kombinasi 2 Huruf seperti ひゃ, きゅ, しょ, dll) Berukuran Besar & Proporsional */
+.kanjivg-char-box.yoon-char {
+    width: clamp(140px, 42vw, 185px) !important;
+    height: clamp(140px, 42vw, 185px) !important;
+    max-width: calc(50% - 10px) !important;
+    max-height: 185px !important;
+    aspect-ratio: 1 / 1 !important;
+    flex-shrink: 0 !important;
+}
+
+.kanjivg-char-box.multi-char {
+    width: clamp(90px, 28vw, 120px) !important;
+    height: clamp(90px, 28vw, 120px) !important;
+    max-width: calc(33.33% - 8px) !important;
+    aspect-ratio: 1 / 1 !important;
+    flex-shrink: 0 !important;
 }
 
 .kanjivg-char-box svg {

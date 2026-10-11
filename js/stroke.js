@@ -258,7 +258,7 @@ window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallba
         strokeStage.style.flexDirection = 'row';
         strokeStage.style.justifyContent = 'center';
         strokeStage.style.alignItems = 'center';
-        strokeStage.style.gap = '10px';
+        strokeStage.style.gap = characters.length === 2 ? '14px' : '10px';
         strokeStage.style.flexWrap = 'wrap';
 
         let globalStrokeOffset = 0;
@@ -270,8 +270,15 @@ window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallba
             charWrapper.style.position = 'relative';
 
             if (isMulti) {
-                charWrapper.style.width = '90px';
-                charWrapper.style.height = '90px';
+                if (characters.length === 2) {
+                    charWrapper.classList.add('yoon-char');
+                    charWrapper.style.width = '185px';
+                    charWrapper.style.height = '185px';
+                } else {
+                    charWrapper.classList.add('multi-char');
+                    charWrapper.style.width = characters.length === 3 ? '110px' : '90px';
+                    charWrapper.style.height = characters.length === 3 ? '110px' : '90px';
+                }
             } else {
                 charWrapper.style.width = '200px';
                 charWrapper.style.height = '200px';
@@ -367,7 +374,7 @@ window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallba
                 const fallbackSpan = document.createElement('span');
                 fallbackSpan.className = 'stroke-fallback-glyph';
                 fallbackSpan.textContent = char;
-                fallbackSpan.style.fontSize = isMulti ? '50px' : '130px';
+                fallbackSpan.style.fontSize = isMulti ? (characters.length === 2 ? '115px' : '50px') : '130px';
                 charWrapper.appendChild(fallbackSpan);
             }
 

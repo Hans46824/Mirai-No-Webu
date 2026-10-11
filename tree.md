@@ -70,7 +70,7 @@ Mirai-No-Webu/
 │   ├── sora.js                     # Logika bot obrolan & fallback jawaban Sora
 │   ├── kanji.js                    # Mesin pencari & filter kamus Kanji
 │   ├── kana.js                     # Logika kartu & audio pelafalan Kana
-│   ├── stroke.js                   # Visualisasi urutan goresan kanvas Kanji
+│   ├── stroke.js                   # Visualisasi urutan goresan kanvas Kanji & Kana (Animasi Yoon proporsional)
 │   ├── stroke-data.js              # Vektor koordinat garis KanjiVG
 │   ├── carousel.js                 # Logika slider / carousel umum
 │   ├── proker-slider.js            # Slider khusus halaman kegiatan proker
