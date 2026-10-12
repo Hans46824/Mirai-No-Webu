@@ -264,6 +264,14 @@
 
         const leaderboardData = window.leaderboardData;
 
+        function getValidAvatarSrc(path) {
+            if (!path) return '../images/mirai/logo/MNH1-nav.png';
+            if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('/') || path.startsWith('../')) {
+                return path;
+            }
+            return '../' + path;
+        }
+
         function openLeaderboardDetail(rankNum) {
             const catData = leaderboardData[currentActiveCategory];
             if (!catData) return;
@@ -288,7 +296,11 @@
             const countBadgeEl = document.getElementById('lbModalCountBadge');
             const logListEl = document.getElementById('lbModalLogList');
 
-            avatarEl.src = member.avatar || 'images/mirai/logo/MNH1-nav.png';
+            avatarEl.src = getValidAvatarSrc(member.avatar);
+            avatarEl.onerror = function() {
+                this.onerror = null;
+                this.src = '../images/mirai/logo/MNH1-nav.png';
+            };
             avatarEl.alt = member.name;
             rankEl.textContent = member.rank;
 
@@ -408,7 +420,12 @@
                 document.getElementById('r1Class').innerHTML = r1.class;
                 document.getElementById('r1Score').innerText = r1.score;
                 document.getElementById('r1Unit').innerText = r1.unit;
-                document.getElementById('r1Avatar').src = r1.avatar;
+                const r1Img = document.getElementById('r1Avatar');
+                r1Img.src = getValidAvatarSrc(r1.avatar);
+                r1Img.onerror = function() {
+                    this.onerror = null;
+                    this.src = '../images/mirai/logo/MNH1-nav.png';
+                };
             }
 
             // Rank 2
@@ -418,7 +435,12 @@
                 document.getElementById('r2Class').innerHTML = r2.class;
                 document.getElementById('r2Score').innerText = r2.score;
                 document.getElementById('r2Unit').innerText = r2.unit;
-                document.getElementById('r2Avatar').src = r2.avatar;
+                const r2Img = document.getElementById('r2Avatar');
+                r2Img.src = getValidAvatarSrc(r2.avatar);
+                r2Img.onerror = function() {
+                    this.onerror = null;
+                    this.src = '../images/mirai/logo/MNH1-nav.png';
+                };
             }
 
             // Rank 3
@@ -428,7 +450,12 @@
                 document.getElementById('r3Class').innerHTML = r3.class;
                 document.getElementById('r3Score').innerText = r3.score;
                 document.getElementById('r3Unit').innerText = r3.unit;
-                document.getElementById('r3Avatar').src = r3.avatar;
+                const r3Img = document.getElementById('r3Avatar');
+                r3Img.src = getValidAvatarSrc(r3.avatar);
+                r3Img.onerror = function() {
+                    this.onerror = null;
+                    this.src = '../images/mirai/logo/MNH1-nav.png';
+                };
             }
 
             // Update List 4-10

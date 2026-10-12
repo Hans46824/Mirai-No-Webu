@@ -16759,6 +16759,7 @@ body.page-rekomendasi,
     margin: 0 auto 16px auto;
     border-radius: 50%;
     border: 3px solid #ffffff;
+    background: #ffffff;
 }
 
 .podium-gold .podium-avatar-wrap {
@@ -16769,8 +16770,10 @@ body.page-rekomendasi,
 .podium-avatar-img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    padding: 2px;
     border-radius: 50%;
+    background: #ffffff;
 }
 
 .podium-rank-tag {
@@ -17147,13 +17150,16 @@ body.page-rekomendasi,
     border-radius: 50% !important;
     border: 3px solid #ff4f91 !important;
     box-shadow: 0 0 20px rgba(255, 79, 145, 0.35) !important;
+    background: #ffffff !important;
 }
 
 .lb-modal-avatar-img {
     width: 100% !important;
     height: 100% !important;
-    object-fit: cover !important;
+    object-fit: contain !important;
+    padding: 2px !important;
     border-radius: 50% !important;
+    background: #ffffff !important;
 }
 
 .lb-modal-rank-badge {
