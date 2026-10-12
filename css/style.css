@@ -20688,3 +20688,194 @@ body.is-practicing {
         animation: none !important;
     }
 }
+
+/* ==========================================================================
+   POLA PATTERN KARTU LATIHAN KANA (style.css)
+   1. Hiragana Level Cards: Kumo Awan Gelap (c1b.jpeg)
+   2. Hiragana Latihan Gabungan: Kumo Awan Terang (c1w.jpeg)
+   3. Katakana Level Cards: Wagara Ombak Gelap (w1b.jpeg)
+   4. Katakana Latihan Gabungan: Wagara Ombak Gelap (w1b.jpeg)
+   Dinamis berganti saat tab Hiragana / Katakana aktif.
+   ========================================================================== */
+
+/* Level Cards Base Setup */
+.learning-app .level-card {
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.learning-app .level-card > * {
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+.learning-app .level-card::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background-size: 260px auto !important;
+    background-repeat: repeat !important;
+    background-position: top left !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
+    pointer-events: none !important;
+    transition: opacity 0.3s ease, background-image 0.3s ease !important;
+    z-index: 1 !important;
+}
+
+.learning-app .level-card:hover::after {
+    opacity: 0.08 !important;
+}
+
+/* 1. Hiragana Level Card: Pola Awan Kumo Gelap (c1b.jpeg) */
+.learning-app .level-card--hiragana::after,
+.learning-app [data-script="hiragana"] .level-card::after,
+.learning-app .level-grid[data-script="hiragana"] .level-card::after,
+body[data-active-kana="hiragana"] .level-card::after {
+    background-image: url("../images/mirai/background/c1b.jpeg") !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
+}
+
+.learning-app .level-card--hiragana:hover::after,
+.learning-app [data-script="hiragana"] .level-card:hover::after,
+.learning-app .level-grid[data-script="hiragana"] .level-card:hover::after,
+body[data-active-kana="hiragana"] .level-card:hover::after {
+    opacity: 0.08 !important;
+}
+
+/* 2. Katakana Level Card: Pola Ombak Wagara Gelap (w1b.jpeg) */
+.learning-app .level-card--katakana::after,
+.learning-app [data-script="katakana"] .level-card::after,
+.learning-app .level-grid[data-script="katakana"] .level-card::after,
+body[data-active-kana="katakana"] .level-card::after {
+    background-image: url("../images/mirai/background/w1b.jpeg") !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
+}
+
+.learning-app .level-card--katakana:hover::after,
+.learning-app [data-script="katakana"] .level-card:hover::after,
+.learning-app .level-grid[data-script="katakana"] .level-card:hover::after,
+body[data-active-kana="katakana"] .level-card:hover::after {
+    opacity: 0.08 !important;
+}
+
+/* Mode Cards Base Setup (Latihan Gabungan) */
+.learning-app .mode-card {
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.learning-app .mode-card > * {
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+.learning-app .mode-card::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background-size: 260px auto !important;
+    background-repeat: repeat !important;
+    background-position: top left !important;
+    pointer-events: none !important;
+    transition: opacity 0.3s ease, background-image 0.3s ease !important;
+    z-index: 1 !important;
+}
+
+/* 3. Hiragana Latihan Gabungan: Pola Awan Kumo Terang (c1w.jpeg) */
+.learning-app .mode-card--hiragana::after,
+.learning-app [data-script="hiragana"] .mode-card::after,
+.learning-app .mix-section[data-script="hiragana"] .mode-card::after,
+.learning-app .mode-grid[data-script="hiragana"] .mode-card::after,
+body[data-active-kana="hiragana"] .mode-card::after {
+    background-image: url("../images/mirai/background/c1w.jpeg") !important;
+    opacity: 0.10 !important;
+    mix-blend-mode: multiply !important;
+}
+
+.learning-app .mode-card--hiragana:hover::after,
+.learning-app [data-script="hiragana"] .mode-card:hover::after,
+.learning-app .mix-section[data-script="hiragana"] .mode-card:hover::after,
+.learning-app .mode-grid[data-script="hiragana"] .mode-card:hover::after,
+body[data-active-kana="hiragana"] .mode-card:hover::after {
+    opacity: 0.16 !important;
+}
+
+/* Hiragana Latihan Gabungan pada Dark Mode (c1w.jpeg multiply) */
+body.theme-dark .learning-app .mode-card--hiragana::after,
+body.theme-dark .learning-app [data-script="hiragana"] .mode-card::after,
+body.theme-dark .learning-app .mix-section[data-script="hiragana"] .mode-card::after,
+body.theme-dark .learning-app .mode-grid[data-script="hiragana"] .mode-card::after,
+body.theme-dark[data-active-kana="hiragana"] .mode-card::after {
+    background-image: url("../images/mirai/background/c1w.jpeg") !important;
+    opacity: 0.08 !important;
+    mix-blend-mode: multiply !important;
+}
+
+body.theme-dark .learning-app .mode-card--hiragana:hover::after,
+body.theme-dark .learning-app [data-script="hiragana"] .mode-card:hover::after,
+body.theme-dark .learning-app .mix-section[data-script="hiragana"] .mode-card:hover::after,
+body.theme-dark .learning-app .mode-grid[data-script="hiragana"] .mode-card:hover::after,
+body.theme-dark[data-active-kana="hiragana"] .mode-card:hover::after {
+    opacity: 0.14 !important;
+}
+
+/* 4. Katakana Latihan Gabungan: Pola Ombak Wagara Gelap (w1b.jpeg) */
+.learning-app .mode-card--katakana::after,
+.learning-app [data-script="katakana"] .mode-card::after,
+.learning-app .mix-section[data-script="katakana"] .mode-card::after,
+.learning-app .mode-grid[data-script="katakana"] .mode-card::after,
+body[data-active-kana="katakana"] .mode-card::after {
+    background-image: url("../images/mirai/background/w1b.jpeg") !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
+}
+
+.learning-app .mode-card--katakana:hover::after,
+.learning-app [data-script="katakana"] .mode-card:hover::after,
+.learning-app .mix-section[data-script="katakana"] .mode-card:hover::after,
+.learning-app .mode-grid[data-script="katakana"] .mode-card:hover::after,
+body[data-active-kana="katakana"] .mode-card:hover::after {
+    opacity: 0.08 !important;
+}
+
+/* Katakana Latihan Gabungan pada Dark Mode (w1b.jpeg) */
+body.theme-dark .learning-app .mode-card--katakana::after,
+body.theme-dark .learning-app [data-script="katakana"] .mode-card::after,
+body.theme-dark .learning-app .mix-section[data-script="katakana"] .mode-card::after,
+body.theme-dark .learning-app .mode-grid[data-script="katakana"] .mode-card::after,
+body.theme-dark[data-active-kana="katakana"] .mode-card::after {
+    background-image: url("../images/mirai/background/w1b.jpeg") !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
+}
+
+body.theme-dark .learning-app .mode-card--katakana:hover::after,
+body.theme-dark .learning-app [data-script="katakana"] .mode-card:hover::after,
+body.theme-dark .learning-app .mix-section[data-script="katakana"] .mode-card:hover::after,
+body.theme-dark .learning-app .mode-grid[data-script="katakana"] .mode-card:hover::after,
+body.theme-dark[data-active-kana="katakana"] .mode-card:hover::after {
+    opacity: 0.08 !important;
+}
+
+/* Katakana Latihan Gabungan pada Light Mode (invert w1b) */
+body:not(.theme-dark):not(.dark-mode) .learning-app .mode-card--katakana::after,
+body:not(.theme-dark):not(.dark-mode) .learning-app [data-script="katakana"] .mode-card::after,
+body:not(.theme-dark):not(.dark-mode) .learning-app .mix-section[data-script="katakana"] .mode-card::after,
+body:not(.theme-dark):not(.dark-mode) .learning-app .mode-grid[data-script="katakana"] .mode-card::after,
+body:not(.theme-dark):not(.dark-mode)[data-active-kana="katakana"] .mode-card::after {
+    background-image: url("../images/mirai/background/w1b.jpeg") !important;
+    filter: invert(1) !important;
+    opacity: 0.10 !important;
+    mix-blend-mode: multiply !important;
+}
+
+body:not(.theme-dark):not(.dark-mode) .learning-app .mode-card--katakana:hover::after,
+body:not(.theme-dark):not(.dark-mode) .learning-app [data-script="katakana"] .mode-card:hover::after,
+body:not(.theme-dark):not(.dark-mode) .learning-app .mix-section[data-script="katakana"] .mode-card:hover::after,
+body:not(.theme-dark):not(.dark-mode) .learning-app .mode-grid[data-script="katakana"] .mode-card:hover::after,
+body:not(.theme-dark):not(.dark-mode)[data-active-kana="katakana"] .mode-card:hover::after {
+    opacity: 0.16 !important;
+}

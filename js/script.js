@@ -923,6 +923,14 @@ function initKanaQuest() {
     };
 
     const renderDashboard = () => {
+        if (document.body) {
+            document.body.dataset.activeKana = script;
+        }
+        const questMain = document.querySelector(".quest-main");
+        if (questMain) {
+            questMain.dataset.script = script;
+        }
+
         const userLevel = Math.floor(saved.xp / 1000) + 1;
         $("[data-user-level]").textContent = userLevel;
         $("[data-total-xp]").textContent = saved.xp;

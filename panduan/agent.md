@@ -188,13 +188,13 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
     - Elemen di dalam `.practice-view` dan `.result-view` dikecualikan dari `setupReveal()` motion-reveal agar tidak mengalami jeda transisi atau distorsi layout saat dimunculkan.
 - **Pola Motif Kartu & Tipografi Latihan Kana (`latihan.html`)**:
   - **Pola Motif Kartu Level (Hiragana vs Katakana)**:
-    - Kartu Hiragana menggunakan motif Wagara ombak gelap (`images/mirai/background/w1b.jpeg`) via `.level-card--hiragana::after` / `[data-script="hiragana"] .level-card::after`.
-    - Kartu Katakana menggunakan motif awan Kumo gelap (`images/mirai/background/c1b.jpeg`) via `.level-card--katakana::after` / `[data-script="katakana"] .level-card::after`.
+    - Kartu Hiragana menggunakan motif awan Kumo gelap (`images/mirai/background/c1b.jpeg`) via `.level-card--hiragana::after` / `[data-script="hiragana"] .level-card::after`.
+    - Kartu Katakana menggunakan motif Wagara ombak gelap (`images/mirai/background/w1b.jpeg`) via `.level-card--katakana::after` / `[data-script="katakana"] .level-card::after`.
     - Keduanya menggunakan `mix-blend-mode: screen` dengan opacity halus (0.045 hingga 0.08 saat hover) agar menyatu anggun di atas kartu tanpa mengganggu keterbacaan teks.
   - **Pola Motif Kartu Latihan Gabungan (`.mode-card`)**:
-    - Kartu mode campuran bersifat adaptif terhadap skrip kana yang sedang aktif:
-      - **Saat membuka Hiragana**: Menggunakan motif Wagara ombak terang (`images/mirai/background/w1w.jpeg`) dengan `mix-blend-mode: multiply` dan opacity 0.10 (0.16 saat hover) pada tema terang, dan berganti ke `w1b.jpeg` pada tema gelap (`body.theme-dark`).
-      - **Saat membuka Katakana**: Menggunakan motif Kumo awan terang (`images/mirai/background/c1w.jpeg`) dengan `mix-blend-mode: multiply` dan opacity 0.10 (0.16 saat hover) pada tema terang, dan berganti ke `c1b.jpeg` pada tema gelap (`body.theme-dark`).
+    - Kartu mode campuran bersifat adaptif dan dinamis berganti sesuai skrip kana yang sedang aktif:
+      - **Saat membuka Hiragana**: Menggunakan motif awan Kumo terang (`images/mirai/background/c1w.jpeg`) dengan `mix-blend-mode: multiply` dan opacity 0.10 (0.16 saat hover) pada tema terang, serta opacity 0.08 (0.14 saat hover) pada tema gelap (`body.theme-dark`).
+      - **Saat membuka Katakana**: Menggunakan motif Wagara ombak gelap (`images/mirai/background/w1b.jpeg`) dengan `mix-blend-mode: screen` dan opacity 0.045 (0.08 saat hover) pada tema gelap, serta filter invert pada tema terang.
   - **Tipografi Bersih & Bebas Teks Redundan**:
     - Hero banner dilarang menampilkan eyebrow teks redundan "Kelas Dasar · Latihan Mandiri".
     - Seksi Latihan Gabungan menggunakan judul utama Two-Tone yang kokoh: `<h2>Latihan <span>Gabungan</span></h2>` tanpa teks kicker. Dilarang menampilkan teks usang seperti "MODE TANTANGAN", "Campur materi", maupun kalimat deskripsi panjang "Pilih cakupan latihan. Materi yang terkunci tidak akan masuk ke soal." agar layout tetap bersih, minimalis, dan seragam.

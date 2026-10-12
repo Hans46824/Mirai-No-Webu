@@ -751,9 +751,11 @@ body.theme-dark .stroke-hint-bar.is-success {
 
 /* ==========================================================================
    POLA PATTERN KARTU LATIHAN KANA (latihan.html)
-   1. Hiragana Level Cards: Wagara Gelap (w1b.jpeg)
-   2. Katakana Level Cards: Kumo Awan Gelap (c1b.jpeg)
-   3. Latihan Gabungan Mode Cards: Wagara Terang (w1w.jpeg)
+   1. Hiragana Level Cards: Kumo Awan Gelap (c1b.jpeg)
+   2. Hiragana Latihan Gabungan: Kumo Awan Terang (c1w.jpeg)
+   3. Katakana Level Cards: Wagara Ombak Gelap (w1b.jpeg)
+   4. Katakana Latihan Gabungan: Wagara Ombak Gelap (w1b.jpeg)
+   Dinamis berganti secara instan & mulus saat tab Hiragana / Katakana ditekan.
    ========================================================================== */
 
 /* Level Cards Base Setup */
@@ -777,7 +779,7 @@ body.theme-dark .stroke-hint-bar.is-success {
     opacity: 0.045 !important;
     mix-blend-mode: screen !important;
     pointer-events: none !important;
-    transition: opacity 0.3s ease !important;
+    transition: opacity 0.3s ease, background-image 0.3s ease !important;
     z-index: 1 !important;
 }
 
@@ -785,19 +787,41 @@ body.theme-dark .stroke-hint-bar.is-success {
     opacity: 0.08 !important;
 }
 
-/* Hiragana Level Card: Pola Ombak Wagara Gelap (w1b.jpeg) */
+/* 1. Hiragana Level Card: Pola Awan Kumo Gelap (c1b.jpeg) */
 .level-card--hiragana::after,
-[data-script="hiragana"] .level-card::after {
-    background-image: url("images/mirai/background/w1b.jpeg") !important;
+[data-script="hiragana"] .level-card::after,
+.level-grid[data-script="hiragana"] .level-card::after,
+body[data-active-kana="hiragana"] .level-card::after {
+    background-image: url("../images/mirai/background/c1b.jpeg") !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
 }
 
-/* Katakana Level Card: Pola Awan Kumo Gelap (c1b.jpeg) */
+.level-card--hiragana:hover::after,
+[data-script="hiragana"] .level-card:hover::after,
+.level-grid[data-script="hiragana"] .level-card:hover::after,
+body[data-active-kana="hiragana"] .level-card:hover::after {
+    opacity: 0.08 !important;
+}
+
+/* 2. Katakana Level Card: Pola Ombak Wagara Gelap (w1b.jpeg) */
 .level-card--katakana::after,
-[data-script="katakana"] .level-card::after {
-    background-image: url("images/mirai/background/c1b.jpeg") !important;
+[data-script="katakana"] .level-card::after,
+.level-grid[data-script="katakana"] .level-card::after,
+body[data-active-kana="katakana"] .level-card::after {
+    background-image: url("../images/mirai/background/w1b.jpeg") !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
 }
 
-/* Latihan Gabungan Mode Cards: Pola Ombak Wagara Terang (w1w.jpeg) vs Kumo Terang (c1w.jpeg) */
+.level-card--katakana:hover::after,
+[data-script="katakana"] .level-card:hover::after,
+.level-grid[data-script="katakana"] .level-card:hover::after,
+body[data-active-kana="katakana"] .level-card:hover::after {
+    opacity: 0.08 !important;
+}
+
+/* Mode Cards Base Setup (Latihan Gabungan) */
 .mode-card {
     position: relative !important;
     overflow: hidden !important;
@@ -812,55 +836,108 @@ body.theme-dark .stroke-hint-bar.is-success {
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/background/w1w.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
-    opacity: 0.10 !important;
-    mix-blend-mode: multiply !important;
     pointer-events: none !important;
     transition: opacity 0.3s ease, background-image 0.3s ease !important;
     z-index: 1 !important;
 }
 
-.mode-card:hover::after {
+/* 3. Hiragana Latihan Gabungan: Pola Awan Kumo Terang (c1w.jpeg) */
+.mode-card--hiragana::after,
+[data-script="hiragana"] .mode-card::after,
+.mix-section[data-script="hiragana"] .mode-card::after,
+.mode-grid[data-script="hiragana"] .mode-card::after,
+body[data-active-kana="hiragana"] .mode-card::after {
+    background-image: url("../images/mirai/background/c1w.jpeg") !important;
+    opacity: 0.10 !important;
+    mix-blend-mode: multiply !important;
+}
+
+.mode-card--hiragana:hover::after,
+[data-script="hiragana"] .mode-card:hover::after,
+.mix-section[data-script="hiragana"] .mode-card:hover::after,
+.mode-grid[data-script="hiragana"] .mode-card:hover::after,
+body[data-active-kana="hiragana"] .mode-card:hover::after {
     opacity: 0.16 !important;
 }
 
-/* Hiragana Mode Cards: Wagara Terang (w1w.jpeg) */
-.mode-card--hiragana::after,
-[data-script="hiragana"] .mode-card::after,
-.mix-section[data-script="hiragana"] .mode-card::after {
-    background-image: url("images/mirai/background/w1w.jpeg") !important;
-}
-
-/* Katakana Mode Cards: Awan Kumo Terang (c1w.jpeg) */
-.mode-card--katakana::after,
-[data-script="katakana"] .mode-card::after,
-.mix-section[data-script="katakana"] .mode-card::after {
-    background-image: url("images/mirai/background/c1w.jpeg") !important;
-}
-
-/* Mode Gelap untuk Latihan Gabungan Cards */
-body.theme-dark .mode-card::after,
+/* Hiragana Latihan Gabungan pada Dark Mode (tetap c1w dengan multiply halus) */
 body.theme-dark .mode-card--hiragana::after,
 body.theme-dark [data-script="hiragana"] .mode-card::after,
-body.theme-dark .mix-section[data-script="hiragana"] .mode-card::after {
-    background-image: url("images/mirai/background/w1b.jpeg") !important;
+body.theme-dark .mix-section[data-script="hiragana"] .mode-card::after,
+body.theme-dark .mode-grid[data-script="hiragana"] .mode-card::after,
+body.theme-dark[data-active-kana="hiragana"] .mode-card::after {
+    background-image: url("../images/mirai/background/c1w.jpeg") !important;
+    opacity: 0.08 !important;
+    mix-blend-mode: multiply !important;
+}
+
+body.theme-dark .mode-card--hiragana:hover::after,
+body.theme-dark [data-script="hiragana"] .mode-card:hover::after,
+body.theme-dark .mix-section[data-script="hiragana"] .mode-card:hover::after,
+body.theme-dark .mode-grid[data-script="hiragana"] .mode-card:hover::after,
+body.theme-dark[data-active-kana="hiragana"] .mode-card:hover::after {
+    opacity: 0.14 !important;
+}
+
+/* 4. Katakana Latihan Gabungan: Pola Ombak Wagara Gelap (w1b.jpeg) */
+.mode-card--katakana::after,
+[data-script="katakana"] .mode-card::after,
+.mix-section[data-script="katakana"] .mode-card::after,
+.mode-grid[data-script="katakana"] .mode-card::after,
+body[data-active-kana="katakana"] .mode-card::after {
+    background-image: url("../images/mirai/background/w1b.jpeg") !important;
     opacity: 0.045 !important;
     mix-blend-mode: screen !important;
 }
 
+.mode-card--katakana:hover::after,
+[data-script="katakana"] .mode-card:hover::after,
+.mix-section[data-script="katakana"] .mode-card:hover::after,
+.mode-grid[data-script="katakana"] .mode-card:hover::after,
+body[data-active-kana="katakana"] .mode-card:hover::after {
+    opacity: 0.08 !important;
+}
+
+/* Katakana Latihan Gabungan pada Dark Mode (w1b.jpeg) */
 body.theme-dark .mode-card--katakana::after,
 body.theme-dark [data-script="katakana"] .mode-card::after,
-body.theme-dark .mix-section[data-script="katakana"] .mode-card::after {
-    background-image: url("images/mirai/background/c1b.jpeg") !important;
+body.theme-dark .mix-section[data-script="katakana"] .mode-card::after,
+body.theme-dark .mode-grid[data-script="katakana"] .mode-card::after,
+body.theme-dark[data-active-kana="katakana"] .mode-card::after {
+    background-image: url("../images/mirai/background/w1b.jpeg") !important;
     opacity: 0.045 !important;
     mix-blend-mode: screen !important;
 }
 
-body.theme-dark .mode-card:hover::after {
+body.theme-dark .mode-card--katakana:hover::after,
+body.theme-dark [data-script="katakana"] .mode-card:hover::after,
+body.theme-dark .mix-section[data-script="katakana"] .mode-card:hover::after,
+body.theme-dark .mode-grid[data-script="katakana"] .mode-card:hover::after,
+body.theme-dark[data-active-kana="katakana"] .mode-card:hover::after {
     opacity: 0.08 !important;
+}
+
+/* Katakana Latihan Gabungan pada Light Mode (jika background terang, invert w1b agar motif ombak hitam tampak rapi) */
+body:not(.theme-dark):not(.dark-mode) .mode-card--katakana::after,
+body:not(.theme-dark):not(.dark-mode) [data-script="katakana"] .mode-card::after,
+body:not(.theme-dark):not(.dark-mode) .mix-section[data-script="katakana"] .mode-card::after,
+body:not(.theme-dark):not(.dark-mode) .mode-grid[data-script="katakana"] .mode-card::after,
+body:not(.theme-dark):not(.dark-mode)[data-active-kana="katakana"] .mode-card::after {
+    background-image: url("../images/mirai/background/w1b.jpeg") !important;
+    filter: invert(1) !important;
+    opacity: 0.10 !important;
+    mix-blend-mode: multiply !important;
+}
+
+body:not(.theme-dark):not(.dark-mode) .mode-card--katakana:hover::after,
+body:not(.theme-dark):not(.dark-mode) [data-script="katakana"] .mode-card:hover::after,
+body:not(.theme-dark):not(.dark-mode) .mix-section[data-script="katakana"] .mode-card:hover::after,
+body:not(.theme-dark):not(.dark-mode) .mode-grid[data-script="katakana"] .mode-card:hover::after,
+body:not(.theme-dark):not(.dark-mode)[data-active-kana="katakana"] .mode-card:hover::after {
+    opacity: 0.16 !important;
 }
 
 /* Judul Latihan Gabungan Two-Tone */
