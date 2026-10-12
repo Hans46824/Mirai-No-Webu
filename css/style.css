@@ -13600,7 +13600,7 @@ body.page-kurikulum .doc-back-btn:hover,
     line-height: 1.6 !important;
     color: #4b5563 !important;
     margin: 0 !important;
-    max-width: calc(100% - 65px) !important;
+    max-width: 100% !important;
 }
 
 /* Footer Kartu & Tombol (Wajib Menimpa Stiker Chibi Sesuai Panduan Agent.md) */
@@ -13719,22 +13719,7 @@ body.page-kurikulum .doc-back-btn:hover,
     stroke: #ffffff !important;
 }
 
-/* Chibi Corner: Elemen Dekoratif Aksen di Bawah Tombol (Wajib Ditimpa oleh Tombol & Konten Teks) */
-.page-kelas #kurikulum .doc-big-card .card-corner-chibi {
-    position: absolute !important;
-    right: 12px !important;
-    bottom: 8px !important;
-    width: 64px !important;
-    height: auto !important;
-    pointer-events: none !important;
-    z-index: 1 !important;
-    opacity: 0.85 !important;
-    transition: transform 0.3s ease !important;
-}
 
-.page-kelas #kurikulum .doc-big-card:hover .card-corner-chibi {
-    transform: translateY(-4px) rotate(-3deg) !important;
-}
 
 /* Responsif Layar Kecil */
 @media (max-width: 850px) {
