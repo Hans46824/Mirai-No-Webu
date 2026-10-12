@@ -172,30 +172,69 @@ function setupBackToTop() {
 }
 
 function setupReveal() {
-    // Otomatisasi pendaftaran elemen kartu komponen ke pipeline motion-reveal
-    const autoSelectors = [
-        ".about-card",
-        ".feat-card",
-        ".proker-card",
-        ".facility-card",
-        ".divisi-card",
-        ".kelas-card",
-        ".modul-card",
-        ".lomba-card",
-        ".rank-card",
-        ".rekomendasi-card",
-        ".level-card"
+    // 1. Daftarkan seluruh seksi halaman (kecuali hero di paling atas yang sudah memicu animasi saat page load)
+    const sectionSelectors = [
+        "main > section:not(.hero):not(.page-hero):not(.about-hero):not(.lomba-hero):not(.activities-hero):not(.class-hero):not(.peringkat-hero):not(.rekomendasi-hero)",
+        "main > .section",
+        ".proker-section",
+        ".kegiatan-section",
+        ".content-section",
+        ".facility-section",
+        ".division-section",
+        ".learning-path",
+        ".feedback-preview",
+        ".home-activities-dark-section",
+        ".journey-section",
+        ".about-preview"
     ];
 
-    document.querySelectorAll(autoSelectors.join(",")).forEach((card, index) => {
-        if (!card.classList.contains("reveal") && !card.classList.contains("motion-reveal")) {
-            card.classList.add("motion-reveal");
-            const staggerDelay = (index % 4) + 1;
-            card.classList.add(`motion-delay-${staggerDelay}`);
+    document.querySelectorAll(sectionSelectors.join(",")).forEach((sec) => {
+        if (!sec.classList.contains("section-reveal")) {
+            sec.classList.add("section-reveal");
         }
     });
 
-    const targets = document.querySelectorAll(".reveal, .motion-reveal");
+    // 2. Daftarkan seluruh kartu komponen dan elemen kartu di dalam seksi
+    const cardSelectors = [
+        "article",
+        "[class*='-card']",
+        ".journey-step",
+        ".activity-item",
+        ".mission-box",
+        ".history-origin-card",
+        ".pembina-card",
+        ".feedback-card",
+        ".home-about-banner",
+        ".facility-card",
+        ".podium-card",
+        ".rek-card",
+        ".event-card",
+        ".course-card",
+        ".class-card",
+        ".division-card",
+        ".program-card",
+        ".management-card",
+        ".haori-card",
+        ".accessory-card"
+    ];
+
+    document.querySelectorAll(cardSelectors.join(",")).forEach((card) => {
+        // Jangan beri animasi scroll pada elemen di dalam hero, header, floating drawer chat, atau modal
+        if (card.closest(".hero, .page-hero, .about-hero, .lomba-hero, .activities-hero, .class-hero, #drawer, #launcher, .sidebar-nav, .home-header, .lightbox, .modal")) return;
+
+        if (!card.classList.contains("motion-reveal") && !card.classList.contains("reveal")) {
+            card.classList.add("motion-reveal");
+            const parent = card.parentElement;
+            if (parent) {
+                const siblings = Array.from(parent.children).filter(c => c.matches(cardSelectors.join(",")));
+                const index = siblings.indexOf(card);
+                const stagger = ((index >= 0 ? index : 0) % 6) + 1;
+                card.classList.add(`motion-delay-${stagger}`);
+            }
+        }
+    });
+
+    const targets = document.querySelectorAll(".section-reveal, .motion-reveal, .reveal");
     if (!targets.length) return;
 
     if (!("IntersectionObserver" in window)) {
@@ -209,7 +248,10 @@ function setupReveal() {
             entry.target.classList.add("is-visible");
             observer.unobserve(entry.target);
         });
-    }, { threshold: 0.08, rootMargin: "0px 0px -30px 0px" });
+    }, { 
+        threshold: 0.06, 
+        rootMargin: "0px 0px -40px 0px" 
+    });
 
     targets.forEach((target) => observer.observe(target));
 }

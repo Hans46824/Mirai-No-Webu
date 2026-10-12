@@ -224,8 +224,10 @@ Website Mirai no Webu menerapkan animasi masuk (*page entrance motion*) dan scro
 - **Animasi Masuk (`pageFadeIn` & `contentSlideIn`)**:
   - Halaman dimuat dengan transisi lembut ke atas (`translateY(16px)` ke `translateY(0)`) dan opacity `0` ke `1` menggunakan kurva easing perlambatan halus `cubic-bezier(0.16, 1, 0.3, 1)`.
   - Komponen hero, judul (`h1`), subjudul (`p`), dan kartu aksi mengalir berjenjang (*staggered reveal*) dengan jeda `0.06s` - `0.16s`.
-- **Scroll Motion Reveal (`setupReveal`)**:
-  - Seluruh kartu modul, proker, fasilitas, dan seksi konten secara otomatis didaftarkan ke pipeline `IntersectionObserver` di `js/main.js`.
-  - Kartu yang masuk ke viewport akan otomatis memperoleh kelas `.is-visible` dengan efek muncul lembut dan *stagger delay* dinamis (1 s.d 4).
+- **Scroll Motion Reveal Per Seksi Halaman (`setupReveal`)**:
+  - Animasi masuk tidak hanya berlaku saat pertama kali membuka halaman (di hero atas), melainkan **berlaku aktif saat pengunjung menggulir layar (*scrolling*) dan tiba di setiap seksi/bagian halaman baru**:
+  - Seluruh seksi konten (`main > section`, `.section`, `.proker-section`, dll.) otomatis didaftarkan sebagai `.section-reveal` ke pipeline `IntersectionObserver` di `js/main.js`.
+  - Ketika suatu seksi tiba/masuk ke dalam layar, seksi tersebut baru memicu animasi masuknya (`translateY(28px)` ke `0`), disusul judul seksi (`.heading`/`h2` jeda `0.06s`) dan subjudul (`p` jeda `0.14s`).
+  - Seluruh kartu komponen (`article`, `[class*='-card']`, dll.) di dalam seksi tersebut mengalir muncul bertahap (*staggered reveal: 0.06s s.d 0.46s*), menghidupkan suasana website seolah konten baru menyambut pengunjung saat tiba di tiap bagian halaman.
 - **Aksesibilitas & Kepatuhan Gerak**:
   - Wajib menghormati preferensi pengguna dengan `@media (prefers-reduced-motion: reduce)`. Pengguna yang mematikan efek motion pada sistem operasi tidak akan dipaksa melihat animasi yang mengganggu kenyamanan mata.
