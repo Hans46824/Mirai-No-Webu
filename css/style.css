@@ -527,7 +527,7 @@ main:has(.proker-hero) > section:nth-of-type(even) .proker-detail-card {
 .proker-hero ~ section:nth-of-type(even) .proker-detail-card::after,
 main:has(.proker-hero) > section:nth-of-type(even) .proker-benefit-card::after,
 main:has(.proker-hero) > section:nth-of-type(even) .proker-detail-card::after {
-    background-image: url("images/mirai/background/w1b.jpeg") !important;
+    background-image: url("../images/mirai/background/w1b.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -1306,7 +1306,7 @@ body.sora-fullscreen-active .menu-btn {
 .hero {
     min-height: 100vh;
     min-height: 100dvh;
-    background-image: url("images/mirai/background/Sora.png");
+    background-image: url("../images/mirai/background/Sora.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -1374,7 +1374,7 @@ body.sora-fullscreen-active .menu-btn {
     inset: 0;
     background-image:
         radial-gradient(ellipse at 50% 0%, rgba(233, 30, 99, 0.09) 0%, transparent 70%),
-        url("images/mirai/background/c1b.jpeg");
+        url("../images/mirai/background/c1b.jpeg");
     background-size: cover, 280px auto;
     background-repeat: no-repeat, repeat;
     background-position: center, center;
@@ -1547,7 +1547,7 @@ body.sora-fullscreen-active .menu-btn {
     position: relative;
     overflow: hidden;
     color: var(--white);
-    background-image: url("images/mirai/background/Sora.png");
+    background-image: url("../images/mirai/background/Sora.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -2266,7 +2266,7 @@ body.sora-fullscreen-active .menu-btn {
     min-height: 380px;
     padding: 135px 8vw 58px;
     color: var(--white);
-    background-image: url("images/mirai/background/Sora.png");
+    background-image: url("../images/mirai/background/Sora.png");
     background-position: center 30%;
     background-size: cover;
     background-repeat: no-repeat;
@@ -6490,7 +6490,7 @@ body.theme-dark .kana-empty-state {
     flex-direction: column;
     justify-content: flex-end;
     padding: 120px 7vw 64px;
-    background-image: url("images/mirai/background/Sora.png") !important;
+    background-image: url("../images/mirai/background/Sora.png") !important;
     background-size: cover !important;
     background-position: center right !important;
     background-repeat: no-repeat !important;
@@ -6644,7 +6644,7 @@ body.theme-dark .kana-empty-state {
 
 body.dark-mode .proker-hero,
 body.theme-dark .proker-hero {
-    background-image: url("images/mirai/background/Sora.png") !important;
+    background-image: url("../images/mirai/background/Sora.png") !important;
     color: #ffffff !important;
 }
 body.dark-mode .proker-hero h1,
@@ -9148,7 +9148,7 @@ body.theme-dark .activity-card-locked {
     content: "";
     position: absolute;
     inset: 0;
-    background-image: url("images/mirai/background/c1w.jpeg");
+    background-image: url("../images/mirai/background/c1w.jpeg");
     background-size: 260px auto;
     background-repeat: repeat;
     background-position: top left;
@@ -9171,7 +9171,7 @@ body.theme-dark .start-card::after,
 main > section:nth-of-type(even) .start-card::after,
 body.dark-mode .curriculum-cards a::after,
 body.theme-dark .curriculum-cards a::after {
-    background-image: url("images/mirai/background/c1b.jpeg");
+    background-image: url("../images/mirai/background/c1b.jpeg");
     background-size: 260px auto;
     background-repeat: repeat;
     background-position: top left;
@@ -9221,7 +9221,7 @@ body.theme-dark .curriculum-cards a:hover::after {
     content: "";
     position: absolute;
     inset: 0;
-    background-image: url("images/mirai/background/c1b.jpeg");
+    background-image: url("../images/mirai/background/c1b.jpeg");
     background-size: 260px auto;
     background-repeat: repeat;
     background-position: top left;
@@ -9253,7 +9253,7 @@ body.theme-dark .curriculum-cards a:hover::after {
     content: "";
     position: absolute;
     inset: 0;
-    background-image: url("images/mirai/background/w1b.jpeg");
+    background-image: url("../images/mirai/background/w1b.jpeg");
     background-size: 260px auto;
     background-repeat: repeat;
     background-position: top left;
@@ -9284,7 +9284,7 @@ body.theme-dark .curriculum-cards a:hover::after {
     content: "";
     position: absolute;
     inset: 0;
-    background-image: url("images/mirai/background/w1b.jpeg");
+    background-image: url("../images/mirai/background/w1b.jpeg");
     background-size: 260px auto;
     background-repeat: repeat;
     background-position: top left;
@@ -9315,7 +9315,7 @@ body.theme-dark .curriculum-cards a:hover::after {
     content: "";
     position: absolute;
     inset: 0;
-    background-image: url("images/mirai/background/w1w.jpeg");
+    background-image: url("../images/mirai/background/w1w.jpeg");
     background-size: 260px auto;
     background-repeat: repeat;
     background-position: top left;
@@ -9334,7 +9334,7 @@ body.theme-dark .curriculum-cards a:hover::after {
 
 body.dark-mode .program-card::after,
 body.theme-dark .program-card::after {
-    background-image: url("images/mirai/background/w1b.jpeg");
+    background-image: url("../images/mirai/background/w1b.jpeg");
     opacity: 0.045;
     mix-blend-mode: screen;
 }
@@ -9346,7 +9346,7 @@ body.theme-dark .program-card:hover::after {
 
 /* Jika .activity-start-card berada di section terang/putih */
 body:not(.dark-mode):not(.theme-dark) main > section:nth-of-type(odd):not(.home-activities-dark-section) .activity-start-card::after {
-    background-image: url("images/mirai/background/c1w.jpeg");
+    background-image: url("../images/mirai/background/c1w.jpeg");
     background-size: 260px auto;
     background-repeat: repeat;
     background-position: top left;
@@ -10178,7 +10178,7 @@ body.theme-dark .independent-slider img:hover {
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/background/w1b.jpeg") !important;
+    background-image: url("../images/mirai/background/w1b.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -11787,7 +11787,7 @@ main > .dictionary-section {
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/background/c1w.jpeg") !important;
+    background-image: url("../images/mirai/background/c1w.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -11969,7 +11969,7 @@ body.dark-mode .dictionary-practice-link:hover {
 
 body.theme-dark .dictionary-practice-link::after,
 body.dark-mode .dictionary-practice-link::after {
-    background-image: url("images/mirai/background/c1b.jpeg") !important;
+    background-image: url("../images/mirai/background/c1b.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -12467,7 +12467,7 @@ img:not(.img-lightbox-img) {
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/background/c1b.jpeg") !important;
+    background-image: url("../images/mirai/background/c1b.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -12998,7 +12998,7 @@ body.page-kurikulum .doc-back-btn:hover,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/background/w1b.jpeg") !important;
+    background-image: url("../images/mirai/background/w1b.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -13318,7 +13318,7 @@ body.page-kurikulum .doc-back-btn:hover,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/background/w1b.jpeg") !important;
+    background-image: url("../images/mirai/background/w1b.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -13485,7 +13485,7 @@ body.page-kurikulum .doc-back-btn:hover,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/background/w1w.jpeg") !important;
+    background-image: url("../images/mirai/background/w1w.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -13691,7 +13691,7 @@ body.page-kurikulum .doc-back-btn:hover,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/background/w1b.jpeg") !important;
+    background-image: url("../images/mirai/background/w1b.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -13758,7 +13758,7 @@ body.page-kurikulum .doc-back-btn:hover,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/background/c1b.jpeg") !important;
+    background-image: url("../images/mirai/background/c1b.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -13880,7 +13880,7 @@ body.page-kurikulum .doc-back-btn:hover,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/background/w1w.jpeg") !important;
+    background-image: url("../images/mirai/background/w1w.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -13927,7 +13927,7 @@ body.page-kurikulum .doc-back-btn:hover,
 }
 
 body.theme-dark .ketentuan-card::after {
-    background-image: url("images/mirai/background/w1b.jpeg") !important;
+    background-image: url("../images/mirai/background/w1b.jpeg") !important;
     opacity: 0.045 !important;
     mix-blend-mode: screen !important;
 }
@@ -14069,7 +14069,7 @@ body.theme-dark .ketentuan-card:hover::after {
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/background/w1w.jpeg") !important;
+    background-image: url("../images/mirai/background/w1w.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -14083,7 +14083,7 @@ body.theme-dark .ketentuan-card:hover::after {
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/background/w1b.jpeg") !important;
+    background-image: url("../images/mirai/background/w1b.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -14181,7 +14181,7 @@ body.theme-dark .ketentuan-card:hover::after {
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/background/c1b.jpeg") !important;
+    background-image: url("../images/mirai/background/c1b.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -14505,7 +14505,7 @@ main .about-feature-card p,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/background/c1b.jpeg") !important;
+    background-image: url("../images/mirai/background/c1b.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -15002,7 +15002,7 @@ body:not(.page-kamus) .quick-stroke-btn {
     content: "";
     position: absolute;
     inset: 0;
-    background-image: url("images/mirai/background/c1b.jpeg");
+    background-image: url("../images/mirai/background/c1b.jpeg");
     background-size: 260px auto;
     background-repeat: repeat;
     background-position: top left;
@@ -15666,7 +15666,7 @@ body.page-rekomendasi,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/background/c1b.jpeg") !important;
+    background-image: url("../images/mirai/background/c1b.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -17518,7 +17518,7 @@ body.page-lomba,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/background/c1w.jpeg") !important;
+    background-image: url("../images/mirai/background/c1w.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -17537,7 +17537,7 @@ body.page-lomba,
 
 body.dark-mode .lomba-detail-card::after,
 body.theme-dark .lomba-detail-card::after {
-    background-image: url("images/mirai/background/c1b.jpeg") !important;
+    background-image: url("../images/mirai/background/c1b.jpeg") !important;
     opacity: 0.045 !important;
     mix-blend-mode: screen !important;
 }
@@ -18908,7 +18908,7 @@ body.page-tentang main > section.management-section .heading span {
    -------------------------------------------------------------------------- */
 .page-kegiatan .division-card::after,
 .page-kegiatan .facility-card::after {
-    background-image: url("images/mirai/background/w1b.jpeg") !important;
+    background-image: url("../images/mirai/background/w1b.jpeg") !important;
     opacity: 0.045 !important;
     mix-blend-mode: screen !important;
 }
@@ -18920,7 +18920,7 @@ body.page-tentang main > section.management-section .heading span {
 }
 
 .page-kegiatan .program-card::after {
-    background-image: url("images/mirai/background/w1w.jpeg") !important;
+    background-image: url("../images/mirai/background/w1w.jpeg") !important;
     opacity: 0.10 !important;
     mix-blend-mode: multiply !important;
 }
@@ -18932,7 +18932,7 @@ body.page-tentang main > section.management-section .heading span {
 
 body.dark-mode .page-kegiatan .program-card::after,
 body.theme-dark .page-kegiatan .program-card::after {
-    background-image: url("images/mirai/background/w1b.jpeg") !important;
+    background-image: url("../images/mirai/background/w1b.jpeg") !important;
     opacity: 0.045 !important;
     mix-blend-mode: screen !important;
 }
@@ -18949,7 +18949,7 @@ body.theme-dark .page-kegiatan .program-card:hover::after {
 .page-rekomendasi .rek-cat-explain-card::after,
 .page-rekomendasi .media-tips-card::after,
 .page-rekomendasi .media-col-card::after {
-    background-image: url("images/mirai/background/c1b.jpeg") !important;
+    background-image: url("../images/mirai/background/c1b.jpeg") !important;
     opacity: 0.045 !important;
     mix-blend-mode: screen !important;
 }
@@ -18965,7 +18965,7 @@ body.theme-dark .page-kegiatan .program-card:hover::after {
    7. LOMBA & ACARA (.page-lomba) - Pola Awan (c1b & c1w)
    -------------------------------------------------------------------------- */
 .page-lomba .event-card::after {
-    background-image: url("images/mirai/background/c1b.jpeg") !important;
+    background-image: url("../images/mirai/background/c1b.jpeg") !important;
     opacity: 0.045 !important;
     mix-blend-mode: screen !important;
 }
@@ -18975,7 +18975,7 @@ body.theme-dark .page-kegiatan .program-card:hover::after {
 }
 
 .page-lomba .lomba-detail-card::after {
-    background-image: url("images/mirai/background/c1w.jpeg") !important;
+    background-image: url("../images/mirai/background/c1w.jpeg") !important;
     opacity: 0.10 !important;
     mix-blend-mode: multiply !important;
 }
@@ -18986,7 +18986,7 @@ body.theme-dark .page-kegiatan .program-card:hover::after {
 
 body.dark-mode .page-lomba .lomba-detail-card::after,
 body.theme-dark .page-lomba .lomba-detail-card::after {
-    background-image: url("images/mirai/background/c1b.jpeg") !important;
+    background-image: url("../images/mirai/background/c1b.jpeg") !important;
     opacity: 0.045 !important;
     mix-blend-mode: screen !important;
 }
@@ -19102,7 +19102,7 @@ body.theme-dark .page-lomba .lomba-detail-card:hover::after {
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("images/mirai/background/w1b.jpeg") !important;
+    background-image: url("../images/mirai/background/w1b.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;

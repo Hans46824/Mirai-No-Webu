@@ -73,14 +73,14 @@ function normalizeNavigation() {
         link.textContent = "KAMUS";
     });
     document.querySelectorAll('[data-nav-menu] a[href$="about.html"]').forEach((link) => {
-        link.href = basePath + "tentang.html";
+        link.href = basePath + "tentang/index.html";
     });
 
     // Aktifkan kembali seluruh tautan navigasi (lapisan Coming Soon telah dihapus).
     document.querySelectorAll('[data-nav-menu] a.nav-coming-soon, .nav .links a.nav-coming-soon').forEach((link) => {
         const navText = link.querySelector('.nav-text');
         const label = navText ? navText.textContent.trim().toUpperCase() : link.textContent.replace('COMING SOON', '').trim().toUpperCase();
-        const href = (label === 'HOME' || label === 'BERANDA') ? basePath + 'index.html' : label === 'KEGIATAN' ? basePath + 'kegiatan/index.html' : label === 'TENTANG' ? basePath + 'tentang.html' : link.getAttribute('href');
+        const href = (label === 'HOME' || label === 'BERANDA') ? basePath + 'index.html' : label === 'KEGIATAN' ? basePath + 'kegiatan/index.html' : label === 'TENTANG' ? basePath + 'tentang/index.html' : link.getAttribute('href');
         link.setAttribute('href', href);
         link.removeAttribute('aria-disabled');
         link.removeAttribute('tabindex');

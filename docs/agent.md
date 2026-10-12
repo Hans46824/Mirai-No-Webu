@@ -11,10 +11,18 @@ Gunakan bahasa yang sederhana, manusiawi, dan langsung ke intinya. Hindari penul
 - Setiap kali ada halaman baru, file script baru, atau aset gambar baru yang diunggah ke proyek, AI WAJIB langsung memperbarui dokumen **agent.md** dan **tree.md**.
 - Jangan hanya mengubah kode web tanpa mencatat perubahannya di dokumentasi. Struktur direktori dan aturan desain harus selalu selaras dengan kondisi web terkini.
 
-### A. Arsitektur Folder Modular
+### A. Arsitektur Folder Modular (Clean Root Standard)
 Seluruh berkas website Mirai no Webu dikelompokkan secara terstruktur ke dalam folder tematik:
-- **Root (`/`)**: Landing pages utama (`index.html`, `tentang.html`, `lomba.html`, `peringkat.html`, `rekomendasi.html`), `style.css`, `script.js`, serta dokumentasi `tree.md` dan `agent.md`.
-- **`kelas/`**: Hub pembelajaran mandiri (`index.html`), `dasar.html`, `lanjutan.html`, `kurikulum.html`, `latihan.html`, dan `motivasi.html`.
+- **Root (`/`)**: Hanya menyisakan **index.html** sebagai gerbang utama Beranda.
+- **`css/`**: Berisi master stylesheet antarmuka (`css/style.css`).
+- **`js/`**: Berisi seluruh logika JavaScript modular (`main.js`, `script.js`, `kanji.js`, `kana.js`, `stroke.js`, `stroke-data.js`, `sora.js`, dll.).
+- **`docs/`**: Berisi dokumentasi arsitektur proyek (`docs/tree.md`, `docs/agent.md`) dan pedoman PDF (`docs/kurikulum/`).
+- **`data/`**: Berisi basis data lokal JSON (`kana.json`, `kanji.json`, `kanji-meta.json`) yang menyuplai data untuk Kamus dan Latihan Kana/Kanji.
+- **`tentang/`**: Profil lengkap klub Mirai No Hana (`index.html`).
+- **`lomba/`**: Informasi 18 lomba & festival jejepangan (`index.html`).
+- **`peringkat/`**: Papan peringkat keaktifan, presensi, & galeri prestasi (`index.html`).
+- **`rekomendasi/`**: Rekomendasi media belajar anime, film, dan musik (`index.html`).
+- **`kelas/`**: Hub pembelajaran mandiri (`index.html`, `dasar.html`, `lanjutan.html`, `kurikulum.html`, `latihan.html`, `motivasi.html`).
 - **`divisi/`**: Struktur 4 divisi resmi klub (`index.html`, `bahasa.html`, `cosplay.html`, `desain.html`, `kewirausahaan.html`).
 - **`kegiatan/`**: Hub program kerja & fasilitas (`index.html`), `kimi-to-nippon.html` (orientasi KTN), `nihon-go-rajio.html` (siaran NJR), `konbini.html`, `ramadhan.html`, dan `tomodachi.html`.
 - **`kamus/`**: Kamus interaktif pencarian Kana & Kanji (`index.html`) dan Ensiklopedia Kanji (`kanji.html`).
