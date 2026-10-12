@@ -652,7 +652,7 @@ function setupFooterQuoteSlider() {
             anime: "One Piece",
             animeJP: "ワンピース",
             author: "Eiichiro Oda",
-            sticker: "sor.jpeg",
+            image: "luf.jpeg",
             chibi: "Ay.png",
             kanji: "海賊王に、おれはなる！",
             romaji: "Kaizoku-ou ni, ore wa naru!",
@@ -675,7 +675,7 @@ function setupFooterQuoteSlider() {
             anime: "Attack on Titan",
             animeJP: "進撃の巨人",
             author: "Hajime Isayama",
-            sticker: "mas.jpeg",
+            image: "ere.jpeg",
             chibi: "Ka.png",
             kanji: "心臓を捧げよ！",
             romaji: "Shinzou o sasageyo!",
@@ -698,7 +698,7 @@ function setupFooterQuoteSlider() {
             anime: "Naruto",
             animeJP: "NARUTO -ナルト-",
             author: "Masashi Kishimoto",
-            sticker: "ita.jpeg",
+            image: "nar.jpeg",
             chibi: "Lo.png",
             kanji: "まっすぐ自分の言葉は曲げねぇ。それが俺の忍道だ！",
             romaji: "Massugu jibun no kotoba wa magenee. Sore ga ore no nindou da!",
@@ -721,7 +721,7 @@ function setupFooterQuoteSlider() {
             anime: "My Hero Academia",
             animeJP: "僕のヒーローアカデミア",
             author: "Kohei Horikoshi",
-            sticker: "kok.jpeg",
+            image: "dek.jpeg",
             chibi: "Al.png",
             kanji: "限界を超えて、さらに向こうへ！プルス・ウルトラ！",
             romaji: "Genkai o koete, sara ni mukou e! Purusu Urutora! (Plus Ultra)",
@@ -744,7 +744,7 @@ function setupFooterQuoteSlider() {
             anime: "Demon Slayer",
             animeJP: "鬼滅の刃",
             author: "Koyoharu Gotouge",
-            sticker: "kar.jpeg",
+            image: "tan.jpeg",
             chibi: "Fu.png",
             kanji: "頑張れ炭治郎、頑張れ！俺は今までよくやってきた！",
             romaji: "Ganbare Tanjiro, ganbare! Ore wa ima made yoku yatte kita!",
@@ -757,52 +757,6 @@ function setupFooterQuoteSlider() {
             border: "rgba(56, 189, 248, 0.35)",
             badgeBg: "rgba(56, 189, 248, 0.16)",
             badgeBorder: "rgba(56, 189, 248, 0.45)"
-        },
-        {
-            id: 6,
-            animeId: "black-clover",
-            tokohBadge: "Tokoh 6 · アスタ · 諦めない",
-            tag: "BLACK CLOVER · ブラッククローバー · YŪKI TABATA",
-            name: "Asta",
-            anime: "Black Clover",
-            animeJP: "ブラッククローバー",
-            author: "Yūki Tabata",
-            sticker: "jaw.jpeg",
-            chibi: "Ki.png",
-            kanji: "諦めないのが、俺の魔法だ！",
-            romaji: "Akiramenai no ga, ore no mahou da!",
-            literal: 'Arti Harfiah: "Tidak menyerah adalah sihirku!"',
-            meaningTitle: "Kerja Keras Mengalahkan Bakat Alami",
-            meaningText: "Tidak punya keistimewaan sejak awal bukan alasan untuk mundur. Ketekunan dan sifat pantang menyerah adalah kekuatan terbesar yang bisa mengimbangi siapa pun yang berbakat.",
-            accent: "#e11d48",
-            glow: "rgba(225, 29, 72, 0.4)",
-            line: "linear-gradient(90deg, #e11d48, #a855f7)",
-            border: "rgba(225, 29, 72, 0.35)",
-            badgeBg: "rgba(225, 29, 72, 0.16)",
-            badgeBorder: "rgba(225, 29, 72, 0.45)"
-        },
-        {
-            id: 7,
-            animeId: "haikyuu",
-            tokohBadge: "Tokoh 7 · 烏野高校 · 飛べ",
-            tag: "HAIKYUU!! · ハイキュー!! · HARUICHI FURUDATE",
-            name: "Kageyama Tobio & Hinata Shoyo",
-            anime: "Haikyuu!!",
-            animeJP: "ハイキュー!!",
-            author: "Haruichi Furudate",
-            sticker: "ber.jpeg",
-            chibi: "Fa.png",
-            kanji: "飛べ！",
-            romaji: "Tobe!",
-            literal: 'Arti Harfiah: "Terbanglah!"',
-            meaningTitle: "Lepaskan Rasa Takut & Percaya pada Sayapmu Sendiri",
-            meaningText: "Slogan ikonik spanduk Karasuno yang mengajak siapa pun untuk melepaskan beban keraguan dan berani melompat tinggi menyambut peluang baru.",
-            accent: "#f59e0b",
-            glow: "rgba(245, 158, 11, 0.4)",
-            line: "linear-gradient(90deg, #f59e0b, #f97316)",
-            border: "rgba(245, 158, 11, 0.35)",
-            badgeBg: "rgba(245, 158, 11, 0.16)",
-            badgeBorder: "rgba(245, 158, 11, 0.45)"
         }
     ];
 
@@ -867,7 +821,7 @@ function setupFooterQuoteSlider() {
                     <div class="quote-top-row">
                         <div class="quote-author-profile">
                             <div class="quote-avatar-wrap">
-                                <img class="quote-avatar-img" src="${basePath}images/mirai/stiker/${q.sticker}" alt="${q.name}">
+                                <img class="quote-avatar-img" src="${basePath}images/mirai/karakter/${q.image}" alt="${q.name}">
                             </div>
                             <h3 class="quote-author-name">${q.name}</h3>
                         </div>

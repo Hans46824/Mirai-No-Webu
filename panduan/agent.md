@@ -56,7 +56,9 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
 - **background/**: Pola Wagara master CSS (`w1b.jpeg`, `w1w.jpeg`, `c1b.jpeg`, `c1w.jpeg`, `w2w.jpeg`, `chat.jpeg`, `Sora.png`).
 - **logo/**: Logo resmi klub (`MNH1.png`, `MNH1-nav.png`, `NK.png`, `comingsoon.jpg`).
 - **icon/**: Koleksi 20 stiker chibi resmi Genshin Impact untuk profil anggota, papan peringkat, dan dekorasi kartu modul (Al, Ay, Chi, Fa, Fli, Fu, Hu, Ka, Ki, Lo, Wa, ang, bal, bul, chi, cil, dil, nah, sar, zho).
-- **stiker/**: Berisi 28 stiker komunitas ekspresi anime untuk kutipan dan asisten Sora.
+- **karakter/**: Foto potret karakter anime untuk kartu kutipan motivasi (`luf.jpeg`, `ere.jpeg`, `nar.jpeg`, `dek.jpeg`, `tan.jpeg`).
+- **produk/**: Foto produk kuliner & minuman asli Mirai no Konbini (`oni.jpeg`, `tak.jpeg`, `dan.jpeg`, `mat.jpeg`, `teh.jpeg`).
+- **stiker/**: Berisi 28 stiker komunitas ekspresi anime untuk asisten Sora dan materi pendukung.
 
 ### B. Aset Spesifik per Halaman (Co-located Assets)
 - **tentang/images/**:
@@ -203,8 +205,22 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
   - Tujuannya agar produk hasil potong latar belakang (seperti Lanyard, ID Card, Nametag, Pin, dan Cinderamata Akrilik) tidak memperlihatkan artefak tepian kasar atau halo putih saat diletakkan di kartu bernuansa gelap. Dengan kanvas putih, foto produk tampil bersih, estetik, dan tampak profesional layaknya pemotretan studio katalog.
 - **Tampilan Khusus Haori (Duo View Depan & Belakang)**:
   - Pada produk Haori Resmi Klub, kanvas display menampilkan dua sudut pandang sekaligus: Tampak Depan (`haori-depan-new.png`) dan Tampak Belakang (`haori-belakang-new.png`) berdampingan dengan label indikator pill (`Depan` dan `Belakang`). Hal ini penting agar kaligrafi kanji punggung [未来の花] dan detail bordir depan terlihat jelas tanpa perlu berpindah halaman.
-- **Katalog Produk Terkurasi (13 Item Aktif)**:
-  - Produk etalase disederhanakan menjadi 13 item aktif (5 Atribut Mirai no Hana, 4 Makanan Konbini, 2 Minuman Konbini, dan 2 Cinderamata). Produk duplikat atau kurang relevan seperti Totebag Kanvas, Bendera Mini Vandel, dan Buku Kotak Kanji telah dihapus atas permintaan pengguna.
+- **Katalog Produk Terkurasi (12 Item Aktif) & Aturan Penamaan Lugas (Anti-Fluff Naming Rule)**:
+  - **Nama Produk Wajib Lugas & Langsung ke Inti**: Dilarang menambahkan kata-kata hiasan/pemasaran berlebihan pada nama produk (misalnya: dilarang memakai "Resmi Klub", "Personal", "Spesial", dsb). Nama produk harus to the point:
+    - Atribut Mirai no Hana (5): `Haori`, `Kartu Tanda Anggota`, `Lanyard`, `Pin`, `Nametag`.
+    - Makanan Konbini (3): `Onigiri Segitiga`, `Takoyaki`, `Dango`.
+    - Minuman Konbini (2): `Matcha Latte`, `Es Teh` (Rp 5.000).
+    - Cinderamata (2): `Stiker`, `Gantungan Kunci`.
+  - Produk Ramune Soda dan Dorayaki telah dihapus permanen.
+  - Foto produk kuliner & minuman asli dipasang dari `images/mirai/produk/` (`oni.jpeg`, `tak.jpeg`, `dan.jpeg`, `mat.jpeg`, `teh.jpeg`) pada alas kanvas putih solid.
+- **Standar 5 Toko Karakter Kutipan Motivasi (Halaman Motivasi)**:
+  - Kutipan motivasi anime di `kelas/motivasi.html` dan slider kutipan footer `js/main.js` dikurasi menjadi **5 tokoh ikonik** dengan foto potret karakter asli dari folder `images/mirai/karakter/`:
+    1. Monkey D. Luffy (`luf.jpeg`) · One Piece
+    2. Eren Yeager (`ere.jpeg`) · Attack on Titan
+    3. Uzumaki Naruto (`nar.jpeg`) · Naruto Shippuden
+    4. Midoriya Izuku / Deku (`dek.jpeg`) · My Hero Academia
+    5. Tanjiro Kamado (`tan.jpeg`) · Demon Slayer
+  - Tokoh Asta (Black Clover) dan Kageyama/Hinata (Haikyuu!!) telah dihapus.
 
 ### L. Aturan Spasi dan Tata Letak (Layout)
 - **Anti Ruang Hampa**: Di layar laptop, kartu tidak boleh menyisakan ruang kosong hitam atau putih yang melompong di tengah antara judul dan tombol bawah. Susun elemen secara padat dan seimbang.

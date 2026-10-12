@@ -118,5 +118,7 @@ Mirai-No-Webu/
     ├── background/                 # Pola Wagara master CSS (w1b, w1w, c1b, c1w, Sora.png, chat.jpeg)
     ├── logo/                       # Logo resmi klub (MNH1.png, MNH1-nav.png, NK.png, comingsoon.jpg)
     ├── icon/                       # Ikon chibi Genshin Impact (Al, Ay, Chi, Fa, Fu, Hu, Ka, Ki, Lo, dll.)
+    ├── karakter/                   # Foto karakter anime kutipan (luf, ere, nar, dek, tan)
+    ├── produk/                     # Foto produk konbini (oni, tak, dan, mat, teh)
     └── stiker/                     # 28 stiker komunitas ekspresi karakter anime
 ```

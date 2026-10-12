@@ -222,6 +222,8 @@ Mirai-No-Webu/
         ├── logo/                   # Logo resmi klub & favicon navigasi
         ├── background/             # Pola Wagara Jepang (Seigaiha, Kumo, Asanoha)
         ├── icon/                   # 20 Ikon chibi resmi Genshin Impact untuk profil/peringkat
+        ├── karakter/               # Foto potret karakter anime kutipan (luf, ere, nar, dek, tan)
+        ├── produk/                 # Foto produk kuliner & minuman konbini (oni, tak, dan, mat, teh)
         └── stiker/                 # Koleksi stiker anime ekspresi untuk reaksi obrolan
 ```
 
