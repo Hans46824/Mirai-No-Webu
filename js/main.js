@@ -172,7 +172,32 @@ function setupBackToTop() {
 }
 
 function setupReveal() {
-    const targets = document.querySelectorAll(".reveal");
+    // Otomatisasi pendaftaran elemen kartu komponen ke pipeline motion-reveal
+    const autoSelectors = [
+        ".about-card",
+        ".feat-card",
+        ".proker-card",
+        ".facility-card",
+        ".divisi-card",
+        ".kelas-card",
+        ".modul-card",
+        ".lomba-card",
+        ".rank-card",
+        ".rekomendasi-card",
+        ".level-card"
+    ];
+
+    document.querySelectorAll(autoSelectors.join(",")).forEach((card, index) => {
+        if (!card.classList.contains("reveal") && !card.classList.contains("motion-reveal")) {
+            card.classList.add("motion-reveal");
+            const staggerDelay = (index % 4) + 1;
+            card.classList.add(`motion-delay-${staggerDelay}`);
+        }
+    });
+
+    const targets = document.querySelectorAll(".reveal, .motion-reveal");
+    if (!targets.length) return;
+
     if (!("IntersectionObserver" in window)) {
         targets.forEach((target) => target.classList.add("is-visible"));
         return;
@@ -184,7 +209,7 @@ function setupReveal() {
             entry.target.classList.add("is-visible");
             observer.unobserve(entry.target);
         });
-    }, { threshold: 0.12 });
+    }, { threshold: 0.08, rootMargin: "0px 0px -30px 0px" });
 
     targets.forEach((target) => observer.observe(target));
 }

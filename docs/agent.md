@@ -13,7 +13,7 @@ Gunakan bahasa yang sederhana, manusiawi, dan langsung ke intinya. Hindari penul
 
 ### A. Arsitektur Folder Modular (Clean Root Standard)
 Seluruh berkas website Mirai no Webu dikelompokkan secara terstruktur ke dalam folder tematik:
-- **Root (`/`)**: Hanya menyisakan **index.html** sebagai gerbang utama Beranda.
+- **Root (`/`)**: Berisi **index.html** (gerbang utama Beranda), **404.html** (halaman penanganan error ramah pengunjung bertema Mirai no Hana), dan **README.md** (etalase profil repositori GitHub dan dokumentasi kredit).
 - **`css/`**: Berisi master stylesheet antarmuka (`css/style.css`).
 - **`js/`**: Berisi seluruh logika JavaScript modular (`main.js`, `script.js`, `kanji.js`, `kana.js`, `stroke.js`, `stroke-data.js`, `sora.js`, dll.).
 - **`docs/`**: Berisi dokumentasi arsitektur proyek (`docs/tree.md`, `docs/agent.md`) dan pedoman PDF (`docs/kurikulum/`).
@@ -30,6 +30,11 @@ Seluruh berkas website Mirai no Webu dikelompokkan secara terstruktur ke dalam f
 - **`sora/`**: Playground bot obrolan maskot Sora (`index.html`).
 - **`skrip/`**: Kumpulan skrip otomasi & pemeliharaan kode Python.
 - **Folder `video/` telah dihapus** agar repositori bersih dari berkas rekaman lokal yang tidak terpakai.
+
+### B. Aturan Wajib: Pembaruan Mandiri Sumber Daya & Kredit (Sources & Credits)
+- Setiap kali pengembang atau AI asisten mengintegrasikan API eksternal baru, menambahkan dependensi baru, menyematkan dataset, atau menggunakan aset eksternal (font, library, icon):
+  - **WAJIB langsung memperbarui tabel "Sources & Credits" di berkas `README.md`** di root repositori.
+  - Catat nama penyedia, jenis lisensi, dan fungsi komponen tersebut pada website agar rekam jejak hak cipta dan atribusi selalu akurat dan teratur (*always up-to-date*).
 
 ---
 
@@ -207,3 +212,20 @@ Fitur bot obrolan maskot Sora beroperasi melalui berkas **js/sora.js** dan halam
 ### B. Koneksi API Eksternal
 - Jika di masa depan Sora dihubungkan dengan kecerdasan buatan luar (AI Server), koneksi dilakukan melalui variabel global window.SORA_API_ENDPOINT.
 - **Aturan Keamanan**: Kunci rahasia API (API key) tidak boleh ditulis langsung di dalam kode JavaScript frontend ini demi menjaga keamanan sistem.
+
+---
+
+## 5. Sistem Motion & Animasi Masuk Halaman (Native Motion Engine)
+
+Website Mirai no Webu menerapkan animasi masuk (*page entrance motion*) dan scroll reveal yang anggun, modern, dan ringan tanpa dependensi pustaka berat:
+
+### A. Standar Native Web (Zero External Dependency)
+- Seluruh animasi memanfaatkan **CSS3 Keyframes** teroptimasi dan standar W3C **Cross-Document View Transitions API** (`@view-transition { navigation: auto; }`).
+- **Animasi Masuk (`pageFadeIn` & `contentSlideIn`)**:
+  - Halaman dimuat dengan transisi lembut ke atas (`translateY(16px)` ke `translateY(0)`) dan opacity `0` ke `1` menggunakan kurva easing perlambatan halus `cubic-bezier(0.16, 1, 0.3, 1)`.
+  - Komponen hero, judul (`h1`), subjudul (`p`), dan kartu aksi mengalir berjenjang (*staggered reveal*) dengan jeda `0.06s` - `0.16s`.
+- **Scroll Motion Reveal (`setupReveal`)**:
+  - Seluruh kartu modul, proker, fasilitas, dan seksi konten secara otomatis didaftarkan ke pipeline `IntersectionObserver` di `js/main.js`.
+  - Kartu yang masuk ke viewport akan otomatis memperoleh kelas `.is-visible` dengan efek muncul lembut dan *stagger delay* dinamis (1 s.d 4).
+- **Aksesibilitas & Kepatuhan Gerak**:
+  - Wajib menghormati preferensi pengguna dengan `@media (prefers-reduced-motion: reduce)`. Pengguna yang mematikan efek motion pada sistem operasi tidak akan dipaksa melihat animasi yang mengganggu kenyamanan mata.

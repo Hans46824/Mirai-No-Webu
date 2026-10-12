@@ -5,7 +5,9 @@ Struktur direktori menerapkan standar **Feature-Based Asset Colocation** dan **C
 
 ```text
 Mirai-No-Webu/
-├── index.html                      # Satu-satunya halaman gerbang utama (Beranda) di root
+├── index.html                      # Gerbang utama website (Beranda)
+├── 404.html                        # Halaman penanganan tautan salah / tidak ditemukan
+├── README.md                       # Profil utama repositori & dokumentasi Sources & Credits
 │
 ├── css/                            # Master Stylesheet (Gaya & Desain Antarmuka)
 │   └── style.css                   # Master CSS (Tema gelap, terang, kartu wagara, tipografi, & komponen)
