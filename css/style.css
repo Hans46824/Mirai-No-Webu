@@ -19061,6 +19061,15 @@ body.page-tentang main > section.management-section .heading span {
     color: var(--pink, #e91e63) !important;
 }
 
+body.page-tentang main > section.feedback-preview {
+    background-color: #111111 !important;
+    color: #f5edf4 !important;
+}
+
+body.page-tentang .feedback-feature-card::after {
+    background-image: url("../images/mirai/background/w1b.jpeg") !important;
+}
+
 /* ==========================================================================
    ATURAN PATTERN SELANG-SELING KARTU 8 HALAMAN MENU UTAMA
    Urutan Menu Navigasi:

@@ -100,7 +100,7 @@ Website **Mirai no Webu** terdiri dari berbagai modul tematik yang memiliki pera
 * Kurasi judul anime, film drama, dan lagu Jepang ramah pelajar yang memiliki nilai edukasi tinggi untuk melatih kemampuan menyimak (*choukai*) dan menambah perbendaharaan kosakata.
 
 ### 9. 🌸 Profil Klub & Kepengurusan (`/tentang/index.html`)
-* Sejarah pendirian klub, filosofi nama bunga masa depan (*Mirai no Hana*), lambang bendera organisasi, makna filosofis motif busana Haori/Happi, serta profil foto 11 pengurus inti Kabinet Sora.
+* Sejarah pendirian klub, filosofi nama bunga masa depan (*Mirai no Hana*), lambang bendera organisasi, makna filosofis motif busana Haori/Happi, profil foto kepengurusan aktif dan demisioner, serta kanal formulir masukan, kritik, dan saran Google Form.
 
 ### 10. 🤖 Asisten Obrolan Maskot Sora (`/sora/index.html` & Widget Mengambang)
 * Bot pendamping virtual bernama **Asora Aokita (Sora)** dengan persona gadis SMA yang ceria, ramah, dan suportif.
