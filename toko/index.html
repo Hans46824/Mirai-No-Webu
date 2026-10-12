@@ -71,10 +71,10 @@
                 <!-- Category Tabs -->
                 <div class="toko-category-tabs" role="tablist" aria-label="Kategori Toko">
                     <button type="button" class="toko-cat-btn active" data-category="all">
-                        <span>🌟 Semua Produk (<span id="count-all">16</span>)</span>
+                        <span>🌟 Semua Produk (<span id="count-all">13</span>)</span>
                     </button>
                     <button type="button" class="toko-cat-btn" data-category="atribut">
-                        <span>👘 Atribut Mirai no Hana (<span id="count-atribut">6</span>)</span>
+                        <span>👘 Atribut Mirai no Hana (<span id="count-atribut">5</span>)</span>
                     </button>
                     <button type="button" class="toko-cat-btn" data-category="makanan">
                         <span>🍱 Makanan (<span id="count-makanan">4</span>)</span>
@@ -83,24 +83,33 @@
                         <span>🍵 Minuman (<span id="count-minuman">2</span>)</span>
                     </button>
                     <button type="button" class="toko-cat-btn" data-category="cinderamata">
-                        <span>✨ Cinderamata (<span id="count-cinderamata">4</span>)</span>
+                        <span>✨ Cinderamata (<span id="count-cinderamata">2</span>)</span>
                     </button>
                 </div>
             </div>
 
             <!-- HASIL JUMLAH METADATA -->
             <div class="toko-result-meta">
-                <span id="tokoProductCount">Menampilkan 16 produk</span>
+                <span id="tokoProductCount">Menampilkan 13 produk</span>
                 <span class="toko-cart-hint">Pemesanan terpusat melalui formulir resmi Google Form</span>
             </div>
 
             <!-- GRID PRODUK -->
             <div class="toko-product-grid" id="tokoProductGrid">
 
-                <!-- 1. Haori Resmi Klub -->
+                <!-- 1. Haori Resmi Klub (Tampak Depan & Belakang) -->
                 <article class="toko-card" data-category="atribut" data-id="haori-resmi" data-name="Haori Resmi Klub Mirai no Hana" data-price="120000" data-popular="10">
                     <div class="toko-card-thumb">
-                        <img src="../tentang/images/identitas/haori-depan-new.png" alt="Haori Resmi Klub Mirai no Hana" loading="lazy">
+                        <div class="toko-thumb-canvas toko-haori-canvas">
+                            <div class="haori-thumb-view">
+                                <img src="../tentang/images/identitas/haori-depan-new.png" alt="Haori Resmi Tampak Depan" loading="lazy">
+                                <span class="haori-view-label">Depan</span>
+                            </div>
+                            <div class="haori-thumb-view">
+                                <img src="../tentang/images/identitas/haori-belakang-new.png" alt="Haori Resmi Tampak Belakang" loading="lazy">
+                                <span class="haori-view-label">Belakang</span>
+                            </div>
+                        </div>
                         <span class="toko-status-badge badge-po">Pra-Pesan</span>
                         <span class="toko-cat-tag">Atribut Klub</span>
                     </div>
@@ -129,7 +138,9 @@
                 <!-- 2. Kartu Tanda Anggota (ID Card) Resmi -->
                 <article class="toko-card" data-category="atribut" data-id="idcard-resmi" data-name="Kartu Tanda Anggota (ID Card) Resmi" data-price="15000" data-popular="9">
                     <div class="toko-card-thumb">
-                        <img src="../tentang/images/identitas/idc-front.jpeg" alt="Kartu Tanda Anggota (ID Card) Resmi" loading="lazy">
+                        <div class="toko-thumb-canvas">
+                            <img src="../tentang/images/identitas/idc-front.jpeg" alt="Kartu Tanda Anggota (ID Card) Resmi" loading="lazy">
+                        </div>
                         <span class="toko-status-badge badge-ready">Tersedia</span>
                         <span class="toko-cat-tag">Atribut Klub</span>
                     </div>
@@ -158,7 +169,9 @@
                 <!-- 3. Lanyard Resmi Klub Mirai no Hana -->
                 <article class="toko-card" data-category="atribut" data-id="lanyard-resmi" data-name="Lanyard Resmi Klub Mirai no Hana" data-price="20000" data-popular="9">
                     <div class="toko-card-thumb">
-                        <img src="../tentang/images/identitas/lanyard-horizontal.png" alt="Lanyard Resmi Klub Mirai no Hana" loading="lazy">
+                        <div class="toko-thumb-canvas">
+                            <img src="../tentang/images/identitas/lanyard-horizontal.png" alt="Lanyard Resmi Klub Mirai no Hana" loading="lazy">
+                        </div>
                         <span class="toko-status-badge badge-ready">Tersedia</span>
                         <span class="toko-cat-tag">Atribut Klub</span>
                     </div>
@@ -187,7 +200,9 @@
                 <!-- 4. Pin Enamel Sakura Logam -->
                 <article class="toko-card" data-category="atribut" data-id="pin-sakura" data-name="Pin Enamel Sakura Logam" data-price="15000" data-popular="10">
                     <div class="toko-card-thumb">
-                        <img src="../tentang/images/identitas/pin-clean.png" alt="Pin Enamel Sakura Logam" loading="lazy">
+                        <div class="toko-thumb-canvas">
+                            <img src="../tentang/images/identitas/pin-clean.png" alt="Pin Enamel Sakura Logam" loading="lazy">
+                        </div>
                         <span class="toko-status-badge badge-bestseller">Paling Laris</span>
                         <span class="toko-cat-tag">Atribut Klub</span>
                     </div>
@@ -216,7 +231,9 @@
                 <!-- 5. Nametag Katakana Akrilik Personal -->
                 <article class="toko-card" data-category="atribut" data-id="nametag-akrilik" data-name="Nametag Katakana Akrilik Personal" data-price="12000" data-popular="8">
                     <div class="toko-card-thumb">
-                        <img src="../tentang/images/identitas/nametag-katakana.jpeg" alt="Nametag Katakana Akrilik Personal" loading="lazy">
+                        <div class="toko-thumb-canvas">
+                            <img src="../tentang/images/identitas/nametag-katakana.jpeg" alt="Nametag Katakana Akrilik Personal" loading="lazy">
+                        </div>
                         <span class="toko-status-badge badge-po">Pesan Nama</span>
                         <span class="toko-cat-tag">Atribut Klub</span>
                     </div>
@@ -242,39 +259,12 @@
                     </div>
                 </article>
 
-                <!-- 6. Bendera Mini & Vandel Meja Klub -->
-                <article class="toko-card" data-category="atribut" data-id="bendera-vandel" data-name="Bendera Mini &amp; Vandel Meja Klub" data-price="30000" data-popular="6">
-                    <div class="toko-card-thumb">
-                        <img src="../images/mirai/logo/MNH1.png" alt="Bendera Mini & Vandel Meja Klub" loading="lazy">
-                        <span class="toko-status-badge badge-ready">Tersedia</span>
-                        <span class="toko-cat-tag">Atribut Klub</span>
-                    </div>
-                    <div class="toko-card-body">
-                        <div class="toko-card-meta">
-                            <span class="toko-jp-name">ミニクラブ旗 ＆ ペナント</span>
-                        </div>
-                        <h3 class="toko-card-title">Bendera Mini &amp; Vandel Meja Klub</h3>
-                        <div class="toko-card-specs">
-                            <span>Bahan: Beludru Halus Berkualitas</span>
-                            <span>Tinggi Tiang: 25 cm Kayu Mahoni</span>
-                        </div>
-                    </div>
-                    <div class="toko-card-footer">
-                        <div class="toko-price-box">
-                            <span class="price-label">Harga</span>
-                            <strong class="toko-price">Rp 30.000</strong>
-                        </div>
-                        <div class="toko-card-actions">
-                            <button type="button" class="btn-toko-cart" data-add-to-cart="bendera-vandel" aria-label="Tambah Bendera ke keranjang">+ Keranjang</button>
-                            <a class="btn-toko-buy" href="https://forms.gle/dFPRM842xxKq5YMt9" target="_blank" rel="noopener noreferrer" data-product-buy="bendera-vandel">Beli via GForm</a>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- 7. Onigiri Segitiga Spesial (Makanan) -->
+                <!-- 6. Onigiri Segitiga Spesial (Makanan) -->
                 <article class="toko-card" data-category="makanan" data-id="onigiri-spesial" data-name="Onigiri Segitiga Spesial" data-price="8000" data-popular="10">
                     <div class="toko-card-thumb">
-                        <img src="../kegiatan/images/Mirainokonbini.png" alt="Onigiri Segitiga Spesial" loading="lazy">
+                        <div class="toko-thumb-canvas">
+                            <img src="../kegiatan/images/Mirainokonbini.png" alt="Onigiri Segitiga Spesial" loading="lazy">
+                        </div>
                         <span class="toko-status-badge badge-fresh">Segar &amp; Hangat</span>
                         <span class="toko-cat-tag">Makanan Konbini</span>
                     </div>
@@ -300,10 +290,12 @@
                     </div>
                 </article>
 
-                <!-- 8. Dorayaki Lembut Kacang Merah (Makanan) -->
+                <!-- 7. Dorayaki Lembut Kacang Merah (Makanan) -->
                 <article class="toko-card" data-category="makanan" data-id="dorayaki-lembut" data-name="Dorayaki Lembut Kacang Merah" data-price="6000" data-popular="9">
                     <div class="toko-card-thumb">
-                        <img src="../kegiatan/images/Mirainokonbini.png" alt="Dorayaki Lembut Kacang Merah" loading="lazy">
+                        <div class="toko-thumb-canvas">
+                            <img src="../kegiatan/images/Mirainokonbini.png" alt="Dorayaki Lembut Kacang Merah" loading="lazy">
+                        </div>
                         <span class="toko-status-badge badge-ready">Tersedia</span>
                         <span class="toko-cat-tag">Makanan Konbini</span>
                     </div>
@@ -329,10 +321,12 @@
                     </div>
                 </article>
 
-                <!-- 9. Taiyaki Waffle Cokelat & Keju (Makanan) -->
+                <!-- 8. Taiyaki Waffle Cokelat & Keju (Makanan) -->
                 <article class="toko-card" data-category="makanan" data-id="taiyaki-waffle" data-name="Taiyaki Waffle Cokelat &amp; Keju" data-price="7000" data-popular="8">
                     <div class="toko-card-thumb">
-                        <img src="../kegiatan/images/Mirainokonbini.png" alt="Taiyaki Waffle Cokelat & Keju" loading="lazy">
+                        <div class="toko-thumb-canvas">
+                            <img src="../kegiatan/images/Mirainokonbini.png" alt="Taiyaki Waffle Cokelat & Keju" loading="lazy">
+                        </div>
                         <span class="toko-status-badge badge-ready">Tersedia</span>
                         <span class="toko-cat-tag">Makanan Konbini</span>
                     </div>
@@ -358,10 +352,12 @@
                     </div>
                 </article>
 
-                <!-- 10. Mitarashi Dango Kenyal (Makanan) -->
+                <!-- 9. Mitarashi Dango Kenyal (Makanan) -->
                 <article class="toko-card" data-category="makanan" data-id="mitarashi-dango" data-name="Mitarashi Dango Kenyal (2 Tusuk)" data-price="10000" data-popular="9">
                     <div class="toko-card-thumb">
-                        <img src="../kegiatan/images/Mirainokonbini.png" alt="Mitarashi Dango Kenyal" loading="lazy">
+                        <div class="toko-thumb-canvas">
+                            <img src="../kegiatan/images/Mirainokonbini.png" alt="Mitarashi Dango Kenyal" loading="lazy">
+                        </div>
                         <span class="toko-status-badge badge-fresh">Segar &amp; Hangat</span>
                         <span class="toko-cat-tag">Makanan Konbini</span>
                     </div>
@@ -387,10 +383,12 @@
                     </div>
                 </article>
 
-                <!-- 11. Matcha Latte Dingin Uji (Minuman) -->
+                <!-- 10. Matcha Latte Dingin Uji (Minuman) -->
                 <article class="toko-card" data-category="minuman" data-id="matcha-latte" data-name="Matcha Latte Dingin Uji" data-price="10000" data-popular="10">
                     <div class="toko-card-thumb">
-                        <img src="../kegiatan/images/Mirainokonbini.png" alt="Matcha Latte Dingin Uji" loading="lazy">
+                        <div class="toko-thumb-canvas">
+                            <img src="../kegiatan/images/Mirainokonbini.png" alt="Matcha Latte Dingin Uji" loading="lazy">
+                        </div>
                         <span class="toko-status-badge badge-bestseller">Paling Laris</span>
                         <span class="toko-cat-tag">Minuman Konbini</span>
                     </div>
@@ -416,10 +414,12 @@
                     </div>
                 </article>
 
-                <!-- 12. Ramune Soda Botol Kelereng (Minuman) -->
+                <!-- 11. Ramune Soda Botol Kelereng (Minuman) -->
                 <article class="toko-card" data-category="minuman" data-id="ramune-soda" data-name="Ramune Soda Botol Kelereng" data-price="12000" data-popular="8">
                     <div class="toko-card-thumb">
-                        <img src="../kegiatan/images/Mirainokonbini.png" alt="Ramune Soda Botol Kelereng" loading="lazy">
+                        <div class="toko-thumb-canvas">
+                            <img src="../kegiatan/images/Mirainokonbini.png" alt="Ramune Soda Botol Kelereng" loading="lazy">
+                        </div>
                         <span class="toko-status-badge badge-ready">Tersedia</span>
                         <span class="toko-cat-tag">Minuman Konbini</span>
                     </div>
@@ -445,10 +445,12 @@
                     </div>
                 </article>
 
-                <!-- 13. Sticker Pack Chibi Sora (Cinderamata) -->
+                <!-- 12. Sticker Pack Chibi Sora (Cinderamata) -->
                 <article class="toko-card" data-category="cinderamata" data-id="sticker-sora" data-name="Sticker Pack Chibi Sora (Anti-Air)" data-price="10000" data-popular="9">
                     <div class="toko-card-thumb">
-                        <img src="../images/mirai/background/Sora.png" alt="Sticker Pack Chibi Sora &amp; Karakter" loading="lazy">
+                        <div class="toko-thumb-canvas">
+                            <img src="../images/mirai/background/Sora.png" alt="Sticker Pack Chibi Sora &amp; Karakter" loading="lazy">
+                        </div>
                         <span class="toko-status-badge badge-bestseller">Paling Laris</span>
                         <span class="toko-cat-tag">Cinderamata</span>
                     </div>
@@ -474,10 +476,12 @@
                     </div>
                 </article>
 
-                <!-- 14. Keychain Akrilik 2 Sisi Mascot (Cinderamata) -->
+                <!-- 13. Keychain Akrilik 2 Sisi Mascot (Cinderamata) -->
                 <article class="toko-card" data-category="cinderamata" data-id="keychain-akrilik" data-name="Keychain Akrilik 2 Sisi Mascot" data-price="15000" data-popular="9">
                     <div class="toko-card-thumb">
-                        <img src="../images/mirai/icon/Ay.png" alt="Keychain Akrilik 2 Sisi Mascot" loading="lazy">
+                        <div class="toko-thumb-canvas">
+                            <img src="../images/mirai/icon/Ay.png" alt="Keychain Akrilik 2 Sisi Mascot" loading="lazy">
+                        </div>
                         <span class="toko-status-badge badge-ready">Tersedia</span>
                         <span class="toko-cat-tag">Cinderamata</span>
                     </div>
@@ -499,64 +503,6 @@
                         <div class="toko-card-actions">
                             <button type="button" class="btn-toko-cart" data-add-to-cart="keychain-akrilik" aria-label="Tambah Keychain ke keranjang">+ Keranjang</button>
                             <a class="btn-toko-buy" href="https://forms.gle/dFPRM842xxKq5YMt9" target="_blank" rel="noopener noreferrer" data-product-buy="keychain-akrilik">Beli via GForm</a>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- 15. Totebag Kanvas [未来の花] Wagara (Cinderamata) -->
-                <article class="toko-card" data-category="cinderamata" data-id="totebag-wagara" data-name="Totebag Kanvas [未来の花] Wagara" data-price="45000" data-popular="8">
-                    <div class="toko-card-thumb">
-                        <img src="../images/mirai/logo/MNH1.png" alt="Totebag Kanvas [未来の花] Wagara" loading="lazy">
-                        <span class="toko-status-badge badge-po">Pra-Pesan</span>
-                        <span class="toko-cat-tag">Cinderamata</span>
-                    </div>
-                    <div class="toko-card-body">
-                        <div class="toko-card-meta">
-                            <span class="toko-jp-name">和柄キャンバストート</span>
-                        </div>
-                        <h3 class="toko-card-title">Totebag Kanvas [未来の花] Wagara</h3>
-                        <div class="toko-card-specs">
-                            <span>Ukuran: 38 x 33 x 8 cm (Muat A4/Laptop)</span>
-                            <span>Bahan: Kanvas Tebal + Ritsleting</span>
-                        </div>
-                    </div>
-                    <div class="toko-card-footer">
-                        <div class="toko-price-box">
-                            <span class="price-label">Harga</span>
-                            <strong class="toko-price">Rp 45.000</strong>
-                        </div>
-                        <div class="toko-card-actions">
-                            <button type="button" class="btn-toko-cart" data-add-to-cart="totebag-wagara" aria-label="Tambah Totebag ke keranjang">+ Keranjang</button>
-                            <a class="btn-toko-buy" href="https://forms.gle/dFPRM842xxKq5YMt9" target="_blank" rel="noopener noreferrer" data-product-buy="totebag-wagara">Beli via GForm</a>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- 16. Buku Kotak Latihan Menulis Kanji (Cinderamata) -->
-                <article class="toko-card" data-category="cinderamata" data-id="buku-kanji" data-name="Buku Kotak Latihan Menulis Kanji" data-price="18000" data-popular="8">
-                    <div class="toko-card-thumb">
-                        <img src="../images/mirai/background/c1w.jpeg" alt="Buku Kotak Latihan Menulis Kanji" loading="lazy">
-                        <span class="toko-status-badge badge-ready">Tersedia</span>
-                        <span class="toko-cat-tag">Cinderamata</span>
-                    </div>
-                    <div class="toko-card-body">
-                        <div class="toko-card-meta">
-                            <span class="toko-jp-name">原稿用紙 漢字ノート</span>
-                        </div>
-                        <h3 class="toko-card-title">Buku Kotak Latihan Menulis Kanji</h3>
-                        <div class="toko-card-specs">
-                            <span>Isi: 80 Halaman Kertas Bookpaper 80 gsm</span>
-                            <span>Ukuran: Format B5 Nyaman Ditulis</span>
-                        </div>
-                    </div>
-                    <div class="toko-card-footer">
-                        <div class="toko-price-box">
-                            <span class="price-label">Harga</span>
-                            <strong class="toko-price">Rp 18.000</strong>
-                        </div>
-                        <div class="toko-card-actions">
-                            <button type="button" class="btn-toko-cart" data-add-to-cart="buku-kanji" aria-label="Tambah Buku ke keranjang">+ Keranjang</button>
-                            <a class="btn-toko-buy" href="https://forms.gle/dFPRM842xxKq5YMt9" target="_blank" rel="noopener noreferrer" data-product-buy="buku-kanji">Beli via GForm</a>
                         </div>
                     </div>
                 </article>
@@ -747,7 +693,6 @@
                 'lanyard-resmi': { name: 'Lanyard Resmi Klub Mirai no Hana', price: 20000 },
                 'pin-sakura': { name: 'Pin Enamel Sakura Logam', price: 15000 },
                 'nametag-akrilik': { name: 'Nametag Katakana Akrilik Personal', price: 12000 },
-                'bendera-vandel': { name: 'Bendera Mini & Vandel Meja Klub', price: 30000 },
                 'onigiri-spesial': { name: 'Onigiri Segitiga Spesial', price: 8000 },
                 'dorayaki-lembut': { name: 'Dorayaki Lembut Kacang Merah', price: 6000 },
                 'taiyaki-waffle': { name: 'Taiyaki Waffle Cokelat & Keju', price: 7000 },
@@ -755,9 +700,7 @@
                 'matcha-latte': { name: 'Matcha Latte Dingin Uji', price: 10000 },
                 'ramune-soda': { name: 'Ramune Soda Botol Kelereng', price: 12000 },
                 'sticker-sora': { name: 'Sticker Pack Chibi Sora (Anti-Air)', price: 10000 },
-                'keychain-akrilik': { name: 'Keychain Akrilik 2 Sisi Mascot', price: 15000 },
-                'totebag-wagara': { name: 'Totebag Kanvas [未来の花] Wagara', price: 45000 },
-                'buku-kanji': { name: 'Buku Kotak Latihan Menulis Kanji', price: 18000 }
+                'keychain-akrilik': { name: 'Keychain Akrilik 2 Sisi Mascot', price: 15000 }
             };
 
             let cart = {};

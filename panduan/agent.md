@@ -197,7 +197,16 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
   - **Bebas Interaksi Tanpa Jebakan (No Lock-In)**: Poster murni menjadi visual kartu yang aman disentuh, di-drag, atau di-scroll tanpa memicu modal lightbox yang mengunci scroll layar (`overflow: hidden`). Navigasi halaman poster kedua dilakukan murni via tombol panah tengah samping atau swipe.
 - **Avatar Lingkaran**: Wadah avatar profil atau juara wajib memiliki latar belakang putih (#ffffff) dengan gambar berukuran contain dan sedikit padding, agar bagian telinga, rambut, atau topi chibi tidak terpotong garis tepi lingkaran.
 
-### K. Aturan Spasi dan Tata Letak (Layout)
+### K. Aturan Kanvas Display Putih untuk Produk Toko (White Product Canvas Rule)
+- **Wadah Kanvas Display Putih (`.toko-thumb-canvas`)**:
+  - Seluruh produk pada etalase Toko wajib menggunakan wadah/kartu alas display putih solid (`background: #ffffff; border-radius: 12px; box-shadow: ...`).
+  - Tujuannya agar produk hasil potong latar belakang (seperti Lanyard, ID Card, Nametag, Pin, dan Cinderamata Akrilik) tidak memperlihatkan artefak tepian kasar atau halo putih saat diletakkan di kartu bernuansa gelap. Dengan kanvas putih, foto produk tampil bersih, estetik, dan tampak profesional layaknya pemotretan studio katalog.
+- **Tampilan Khusus Haori (Duo View Depan & Belakang)**:
+  - Pada produk Haori Resmi Klub, kanvas display menampilkan dua sudut pandang sekaligus: Tampak Depan (`haori-depan-new.png`) dan Tampak Belakang (`haori-belakang-new.png`) berdampingan dengan label indikator pill (`Depan` dan `Belakang`). Hal ini penting agar kaligrafi kanji punggung [未来の花] dan detail bordir depan terlihat jelas tanpa perlu berpindah halaman.
+- **Katalog Produk Terkurasi (13 Item Aktif)**:
+  - Produk etalase disederhanakan menjadi 13 item aktif (5 Atribut Mirai no Hana, 4 Makanan Konbini, 2 Minuman Konbini, dan 2 Cinderamata). Produk duplikat atau kurang relevan seperti Totebag Kanvas, Bendera Mini Vandel, dan Buku Kotak Kanji telah dihapus atas permintaan pengguna.
+
+### L. Aturan Spasi dan Tata Letak (Layout)
 - **Anti Ruang Hampa**: Di layar laptop, kartu tidak boleh menyisakan ruang kosong hitam atau putih yang melompong di tengah antara judul dan tombol bawah. Susun elemen secara padat dan seimbang.
 - **Pemusatan Kartu Ganjil**: Jika jumlah kartu dalam satu seksi berjumlah ganjil (seperti 11 kartu pengurus Kabinet Clover), kartu pada baris terakhir diletakkan tepat di posisi tengah (rata tengah), tidak boleh miring sendirian di sebelah kiri.
 - **Keseragaman Kartu Program Kerja & Divisi**: Ukuran kartu Program Kerja (tinggi, padding, border-radius, font judul, dan posisi tombol) wajib disamaratakan persis dengan kartu Divisi agar tampilan sejajar dan rapi.
