@@ -1458,11 +1458,13 @@ body.page-beranda .about-preview,
 }
 
 /* ==========================================================================
-   TEMA BERANDA MIRAI NO HANA: POLA SELANG-SELING WARNA (KUNING TEBAL GELAP - PUTIH)
+   TEMA BERANDA MIRAI NO HANA: POLA SELANG-SELING WARNA (KUNING CERAH - PUTIH)
    - Tanpa garis pembatas antar-seksi (direct color transition seperti Gambar 1)
-   - Warna kuning: Kuning tebal agak gelap (Rich Amber Gold #d88900 -> #b86e00)
-   - Kartu bernuansa emas/amber tebal (#e59605 -> #c47500) berbingkai Pink Sakura
+   - Warna kuning: Kuning Cerah Emas (#ffe066 -> #ffd03b)
+   - Kartu bernuansa kuning emas cerah (#fff3a8 -> #ffd74a) berbingkai Pink Sakura (#e91e63)
    - Pattern c1b transparan (motif awan wagara tanpa latar hitam)
+   - Format warna judul: PUTIH lalu PINK ("Apa itu" / "Belajar di mana pun," dst.)
+   - Tata letak & padding kartu presisi, rapi, dan proporsional
    ========================================================================== */
 
 /* Hilangkan SEMUA garis pembatas/border antar-seksi di Beranda (seperti Gambar 1) */
@@ -1472,25 +1474,27 @@ body.page-beranda main > section {
     border-bottom: none !important;
 }
 
-/* 1. SEKSI 1: Apa itu Mirai no Webu? (KUNING TEBAL AGAK GELAP) */
+/* 1. SEKSI 1: Apa itu Mirai no Webu? (KUNING CERAH) */
 body.page-beranda .about-preview {
-    background: linear-gradient(180deg, #d88900 0%, #b86e00 100%) !important;
-    background-color: #c87a00 !important;
+    background: linear-gradient(180deg, #ffe066 0%, #ffd03b 100%) !important;
+    background-color: #ffd03b !important;
     position: relative !important;
     z-index: 12 !important;
-    box-shadow: 0 -25px 60px rgba(0, 0, 0, 0.35) !important;
+    box-shadow: 0 -25px 60px rgba(0, 0, 0, 0.16) !important;
     border: none !important;
     border-top: none !important;
     border-bottom: none !important;
 }
 
+/* Format Judul Seksi 1: Putih lalu Pink */
 body.page-beranda .about-preview .section-intro .heading {
-    color: #18151b !important;
+    color: #ffffff !important;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3) !important;
 }
 
 body.page-beranda .about-preview .section-intro .heading span {
-    color: #ffffff !important;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35) !important;
+    color: var(--pink, #e91e63) !important;
+    text-shadow: none !important;
 }
 
 body.page-beranda .about-preview .section-intro .kicker {
@@ -1498,17 +1502,18 @@ body.page-beranda .about-preview .section-intro .kicker {
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Kartu Fitur Tentang: Bernuansa Kuning Emas Tebal Berbingkai Pink Sakura */
+/* Kartu Fitur Tentang: Bernuansa Kuning Emas Cerah Berbingkai Pink Sakura */
 body.page-beranda .about-feature-card {
-    background: linear-gradient(145deg, #e59605 0%, #c47500 100%) !important;
+    background: linear-gradient(145deg, #fff3a8 0%, #ffd74a 100%) !important;
     border: 2px solid #e91e63 !important;
     border-radius: 24px !important;
-    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.26), 0 4px 14px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+    padding: 38px 44px 34px !important;
+    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.14), 0 4px 14px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
 }
 
 body.page-beranda .about-feature-card:hover {
     border-color: #ff4f91 !important;
-    box-shadow: 0 24px 55px rgba(0, 0, 0, 0.35), 0 6px 18px rgba(233, 30, 99, 0.3) !important;
+    box-shadow: 0 24px 55px rgba(0, 0, 0, 0.2), 0 6px 18px rgba(233, 30, 99, 0.22) !important;
 }
 
 body.page-beranda .about-feature-card::before {
@@ -1523,36 +1528,43 @@ body.page-beranda .about-feature-card::after {
     mix-blend-mode: normal !important;
 }
 
+body.page-beranda .about-feature-header {
+    margin-bottom: 24px !important;
+}
+
 body.page-beranda .about-feature-badge {
-    background: rgba(233, 30, 99, 0.2) !important;
-    border: 1.5px solid #ff659b !important;
-    color: #ffffff !important;
+    background: rgba(233, 30, 99, 0.12) !important;
+    border: 1.5px solid #e91e63 !important;
+    color: #b80f55 !important;
 }
 
 body.page-beranda .about-feature-badge .badge-dot {
-    background: #ff659b !important;
-    box-shadow: 0 0 8px #ff659b !important;
+    background: #e91e63 !important;
+    box-shadow: 0 0 8px #e91e63 !important;
 }
 
 body.page-beranda .about-feature-tag {
-    background: rgba(233, 30, 99, 0.2) !important;
-    border: 1.5px solid #ff659b !important;
-    color: #ffffff !important;
+    background: rgba(233, 30, 99, 0.12) !important;
+    border: 1.5px solid #e91e63 !important;
+    color: #b80f55 !important;
     box-shadow: none !important;
 }
 
 body.page-beranda .about-feature-tag .badge-dot {
-    background: #ff659b !important;
-    box-shadow: 0 0 8px #ff659b !important;
+    background: #e91e63 !important;
+    box-shadow: 0 0 8px #e91e63 !important;
 }
 
+/* Format Judul Kartu Tentang: Putih lalu Pink ("Belajar di mana pun," = Putih, "dan kapanpun." = Pink) */
 body.page-beranda .about-feature-body.stacked-layout .about-card-title,
 body.page-beranda main .about-feature-card h2,
 body.page-beranda main .about-feature-card .heading,
 body.page-beranda .about-feature-card h2.heading,
 body.page-beranda .about-feature-card .heading,
 body.page-beranda .about-feature-left .heading {
-    color: #18151b !important;
+    color: #ffffff !important;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+    margin: 0 0 16px 0 !important;
 }
 
 body.page-beranda .about-feature-body.stacked-layout .about-card-title span.highlight,
@@ -1564,8 +1576,8 @@ body.page-beranda .about-feature-card .heading span.highlight,
 body.page-beranda .about-feature-card .heading span,
 body.page-beranda .about-feature-left .heading span.highlight,
 body.page-beranda .about-feature-left .heading span {
-    color: #ffffff !important;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+    color: var(--pink, #e91e63) !important;
+    text-shadow: none !important;
 }
 
 body.page-beranda .about-feature-body.stacked-layout .about-card-desc,
@@ -1576,10 +1588,11 @@ body.page-beranda .about-feature-right .copy,
 body.page-beranda .about-feature-card p.copy {
     color: #1f1922 !important;
     font-weight: 500 !important;
+    margin: 0 0 24px 0 !important;
 }
 
 body.page-beranda .about-feature-card > .card-corner-chibi {
-    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.35)) !important;
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.25)) !important;
 }
 
 
@@ -1640,10 +1653,10 @@ body.page-beranda .journey-section .start-card:hover b {
 }
 
 
-/* 3. SEKSI 3: Telusuri Hal-Hal Lainnya yang Telah Kami Buat (KUNING TEBAL AGAK GELAP) */
+/* 3. SEKSI 3: Telusuri Hal-Hal Lainnya yang Telah Kami Buat (KUNING CERAH) */
 body.page-beranda .home-activities-dark-section {
-    background: linear-gradient(180deg, #d88900 0%, #b86e00 100%) !important;
-    background-color: #c87a00 !important;
+    background: linear-gradient(180deg, #ffe066 0%, #ffd03b 100%) !important;
+    background-color: #ffd03b !important;
     position: relative !important;
     z-index: 10 !important;
     border: none !important;
@@ -1651,13 +1664,15 @@ body.page-beranda .home-activities-dark-section {
     border-bottom: none !important;
 }
 
+/* Format Judul Seksi 3: Putih lalu Pink ("Telusuri Hal-Hal Lainnya" = Putih, "yang Telah Kami Buat" = Pink) */
 body.page-beranda .home-activities-dark-section .heading {
-    color: #18151b !important;
+    color: #ffffff !important;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3) !important;
 }
 
 body.page-beranda .home-activities-dark-section .heading span {
-    color: #ffffff !important;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35) !important;
+    color: var(--pink, #e91e63) !important;
+    text-shadow: none !important;
 }
 
 body.page-beranda .home-activities-dark-section .kicker {
@@ -1665,20 +1680,20 @@ body.page-beranda .home-activities-dark-section .kicker {
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Kartu-Kartu Aktivitas: Bernuansa Kuning Emas Tebal Berbingkai Pink Sakura */
+/* Kartu-Kartu Aktivitas: Bernuansa Kuning Emas Cerah Berbingkai Pink Sakura */
 body.page-beranda .activity-start-card {
-    background: linear-gradient(145deg, #e59605 0%, #c47500 100%) !important;
+    background: linear-gradient(145deg, #fff3a8 0%, #ffd74a 100%) !important;
     border: 2px solid #e91e63 !important;
     border-radius: 14px !important;
     color: #18151b !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22), 0 3px 10px rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12), 0 3px 10px rgba(0, 0, 0, 0.05) !important;
 }
 
 body.page-beranda .activity-card-active:hover,
 body.page-beranda .activity-start-card:hover {
     transform: translateY(-6px) !important;
     border-color: #ff4f91 !important;
-    box-shadow: 0 20px 42px rgba(0, 0, 0, 0.3), 0 6px 18px rgba(233, 30, 99, 0.25) !important;
+    box-shadow: 0 20px 42px rgba(0, 0, 0, 0.22), 0 6px 18px rgba(233, 30, 99, 0.25) !important;
 }
 
 body.page-beranda .activity-start-card::before {
@@ -1765,7 +1780,7 @@ body.page-beranda .activity-start-card:hover b {
 }
 
 body.page-beranda .activity-start-card > .card-corner-chibi {
-    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.35)) !important;
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.25)) !important;
 }
 
 
@@ -1780,17 +1795,18 @@ body.page-beranda .feedback-preview {
     border-bottom: none !important;
 }
 
-/* Kartu Masukan: Bernuansa Kuning Emas Tebal Berbingkai Pink di atas Seksi Putih */
+/* Kartu Masukan: Bernuansa Kuning Emas Cerah Berbingkai Pink di atas Seksi Putih */
 body.page-beranda .feedback-feature-card {
-    background: linear-gradient(145deg, #e59605 0%, #c47500 100%) !important;
+    background: linear-gradient(145deg, #fff3a8 0%, #ffd74a 100%) !important;
     border: 2px solid #e91e63 !important;
     border-radius: 24px !important;
-    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.26), 0 4px 14px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+    padding: 38px 44px 34px !important;
+    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.14), 0 4px 14px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
 }
 
 body.page-beranda .feedback-feature-card:hover {
     border-color: #ff4f91 !important;
-    box-shadow: 0 24px 55px rgba(0, 0, 0, 0.35), 0 6px 18px rgba(233, 30, 99, 0.3) !important;
+    box-shadow: 0 24px 55px rgba(0, 0, 0, 0.2), 0 6px 18px rgba(233, 30, 99, 0.22) !important;
 }
 
 body.page-beranda .feedback-feature-card::before {
@@ -1805,36 +1821,43 @@ body.page-beranda .feedback-feature-card::after {
     mix-blend-mode: normal !important;
 }
 
+body.page-beranda .feedback-feature-header {
+    margin-bottom: 24px !important;
+}
+
 body.page-beranda .feedback-feature-badge {
-    background: rgba(233, 30, 99, 0.2) !important;
-    border: 1.5px solid #ff659b !important;
-    color: #ffffff !important;
+    background: rgba(233, 30, 99, 0.12) !important;
+    border: 1.5px solid #e91e63 !important;
+    color: #b80f55 !important;
 }
 
 body.page-beranda .feedback-feature-badge .badge-dot {
-    background: #ff659b !important;
-    box-shadow: 0 0 8px #ff659b !important;
+    background: #e91e63 !important;
+    box-shadow: 0 0 8px #e91e63 !important;
 }
 
 body.page-beranda .feedback-feature-tag {
-    background: rgba(233, 30, 99, 0.2) !important;
-    border: 1.5px solid #ff659b !important;
-    color: #ffffff !important;
+    background: rgba(233, 30, 99, 0.12) !important;
+    border: 1.5px solid #e91e63 !important;
+    color: #b80f55 !important;
     box-shadow: none !important;
 }
 
 body.page-beranda .feedback-feature-tag .badge-dot {
-    background: #ff659b !important;
-    box-shadow: 0 0 8px #ff659b !important;
+    background: #e91e63 !important;
+    box-shadow: 0 0 8px #e91e63 !important;
 }
 
+/* Format Judul Kartu Masukan: Putih lalu Pink ("Suaramu membuat," = Putih, "kami bertumbuh." = Pink) */
 body.page-beranda .feedback-feature-body.stacked-layout .feedback-card-title,
 body.page-beranda main .feedback-feature-card h2,
 body.page-beranda main .feedback-feature-card .heading,
 body.page-beranda .feedback-feature-card h2.heading,
 body.page-beranda .feedback-feature-card .heading,
 body.page-beranda .feedback-feature-left .heading {
-    color: #18151b !important;
+    color: #ffffff !important;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+    margin: 0 0 16px 0 !important;
 }
 
 body.page-beranda .feedback-feature-body.stacked-layout .feedback-card-title span.highlight,
@@ -1846,8 +1869,8 @@ body.page-beranda .feedback-feature-card .heading span.highlight,
 body.page-beranda .feedback-feature-card .heading span,
 body.page-beranda .feedback-feature-left .heading span.highlight,
 body.page-beranda .feedback-feature-left .heading span {
-    color: #ffffff !important;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+    color: var(--pink, #e91e63) !important;
+    text-shadow: none !important;
 }
 
 body.page-beranda .feedback-feature-body.stacked-layout .feedback-card-desc,
@@ -1858,10 +1881,11 @@ body.page-beranda .feedback-feature-right .copy,
 body.page-beranda .feedback-feature-card p.copy {
     color: #1f1922 !important;
     font-weight: 500 !important;
+    margin: 0 0 24px 0 !important;
 }
 
 body.page-beranda .feedback-feature-card > .card-corner-chibi {
-    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.35)) !important;
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.25)) !important;
 }
 
 .division-section,
@@ -15180,10 +15204,11 @@ body.theme-dark .ketentuan-card:hover::after {
     box-sizing: border-box !important;
     max-width: 1200px !important;
     margin: 0 auto !important;
-    background: linear-gradient(145deg, #e59605 0%, #c47500 100%) !important;
+    padding: 38px 44px 34px !important;
+    background: linear-gradient(145deg, #fff3a8 0%, #ffd74a 100%) !important;
     border: 2px solid #e91e63 !important;
     border-radius: 24px !important;
-    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.26), 0 4px 14px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.14), 0 4px 14px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
     transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease !important;
 }
 
@@ -15503,10 +15528,11 @@ main .about-feature-card p,
     box-sizing: border-box !important;
     max-width: 1200px !important;
     margin: 0 auto !important;
-    background: linear-gradient(145deg, #e59605 0%, #c47500 100%) !important;
+    padding: 38px 44px 34px !important;
+    background: linear-gradient(145deg, #fff3a8 0%, #ffd74a 100%) !important;
     border: 2px solid #e91e63 !important;
     border-radius: 24px !important;
-    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.26), 0 4px 14px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.14), 0 4px 14px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
     transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease !important;
 }
 
