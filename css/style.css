@@ -1414,8 +1414,7 @@ body:has(dialog[open]) .hero-social-sidebar {
     height: 100vh;
     height: 100dvh;
     min-height: 550px;
-    position: sticky;
-    top: 0;
+    position: relative;
     overflow: hidden;
     color: var(--white);
     box-sizing: border-box;
@@ -1424,6 +1423,7 @@ body:has(dialog[open]) .hero-social-sidebar {
     background-size: cover;
     background-position: center 25%;
     background-repeat: no-repeat;
+    background-attachment: fixed;
     background-color: #0c0810;
 }
 
@@ -1443,12 +1443,19 @@ body.page-beranda main > section:not(.hero) {
     background: #0c0810;
 }
 
-body.page-beranda .about-preview {
+body.page-beranda .about-preview,
+.hero + section,
+.page-hero + section,
+.proker-hero + section,
+.quest-hero + section {
     position: relative !important;
     z-index: 12 !important;
+    box-shadow: 0 -35px 85px rgba(0, 0, 0, 0.98) !important;
+}
+
+body.page-beranda .about-preview {
     background-color: #0c0810 !important;
     background: #0c0810 !important;
-    box-shadow: 0 -35px 85px rgba(0, 0, 0, 0.98) !important;
 }
 
 .hero-text-box {
@@ -1731,6 +1738,7 @@ body.page-beranda .about-preview {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .page-hero::before {
@@ -2450,6 +2458,7 @@ body.page-beranda .about-preview {
     background-position: center 30%;
     background-size: cover;
     background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 .quest-hero::before {
     position: absolute;
@@ -6674,6 +6683,7 @@ body.theme-dark .kana-empty-state {
     background-size: cover !important;
     background-position: center right !important;
     background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
     color: #ffffff !important;
     position: relative;
     overflow: hidden;

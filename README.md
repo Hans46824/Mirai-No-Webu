@@ -115,8 +115,8 @@ Website **Mirai no Webu** terdiri dari berbagai modul tematik yang memiliki pera
 ### 12. 🚫 Halaman 404 Estetik (`/404.html`)
 * Halaman penanganan tautan salah ketik berdesain elegan khas tema obsidian-pink Mirai no Hana, dilengkapi ilustrasi maskot Sora yang tersesat dan tombol kembali cepat ke Beranda, Kamus, atau Kelas.
 
-### 13. 🌸 Hero Pure Sticky Curtain Reveal & Akses Media Sosial Cepat (`index.html`)
-* **Pure Sticky Curtain Reveal Effect**: Banner hero di Beranda menggunakan arsitektur CSS *Sticky Reveal Curtain* (`position: sticky; top: 0; z-index: 1`), di mana seluruh elemen hero (gambar latar Sora, judul teks, dan tombol medsos) menetap diam di posisinya persis seperti logo di header tanpa celah hitam dan tanpa pergeseran janky. Seksi materi di bawahnya meluncur naik menutupi / "memakan" hero secara fisik dengan bayangan elevasi tebal dramatis saat pengguna melakukan scrolling.
+### 13. 🌸 Hero Fixed Background Curtain Reveal & Akses Media Sosial Cepat (Universal)
+* **Fixed Background Curtain Reveal Effect**: Seluruh banner hero website menerapkan arsitektur CSS *Fixed Background Curtain Reveal* (`background-attachment: fixed; position: relative;`). Gambar latar Sora tertinggal diam di viewport tanpa celah hitam, sementara teks judul, subtitle, dan tombol medsos mengalir naik secara wajar mengikuti scroll (tidak diam membeku seperti logo). Seksi materi di bawahnya meluncur naik menutupi / "memakan" latar hero secara fisik dengan bayangan elevasi tebal dramatis saat pengguna melakukan scrolling.
 * **Akses Media Sosial Cepat**: Tombol lingkaran kaca mengambang vertikal di pojok kanan hero yang posisinya sejajar dengan teks judul hero menghubungkan pengunjung langsung ke [Instagram](https://www.instagram.com/mirainohana_smawh2) dan [TikTok](https://www.tiktok.com/@nihongo.kurabu.wh2) resmi klub. Dilengkapi integrasi penuh ke protokol auto-hide floating controls.
 
 ---

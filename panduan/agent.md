@@ -322,11 +322,11 @@ Website Mirai no Hana memiliki elemen kontrol mengambang global yang selalu mene
 1. **Dua Saluran Komunikasi Resmi Klub**:
    - **Instagram**: `https://www.instagram.com/mirainohana_smawh2?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==` (`@mirainohana_smawh2`).
    - **TikTok**: `https://www.tiktok.com/@nihongo.kurabu.wh2?is_from_webapp=1&sender_device=pc` (`@nihongo.kurabu.wh2`).
-2. **Hero Pure Sticky Curtain Reveal & Desain Ikon Sosial**:
-   - Hero banner di Beranda (`.hero`) beroperasi dengan model *Sticky Curtain Reveal* CSS murni (`position: sticky; top: 0; z-index: 1`), di mana gambar latar Sora terpasang langsung di `.hero` tanpa translasi JS, sehingga tidak pernah ada celah hitam bocor di atas gambar Sora.
-   - Teks judul ("ようこそ MIRAI NO WEBU") dan tombol media sosial MENETAP DIAM di posisinya persis seperti logo di header (tanpa pergeseran atau pemudaran JS).
-   - Yang bergerak meluncur naik secara dinamis hanyalah seksi materi konten di bawahnya (`.about-preview` dkk., `position: relative; z-index: 12; background: #0c0810; box-shadow: 0 -35px 85px rgba(0, 0, 0, 0.98)`), menghasilkan efek sinematik seksi halaman meluncur menutupi ("memakan") hero secara fisik dan mulus saat scrolling.
-   - Ikon media sosial di pojok kanan hero berdesain lingkaran kaca Tengoku style (`backdrop-filter: blur(8px)`, pendar pink saat disentuh mouse), posisinya sejajar vertikal dengan teks judul hero (`bottom: 15%` pada desktop, `bottom: 12%` pada mobile).
+2. **Hero Fixed Background Curtain Reveal & Desain Ikon Sosial (Universal di Seluruh Hero)**:
+   - Seluruh banner hero di website (`.hero`, `.page-hero`, `.proker-hero`, `.quest-hero`) menerapkan arsitektur *Fixed Background Curtain Reveal* CSS murni (`background-attachment: fixed; position: relative;`).
+   - Gambar latar Sora tertinggal diam di viewport tanpa pernah bocor celah hitam, sementara seksi materi/konten di bawahnya meluncur naik dengan elevasi bayangan tebal (`box-shadow: 0 -35px 85px rgba(0, 0, 0, 0.98)`) menutupi / "memakan" latar hero secara fisik dan elegan saat di-scroll.
+   - **Teks judul, subtitle, tombol medsos, dan konten hero TIDAK DIAM SEPERTI LOGO**: Mereka mengalir dan bergerak naik ke atas secara alami bersama scroll halaman (tidak diam membeku di layar seperti logo header).
+   - Ikon media sosial di pojok kanan hero Beranda berdesain lingkaran kaca Tengoku style (`backdrop-filter: blur(8px)`, pendar pink saat disentuh mouse), posisinya sejajar vertikal dengan teks judul hero (`bottom: 15%` pada desktop, `bottom: 12%` pada mobile).
 
 ---
 
