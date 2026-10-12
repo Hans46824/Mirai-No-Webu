@@ -16,11 +16,11 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function setupHeroContentScroll() {
-    // Efek sticky curtain dan ascending text ini hanya berlaku khusus untuk Hero Beranda (index.html)
-    const hero = document.querySelector(".hero");
+    // Efek sticky curtain dan ascending text (solid 100% tanpa transparansi) untuk seluruh hero
+    const hero = document.querySelector(".hero, .page-hero, .proker-hero, .quest-hero");
     if (!hero) return;
 
-    const heroContent = hero.querySelector(".hero-text-box");
+    const heroContent = hero.querySelector(".hero-text-box, .hero-content, .page-hero > div, .proker-hero-inner, .quest-hero > div");
     const heroSocial = hero.querySelector(".hero-social-sidebar");
     if (!heroContent && !heroSocial) return;
 

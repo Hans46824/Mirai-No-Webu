@@ -1443,12 +1443,38 @@ body.page-beranda main > section:not(.hero) {
     background: #0c0810;
 }
 
-body.page-beranda .about-preview {
+main > section:not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero) {
+    position: relative;
+    z-index: 10;
+}
+
+body.page-beranda .about-preview,
+.hero + section,
+.page-hero + section,
+.proker-hero + section,
+.quest-hero + section {
     position: relative !important;
     z-index: 12 !important;
+    box-shadow: 0 -35px 85px rgba(0, 0, 0, 0.98) !important;
+}
+
+body.page-beranda .about-preview {
     background-color: #0c0810 !important;
     background: #0c0810 !important;
-    box-shadow: 0 -35px 85px rgba(0, 0, 0, 0.98) !important;
+}
+
+.division-section,
+.program-section {
+    background-color: #ffffff !important;
+    position: relative !important;
+    z-index: 10 !important;
+}
+
+body.theme-dark .division-section,
+body.dark-mode .division-section,
+body.theme-dark .program-section,
+body.dark-mode .program-section {
+    background-color: #111111 !important;
 }
 
 .hero-text-box {
@@ -1729,13 +1755,15 @@ body.page-beranda .about-preview {
 
 
 .page-hero {
-    position: relative;
+    position: sticky;
+    top: 0;
     overflow: hidden;
     color: var(--white);
     background-image: url("../images/mirai/background/Sora.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    z-index: 1;
 }
 
 .page-hero::before {
@@ -1747,11 +1775,14 @@ body.page-beranda .about-preview {
 }
 
 .hero-content,
-.page-hero > div {
+.page-hero > div,
+.proker-hero-inner,
+.quest-hero > div {
     position: relative;
     z-index: 1;
     width: min(1080px, 88%);
     margin: auto;
+    will-change: transform;
 }
 
 .hero-content {
@@ -2442,7 +2473,8 @@ body.page-beranda .about-preview {
 /* Dasbor Kana Quest */
 .learning-app { background:#fbf8f9; font-family:Georgia, "Times New Roman", serif; }.learning-app .nav { background:#201c26; }.quest-main { padding-top:0; }
 .quest-hero {
-    position: relative;
+    position: sticky;
+    top: 0;
     overflow: hidden;
     display: grid;
     grid-template-columns: minmax(0, 1.3fr) minmax(320px, .7fr);
@@ -2455,6 +2487,7 @@ body.page-beranda .about-preview {
     background-position: center 30%;
     background-size: cover;
     background-repeat: no-repeat;
+    z-index: 1;
 }
 .quest-hero::before {
     position: absolute;
@@ -6680,7 +6713,9 @@ body.theme-dark .kana-empty-state {
     background-position: center right !important;
     background-repeat: no-repeat !important;
     color: #ffffff !important;
-    position: relative;
+    position: sticky;
+    top: 0;
+    z-index: 1;
     overflow: hidden;
     box-sizing: border-box;
 }
