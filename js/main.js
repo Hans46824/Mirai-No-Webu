@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setupSidebarNav();
     setupBackToTop();
     setupReveal();
+    setupHeroContentScroll();
     setupInstagramFeedback();
     setupLearningPanel();
     setupManagementSlider();
@@ -13,6 +14,59 @@ document.addEventListener("DOMContentLoaded", () => {
     window.initKanjiDictionary?.();
     window.initSora?.();
 });
+
+function setupHeroContentScroll() {
+    const hero = document.querySelector(".hero, .page-hero, .proker-hero, .quest-hero");
+    if (!hero) return;
+
+    const heroContent = hero.querySelector(".hero-text-box, .hero-content, .page-hero > div, .proker-hero-inner, .quest-hero > div");
+    const heroSocial = hero.querySelector(".hero-social-sidebar");
+    if (!heroContent && !heroSocial) return;
+
+    let ticking = false;
+
+    function update() {
+        const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+        const heroHeight = hero.offsetHeight || window.innerHeight;
+
+        // Efek aktif saat scroll berada dalam jangkauan hero
+        if (scrollY <= heroHeight * 1.25) {
+            // Teks dan medsos bergerak naik ke atas secara proporsional dengan scroll
+            const translateY = scrollY * 1.0;
+            // Memudar halus secara sinematik
+            const fadeStart = heroHeight * 0.10;
+            const fadeEnd = heroHeight * 0.70;
+            let opacity = 1;
+            if (scrollY > fadeStart) {
+                opacity = Math.max(0, 1 - ((scrollY - fadeStart) / (fadeEnd - fadeStart)));
+            }
+
+            if (heroContent) {
+                heroContent.style.transform = `translate3d(0, -${translateY}px, 0)`;
+                heroContent.style.opacity = opacity;
+            }
+            if (heroSocial) {
+                heroSocial.style.transform = `translate3d(0, -${translateY}px, 0)`;
+                heroSocial.style.opacity = opacity;
+            }
+        } else {
+            // Sudah terlewati sepenuhnya
+            if (heroContent) heroContent.style.opacity = "0";
+            if (heroSocial) heroSocial.style.opacity = "0";
+        }
+
+        ticking = false;
+    }
+
+    window.addEventListener("scroll", () => {
+        if (!ticking) {
+            window.requestAnimationFrame(update);
+            ticking = true;
+        }
+    }, { passive: true });
+
+    update();
+}
 
 function setupThemeToggle() {
     // Website dikunci 100% pada Light Mode
