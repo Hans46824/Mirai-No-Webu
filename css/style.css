@@ -1443,19 +1443,12 @@ body.page-beranda main > section:not(.hero) {
     background: #0c0810;
 }
 
-body.page-beranda .about-preview,
-.hero + section,
-.page-hero + section,
-.proker-hero + section,
-.quest-hero + section {
+body.page-beranda .about-preview {
     position: relative !important;
     z-index: 12 !important;
-    box-shadow: 0 -35px 85px rgba(0, 0, 0, 0.98) !important;
-}
-
-body.page-beranda .about-preview {
     background-color: #0c0810 !important;
     background: #0c0810 !important;
+    box-shadow: 0 -35px 85px rgba(0, 0, 0, 0.98) !important;
 }
 
 .hero-text-box {
@@ -1464,7 +1457,8 @@ body.page-beranda .about-preview {
     left: 5%;
     z-index: 10;
     max-width: 80%;
-    will-change: transform, opacity;
+    opacity: 1 !important;
+    will-change: transform;
 }
 
 .hero-subtitle {
@@ -1472,7 +1466,8 @@ body.page-beranda .about-preview {
     letter-spacing: 5px;
     font-weight: 500;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.8);
+    color: #ffffff;
+    opacity: 1 !important;
     margin: 0 0 -10px;
 }
 
@@ -1482,6 +1477,7 @@ body.page-beranda .about-preview {
     line-height: 1;
     letter-spacing: -0.04em;
     color: #ffffff;
+    opacity: 1 !important;
     margin: 0;
     text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.5);
 }
@@ -1733,15 +1729,13 @@ body.page-beranda .about-preview {
 
 
 .page-hero {
-    position: sticky;
-    top: 0;
+    position: relative;
     overflow: hidden;
     color: var(--white);
     background-image: url("../images/mirai/background/Sora.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    z-index: 1;
 }
 
 .page-hero::before {
@@ -1753,14 +1747,11 @@ body.page-beranda .about-preview {
 }
 
 .hero-content,
-.page-hero > div,
-.proker-hero-inner,
-.quest-hero > div {
+.page-hero > div {
     position: relative;
     z-index: 1;
     width: min(1080px, 88%);
     margin: auto;
-    will-change: transform, opacity;
 }
 
 .hero-content {
@@ -2451,8 +2442,7 @@ body.page-beranda .about-preview {
 /* Dasbor Kana Quest */
 .learning-app { background:#fbf8f9; font-family:Georgia, "Times New Roman", serif; }.learning-app .nav { background:#201c26; }.quest-main { padding-top:0; }
 .quest-hero {
-    position: sticky;
-    top: 0;
+    position: relative;
     overflow: hidden;
     display: grid;
     grid-template-columns: minmax(0, 1.3fr) minmax(320px, .7fr);
@@ -2465,7 +2455,6 @@ body.page-beranda .about-preview {
     background-position: center 30%;
     background-size: cover;
     background-repeat: no-repeat;
-    z-index: 1;
 }
 .quest-hero::before {
     position: absolute;
@@ -6691,9 +6680,7 @@ body.theme-dark .kana-empty-state {
     background-position: center right !important;
     background-repeat: no-repeat !important;
     color: #ffffff !important;
-    position: sticky;
-    top: 0;
-    z-index: 1;
+    position: relative;
     overflow: hidden;
     box-sizing: border-box;
 }
