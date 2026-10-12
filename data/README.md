@@ -14,3 +14,4 @@ Folder ini berfungsi sebagai **penyimpan data lokal offline (Database JSON)** ya
   - **Terhubung ke**: Mesin penyortiran cepat kamus kanji (`js/kanji.js`).
 - **`STROKES-LICENSE.md`**:
   - Dokumen lisensi resmi data vektor urutan goresan KanjiVG.
+

@@ -17,3 +17,4 @@ Folder ini berisi sekumpulan skrip otomasi Python (`.py`) yang digunakan oleh pe
 
 > [!NOTE]
 > **Catatan Pengembang**: Skrip-skrip ini **hanya dijalankan di terminal lokal saat proses pengembangan**, dan **TIDAK dijalankan di peramban pengguna** (website berjalan mandiri dengan HTML, CSS, dan JavaScript).
+
