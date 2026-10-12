@@ -22,7 +22,6 @@ function setupHeroContentScroll() {
 
     const heroContent = hero.querySelector(".hero-text-box, .hero-content, .page-hero > div, .proker-hero-inner, .quest-hero > div");
     const heroSocial = hero.querySelector(".hero-social-sidebar");
-    if (!heroContent && !heroSocial) return;
 
     let ticking = false;
 
@@ -30,8 +29,9 @@ function setupHeroContentScroll() {
         const scrollY = window.pageYOffset || document.documentElement.scrollTop;
         const heroHeight = hero.offsetHeight || window.innerHeight;
 
-        if (scrollY <= heroHeight * 1.5) {
-            // Teks judul dan medsos bergerak naik ke atas mengikuti scroll tanpa transparansi
+        if (scrollY <= heroHeight) {
+            // Hero aktif di viewport
+            hero.style.visibility = "visible";
             const translateY = scrollY * 1.0;
 
             if (heroContent) {
@@ -41,6 +41,9 @@ function setupHeroContentScroll() {
                 heroSocial.style.transform = `translate3d(0, -${translateY}px, 0)`;
             }
         } else {
+            // Begitu seksi berikutnya sudah menutupi hero secara penuh,
+            // sembunyikan hero agar background Sora tidak pernah tembus di seksi bawah!
+            hero.style.visibility = "hidden";
             if (heroContent) {
                 heroContent.style.transform = `translate3d(0, -${heroHeight}px, 0)`;
             }

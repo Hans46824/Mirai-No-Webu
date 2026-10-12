@@ -1458,9 +1458,13 @@ body.page-beranda .about-preview,
     box-shadow: 0 -35px 85px rgba(0, 0, 0, 0.98) !important;
 }
 
-body.page-beranda .about-preview {
+body.page-beranda .about-preview,
+body.page-beranda .home-activities-dark-section,
+body.page-beranda .feedback-preview {
     background-color: #0c0810 !important;
     background: #0c0810 !important;
+    position: relative !important;
+    z-index: 10 !important;
 }
 
 .division-section,
@@ -9163,6 +9167,9 @@ body.theme-dark .menu-toggle {
 .home-activities-dark-section {
     padding: 90px 6vw;
     position: relative;
+    background-color: #0c0810 !important;
+    background: #0c0810 !important;
+    z-index: 10 !important;
 }
 .home-activities-dark-section .kicker {
     color: var(--pink-accent, var(--pink));
