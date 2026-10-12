@@ -317,4 +317,34 @@ Website Mirai no Hana memiliki elemen kontrol mengambang global yang selalu mene
    - Lapisan JavaScript menyediakan penanda kelas status di `document.body` (`.is-practicing`, `.sora-drawer-open`, `.sora-fullscreen-active`, `.sidebar-open`, `.lightbox-open`) untuk kompatibilitas mutlak 100% di semua peramban.
    - Setiap penambahan fitur overlay atau modal baru di masa depan **WAJIB mematuhi protokol ini**.
 
+---
+
+## 11. Protokol Dokumentasi Hidup Terpadu (Living Documentation & Auto-Sync Protocol)
+
+Seluruh berkas dokumentasi di repositori Mirai-No-Webu berprinsip sebagai **Dokumentasi Hidup (*Living Documentation*)** yang wajib selalu mutakhir (*up-to-date*) dan sinkron dengan kondisi kode riil saat ini.
+
+### Kewajiban Sinkronisasi Otomatis Setiap Ada Perubahan:
+Setiap kali Agent atau pengembang melakukan modifikasi kode, penambahan fitur, pemindahan/penghapusan berkas, atau penyesuaian aturan, **WAJIB langsung memperbarui berkas dokumentasi terkait secara serentak**:
+
+1. **Pembaruan `panduan/agent.md`**:
+   - Wajib mencatat aturan desain baru, parameter teknis (misal: rasio kuas, toleransi algoritma, selector CSS, class JS), atau keputusan arsitektur yang disepakati bersama pengguna.
+   - Menjadi sumber kebenaran tunggal (*Single Source of Truth*) bagi perilaku AI dan standar kualitas kode.
+
+2. **Pembaruan `panduan/tree.md`**:
+   - Wajib langsung menyinkronkan diagram pohon direktori jika ada penambahan berkas baru, penghapusan berkas, pemindahan folder, atau perubahan struktur sub-direktori.
+   - Diagram direktori dilarang usang atau memuat berkas yang sudah dihapus/dipindahkan.
+
+3. **Pembaruan `README.md` (Root Repositori)**:
+   - Wajib memperbarui ringkasan fitur jika ada fitur baru yang ditambahkan ke website.
+   - Wajib memperbarui bagan direktori ringkas di Bab 4 agar selalu selaras dengan `panduan/tree.md`.
+   - Wajib memperbarui tabel **Sources & Credits** (Bab 5) jika ada pustaka eksternal, font, aset, atau API baru yang mulai digunakan dalam proyek.
+
+4. **Pembaruan Sub-Dokumentasi Tematik**:
+   - **`data/README.md`**: Wajib diperbarui jika ada berkas JSON baru, perubahan skema kolom, atau penambahan dataset offline.
+   - **`skrip/README.md`**: Wajib diperbarui jika ada skrip Python otomasi baru yang ditambahkan atau skrip usang yang dibersihkan.
+
+5. **Prinsip Satu Kesatuan Komit (*Atomic Documentation Commits*)**:
+   - Pembaruan dokumentasi harus dilakukan bersamaan dengan kode perubahannya (atau dalam commit dokumentasi lanjutan langsung) agar tidak pernah ada jeda waktu di mana dokumentasi tertinggal dari implementasi kode (*zero documentation drift*).
+
+
 
