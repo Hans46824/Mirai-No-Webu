@@ -64,7 +64,6 @@
         <section class="section toko-catalog-section" id="katalog">
             <div class="section-intro">
                 <h2 class="heading">Etalase <span>Koleksi Produk</span></h2>
-                <p class="section-desc">Busana resmi, perlengkapan identitas klub, serta aneka jajanan dan cinderamata dari stan Mirai no Konbini.</p>
             </div>
 
             <!-- CONTROLS & FILTER BAR -->
@@ -75,32 +74,17 @@
                         <span>🌟 Semua Produk (<span id="count-all">16</span>)</span>
                     </button>
                     <button type="button" class="toko-cat-btn" data-category="atribut">
-                        <span>👘 Atribut &amp; Haori (<span id="count-atribut">6</span>)</span>
+                        <span>👘 Atribut Mirai no Hana (<span id="count-atribut">6</span>)</span>
                     </button>
-                    <button type="button" class="toko-cat-btn" data-category="konbini">
-                        <span>🍱 Mirai no Konbini (Kuliner) (<span id="count-konbini">6</span>)</span>
+                    <button type="button" class="toko-cat-btn" data-category="makanan">
+                        <span>🍱 Makanan (<span id="count-makanan">4</span>)</span>
                     </button>
-                    <button type="button" class="toko-cat-btn" data-category="merch">
-                        <span>✨ Cinderamata &amp; Kreatif (<span id="count-merch">4</span>)</span>
+                    <button type="button" class="toko-cat-btn" data-category="minuman">
+                        <span>🍵 Minuman (<span id="count-minuman">2</span>)</span>
                     </button>
-                </div>
-
-                <!-- Search & Sort Controls -->
-                <div class="toko-search-sort-row">
-                    <div class="toko-search-box">
-                        <span class="search-icon" aria-hidden="true">🔍</span>
-                        <input type="text" id="tokoSearchInput" placeholder="Cari produk (contoh: Haori, Onigiri, Pin, Matcha)..." aria-label="Cari produk di Toko">
-                        <button type="button" id="tokoSearchClear" class="search-clear-btn" aria-label="Hapus pencarian" hidden>✕</button>
-                    </div>
-                    <div class="toko-sort-box">
-                        <label for="tokoSortSelect" class="sort-label">Urutkan:</label>
-                        <select id="tokoSortSelect" class="toko-sort-select">
-                            <option value="featured">Pilihan Unggulan</option>
-                            <option value="price-asc">Harga Terendah</option>
-                            <option value="price-desc">Harga Tertinggi</option>
-                            <option value="name-asc">Nama Produk (A–Z)</option>
-                        </select>
-                    </div>
+                    <button type="button" class="toko-cat-btn" data-category="cinderamata">
+                        <span>✨ Cinderamata (<span id="count-cinderamata">4</span>)</span>
+                    </button>
                 </div>
             </div>
 
@@ -123,10 +107,8 @@
                     <div class="toko-card-body">
                         <div class="toko-card-meta">
                             <span class="toko-jp-name">未来の花 公式羽織</span>
-                            <span class="toko-rating">⭐ 4.9</span>
                         </div>
                         <h3 class="toko-card-title">Haori Resmi Klub Mirai no Hana</h3>
-                        <p class="toko-card-desc">Busana haori biru gradasi wagara bercorak ombak monokrom dan ornamen air. Kaligrafi kanji kanvas [未来の花] di punggung dan logo resmi di dada.</p>
                         <div class="toko-card-specs">
                             <span>Bahan: Katun Twist Premium</span>
                             <span>Ukuran: Semua Ukuran / Longgar Nyaman</span>
@@ -144,51 +126,47 @@
                     </div>
                 </article>
 
-                <!-- 2. Happi Festival Kebudayaan -->
-                <article class="toko-card" data-category="atribut" data-id="happi-festival" data-name="Happi Jubah Festival Kebudayaan" data-price="85000" data-popular="7">
+                <!-- 2. Kartu Tanda Anggota (ID Card) Resmi -->
+                <article class="toko-card" data-category="atribut" data-id="idcard-resmi" data-name="Kartu Tanda Anggota (ID Card) Resmi" data-price="15000" data-popular="9">
                     <div class="toko-card-thumb">
-                        <img src="../tentang/images/identitas/happi.jpeg" alt="Happi Jubah Festival Kebudayaan" loading="lazy">
-                        <span class="toko-status-badge badge-po">Pra-Pesan</span>
-                        <span class="toko-cat-tag">Atribut Klub</span>
-                    </div>
-                    <div class="toko-card-body">
-                        <div class="toko-card-meta">
-                            <span class="toko-jp-name">祭り法被</span>
-                            <span class="toko-rating">⭐ 4.8</span>
-                        </div>
-                        <h3 class="toko-card-title">Happi Jubah Festival Kebudayaan</h3>
-                        <p class="toko-card-desc">Jubah tradisional Happi pendek khas matsuri Jepang dengan tali pinggang obi terpisah. Nyaman digunakan saat karnaval sekolah atau stan bazaar.</p>
-                        <div class="toko-card-specs">
-                            <span>Bahan: Drill Halus Berkualitas</span>
-                            <span>Warna: Navy Gelap Kombinasi Putih</span>
-                        </div>
-                    </div>
-                    <div class="toko-card-footer">
-                        <div class="toko-price-box">
-                            <span class="price-label">Harga</span>
-                            <strong class="toko-price">Rp 85.000</strong>
-                        </div>
-                        <div class="toko-card-actions">
-                            <button type="button" class="btn-toko-cart" data-add-to-cart="happi-festival" aria-label="Tambah Happi ke keranjang">+ Keranjang</button>
-                            <a class="btn-toko-buy" href="https://forms.gle/dFPRM842xxKq5YMt9" target="_blank" rel="noopener noreferrer" data-product-buy="happi-festival">Beli via GForm</a>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- 3. Lanyard & ID Card Mirai -->
-                <article class="toko-card" data-category="atribut" data-id="lanyard-idcard" data-name="Lanyard Tali Gantungan &amp; ID Card Katakana" data-price="25000" data-popular="9">
-                    <div class="toko-card-thumb">
-                        <img src="../tentang/images/identitas/lanyard-horizontal.png" alt="Lanyard Tali Gantungan & ID Card Katakana" loading="lazy">
+                        <img src="../tentang/images/identitas/idc-front.jpeg" alt="Kartu Tanda Anggota (ID Card) Resmi" loading="lazy">
                         <span class="toko-status-badge badge-ready">Tersedia</span>
                         <span class="toko-cat-tag">Atribut Klub</span>
                     </div>
                     <div class="toko-card-body">
                         <div class="toko-card-meta">
-                            <span class="toko-jp-name">ネックストラップ ＆ 会員証</span>
-                            <span class="toko-rating">⭐ 5.0</span>
+                            <span class="toko-jp-name">会員証 (KTA)</span>
                         </div>
-                        <h3 class="toko-card-title">Lanyard &amp; ID Card Katakana</h3>
-                        <p class="toko-card-desc">Tali lanyard anyam tebal halus bergradasi pink ke navy dengan kanji [未来の花]. Sudah termasuk kartu identitas anggota dua sisi beraksara Katakana.</p>
+                        <h3 class="toko-card-title">Kartu Tanda Anggota (ID Card) Resmi</h3>
+                        <div class="toko-card-specs">
+                            <span>Bahan: Kartu PVC Tebal Standar ATM</span>
+                            <span>Cetak: 2 Sisi Glossy Anti Luntur</span>
+                        </div>
+                    </div>
+                    <div class="toko-card-footer">
+                        <div class="toko-price-box">
+                            <span class="price-label">Harga</span>
+                            <strong class="toko-price">Rp 15.000</strong>
+                        </div>
+                        <div class="toko-card-actions">
+                            <button type="button" class="btn-toko-cart" data-add-to-cart="idcard-resmi" aria-label="Tambah ID Card ke keranjang">+ Keranjang</button>
+                            <a class="btn-toko-buy" href="https://forms.gle/dFPRM842xxKq5YMt9" target="_blank" rel="noopener noreferrer" data-product-buy="idcard-resmi">Beli via GForm</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 3. Lanyard Resmi Klub Mirai no Hana -->
+                <article class="toko-card" data-category="atribut" data-id="lanyard-resmi" data-name="Lanyard Resmi Klub Mirai no Hana" data-price="20000" data-popular="9">
+                    <div class="toko-card-thumb">
+                        <img src="../tentang/images/identitas/lanyard-horizontal.png" alt="Lanyard Resmi Klub Mirai no Hana" loading="lazy">
+                        <span class="toko-status-badge badge-ready">Tersedia</span>
+                        <span class="toko-cat-tag">Atribut Klub</span>
+                    </div>
+                    <div class="toko-card-body">
+                        <div class="toko-card-meta">
+                            <span class="toko-jp-name">ネックストラップ</span>
+                        </div>
+                        <h3 class="toko-card-title">Lanyard Resmi Klub Mirai no Hana</h3>
                         <div class="toko-card-specs">
                             <span>Tali: Tissue Halus Lebar 2 cm</span>
                             <span>Holder: Mika Transparan Tebal</span>
@@ -197,29 +175,27 @@
                     <div class="toko-card-footer">
                         <div class="toko-price-box">
                             <span class="price-label">Harga</span>
-                            <strong class="toko-price">Rp 25.000</strong>
+                            <strong class="toko-price">Rp 20.000</strong>
                         </div>
                         <div class="toko-card-actions">
-                            <button type="button" class="btn-toko-cart" data-add-to-cart="lanyard-idcard" aria-label="Tambah Lanyard ke keranjang">+ Keranjang</button>
-                            <a class="btn-toko-buy" href="https://forms.gle/dFPRM842xxKq5YMt9" target="_blank" rel="noopener noreferrer" data-product-buy="lanyard-idcard">Beli via GForm</a>
+                            <button type="button" class="btn-toko-cart" data-add-to-cart="lanyard-resmi" aria-label="Tambah Lanyard ke keranjang">+ Keranjang</button>
+                            <a class="btn-toko-buy" href="https://forms.gle/dFPRM842xxKq5YMt9" target="_blank" rel="noopener noreferrer" data-product-buy="lanyard-resmi">Beli via GForm</a>
                         </div>
                     </div>
                 </article>
 
-                <!-- 4. Pin Enamel Sakura Logam Eksklusif -->
-                <article class="toko-card" data-category="atribut" data-id="pin-sakura" data-name="Pin Enamel Sakura Logam Eksklusif" data-price="15000" data-popular="10">
+                <!-- 4. Pin Enamel Sakura Logam -->
+                <article class="toko-card" data-category="atribut" data-id="pin-sakura" data-name="Pin Enamel Sakura Logam" data-price="15000" data-popular="10">
                     <div class="toko-card-thumb">
-                        <img src="../tentang/images/identitas/pin-clean.png" alt="Pin Enamel Sakura Logam Eksklusif" loading="lazy">
+                        <img src="../tentang/images/identitas/pin-clean.png" alt="Pin Enamel Sakura Logam" loading="lazy">
                         <span class="toko-status-badge badge-bestseller">Paling Laris</span>
                         <span class="toko-cat-tag">Atribut Klub</span>
                     </div>
                     <div class="toko-card-body">
                         <div class="toko-card-meta">
                             <span class="toko-jp-name">桜ピンバッジ</span>
-                            <span class="toko-rating">⭐ 5.0</span>
                         </div>
                         <h3 class="toko-card-title">Pin Enamel Sakura Logam</h3>
-                        <p class="toko-card-desc">Lencana logam bersepuh rose gold dengan enamel halus berbentuk bunga sakura mekar lambang kebanggaan klub. Pengait kupu-kupu logam kokoh.</p>
                         <div class="toko-card-specs">
                             <span>Diameter: 3.2 cm Logam Tebal</span>
                             <span>Lapisan: Hard Enamel Glossy</span>
@@ -237,7 +213,7 @@
                     </div>
                 </article>
 
-                <!-- 5. Nametag Katakana Akrilik -->
+                <!-- 5. Nametag Katakana Akrilik Personal -->
                 <article class="toko-card" data-category="atribut" data-id="nametag-akrilik" data-name="Nametag Katakana Akrilik Personal" data-price="12000" data-popular="8">
                     <div class="toko-card-thumb">
                         <img src="../tentang/images/identitas/nametag-katakana.jpeg" alt="Nametag Katakana Akrilik Personal" loading="lazy">
@@ -247,10 +223,8 @@
                     <div class="toko-card-body">
                         <div class="toko-card-meta">
                             <span class="toko-jp-name">カタカナ名札</span>
-                            <span class="toko-rating">⭐ 4.8</span>
                         </div>
                         <h3 class="toko-card-title">Nametag Katakana Akrilik Personal</h3>
-                        <p class="toko-card-desc">Plat nama akrilik jernih dengan nama panggilanmu yang dialihaksarakan ke Katakana dan romaji. Dilengkapi peniti kokoh dan magnet pengaman seragam.</p>
                         <div class="toko-card-specs">
                             <span>Bahan: Akrilik Bening 2 mm</span>
                             <span>Pengait: Peniti / Magnet Pengaman</span>
@@ -268,7 +242,7 @@
                     </div>
                 </article>
 
-                <!-- 6. Bendera Mini & Vandel Meja Nihongo Kurabu -->
+                <!-- 6. Bendera Mini & Vandel Meja Klub -->
                 <article class="toko-card" data-category="atribut" data-id="bendera-vandel" data-name="Bendera Mini &amp; Vandel Meja Klub" data-price="30000" data-popular="6">
                     <div class="toko-card-thumb">
                         <img src="../images/mirai/logo/MNH1.png" alt="Bendera Mini & Vandel Meja Klub" loading="lazy">
@@ -278,10 +252,8 @@
                     <div class="toko-card-body">
                         <div class="toko-card-meta">
                             <span class="toko-jp-name">ミニクラブ旗 ＆ ペナント</span>
-                            <span class="toko-rating">⭐ 4.7</span>
                         </div>
                         <h3 class="toko-card-title">Bendera Mini &amp; Vandel Meja Klub</h3>
-                        <p class="toko-card-desc">Bendera meja kain beludru halus berhiaskan lambang bunga sakura dan kaligrafi Nihongo Kurabu, lengkap dengan tiang kayu berukir untuk meja belajar.</p>
                         <div class="toko-card-specs">
                             <span>Bahan: Beludru Halus Berkualitas</span>
                             <span>Tinggi Tiang: 25 cm Kayu Mahoni</span>
@@ -299,20 +271,18 @@
                     </div>
                 </article>
 
-                <!-- 7. Onigiri Segitiga Spesial (Konbini) -->
-                <article class="toko-card" data-category="konbini" data-id="onigiri-spesial" data-name="Onigiri Segitiga Spesial (Tuna Mayo / Salmon)" data-price="8000" data-popular="10">
+                <!-- 7. Onigiri Segitiga Spesial (Makanan) -->
+                <article class="toko-card" data-category="makanan" data-id="onigiri-spesial" data-name="Onigiri Segitiga Spesial" data-price="8000" data-popular="10">
                     <div class="toko-card-thumb">
                         <img src="../kegiatan/images/Mirainokonbini.png" alt="Onigiri Segitiga Spesial" loading="lazy">
                         <span class="toko-status-badge badge-fresh">Segar &amp; Hangat</span>
-                        <span class="toko-cat-tag">Mirai no Konbini</span>
+                        <span class="toko-cat-tag">Makanan Konbini</span>
                     </div>
                     <div class="toko-card-body">
                         <div class="toko-card-meta">
                             <span class="toko-jp-name">ツナマヨおにぎり</span>
-                            <span class="toko-rating">⭐ 5.0</span>
                         </div>
                         <h3 class="toko-card-title">Onigiri Segitiga Spesial</h3>
-                        <p class="toko-card-desc">Nasi kepal segitiga khas minimarket Jepang dengan isian tuna mayonaise gurih atau abon salmon, dibungkus nori renyah dengan kemasan plastik tarik praktis.</p>
                         <div class="toko-card-specs">
                             <span>Varian: Tuna Mayo / Salmon Abon</span>
                             <span>Porsi: 1 Buah Segitiga Siap Santap</span>
@@ -330,20 +300,18 @@
                     </div>
                 </article>
 
-                <!-- 8. Dorayaki Lembut Kacang Merah & Cokelat -->
-                <article class="toko-card" data-category="konbini" data-id="dorayaki-lembut" data-name="Dorayaki Lembut Kacang Merah &amp; Cokelat" data-price="6000" data-popular="9">
+                <!-- 8. Dorayaki Lembut Kacang Merah (Makanan) -->
+                <article class="toko-card" data-category="makanan" data-id="dorayaki-lembut" data-name="Dorayaki Lembut Kacang Merah" data-price="6000" data-popular="9">
                     <div class="toko-card-thumb">
-                        <img src="../kegiatan/images/Mirainokonbini.png" alt="Dorayaki Lembut Kacang Merah & Cokelat" loading="lazy">
+                        <img src="../kegiatan/images/Mirainokonbini.png" alt="Dorayaki Lembut Kacang Merah" loading="lazy">
                         <span class="toko-status-badge badge-ready">Tersedia</span>
-                        <span class="toko-cat-tag">Mirai no Konbini</span>
+                        <span class="toko-cat-tag">Makanan Konbini</span>
                     </div>
                     <div class="toko-card-body">
                         <div class="toko-card-meta">
                             <span class="toko-jp-name">手作りどら焼き</span>
-                            <span class="toko-rating">⭐ 4.9</span>
                         </div>
                         <h3 class="toko-card-title">Dorayaki Lembut Kacang Merah</h3>
-                        <p class="toko-card-desc">Pancake madu khas Jepang dengan tekstur empuk berserat lembut dan aroma vanila harum. Diisi pasta kacang merah anko manis legit atau selai cokelat lezat.</p>
                         <div class="toko-card-specs">
                             <span>Varian: Pasta Anko / Cokelat Meleleh</span>
                             <span>Porsi: 1 Buah Dorayaki Jumbo</span>
@@ -361,20 +329,18 @@
                     </div>
                 </article>
 
-                <!-- 9. Taiyaki Waffle Renyah Cokelat & Keju -->
-                <article class="toko-card" data-category="konbini" data-id="taiyaki-waffle" data-name="Taiyaki Waffle Renyah Isi Cokelat &amp; Keju" data-price="7000" data-popular="8">
+                <!-- 9. Taiyaki Waffle Cokelat & Keju (Makanan) -->
+                <article class="toko-card" data-category="makanan" data-id="taiyaki-waffle" data-name="Taiyaki Waffle Cokelat &amp; Keju" data-price="7000" data-popular="8">
                     <div class="toko-card-thumb">
-                        <img src="../kegiatan/images/Mirainokonbini.png" alt="Taiyaki Waffle Renyah Isi Cokelat & Keju" loading="lazy">
+                        <img src="../kegiatan/images/Mirainokonbini.png" alt="Taiyaki Waffle Cokelat & Keju" loading="lazy">
                         <span class="toko-status-badge badge-ready">Tersedia</span>
-                        <span class="toko-cat-tag">Mirai no Konbini</span>
+                        <span class="toko-cat-tag">Makanan Konbini</span>
                     </div>
                     <div class="toko-card-body">
                         <div class="toko-card-meta">
                             <span class="toko-jp-name">焼きたてたい焼き</span>
-                            <span class="toko-rating">⭐ 4.8</span>
                         </div>
                         <h3 class="toko-card-title">Taiyaki Waffle Cokelat &amp; Keju</h3>
-                        <p class="toko-card-desc">Wafel berbentuk ikan mas Jepang dengan tepi luar krispi renyah dan bagian dalam lembut. Menggunakan isian cokelat lumer premium atau keju cheddar manis gurih.</p>
                         <div class="toko-card-specs">
                             <span>Varian: Cokelat Lumer / Keju Melt</span>
                             <span>Tekstur: Krispi di Luar, Lembut di Dalam</span>
@@ -392,20 +358,18 @@
                     </div>
                 </article>
 
-                <!-- 10. Mitarashi Dango Kenyal Saus Karamel -->
-                <article class="toko-card" data-category="konbini" data-id="mitarashi-dango" data-name="Mitarashi Dango Kenyal (2 Tusuk)" data-price="10000" data-popular="9">
+                <!-- 10. Mitarashi Dango Kenyal (Makanan) -->
+                <article class="toko-card" data-category="makanan" data-id="mitarashi-dango" data-name="Mitarashi Dango Kenyal (2 Tusuk)" data-price="10000" data-popular="9">
                     <div class="toko-card-thumb">
                         <img src="../kegiatan/images/Mirainokonbini.png" alt="Mitarashi Dango Kenyal" loading="lazy">
                         <span class="toko-status-badge badge-fresh">Segar &amp; Hangat</span>
-                        <span class="toko-cat-tag">Mirai no Konbini</span>
+                        <span class="toko-cat-tag">Makanan Konbini</span>
                     </div>
                     <div class="toko-card-body">
                         <div class="toko-card-meta">
                             <span class="toko-jp-name">みたらし団子（2本）</span>
-                            <span class="toko-rating">⭐ 4.9</span>
                         </div>
                         <h3 class="toko-card-title">Mitarashi Dango Kenyal (2 Tusuk)</h3>
-                        <p class="toko-card-desc">Bola-bola kenyal tepung beras ketan pilihan yang dipanggang dengan aroma khas, disiram saus mitarashi karamel shoyu manis gurih legendaris khas Kyoto.</p>
                         <div class="toko-card-specs">
                             <span>Porsi: 2 Tusuk (Isi 6 Butir Dango)</span>
                             <span>Saus: Saus Glaze Shoyu Karamel Hangat</span>
@@ -423,20 +387,18 @@
                     </div>
                 </article>
 
-                <!-- 11. Matcha Latte Dingin Uji Premium -->
-                <article class="toko-card" data-category="konbini" data-id="matcha-latte" data-name="Matcha Latte Dingin Uji Premium" data-price="10000" data-popular="10">
+                <!-- 11. Matcha Latte Dingin Uji (Minuman) -->
+                <article class="toko-card" data-category="minuman" data-id="matcha-latte" data-name="Matcha Latte Dingin Uji" data-price="10000" data-popular="10">
                     <div class="toko-card-thumb">
-                        <img src="../kegiatan/images/Mirainokonbini.png" alt="Matcha Latte Dingin Uji Premium" loading="lazy">
+                        <img src="../kegiatan/images/Mirainokonbini.png" alt="Matcha Latte Dingin Uji" loading="lazy">
                         <span class="toko-status-badge badge-bestseller">Paling Laris</span>
-                        <span class="toko-cat-tag">Mirai no Konbini</span>
+                        <span class="toko-cat-tag">Minuman Konbini</span>
                     </div>
                     <div class="toko-card-body">
                         <div class="toko-card-meta">
                             <span class="toko-jp-name">宇治抹茶ラテ（アイス）</span>
-                            <span class="toko-rating">⭐ 5.0</span>
                         </div>
                         <h3 class="toko-card-title">Matcha Latte Dingin Uji</h3>
-                        <p class="toko-card-desc">Seduhan teh hijau matcha murni berpadu susu segar dingin yang creamy dengan rasa manis pas. Harum teh otentik tanpa pemanis buatan, menyegarkan hari belajarmu.</p>
                         <div class="toko-card-specs">
                             <span>Volume: Cup 350 ml + Es Dingin</span>
                             <span>Bahan: Bubuk Matcha Asli &amp; Susu Segar</span>
@@ -454,20 +416,18 @@
                     </div>
                 </article>
 
-                <!-- 12. Ramune Soda Asli Botol Kelereng -->
-                <article class="toko-card" data-category="konbini" data-id="ramune-soda" data-name="Ramune Soda Jepang Botol Kelereng" data-price="12000" data-popular="8">
+                <!-- 12. Ramune Soda Botol Kelereng (Minuman) -->
+                <article class="toko-card" data-category="minuman" data-id="ramune-soda" data-name="Ramune Soda Botol Kelereng" data-price="12000" data-popular="8">
                     <div class="toko-card-thumb">
-                        <img src="../kegiatan/images/Mirainokonbini.png" alt="Ramune Soda Jepang Botol Kelereng" loading="lazy">
+                        <img src="../kegiatan/images/Mirainokonbini.png" alt="Ramune Soda Botol Kelereng" loading="lazy">
                         <span class="toko-status-badge badge-ready">Tersedia</span>
-                        <span class="toko-cat-tag">Mirai no Konbini</span>
+                        <span class="toko-cat-tag">Minuman Konbini</span>
                     </div>
                     <div class="toko-card-body">
                         <div class="toko-card-meta">
                             <span class="toko-jp-name">日本のラムネソーダ</span>
-                            <span class="toko-rating">⭐ 4.8</span>
                         </div>
                         <h3 class="toko-card-title">Ramune Soda Botol Kelereng</h3>
-                        <p class="toko-card-desc">Minuman soda tradisional Jepang dengan botol kaca leher kelereng unik. Sensasi soda segar lemon-lime khas festival musim panas Jepang yang seru dibuka.</p>
                         <div class="toko-card-specs">
                             <span>Volume: 200 ml Botol Kaca Kelereng</span>
                             <span>Rasa: Original Lemon-Lime / Melon</span>
@@ -485,20 +445,18 @@
                     </div>
                 </article>
 
-                <!-- 13. Sticker Pack Vinyl Chibi Sora (Waterproof) -->
-                <article class="toko-card" data-category="merch" data-id="sticker-sora" data-name="Sticker Pack Chibi Sora &amp; Karakter (Anti-Air)" data-price="10000" data-popular="9">
+                <!-- 13. Sticker Pack Chibi Sora (Cinderamata) -->
+                <article class="toko-card" data-category="cinderamata" data-id="sticker-sora" data-name="Sticker Pack Chibi Sora (Anti-Air)" data-price="10000" data-popular="9">
                     <div class="toko-card-thumb">
-                        <img src="../images/mirai/background/Sora.png" alt="Sticker Pack Chibi Sora & Karakter" loading="lazy">
+                        <img src="../images/mirai/background/Sora.png" alt="Sticker Pack Chibi Sora &amp; Karakter" loading="lazy">
                         <span class="toko-status-badge badge-bestseller">Paling Laris</span>
                         <span class="toko-cat-tag">Cinderamata</span>
                     </div>
                     <div class="toko-card-body">
                         <div class="toko-card-meta">
                             <span class="toko-jp-name">ソラちゃんステッカー</span>
-                            <span class="toko-rating">⭐ 5.0</span>
                         </div>
                         <h3 class="toko-card-title">Sticker Pack Chibi Sora (Anti-Air)</h3>
-                        <p class="toko-card-desc">Satu set isi 10 stiker vinyl laminasi doff anti-air menampilkan ilustrasi maskot resmi Sora dan karakter chibi klub dalam berbagai ekspresi lucu.</p>
                         <div class="toko-card-specs">
                             <span>Isi: 10 Lembar Stiker Die-Cut</span>
                             <span>Bahan: Vinyl Doff Tahan Gores &amp; Air</span>
@@ -516,20 +474,18 @@
                     </div>
                 </article>
 
-                <!-- 14. Gantungan Kunci Akrilik 2 Sisi -->
-                <article class="toko-card" data-category="merch" data-id="keychain-akrilik" data-name="Gantungan Kunci Akrilik 2 Sisi Chibi Mascot" data-price="15000" data-popular="9">
+                <!-- 14. Keychain Akrilik 2 Sisi Mascot (Cinderamata) -->
+                <article class="toko-card" data-category="cinderamata" data-id="keychain-akrilik" data-name="Keychain Akrilik 2 Sisi Mascot" data-price="15000" data-popular="9">
                     <div class="toko-card-thumb">
-                        <img src="../images/mirai/icon/Ay.png" alt="Gantungan Kunci Akrilik 2 Sisi Chibi Mascot" loading="lazy">
+                        <img src="../images/mirai/icon/Ay.png" alt="Keychain Akrilik 2 Sisi Mascot" loading="lazy">
                         <span class="toko-status-badge badge-ready">Tersedia</span>
                         <span class="toko-cat-tag">Cinderamata</span>
                     </div>
                     <div class="toko-card-body">
                         <div class="toko-card-meta">
                             <span class="toko-jp-name">アクリルキーホルダー</span>
-                            <span class="toko-rating">⭐ 4.9</span>
                         </div>
                         <h3 class="toko-card-title">Keychain Akrilik 2 Sisi Mascot</h3>
-                        <p class="toko-card-desc">Gantungan kunci akrilik tebal 4 mm jernih dengan cetakan dua sisi berkualitas tinggi dan pengait clasp perak kokoh bergambar maskot Sora dan karakter klub.</p>
                         <div class="toko-card-specs">
                             <span>Ukuran: 6 cm Akrilik Bening 4 mm</span>
                             <span>Pengait: Lobster Clasp Stainless</span>
@@ -547,20 +503,18 @@
                     </div>
                 </article>
 
-                <!-- 15. Totebag Kanvas [未来の花] Wagara -->
-                <article class="toko-card" data-category="merch" data-id="totebag-wagara" data-name="Totebag Kanvas [未来の花] Wagara Minimalis" data-price="45000" data-popular="8">
+                <!-- 15. Totebag Kanvas [未来の花] Wagara (Cinderamata) -->
+                <article class="toko-card" data-category="cinderamata" data-id="totebag-wagara" data-name="Totebag Kanvas [未来の花] Wagara" data-price="45000" data-popular="8">
                     <div class="toko-card-thumb">
-                        <img src="../images/mirai/logo/MNH1.png" alt="Totebag Kanvas [未来の花] Wagara Minimalis" loading="lazy">
+                        <img src="../images/mirai/logo/MNH1.png" alt="Totebag Kanvas [未来の花] Wagara" loading="lazy">
                         <span class="toko-status-badge badge-po">Pra-Pesan</span>
                         <span class="toko-cat-tag">Cinderamata</span>
                     </div>
                     <div class="toko-card-body">
                         <div class="toko-card-meta">
                             <span class="toko-jp-name">和柄キャンバストート</span>
-                            <span class="toko-rating">⭐ 4.8</span>
                         </div>
                         <h3 class="toko-card-title">Totebag Kanvas [未来の花] Wagara</h3>
-                        <p class="toko-card-desc">Tas jinjing kanvas tebal dengan corak motif wagara ombak geometris dan sablon kanji [未来の花]. Dilengkapi ritsleting utama dan kantong dalam muat laptop.</p>
                         <div class="toko-card-specs">
                             <span>Ukuran: 38 x 33 x 8 cm (Muat A4/Laptop)</span>
                             <span>Bahan: Kanvas Tebal + Ritsleting</span>
@@ -578,20 +532,18 @@
                     </div>
                 </article>
 
-                <!-- 16. Buku Kotak Latihan Kanji & Kana -->
-                <article class="toko-card" data-category="merch" data-id="buku-kanji" data-name="Buku Kotak Latihan Menulis Kanji &amp; Kana" data-price="18000" data-popular="8">
+                <!-- 16. Buku Kotak Latihan Menulis Kanji (Cinderamata) -->
+                <article class="toko-card" data-category="cinderamata" data-id="buku-kanji" data-name="Buku Kotak Latihan Menulis Kanji" data-price="18000" data-popular="8">
                     <div class="toko-card-thumb">
-                        <img src="../images/mirai/background/c1w.jpeg" alt="Buku Kotak Latihan Menulis Kanji & Kana" loading="lazy">
+                        <img src="../images/mirai/background/c1w.jpeg" alt="Buku Kotak Latihan Menulis Kanji" loading="lazy">
                         <span class="toko-status-badge badge-ready">Tersedia</span>
-                        <span class="toko-cat-tag">Alat Tulis</span>
+                        <span class="toko-cat-tag">Cinderamata</span>
                     </div>
                     <div class="toko-card-body">
                         <div class="toko-card-meta">
                             <span class="toko-jp-name">原稿用紙 漢字ノート</span>
-                            <span class="toko-rating">⭐ 4.9</span>
                         </div>
                         <h3 class="toko-card-title">Buku Kotak Latihan Menulis Kanji</h3>
-                        <p class="toko-card-desc">Buku tulis 80 halaman dengan kisi kotak genkouyoushi bergaris bantu cross-hair putus-putus untuk melatih proporsi dan urutan goresan kanji serta kana.</p>
                         <div class="toko-card-specs">
                             <span>Isi: 80 Halaman Kertas Bookpaper 80 gsm</span>
                             <span>Ukuran: Format B5 Nyaman Ditulis</span>
@@ -611,12 +563,11 @@
 
             </div>
 
-            <!-- PESAN SAAT TIDAK ADA HASIL PENCARIAN -->
+            <!-- PESAN SAAT TIDAK ADA PRODUK -->
             <div class="toko-empty-search" id="tokoEmptySearch" hidden>
-                <div class="empty-icon">🔍</div>
+                <div class="empty-icon">🛍️</div>
                 <h3>Produk tidak ditemukan</h3>
-                <p>Tidak ada produk yang cocok dengan kata kunci pencarian atau filter yang kamu pilih.</p>
-                <button type="button" class="btn primary" id="tokoResetFilterBtn">Reset Filter &amp; Pencarian</button>
+                <p>Belum ada produk yang tersedia untuk kategori ini.</p>
             </div>
         </section>
 
@@ -624,7 +575,6 @@
         <section class="section toko-guide-white-section">
             <div class="section-intro">
                 <h2 class="heading">Cara <span>Pemesanan</span></h2>
-                <p class="section-desc">Empat langkah praktis untuk memesan barang atau kuliner klub dengan tertib dan transparan.</p>
             </div>
             <div class="toko-steps-grid">
                 <div class="toko-step-card-white">
@@ -658,7 +608,6 @@
         <section class="section toko-kwu-dark-section">
             <div class="section-intro">
                 <h2 class="heading">Mirai no Konbini &amp; <span>Kemandirian Kas</span></h2>
-                <p class="section-desc">Inisiatif kewirausahaan mandiri dari anggota, oleh anggota, dan untuk kemajuan bersama.</p>
             </div>
             <div class="toko-kwu-card">
                 <span class="toko-kwu-badge">💡 Program Kerja Divisi Kewirausahaan (KWU)</span>
@@ -684,7 +633,6 @@
         <section class="section toko-faq-white-section">
             <div class="section-intro">
                 <h2 class="heading">Pertanyaan yang <span>Sering Diajukan</span></h2>
-                <p class="section-desc">Jawaban atas pertanyaan seputar pembelian, sistem pra-pesan, dan ketersediaan stan konbini.</p>
             </div>
             <div class="toko-faq-grid">
                 <details class="toko-faq-item-white">
@@ -692,8 +640,8 @@
                     <p>Tentu saja boleh! Seluruh warga sekolah, siswa dari klub lain, hingga alumni diperbolehkan membeli jajanan Mirai no Konbini maupun cinderamata seperti stiker dan gantungan kunci. Khusus untuk Haori resmi klub, prioritas pemesanan diberikan kepada anggota aktif terlebih dahulu.</p>
                 </details>
                 <details class="toko-faq-item-white">
-                    <summary><strong>Bagaimana sistem Pra-Pesan (PO) untuk Haori dan Happi?</strong></summary>
-                    <p>Pemesanan Haori dan Happi dikumpulkan dalam satu gelombang pesanan (batch PO). Setelah kuota batch terpenuhi dan pembayaran diverifikasi bendahara, proses produksi kain dan bordir memakan waktu sekitar 7–14 hari kerja sebelum dibagikan.</p>
+                    <summary><strong>Bagaimana sistem Pra-Pesan (PO) untuk Haori dan Atribut Resmi?</strong></summary>
+                    <p>Pemesanan Haori dan atribut pra-pesan dikumpulkan dalam satu gelombang pesanan (batch PO). Setelah kuota batch terpenuhi dan pembayaran diverifikasi bendahara, proses produksi kain dan bordir memakan waktu sekitar 7–14 hari kerja sebelum dibagikan.</p>
                 </details>
                 <details class="toko-faq-item-white">
                     <summary><strong>Kapan stan Mirai no Konbini buka di sekolah?</strong></summary>
@@ -715,7 +663,7 @@
     </button>
 
     <!-- SHOPPING CART DRAWER / MODAL -->
-    <div class="toko-cart-overlay" id="cartOverlay" aria-hidden="true"></div>
+    <div class="toko-cart-overlay" id="cartOverlay" aria-hidden="true" hidden></div>
     <div class="toko-cart-drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-labelledby="cartDrawerTitle" hidden>
         <div class="cart-drawer-header">
             <div class="cart-drawer-title-wrap">
@@ -795,8 +743,8 @@
         document.addEventListener('DOMContentLoaded', () => {
             const products = {
                 'haori-resmi': { name: 'Haori Resmi Klub Mirai no Hana', price: 120000 },
-                'happi-festival': { name: 'Happi Jubah Festival Kebudayaan', price: 85000 },
-                'lanyard-idcard': { name: 'Lanyard & ID Card Katakana', price: 25000 },
+                'idcard-resmi': { name: 'Kartu Tanda Anggota (ID Card) Resmi', price: 15000 },
+                'lanyard-resmi': { name: 'Lanyard Resmi Klub Mirai no Hana', price: 20000 },
                 'pin-sakura': { name: 'Pin Enamel Sakura Logam', price: 15000 },
                 'nametag-akrilik': { name: 'Nametag Katakana Akrilik Personal', price: 12000 },
                 'bendera-vandel': { name: 'Bendera Mini & Vandel Meja Klub', price: 30000 },
@@ -819,13 +767,9 @@
             }
 
             const catButtons = document.querySelectorAll('.toko-cat-btn');
-            const searchInput = document.getElementById('tokoSearchInput');
-            const searchClearBtn = document.getElementById('tokoSearchClear');
-            const sortSelect = document.getElementById('tokoSortSelect');
             const productGrid = document.getElementById('tokoProductGrid');
             const emptyState = document.getElementById('tokoEmptySearch');
             const productCount = document.getElementById('tokoProductCount');
-            const resetFilterBtn = document.getElementById('tokoResetFilterBtn');
 
             const floatingCartBtn = document.getElementById('floatingCartBtn');
             const cartCountBadge = document.getElementById('cartCountBadge');
@@ -845,8 +789,6 @@
             let toastTimer = null;
 
             let activeCategory = 'all';
-            let searchQuery = '';
-            let currentSort = 'featured';
 
             function formatRupiah(number) {
                 return 'Rp ' + number.toLocaleString('id-ID');
@@ -983,7 +925,7 @@
                     return;
                 }
 
-                let summaryText = 'Pesanan Toko & Konbini Mirai no Hana:\n';
+                let summaryText = 'Pesanan Toko Mirai no Hana:\n';
                 let total = 0;
                 itemKeys.forEach((id, index) => {
                     const item = cart[id];
@@ -1019,36 +961,15 @@
 
                 cards.forEach(card => {
                     const cardCat = card.getAttribute('data-category');
-                    const cardName = card.getAttribute('data-name').toLowerCase();
-                    const cardDesc = card.querySelector('.toko-card-desc')?.textContent.toLowerCase() || '';
-
                     const matchesCategory = (activeCategory === 'all' || cardCat === activeCategory);
-                    const matchesSearch = !searchQuery || cardName.includes(searchQuery) || cardDesc.includes(searchQuery);
 
-                    if (matchesCategory && matchesSearch) {
+                    if (matchesCategory) {
                         card.hidden = false;
                         visibleCount++;
                     } else {
                         card.hidden = true;
                     }
                 });
-
-                const visibleCards = cards.filter(c => !c.hidden);
-                visibleCards.sort((a, b) => {
-                    const priceA = parseInt(a.getAttribute('data-price') || '0', 10);
-                    const priceB = parseInt(b.getAttribute('data-price') || '0', 10);
-                    const nameA = a.getAttribute('data-name') || '';
-                    const nameB = b.getAttribute('data-name') || '';
-                    const popA = parseInt(a.getAttribute('data-popular') || '0', 10);
-                    const popB = parseInt(b.getAttribute('data-popular') || '0', 10);
-
-                    if (currentSort === 'price-asc') return priceA - priceB;
-                    if (currentSort === 'price-desc') return priceB - priceA;
-                    if (currentSort === 'name-asc') return nameA.localeCompare(nameB);
-                    return popB - popA;
-                });
-
-                visibleCards.forEach(card => productGrid.appendChild(card));
 
                 if (visibleCount === 0) {
                     emptyState.hidden = false;
@@ -1066,37 +987,6 @@
                     activeCategory = btn.getAttribute('data-category');
                     applyFilters();
                 });
-            });
-
-            searchInput.addEventListener('input', () => {
-                searchQuery = searchInput.value.trim().toLowerCase();
-                searchClearBtn.hidden = searchQuery.length === 0;
-                applyFilters();
-            });
-
-            searchClearBtn.addEventListener('click', () => {
-                searchInput.value = '';
-                searchQuery = '';
-                searchClearBtn.hidden = true;
-                searchInput.focus();
-                applyFilters();
-            });
-
-            sortSelect.addEventListener('change', () => {
-                currentSort = sortSelect.value;
-                applyFilters();
-            });
-
-            resetFilterBtn.addEventListener('click', () => {
-                activeCategory = 'all';
-                searchQuery = '';
-                currentSort = 'featured';
-                searchInput.value = '';
-                searchClearBtn.hidden = true;
-                sortSelect.value = 'featured';
-                catButtons.forEach(b => b.classList.remove('active'));
-                document.querySelector('[data-category="all"]').classList.add('active');
-                applyFilters();
             });
 
             updateCartUI();

@@ -133,7 +133,13 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
   - Merah (#f43f5e / #e11d48): Tingkat nasional, status pendaftaran ditutup, batas akhir waktu.
   - Ungu (#a855f7 / #c084fc): Kategori acara festival cosplay dan ruang maskot Sora.
 
-### F. Aturan Judul Tiap Halaman, Seksi, dan Kartu (Heading & Title Standard)
+### F. Aturan Judul Bersih Tanpa Deskripsi Pengantar (Clean Standalone Headings Rule)
+- **Aturan Mutlak: Pengguna Tidak Menyukai Judul yang Diberi Deskripsi Pengantar**:
+  - Dilarang keras menaruh teks deskripsi, subjudul, atau paragraf pengantar (`<p class="section-desc">...`) tepat di bawah judul hero halaman maupun di bawah judul seksi (`.section-intro .heading`).
+  - Judul wajib tampil bersih, percaya diri, elegan, dan mandiri (*clean standalone heading*).
+  - Contoh penerapannya:
+    - Judul hero hanya menampilkan judul halaman murni: `<h1 class="page-title">Toko</h1>`.
+    - Judul seksi hanya menampilkan heading two-tone murni: `<h2 class="heading">Etalase <span>Koleksi Produk</span></h2>`, `<h2 class="heading">Cara <span>Pemesanan</span></h2>`, dll., **tanpa ada `<p class="section-desc">` di bawahnya**.
 - **Judul Hero Halaman (Hero Title)**:
   - Bersih mandiri, tegas, berbobot tebal (`font-weight: 800 - 900`, `letter-spacing: -0.08em`, `font-size: clamp(58px, 8vw, 116px)`).
   - Pada halaman Toko, judul hero adalah murni **"Toko"** (`<h1 class="page-title">Toko</h1>`).
@@ -166,10 +172,12 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
 - Gunakan bahasa manusia yang hangat, santai, dan bersahabat seperti gaya komunikasi anak muda sekolah. Hindari istilah kaku buatan mesin AI.
 
 ### H. Aturan Deskripsi dan Teks Pendukung (Card & Page Description Rule)
-- Deskripsi harus padat, informatif, dan ringkas (maksimal 2 sampai 3 baris kalimat, dibatasi dengan `-webkit-line-clamp: 3` pada kartu produk).
+- **Etalase Produk Toko Bersih & Ringkas**:
+  - Pada kartu produk Toko, dilarang menaruh deskripsi produk panjang (`.toko-card-desc`) dan dilarang menampilkan rating bintang ulasan (`.toko-rating`) agar kartu tampil bersih, rapi, dan berfokus pada foto produk, nama produk, spesifikasi teknis penting, harga, dan tombol aksi.
+  - Pada halaman lain yang memerlukan deskripsi materi, deskripsi harus padat, informatif, dan ringkas (maksimal 2 sampai 3 baris kalimat).
 - **Kontras Warna Teks**:
-  - Di latar gelap: Warna teks deskripsi menggunakan abu-abu lembut (`#cbd5e1` atau `#94a3b8`), bukan putih murni 100%, agar kontrasnya nyaman di mata dan tidak silau.
-  - Di latar putih/terang: Warna teks deskripsi menggunakan abu gelap pekat (`#554857` atau `#475569`), bukan hitam murni tajam, untuk kenyamanan membaca optimal.
+  - Di latar gelap: Warna teks menggunakan abu-abu lembut (`#cbd5e1` atau `#94a3b8`), bukan putih murni 100%, agar kontrasnya nyaman di mata dan tidak silau.
+  - Di latar putih/terang: Warna teks menggunakan abu gelap pekat (`#554857` atau `#475569`), bukan hitam murni tajam, untuk kenyamanan membaca optimal.
 - Dilarang membuat kalimat deskripsi bertele-tele, klise, atau membuang ruang visual kartu.
 
 ### I. Aturan Tombol

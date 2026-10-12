@@ -21726,6 +21726,11 @@ body.page-toko,
     backdrop-filter: blur(4px) !important;
     z-index: 1000 !important;
     transition: opacity 0.3s ease !important;
+    display: none !important;
+}
+
+.toko-cart-overlay:not([hidden]) {
+    display: block !important;
 }
 
 .toko-cart-overlay[hidden] {
