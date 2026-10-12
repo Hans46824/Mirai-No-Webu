@@ -1421,7 +1421,7 @@ function initKanaQuest() {
             ctx.beginPath();
             ctx.moveTo(pt.px, pt.py);
             const rect = canvas.getBoundingClientRect();
-            ctx.lineWidth = 17 * (rect.width / 109);
+            ctx.lineWidth = 4.4 * (rect.width / 109);
             ctx.lineCap = "round";
             ctx.lineJoin = "round";
             ctx.strokeStyle = "#e91e63";
