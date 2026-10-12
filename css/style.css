@@ -13603,15 +13603,25 @@ body.page-kurikulum .doc-back-btn:hover,
     max-width: calc(100% - 65px) !important;
 }
 
-/* Footer Kartu & Tombol */
+/* Footer Kartu & Tombol (Wajib Menimpa Stiker Chibi Sesuai Panduan Agent.md) */
 .page-kelas #kurikulum .doc-card-footer {
+    position: relative !important;
+    z-index: 5 !important;
     display: flex !important;
     align-items: center !important;
     justify-content: flex-start !important;
     gap: 10px !important;
     padding: 14px 24px 20px !important;
     border-top: 1px solid rgba(255, 101, 155, 0.12) !important;
-    background: rgba(255, 245, 248, 0.5) !important;
+    background: #ffffff !important;
+}
+
+.page-kelas #kurikulum .doc-card-footer a.doc-btn-download,
+.page-kelas #kurikulum .doc-card-footer a.btn-doc-download,
+.page-kelas #kurikulum .doc-card-footer a.doc-btn-view,
+.page-kelas #kurikulum .doc-card-footer a.btn-doc-view {
+    position: relative !important;
+    z-index: 6 !important;
 }
 
 .page-kelas #kurikulum .doc-card-footer a.doc-btn-download,
@@ -13709,7 +13719,7 @@ body.page-kurikulum .doc-back-btn:hover,
     stroke: #ffffff !important;
 }
 
-/* Chibi Corner */
+/* Chibi Corner: Elemen Dekoratif Aksen di Bawah Tombol (Wajib Ditimpa oleh Tombol & Konten Teks) */
 .page-kelas #kurikulum .doc-big-card .card-corner-chibi {
     position: absolute !important;
     right: 12px !important;
@@ -13717,8 +13727,8 @@ body.page-kurikulum .doc-back-btn:hover,
     width: 64px !important;
     height: auto !important;
     pointer-events: none !important;
-    z-index: 3 !important;
-    opacity: 0.9 !important;
+    z-index: 1 !important;
+    opacity: 0.85 !important;
     transition: transform 0.3s ease !important;
 }
 
@@ -13784,7 +13794,7 @@ body.theme-dark .page-kelas #kurikulum .doc-big-card p.doc-desc {
 
 body.dark-mode .page-kelas #kurikulum .doc-card-footer,
 body.theme-dark .page-kelas #kurikulum .doc-card-footer {
-    background: rgba(0, 0, 0, 0.2) !important;
+    background: #140f1a !important;
     border-top-color: rgba(255, 255, 255, 0.07) !important;
 }
 
