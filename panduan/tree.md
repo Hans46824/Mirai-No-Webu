@@ -26,7 +26,7 @@ Mirai-No-Webu/
 │   ├── translator.js               # Mesin bantu terjemahan
 │   └── api.js                      # Koneksi endpoint data
 │
-├── docs/                           # Dokumentasi & Panduan Proyek
+├── panduan/                        # Dokumentasi & Panduan Proyek
 │   ├── tree.md                     # Peta struktur direktori lengkap proyek ini
 │   └── agent.md                    # Pedoman aturan desain, fungsi, dan persona AI asisten
 │

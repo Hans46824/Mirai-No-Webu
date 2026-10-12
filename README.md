@@ -200,7 +200,7 @@ Mirai-No-Webu/
 │   ├── kanji-meta.json             # Metadata radikal, level JLPT, & jumlah goresan
 │   └── STROKES-LICENSE.md          # Lisensi resmi data goresan KanjiVG
 │
-├── docs/                           # Dokumentasi Arsitektur & Panduan AI
+├── panduan/                        # Dokumentasi Arsitektur & Panduan AI
 │   ├── tree.md                     # Peta pohon direktori komprehensif
 │   └── agent.md                    # Pedoman aturan desain, fungsi, dan persona asisten
 │

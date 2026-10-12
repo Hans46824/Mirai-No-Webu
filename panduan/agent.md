@@ -16,7 +16,7 @@ Seluruh berkas website Mirai no Webu dikelompokkan secara terstruktur ke dalam f
 - **Root (`/`)**: Berisi **index.html** (gerbang utama Beranda), **404.html** (halaman penanganan error ramah pengunjung bertema Mirai no Hana), dan **README.md** (etalase profil repositori GitHub dan dokumentasi kredit).
 - **`css/`**: Berisi master stylesheet antarmuka (`css/style.css`).
 - **`js/`**: Berisi seluruh logika JavaScript modular (`main.js`, `script.js`, `kanji.js`, `kana.js`, `stroke.js`, `stroke-data.js`, `sora.js`, dll.).
-- **`docs/`**: Berisi dokumentasi arsitektur proyek (`docs/tree.md`, `docs/agent.md`) dan pedoman PDF (`docs/kurikulum/`).
+- **`panduan/`**: Berisi dokumentasi arsitektur proyek (`panduan/tree.md`, `panduan/agent.md`).
 - **`data/`**: Berisi basis data lokal JSON (`kana.json`, `kanji.json`, `kanji-meta.json`) yang menyuplai data untuk Kamus dan Latihan Kana/Kanji.
 - **`tentang/`**: Profil lengkap klub Mirai No Hana (`index.html`).
 - **`lomba/`**: Informasi 18 lomba & festival jejepangan (`index.html`).
