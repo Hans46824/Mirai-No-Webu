@@ -82,40 +82,45 @@ Website **Mirai no Webu** terdiri dari berbagai modul tematik yang memiliki pera
 * **5. Tomodachi (`kegiatan/tomodachi.html`)**: Forum keakraban santai antar-anggota aktif dan temu alumni untuk mempererat silaturahmi dan *sharing session*.
 * **Galeri Fasilitas**: Showcase inventaris resmi klub meliputi seragam Haori kustom, jubah Happi festival, pin lencana logam, lanyard, kartu identitas anggota (IDC), dan perpustakaan modul belajar.
 
-### 5. 👥 Profil 4 Divisi Resmi (`/divisi/`)
+### 5. 🛍️ Toko Resmi Klub & Mirai no Konbini (`/toko/index.html`)
+* **Etalase Produk Terpadu**: Katalog 16 produk resmi mencakup busana Haori klub, jubah Happi festival, atribut identitas (IDC, pin, lanyard), stan kuliner Mirai no Konbini (onigiri, dorayaki, matcha), serta cinderamata kreatif buatan siswa.
+* **Fitur Filter & Keranjang Belanja**: Penyaring kategori instan, pencarian nama produk, pengurutan harga/nama, serta simulasi keranjang belanja melayang (*floating cart*) yang otomatis menyalin rincian pesanan dan mengarahkannya ke formulir resmi Google Form.
+* **Transparansi Kas Mandiri & FAQ**: Edukasi kewirausahaan siswa mengenai alokasi keuntungan untuk kas klub, panduan 4 langkah pemesanan, dan accordion FAQ pra-pesan.
+
+### 6. 👥 Profil 4 Divisi Resmi (`/divisi/`)
 * **Hub Divisi (`divisi/index.html`)**: Struktur 4 pilar minat & bakat siswa di Mirai no Hana.
 * **Divisi Bahasa (`divisi/bahasa.html`)**: Berfokus pada penguasaan tata bahasa, percakapan (*kaiwa*), persiapan lomba pidato/cerdas cermat, dan sertifikasi JLPT.
 * **Divisi Cosplay (`divisi/cosplay.html`)**: Berfokus pada seni peran karakter, perancangan busana (*costume making*), tata rias (*make up*), serta etika bercosplay yang positif.
 * **Divisi Desain Grafis (`divisi/desain.html`)**: Berfokus pada pembuatan ilustrasi anime digital, desain poster kegiatan, visual media sosial, dan antarmuka web.
 * **Divisi Kewirausahaan (`divisi/kewirausahaan.html`)**: Berfokus pada manajemen bazaar Mirai no Konbini, pengelolaan keuangan kas, dan produksi cinderamata klub.
 
-### 6. 🏆 Papan Peringkat & Prestasi (`/peringkat/index.html`)
+### 7. 🏆 Papan Peringkat & Prestasi (`/peringkat/index.html`)
 * **Gamifikasi Keaktifan**: Sistem rekapitulasi poin keaktifan, presensi latihan mingguan, dan kuis anggota. Menampilkan podium 3 besar bersih dengan avatar karakter chibi dan daftar peringkat keaktifan.
 * **Etalase Piala Kejuaraan**: Dokumentasi rekam jejak kemenangan delegasi klub pada berbagai kompetisi tingkat kota, provinsi, hingga nasional.
 
-### 7. 🎌 Kalender Lomba & Matsuri (`/lomba/index.html`)
+### 8. 🎌 Kalender Lomba & Matsuri (`/lomba/index.html`)
 * Papan pengumuman terpadu seputar 18 agenda kompetisi bahasa/budaya Jepang dan festival kebudayaan (Matsuri & Bunkasai) di lingkungan universitas Jawa Timur (seperti Bunkasai ITS, Bunkasai UNAIR, Matsuri UNESA, dll.).
 
-### 8. 🎬 Rekomendasi Media Belajar (`/rekomendasi/index.html`)
+### 9. 🎬 Rekomendasi Media Belajar (`/rekomendasi/index.html`)
 * Kurasi judul anime, film drama, dan lagu Jepang ramah pelajar yang memiliki nilai edukasi tinggi untuk melatih kemampuan menyimak (*choukai*) dan menambah perbendaharaan kosakata.
 
-### 9. 🌸 Profil Klub & Kepengurusan (`/tentang/index.html`)
+### 10. 🌸 Profil Klub & Kepengurusan (`/tentang/index.html`)
 * Sejarah pendirian klub, filosofi nama bunga masa depan (*Mirai no Hana*), lambang bendera organisasi, makna filosofis motif busana Haori/Happi, profil foto kepengurusan aktif dan demisioner, serta kanal formulir masukan, kritik, dan saran Google Form.
 
-### 10. 🤖 Asisten Obrolan Maskot Sora (`/sora/index.html` & Widget Mengambang)
+### 11. 🤖 Asisten Obrolan Maskot Sora (`/sora/index.html` & Widget Mengambang)
 * Bot pendamping virtual bernama **Asora Aokita (Sora)** dengan persona gadis SMA yang ceria, ramah, dan suportif.
 * Dilengkapi mesin penjawab offline lokal berbasis pola kata kunci (*fallbackReply*), generator stiker anime acak, serta dukungan format Markdown rapi via Marked.js & DOMPurify.
 
-### 11. 💫 Mesin Gerakan Native (*Native Motion Engine*)
+### 12. 💫 Mesin Gerakan Native (*Native Motion Engine*)
 * **W3C View Transitions API**: Navigasi antar halaman berlangsung mulus dengan transisi *cross-fade* lembut tanpa jeda layar putih.
 * **Page Entrance Motion**: Setiap halaman yang dimuat menampilkan animasi masuk lembut ke atas (`contentSlideIn` & `pageFadeIn`) dengan kurva *decelerate* modern `cubic-bezier(0.16, 1, 0.3, 1)`.
 * **Automatic Scroll Reveal**: Seluruh kartu komponen otomatis terhubung ke `IntersectionObserver` di `main.js` dengan jeda kemunculan berjenjang (*stagger delay*).
 * **Aksesibilitas Terjaga**: Mendukung penuh `@media (prefers-reduced-motion: reduce)` bagi pengguna yang sensitif terhadap animasi gerak.
 
-### 12. 🚫 Halaman 404 Estetik (`/404.html`)
+### 13. 🚫 Halaman 404 Estetik (`/404.html`)
 * Halaman penanganan tautan salah ketik berdesain elegan khas tema obsidian-pink Mirai no Hana, dilengkapi ilustrasi maskot Sora yang tersesat dan tombol kembali cepat ke Beranda, Kamus, atau Kelas.
 
-### 13. 🌸 Hero Sticky Curtain Reveal & Akses Media Sosial Cepat (Universal)
+### 14. 🌸 Hero Sticky Curtain Reveal & Akses Media Sosial Cepat (Universal)
 * **Sticky Curtain Reveal & Scroll-Ascending Effect**: Seluruh banner hero website (`.hero`, `.page-hero`, `.proker-hero`, `.quest-hero`) menerapkan arsitektur *Sticky Curtain Reveal* (`position: sticky; top: 0; z-index: 1;`). Gambar latar Sora **ketinggal dan menetap diam di layar** tanpa pergeseran background (bebas celah hitam), sementara seksi materi/konten di bawahnya meluncur naik menutupi / "memakan" latar hero secara fisik dengan bayangan elevasi tebal dramatis dan background solid saat pengguna melakukan scrolling. Teks judul hero dan tombol medsos bergerak naik ke atas secara solid 100% tanpa style transparansi/opacity.
 * **Akses Media Sosial Cepat**: Tombol lingkaran kaca mengambang vertikal di pojok kanan hero yang posisinya sejajar dengan teks judul hero menghubungkan pengunjung langsung ke [Instagram](https://www.instagram.com/mirainohana_smawh2) dan [TikTok](https://www.tiktok.com/@nihongo.kurabu.wh2) resmi klub. Dilengkapi integrasi penuh ke protokol auto-hide floating controls.
 
@@ -166,6 +171,9 @@ Mirai-No-Webu/
 │   ├── ramadhan.html               # Proker 4: Mirai no Ramadhan
 │   ├── tomodachi.html              # Proker 5: Tomodachi
 │   └── images/                     # Aset foto logo proker & dokumentasi kegiatan
+│
+├── toko/                           # Toko Resmi Klub & Mirai no Konbini
+│   └── index.html                  # Etalase produk Haori, cinderamata, kuliner, & GForm
 │
 ├── tentang/                        # Profil Lengkap Klub & Kepengurusan
 │   ├── index.html                  # Sejarah, filosofi bendera, Haori, & 11 pengurus

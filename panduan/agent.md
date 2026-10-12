@@ -25,6 +25,7 @@ Seluruh berkas website Mirai no Webu dikelompokkan secara terstruktur ke dalam f
 - **`kelas/`**: Hub pembelajaran mandiri (`index.html`, `latihan.html`, `motivasi.html`, dan folder PDF `kurikulum/`). Modul materi kelas dasar, kelas lanjutan, serta dokumen kurikulum & tata cara pengajaran kini terpadu langsung di `index.html`.
 - **`divisi/`**: Struktur 4 divisi resmi klub (`index.html`, `bahasa.html`, `cosplay.html`, `desain.html`, `kewirausahaan.html`).
 - **`kegiatan/`**: Hub program kerja & fasilitas (`index.html`), `kimi-to-nippon.html` (orientasi KTN), `nihon-go-rajio.html` (siaran NJR), `konbini.html`, `ramadhan.html`, dan `tomodachi.html`.
+- **`toko/`**: Toko resmi klub & stan Mirai no Konbini (`index.html`) untuk atribut Haori, cinderamata kreatif, kuliner Jepang, simulasi keranjang belanja melayang, dan pemesanan via Google Form.
 - **`kamus/`**: Kamus interaktif pencarian Kana & Kanji (`index.html`) dan Ensiklopedia Kanji (`kanji.html`).
 - **`materi/`**: Modul pembelajaran terperinci (`materi/dasar/` dan `materi/lanjutan/`).
 - **`sora/`**: Playground bot obrolan maskot Sora (`index.html`).
@@ -75,16 +76,31 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
 
 ## 3. Aturan Desain & Tampilan Visual
 
-### A. Konsep Selang-Seling Hitam dan Putih
-- Halaman web (terutama halaman profil Tentang dan penjelasan proker) menggunakan sistem seksi warna selang-seling antara hitam dan putih.
+### A. Konsep Selang-Seling Hitam dan Putih (Universal Section Alternation)
+- Seluruh halaman web (Beranda, Tentang, Program & Fasilitas, serta Toko) menggunakan sistem seksi warna selang-seling antara hitam (#0e0b12 atau #111115) dan putih murni (#ffffff).
 - Tujuannya menjaga ritme membaca pengunjung agar mata tidak cepat lelah saat menggulir halaman panjang.
-- Seksi hitam memakai warna latar gelap (#111111 atau #0e0d13) dengan teks putih bersih.
-- Seksi putih memakai latar putih murni (#ffffff) dengan teks warna abu gelap pekat (#18151b).
+- **Seksi Hitam / Gelap**:
+  - Warna latar belakang solid `#0e0b12` atau `#111115` selebar 100% layar (*full width*).
+  - Teks judul putih bersih `#ffffff` dipadukan aksen pink sakura `<span>...</span>`.
+  - Teks deskripsi menggunakan abu-abu lembut (`#cbd5e1` atau `#94a3b8`) agar kontrasnya nyaman di mata.
+  - Kartu komponen menggunakan permukaan gelap gradasi (`linear-gradient(160deg, #1a1424, #120e19)`) dengan pola gelap (`c1b.jpeg` atau `w1b.jpeg`) transparansi 4.5% (`mix-blend-mode: screen`).
+- **Seksi Putih / Terang**:
+  - Warna latar belakang putih murni solid `#ffffff` selebar 100% layar (*full width*).
+  - Teks judul menggunakan warna hitam pekat `#18151b` dipadukan aksen pink sakura `<span>...</span>`.
+  - Teks deskripsi dan paragraf menggunakan abu gelap pekat (`#554857` atau `#475569`) dengan standar kontras tinggi WCAG AAA.
+  - Kartu komponen menggunakan permukaan putih bersih (`#ffffff`) dengan border pink pastel (`#ffccd9` / `#ebd0dc`) dan pola terang (`c1w.jpeg` atau `w1w.jpeg`) transparansi 10% (`mix-blend-mode: multiply`).
+- **Perlindungan Lebar Penuh (Anti-Bleed Background Rule)**: Setiap seksi wajib membentang penuh 100% lebar layar (`width: 100%`), sedangkan isi konten di dalamnya dibatasi dalam kontainer tengah (`max-width: 1200px` - `1240px; margin: 0 auto;`), sehingga tidak terjadi kebocoran latar belakang (*background bleed*) di layar monitor lebar.
 
-### B. Background Hero Tiap Halaman
-- Tidak semua halaman wajib memiliki background hero gambar besar.
-- Halaman utama (Beranda, Tentang, Kegiatan, Papan Peringkat, Lomba) memiliki hero visual yang menonjol dan menarik perhatian.
-- Halaman fokus materi (Kelas & Kurikulum, Kamus, Latihan) memakai hero minimalis tanpa gambar berat (atau hero sticky curtain), agar pengguna langsung fokus ke modul pembelajaran.
+### B. Aturan Latar Belakang Hero (Clean Hero & Sticky Curtain Reveal Rule)
+- **Aturan Judul Bersih Hero (Clean Hero Rule)**:
+  - Pada halaman yang memiliki gambar latar maskot Sora (`background-image: url("../images/mirai/background/Sora.png")`), area hero **HANYA BOLEH menampilkan judul halaman murni (`<h1>`)** tanpa teks kicker/eyebrow, tanpa subjudul, dan tanpa paragraf pengantar.
+  - Tujuannya agar visual ilustrasi karakter Sora tampil megah, bersih, lapang, dan tidak tertutup tumpukan teks yang berantakan.
+  - Contoh: Pada halaman Toko, judul hero murni berupa `<h1 class="page-title">Toko</h1>` tanpa embel-embel teks lainnya.
+- **Arsitektur Sticky Curtain Reveal**:
+  - Hero menerapkan `position: sticky; top: 0; z-index: 1; min-height: 59svh; display: flex; align-items: flex-end;`.
+  - Gambar latar Sora menetap diam di layar saat halaman digulir (*parallax-free clean anchor*).
+  - Seksi pertama di bawah hero (`.page-hero + section`) wajib memiliki elevasi bayangan tebal meluncur naik (`box-shadow: 0 -35px 85px rgba(0, 0, 0, 0.98); z-index: 12; position: relative;`) berlatar solid untuk menutup / "memakan" hero secara fisik dan mulus saat digulir.
+  - Dilarang keras menimpa `.page-hero` dengan warna radial gradient kusam atau background solid lokal yang menghilangkan karakter Sora.
 
 ### C. Aturan Pola Background (Pattern) & Selang-Seling Tiap Halaman Menu
 - **Aturan Selang-Seling 9 Halaman Menu Utama**: Motif pola pada tiap kartu diatur berselang-seling mengikuti urutan menu navigasi dari awal sampai akhir:
@@ -92,7 +108,7 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
   2. **Kelas & Kurikulum**: Menggunakan Pola Ombak Wagara Seigaiha — **w1b.jpeg** (kartu seksi gelap) & **w1w.jpeg** (kartu seksi terang).
   3. **Kamus**: Menggunakan Pola Awan Kumo — **c1b.jpeg** (kartu seksi gelap) & **c1w.jpeg** (kartu seksi terang).
   4. **Program & Fasilitas**: Menggunakan Pola Ombak Wagara Seigaiha — **w1b.jpeg** (kartu divisi & seksi fasilitas kelas/gelap) & **w1w.jpeg** (kartu program kerja/terang).
-  5. **Toko & Konbini**: Menggunakan Pola Awan Kumo — **c1b.jpeg** (kartu seksi gelap) & **c1w.jpeg** (kartu seksi terang).
+  5. **Toko**: Menggunakan Pola Awan Kumo — **c1b.jpeg** (kartu seksi gelap) & **c1w.jpeg** (kartu seksi terang).
   6. **Rekomendasi**: Menggunakan Pola Awan Kumo — **c1b.jpeg** (kartu seksi gelap) & **c1w.jpeg** (kartu seksi terang).
   7. **Papan Peringkat**: Menggunakan Pola Ombak Wagara Seigaiha — **w1b.jpeg** (kartu podium & tabel gelap) & **w1w.jpeg** (kartu terang).
   8. **Lomba & Acara**: Menggunakan Pola Awan Kumo — **c1b.jpeg** (kartu acara gelap) & **c1w.jpeg** (kartu detail terang).
@@ -111,26 +127,50 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
 ### E. Skema Warna Web (Pink, Putih, Hitam + Multi-Color)
 - Warna pondasi klub: Pink sakura (#ff4f91 dan #e91e63), putih (#ffffff), dan hitam gelap (#09090d / #111115).
 - Warna aksen (multi-color) wajib digunakan pada lencana, label tingkat, dan status agar tampilan tidak monoton:
-  - Biru (#38bdf8 / #0284c7): Tingkat Sidoarjo, Jawa Timur, dan informasi teknis.
-  - Hijau (#10b981 / #34d399): Tingkat Surabaya, status pendaftaran buka, presensi hadir.
-  - Oranye / Emas (#f97316 / #f59e0b): Tingkat provinsi, juara perunggu dan emas, status perhatian.
+  - Biru (#38bdf8 / #0284c7): Tingkat Sidoarjo, Jawa Timur, status Segar & Hangat kuliner, dan informasi teknis.
+  - Hijau (#10b981 / #34d399): Tingkat Surabaya, status Tersedia produk, status pendaftaran buka, presensi hadir.
+  - Oranye / Emas (#f97316 / #f59e0b): Tingkat provinsi, status Pra-Pesan (PO), juara perunggu dan emas, status perhatian.
   - Merah (#f43f5e / #e11d48): Tingkat nasional, status pendaftaran ditutup, batas akhir waktu.
   - Ungu (#a855f7 / #c084fc): Kategori acara festival cosplay dan ruang maskot Sora.
 
-### F. Aturan Judul Tiap Halaman (Heading)
-- Gunakan gaya Two-Tone: Teks judul berwarna putih atau hitam dipadukan dengan kata kunci penting berwarna pink sakura di dalam tag span.
-- Judul harus berbobot tegas (font-weight 800 ke atas) dan proporsional di layar laptop maupun ponsel.
-- Dilarang memakai penomoran angka berawalan nol (seperti 01 atau 02) dan dilarang memakai garis miring (/) yang kaku.
-- **Judul Bersih Mandiri**: Pada seksi spesifik seperti Fasilitas, judul dibuat mandiri tanpa kicker/sub-judul atau deskripsi bertele-tele yang membuang ruang.
+### F. Aturan Judul Tiap Halaman, Seksi, dan Kartu (Heading & Title Standard)
+- **Judul Hero Halaman (Hero Title)**:
+  - Bersih mandiri, tegas, berbobot tebal (`font-weight: 800 - 900`, `letter-spacing: -0.08em`, `font-size: clamp(58px, 8vw, 116px)`).
+  - Pada halaman Toko, judul hero adalah murni **"Toko"** (`<h1 class="page-title">Toko</h1>`).
+- **Judul Seksi Halaman (Section Heading)**:
+  - Gaya Two-Tone: Warna dasar (putih di seksi gelap / `#18151b` di seksi terang) dipadukan dengan kata kunci penting berwarna pink sakura di dalam tag `<span>`.
+  - Format rata kiri seragam (`.heading`), tanpa penomoran angka 01/02, dan tanpa garis miring (/) yang kaku.
+- **Judul pada Kartu (Card Title)**:
+  - Berukuran proporsional (`16px` - `18px`, `font-weight: 800`).
+  - Langsung menamai entitas produk/fitur/materi secara spesifik, padat, dan tidak berulang.
+  - Didukung metadata tipografi aksara Jepang jika relevan (`.toko-jp-name` bergaya *Noto Serif JP* warna pink).
 
-### G. Aturan Bahasa Antarmuka (Hanya Bahasa Indonesia & Bahasa Jepang)
-- Seluruh teks tampilan website (judul, deskripsi, tombol, menu navigasi, badge, petunjuk kuis, dan pesan) **WAJIB murni menggunakan Bahasa Indonesia** sebagai bahasa pengantar dan **Bahasa Jepang** (Kanji, Hiragana, Katakana, dan Romaji) untuk materi pembelajaran klub.
-- **Dilarang keras memakai Bahasa Inggris yang tidak perlu** pada teks yang dilihat pengunjung web. Selalu gunakan padanan Bahasa Indonesia yang luwes (misalnya: hindari *Level*, *Challenge*, *Overview*, *Coming Soon* jika ada padanan tepat seperti *Tingkat/Level*, *Tantangan*, *Ringkasan*, *Segera Hadir*).
+### G. Aturan Bahasa Antarmuka (Pemberantasan Bahasa Inggris yang Tidak Perlu)
+- Seluruh teks tampilan website (judul, deskripsi, tombol, menu navigasi, badge, filter, dan pesan) **WAJIB murni menggunakan Bahasa Indonesia** sebagai bahasa pengantar dan **Bahasa Jepang** (Kanji, Hiragana, Katakana, dan Romaji) untuk materi pembelajaran klub.
+- **Dilarang keras memakai Bahasa Inggris yang tidak perlu** pada teks yang dilihat pengunjung web.
+- **Kamus Standar Padanan Istilah UI/UX**:
+  - *Pre-Order (PO)* &rarr; **Pra-Pesan (PO)**
+  - *Ready Stock* &rarr; **Tersedia**
+  - *Best Seller* &rarr; **Paling Laris**
+  - *Fresh* &rarr; **Segar & Hangat**
+  - *Custom* &rarr; **Kustom / Pesan Khusus**
+  - *All Size / Oversized* &rarr; **Semua Ukuran / Longgar Nyaman**
+  - *Sticker Pack* &rarr; **Paket Stiker**
+  - *Totebag* &rarr; **Tas Jinjing (Totebag)**
+  - *Cart* &rarr; **Keranjang Belanja**
+  - *Add to Cart* &rarr; **+ Keranjang**
+  - *Checkout* &rarr; **Pesan via Google Form**
+  - *Clear Cart* &rarr; **Kosongkan Keranjang**
+  - *Search* &rarr; **Cari Produk / Materi**
+  - *Level / Challenge* &rarr; **Tingkat / Tantangan**
 - Gunakan bahasa manusia yang hangat, santai, dan bersahabat seperti gaya komunikasi anak muda sekolah. Hindari istilah kaku buatan mesin AI.
 
-### H. Aturan Deskripsi dan Teks Pendukung
-- Deskripsi harus padat dan ringkas (cukup 2 sampai 3 baris kalimat).
-- Di latar gelap, warna teks deskripsi menggunakan abu-abu lembut (#cbd5e1 atau #94a3b8), bukan putih murni 100%, agar kontrasnya nyaman di mata.
+### H. Aturan Deskripsi dan Teks Pendukung (Card & Page Description Rule)
+- Deskripsi harus padat, informatif, dan ringkas (maksimal 2 sampai 3 baris kalimat, dibatasi dengan `-webkit-line-clamp: 3` pada kartu produk).
+- **Kontras Warna Teks**:
+  - Di latar gelap: Warna teks deskripsi menggunakan abu-abu lembut (`#cbd5e1` atau `#94a3b8`), bukan putih murni 100%, agar kontrasnya nyaman di mata dan tidak silau.
+  - Di latar putih/terang: Warna teks deskripsi menggunakan abu gelap pekat (`#554857` atau `#475569`), bukan hitam murni tajam, untuk kenyamanan membaca optimal.
+- Dilarang membuat kalimat deskripsi bertele-tele, klise, atau membuang ruang visual kartu.
 
 ### I. Aturan Tombol
 - Sudut tombol melengkung halus dan modern (border-radius: 12px), bukan kotak kaku dan bukan oval lonjong.
