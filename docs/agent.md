@@ -293,3 +293,28 @@ Seluruh riwayat commit repositori wajib rapi dan seragam menggunakan bahasa Indo
 - **`style:`** — Perubahan gaya visual CSS atau tipografi tanpa mengubah logika skrip.
 - **`chore:`** — Pemeliharaan konfigurasi perkakas atau skrip otomasi Python.
 
+---
+
+## 10. Protokol Universal Anti-Halangan Kontrol Mengambang (Floating Controls Auto-Hide)
+
+Website Mirai no Hana memiliki elemen kontrol mengambang global yang selalu menempel di layar (*fixed overlay*), yaitu:
+- **Tombol Menu Navigasi** (`.menu-btn`) di pojok kanan atas.
+- **Tombol Launcher Chat Sora** (`#launcher` & `.sora-widget`) di pojok kanan bawah.
+- **Tombol Kembali ke Atas** (`.to-top`) di pojok kanan bawah.
+
+### Aturan Wajib Anti-Halangan (Sekarang & Fitur Mendatang):
+1. **Otomatis Bersembunyi Saat Ada Fitur/Modal yang Dibuka**:
+   Setiap kali ada fitur interaktif yang menutupi layar atau memerlukan fokus pengguna sedang berjalan/dibuka, seluruh tombol kontrol mengambang di atas **WAJIB otomatis bersembunyi / tertutup** (`opacity: 0 !important; visibility: hidden !important; pointer-events: none !important;`):
+   - **Latihan Mandiri Kana** (`.practice-view`, `.result-view`, `body.is-practicing`).
+   - **Chatbot Asora Aokita (Sora)** (`#drawer.open`, `#drawer.fullscreen`, `body.sora-drawer-open`, `body.sora-fullscreen-active`, `.sora-panel`).
+   - **Sidebar Navigasi Menu** (`.sidebar-nav.active`, `body.sidebar-open`).
+   - **Lightbox Peninjau Foto** (`.img-lightbox.is-open`, `.lightbox.active`, `body.lightbox-open`).
+   - **Seluruh Modal & Dialog Masa Depan** (`.modal.is-open`, `.modal.active`, `dialog[open]`, `[role="dialog"].is-open`).
+2. **Pemulihan Otomatis Saat Ditutup**:
+   Begitu jendela/modal/chat/latihan tersebut ditutup, seluruh kontrol mengambang **wajib otomatis muncul kembali** secara mulus tanpa memerlukan tindakan manual dari pengunjung (`transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease`).
+3. **Pemberlakuan CSS & JS Dual-Layer**:
+   - Lapisan CSS menggunakan selector canggih `body:has(...)` untuk deteksi otomatis tanpa bergantung penuh pada JS.
+   - Lapisan JavaScript menyediakan penanda kelas status di `document.body` (`.is-practicing`, `.sora-drawer-open`, `.sora-fullscreen-active`, `.sidebar-open`, `.lightbox-open`) untuk kompatibilitas mutlak 100% di semua peramban.
+   - Setiap penambahan fitur overlay atau modal baru di masa depan **WAJIB mematuhi protokol ini**.
+
+

@@ -191,6 +191,7 @@
             right: 0;
             border-radius: 0;
             border: none;
+            z-index: 99999 !important;
         }
 
         /* Slim Minimal Header */
@@ -1007,6 +1008,7 @@
 
         function openDrawer() {
             drawer.classList.add('open');
+            document.body.classList.add('sora-drawer-open');
             launcher.classList.add('hidden');
             setTimeout(() => input.focus(), 120);
         }
@@ -1014,6 +1016,7 @@
         function closeDrawer() {
             drawer.classList.remove('open');
             drawer.classList.remove('fullscreen');
+            document.body.classList.remove('sora-drawer-open', 'sora-fullscreen-active');
             if (fullscreenBtn) {
                 fullscreenBtn.textContent = '⛶';
                 fullscreenBtn.title = 'Layar Penuh';
@@ -1104,6 +1107,7 @@
 
         function toggleFullscreen() {
             const isFull = drawer.classList.toggle('fullscreen');
+            document.body.classList.toggle('sora-fullscreen-active', isFull);
             if (fullscreenBtn) {
                 fullscreenBtn.textContent = isFull ? '⤡' : '⛶';
                 fullscreenBtn.title = isFull ? 'Perkecil Layar' : 'Layar Penuh';

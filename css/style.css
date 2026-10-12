@@ -1060,20 +1060,86 @@ header.home-header,
     box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
 }
 
-/* Sembunyikan tombol menu saat Sidebar Nav sedang terbuka */
+/* ==========================================================================
+   PROTOKOL UNIVERSAL ANTI-HALANGAN KONTROL MENGAMBANG (AUTO-HIDE FLOATING CONTROLS)
+   Menyembunyikan .menu-btn, #launcher, .to-top, dan .sora-widget secara otomatis
+   saat ada overlay, modal, latihan kana, chat sora, sidebar, atau lightbox aktif.
+   ========================================================================== */
+
+/* 1. Sembunyikan tombol menu (.menu-btn) */
+body.is-practicing .menu-btn,
+body:has(.practice-view:not([hidden])) .menu-btn,
+body:has(.result-view:not([hidden])) .menu-btn,
+body.sora-drawer-open .menu-btn,
+body.sora-fullscreen-active .menu-btn,
+body.sora-widget-open .menu-btn,
+body:has(#drawer.open) .menu-btn,
+body:has(.sora-panel:not([hidden])) .menu-btn,
+body.sidebar-open .menu-btn,
 body:has(.sidebar-nav.active) .menu-btn,
-body.sidebar-open .menu-btn {
+body.lightbox-open .menu-btn,
+body:has(.img-lightbox.is-open) .menu-btn,
+body:has(.lightbox.active) .menu-btn,
+body.modal-open .menu-btn,
+body:has(.modal.is-open) .menu-btn,
+body:has(.modal.active) .menu-btn,
+body:has(dialog[open]) .menu-btn {
     opacity: 0 !important;
     visibility: hidden !important;
     pointer-events: none !important;
+    transform: translateY(-8px) scale(0.92) !important;
 }
 
-/* Sembunyikan tombol menu saat Tanya Sora dalam mode fullscreen */
-body:has(#drawer.open.fullscreen) .menu-btn,
-body.sora-fullscreen-active .menu-btn {
+/* 2. Sembunyikan launcher chatbot Sora (#launcher & .sora-widget) */
+body.is-practicing #launcher,
+body.is-practicing .sora-widget,
+body:has(.practice-view:not([hidden])) #launcher,
+body:has(.practice-view:not([hidden])) .sora-widget,
+body:has(.result-view:not([hidden])) #launcher,
+body:has(.result-view:not([hidden])) .sora-widget,
+body.sora-drawer-open #launcher,
+body.sora-fullscreen-active #launcher,
+body:has(#drawer.open) #launcher,
+body.sidebar-open #launcher,
+body.sidebar-open .sora-widget,
+body:has(.sidebar-nav.active) #launcher,
+body:has(.sidebar-nav.active) .sora-widget,
+body.lightbox-open #launcher,
+body.lightbox-open .sora-widget,
+body:has(.img-lightbox.is-open) #launcher,
+body:has(.img-lightbox.is-open) .sora-widget,
+body.modal-open #launcher,
+body.modal-open .sora-widget,
+body:has(.modal.is-open) #launcher,
+body:has(.modal.active) #launcher,
+body:has(dialog[open]) #launcher {
     opacity: 0 !important;
     visibility: hidden !important;
     pointer-events: none !important;
+    transform: translateY(12px) scale(0.88) !important;
+}
+
+/* 3. Sembunyikan tombol kembali ke atas (.to-top) */
+body.is-practicing .to-top,
+body:has(.practice-view:not([hidden])) .to-top,
+body:has(.result-view:not([hidden])) .to-top,
+body.sora-drawer-open .to-top,
+body.sora-fullscreen-active .to-top,
+body.sora-widget-open .to-top,
+body:has(#drawer.open) .to-top,
+body:has(.sora-panel:not([hidden])) .to-top,
+body.sidebar-open .to-top,
+body:has(.sidebar-nav.active) .to-top,
+body.lightbox-open .to-top,
+body:has(.img-lightbox.is-open) .to-top,
+body.modal-open .to-top,
+body:has(.modal.is-open) .to-top,
+body:has(.modal.active) .to-top,
+body:has(dialog[open]) .to-top {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: translateY(12px) scale(0.88) !important;
 }
 
 .menu-btn:hover {

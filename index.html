@@ -1131,15 +1131,10 @@ body.sora-fullscreen-active .menu-btn {
 
         function openDrawer() {
             drawer.classList.add('open');
+            document.body.classList.add('sora-drawer-open');
             launcher.classList.add('hidden');
             if (drawer.classList.contains('fullscreen')) {
                 document.body.classList.add('sora-fullscreen-active');
-                const menuBtn = document.querySelector('.menu-btn');
-                if (menuBtn) {
-                    menuBtn.style.opacity = '0';
-                    menuBtn.style.visibility = 'hidden';
-                    menuBtn.style.pointerEvents = 'none';
-                }
             }
             setTimeout(() => input.focus(), 120);
         }
@@ -1147,17 +1142,11 @@ body.sora-fullscreen-active .menu-btn {
         function closeDrawer() {
             drawer.classList.remove('open');
             drawer.classList.remove('fullscreen');
-            document.body.classList.remove('sora-fullscreen-active');
+            document.body.classList.remove('sora-drawer-open', 'sora-fullscreen-active');
             if (fullscreenBtn) {
                 fullscreenBtn.textContent = '⛶';
                 fullscreenBtn.title = 'Layar Penuh';
                 fullscreenBtn.setAttribute('aria-label', 'Layar Penuh');
-            }
-            const menuBtn = document.querySelector('.menu-btn');
-            if (menuBtn) {
-                menuBtn.style.opacity = '';
-                menuBtn.style.visibility = '';
-                menuBtn.style.pointerEvents = '';
             }
             launcher.classList.remove('hidden');
         }

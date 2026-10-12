@@ -356,12 +356,14 @@ function setupSora() {
         const isOpen = panel.hidden;
         panel.hidden = !isOpen;
         toggle.setAttribute("aria-expanded", String(isOpen));
+        document.body.classList.toggle("sora-widget-open", isOpen);
         if (isOpen) input.focus();
     });
 
     close?.addEventListener("click", () => {
         panel.hidden = true;
         toggle.setAttribute("aria-expanded", "false");
+        document.body.classList.remove("sora-widget-open");
         toggle.focus();
     });
 
@@ -524,12 +526,14 @@ function setupImageLightbox() {
         captionEl.textContent = caption;
 
         lightbox.classList.add("is-open");
+        document.body.classList.add("lightbox-open");
         document.body.style.overflow = "hidden";
     }
 
     function closeLightbox() {
         if (!lightbox) return;
         lightbox.classList.remove("is-open");
+        document.body.classList.remove("lightbox-open");
         document.body.style.overflow = "";
         setTimeout(() => {
             if (imgEl && !lightbox.classList.contains("is-open")) {

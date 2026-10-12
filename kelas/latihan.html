@@ -1045,6 +1045,19 @@ body.is-practicing {
     opacity: 1 !important;
     transform: none !important;
 }
+
+/* Sembunyikan kontrol mengambang saat sesi latihan/hasil aktif */
+body.is-practicing .menu-btn,
+body:has(.practice-view:not([hidden])) .menu-btn,
+body:has(.result-view:not([hidden])) .menu-btn,
+body.is-practicing .to-top,
+body:has(.practice-view:not([hidden])) .to-top,
+body:has(.result-view:not([hidden])) .to-top {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: translateY(-8px) scale(0.92) !important;
+}
 </style>
 </head>
 <body class="learning-app page-latihan">
