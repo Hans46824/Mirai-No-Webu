@@ -1411,26 +1411,56 @@ body:has(dialog[open]) .hero-social-sidebar {
    Fullscreen Hero Section (Tengoku Style)
    ========================================================================== */
 .hero {
-    min-height: 100vh;
-    min-height: 100dvh;
-    background-image: url("../images/mirai/background/Sora.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    position: relative;
+    height: 100vh;
+    height: 100dvh;
+    min-height: 550px;
+    position: sticky;
+    top: 0;
     overflow: hidden;
     color: var(--white);
     box-sizing: border-box;
+    z-index: 1;
+    background: #09060c;
+}
+
+/* Layer Latar Belakang Gambar Sora untuk Gerakan Parallax Dinamis */
+.hero-bg-layer {
+    position: absolute;
+    top: -15%;
+    left: 0;
+    width: 100%;
+    height: 135%;
+    background-image: url("../images/mirai/background/Sora.png");
+    background-size: cover;
+    background-position: center 20%;
+    background-repeat: no-repeat;
+    will-change: transform;
+    pointer-events: none;
+    z-index: 1;
+    transform: translate3d(0, 0, 0);
 }
 
 .hero::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.25) 50%, rgba(0, 0, 0, 0.55) 100%);
     pointer-events: none;
-    z-index: 1;
+    z-index: 2;
+}
+
+/* Seluruh seksi setelah Hero menimpa hero secara fisik ("kemakan sama page") */
+body.page-beranda main > section:not(.hero) {
+    position: relative;
+    z-index: 10;
+    background: #0c0810;
+}
+
+body.page-beranda .about-preview {
+    position: relative !important;
+    z-index: 12 !important;
+    background: #0c0810 !important;
+    box-shadow: 0 -32px 75px rgba(0, 0, 0, 0.95) !important;
 }
 
 .hero-text-box {

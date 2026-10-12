@@ -10,9 +10,58 @@ document.addEventListener("DOMContentLoaded", () => {
     setupManagementSlider();
     setupImageLightbox();
     setupFooterQuoteSlider();
+    setupHeroParallax();
     window.initKanjiDictionary?.();
     window.initSora?.();
 });
+
+function setupHeroParallax() {
+    const heroBg = document.getElementById("heroBgLayer");
+    const heroSection = document.querySelector(".hero");
+    if (!heroBg || !heroSection) return;
+
+    const heroTextBox = heroSection.querySelector(".hero-text-box");
+    const heroSocial = heroSection.querySelector(".hero-social-sidebar");
+
+    let ticking = false;
+
+    function updateParallax() {
+        const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+        const heroHeight = heroSection.offsetHeight || window.innerHeight;
+
+        // Efek aktif saat hero masih dalam jangkauan scroll
+        if (scrollY <= heroHeight * 1.6) {
+            // 1. Gambar hero Sora bergerak ke bawah page (efek parallax kedalaman)
+            const bgOffset = scrollY * 0.44;
+            heroBg.style.transform = `translate3d(0, ${bgOffset}px, 0)`;
+
+            // 2. Teks dan logo tetap tenang di posisinya (memudar halus saat seksi menutupi)
+            const fadeStart = heroHeight * 0.2;
+            const fadeEnd = heroHeight * 0.82;
+            let opacity = 1;
+            if (scrollY > fadeStart) {
+                opacity = Math.max(0, 1 - ((scrollY - fadeStart) / (fadeEnd - fadeStart)));
+            }
+
+            if (heroTextBox) {
+                heroTextBox.style.opacity = opacity;
+            }
+            if (heroSocial) {
+                heroSocial.style.opacity = opacity;
+            }
+        }
+        ticking = false;
+    }
+
+    window.addEventListener("scroll", () => {
+        if (!ticking) {
+            window.requestAnimationFrame(updateParallax);
+            ticking = true;
+        }
+    }, { passive: true });
+
+    updateParallax();
+}
 
 function setupThemeToggle() {
     // Website dikunci 100% pada Light Mode

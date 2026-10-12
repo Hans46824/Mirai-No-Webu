@@ -322,8 +322,10 @@ Website Mirai no Hana memiliki elemen kontrol mengambang global yang selalu mene
 1. **Dua Saluran Komunikasi Resmi Klub**:
    - **Instagram**: `https://www.instagram.com/mirainohana_smawh2?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==` (`@mirainohana_smawh2`).
    - **TikTok**: `https://www.tiktok.com/@nihongo.kurabu.wh2?is_from_webapp=1&sender_device=pc` (`@nihongo.kurabu.wh2`).
-2. **Hero Parallax & Desain Ikon Sosial Cepat**:
-   - Background hero menggunakan `background-attachment: fixed` dengan gradien gelap. Saat halaman digulir, gambar tetap menetap di latar belakang sementara seksi `.about-preview` dengan elevasi bayangan atas dramatis (`box-shadow: 0 -24px 50px rgba(0, 0, 0, 0.55)`) meluncur menutupinya secara sinematik ("kemakan page").
+2. **Hero Parallax Sticky Reveal & Desain Ikon Sosial Cepat**:
+   - Hero banner di Beranda (`.hero`) beroperasi dengan model *Sticky Curtain Reveal* (`position: sticky; top: 0; z-index: 1`), di mana seksi materi di bawahnya (`.about-preview`, `z-index: 12`) dengan elevasi bayangan atas dramatis (`box-shadow: 0 -32px 75px rgba(0, 0, 0, 0.95)`) meluncur naik menutupi / "memakan" hero secara fisik.
+   - Di dalam hero, layer gambar Sora (`.hero-bg-layer`) digerakkan secara parallax ke bawah page (`translate3d(0, scrollY * 0.44px, 0)`) via `main.js`, menghasilkan ilusi gambar Sora bergerak ke bawah sementara page naik menimpanya.
+   - Teks judul ("ようこそ MIRAI NO WEBU") dan tombol media sosial tetap tenang di posisinya (tidak ikut terseret pergerakan gambar Sora) dan memudar halus secara sinematik sebelum tertutup oleh seksi berikutnya.
    - Ikon media sosial di pojok kanan hero berdesain lingkaran kaca Tengoku style (`backdrop-filter: blur(8px)`, pendar pink saat disentuh mouse), posisinya sejajar vertikal dengan teks judul hero (`bottom: 15%` pada desktop, `bottom: 12%` pada mobile).
 
 ---
