@@ -140,17 +140,34 @@ window.KanjiAPI = KanjiAPI;
  * Pemuat data metadata goresan dan grade kanji (data/kanji-meta.json)
  * Memuat pemetaan karakter ke [stroke_count, grade] agar pengurutan instan tanpa menunggu API detail.
  */
+function getAppBasePath() {
+    const logo = document.querySelector(".brand img, .sidebar-footer-logo");
+    if (logo) {
+        const src = logo.getAttribute("src") || "";
+        if (src.startsWith("../../")) return "../../";
+        if (src.startsWith("../")) return "../";
+    }
+    const style = document.querySelector('link[rel="stylesheet"][href*="style.css"]');
+    if (style) {
+        const href = style.getAttribute("href") || "";
+        if (href.startsWith("../../")) return "../../";
+        if (href.startsWith("../")) return "../";
+    }
+    return "";
+}
+
 let kanjiMetaCache = null;
 async function ensureKanjiMeta() {
     if (kanjiMetaCache) return kanjiMetaCache;
+    const base = getAppBasePath();
     try {
-        const res = await fetch("data/kanji-meta.json");
+        const res = await fetch(base + "data/kanji-meta.json");
         if (res.ok) {
             kanjiMetaCache = await res.json();
             return kanjiMetaCache;
         }
     } catch (e) {
-        console.warn("Gagal memuat data/kanji-meta.json:", e);
+        console.warn("Gagal memuat " + base + "data/kanji-meta.json:", e);
     }
     return {};
 }
@@ -545,7 +562,7 @@ window.initKanjiDictionary = async function initKanjiDictionary() {
         // Cadangan offline bila data KanjiAPI gagal dimuat sama sekali
         if (entryMap.size === 0) {
             try {
-                const res = await fetch("data/kanji.json");
+                const res = await fetch(getAppBasePath() + "data/kanji.json");
                 if (res.ok) {
                     const localData = await res.json();
                     const meta = await ensureKanjiMeta();
@@ -852,7 +869,10 @@ function setupTabs() {
     const switchTab = (mode) => {
         const tab = document.querySelector(`[data-script-tab="${mode}"]`);
         if (!tab) return;
-        if (practiceLink) practiceLink.href = mode === "katakana" ? "latihan.html?script=katakana" : "latihan.html?script=hiragana";
+        if (practiceLink) {
+            const base = getAppBasePath();
+            practiceLink.href = mode === "katakana" ? `${base}kelas/latihan.html?script=katakana` : `${base}kelas/latihan.html?script=hiragana`;
+        }
         document.querySelectorAll("[data-script-tab]").forEach((button) => {
             const active = button === tab;
             button.classList.toggle("is-active", active);

@@ -9,45 +9,44 @@ Mirai-No-Webu/
 ├── style.css                       # Master stylesheet CSS (Tema gelap, terang, & komponen)
 ├── script.js                       # Master JavaScript interaktif global
 │
-├── [HALAMAN UTAMA WEBSITE]
-│   ├── index.html                  # Beranda utama (Hero, modul, maskot Sora, feedback)
+├── [HALAMAN UTAMA / LANDING PAGES (ROOT)]
+│   ├── index.html                  # Beranda utama (Hero, modul, menu fitur, maskot Sora, feedback)
 │   ├── tentang.html                # Profil klub (Sejarah, filosofi, bendera, Haori, 11 pengurus)
-│   ├── kegiatan.html               # Hub Program & Fasilitas (4 Divisi, 5 Program Kerja, Fasilitas, & Galeri Foto)
-│   ├── kelas.html                  # Hub kelas belajar (Kelas Dasar, Lanjutan, Kurikulum)
-│   ├── kelas-dasar.html            # Modul Kelas Dasar (Hiragana & Katakana)
-│   ├── kelas-lanjutan.html         # Modul Kelas Lanjutan (Kanji & Tata Bahasa)
-│   ├── kurikulum.html              # Peta belajar kurikulum terstruktur
-│   ├── latihan.html                # Kuis interaktif aksara Kana (Hiragana & Katakana)
-│   ├── kamus.html                  # Kamus interaktif pencarian Kana & Kanji
-│   ├── kanji.html                  # Ensiklopedia lengkap 2.136+ Jōyō Kanji
-│   ├── peringkat.html              # Papan peringkat (Leaderboard Rajio, Kehadiran, Prestasi)
 │   ├── lomba.html                  # Informasi 18 lomba & festival jejepangan (Carousel poster 1-view & link kegiatan)
-│   ├── motivasi.html               # Kumpulan kata motivasi & mutiara bahasa Jepang
-│   ├── rekomendasi.html            # Rekomendasi media belajar (Anime, musik, dorama)
-│   ├── tomodachi.html              # Forum perkenalan & jejaring teman belajar
-│   ├── masukan.html                # Halaman aspirasi & form kritik saran
-│   │
-│   ├── [Halaman 4 Divisi Resmi]
-│   ├── divisi-bahasa.html          # Divisi Bahasa & Budaya
-│   ├── divisi-cosplay.html         # Divisi Cosplay & Seni Peran
-│   ├── divisi-desain.html          # Divisi Desain & Kreatif
-│   ├── divisi-kewirausahaan.html   # Divisi Kewirausahaan
-│   │
-│   ├── [Halaman 4 Program Kerja Unggulan]
-│   ├── ktn.html                    # 1. Kimi To Nippon (Orientasi anggota baru)
-│   ├── njr.html                    # 2. Nihon Go Rajio (Siaran radio mingguan sekolah)
+│   ├── peringkat.html              # Papan peringkat (Leaderboard Rajio, Kehadiran, Prestasi)
+│   └── rekomendasi.html            # Rekomendasi media belajar (Anime, musik, dorama)
+│
+├── kelas/                          # Hub & modul kelas pembelajaran klub
+│   ├── index.html                  # Halaman utama kelas belajar (pilihan level dasar, lanjutan, kurikulum, latihan)
+│   ├── dasar.html                  # Modul Kelas Dasar (Hiragana & Katakana)
+│   ├── lanjutan.html               # Modul Kelas Lanjutan (Kanji & Tata Bahasa)
+│   ├── kurikulum.html              # Peta belajar kurikulum terstruktur & panduan mengajar
+│   ├── latihan.html                # Kuis interaktif mandiri aksara Kana (Hiragana & Katakana)
+│   └── motivasi.html               # Kumpulan kata motivasi & mutiara bahasa Jepang
+│
+├── divisi/                         # Halaman 4 divisi resmi klub
+│   ├── index.html                  # Hub ringkasan struktur 4 divisi resmi
+│   ├── bahasa.html                 # Divisi Bahasa & Budaya
+│   ├── cosplay.html                # Divisi Cosplay & Seni Peran
+│   ├── desain.html                 # Divisi Desain & Kreatif
+│   └── kewirausahaan.html          # Divisi Kewirausahaan
+│
+├── kegiatan/                       # Hub program kerja & fasilitas klub
+│   ├── index.html                  # Hub utama Program & Fasilitas (4 Divisi, 5 Proker, Fasilitas, & Galeri Foto)
+│   ├── kimi-to-nippon.html         # 1. Kimi To Nippon (Orientasi anggota baru)
+│   ├── nihon-go-rajio.html         # 2. Nihon Go Rajio (Siaran radio mingguan sekolah)
 │   ├── konbini.html                # 3. Mirai no Konbini (Bazaar & merchandise klub)
 │   ├── ramadhan.html               # 4. Mirai no Ramadhan (Bakti sosial & matsuri puasa)
-│   │
-│   ├── [Halaman Pengalihan / Redirect]
-│   ├── about.html                  # Pengalihan ke tentang.html
-│   ├── hiragana.html               # Pengalihan ke kamus.html?tab=hiragana
-│   └── katakana.html               # Pengalihan ke kamus.html?tab=katakana
+│   └── tomodachi.html              # 5. Tomodachi (Forum perkenalan & jejaring teman belajar)
+│
+├── kamus/                          # Kamus interaktif & ensiklopedia aksara
+│   ├── index.html                  # Kamus interaktif pencarian Kana (Hiragana & Katakana) & Kanji
+│   └── kanji.html                  # Ensiklopedia lengkap 2.136+ Jōyō Kanji
 │
 ├── sora/                           # Ruang obrolan interaktif maskot Sora
 │   └── index.html                  # Halaman playground chat Sora
 │
-├── materi/                         # Buku modul pembelajaran terperinci
+├── materi/                         # Buku modul pembelajaran terperinci (Mirai no Buuku)
 │   ├── dasar/
 │   │   ├── index.html              # Daftar isi materi dasar
 │   │   ├── hiragana.html           # Modul lengkap aksara Hiragana
@@ -149,7 +148,6 @@ Mirai-No-Webu/
 │   ├── anggota/                    # 8 foto dokumentasi anggota (1.jpg s.d. 8.jpg)
 │   └── dokumentasi/                # path_to_landscape.jpg & path_to_portrait.jpg
 │
-├── ai_scripts/                     # Koleksi skrip otomasi & pemeliharaan kode (.py)
-├── docs/                           # Dokumentasi pendukung proyek
-└── video/                          # Aset berkas video kegiatan
+├── scripts/                        # Koleksi skrip otomasi & pemeliharaan kode (.py)
+└── docs/                           # Dokumentasi pendukung proyek (panduan & kurikulum PDF)
 ```

@@ -11,6 +11,18 @@ Gunakan bahasa yang sederhana, manusiawi, dan langsung ke intinya. Hindari penul
 - Setiap kali ada halaman baru, file script baru, atau aset gambar baru yang diunggah ke proyek, AI WAJIB langsung memperbarui dokumen **agent.md** dan **tree.md**.
 - Jangan hanya mengubah kode web tanpa mencatat perubahannya di dokumentasi. Struktur direktori dan aturan desain harus selalu selaras dengan kondisi web terkini.
 
+### A. Arsitektur Folder Modular
+Seluruh berkas website Mirai no Webu dikelompokkan secara terstruktur ke dalam folder tematik:
+- **Root (`/`)**: Landing pages utama (`index.html`, `tentang.html`, `lomba.html`, `peringkat.html`, `rekomendasi.html`), `style.css`, `script.js`, serta dokumentasi `tree.md` dan `agent.md`.
+- **`kelas/`**: Hub pembelajaran mandiri (`index.html`), `dasar.html`, `lanjutan.html`, `kurikulum.html`, `latihan.html`, dan `motivasi.html`.
+- **`divisi/`**: Struktur 4 divisi resmi klub (`index.html`, `bahasa.html`, `cosplay.html`, `desain.html`, `kewirausahaan.html`).
+- **`kegiatan/`**: Hub program kerja & fasilitas (`index.html`), `kimi-to-nippon.html` (orientasi KTN), `nihon-go-rajio.html` (siaran NJR), `konbini.html`, `ramadhan.html`, dan `tomodachi.html`.
+- **`kamus/`**: Kamus interaktif pencarian Kana & Kanji (`index.html`) dan Ensiklopedia Kanji (`kanji.html`).
+- **`materi/`**: Modul pembelajaran terperinci (`materi/dasar/` dan `materi/lanjutan/`).
+- **`sora/`**: Playground bot obrolan maskot Sora (`index.html`).
+- **`scripts/`**: Kumpulan skrip otomasi & pemeliharaan kode Python.
+- **Folder `video/` telah dihapus** agar repositori bersih dari berkas rekaman lokal yang tidak terpakai.
+
 ---
 
 ## 2. Inventaris Lengkap Sumber Daya Gambar (Folder images/mirai/)

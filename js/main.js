@@ -50,15 +50,37 @@ function setupInstagramFeedback() {
     });
 }
 
+function getAppBasePath() {
+    const logo = document.querySelector(".brand img, .sidebar-footer-logo");
+    if (logo) {
+        const src = logo.getAttribute("src") || "";
+        if (src.startsWith("../../")) return "../../";
+        if (src.startsWith("../")) return "../";
+    }
+    const style = document.querySelector('link[rel="stylesheet"][href*="style.css"]');
+    if (style) {
+        const href = style.getAttribute("href") || "";
+        if (href.startsWith("../../")) return "../../";
+        if (href.startsWith("../")) return "../";
+    }
+    return "";
+}
+
 function normalizeNavigation() {
-    document.querySelectorAll('[data-nav-menu] a[href="kanji.html"]').forEach((link) => { link.href = "kamus.html"; link.textContent = "KAMUS"; });
-    document.querySelectorAll('[data-nav-menu] a[href="about.html"]').forEach((link) => { link.href = "tentang.html"; });
+    const basePath = getAppBasePath();
+    document.querySelectorAll('[data-nav-menu] a[href$="kanji.html"]').forEach((link) => {
+        link.href = basePath + "kamus/index.html";
+        link.textContent = "KAMUS";
+    });
+    document.querySelectorAll('[data-nav-menu] a[href$="about.html"]').forEach((link) => {
+        link.href = basePath + "tentang.html";
+    });
 
     // Aktifkan kembali seluruh tautan navigasi (lapisan Coming Soon telah dihapus).
     document.querySelectorAll('[data-nav-menu] a.nav-coming-soon, .nav .links a.nav-coming-soon').forEach((link) => {
         const navText = link.querySelector('.nav-text');
         const label = navText ? navText.textContent.trim().toUpperCase() : link.textContent.replace('COMING SOON', '').trim().toUpperCase();
-        const href = (label === 'HOME' || label === 'BERANDA') ? 'index.html' : label === 'KEGIATAN' ? 'kegiatan.html' : label === 'TENTANG' ? 'tentang.html' : link.getAttribute('href');
+        const href = (label === 'HOME' || label === 'BERANDA') ? basePath + 'index.html' : label === 'KEGIATAN' ? basePath + 'kegiatan/index.html' : label === 'TENTANG' ? basePath + 'tentang.html' : link.getAttribute('href');
         link.setAttribute('href', href);
         link.removeAttribute('aria-disabled');
         link.removeAttribute('tabindex');
@@ -70,7 +92,7 @@ function normalizeNavigation() {
     // Aktifkan kembali tautan brand yang sebelumnya dinonaktifkan.
     document.querySelectorAll('.brand.brand-disabled').forEach((brand) => {
         brand.classList.remove('brand-disabled');
-        brand.setAttribute('href', 'index.html');
+        brand.setAttribute('href', basePath + 'index.html');
         brand.removeAttribute('aria-disabled');
         brand.removeAttribute('tabindex');
         brand.removeAttribute('title');
@@ -181,7 +203,7 @@ async function setupKanjiDictionary() {
     let kanjiData = [];
 
     try {
-        const response = await fetch("data/kanji.json");
+        const response = await fetch(getAppBasePath() + "data/kanji.json");
         if (!response.ok) throw new Error("Data Kamus Kanji tidak dapat dimuat.");
         kanjiData = await response.json();
     } catch (error) {
@@ -241,12 +263,13 @@ async function setupKanjiDictionary() {
 function setupSora() {
     let widget = document.querySelector("[data-sora]");
     if (!widget && window.SoraService) {
+        const basePath = getAppBasePath();
         widget = document.createElement("aside");
         widget.className = "sora-widget";
         widget.dataset.sora = "";
         widget.setAttribute("aria-label", "Asisten Sora");
         widget.innerHTML = [
-            '<button class="sora-toggle" type="button" data-sora-toggle aria-expanded="false"><img src="images/mirai/icon/Ay.png" alt=""><span>SORA</span></button>',
+            `<button class="sora-toggle" type="button" data-sora-toggle aria-expanded="false"><img src="${basePath}images/mirai/icon/Ay.png" alt=""><span>SORA</span></button>`,
             '<div class="sora-panel" data-sora-panel hidden><header><strong>Sora ✨</strong><span>Teman belajar bahasa Jepangmu.</span><button class="sora-close" type="button" data-sora-close aria-label="Tutup Sora">×</button></header>',
             '<div class="sora-messages" data-sora-messages><p class="chat-message sora">Yatta! Aku Sora ✨ Ada yang bisa kubantu?</p></div>',
             '<form class="sora-form" data-sora-form><input data-sora-input aria-label="Tanya Sora" placeholder="Tanya Sora sesuatu..." required><button type="submit">Kirim</button></form></div>'
@@ -495,9 +518,7 @@ function setupFooterQuoteSlider() {
     if (document.getElementById("footerQuoteSliderSection")) return;
 
     // Deteksi base relative path
-    const logo = document.querySelector(".footer-logo, .home-header .brand img");
-    const logoSrc = logo ? (logo.getAttribute("src") || "") : "";
-    const basePath = logoSrc.startsWith("../../") ? "../../" : "";
+    const basePath = getAppBasePath();
 
     const quotes = [
         {

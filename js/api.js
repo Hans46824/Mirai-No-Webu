@@ -177,8 +177,25 @@
                 }
             } catch (e) {}
 
+            function getAppBasePath() {
+                const logo = document.querySelector(".brand img, .sidebar-footer-logo");
+                if (logo) {
+                    const src = logo.getAttribute("src") || "";
+                    if (src.startsWith("../../")) return "../../";
+                    if (src.startsWith("../")) return "../";
+                }
+                const style = document.querySelector('link[rel="stylesheet"][href*="style.css"]');
+                if (style) {
+                    const href = style.getAttribute("href") || "";
+                    if (href.startsWith("../../")) return "../../";
+                    if (href.startsWith("../")) return "../";
+                }
+                return "";
+            }
+
             try {
-                const res = await fetch("data/kana.json");
+                const base = getAppBasePath();
+                const res = await fetch(base + "data/kana.json");
                 if (res.ok) {
                     kanaDataCache = await res.json();
                     try {
