@@ -1676,6 +1676,10 @@ body.dark-mode .program-section {
     letter-spacing: 0.5px;
 }
 
+.global-footer-col.right .global-footer-heading:not(:first-child) {
+    margin-top: 10px;
+}
+
 .global-footer-social {
     display: inline-flex;
     align-items: center;
