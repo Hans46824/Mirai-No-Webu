@@ -33,77 +33,29 @@ Seluruh berkas website Mirai no Webu dikelompokkan secara terstruktur ke dalam f
 
 ---
 
-## 2. Inventaris Lengkap Sumber Daya Gambar (Folder images/mirai/)
+## 2. Inventaris Sumber Daya Gambar & Berkas (Colocation & Shared)
 
-Semua aset gambar telah dikelompokkan rapi ke dalam subfolder masing-masing:
+Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
 
-### A. Folder Background (Pola & Latar)
-- **w1b.jpeg**: Pola Wagara garis ombak tradisional versi gelap. Dipakai pada mayoritas kartu dan seksi hitam.
-- **w1w.jpeg**: Pola Wagara garis ombak tradisional versi terang. Dipakai pada kartu dan seksi putih.
-- **w2w.jpeg**: Pola tekstil Wagara terang variasi kedua untuk seksi putih cadangan.
-- **c1b.jpeg**: Pola awan tradisional Jepang (Kumo) versi gelap. Dipakai pada tombol besar, kartu khusus, dan hero banner gelap.
-- **c1w.jpeg**: Pola awan tradisional Jepang (Kumo) versi terang. Dipakai pada tombol besar dan kartu seksi putih.
-- **chat.jpeg**: Gambar latar belakang wallpaper untuk ruang obrolan Sora.
-- **Sora.png**: Ilustrasi karya seni utuh dari karakter maskot resmi Sora.
+### A. Aset Bersama / Global (Folder images/mirai/)
+- **background/**: Pola Wagara master CSS (`w1b.jpeg`, `w1w.jpeg`, `c1b.jpeg`, `c1w.jpeg`, `w2w.jpeg`, `chat.jpeg`, `Sora.png`).
+- **logo/**: Logo resmi klub (`MNH1.png`, `MNH1-nav.png`, `NK.png`, `comingsoon.jpg`).
+- **icon/**: Koleksi 20 stiker chibi resmi Genshin Impact untuk profil anggota, papan peringkat, dan dekorasi kartu modul (Al, Ay, Chi, Fa, Fli, Fu, Hu, Ka, Ki, Lo, Wa, ang, bal, bul, chi, cil, dil, nah, sar, zho).
+- **stiker/**: Berisi 28 stiker komunitas ekspresi anime untuk kutipan dan asisten Sora.
 
-### B. Folder Logo Resmi
-- **MNH1.png**: Logo utama Klub Jepang Mirai No Hana.
-- **MNH1-nav.png**: Logo Mirai No Hana versi horizontal khusus bilah navigasi (navbar) dan footer.
-- **NK.png**: Logo lambang resmi Nihongo Kurabu.
-- **NGR.png**: Logo program kerja radio sekolah Nihon Go Rajio.
-- **KTN.png**: Logo masa orientasi anggota baru Kimi To Nippon.
-- **Mirainokonbini.png**: Logo stan kewirausahaan Mirai no Konbini.
-- **Miraimatsuri.png**: Logo festival kebudayaan tahunan Miraimatsuri.
-- **Ramadhan.jpeg**: Logo kegiatan sosial Mirai no Ramadhan.
-- **comingsoon.jpg**: Gambar penampung sementara untuk kegiatan yang akan datang.
-
-### C. Folder Ikon Chibi Genshin Impact & Simbol
-Koleksi 20 stiker chibi resmi Genshin Impact untuk profil anggota, papan peringkat, dan dekorasi kartu modul:
-- Format PNG transparan (11 karakter):
-  - **Al.png** (Alhaitham)
-  - **Ay.png** (Kamisato Ayato)
-  - **Chi.png** (Tartaglia Childe)
-  - **Fa.png** (Faruzan)
-  - **Fli.png** (Fischl)
-  - **Fu.png** (Furina)
-  - **Hu.png** (Hu Tao)
-  - **Ka.png** (Kaedehara Kazuha)
-  - **Ki.png** (Kirara)
-  - **Lo.png** (Layla)
-  - **Wa.png** (Wanderer Scaramouche)
-- Format JPEG stiker (9 karakter):
-  - **ang.jpeg** (Venti)
-  - **bal.jpeg** (Raiden Shogun Ei)
-  - **bul.jpeg** (Columbina)
-  - **chi.jpeg** (Yanfei)
-  - **cil.jpeg** (Xiao)
-  - **dil.jpeg** (Diluc)
-  - **nah.jpeg** (Nahida)
-  - **sar.jpeg** (Kujou Sara)
-  - **zho.jpeg** (Zhongli)
-- Ikon fungsional:
-  - **chat.jpeg**: Ikon gelembung pesan untuk tombol buka chat.
-
-### D. Folder Identitas & Atribut Klub
-- **haori-depan-new.png** & **haori-belakang-new.png**: Tampak depan dan belakang busana Haori resmi klub.
-- **happi.jpeg**: Foto jubah festival Happi tradisional.
-- **idc front.jpeg** & **idc back.jpeg**: Desain depan dan belakang kartu tanda anggota (KTA).
-- **lanyard.jpeg**, **lanyard-horizontal.png**, **lanyard-horizontal-ccw.png**: Foto dan mockup tali gantungan resmi klub.
-- **nametag-katakana.jpeg**: Lencana nama siswa dalam tulisan aksara Katakana.
-- **pin.jpeg** & **pin-clean.png**: Foto dan gambar transparan pin lencana klub.
-
-### E. Folder Lomba & Acara (Poster Resmi)
-- **its1.jpeg**: Poster lomba akademik INOCHI ITS (INO & Shoudou).
-- **its2.jpeg**: Poster lomba kreatif INOCHI ITS (Coswalk, J-Song, Fanart).
-- **una.jpeg**: Poster kompetisi Japanese World Competition (JWC) Universitas Airlangga.
-- **une1.jpeg**: Poster lomba kategori umum Japan Pop Culture (JPC) Universitas Negeri Surabaya.
-- **une2.jpeg**: Poster lomba kategori akademik Japan Pop Culture (JPC) UNESA.
-
-### F. Folder Lainnya
-- **sora/**: Berisi soracarousel.png (banner etalase Sora) dan sorachat.jpeg (avatar obrolan).
-- **stiker/**: Berisi 28 stiker komunitas (ada, aku, ala, be, bel, beli, ber, cer, dik, dip, don, eet, gom, hua, iki, ita, iwa, jaw, kar, kok, log, mas, peg, sor, sul, woy, yan, yat).
-- **anggota/**: Berisi 8 dokumentasi foto anggota (1.jpg sampai 8.jpg).
-- **dokumentasi/**: Berisi foto lanskap dan potret kegiatan.
+### B. Aset Spesifik per Halaman (Co-located Assets)
+- **tentang/images/**:
+  - **anggota/**: Berisi 8 dokumentasi foto anggota kepengurusan (1.jpg sampai 8.jpg).
+  - **identitas/**: Busana Haori resmi (depan & belakang), jubah Happi, kartu tanda anggota (IDC depan & belakang), lanyard, pin lencana, dan nametag Katakana.
+- **lomba/images/**:
+  - Poster resmi kompetisi & matsuri (ITS 1 & 2, UNAIR, UNESA 1 & 2).
+- **kegiatan/images/**:
+  - Logo resmi program kerja (`KTN.png`, `NGR.png`, `Mirainokonbini.png`, `Ramadhan.jpeg`, `Miraimatsuri.png`).
+  - **dokumentasi/**: Foto lanskap dan potret kegiatan klub.
+- **sora/images/**:
+  - Banner etalase profil Asora Aokita (`soracarousel.png`) dan avatar obrolan (`sorachat.jpeg`).
+- **kelas/kurikulum/**:
+  - Berkas silabus kurikulum pembelajaran dan panduan mengajar resmi klub (PDF).
 
 ---
 

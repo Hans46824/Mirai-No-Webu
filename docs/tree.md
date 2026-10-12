@@ -1,7 +1,7 @@
 # Struktur Direktori Proyek Mirai no Webu
 
-Dokumen ini memetakan seluruh susunan file, folder, halaman web, aset gambar, basis data, dan logika skrip yang aktif di website **Mirai no Webu**.
-Struktur direktori menerapkan standar **Clean Root Architecture** di mana hanya [index.html](file:///home/hans/Mirai-No-Webu/index.html) yang berada di root sebagai gerbang utama situs, sedangkan seluruh halaman, aset, dan data terkelompok rapi dalam folder kategorinya masing-masing.
+Dokumen ini memetakan seluruh susunan berkas, folder, halaman web, aset gambar, basis data, dan logika skrip yang aktif di website **Mirai no Webu**.
+Struktur direktori menerapkan standar **Feature-Based Asset Colocation** dan **Clean Root Architecture**, di mana berkas/foto yang spesifik berkaitan dengan halaman tertentu berada di dalam folder halaman tersebut:
 
 ```text
 Mirai-No-Webu/
@@ -26,17 +26,44 @@ Mirai-No-Webu/
 │
 ├── docs/                           # Dokumentasi & Panduan Proyek
 │   ├── tree.md                     # Peta struktur direktori lengkap proyek ini
-│   ├── agent.md                    # Pedoman aturan desain, fungsi, dan persona AI asisten
-│   └── kurikulum/                  # Panduan pengajaran & silabus resmi (PDF)
-│       ├── kurikulum-pembelajaran.pdf
-│       ├── tata-cara-mengajar.pdf
-│       └── README.txt
+│   └── agent.md                    # Pedoman aturan desain, fungsi, dan persona AI asisten
 │
 ├── data/                           # Basis Data Lokal JSON (Menyuplai Kamus & Latihan)
+│   ├── README.md                   # Dokumentasi relasi & fungsi basis data JSON
 │   ├── kana.json                   # Database aksara Hiragana & Katakana
 │   ├── kanji.json                  # Database lengkap 2.136 karakter Jōyō Kanji
 │   ├── kanji-meta.json             # Metadata radikal, level JLPT, & jumlah goresan
 │   └── STROKES-LICENSE.md          # Lisensi data urutan goresan KanjiVG
+│
+├── tentang/                        # Halaman Profil Lengkap Klub Mirai No Hana
+│   ├── index.html                  # Sejarah klub, filosofi bunga, bendera, Haori, dan 11 profil pengurus
+│   └── images/                     # Aset foto spesifik halaman Tentang
+│       ├── anggota/                # Dokumentasi foto anggota kepengurusan (1.jpg - 8.jpg)
+│       └── identitas/              # Foto Haori resmi, kartu tanda anggota (IDC), lanyard, & pin
+│
+├── lomba/                          # Halaman Informasi Kompetisi & Matsuri
+│   ├── index.html                  # Informasi 18 lomba & festival jejepangan
+│   └── images/                     # Poster resmi lomba (ITS, UNAIR, UNESA)
+│       ├── its1.jpeg
+│       ├── its2.jpeg
+│       ├── una.jpeg
+│       ├── une1.jpeg
+│       └── une2.jpeg
+│
+├── kegiatan/                       # Halaman Program Kerja Unggulan & Fasilitas
+│   ├── index.html                  # Hub Program & Fasilitas (4 Divisi, 5 Proker, Fasilitas, & Galeri Foto)
+│   ├── kimi-to-nippon.html         # 1. Kimi To Nippon (Orientasi anggota baru klub)
+│   ├── nihon-go-rajio.html         # 2. Nihon Go Rajio (Siaran radio mingguan sekolah)
+│   ├── konbini.html                # 3. Mirai no Konbini (Bazaar & merchandise kreatif)
+│   ├── ramadhan.html               # 4. Mirai no Ramadhan (Bakti sosial & takjil puasa)
+│   ├── tomodachi.html              # 5. Tomodachi (Forum jejaring & perkenalan anggota)
+│   └── images/                     # Aset spesifik program kerja & dokumentasi
+│       ├── KTN.png                 # Logo Kimi To Nippon
+│       ├── NGR.png                 # Logo Nihon Go Rajio
+│       ├── Mirainokonbini.png       # Logo Mirai no Konbini
+│       ├── Ramadhan.jpeg           # Logo Mirai no Ramadhan
+│       ├── Miraimatsuri.png        # Logo Miraimatsuri
+│       └── dokumentasi/            # Foto dokumentasi kegiatan landscape & portrait
 │
 ├── kelas/                          # Halaman Modul & Pembelajaran Mandiri
 │   ├── index.html                  # Hub utama Kelas (Pilihan level, modul, kurikulum, latihan)
@@ -44,7 +71,11 @@ Mirai-No-Webu/
 │   ├── lanjutan.html               # Modul Kelas Lanjutan (Kanji & Tata Bahasa)
 │   ├── kurikulum.html              # Peta belajar kurikulum terstruktur & panduan mengajar
 │   ├── latihan.html                # Kuis interaktif mandiri aksara Kana (20 soal & goresan kanvas)
-│   └── motivasi.html               # Kumpulan kata motivasi & mutiara bahasa Jepang
+│   ├── motivasi.html               # Kumpulan kata motivasi & mutiara bahasa Jepang
+│   └── kurikulum/                  # Dokumen kurikulum & tata cara pengajaran (PDF)
+│       ├── kurikulum-pembelajaran.pdf
+│       ├── tata-cara-mengajar.pdf
+│       └── README.txt
 │
 ├── divisi/                         # Halaman 4 Divisi Resmi Klub
 │   ├── index.html                  # Hub ringkasan struktur 4 divisi resmi
@@ -53,23 +84,9 @@ Mirai-No-Webu/
 │   ├── desain.html                 # Divisi Desain & Kreatif
 │   └── kewirausahaan.html          # Divisi Kewirausahaan
 │
-├── kegiatan/                       # Halaman Program Kerja Unggulan & Fasilitas
-│   ├── index.html                  # Hub Program & Fasilitas (4 Divisi, 5 Proker, Fasilitas, & Galeri Foto)
-│   ├── kimi-to-nippon.html         # 1. Kimi To Nippon (Orientasi anggota baru klub)
-│   ├── nihon-go-rajio.html         # 2. Nihon Go Rajio (Siaran radio mingguan sekolah)
-│   ├── konbini.html                # 3. Mirai no Konbini (Bazaar & merchandise kreatif)
-│   ├── ramadhan.html               # 4. Mirai no Ramadhan (Bakti sosial & takjil puasa)
-│   └── tomodachi.html              # 5. Tomodachi (Forum jejaring & perkenalan anggota)
-│
 ├── kamus/                          # Kamus Interaktif & Ensiklopedia Aksara
 │   ├── index.html                  # Kamus interaktif Kana (Hiragana & Katakana) serta pencarian Kanji
 │   └── kanji.html                  # Ensiklopedia lengkap 2.136+ karakter Jōyō Kanji
-│
-├── tentang/                        # Profil Lengkap Klub Mirai No Hana
-│   └── index.html                  # Sejarah klub, filosofi bunga, bendera, Haori, dan 11 profil pengurus
-│
-├── lomba/                          # Informasi Kompetisi & Matsuri
-│   └── index.html                  # Informasi 18 lomba & festival jejepangan (Carousel poster & tautan langsung)
 │
 ├── peringkat/                      # Papan Peringkat (Leaderboard)
 │   └── index.html                  # Leaderboard keaktifan Rajio, presensi kehadiran, & galeri prestasi siswa
@@ -78,7 +95,8 @@ Mirai-No-Webu/
 │   └── index.html                  # Rekomendasi anime, film layar lebar, musik, dan konten kebudayaan
 │
 ├── sora/                           # Ruang Asisten Obrolan Maskot Sora
-│   └── index.html                  # Halaman antarmuka obrolan interaktif Sora
+│   ├── index.html                  # Halaman antarmuka obrolan interaktif Sora
+│   └── images/                     # Aset khusus maskot Sora (soracarousel.png, sorachat.jpeg)
 │
 ├── materi/                         # Buku Modul Pembelajaran Detail (Mirai no Buuku)
 │   ├── dasar/
@@ -90,17 +108,13 @@ Mirai-No-Webu/
 │       ├── index.html              # Daftar isi modul lanjutan
 │       ├── kanji.html              # Panduan aksara Kanji & JLPT
 │       └── grammar.html            # Panduan tata bahasa (Bunpou) lanjutan
+│
 ├── skrip/                          # Kumpulan Skrip Otomasi Pemeliharaan Kode (.py)
 │   └── README.md                   # Panduan & daftar fungsi skrip otomasi pengembang
 │
-└── images/mirai/                   # Seluruh Aset Visual & Grafis Klub
-    ├── background/                 # Pola Wagara (w1b, w1w, c1b, c1w, Sora.png, chat.jpeg)
-    ├── logo/                       # Logo resmi klub (MNH1, MNH1-nav, NGR, KTN, Konbini, dll.)
-    ├── icon/                       # Ikon chibi Genshin Impact & simbol grafis
-    ├── identitas/                  # Foto Haori resmi, kartu tanda anggota (IDC), lanyard, & pin
-    ├── Lomba & Acara/              # Poster kompetisi & festival budaya
-    ├── sora/                       # Aset banner dan avatar maskot Sora
-    ├── stiker/                     # 28 stiker komunitas ekspresi karakter
-    ├── anggota/                    # Dokumentasi foto anggota (1.jpg - 8.jpg)
-    └── dokumentasi/                # Foto dokumentasi kegiatan landscape & portrait
+└── images/mirai/                   # Aset Bersama (Shared Global Assets)
+    ├── background/                 # Pola Wagara master CSS (w1b, w1w, c1b, c1w, Sora.png, chat.jpeg)
+    ├── logo/                       # Logo resmi klub (MNH1.png, MNH1-nav.png, NK.png, comingsoon.jpg)
+    ├── icon/                       # Ikon chibi Genshin Impact (Al, Ay, Chi, Fa, Fu, Hu, Ka, Ki, Lo, dll.)
+    └── stiker/                     # 28 stiker komunitas ekspresi karakter anime
 ```
