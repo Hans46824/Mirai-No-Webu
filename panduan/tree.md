@@ -67,6 +67,9 @@ Mirai-No-Webu/
 │       ├── Miraimatsuri.png        # Logo Miraimatsuri
 │       └── dokumentasi/            # Foto dokumentasi kegiatan landscape & portrait
 │
+├── toko/                           # Toko Resmi & Mirai no Konbini (Atribut, Cinderamata, & F&B)
+│   └── index.html                  # Etalase produk Haori, merchandise, F&B konbini, keranjang, & GForm
+│
 ├── kelas/                          # Halaman Modul Kelas & Kurikulum Pembelajaran Mandiri
 │   ├── index.html                  # Hub utama terpadu (Kelas Dasar, Kelas Lanjutan, & Kurikulum Dokumen)
 │   ├── latihan.html                # Kuis interaktif mandiri aksara Kana (20 soal & goresan kanvas)

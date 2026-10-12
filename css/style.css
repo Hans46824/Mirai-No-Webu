@@ -20879,3 +20879,1296 @@ body:not(.theme-dark):not(.dark-mode) .learning-app .mode-grid[data-script="kata
 body:not(.theme-dark):not(.dark-mode)[data-active-kana="katakana"] .mode-card:hover::after {
     opacity: 0.16 !important;
 }
+
+/* ==========================================================================
+   HALAMAN TOKO & MIRAI NO KONBINI (.page-toko)
+   - Pola Pattern: Kumo Awan Gelap (c1b.jpeg) & Awan Terang (c1w.jpeg)
+   - Sistem Etalase Produk, Filter Kategori, Simulasi Keranjang & Form Pembelian
+   ========================================================================== */
+body.page-toko,
+.page-toko {
+    min-height: 100vh;
+    background-color: #0e0b12 !important;
+    background: #0e0b12 !important;
+    color: #e2e8f0 !important;
+}
+
+/* 1. Hero Toko */
+.toko-hero {
+    position: relative !important;
+    overflow: hidden !important;
+    min-height: 380px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    padding: 130px 24px 60px !important;
+    background: radial-gradient(circle at 50% 30%, rgba(255, 79, 145, 0.16), transparent 70%),
+                linear-gradient(180deg, #18121f 0%, #0e0b12 100%) !important;
+}
+
+.toko-hero::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background-image: url("../images/mirai/background/c1b.jpeg") !important;
+    background-size: 300px auto !important;
+    background-repeat: repeat !important;
+    opacity: 0.05 !important;
+    mix-blend-mode: screen !important;
+    pointer-events: none !important;
+}
+
+.toko-hero > div {
+    position: relative !important;
+    z-index: 2 !important;
+    max-width: 860px !important;
+}
+
+.toko-hero .page-title {
+    font-size: clamp(38px, 6vw, 68px) !important;
+    font-weight: 900 !important;
+    line-height: 1.12 !important;
+    letter-spacing: -0.03em !important;
+    color: #ffffff !important;
+    margin: 12px 0 16px !important;
+}
+
+.toko-hero .page-title span {
+    color: var(--pink, #e91e63) !important;
+    background: linear-gradient(135deg, #ff659b, #e91e63) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+.toko-hero-subtitle {
+    font-size: clamp(14px, 1.8vw, 17px) !important;
+    color: #cbd5e1 !important;
+    line-height: 1.6 !important;
+    max-width: 680px !important;
+    margin: 0 auto !important;
+}
+
+/* 2. Intro Card & Quick Order */
+.toko-intro-section {
+    padding: 30px 24px !important;
+    max-width: 1240px !important;
+    margin: -40px auto 30px !important;
+    position: relative !important;
+    z-index: 5 !important;
+}
+
+.toko-intro-card {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.4fr) minmax(320px, 0.9fr) !important;
+    gap: 32px !important;
+    background: linear-gradient(145deg, #1e1728 0%, #15101c 100%) !important;
+    border: 1px solid rgba(255, 79, 145, 0.28) !important;
+    border-radius: 20px !important;
+    padding: 36px 40px !important;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.toko-intro-card::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background-image: url("../images/mirai/background/c1b.jpeg") !important;
+    background-size: 260px auto !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
+    pointer-events: none !important;
+}
+
+.toko-intro-content {
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+.toko-intro-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding: 6px 14px !important;
+    background: rgba(255, 79, 145, 0.15) !important;
+    border: 1px solid rgba(255, 79, 145, 0.35) !important;
+    border-radius: 999px !important;
+    color: #ff659b !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    margin-bottom: 14px !important;
+}
+
+.toko-intro-content h2 {
+    font-size: clamp(24px, 3.2vw, 36px) !important;
+    font-weight: 800 !important;
+    color: #ffffff !important;
+    line-height: 1.25 !important;
+    margin: 0 0 16px !important;
+    letter-spacing: -0.02em !important;
+}
+
+.toko-intro-content h2 span {
+    color: var(--pink, #e91e63) !important;
+}
+
+.toko-intro-content p {
+    font-size: 14.5px !important;
+    line-height: 1.75 !important;
+    color: #cbd5e1 !important;
+    margin: 0 0 22px !important;
+}
+
+.toko-intro-pills {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+}
+
+.toko-pill {
+    padding: 7px 14px !important;
+    border-radius: 999px !important;
+    font-size: 12.5px !important;
+    font-weight: 600 !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    color: #f1f5f9 !important;
+}
+
+.toko-intro-side {
+    position: relative !important;
+    z-index: 2 !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.toko-order-quick-card {
+    background: rgba(10, 7, 14, 0.65) !important;
+    border: 1px solid rgba(255, 79, 145, 0.22) !important;
+    border-radius: 16px !important;
+    padding: 24px !important;
+    width: 100% !important;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35) !important;
+}
+
+.quick-card-header {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    margin-bottom: 12px !important;
+}
+
+.quick-card-icon {
+    font-size: 28px !important;
+}
+
+.quick-card-header h4 {
+    margin: 0 !important;
+    font-size: 17px !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+.quick-card-header small {
+    color: #ff659b !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+}
+
+.toko-order-quick-card p {
+    font-size: 13.5px !important;
+    line-height: 1.6 !important;
+    color: #94a3b8 !important;
+    margin: 0 0 16px !important;
+}
+
+.toko-gform-cta {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    width: 100% !important;
+    padding: 13px 20px !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    border-radius: 10px !important;
+    text-decoration: none !important;
+}
+
+.quick-card-note {
+    display: block !important;
+    margin-top: 10px !important;
+    font-size: 11px !important;
+    color: #64748b !important;
+    line-height: 1.4 !important;
+    text-align: center !important;
+}
+
+/* 3. Catalog Section & Filter Bar */
+.toko-catalog-section {
+    max-width: 1240px !important;
+    margin: 0 auto !important;
+    padding: 40px 24px 60px !important;
+}
+
+.toko-filter-bar {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 18px !important;
+    margin-bottom: 24px !important;
+}
+
+.toko-category-tabs {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+}
+
+.toko-cat-btn {
+    padding: 12px 20px !important;
+    border-radius: 12px !important;
+    background: #191322 !important;
+    border: 1px solid rgba(255, 79, 145, 0.22) !important;
+    color: #cbd5e1 !important;
+    font-size: 13.5px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    transition: all 0.25s ease !important;
+}
+
+.toko-cat-btn:hover {
+    background: #231b30 !important;
+    border-color: rgba(255, 79, 145, 0.5) !important;
+    color: #ffffff !important;
+    transform: translateY(-2px) !important;
+}
+
+.toko-cat-btn.active {
+    background: linear-gradient(135deg, #ff4f91 0%, #e91e63 100%) !important;
+    border-color: #ff4f91 !important;
+    color: #ffffff !important;
+    box-shadow: 0 6px 20px rgba(233, 30, 99, 0.35) !important;
+}
+
+.toko-search-sort-row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 16px !important;
+}
+
+.toko-search-box {
+    position: relative !important;
+    flex: 1 !important;
+    min-width: 280px !important;
+}
+
+.toko-search-box .search-icon {
+    position: absolute !important;
+    left: 15px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    font-size: 16px !important;
+    pointer-events: none !important;
+    opacity: 0.7 !important;
+}
+
+.toko-search-box input {
+    width: 100% !important;
+    padding: 12px 42px 12px 44px !important;
+    border-radius: 10px !important;
+    background: #191322 !important;
+    border: 1px solid rgba(255, 79, 145, 0.22) !important;
+    color: #ffffff !important;
+    font-size: 14px !important;
+    outline: none !important;
+    transition: border-color 0.25s ease !important;
+}
+
+.toko-search-box input:focus {
+    border-color: #ff4f91 !important;
+    box-shadow: 0 0 0 3px rgba(255, 79, 145, 0.15) !important;
+}
+
+.search-clear-btn {
+    position: absolute !important;
+    right: 12px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    background: none !important;
+    border: none !important;
+    color: #94a3b8 !important;
+    font-size: 16px !important;
+    cursor: pointer !important;
+    padding: 4px !important;
+}
+
+.search-clear-btn:hover {
+    color: #ffffff !important;
+}
+
+.toko-sort-box {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+
+.sort-label {
+    font-size: 13.5px !important;
+    color: #94a3b8 !important;
+    font-weight: 600 !important;
+    white-space: nowrap !important;
+}
+
+.toko-sort-select {
+    padding: 11px 16px !important;
+    border-radius: 10px !important;
+    background: #191322 !important;
+    border: 1px solid rgba(255, 79, 145, 0.22) !important;
+    color: #ffffff !important;
+    font-size: 13.5px !important;
+    font-weight: 600 !important;
+    outline: none !important;
+    cursor: pointer !important;
+}
+
+/* 4. Explain Card */
+.toko-cat-explain-card {
+    background: linear-gradient(135deg, #1c1525 0%, #130f1a 100%) !important;
+    border: 1px solid rgba(255, 79, 145, 0.2) !important;
+    border-radius: 14px !important;
+    padding: 22px 28px !important;
+    margin-bottom: 22px !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.toko-cat-explain-card::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background-image: url("../images/mirai/background/c1b.jpeg") !important;
+    background-size: 260px auto !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
+    pointer-events: none !important;
+}
+
+.toko-explain-badge {
+    display: inline-block !important;
+    padding: 4px 10px !important;
+    border-radius: 6px !important;
+    font-size: 11.5px !important;
+    font-weight: 700 !important;
+    background: rgba(255, 79, 145, 0.15) !important;
+    color: #ff659b !important;
+    margin-bottom: 8px !important;
+}
+
+.toko-explain-title {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    margin: 0 0 6px !important;
+}
+
+.toko-explain-body {
+    font-size: 13.5px !important;
+    line-height: 1.6 !important;
+    color: #94a3b8 !important;
+    margin: 0 !important;
+}
+
+.toko-result-meta {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 12px !important;
+    margin-bottom: 24px !important;
+    font-size: 13px !important;
+    color: #94a3b8 !important;
+}
+
+.toko-cart-hint strong {
+    color: #ff659b !important;
+}
+
+/* 5. Product Grid & Cards */
+.toko-product-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+    gap: 24px !important;
+}
+
+.toko-card {
+    display: flex !important;
+    flex-direction: column !important;
+    background: linear-gradient(160deg, #1a1424 0%, #120e19 100%) !important;
+    border: 1px solid rgba(255, 79, 145, 0.22) !important;
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    position: relative !important;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
+}
+
+.toko-card::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 3px !important;
+    background: linear-gradient(90deg, #ff4f91, #e91e63) !important;
+    transform: scaleX(0) !important;
+    transform-origin: left !important;
+    transition: transform 0.3s ease !important;
+    z-index: 4 !important;
+}
+
+.toko-card:hover {
+    transform: translateY(-5px) !important;
+    border-color: rgba(255, 79, 145, 0.5) !important;
+    box-shadow: 0 14px 34px rgba(233, 30, 99, 0.22) !important;
+}
+
+.toko-card:hover::before {
+    transform: scaleX(1) !important;
+}
+
+.toko-card::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background-image: url("../images/mirai/background/c1b.jpeg") !important;
+    background-size: 240px auto !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
+    pointer-events: none !important;
+    transition: opacity 0.3s ease !important;
+    z-index: 1 !important;
+}
+
+.toko-card:hover::after {
+    opacity: 0.08 !important;
+}
+
+.toko-card > * {
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+.toko-card-thumb {
+    position: relative !important;
+    height: 200px !important;
+    background: #100b16 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 18px !important;
+    overflow: hidden !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+.toko-card-thumb img {
+    max-width: 82% !important;
+    max-height: 160px !important;
+    object-fit: contain !important;
+    transition: transform 0.35s ease !important;
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.4)) !important;
+}
+
+.toko-card:hover .toko-card-thumb img {
+    transform: scale(1.06) !important;
+}
+
+.toko-status-badge {
+    position: absolute !important;
+    top: 12px !important;
+    left: 12px !important;
+    padding: 4px 10px !important;
+    border-radius: 6px !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.3px !important;
+    z-index: 3 !important;
+}
+
+.badge-po {
+    background: rgba(245, 158, 11, 0.2) !important;
+    color: #fbbf24 !important;
+    border: 1px solid rgba(245, 158, 11, 0.45) !important;
+}
+
+.badge-ready {
+    background: rgba(16, 185, 129, 0.2) !important;
+    color: #34d399 !important;
+    border: 1px solid rgba(16, 185, 129, 0.45) !important;
+}
+
+.badge-bestseller {
+    background: rgba(255, 79, 145, 0.25) !important;
+    color: #ff659b !important;
+    border: 1px solid rgba(255, 79, 145, 0.5) !important;
+}
+
+.badge-fresh {
+    background: rgba(56, 189, 248, 0.2) !important;
+    color: #38bdf8 !important;
+    border: 1px solid rgba(56, 189, 248, 0.45) !important;
+}
+
+.toko-cat-tag {
+    position: absolute !important;
+    bottom: 12px !important;
+    right: 12px !important;
+    padding: 3px 8px !important;
+    border-radius: 4px !important;
+    font-size: 10.5px !important;
+    font-weight: 600 !important;
+    background: rgba(0, 0, 0, 0.6) !important;
+    color: #cbd5e1 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.toko-card-body {
+    padding: 20px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 !important;
+}
+
+.toko-card-meta {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 8px !important;
+}
+
+.toko-jp-name {
+    font-family: 'Noto Serif JP', serif !important;
+    font-size: 11.5px !important;
+    color: #ff8db7 !important;
+    font-weight: 700 !important;
+}
+
+.toko-rating {
+    font-size: 11.5px !important;
+    color: #facc15 !important;
+    font-weight: 700 !important;
+}
+
+.toko-card-title {
+    font-size: 17px !important;
+    font-weight: 800 !important;
+    line-height: 1.35 !important;
+    color: #ffffff !important;
+    margin: 0 0 10px !important;
+}
+
+.toko-card-desc {
+    font-size: 13px !important;
+    line-height: 1.6 !important;
+    color: #94a3b8 !important;
+    margin: 0 0 16px !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+}
+
+.toko-card-specs {
+    margin-top: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+    padding: 10px 12px !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    margin-bottom: 16px !important;
+}
+
+.toko-card-specs span {
+    font-size: 11.5px !important;
+    color: #cbd5e1 !important;
+}
+
+.toko-card-footer {
+    padding: 16px 20px !important;
+    background: rgba(12, 8, 16, 0.5) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+}
+
+.toko-price-box {
+    display: flex !important;
+    align-items: baseline !important;
+    justify-content: space-between !important;
+}
+
+.toko-price-box .price-label {
+    font-size: 12px !important;
+    color: #94a3b8 !important;
+}
+
+.toko-price {
+    font-size: 20px !important;
+    font-weight: 900 !important;
+    color: #ff659b !important;
+    letter-spacing: -0.02em !important;
+}
+
+.toko-card-actions {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+}
+
+.btn-toko-cart {
+    padding: 10px 12px !important;
+    border-radius: 8px !important;
+    background: rgba(255, 79, 145, 0.12) !important;
+    border: 1px solid rgba(255, 79, 145, 0.35) !important;
+    color: #ff659b !important;
+    font-size: 12.5px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    text-align: center !important;
+}
+
+.btn-toko-cart:hover {
+    background: #ff4f91 !important;
+    color: #ffffff !important;
+    border-color: #ff4f91 !important;
+    transform: translateY(-2px) !important;
+}
+
+.btn-toko-buy {
+    padding: 10px 12px !important;
+    border-radius: 8px !important;
+    background: linear-gradient(135deg, #ff4f91, #e91e63) !important;
+    border: 1px solid #ff4f91 !important;
+    color: #ffffff !important;
+    font-size: 12.5px !important;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+    text-align: center !important;
+    transition: all 0.2s ease !important;
+}
+
+.btn-toko-buy:hover {
+    box-shadow: 0 4px 14px rgba(233, 30, 99, 0.4) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Empty Search */
+.toko-empty-search {
+    text-align: center !important;
+    padding: 60px 20px !important;
+    background: #171120 !important;
+    border: 1px dashed rgba(255, 79, 145, 0.3) !important;
+    border-radius: 16px !important;
+}
+
+.empty-icon {
+    font-size: 48px !important;
+    margin-bottom: 12px !important;
+}
+
+.toko-empty-search h3 {
+    font-size: 22px !important;
+    color: #ffffff !important;
+    margin: 0 0 8px !important;
+}
+
+.toko-empty-search p {
+    font-size: 14px !important;
+    color: #94a3b8 !important;
+    margin: 0 0 20px !important;
+}
+
+/* 6. Steps Guide */
+.toko-guide-section {
+    max-width: 1240px !important;
+    margin: 0 auto !important;
+    padding: 40px 24px !important;
+}
+
+.toko-steps-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important;
+    gap: 20px !important;
+    margin-top: 30px !important;
+}
+
+.toko-step-card {
+    background: linear-gradient(145deg, #191223 0%, #120e19 100%) !important;
+    border: 1px solid rgba(255, 79, 145, 0.2) !important;
+    border-radius: 14px !important;
+    padding: 26px 22px !important;
+    position: relative !important;
+    overflow: hidden !important;
+    transition: transform 0.25s ease !important;
+}
+
+.toko-step-card::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background-image: url("../images/mirai/background/c1b.jpeg") !important;
+    background-size: 240px auto !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
+    pointer-events: none !important;
+}
+
+.toko-step-card:hover {
+    transform: translateY(-4px) !important;
+    border-color: rgba(255, 79, 145, 0.45) !important;
+}
+
+.toko-step-num {
+    position: absolute !important;
+    top: 14px !important;
+    right: 18px !important;
+    font-size: 32px !important;
+    font-weight: 900 !important;
+    color: rgba(255, 79, 145, 0.18) !important;
+}
+
+.toko-step-icon {
+    font-size: 32px !important;
+    margin-bottom: 14px !important;
+}
+
+.toko-step-card h4 {
+    font-size: 17px !important;
+    font-weight: 800 !important;
+    color: #ffffff !important;
+    margin: 0 0 8px !important;
+}
+
+.toko-step-card p {
+    font-size: 13.5px !important;
+    line-height: 1.6 !important;
+    color: #94a3b8 !important;
+    margin: 0 !important;
+}
+
+/* 7. KWU & Transparansi Kas */
+.toko-kwu-section {
+    max-width: 1240px !important;
+    margin: 0 auto !important;
+    padding: 30px 24px 50px !important;
+}
+
+.toko-kwu-card {
+    background: linear-gradient(135deg, #1f172b 0%, #140f1c 100%) !important;
+    border: 1px solid rgba(255, 79, 145, 0.28) !important;
+    border-radius: 20px !important;
+    padding: 36px 40px !important;
+    position: relative !important;
+    overflow: hidden !important;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4) !important;
+}
+
+.toko-kwu-card::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background-image: url("../images/mirai/background/c1b.jpeg") !important;
+    background-size: 260px auto !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
+    pointer-events: none !important;
+}
+
+.toko-kwu-badge {
+    display: inline-block !important;
+    padding: 5px 12px !important;
+    border-radius: 999px !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    background: rgba(255, 79, 145, 0.15) !important;
+    border: 1px solid rgba(255, 79, 145, 0.35) !important;
+    color: #ff659b !important;
+    margin-bottom: 14px !important;
+}
+
+.toko-kwu-card h2 {
+    font-size: clamp(24px, 3.2vw, 34px) !important;
+    font-weight: 800 !important;
+    color: #ffffff !important;
+    margin: 0 0 14px !important;
+}
+
+.toko-kwu-card h2 span {
+    color: var(--pink, #e91e63) !important;
+}
+
+.toko-kwu-card p {
+    font-size: 14.5px !important;
+    line-height: 1.75 !important;
+    color: #cbd5e1 !important;
+    max-width: 820px !important;
+    margin: 0 0 28px !important;
+}
+
+.toko-kwu-stats {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+    gap: 16px !important;
+}
+
+.kwu-stat-box {
+    background: rgba(10, 7, 14, 0.55) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 12px !important;
+    padding: 18px !important;
+    text-align: center !important;
+}
+
+.kwu-stat-box strong {
+    display: block !important;
+    font-size: 28px !important;
+    font-weight: 900 !important;
+    color: #ff659b !important;
+    margin-bottom: 4px !important;
+}
+
+.kwu-stat-box small {
+    font-size: 12.5px !important;
+    color: #94a3b8 !important;
+    font-weight: 600 !important;
+}
+
+/* 8. FAQ Section */
+.toko-faq-section {
+    max-width: 1000px !important;
+    margin: 0 auto !important;
+    padding: 30px 24px 80px !important;
+}
+
+.toko-faq-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+    margin-top: 24px !important;
+}
+
+.toko-faq-item {
+    background: #171120 !important;
+    border: 1px solid rgba(255, 79, 145, 0.2) !important;
+    border-radius: 12px !important;
+    padding: 18px 22px !important;
+    transition: border-color 0.25s ease !important;
+}
+
+.toko-faq-item[open] {
+    border-color: rgba(255, 79, 145, 0.45) !important;
+}
+
+.toko-faq-item summary {
+    font-size: 15px !important;
+    color: #ffffff !important;
+    cursor: pointer !important;
+    outline: none !important;
+    user-select: none !important;
+}
+
+.toko-faq-item summary::-webkit-details-marker {
+    display: none !important;
+}
+
+.toko-faq-item summary::after {
+    content: "＋" !important;
+    float: right !important;
+    color: #ff659b !important;
+    font-weight: bold !important;
+}
+
+.toko-faq-item[open] summary::after {
+    content: "−" !important;
+}
+
+.toko-faq-item p {
+    font-size: 14px !important;
+    line-height: 1.7 !important;
+    color: #94a3b8 !important;
+    margin: 12px 0 0 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+    padding-top: 12px !important;
+}
+
+/* 9. Floating Cart Button */
+.toko-floating-cart-btn {
+    position: fixed !important;
+    bottom: 26px !important;
+    right: 26px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 12px 20px !important;
+    background: linear-gradient(135deg, #ff4f91 0%, #e91e63 100%) !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 999px !important;
+    font-size: 14px !important;
+    font-weight: 800 !important;
+    cursor: pointer !important;
+    box-shadow: 0 10px 28px rgba(233, 30, 99, 0.45) !important;
+    z-index: 999 !important;
+    transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+}
+
+.toko-floating-cart-btn:hover {
+    transform: translateY(-3px) scale(1.03) !important;
+    box-shadow: 0 14px 34px rgba(233, 30, 99, 0.6) !important;
+}
+
+.cart-btn-icon {
+    font-size: 18px !important;
+}
+
+.cart-btn-badge {
+    background: #ffffff !important;
+    color: #e91e63 !important;
+    border-radius: 999px !important;
+    min-width: 22px !important;
+    height: 22px !important;
+    padding: 0 6px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 12px !important;
+    font-weight: 900 !important;
+}
+
+/* 10. Cart Drawer & Overlay */
+.toko-cart-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    background: rgba(0, 0, 0, 0.7) !important;
+    backdrop-filter: blur(4px) !important;
+    z-index: 1000 !important;
+    transition: opacity 0.3s ease !important;
+}
+
+.toko-cart-overlay[hidden] {
+    display: none !important;
+}
+
+.toko-cart-drawer {
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    width: min(440px, 100vw) !important;
+    height: 100vh !important;
+    background: #150f1c !important;
+    border-left: 1px solid rgba(255, 79, 145, 0.3) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    z-index: 1001 !important;
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.6) !important;
+    animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+@keyframes slideInRight {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+.toko-cart-drawer[hidden] {
+    display: none !important;
+}
+
+.cart-drawer-header {
+    padding: 20px 24px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    background: #1a1322 !important;
+}
+
+.cart-drawer-title-wrap {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+
+.cart-drawer-title-wrap h3 {
+    margin: 0 !important;
+    font-size: 18px !important;
+    color: #ffffff !important;
+    font-weight: 800 !important;
+}
+
+.cart-drawer-close {
+    background: none !important;
+    border: none !important;
+    color: #94a3b8 !important;
+    font-size: 20px !important;
+    cursor: pointer !important;
+    padding: 4px 8px !important;
+}
+
+.cart-drawer-close:hover {
+    color: #ffffff !important;
+}
+
+.cart-drawer-body {
+    flex: 1 !important;
+    overflow-y: auto !important;
+    padding: 20px 24px !important;
+}
+
+.cart-items-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+}
+
+.cart-item-row {
+    background: #1d1627 !important;
+    border: 1px solid rgba(255, 79, 145, 0.18) !important;
+    border-radius: 12px !important;
+    padding: 14px 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+}
+
+.cart-item-info strong {
+    display: block !important;
+    font-size: 14px !important;
+    color: #ffffff !important;
+    margin-bottom: 2px !important;
+}
+
+.cart-item-unit-price {
+    font-size: 12px !important;
+    color: #94a3b8 !important;
+}
+
+.cart-item-controls {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+.cart-qty-stepper {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    background: #110d18 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 6px !important;
+    padding: 2px 6px !important;
+}
+
+.cart-qty-stepper button {
+    background: none !important;
+    border: none !important;
+    color: #ff659b !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    width: 24px !important;
+    height: 24px !important;
+    display: grid !important;
+    place-items: center !important;
+}
+
+.qty-display {
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    min-width: 20px !important;
+    text-align: center !important;
+}
+
+.cart-item-subtotal {
+    font-size: 14.5px !important;
+    font-weight: 800 !important;
+    color: #ff659b !important;
+}
+
+.btn-item-remove {
+    background: none !important;
+    border: none !important;
+    font-size: 15px !important;
+    cursor: pointer !important;
+    opacity: 0.6 !important;
+    transition: opacity 0.2s !important;
+}
+
+.btn-item-remove:hover {
+    opacity: 1 !important;
+}
+
+.cart-empty-state {
+    text-align: center !important;
+    padding: 60px 20px !important;
+}
+
+.empty-cart-icon {
+    font-size: 48px !important;
+    margin-bottom: 12px !important;
+    opacity: 0.4 !important;
+}
+
+.cart-empty-state h4 {
+    color: #ffffff !important;
+    font-size: 17px !important;
+    margin: 0 0 6px !important;
+}
+
+.cart-empty-state p {
+    color: #94a3b8 !important;
+    font-size: 13px !important;
+    margin: 0 !important;
+}
+
+.cart-drawer-footer {
+    padding: 20px 24px !important;
+    background: #1a1322 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.cart-summary-row {
+    display: flex !important;
+    justify-content: space-between !important;
+    font-size: 13.5px !important;
+    color: #94a3b8 !important;
+    margin-bottom: 6px !important;
+}
+
+.cart-summary-row.total-row {
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    color: #ffffff !important;
+    margin-top: 10px !important;
+    padding-top: 10px !important;
+    border-top: 1px dashed rgba(255, 255, 255, 0.12) !important;
+}
+
+.cart-total-price {
+    font-size: 20px !important;
+    font-weight: 900 !important;
+    color: #ff659b !important;
+}
+
+.cart-disclaimer {
+    font-size: 11.5px !important;
+    line-height: 1.5 !important;
+    color: #64748b !important;
+    margin: 12px 0 16px !important;
+}
+
+.cart-action-buttons {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+}
+
+.btn-checkout-gform {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    padding: 13px 20px !important;
+    font-size: 14px !important;
+    font-weight: 800 !important;
+    border-radius: 10px !important;
+}
+
+.btn-clear-cart {
+    background: none !important;
+    border: none !important;
+    color: #94a3b8 !important;
+    font-size: 12px !important;
+    cursor: pointer !important;
+    padding: 6px !important;
+}
+
+.btn-clear-cart:hover {
+    color: #f43f5e !important;
+}
+
+/* 11. Toast */
+.toko-toast {
+    position: fixed !important;
+    bottom: 86px !important;
+    right: 26px !important;
+    background: #1e1628 !important;
+    border: 1px solid #ff4f91 !important;
+    color: #ffffff !important;
+    padding: 12px 18px !important;
+    border-radius: 10px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    font-size: 13.5px !important;
+    font-weight: 600 !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45) !important;
+    z-index: 1002 !important;
+    opacity: 0 !important;
+    transform: translateY(10px) !important;
+    transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+
+.toko-toast.is-visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+.toast-icon {
+    background: #ff4f91 !important;
+    color: #ffffff !important;
+    border-radius: 50% !important;
+    width: 20px !important;
+    height: 20px !important;
+    display: grid !important;
+    place-items: center !important;
+    font-size: 11px !important;
+    font-weight: bold !important;
+}
+
+/* 12. Responsiveness */
+@media (max-width: 900px) {
+    .toko-intro-card {
+        grid-template-columns: 1fr !important;
+        padding: 28px 24px !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .toko-hero {
+        padding: 110px 16px 40px !important;
+    }
+    .toko-product-grid {
+        grid-template-columns: 1fr !important;
+    }
+    .toko-floating-cart-btn {
+        bottom: 20px !important;
+        right: 20px !important;
+        padding: 10px 16px !important;
+        font-size: 13px !important;
+    }
+    .toko-toast {
+        bottom: 76px !important;
+        right: 20px !important;
+        left: 20px !important;
+    }
+}
