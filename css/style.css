@@ -1440,7 +1440,7 @@ body:has(dialog[open]) .hero-social-sidebar {
 body.page-beranda main > section:not(.hero) {
     position: relative;
     z-index: 10;
-    background: #0c0810;
+    background: #fffef5;
 }
 
 main > section:not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero) {
@@ -1448,7 +1448,6 @@ main > section:not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero) {
     z-index: 10;
 }
 
-body.page-beranda .about-preview,
 .hero + section,
 .page-hero + section,
 .proker-hero + section,
@@ -1458,14 +1457,46 @@ body.page-beranda .about-preview,
     box-shadow: 0 -35px 85px rgba(0, 0, 0, 0.98) !important;
 }
 
+/* Beranda: shadow hero ke about-preview menyatu ke kuning */
+body.page-beranda .about-preview {
+    position: relative !important;
+    z-index: 12 !important;
+    box-shadow: 0 -40px 90px rgba(255, 251, 220, 0.95) !important;
+}
+
+
 body.page-beranda .about-preview,
 body.page-beranda .home-activities-dark-section,
 body.page-beranda .feedback-preview {
-    background-color: #0c0810 !important;
-    background: #0c0810 !important;
     position: relative !important;
     z-index: 10 !important;
 }
+
+/* === BERANDA: SELANG-SELING KUNING → PUTIH → KUNING → PUTIH === */
+/* Section 1 (about-preview): Kuning Lembut */
+body.page-beranda .about-preview {
+    background-color: #fffbea !important;
+    background: #fffbea !important;
+}
+
+/* Section 2 (journey-section): Putih Bersih */
+body.page-beranda .journey-section {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+}
+
+/* Section 3 (home-activities-dark-section): Kuning Lembut */
+body.page-beranda .home-activities-dark-section {
+    background-color: #fffbea !important;
+    background: #fffbea !important;
+}
+
+/* Section 4 (feedback-preview): Putih Bersih */
+body.page-beranda .feedback-preview {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+}
+
 
 .division-section,
 .program-section {
@@ -20505,3 +20536,163 @@ body.is-practicing {
         animation: none !important;
     }
 }
+
+
+/* =====================================================
+   BERANDA: OVERRIDE TERANG — SELANG-SELING KUNING & PUTIH
+   Section 1 (about-preview)     → Kuning #fffbea
+   Section 2 (journey-section)   → Putih  #ffffff
+   Section 3 (activities)        → Kuning #fffbea
+   Section 4 (feedback-preview)  → Putih  #ffffff
+   Accent: Pink (#e91e63), dengan sentuhan kuning/gold pada section kuning
+   ===================================================== */
+
+/* ---- SHADOW TRANSISI HERO KE SECTION PERTAMA ---- */
+body.page-beranda .about-preview {
+    box-shadow: 0 -35px 85px rgba(255, 248, 210, 0.96) !important;
+}
+
+/* ---- HEADING & TEKS DI SECTION KUNING (about + activities) ---- */
+body.page-beranda .about-preview .heading,
+body.page-beranda .about-preview .section-intro .heading,
+body.page-beranda .home-activities-dark-section .heading,
+body.page-beranda .home-activities-dark-section .section-intro .heading {
+    color: #18151b !important;
+}
+
+body.page-beranda .about-preview .heading span,
+body.page-beranda .about-preview .section-intro .heading span,
+body.page-beranda .home-activities-dark-section .heading span,
+body.page-beranda .home-activities-dark-section .section-intro .heading span {
+    color: var(--pink, #e91e63) !important;
+}
+
+body.page-beranda .home-activities-dark-section .copy,
+body.page-beranda .home-activities-dark-section .kicker {
+    color: #554e57 !important;
+}
+
+/* ---- ABOUT-FEATURE-CARD: Ubah dari gelap ke terang (di atas latar kuning) ---- */
+body.page-beranda .about-feature-card {
+    background: #ffffff !important;
+    border: 1.5px solid rgba(233, 30, 99, 0.2) !important;
+    box-shadow: 0 8px 32px rgba(233, 30, 99, 0.1), 0 2px 8px rgba(0,0,0,0.06) !important;
+}
+
+body.page-beranda .about-feature-card:hover {
+    border-color: var(--pink, #e91e63) !important;
+    box-shadow: 0 18px 48px rgba(233, 30, 99, 0.18), 0 4px 14px rgba(0,0,0,0.08) !important;
+}
+
+body.page-beranda .about-feature-card::after {
+    mix-blend-mode: multiply !important;
+    opacity: 0.03 !important;
+}
+
+body.page-beranda .about-feature-body.stacked-layout .about-card-title {
+    color: #18151b !important;
+}
+
+body.page-beranda .about-feature-body.stacked-layout .about-card-desc,
+body.page-beranda .about-card-desc,
+body.page-beranda .about-feature-card .copy,
+body.page-beranda .about-feature-card p {
+    color: #554e57 !important;
+}
+
+body.page-beranda main .about-feature-card h2,
+body.page-beranda main .about-feature-card .heading,
+body.page-beranda .about-feature-card .heading {
+    color: #18151b !important;
+}
+
+/* ---- FEEDBACK-FEATURE-CARD: Ubah dari gelap ke terang (di atas latar putih) ---- */
+body.page-beranda .feedback-feature-card {
+    background: #ffffff !important;
+    border: 1.5px solid rgba(233, 30, 99, 0.2) !important;
+    box-shadow: 0 8px 32px rgba(233, 30, 99, 0.1), 0 2px 8px rgba(0,0,0,0.06) !important;
+}
+
+body.page-beranda .feedback-feature-card:hover {
+    border-color: var(--pink, #e91e63) !important;
+    box-shadow: 0 18px 48px rgba(233, 30, 99, 0.18), 0 4px 14px rgba(0,0,0,0.08) !important;
+}
+
+body.page-beranda .feedback-feature-card::after {
+    mix-blend-mode: multiply !important;
+    opacity: 0.03 !important;
+}
+
+body.page-beranda .feedback-feature-body.stacked-layout .feedback-card-title {
+    color: #18151b !important;
+}
+
+body.page-beranda .feedback-feature-body.stacked-layout .feedback-card-desc,
+body.page-beranda .feedback-card-desc,
+body.page-beranda .feedback-feature-card .copy,
+body.page-beranda .feedback-feature-card p {
+    color: #554e57 !important;
+}
+
+body.page-beranda main .feedback-feature-card h2,
+body.page-beranda main .feedback-feature-card .heading,
+body.page-beranda .feedback-feature-card .heading {
+    color: #18151b !important;
+}
+
+/* ---- ACTIVITY CARD di Section Kuning: Putih bersih + border pink ---- */
+body.page-beranda .home-activities-dark-section .activity-start-card {
+    background: #ffffff !important;
+    border: 1px solid rgba(233, 30, 99, 0.22) !important;
+    box-shadow: 0 4px 20px rgba(233, 30, 99, 0.08) !important;
+    color: #18151b !important;
+}
+
+body.page-beranda .home-activities-dark-section .activity-start-card h3 {
+    color: #18151b !important;
+}
+
+body.page-beranda .home-activities-dark-section .activity-start-card p {
+    color: #6b626e !important;
+}
+
+body.page-beranda .home-activities-dark-section .activity-card-active:hover {
+    border-color: var(--pink, #e91e63) !important;
+    box-shadow: 0 14px 32px rgba(233, 30, 99, 0.18) !important;
+}
+
+/* ---- START-CARD di journey-section (Section Putih): style normal ---- */
+body.page-beranda .journey-section .start-card {
+    background: #ffffff !important;
+    border: 1px solid rgba(233, 30, 99, 0.18) !important;
+    box-shadow: 0 4px 18px rgba(233, 30, 99, 0.07) !important;
+}
+
+body.page-beranda .journey-section .heading,
+body.page-beranda .journey-section .section-intro .heading {
+    color: #18151b !important;
+}
+
+body.page-beranda .journey-section .heading span {
+    color: var(--pink, #e91e63) !important;
+}
+
+/* ---- BADGE & TAG SECTION KUNING: sesuaikan kontras ---- */
+body.page-beranda .about-preview .about-feature-badge,
+body.page-beranda .about-preview .about-feature-tag {
+    background: rgba(233, 30, 99, 0.1) !important;
+    border-color: rgba(233, 30, 99, 0.35) !important;
+    color: var(--pink, #e91e63) !important;
+    box-shadow: none !important;
+}
+
+body.page-beranda .feedback-preview .feedback-feature-badge,
+body.page-beranda .feedback-preview .feedback-feature-tag {
+    background: rgba(233, 30, 99, 0.1) !important;
+    border-color: rgba(233, 30, 99, 0.35) !important;
+    color: var(--pink, #e91e63) !important;
+    box-shadow: none !important;
+}
+/* =====================================================
+   END: BERANDA SELANG-SELING KUNING & PUTIH
+   ===================================================== */
