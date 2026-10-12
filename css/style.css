@@ -3213,8 +3213,8 @@ body.theme-dark .kana-search input { color:#fff8fb !important; background:#30243
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     margin-top: 48px;
-    border-top: 1px solid var(--pink3);
-    border-bottom: 1px solid var(--pink3);
+    border-top: none;
+    border-bottom: none;
 }
 
 .facility {
@@ -3650,7 +3650,7 @@ body.theme-dark .kana-search input { color:#fff8fb !important; background:#30243
     .facility:last-child {
         min-height: 150px;
         border-right: 0;
-        border-bottom: 1px solid var(--pink3);
+        border-bottom: none;
     }
 
     .facility:last-child {
@@ -19886,6 +19886,9 @@ body.theme-dark .page-lomba .lomba-detail-card:hover::after {
     max-width: 1100px !important;
     margin: 0 auto !important;
     width: 100% !important;
+    border: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
 }
 
 /* KARTU FASILITAS (FORMAT LANDSCAPE) */
@@ -20064,8 +20067,8 @@ body.theme-dark .page-lomba .lomba-detail-card:hover::after {
     display: flex !important;
     align-items: center !important;
     justify-content: flex-start !important;
-    padding-top: 14px !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.07) !important;
+    padding-top: 8px !important;
+    border-top: none !important;
 }
 
 .facility-status-pill {
