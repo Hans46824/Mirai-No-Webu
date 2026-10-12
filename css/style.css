@@ -264,181 +264,181 @@ main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not
 
 /* ----------------------------------------------------
    2. SECTION KONTEN GENAP PADA HALAMAN STANDAR (Section 2, 4, 6, 8...) = HITAM PEKAT
-   (Kecuali Beranda, Hero & Kamus)
+   (Kecuali Hero & Kamus)
    ---------------------------------------------------- */
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) {
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) {
     background-color: #111111 !important;
     color: #f5edf4 !important;
 }
 
 /* Tipografi di Section Hitam Halaman Standar (Kontras Tinggi Terang) */
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) h1,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) h2,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) h3,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) h4,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .heading,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .section-title,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .page-title,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .quest-section h2,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .section-heading h2 {
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) h1,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) h2,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) h3,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) h4,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .heading,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .section-title,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .page-title,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .quest-section h2,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .section-heading h2 {
     color: #ffffff !important;
 }
 
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .heading span,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) h1 span,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) h2 span,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) h3 span,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .page-title span,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .quest-section h2 span {
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .heading span,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) h1 span,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) h2 span,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) h3 span,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .page-title span,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .quest-section h2 span {
     color: var(--pink, #e91e63) !important;
 }
 
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) p,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .copy,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .lead,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .section-heading > p,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .timeline-hint {
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) p,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .copy,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .lead,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .section-heading > p,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .timeline-hint {
     color: #d5ccd3 !important;
 }
 
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .kicker,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .eyebrow,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .dokumentasi-row h3 {
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .kicker,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .eyebrow,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) .dokumentasi-row h3 {
     color: var(--pink, #e91e63) !important;
 }
 
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) a.text-link {
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) a.text-link {
     color: #ff659b !important;
     border-color: rgba(255, 101, 155, 0.4) !important;
 }
 
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) a.text-link span {
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section) a.text-link span {
     color: #ff8ab6 !important;
 }
 
 /* Kartu & Permukaan di Section Hitam (Tema Obsidian Gelap) */
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .about-name-card,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .logo-meaning-card,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .logo-meaning-badge-col,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .timeline-content,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .achievement-card,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .accessory-card,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .accessory-banner-card,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .management-card,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .program-card,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .division-card,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .activity-start-card,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .start-card,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .level-card,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .class-card,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .mode-card,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .ketentuan-card,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .radio-script-container,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .faq-intro-box,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .faq-item,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .faq-item summary,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .sora-visual-card,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .sora-rpg-card,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .haori-card,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .haori-photo-card,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .mgmt-slide-badge,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .lesson-list article,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .feedback-form,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .material-card,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .course-card,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .schedule-note,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .roadmap article {
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .about-name-card,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .logo-meaning-card,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .logo-meaning-badge-col,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .timeline-content,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .achievement-card,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .accessory-card,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .accessory-banner-card,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .management-card,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .program-card,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .division-card,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .activity-start-card,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .start-card,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .level-card,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .class-card,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .mode-card,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .ketentuan-card,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .radio-script-container,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .faq-intro-box,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .faq-item,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .faq-item summary,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .sora-visual-card,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .sora-rpg-card,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .haori-card,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .haori-photo-card,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .mgmt-slide-badge,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .lesson-list article,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .feedback-form,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .material-card,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .course-card,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .schedule-note,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .roadmap article {
     background: #19141f !important;
     border-color: #3d3040 !important;
     color: #ffffff !important;
     box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
 }
 
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .about-name-card h3,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .logo-meaning-card h3,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .timeline-title,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .achievement-rank,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .accessory-card h3,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .accessory-banner-content h3,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .management-card h3,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .program-card h3,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .division-card h3,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .activity-start-card h3,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .start-card h3,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .level-card h3,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .class-card h3,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .ketentuan-card h3,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .faq-intro-text,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .faq-question,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .lesson-list h3,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .haori-card h3,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .facility h3,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .material-card h3,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .course-card h3 {
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .about-name-card h3,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .logo-meaning-card h3,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .timeline-title,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .achievement-rank,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .accessory-card h3,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .accessory-banner-content h3,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .management-card h3,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .program-card h3,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .division-card h3,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .activity-start-card h3,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .start-card h3,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .level-card h3,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .class-card h3,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .ketentuan-card h3,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .faq-intro-text,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .faq-question,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .lesson-list h3,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .haori-card h3,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .facility h3,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .material-card h3,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .course-card h3 {
     color: #ffffff !important;
 }
 
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .about-name-card p,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .logo-meaning-card p,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .timeline-ketua,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .achievement-name,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .accessory-card p,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .accessory-banner-content p,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .management-card p,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .program-card p,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .division-card p,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .activity-start-card p,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .start-card p,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .level-card p,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .level-card small,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .ketentuan-card .ketentuan-list,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .lesson-list p,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .haori-card p,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .facility p,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .material-card p,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .course-card p {
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .about-name-card p,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .logo-meaning-card p,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .timeline-ketua,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .achievement-name,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .accessory-card p,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .accessory-banner-content p,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .management-card p,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .program-card p,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .division-card p,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .activity-start-card p,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .start-card p,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .level-card p,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .level-card small,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .ketentuan-card .ketentuan-list,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .lesson-list p,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .haori-card p,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .facility p,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .material-card p,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .course-card p {
     color: #d5ccd3 !important;
 }
 
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .card-number,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .about-name-badge,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .accessory-badge,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .card-badge,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .ketentuan-card-badge,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .achievement-badge,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .achievement-year,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .timeline-year,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .haori-badge,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .haori-photo-tag,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .lesson-list span {
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .card-number,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .about-name-badge,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .accessory-badge,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .card-badge,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .ketentuan-card-badge,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .achievement-badge,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .achievement-year,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .timeline-year,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .haori-badge,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .haori-photo-tag,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .lesson-list span {
     background: transparent !important;
     border: none !important;
     color: #ff659b !important;
 }
 
 
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .division-card img {
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .division-card img {
     background: #251e2b !important;
     border-color: #52374c !important;
 }
 
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .faq-chat-bubble {
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .faq-chat-bubble {
     background: #231b28 !important;
     color: #ffffff !important;
     border-left: 3px solid #ff659b !important;
 }
 
 
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .timeline-dot {
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) .timeline-dot {
     border-color: #19141f !important;
 }
 
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) strong {
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) strong {
     color: #ffffff !important;
 }
 
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) input,
-body:not(.page-beranda) main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) textarea {
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) input,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson) textarea {
     background: #251e2c !important;
     border-color: #4a384e !important;
     color: #ffffff !important;
@@ -1440,6 +1440,7 @@ body:has(dialog[open]) .hero-social-sidebar {
 body.page-beranda main > section:not(.hero) {
     position: relative;
     z-index: 10;
+    background: #0c0810;
 }
 
 main > section:not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero) {
@@ -1454,438 +1455,22 @@ body.page-beranda .about-preview,
 .quest-hero + section {
     position: relative !important;
     z-index: 12 !important;
-    box-shadow: 0 -25px 65px rgba(0, 0, 0, 0.35) !important;
+    box-shadow: 0 -35px 85px rgba(0, 0, 0, 0.98) !important;
 }
 
-/* ==========================================================================
-   TEMA BERANDA MIRAI NO HANA: POLA SELANG-SELING WARNA (KUNING CERAH - PUTIH)
-   - Tanpa garis pembatas antar-seksi (direct color transition seperti Gambar 1)
-   - Warna kuning: Kuning Cerah Emas (#ffe066 -> #ffd03b)
-   - Kartu bernuansa kuning emas cerah (#fff3a8 -> #ffd74a) berbingkai Pink Sakura (#e91e63)
-   - Pattern c1b transparan (motif awan wagara tanpa latar hitam)
-   - Format warna judul: PUTIH lalu PINK ("Apa itu" / "Belajar di mana pun," dst.)
-   - Tata letak & padding kartu presisi, rapi, dan proporsional
-   ========================================================================== */
-
-/* Hilangkan SEMUA garis pembatas/border antar-seksi di Beranda (seperti Gambar 1) */
-body.page-beranda main > section {
-    border: none !important;
-    border-top: none !important;
-    border-bottom: none !important;
-}
-
-/* 1. SEKSI 1: Apa itu Mirai no Webu? (KUNING CERAH) */
-body.page-beranda .about-preview {
-    background: linear-gradient(180deg, #ffe066 0%, #ffd03b 100%) !important;
-    background-color: #ffd03b !important;
-    position: relative !important;
-    z-index: 12 !important;
-    box-shadow: 0 -25px 60px rgba(0, 0, 0, 0.16) !important;
-    border: none !important;
-    border-top: none !important;
-    border-bottom: none !important;
-}
-
-/* Format Judul Seksi 1: Putih lalu Pink */
-body.page-beranda .about-preview .section-intro .heading {
-    color: #ffffff !important;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3) !important;
-}
-
-body.page-beranda .about-preview .section-intro .heading span {
-    color: var(--pink, #e91e63) !important;
-    text-shadow: none !important;
-}
-
-body.page-beranda .about-preview .section-intro .kicker {
-    color: #ffffff !important;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3) !important;
-}
-
-/* Kartu Fitur Tentang: Bernuansa Kuning Emas Cerah Berbingkai Pink Sakura */
-body.page-beranda .about-feature-card {
-    background: linear-gradient(145deg, #fff3a8 0%, #ffd74a 100%) !important;
-    border: 2px solid #e91e63 !important;
-    border-radius: 24px !important;
-    padding: 38px 44px 34px !important;
-    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.14), 0 4px 14px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
-}
-
-body.page-beranda .about-feature-card:hover {
-    border-color: #ff4f91 !important;
-    box-shadow: 0 24px 55px rgba(0, 0, 0, 0.2), 0 6px 18px rgba(233, 30, 99, 0.22) !important;
-}
-
-body.page-beranda .about-feature-card::before {
-    background: linear-gradient(90deg, #e91e63, #ffd54f, #e91e63) !important;
-}
-
-body.page-beranda .about-feature-card::after {
-    background-image: url("../images/mirai/background/c1b-transparent.png") !important;
-    background-size: 280px auto !important;
-    background-repeat: repeat !important;
-    opacity: 0.35 !important;
-    mix-blend-mode: normal !important;
-}
-
-body.page-beranda .about-feature-header {
-    margin-bottom: 24px !important;
-}
-
-body.page-beranda .about-feature-badge {
-    background: rgba(233, 30, 99, 0.12) !important;
-    border: 1.5px solid #e91e63 !important;
-    color: #b80f55 !important;
-}
-
-body.page-beranda .about-feature-badge .badge-dot {
-    background: #e91e63 !important;
-    box-shadow: 0 0 8px #e91e63 !important;
-}
-
-body.page-beranda .about-feature-tag {
-    background: rgba(233, 30, 99, 0.12) !important;
-    border: 1.5px solid #e91e63 !important;
-    color: #b80f55 !important;
-    box-shadow: none !important;
-}
-
-body.page-beranda .about-feature-tag .badge-dot {
-    background: #e91e63 !important;
-    box-shadow: 0 0 8px #e91e63 !important;
-}
-
-/* Format Judul Kartu Tentang: Putih lalu Pink ("Belajar di mana pun," = Putih, "dan kapanpun." = Pink) */
-body.page-beranda .about-feature-body.stacked-layout .about-card-title,
-body.page-beranda main .about-feature-card h2,
-body.page-beranda main .about-feature-card .heading,
-body.page-beranda .about-feature-card h2.heading,
-body.page-beranda .about-feature-card .heading,
-body.page-beranda .about-feature-left .heading {
-    color: #ffffff !important;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3) !important;
-    margin: 0 0 16px 0 !important;
-}
-
-body.page-beranda .about-feature-body.stacked-layout .about-card-title span.highlight,
-body.page-beranda .about-card-title span,
-body.page-beranda .about-card-title span.highlight,
-body.page-beranda main .about-feature-card .heading span,
-body.page-beranda main .about-feature-card .heading span.highlight,
-body.page-beranda .about-feature-card .heading span.highlight,
-body.page-beranda .about-feature-card .heading span,
-body.page-beranda .about-feature-left .heading span.highlight,
-body.page-beranda .about-feature-left .heading span {
-    color: var(--pink, #e91e63) !important;
-    text-shadow: none !important;
-}
-
-body.page-beranda .about-feature-body.stacked-layout .about-card-desc,
-body.page-beranda .about-card-desc,
-body.page-beranda main .about-feature-card .copy,
-body.page-beranda main .about-feature-card p,
-body.page-beranda .about-feature-right .copy,
-body.page-beranda .about-feature-card p.copy {
-    color: #1f1922 !important;
-    font-weight: 500 !important;
-    margin: 0 0 24px 0 !important;
-}
-
-body.page-beranda .about-feature-card > .card-corner-chibi {
-    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.25)) !important;
-}
-
-
-/* 2. SEKSI 2: Media Belajar Digital (PUTIH BERSIH) */
-body.page-beranda .journey-section {
-    background-color: #ffffff !important;
-    background: #ffffff !important;
-    position: relative !important;
-    z-index: 10 !important;
-    border: none !important;
-    border-top: none !important;
-    border-bottom: none !important;
-}
-
-body.page-beranda .journey-section .section-intro .heading {
-    color: #18151b !important;
-}
-
-body.page-beranda .journey-section .section-intro .heading span {
-    color: #e91e63 !important;
-}
-
-body.page-beranda .journey-section .start-card {
-    background-color: #ffffff !important;
-    border: 1.5px solid #f4bfd3 !important;
-    box-shadow: 0 8px 24px rgba(233, 30, 99, 0.06) !important;
-}
-
-body.page-beranda .journey-section .start-card:hover {
-    border-color: #e91e63 !important;
-    box-shadow: 0 16px 36px rgba(233, 30, 99, 0.16) !important;
-}
-
-body.page-beranda .journey-section .start-card h3 {
-    color: #18151b !important;
-}
-
-body.page-beranda .journey-section .start-card p {
-    color: #554d58 !important;
-}
-
-body.page-beranda .journey-section .start-card span {
-    background: rgba(233, 30, 99, 0.08) !important;
-    border: 1.5px solid #f4bfd3 !important;
-    color: #e91e63 !important;
-}
-
-body.page-beranda .journey-section .start-card b {
-    background: #ffffff !important;
-    border: 1.5px solid #f4bfd3 !important;
-    color: #e91e63 !important;
-}
-
-body.page-beranda .journey-section .start-card:hover b {
-    background: #e91e63 !important;
-    border-color: #e91e63 !important;
-    color: #ffffff !important;
-}
-
-
-/* 3. SEKSI 3: Telusuri Hal-Hal Lainnya yang Telah Kami Buat (KUNING CERAH) */
+body.page-beranda .about-preview,
 body.page-beranda .home-activities-dark-section {
-    background: linear-gradient(180deg, #ffe066 0%, #ffd03b 100%) !important;
-    background-color: #ffd03b !important;
+    background-color: #0c0810 !important;
+    background: #0c0810 !important;
     position: relative !important;
     z-index: 10 !important;
-    border: none !important;
-    border-top: none !important;
-    border-bottom: none !important;
 }
 
-/* Format Judul Seksi 3: Putih lalu Pink ("Telusuri Hal-Hal Lainnya" = Putih, "yang Telah Kami Buat" = Pink) */
-body.page-beranda .home-activities-dark-section .heading {
-    color: #ffffff !important;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3) !important;
-}
-
-body.page-beranda .home-activities-dark-section .heading span {
-    color: var(--pink, #e91e63) !important;
-    text-shadow: none !important;
-}
-
-body.page-beranda .home-activities-dark-section .kicker {
-    color: #ffffff !important;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3) !important;
-}
-
-/* Kartu-Kartu Aktivitas: Bernuansa Kuning Emas Cerah Berbingkai Pink Sakura */
-body.page-beranda .activity-start-card {
-    background: linear-gradient(145deg, #fff3a8 0%, #ffd74a 100%) !important;
-    border: 2px solid #e91e63 !important;
-    border-radius: 14px !important;
-    color: #18151b !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12), 0 3px 10px rgba(0, 0, 0, 0.05) !important;
-}
-
-body.page-beranda .activity-card-active:hover,
-body.page-beranda .activity-start-card:hover {
-    transform: translateY(-6px) !important;
-    border-color: #ff4f91 !important;
-    box-shadow: 0 20px 42px rgba(0, 0, 0, 0.22), 0 6px 18px rgba(233, 30, 99, 0.25) !important;
-}
-
-body.page-beranda .activity-start-card::before {
-    background: linear-gradient(90deg, #e91e63, #ffd54f, #e91e63) !important;
-}
-
-body.page-beranda .activity-start-card::after {
-    background-image: url("../images/mirai/background/c1b-transparent.png") !important;
-    background-size: 260px auto !important;
-    background-repeat: repeat !important;
-    opacity: 0.35 !important;
-    mix-blend-mode: normal !important;
-}
-
-/* Komposisi Warna Teks Kartu Aktivitas (Kontras Tinggi & Tajam) */
-body.page-beranda .activity-start-card h3,
-body.page-beranda .home-activities-dark-section .activity-start-card h3,
-body.page-beranda main .activity-start-card h3 {
-    color: #18151b !important;
-    font-size: 26px !important;
-    font-weight: 800 !important;
-    line-height: 1.25 !important;
-    margin: 10px 0 10px !important;
-}
-
-body.page-beranda .activity-start-card p,
-body.page-beranda .home-activities-dark-section .activity-start-card p,
-body.page-beranda main .activity-start-card p {
-    color: #1f1922 !important;
-    font-weight: 500 !important;
-    font-size: 14.5px !important;
-    line-height: 1.6 !important;
-}
-
-/* Lingkaran Nomor (Kiri Atas) — Pink Sesuai Gambar 3 */
-body.page-beranda .activity-start-card span.card-badge,
-body.page-beranda .activity-start-card span {
-    background: #ffffff !important;
-    border: 1.5px solid #e91e63 !important;
-    color: #e91e63 !important;
-    border-radius: 50% !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 32px !important;
-    height: 32px !important;
-    font-weight: 800 !important;
-    box-sizing: border-box !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
-}
-
-body.page-beranda .activity-card-active:hover span.card-badge,
-body.page-beranda .activity-card-active:hover span,
-body.page-beranda .activity-start-card:hover span.card-badge,
-body.page-beranda .activity-start-card:hover span {
-    background: #e91e63 !important;
-    border-color: #e91e63 !important;
-    color: #ffffff !important;
-}
-
-/* Lingkaran Panah (Kanan Atas) — Pink Sesuai Gambar 3 */
-body.page-beranda .activity-start-card b {
-    background: #ffffff !important;
-    border: 1.5px solid #e91e63 !important;
-    color: #e91e63 !important;
-    border-radius: 50% !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 32px !important;
-    height: 32px !important;
-    box-sizing: border-box !important;
-    transition: all 0.2s ease !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
-}
-
-body.page-beranda .activity-card-active:hover b,
-body.page-beranda .activity-start-card:hover b {
-    background: #e91e63 !important;
-    border-color: #e91e63 !important;
-    color: #ffffff !important;
-    box-shadow: 0 4px 14px rgba(233, 30, 99, 0.5) !important;
-    text-shadow: none !important;
-}
-
-body.page-beranda .activity-start-card > .card-corner-chibi {
-    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.25)) !important;
-}
-
-
-/* 4. SEKSI 4: Suara Mirai No Hana / Kritik & Saran (PUTIH BERSIH) */
 body.page-beranda .feedback-preview {
     background-color: #ffffff !important;
     background: #ffffff !important;
     position: relative !important;
     z-index: 10 !important;
-    border: none !important;
-    border-top: none !important;
-    border-bottom: none !important;
-}
-
-/* Kartu Masukan: Bernuansa Kuning Emas Cerah Berbingkai Pink di atas Seksi Putih */
-body.page-beranda .feedback-feature-card {
-    background: linear-gradient(145deg, #fff3a8 0%, #ffd74a 100%) !important;
-    border: 2px solid #e91e63 !important;
-    border-radius: 24px !important;
-    padding: 38px 44px 34px !important;
-    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.14), 0 4px 14px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
-}
-
-body.page-beranda .feedback-feature-card:hover {
-    border-color: #ff4f91 !important;
-    box-shadow: 0 24px 55px rgba(0, 0, 0, 0.2), 0 6px 18px rgba(233, 30, 99, 0.22) !important;
-}
-
-body.page-beranda .feedback-feature-card::before {
-    background: linear-gradient(90deg, #e91e63, #ffd54f, #e91e63) !important;
-}
-
-body.page-beranda .feedback-feature-card::after {
-    background-image: url("../images/mirai/background/c1b-transparent.png") !important;
-    background-size: 280px auto !important;
-    background-repeat: repeat !important;
-    opacity: 0.35 !important;
-    mix-blend-mode: normal !important;
-}
-
-body.page-beranda .feedback-feature-header {
-    margin-bottom: 24px !important;
-}
-
-body.page-beranda .feedback-feature-badge {
-    background: rgba(233, 30, 99, 0.12) !important;
-    border: 1.5px solid #e91e63 !important;
-    color: #b80f55 !important;
-}
-
-body.page-beranda .feedback-feature-badge .badge-dot {
-    background: #e91e63 !important;
-    box-shadow: 0 0 8px #e91e63 !important;
-}
-
-body.page-beranda .feedback-feature-tag {
-    background: rgba(233, 30, 99, 0.12) !important;
-    border: 1.5px solid #e91e63 !important;
-    color: #b80f55 !important;
-    box-shadow: none !important;
-}
-
-body.page-beranda .feedback-feature-tag .badge-dot {
-    background: #e91e63 !important;
-    box-shadow: 0 0 8px #e91e63 !important;
-}
-
-/* Format Judul Kartu Masukan: Putih lalu Pink ("Suaramu membuat," = Putih, "kami bertumbuh." = Pink) */
-body.page-beranda .feedback-feature-body.stacked-layout .feedback-card-title,
-body.page-beranda main .feedback-feature-card h2,
-body.page-beranda main .feedback-feature-card .heading,
-body.page-beranda .feedback-feature-card h2.heading,
-body.page-beranda .feedback-feature-card .heading,
-body.page-beranda .feedback-feature-left .heading {
-    color: #ffffff !important;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3) !important;
-    margin: 0 0 16px 0 !important;
-}
-
-body.page-beranda .feedback-feature-body.stacked-layout .feedback-card-title span.highlight,
-body.page-beranda .feedback-card-title span,
-body.page-beranda .feedback-card-title span.highlight,
-body.page-beranda main .feedback-feature-card .heading span,
-body.page-beranda main .feedback-feature-card .heading span.highlight,
-body.page-beranda .feedback-feature-card .heading span.highlight,
-body.page-beranda .feedback-feature-card .heading span,
-body.page-beranda .feedback-feature-left .heading span.highlight,
-body.page-beranda .feedback-feature-left .heading span {
-    color: var(--pink, #e91e63) !important;
-    text-shadow: none !important;
-}
-
-body.page-beranda .feedback-feature-body.stacked-layout .feedback-card-desc,
-body.page-beranda .feedback-card-desc,
-body.page-beranda main .feedback-feature-card .copy,
-body.page-beranda main .feedback-feature-card p,
-body.page-beranda .feedback-feature-right .copy,
-body.page-beranda .feedback-feature-card p.copy {
-    color: #1f1922 !important;
-    font-weight: 500 !important;
-    margin: 0 0 24px 0 !important;
-}
-
-body.page-beranda .feedback-feature-card > .card-corner-chibi {
-    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.25)) !important;
 }
 
 .division-section,
@@ -9591,9 +9176,9 @@ body.theme-dark .menu-toggle {
    ===================================================== */
 .home-activities-dark-section {
     padding: 90px 6vw;
-    background: linear-gradient(180deg, #d88900 0%, #b86e00 100%) !important;
-    background-color: #c87a00 !important;
-    border: none !important;
+    position: relative;
+    background-color: #0c0810 !important;
+    background: #0c0810 !important;
     z-index: 10 !important;
 }
 .home-activities-dark-section .kicker {
@@ -15189,7 +14774,7 @@ body.theme-dark .ketentuan-card:hover::after {
     font-size: clamp(30px, 4vw, 48px) !important;
     line-height: 1.15 !important;
     margin: 0 !important;
-    color: #18151b !important;
+    color: #ffffff !important;
     font-weight: 900 !important;
     letter-spacing: -0.5px !important;
 }
@@ -15204,18 +14789,18 @@ body.theme-dark .ketentuan-card:hover::after {
     box-sizing: border-box !important;
     max-width: 1200px !important;
     margin: 0 auto !important;
-    padding: 38px 44px 34px !important;
-    background: linear-gradient(145deg, #fff3a8 0%, #ffd74a 100%) !important;
-    border: 2px solid #e91e63 !important;
+    padding: 34px 40px 30px !important;
+    background: linear-gradient(165deg, #1c1523 0%, #130f18 100%) !important;
+    border: 1.5px solid rgba(255, 101, 155, 0.25) !important;
     border-radius: 24px !important;
-    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.14), 0 4px 14px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
     transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease !important;
 }
 
 .about-feature-card:hover {
     transform: translateY(-5px) !important;
-    border-color: #ff4f91 !important;
-    box-shadow: 0 24px 55px rgba(0, 0, 0, 0.35), 0 6px 18px rgba(233, 30, 99, 0.3) !important;
+    border-color: var(--pink, #e91e63) !important;
+    box-shadow: 0 24px 50px rgba(233, 30, 99, 0.22), 0 6px 18px rgba(0, 0, 0, 0.6) !important;
 }
 
 .about-feature-card::before {
@@ -15225,7 +14810,7 @@ body.theme-dark .ketentuan-card:hover::after {
     left: 0 !important;
     width: 100% !important;
     height: 3.5px !important;
-    background: linear-gradient(90deg, #e91e63, #ffd54f, #e91e63) !important;
+    background: linear-gradient(90deg, #ff659b, #e91e63) !important;
     transform: scaleX(0) !important;
     transform-origin: left !important;
     transition: transform 0.3s ease !important;
@@ -15240,12 +14825,12 @@ body.theme-dark .ketentuan-card:hover::after {
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("../images/mirai/background/c1b-transparent.png") !important;
-    background-size: 280px auto !important;
+    background-image: url("../images/mirai/background/c1b.jpeg") !important;
+    background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
-    opacity: 0.32 !important;
-    mix-blend-mode: normal !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
     pointer-events: none !important;
     z-index: 0 !important;
     display: block !important;
@@ -15253,7 +14838,7 @@ body.theme-dark .ketentuan-card:hover::after {
 }
 
 .about-feature-card:hover::after {
-    opacity: 0.45 !important;
+    opacity: 0.08 !important;
     transform: scale(1.02) !important;
 }
 
@@ -15340,7 +14925,7 @@ body.theme-dark .ketentuan-card:hover::after {
     font-size: clamp(26px, 3.4vw, 38px) !important;
     font-weight: 900 !important;
     line-height: 1.25 !important;
-    color: #18151b !important;
+    color: #ffffff !important;
     letter-spacing: -0.5px !important;
 }
 
@@ -15353,7 +14938,7 @@ body.theme-dark .ketentuan-card:hover::after {
     line-height: 1.8 !important;
     margin: 0 !important;
     max-width: 800px !important;
-    color: #3d3640 !important;
+    color: #ece4ec !important;
 }
 
 .about-feature-body.stacked-layout .about-feature-action {
@@ -15368,7 +14953,7 @@ main .about-feature-card .heading,
     font-size: clamp(26px, 3.2vw, 38px) !important;
     font-weight: 900 !important;
     line-height: 1.25 !important;
-    color: #18151b !important;
+    color: #ffffff !important;
     letter-spacing: -0.5px !important;
 }
 
@@ -15385,7 +14970,7 @@ main .about-feature-card .heading span.highlight,
 
 .about-card-lead {
     margin: 12px 0 0 0 !important;
-    color: #c2185b !important;
+    color: #f3a8c5 !important;
     font-size: 13px !important;
     font-weight: 700 !important;
     letter-spacing: 0.8px !important;
@@ -15398,7 +14983,7 @@ main .about-feature-card .copy,
 main .about-feature-card p,
 .about-feature-right .copy,
 .about-feature-card p.copy {
-    color: #3d3640 !important;
+    color: #ece4ec !important;
     font-size: 15px !important;
     line-height: 1.65 !important;
     margin: 0 0 20px 0 !important;
@@ -15528,18 +15113,18 @@ main .about-feature-card p,
     box-sizing: border-box !important;
     max-width: 1200px !important;
     margin: 0 auto !important;
-    padding: 38px 44px 34px !important;
-    background: linear-gradient(145deg, #fff3a8 0%, #ffd74a 100%) !important;
-    border: 2px solid #e91e63 !important;
+    padding: 34px 40px 30px !important;
+    background: linear-gradient(165deg, #1c1523 0%, #130f18 100%) !important;
+    border: 1.5px solid rgba(255, 101, 155, 0.25) !important;
     border-radius: 24px !important;
-    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.14), 0 4px 14px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
     transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease !important;
 }
 
 .feedback-feature-card:hover {
     transform: translateY(-5px) !important;
-    border-color: #ff4f91 !important;
-    box-shadow: 0 24px 55px rgba(0, 0, 0, 0.35), 0 6px 18px rgba(233, 30, 99, 0.3) !important;
+    border-color: var(--pink, #e91e63) !important;
+    box-shadow: 0 24px 50px rgba(233, 30, 99, 0.22), 0 6px 18px rgba(0, 0, 0, 0.6) !important;
 }
 
 .feedback-feature-card::before {
@@ -15549,7 +15134,7 @@ main .about-feature-card p,
     left: 0 !important;
     width: 100% !important;
     height: 3.5px !important;
-    background: linear-gradient(90deg, #e91e63, #ffd54f, #e91e63) !important;
+    background: linear-gradient(90deg, #ff659b, #e91e63) !important;
     transform: scaleX(0) !important;
     transform-origin: left !important;
     transition: transform 0.3s ease !important;
@@ -15564,12 +15149,12 @@ main .about-feature-card p,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("../images/mirai/background/c1b-transparent.png") !important;
-    background-size: 280px auto !important;
+    background-image: url("../images/mirai/background/c1b.jpeg") !important;
+    background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
-    opacity: 0.32 !important;
-    mix-blend-mode: normal !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
     pointer-events: none !important;
     z-index: 0 !important;
     display: block !important;
@@ -15577,7 +15162,7 @@ main .about-feature-card p,
 }
 
 .feedback-feature-card:hover::after {
-    opacity: 0.45 !important;
+    opacity: 0.08 !important;
     transform: scale(1.02) !important;
 }
 
@@ -15664,7 +15249,7 @@ main .about-feature-card p,
     font-size: clamp(26px, 3.4vw, 38px) !important;
     font-weight: 900 !important;
     line-height: 1.25 !important;
-    color: #18151b !important;
+    color: #ffffff !important;
     letter-spacing: -0.5px !important;
 }
 
@@ -15677,7 +15262,7 @@ main .about-feature-card p,
     line-height: 1.8 !important;
     margin: 0 !important;
     max-width: 800px !important;
-    color: #3d3640 !important;
+    color: #ece4ec !important;
 }
 
 .feedback-feature-body.stacked-layout .feedback-feature-action {
@@ -15692,7 +15277,7 @@ main .feedback-feature-card .heading,
     font-size: clamp(26px, 3.2vw, 38px) !important;
     font-weight: 900 !important;
     line-height: 1.25 !important;
-    color: #18151b !important;
+    color: #ffffff !important;
     letter-spacing: -0.5px !important;
 }
 
@@ -15709,7 +15294,7 @@ main .feedback-feature-card .heading span.highlight,
 
 .feedback-card-lead {
     margin: 12px 0 0 0 !important;
-    color: #c2185b !important;
+    color: #f3a8c5 !important;
     font-size: 13px !important;
     font-weight: 700 !important;
     letter-spacing: 0.8px !important;
@@ -15722,7 +15307,7 @@ main .feedback-feature-card .copy,
 main .feedback-feature-card p,
 .feedback-feature-right .copy,
 .feedback-feature-card p.copy {
-    color: #3d3640 !important;
+    color: #ece4ec !important;
     font-size: 15px !important;
     line-height: 1.65 !important;
     margin: 0 0 20px 0 !important;
@@ -15873,6 +15458,179 @@ main .feedback-feature-card p,
         right: 14px !important;
         z-index: 1 !important;
     }
+}
+
+/* ==========================================================================
+   KARTU MASUKAN & SARAN (FEEDBACK) — VARIASI TEMA PER HALAMAN
+   - Beranda (body.page-beranda): Versi Putih / Cerah (Latar putih, pola c1w, teks gelap, aksen pink)
+   - Tentang (body.page-tentang): Tetap Hitam / Obsidian Gelap (Latar gelap, pola w1b, teks putih)
+   ========================================================================== */
+
+/* 1. VERSI PUTIH / CERAH (KHUSUS BERANDA) */
+body.page-beranda .feedback-preview {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    position: relative !important;
+    z-index: 10 !important;
+}
+
+body.page-beranda .feedback-feature-card {
+    background: #ffffff !important;
+    border: 1.5px solid rgba(233, 30, 99, 0.25) !important;
+    box-shadow: 0 16px 45px rgba(233, 30, 99, 0.08), 0 4px 18px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+body.page-beranda .feedback-feature-card:hover {
+    border-color: var(--pink, #e91e63) !important;
+    box-shadow: 0 24px 50px rgba(233, 30, 99, 0.18), 0 8px 22px rgba(0, 0, 0, 0.06) !important;
+}
+
+body.page-beranda .feedback-feature-card::before {
+    background: linear-gradient(90deg, #ff659b, #e91e63) !important;
+}
+
+body.page-beranda .feedback-feature-card::after {
+    background-image: url("../images/mirai/background/c1w.jpeg") !important;
+    background-size: 260px auto !important;
+    background-repeat: repeat !important;
+    background-position: top left !important;
+    opacity: 0.10 !important;
+    mix-blend-mode: multiply !important;
+}
+
+body.page-beranda .feedback-feature-card:hover::after {
+    opacity: 0.16 !important;
+}
+
+body.page-beranda .feedback-feature-badge,
+body.page-beranda .feedback-feature-tag {
+    background: rgba(233, 30, 99, 0.08) !important;
+    border: 1.5px solid rgba(233, 30, 99, 0.28) !important;
+    color: var(--pink, #e91e63) !important;
+    box-shadow: 0 2px 8px rgba(233, 30, 99, 0.08) !important;
+}
+
+body.page-beranda .feedback-feature-badge .badge-dot,
+body.page-beranda .feedback-feature-tag .badge-dot {
+    background: var(--pink, #e91e63) !important;
+    box-shadow: 0 0 6px rgba(233, 30, 99, 0.45) !important;
+}
+
+body.page-beranda .feedback-feature-body.stacked-layout .feedback-card-title,
+body.page-beranda main .feedback-feature-card h2,
+body.page-beranda main .feedback-feature-card .heading,
+body.page-beranda .feedback-feature-card h2.heading,
+body.page-beranda .feedback-feature-card .heading {
+    color: #18151b !important;
+}
+
+body.page-beranda .feedback-card-title span,
+body.page-beranda .feedback-card-title span.highlight,
+body.page-beranda main .feedback-feature-card .heading span,
+body.page-beranda main .feedback-feature-card .heading span.highlight,
+body.page-beranda .feedback-feature-card .heading span.highlight,
+body.page-beranda .feedback-feature-card .heading span {
+    color: var(--pink, #e91e63) !important;
+}
+
+body.page-beranda .feedback-feature-body.stacked-layout .feedback-card-desc,
+body.page-beranda .feedback-card-desc,
+body.page-beranda main .feedback-feature-card .copy,
+body.page-beranda main .feedback-feature-card p,
+body.page-beranda .feedback-feature-card p.copy {
+    color: #3d3640 !important;
+}
+
+body.page-beranda .feedback-cta-btn {
+    background: var(--pink, #e91e63) !important;
+    color: #ffffff !important;
+    box-shadow: 0 6px 18px rgba(233, 30, 99, 0.35) !important;
+}
+
+body.page-beranda .feedback-cta-btn:hover {
+    background: #c2185b !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 24px rgba(233, 30, 99, 0.45) !important;
+}
+
+body.page-beranda .feedback-feature-card > .card-corner-chibi {
+    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.12)) !important;
+}
+
+/* 2. VERSI HITAM GELAP (TETAP GELAP KHUSUS TENTANG) */
+body.page-tentang main > section.feedback-preview {
+    background-color: #111111 !important;
+    background: #111111 !important;
+    color: #f5edf4 !important;
+}
+
+body.page-tentang .feedback-feature-card {
+    background: linear-gradient(165deg, #1c1523 0%, #130f18 100%) !important;
+    border: 1.5px solid rgba(255, 101, 155, 0.25) !important;
+    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+}
+
+body.page-tentang .feedback-feature-card:hover {
+    border-color: var(--pink, #e91e63) !important;
+    box-shadow: 0 24px 50px rgba(233, 30, 99, 0.22), 0 6px 18px rgba(0, 0, 0, 0.6) !important;
+}
+
+body.page-tentang .feedback-feature-card::before {
+    background: linear-gradient(90deg, #ff659b, #e91e63) !important;
+}
+
+body.page-tentang .feedback-feature-card::after {
+    background-image: url("../images/mirai/background/w1b.jpeg") !important;
+    background-size: 260px auto !important;
+    background-repeat: repeat !important;
+    background-position: top left !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
+}
+
+body.page-tentang .feedback-feature-card:hover::after {
+    opacity: 0.08 !important;
+}
+
+body.page-tentang .feedback-feature-badge,
+body.page-tentang .feedback-feature-tag {
+    background: rgba(233, 30, 99, 0.16) !important;
+    border: 1.5px solid rgba(233, 30, 99, 0.4) !important;
+    color: var(--pink, #e91e63) !important;
+}
+
+body.page-tentang .feedback-feature-body.stacked-layout .feedback-card-title,
+body.page-tentang main .feedback-feature-card h2,
+body.page-tentang main .feedback-feature-card .heading,
+body.page-tentang .feedback-feature-card h2.heading,
+body.page-tentang .feedback-feature-card .heading {
+    color: #ffffff !important;
+}
+
+body.page-tentang .feedback-card-title span,
+body.page-tentang .feedback-card-title span.highlight,
+body.page-tentang main .feedback-feature-card .heading span,
+body.page-tentang main .feedback-feature-card .heading span.highlight,
+body.page-tentang .feedback-feature-card .heading span.highlight,
+body.page-tentang .feedback-feature-card .heading span {
+    color: var(--pink, #e91e63) !important;
+}
+
+body.page-tentang .feedback-feature-body.stacked-layout .feedback-card-desc,
+body.page-tentang .feedback-card-desc,
+body.page-tentang main .feedback-feature-card .copy,
+body.page-tentang main .feedback-feature-card p,
+body.page-tentang .feedback-feature-card p.copy {
+    color: #ece4ec !important;
+}
+
+body.page-tentang .feedback-cta-btn {
+    background: var(--pink, #e91e63) !important;
+    color: #ffffff !important;
+}
+
+body.page-tentang .feedback-feature-card > .card-corner-chibi {
+    filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.4)) !important;
 }
 
 /* ==========================================================================
