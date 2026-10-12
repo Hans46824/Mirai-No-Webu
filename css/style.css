@@ -20435,6 +20435,7 @@ body.page-latihan {
     letter-spacing: -3px;
     background: linear-gradient(135deg, #ffffff 25%, var(--pink2) 75%, var(--pink) 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     margin: 0 0 6px;
     font-family: 'Plus Jakarta Sans', sans-serif;
