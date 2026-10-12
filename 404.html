@@ -4,9 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>404 — Halaman Tidak Ditemukan | MIRAI NO HANA</title>
-    <link rel="stylesheet" href="css/style.css?v=20261012a">
+    <link rel="stylesheet" href="css/style.css?v=20261012b">
 </head>
 <body class="page-404">
+    <!-- Header Resmi -->
     <header class="home-header">
         <a class="brand" href="index.html">
             <img src="images/mirai/logo/MNH1-nav.png" alt="MIRAI NO HANA">
@@ -43,27 +44,67 @@
         </div>
     </aside>
 
+    <!-- Konten 404 Khas Mirai no Hana -->
     <main class="error-404-container">
+        <!-- Efek Kelopak Bunga Sakura Melayang -->
+        <div class="sakura-field" aria-hidden="true">
+            <div class="sakura-petal"></div>
+            <div class="sakura-petal"></div>
+            <div class="sakura-petal"></div>
+            <div class="sakura-petal"></div>
+            <div class="sakura-petal"></div>
+            <div class="sakura-petal"></div>
+        </div>
+
         <section class="error-404-card">
-            <img class="error-404-mascot" src="images/mirai/background/Sora.png" alt="Maskot Sora Bingung">
+            <div class="error-404-badge">🌸 MIRAI NO HANA · KABINET SORA</div>
             <div class="error-404-code">404</div>
+
+            <!-- Maskot Sora & Gelembung Dialog Interaktif -->
+            <div class="error-404-mascot-wrap">
+                <img class="error-404-mascot" src="images/mirai/background/Sora.png" alt="Maskot Sora Bingung">
+                <div class="sora-speech-bubble">
+                    <p>“<em>Ano...</em> sepertinya kamu tersesat di lorong sekolah, senpai! Jangan cemas, yuk Sora antar kembali ke kelas~ ✨”</p>
+                </div>
+            </div>
+
             <h1 class="error-404-title">Ups! Halaman Tidak Ditemukan</h1>
-            <div class="error-404-subtitle">ページが見つかりません · Page Not Found</div>
-            <p class="error-404-desc">Sepertinya halaman yang kamu tuju telah dipindahkan, diganti namanya, atau tautan yang kamu masukkan salah ketik. Yuk kembali ke jalur yang benar!</p>
-            <div class="error-404-actions">
-                <a class="error-404-btn error-404-btn--primary" href="index.html">
-                    <span>Kembali ke Beranda (ホーム)</span>
+            <div class="error-404-subtitle">404 NOT FOUND · ページが見つかりません</div>
+            <p class="error-404-desc">Tautan yang kamu masukkan mungkin salah ketik, telah diganti jalurnya, atau materi sedang dalam pembaruan berkala oleh pengurus.</p>
+
+            <!-- Pencarian Cepat 404 -->
+            <form class="error-404-search" id="quickSearchForm" action="javascript:void(0);">
+                <input class="error-404-input" id="quickSearchInput" type="text" placeholder="Ketik yang kamu cari (misal: kanji, kelas, lomba)..." autocomplete="off" aria-label="Pencarian cepat">
+                <button class="error-404-search-btn" type="submit">Cari</button>
+            </form>
+
+            <!-- 4 Kartu Destinasi Alternatif Berpendar Wagara -->
+            <div class="error-404-nav-grid">
+                <a class="error-404-nav-card" href="index.html">
+                    <span class="error-404-nav-icon">🌸</span>
+                    <span class="error-404-nav-label">Beranda</span>
+                    <span class="error-404-nav-sub">Gerbang Utama</span>
                 </a>
-                <a class="error-404-btn error-404-btn--secondary" href="kamus/index.html">
-                    <span>Buka Kamus Kanji</span>
+                <a class="error-404-nav-card" href="kelas/index.html">
+                    <span class="error-404-nav-icon">📖</span>
+                    <span class="error-404-nav-label">Kelas Belajar</span>
+                    <span class="error-404-nav-sub">Dasar &amp; Lanjutan</span>
                 </a>
-                <a class="error-404-btn error-404-btn--secondary" href="kelas/index.html">
-                    <span>Kelas Belajar</span>
+                <a class="error-404-nav-card" href="kamus/index.html">
+                    <span class="error-404-nav-icon">🔍</span>
+                    <span class="error-404-nav-label">Kamus Kanji</span>
+                    <span class="error-404-nav-sub">Kosakata &amp; Goresan</span>
+                </a>
+                <a class="error-404-nav-card" href="sora/index.html">
+                    <span class="error-404-nav-icon">🤖</span>
+                    <span class="error-404-nav-label">Tanya Sora</span>
+                    <span class="error-404-nav-sub">Asisten Virtual</span>
                 </a>
             </div>
         </section>
     </main>
 
+    <!-- Footer Resmi -->
     <footer class="global-footer">
         <div class="global-footer-main">
             <div class="global-footer-col left">
@@ -85,6 +126,32 @@
 
     <button class="to-top" type="button" aria-label="Kembali ke atas">↑</button>
     <script src="js/main.js"></script>
+    <script>
+        // Logika Pencarian Cepat Cerdas 404
+        document.getElementById('quickSearchForm')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const query = (document.getElementById('quickSearchInput')?.value || '').trim().toLowerCase();
+            if (!query) return;
+
+            if (query.includes('kamus') || query.includes('kanji') || query.includes('kosakata') || query.includes('arti')) {
+                window.location.href = 'kamus/index.html';
+            } else if (query.includes('kelas') || query.includes('dasar') || query.includes('lanjut') || query.includes('latih') || query.includes('hiragana') || query.includes('katakana')) {
+                window.location.href = 'kelas/index.html';
+            } else if (query.includes('proker') || query.includes('kegiatan') || query.includes('ktn') || query.includes('njr') || query.includes('konbini') || query.includes('ramadhan')) {
+                window.location.href = 'kegiatan/index.html';
+            } else if (query.includes('lomba') || query.includes('matsuri') || query.includes('acara') || query.includes('event')) {
+                window.location.href = 'lomba/index.html';
+            } else if (query.includes('peringkat') || query.includes('prestasi') || query.includes('juara') || query.includes('poin')) {
+                window.location.href = 'peringkat/index.html';
+            } else if (query.includes('tentang') || query.includes('pengurus') || query.includes('profil') || query.includes('haori')) {
+                window.location.href = 'tentang/index.html';
+            } else if (query.includes('sora') || query.includes('chat') || query.includes('tanya')) {
+                window.location.href = 'sora/index.html';
+            } else {
+                // Default ke kamus dengan kata kunci pencarian
+                window.location.href = 'kamus/index.html';
+            }
+        });
+    </script>
 </body>
 </html>
-

@@ -19428,28 +19428,74 @@ body {
 .motion-delay-3 { transition-delay: 0.18s; }
 .motion-delay-4 { transition-delay: 0.24s; }
 
-/* D. Halaman Khusus 404 Estetik */
+/* D. Halaman Khusus 404 Estetik Khas Mirai no Hana */
 .error-404-container {
     min-height: calc(100vh - 120px);
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 60px 20px;
-    background: radial-gradient(circle at 50% 30%, rgba(255, 79, 145, 0.08) 0%, rgba(14, 11, 18, 0) 70%), var(--bg-even);
+    background: radial-gradient(circle at 50% 25%, rgba(255, 79, 145, 0.12) 0%, rgba(14, 11, 18, 0) 70%), var(--bg-even);
     color: var(--white);
     text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Kelopak Bunga Sakura Melayang di Latar 404 */
+.sakura-field {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.sakura-petal {
+    position: absolute;
+    top: -20px;
+    background: linear-gradient(135deg, #ffd2e3 0%, #ff4f91 100%);
+    border-radius: 14px 1px 14px 1px;
+    opacity: 0.55;
+    filter: drop-shadow(0 2px 6px rgba(255, 79, 145, 0.4));
+    animation: sakuraFall linear infinite;
+}
+
+.sakura-petal:nth-child(1) { left: 8%; width: 14px; height: 16px; animation-duration: 7s; animation-delay: 0s; }
+.sakura-petal:nth-child(2) { left: 22%; width: 11px; height: 13px; animation-duration: 9s; animation-delay: 2s; }
+.sakura-petal:nth-child(3) { left: 40%; width: 16px; height: 18px; animation-duration: 6.5s; animation-delay: 1.2s; }
+.sakura-petal:nth-child(4) { left: 62%; width: 13px; height: 15px; animation-duration: 8.5s; animation-delay: 3s; }
+.sakura-petal:nth-child(5) { left: 78%; width: 15px; height: 17px; animation-duration: 7.2s; animation-delay: 0.8s; }
+.sakura-petal:nth-child(6) { left: 92%; width: 12px; height: 14px; animation-duration: 9.5s; animation-delay: 2.5s; }
+
+@keyframes sakuraFall {
+    0% {
+        transform: translateY(-20px) rotate(0deg) translateX(0);
+        opacity: 0;
+    }
+    15% {
+        opacity: 0.65;
+    }
+    90% {
+        opacity: 0.55;
+    }
+    100% {
+        transform: translateY(105vh) rotate(360deg) translateX(45px);
+        opacity: 0;
+    }
 }
 
 .error-404-card {
-    max-width: 640px;
+    max-width: 720px;
     width: 100%;
-    background: rgba(24, 21, 27, 0.85);
-    border: 1px solid rgba(255, 79, 145, 0.25);
-    border-radius: 24px;
-    padding: 48px 36px;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), 0 0 40px rgba(233, 30, 99, 0.15);
+    background: rgba(24, 21, 27, 0.88);
+    border: 1px solid rgba(255, 79, 145, 0.32);
+    border-radius: 28px;
+    padding: 48px 32px;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65), 0 0 50px rgba(233, 30, 99, 0.18);
     position: relative;
+    z-index: 1;
     overflow: hidden;
     animation: contentSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
@@ -19461,103 +19507,201 @@ body {
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, var(--pink), var(--pink2), var(--pink3));
+    background: linear-gradient(90deg, var(--pink), var(--pink2), var(--pink3), var(--pink));
+}
+
+.error-404-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 14px;
+    background: rgba(255, 79, 145, 0.12);
+    border: 1px solid rgba(255, 79, 145, 0.35);
+    border-radius: 999px;
+    color: var(--pink2);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
 }
 
 .error-404-code {
-    font-size: clamp(84px, 14vw, 130px);
+    font-size: clamp(84px, 15vw, 136px);
     font-weight: 900;
-    line-height: 1;
-    letter-spacing: -2px;
-    background: linear-gradient(135deg, #ffffff 30%, var(--pink2) 75%, var(--pink) 100%);
+    line-height: 0.95;
+    letter-spacing: -3px;
+    background: linear-gradient(135deg, #ffffff 25%, var(--pink2) 75%, var(--pink) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin: 0 0 12px;
+    margin: 0 0 6px;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    text-shadow: 0 10px 30px rgba(255, 79, 145, 0.35);
+    filter: drop-shadow(0 12px 28px rgba(255, 79, 145, 0.38));
+}
+
+/* Maskot Sora & Gelembung Dialog Interaktif */
+.error-404-mascot-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px auto 20px;
+    max-width: 480px;
 }
 
 .error-404-mascot {
-    width: 110px;
-    height: 110px;
-    margin: 0 auto 20px;
-    display: block;
+    width: 105px;
+    height: 105px;
     object-fit: contain;
-    filter: drop-shadow(0 8px 18px rgba(255, 79, 145, 0.35));
-    animation: mascotFloat 3s ease-in-out infinite;
+    filter: drop-shadow(0 8px 22px rgba(255, 79, 145, 0.45));
+    animation: mascotFloat 3.2s ease-in-out infinite;
 }
 
 @keyframes mascotFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-7px) rotate(-1.5deg); }
+}
+
+.sora-speech-bubble {
+    background: rgba(36, 31, 41, 0.95);
+    border: 1px solid rgba(255, 107, 158, 0.45);
+    border-radius: 18px;
+    padding: 12px 18px;
+    color: #ffd8e6;
+    font-size: 13.5px;
+    line-height: 1.5;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+    position: relative;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.sora-speech-bubble::before {
+    content: "";
+    position: absolute;
+    top: -7px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid rgba(255, 107, 158, 0.45);
+}
+
+.sora-speech-bubble em {
+    color: #ffffff;
+    font-weight: 700;
+    font-style: normal;
 }
 
 .error-404-title {
-    font-size: 24px;
+    font-size: clamp(20px, 4vw, 26px);
     font-weight: 800;
-    margin: 0 0 8px;
+    margin: 0 0 6px;
     color: #ffffff;
 }
 
 .error-404-subtitle {
-    font-size: 14px;
+    font-size: 13px;
     color: var(--pink2);
     font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
 }
 
 .error-404-desc {
-    font-size: 15px;
-    line-height: 1.65;
-    color: #c9c3cd;
-    max-width: 480px;
-    margin: 0 auto 32px;
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: #cac4cf;
+    max-width: 520px;
+    margin: 0 auto 24px;
 }
 
-.error-404-actions {
+/* Pencarian Cepat 404 */
+.error-404-search {
+    max-width: 440px;
+    margin: 0 auto 28px;
     display: flex;
-    gap: 12px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.error-404-btn {
-    display: inline-flex;
-    align-items: center;
     gap: 8px;
-    padding: 12px 24px;
+}
+
+.error-404-input {
+    flex: 1;
+    background: rgba(14, 11, 18, 0.85);
+    border: 1px solid rgba(255, 79, 145, 0.3);
     border-radius: 999px;
+    padding: 10px 18px;
+    color: #ffffff;
     font-size: 14px;
-    font-weight: 700;
-    text-decoration: none;
-    transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+    outline: none;
+    transition: all 0.2s ease;
 }
 
-.error-404-btn--primary {
+.error-404-input:focus {
+    border-color: var(--pink2);
+    box-shadow: 0 0 12px rgba(255, 79, 145, 0.4);
+}
+
+.error-404-search-btn {
     background: linear-gradient(135deg, var(--pink), var(--pink2));
+    border: none;
+    border-radius: 999px;
+    padding: 10px 20px;
     color: #ffffff;
-    box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
+    font-weight: 700;
+    font-size: 13.5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
-.error-404-btn--primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 28px rgba(233, 30, 99, 0.6);
+.error-404-search-btn:hover {
+    transform: scale(1.04);
+    box-shadow: 0 4px 16px rgba(233, 30, 99, 0.5);
+}
+
+/* 4 Kartu Navigasi Alternatif Berpendar Wagara */
+.error-404-nav-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.error-404-nav-card {
+    background: rgba(30, 26, 36, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 16px 12px;
+    text-decoration: none;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.error-404-nav-card:hover {
+    background: rgba(45, 38, 54, 0.9);
+    border-color: var(--pink2);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(233, 30, 99, 0.25);
     color: #ffffff;
 }
 
-.error-404-btn--secondary {
-    background: rgba(255, 255, 255, 0.08);
-    color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+.error-404-nav-icon {
+    font-size: 24px;
 }
 
-.error-404-btn--secondary:hover {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 79, 145, 0.4);
-    transform: translateY(-2px);
-    color: #ffffff;
+.error-404-nav-label {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.error-404-nav-sub {
+    font-size: 10.5px;
+    color: #a39ca8;
 }
 
 /* E. Aksesibilitas: Hormati prefers-reduced-motion */
