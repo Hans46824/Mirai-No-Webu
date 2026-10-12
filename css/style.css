@@ -21178,6 +21178,7 @@ body.page-toko,
     max-width: 90% !important;
     max-height: 155px !important;
     object-fit: contain !important;
+    border-radius: 8px !important;
     transition: transform 0.35s ease !important;
     filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.08)) !important;
 }
