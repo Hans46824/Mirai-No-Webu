@@ -22,7 +22,7 @@ Seluruh berkas website Mirai no Webu dikelompokkan secara terstruktur ke dalam f
 - **`lomba/`**: Informasi 18 lomba & festival jejepangan (`index.html`).
 - **`peringkat/`**: Papan peringkat keaktifan, presensi, & galeri prestasi (`index.html`).
 - **`rekomendasi/`**: Rekomendasi media belajar anime, film, dan musik (`index.html`).
-- **`kelas/`**: Hub pembelajaran mandiri (`index.html`, `dasar.html`, `lanjutan.html`, `kurikulum.html`, `latihan.html`, `motivasi.html`).
+- **`kelas/`**: Hub pembelajaran mandiri (`index.html`, `latihan.html`, `motivasi.html`, dan folder PDF `kurikulum/`). Modul materi kelas dasar, kelas lanjutan, serta dokumen kurikulum & tata cara pengajaran kini terpadu langsung di `index.html`.
 - **`divisi/`**: Struktur 4 divisi resmi klub (`index.html`, `bahasa.html`, `cosplay.html`, `desain.html`, `kewirausahaan.html`).
 - **`kegiatan/`**: Hub program kerja & fasilitas (`index.html`), `kimi-to-nippon.html` (orientasi KTN), `nihon-go-rajio.html` (siaran NJR), `konbini.html`, `ramadhan.html`, dan `tomodachi.html`.
 - **`kamus/`**: Kamus interaktif pencarian Kana & Kanji (`index.html`) dan Ensiklopedia Kanji (`kanji.html`).
@@ -84,7 +84,7 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
 ### B. Background Hero Tiap Halaman
 - Tidak semua halaman wajib memiliki background hero gambar besar.
 - Halaman utama (Beranda, Tentang, Kegiatan, Papan Peringkat, Lomba) memiliki hero visual yang menonjol dan menarik perhatian.
-- Halaman fokus materi (Kelas Dasar, Kelas Lanjutan, Kamus, Kurikulum) memakai hero minimalis tanpa gambar berat, agar pengguna langsung fokus ke modul pembelajaran.
+- Halaman fokus materi (Kelas & Kurikulum, Kamus, Latihan) memakai hero minimalis tanpa gambar berat (atau hero sticky curtain), agar pengguna langsung fokus ke modul pembelajaran.
 
 ### C. Aturan Pola Background (Pattern) & Selang-Seling Tiap Halaman Menu
 - **Aturan Selang-Seling 8 Halaman Menu Utama**: Motif pola pada tiap kartu diatur berselang-seling mengikuti urutan menu navigasi dari awal sampai akhir:

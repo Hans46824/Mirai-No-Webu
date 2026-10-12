@@ -68,10 +68,7 @@ Mirai-No-Webu/
 │       └── dokumentasi/            # Foto dokumentasi kegiatan landscape & portrait
 │
 ├── kelas/                          # Halaman Modul Kelas & Kurikulum Pembelajaran Mandiri
-│   ├── index.html                  # Hub utama Kelas & Kurikulum (Pilihan level, modul, kurikulum, latihan)
-│   ├── dasar.html                  # Modul Kelas Dasar (Hiragana & Katakana)
-│   ├── lanjutan.html               # Modul Kelas Lanjutan (Kanji & Tata Bahasa)
-│   ├── kurikulum.html              # Peta belajar kurikulum terstruktur & panduan mengajar
+│   ├── index.html                  # Hub utama terpadu (Kelas Dasar, Kelas Lanjutan, & Kurikulum Dokumen)
 │   ├── latihan.html                # Kuis interaktif mandiri aksara Kana (20 soal & goresan kanvas)
 │   ├── motivasi.html               # Kumpulan kata motivasi & mutiara bahasa Jepang
 │   └── kurikulum/                  # Dokumen kurikulum & tata cara pengajaran (PDF)

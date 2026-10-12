@@ -60,13 +60,13 @@ Website **Mirai no Webu** terdiri dari berbagai modul tematik yang memiliki pera
 * **Peluncur Cepat Sora**: Mengintegrasikan tombol widget mengambang (*floating drawer*) chatbot Sora bergaya minimalis untuk konsultasi cepat materi.
 
 ### 2. 📖 Modul Kelas & Kurikulum Terpadu (`/kelas/`)
-* **Hub Kelas & Kurikulum (`kelas/index.html`)**: Pintu masuk utama menuju pembagian kelas, silabus kurikulum resmi, bank latihan mandiri, dan artikel motivasi.
-* **Kelas Dasar (`kelas/dasar.html`)**: Modul pengenalan alfabet dasar bahasa Jepang (Hiragana dan Katakana), pembagian tabel Gojūon (huruf dasar), Dakuon (tanda petik), Handakuon (tanda lingkaran), kombinasi Yōon (huruf kecil `ya`, `yu`, `yo`), Sokuon (konsonan ganda), Chōonpu (vokal panjang), serta visualisasi pelafalan.
-* **Kelas Lanjutan (`kelas/lanjutan.html`)**: Pembelajaran kosakata tematik (kehidupan sekolah, keluarga, waktu/hari, salam sehari-hari/aisatsu), panduan tata bahasa dasar, pemahaman fungsi partikel (`wa`, `ga`, `o`, `ni`, `de`, `e`, `to`, `mo`, `no`, `ka`), konjugasi kata kerja bentuk-Masu & bentuk-Te, serta contoh dialog percakapan.
+* **Hub Terpadu Kelas & Kurikulum (`kelas/index.html`)**: Gerbang utama pembelajaran mandiri satu halaman yang menggabungkan:
+  * **Seksi Kelas Dasar (`#dasar`)**: Akses cepat modul Latihan Kana, Kamus Hiragana, Kamus Katakana, dan Mirai no Buuku Dasar.
+  * **Seksi Kelas Lanjutan (`#lanjutan`)**: Modul Kamus Kanji dan Mirai no Buuku Lanjutan berlatar obsidian elegan.
+  * **Seksi Kurikulum & Tata Cara Pengajaran (`#kurikulum`)**: Pemetaan silabus kurikulum resmi dan panduan tutor lengkap dengan tombol unduhan & pratinjau dokumen PDF (*Kurikulum Pembelajaran* & *Tata Cara Mengajar*).
 * **Latihan Mandiri Interaktif 20 Soal (`kelas/latihan.html`)**:
   * Bank soal 20 kuis teracak dinamis yang terdiri dari 10 soal pilihan ganda kana-romaji, 4 soal kosakata, 1 soal pasangkan kata, dan **5 Soal Tantangan Menulis Goresan Kana (Duolingo-Style Stroke Tracing)**.
   * Fitur tracing tulisan tangan dilengkapi kanvas kisi *Genkōyōshi* interaktif, panduan titik awal & garis putus-putus cerdas saat keliru, petunjuk Romaji tunggal di atas kanvas, serta algoritma toleransi kurva bersahabat (*menceng dikit tetap dinilai benar*).
-* **Kurikulum & Silabus (`kelas/kurikulum.html`)**: Pemetaan silabus materi ajar resmi per semester (Semester Ganjil dan Genap) lengkap dengan tombol unduhan dokumen resmi format PDF.
 * **Motivasi & Tips Belajar (`kelas/motivasi.html`)**: Panduan teknik belajar bahasa Jepang otodidak, kiat menghafal alfabet dengan mnemonik visual, penerapan filosofi *Kaizen*, dan rekomendasi manajemen waktu belajar.
 
 ### 3. 🔍 Kamus Interaktif & Ensiklopedia Kanji (`/kamus/`)
@@ -149,10 +149,7 @@ Mirai-No-Webu/
 │   └── sora.js                     # Logika obrolan cerdas & respon offline maskot Sora
 │
 ├── kelas/                          # Hub Pembelajaran Kelas & Kurikulum Mandiri
-│   ├── index.html                  # Halaman utama kelas & kurikulum
-│   ├── dasar.html                  # Kelas dasar (Hiragana & Katakana)
-│   ├── lanjutan.html               # Kelas lanjutan (Kosakata & Tata Bahasa)
-│   ├── kurikulum.html              # Kurikulum resmi per semester
+│   ├── index.html                  # Hub utama terpadu (Kelas Dasar, Kelas Lanjutan, & Kurikulum Dokumen)
 │   ├── latihan.html                # Latihan mandiri 20 soal acak & Duolingo stroke tracing
 │   ├── motivasi.html               # Artikel motivasi belajar otodidak
 │   └── kurikulum/                  # Dokumen silabus kurikulum PDF resmi klub

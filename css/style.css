@@ -13375,6 +13375,415 @@ body.page-kurikulum .doc-back-btn:hover,
     padding: 24px 24px 20px !important;
 }
 
+/* ==========================================================================
+   SEKSI KURIKULUM & TATA CARA PENGAJARAN DI HALAMAN KELAS (.page-kelas #kurikulum)
+   - Latar Putih Bersih (#ffffff) sesuai Ritme Selang-Seling Hitam-Putih
+   - Kartu Dokumen Modern Terang dengan Pola Ombak Wagara Seigaiha (w1w.jpeg)
+   - Badge DOKUMEN 1 & DOKUMEN 2 (Bebas Angka Nol di Depan) + FORMAT PDF
+   - Tombol Unduh File PDF (Solid Pink Glow) & Buka Dokumen (Outlined Pink)
+   - Aksen Chibi Corner di Sudut Kanan Bawah
+   ========================================================================== */
+.page-kelas #kurikulum {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    color: #18151b !important;
+    padding: 44px 7vw 54px !important;
+}
+
+.page-kelas #kurikulum .heading {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    color: #18151b !important;
+}
+
+.page-kelas #kurikulum .heading span {
+    color: var(--pink, #e91e63) !important;
+}
+
+.page-kelas #kurikulum .doc-cards-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 20px !important;
+    margin-top: 24px !important;
+    margin-bottom: 0 !important;
+}
+
+/* KARTU DOKUMEN DI SEKSI TERANG (.page-kelas #kurikulum) */
+.page-kelas #kurikulum .doc-big-card {
+    position: relative !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+    background: #ffffff !important;
+    border: 1.5px solid rgba(255, 101, 155, 0.35) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 8px 25px rgba(72, 32, 52, 0.055) !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    min-height: 290px !important;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease !important;
+}
+
+.page-kelas #kurikulum .doc-big-card:hover {
+    transform: translateY(-5px) !important;
+    border-color: #ff659b !important;
+    box-shadow: 0 16px 36px rgba(233, 30, 99, 0.16), 0 4px 12px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Garis Aksen Animasi Atas */
+.page-kelas #kurikulum .doc-big-card::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 3.5px !important;
+    background: linear-gradient(90deg, #ff4f91, #e91e63) !important;
+    transform: scaleX(0) !important;
+    transform-origin: left !important;
+    transition: transform 0.26s ease !important;
+    z-index: 4 !important;
+    display: block !important;
+}
+
+.page-kelas #kurikulum .doc-big-card:hover::before {
+    transform: scaleX(1) !important;
+}
+
+/* Lapisan Pola Ombak Wagara Seigaiha (w1w.jpeg) Sesuai Panduan */
+.page-kelas #kurikulum .doc-big-card::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background-image: url("../images/mirai/background/w1w.jpeg") !important;
+    background-size: 260px auto !important;
+    background-repeat: repeat !important;
+    background-position: top left !important;
+    opacity: 0.09 !important;
+    mix-blend-mode: multiply !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+    display: block !important;
+    transition: opacity 0.26s ease, transform 0.3s ease !important;
+}
+
+.page-kelas #kurikulum .doc-big-card:hover::after {
+    opacity: 0.15 !important;
+    transform: scale(1.02) !important;
+}
+
+.page-kelas #kurikulum .doc-big-card > * {
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+/* Header Kartu */
+.page-kelas #kurikulum .doc-card-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 20px 24px 12px !important;
+    border-bottom: 1px solid rgba(255, 101, 155, 0.14) !important;
+}
+
+.page-kelas #kurikulum .doc-index-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 7px !important;
+    padding: 4px 12px !important;
+    border-radius: 999px !important;
+    background: rgba(233, 30, 99, 0.08) !important;
+    border: 1px solid rgba(233, 30, 99, 0.28) !important;
+    color: #e91e63 !important;
+    font-size: 0.72rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.6px !important;
+}
+
+.page-kelas #kurikulum .doc-index-badge .badge-dot {
+    width: 6px !important;
+    height: 6px !important;
+    border-radius: 50% !important;
+    background: #e91e63 !important;
+    box-shadow: 0 0 6px rgba(233, 30, 99, 0.6) !important;
+}
+
+.page-kelas #kurikulum .doc-format-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding: 4px 12px !important;
+    border-radius: 999px !important;
+    background: rgba(233, 30, 99, 0.06) !important;
+    border: 1px solid rgba(233, 30, 99, 0.22) !important;
+    color: #e91e63 !important;
+    font-size: 0.7rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.5px !important;
+}
+
+.page-kelas #kurikulum .doc-format-badge svg {
+    color: #e91e63 !important;
+    stroke: #e91e63 !important;
+    flex-shrink: 0 !important;
+}
+
+/* Body Kartu */
+.page-kelas #kurikulum .doc-card-body {
+    padding: 18px 24px 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+}
+
+.page-kelas #kurikulum .doc-hero-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 14px !important;
+}
+
+.page-kelas #kurikulum .doc-icon-box {
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 12px !important;
+    background: rgba(233, 30, 99, 0.1) !important;
+    border: 1.5px solid rgba(233, 30, 99, 0.35) !important;
+    color: #e91e63 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    box-shadow: 0 3px 10px rgba(233, 30, 99, 0.12) !important;
+    transition: transform 0.24s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s ease, border-color 0.2s ease !important;
+}
+
+.page-kelas #kurikulum .doc-big-card:hover .doc-icon-box {
+    transform: scale(1.08) rotate(3deg) !important;
+    background: rgba(233, 30, 99, 0.2) !important;
+    border-color: #ff659b !important;
+}
+
+.page-kelas #kurikulum .doc-headings {
+    flex: 1 !important;
+    min-width: 0 !important;
+}
+
+.page-kelas #kurikulum .doc-big-card h3.doc-title,
+.page-kelas #kurikulum .doc-title {
+    font-size: 1.25rem !important;
+    font-weight: 800 !important;
+    color: #18151b !important;
+    margin: 0 !important;
+    line-height: 1.22 !important;
+    letter-spacing: -0.2px !important;
+}
+
+.page-kelas #kurikulum .doc-big-card p.doc-subtitle,
+.page-kelas #kurikulum .doc-subtitle {
+    font-size: 0.72rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.6px !important;
+    text-transform: uppercase !important;
+    color: #e91e63 !important;
+    margin: 3px 0 0 0 !important;
+    line-height: 1.3 !important;
+}
+
+.page-kelas #kurikulum .doc-big-card p.doc-desc,
+.page-kelas #kurikulum .doc-desc {
+    font-size: 0.88rem !important;
+    line-height: 1.6 !important;
+    color: #4b5563 !important;
+    margin: 0 !important;
+    max-width: calc(100% - 65px) !important;
+}
+
+/* Footer Kartu & Tombol */
+.page-kelas #kurikulum .doc-card-footer {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 10px !important;
+    padding: 14px 24px 20px !important;
+    border-top: 1px solid rgba(255, 101, 155, 0.12) !important;
+    background: rgba(255, 245, 248, 0.5) !important;
+}
+
+.page-kelas #kurikulum .doc-card-footer a.doc-btn-download,
+.page-kelas #kurikulum .doc-card-footer a.btn-doc-download {
+    flex: 0 0 auto !important;
+    min-height: 38px !important;
+    height: 38px !important;
+    background: linear-gradient(135deg, #ff4f91 0%, #e91e63 100%) !important;
+    background-color: #e91e63 !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 12px !important;
+    padding: 0 16px !important;
+    font-size: 0.78rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.4px !important;
+    text-transform: uppercase !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 7px !important;
+    box-shadow: 0 4px 14px rgba(233, 30, 99, 0.32) !important;
+    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease !important;
+    cursor: pointer !important;
+}
+
+.page-kelas #kurikulum .doc-card-footer a.doc-btn-download span {
+    color: #ffffff !important;
+    font-weight: 800 !important;
+}
+
+.page-kelas #kurikulum .doc-card-footer a.doc-btn-download svg {
+    color: #ffffff !important;
+    stroke: #ffffff !important;
+    flex-shrink: 0 !important;
+}
+
+.page-kelas #kurikulum .doc-card-footer a.doc-btn-download:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 18px rgba(233, 30, 99, 0.45) !important;
+    filter: brightness(1.08) !important;
+}
+
+.page-kelas #kurikulum .doc-card-footer a.doc-btn-view,
+.page-kelas #kurikulum .doc-card-footer a.btn-doc-view {
+    flex: 0 0 auto !important;
+    min-height: 38px !important;
+    height: 38px !important;
+    background: rgba(233, 30, 99, 0.08) !important;
+    color: #e91e63 !important;
+    border: 1.5px solid rgba(233, 30, 99, 0.35) !important;
+    border-radius: 12px !important;
+    padding: 0 16px !important;
+    font-size: 0.78rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.4px !important;
+    text-transform: uppercase !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 7px !important;
+    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
+    cursor: pointer !important;
+}
+
+.page-kelas #kurikulum .doc-card-footer a.doc-btn-view span {
+    color: #e91e63 !important;
+    font-weight: 800 !important;
+    transition: color 0.2s ease !important;
+}
+
+.page-kelas #kurikulum .doc-card-footer a.doc-btn-view svg {
+    color: #e91e63 !important;
+    stroke: #e91e63 !important;
+    flex-shrink: 0 !important;
+    transition: color 0.2s ease, stroke 0.2s ease !important;
+}
+
+.page-kelas #kurikulum .doc-card-footer a.doc-btn-view:hover {
+    background: #e91e63 !important;
+    border-color: #e91e63 !important;
+    color: #ffffff !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 14px rgba(233, 30, 99, 0.3) !important;
+}
+
+.page-kelas #kurikulum .doc-card-footer a.doc-btn-view:hover span {
+    color: #ffffff !important;
+}
+
+.page-kelas #kurikulum .doc-card-footer a.doc-btn-view:hover svg {
+    color: #ffffff !important;
+    stroke: #ffffff !important;
+}
+
+/* Chibi Corner */
+.page-kelas #kurikulum .doc-big-card .card-corner-chibi {
+    position: absolute !important;
+    right: 12px !important;
+    bottom: 8px !important;
+    width: 64px !important;
+    height: auto !important;
+    pointer-events: none !important;
+    z-index: 3 !important;
+    opacity: 0.9 !important;
+    transition: transform 0.3s ease !important;
+}
+
+.page-kelas #kurikulum .doc-big-card:hover .card-corner-chibi {
+    transform: translateY(-4px) rotate(-3deg) !important;
+}
+
+/* Responsif Layar Kecil */
+@media (max-width: 850px) {
+    .page-kelas #kurikulum .doc-cards-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+@media (max-width: 580px) {
+    .page-kelas #kurikulum .doc-card-footer {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+
+    .page-kelas #kurikulum .doc-card-footer a.doc-btn-download,
+    .page-kelas #kurikulum .doc-card-footer a.doc-btn-view {
+        width: 100% !important;
+    }
+}
+
+/* Dukungan Tema Gelap */
+body.dark-mode .page-kelas #kurikulum,
+body.theme-dark .page-kelas #kurikulum {
+    background-color: #111111 !important;
+    background: #111111 !important;
+    color: #f5edf4 !important;
+}
+
+body.dark-mode .page-kelas #kurikulum .heading,
+body.theme-dark .page-kelas #kurikulum .heading {
+    color: #ffffff !important;
+}
+
+body.dark-mode .page-kelas #kurikulum .doc-big-card,
+body.theme-dark .page-kelas #kurikulum .doc-big-card {
+    background: linear-gradient(165deg, #1d1624 0%, #130f18 100%) !important;
+    border-color: rgba(255, 101, 155, 0.22) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45) !important;
+}
+
+body.dark-mode .page-kelas #kurikulum .doc-big-card::after,
+body.theme-dark .page-kelas #kurikulum .doc-big-card::after {
+    background-image: url("../images/mirai/background/w1b.jpeg") !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
+}
+
+body.dark-mode .page-kelas #kurikulum .doc-big-card h3.doc-title,
+body.theme-dark .page-kelas #kurikulum .doc-big-card h3.doc-title {
+    color: #ffffff !important;
+}
+
+body.dark-mode .page-kelas #kurikulum .doc-big-card p.doc-desc,
+body.theme-dark .page-kelas #kurikulum .doc-big-card p.doc-desc {
+    color: #d5ccd3 !important;
+}
+
+body.dark-mode .page-kelas #kurikulum .doc-card-footer,
+body.theme-dark .page-kelas #kurikulum .doc-card-footer {
+    background: rgba(0, 0, 0, 0.2) !important;
+    border-top-color: rgba(255, 255, 255, 0.07) !important;
+}
+
 /* =====================================================
    RESPACING MINIMAL UNTUK HALAMAN KAMUS (.page-kamus)
    ===================================================== */
