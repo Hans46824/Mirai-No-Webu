@@ -90,8 +90,8 @@ Mirai-No-Webu/
 │       ├── index.html              # Daftar isi modul lanjutan
 │       ├── kanji.html              # Panduan aksara Kanji & JLPT
 │       └── grammar.html            # Panduan tata bahasa (Bunpou) lanjutan
-│
-├── scripts/                        # Kumpulan Skrip Otomasi Pemeliharaan Kode (.py)
+├── skrip/                          # Kumpulan Skrip Otomasi Pemeliharaan Kode (.py)
+│   └── README.md                   # Panduan & daftar fungsi skrip otomasi pengembang
 │
 └── images/mirai/                   # Seluruh Aset Visual & Grafis Klub
     ├── background/                 # Pola Wagara (w1b, w1w, c1b, c1w, Sora.png, chat.jpeg)

@@ -28,7 +28,7 @@ Seluruh berkas website Mirai no Webu dikelompokkan secara terstruktur ke dalam f
 - **`kamus/`**: Kamus interaktif pencarian Kana & Kanji (`index.html`) dan Ensiklopedia Kanji (`kanji.html`).
 - **`materi/`**: Modul pembelajaran terperinci (`materi/dasar/` dan `materi/lanjutan/`).
 - **`sora/`**: Playground bot obrolan maskot Sora (`index.html`).
-- **`scripts/`**: Kumpulan skrip otomasi & pemeliharaan kode Python.
+- **`skrip/`**: Kumpulan skrip otomasi & pemeliharaan kode Python.
 - **Folder `video/` telah dihapus** agar repositori bersih dari berkas rekaman lokal yang tidak terpakai.
 
 ---
@@ -156,10 +156,14 @@ Koleksi 20 stiker chibi resmi Genshin Impact untuk profil anggota, papan peringk
 - Dilarang memakai penomoran angka berawalan nol (seperti 01 atau 02) dan dilarang memakai garis miring (/) yang kaku.
 - **Judul Bersih Mandiri**: Pada seksi spesifik seperti Fasilitas, judul dibuat mandiri tanpa kicker/sub-judul atau deskripsi bertele-tele yang membuang ruang.
 
-### G. Aturan Deskripsi dan Teks Pendukung
+### G. Aturan Bahasa Antarmuka (Hanya Bahasa Indonesia & Bahasa Jepang)
+- Seluruh teks tampilan website (judul, deskripsi, tombol, menu navigasi, badge, petunjuk kuis, dan pesan) **WAJIB murni menggunakan Bahasa Indonesia** sebagai bahasa pengantar dan **Bahasa Jepang** (Kanji, Hiragana, Katakana, dan Romaji) untuk materi pembelajaran klub.
+- **Dilarang keras memakai Bahasa Inggris yang tidak perlu** pada teks yang dilihat pengunjung web. Selalu gunakan padanan Bahasa Indonesia yang luwes (misalnya: hindari *Level*, *Challenge*, *Overview*, *Coming Soon* jika ada padanan tepat seperti *Tingkat/Level*, *Tantangan*, *Ringkasan*, *Segera Hadir*).
+- Gunakan bahasa manusia yang hangat, santai, dan bersahabat seperti gaya komunikasi anak muda sekolah. Hindari istilah kaku buatan mesin AI.
+
+### H. Aturan Deskripsi dan Teks Pendukung
 - Deskripsi harus padat dan ringkas (cukup 2 sampai 3 baris kalimat).
 - Di latar gelap, warna teks deskripsi menggunakan abu-abu lembut (#cbd5e1 atau #94a3b8), bukan putih murni 100%, agar kontrasnya nyaman di mata.
-- Gunakan bahasa manusia yang hangat, santai, dan bersahabat seperti anak muda sekolah. Hindari istilah kaku buatan mesin AI.
 
 ### H. Aturan Tombol
 - Sudut tombol melengkung halus dan modern (border-radius: 12px), bukan kotak kaku dan bukan oval lonjong.
