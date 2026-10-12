@@ -36,6 +36,15 @@ Seluruh berkas website Mirai no Webu dikelompokkan secara terstruktur ke dalam f
   - **WAJIB langsung memperbarui tabel "Sources & Credits" di berkas `README.md`** di root repositori.
   - Catat nama penyedia, jenis lisensi, dan fungsi komponen tersebut pada website agar rekam jejak hak cipta dan atribusi selalu akurat dan teratur (*always up-to-date*).
 
+### C. Standar Penamaan Berkas & Aset (URL-Safe Filenames)
+- Seluruh penamaan file dan folder baru **WAJIB menggunakan huruf kecil (*lowercase*) dan tanda hubung (*kebab-case*)**, contoh: `idc-front.jpeg`, `kimi-to-nippon.html`.
+- **Dilarang keras menggunakan spasi pada nama file atau folder** karena akan dikonversi menjadi `%20` oleh peramban dan rawan menimbulkan tautan rusak (*broken link*) pada server web.
+
+### D. Protokol Nol Tautan Rusak (Zero Broken Links Rule)
+- Setiap kali pengembang atau AI asisten memindahkan file, mengganti nama file, atau menyunting tautan navigasi:
+  - **WAJIB menjalankan skrip validasi tautan Python sebelum commit** untuk memindai seluruh berkas HTML dan memastikan jumlah tautan rusak adalah **0 (nol)**.
+  - Dilarang membuat commit jika masih ditemukan broken link internal.
+
 ---
 
 ## 2. Inventaris Sumber Daya Gambar & Berkas (Colocation & Shared)
@@ -122,13 +131,13 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
 - Deskripsi harus padat dan ringkas (cukup 2 sampai 3 baris kalimat).
 - Di latar gelap, warna teks deskripsi menggunakan abu-abu lembut (#cbd5e1 atau #94a3b8), bukan putih murni 100%, agar kontrasnya nyaman di mata.
 
-### H. Aturan Tombol
+### I. Aturan Tombol
 - Sudut tombol melengkung halus dan modern (border-radius: 12px), bukan kotak kaku dan bukan oval lonjong.
 - Memakai warna gradien pink sakura dengan bayangan berpendar lembut (glow).
 - Saat disorot mouse (hover), tombol naik sedikit (translateY -2px) dan pendaran warnanya semakin menyala.
 - Ukuran tombol harus pas dan proporsional dengan isi teksnya (tidak boleh melar memenuhi seluruh kartu).
 
-### I. Aturan Penataan Foto, Poster, dan Avatar
+### J. Aturan Penataan Foto, Poster, dan Avatar
 - **Frame 1 Poster & Carousel Geser Mandiri**: Wadah poster di kartu event wajib berukuran 1 poster tunggal yang utuh (Single Poster View), tidak boleh menampilkan poster bertumpuk vertikal ataupun berdampingan terpotong:
   - Jika event memiliki lebih dari 1 poster/halaman (seperti ITS & UNESA), gunakan carousel horizontal yang bisa digeser dengan panah, drag mouse di desktop, atau swipe jari di HP.
   - **Tombol Panah Navigasi**: Wajib berada tepat di **bagian tengah samping kiri (‹) dan kanan (›)** poster dengan gaya semi-transparan ber-blur dan efek pendar pink saat disorot. Jika poster hanya ada 1 lembar, tombol panah otomatis disembunyikan.
@@ -139,7 +148,7 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
   - **Bebas Interaksi Tanpa Jebakan (No Lock-In)**: Poster murni menjadi visual kartu yang aman disentuh, di-drag, atau di-scroll tanpa memicu modal lightbox yang mengunci scroll layar (`overflow: hidden`). Navigasi halaman poster kedua dilakukan murni via tombol panah tengah samping atau swipe.
 - **Avatar Lingkaran**: Wadah avatar profil atau juara wajib memiliki latar belakang putih (#ffffff) dengan gambar berukuran contain dan sedikit padding, agar bagian telinga, rambut, atau topi chibi tidak terpotong garis tepi lingkaran.
 
-### J. Aturan Spasi dan Tata Letak (Layout)
+### K. Aturan Spasi dan Tata Letak (Layout)
 - **Anti Ruang Hampa**: Di layar laptop, kartu tidak boleh menyisakan ruang kosong hitam atau putih yang melompong di tengah antara judul dan tombol bawah. Susun elemen secara padat dan seimbang.
 - **Pemusatan Kartu Ganjil**: Jika jumlah kartu dalam satu seksi berjumlah ganjil (seperti 11 kartu pengurus Kabinet Clover), kartu pada baris terakhir diletakkan tepat di posisi tengah (rata tengah), tidak boleh miring sendirian di sebelah kiri.
 - **Keseragaman Kartu Program Kerja & Divisi**: Ukuran kartu Program Kerja (tinggi, padding, border-radius, font judul, dan posisi tombol) wajib disamaratakan persis dengan kartu Divisi agar tampilan sejajar dan rapi.
@@ -231,3 +240,51 @@ Website Mirai no Webu menerapkan animasi masuk (*page entrance motion*) dan scro
   - Seluruh kartu komponen (`article`, `[class*='-card']`, dll.) di dalam seksi tersebut mengalir muncul bertahap (*staggered reveal: 0.06s s.d 0.46s*), menghidupkan suasana website seolah konten baru menyambut pengunjung saat tiba di tiap bagian halaman.
 - **Aksesibilitas & Kepatuhan Gerak**:
   - Wajib menghormati preferensi pengguna dengan `@media (prefers-reduced-motion: reduce)`. Pengguna yang mematikan efek motion pada sistem operasi tidak akan dipaksa melihat animasi yang mengganggu kenyamanan mata.
+
+---
+
+## 6. Standar Halaman Penanganan Error 404 Kustom (404.html)
+
+Halaman penanganan tautan salah (`404.html`) di root repositori wajib mempertahankan identitas khas Mirai no Hana dan dilarang disederhanakan menjadi teks polos kaku:
+1. **Efek Kelopak Sakura Melayang (`.sakura-field`)**: Menggunakan animasi murni CSS3 untuk menghadirkan atmosfer visual jejepangan yang anggun di latar belakang kartu error.
+2. **Maskot Sora & Gelembung Dialog Senpai**: Menampilkan avatar maskot Asora Aokita dengan animasi mengapung lembut (`mascotFloat`) dan gelembung pesan ramah yang menyapa senpai.
+3. **Pencarian Cepat Cerdas (*Smart Quick Finder*)**: Menyediakan input teks pencarian instan yang cerdas mendeteksi kata kunci (*kanji, kelas, proker, lomba, tentang, sora*) dan otomatis mengarahkan pengunjung ke halaman yang tepat.
+4. **4 Kartu Destinasi Berpendar Wagara**: Menyediakan tombol kartu mini menuju **Beranda**, **Kelas Belajar**, **Kamus Kanji**, dan **Tanya Sora**.
+
+---
+
+## 7. Pengelolaan Basis Data Offline JSON & Vektor KanjiVG (Folder data/)
+
+Seluruh data karakter, kosakata, dan goresan di website beroperasi murni secara offline melalui berkas lokal:
+- **`data/kana.json`**: Menyimpan seluruh inventaris karakter Hiragana dan Katakana (Gojūon, Dakuon, Handakuon, Yōon, Sokuon).
+- **`data/kanji.json`**: Menyimpan basis data lengkap 2.136 karakter Jōyō Kanji, terjemahan Bahasa Indonesia, serta bacaan On'yomi dan Kun'yomi.
+- **`data/kanji-meta.json`**: Menyimpan metadata radikal, jumlah goresan (*stroke count*), dan tingkatan JLPT (N5 s.d N1).
+- **`js/stroke-data.js`**: Menyimpan vektor koordinat kurva KanjiVG terkurasi untuk animasi goresan.
+- **Aturan Sinkronisasi**: Jika ada penambahan kanji atau kosakata baru pada Kamus maupun Latihan Mandiri, pengembang **WAJIB memastikan keselarasan data** antara berkas JSON di `data/` dan pustaka goresan di `js/stroke-data.js` agar fitur pencarian dan animasi goresan tetap akurat.
+
+---
+
+## 8. Standar Keamanan Siber & Sanitasi Input
+
+Untuk menjaga keamanan pengunjung dan integritas website:
+1. **Pencegahan Celah XSS (Cross-Site Scripting)**:
+   - Setiap teks dari pengguna yang dirender ke antarmuka (terutama obrolan bot Sora dan pesan masukan) **WAJIB disanitasi menggunakan DOMPurify**:
+     ```javascript
+     const cleanHTML = DOMPurify.sanitize(marked.parse(userInput));
+     ```
+   - Dilarang memasukkan teks mentah langsung ke `innerHTML` tanpa proses sanitasi.
+2. **Kerahasiaan Kredensial & Kunci API**:
+   - Dilarang keras menyimpan kunci rahasia (*API Key*), token autentikasi, atau kredensial berbayar di dalam berkas JavaScript frontend publik. Seluruh komunikasi AI luar wajib melalui gateway proxy aman.
+
+---
+
+## 9. Konvensi Pesan Git Commit (Conventional Commits)
+
+Seluruh riwayat commit repositori wajib rapi dan seragam menggunakan bahasa Indonesia dengan format baku:
+- **`feat:`** — Penambahan fitur atau halaman baru (contoh: `feat: buat halaman 404 estetik`).
+- **`fix:`** — Perbaikan kesalahan kode atau bug (contoh: `fix: perbaiki toleransi goresan kana`).
+- **`docs:`** — Pembaruan berkas dokumentasi markdown (contoh: `docs: perbarui agent.md dan README`).
+- **`refactor:`** — Penataan ulang folder, pembersihan, atau perapian nama file tanpa mengubah fungsi web (contoh: `refactor: ganti nama berkas idc tanpa spasi`).
+- **`style:`** — Perubahan gaya visual CSS atau tipografi tanpa mengubah logika skrip.
+- **`chore:`** — Pemeliharaan konfigurasi perkakas atau skrip otomasi Python.
+
