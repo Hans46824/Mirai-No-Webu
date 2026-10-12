@@ -59,8 +59,8 @@ Website **Mirai no Webu** terdiri dari berbagai modul tematik yang memiliki pera
 * **Pusat Informasi & Showcase**: Menampilkan ringkasan seluruh pilar klub, filosofi nama bunga masa depan (*Mirai no Hana*), kartu fitur interaktif bermotif Wagara, slider kutipan harian, dan navigasi seluler off-canvas responsif.
 * **Peluncur Cepat Sora**: Mengintegrasikan tombol widget mengambang (*floating drawer*) chatbot Sora bergaya minimalis untuk konsultasi cepat materi.
 
-### 2. 📖 Modul Pembelajaran Terpadu (`/kelas/`)
-* **Hub Kelas (`kelas/index.html`)**: Pintu masuk utama menuju pembagian kelas, silabus kurikulum, bank latihan, dan artikel motivasi.
+### 2. 📖 Modul Kelas & Kurikulum Terpadu (`/kelas/`)
+* **Hub Kelas & Kurikulum (`kelas/index.html`)**: Pintu masuk utama menuju pembagian kelas, silabus kurikulum resmi, bank latihan mandiri, dan artikel motivasi.
 * **Kelas Dasar (`kelas/dasar.html`)**: Modul pengenalan alfabet dasar bahasa Jepang (Hiragana dan Katakana), pembagian tabel Gojūon (huruf dasar), Dakuon (tanda petik), Handakuon (tanda lingkaran), kombinasi Yōon (huruf kecil `ya`, `yu`, `yo`), Sokuon (konsonan ganda), Chōonpu (vokal panjang), serta visualisasi pelafalan.
 * **Kelas Lanjutan (`kelas/lanjutan.html`)**: Pembelajaran kosakata tematik (kehidupan sekolah, keluarga, waktu/hari, salam sehari-hari/aisatsu), panduan tata bahasa dasar, pemahaman fungsi partikel (`wa`, `ga`, `o`, `ni`, `de`, `e`, `to`, `mo`, `no`, `ka`), konjugasi kata kerja bentuk-Masu & bentuk-Te, serta contoh dialog percakapan.
 * **Latihan Mandiri Interaktif 20 Soal (`kelas/latihan.html`)**:
@@ -148,8 +148,8 @@ Mirai-No-Webu/
 │   ├── api.js                      # Koneksi endpoint data kamus & kamus API
 │   └── sora.js                     # Logika obrolan cerdas & respon offline maskot Sora
 │
-├── kelas/                          # Hub Pembelajaran Mandiri
-│   ├── index.html                  # Halaman utama kelas
+├── kelas/                          # Hub Pembelajaran Kelas & Kurikulum Mandiri
+│   ├── index.html                  # Halaman utama kelas & kurikulum
 │   ├── dasar.html                  # Kelas dasar (Hiragana & Katakana)
 │   ├── lanjutan.html               # Kelas lanjutan (Kosakata & Tata Bahasa)
 │   ├── kurikulum.html              # Kurikulum resmi per semester

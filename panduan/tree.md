@@ -67,8 +67,8 @@ Mirai-No-Webu/
 │       ├── Miraimatsuri.png        # Logo Miraimatsuri
 │       └── dokumentasi/            # Foto dokumentasi kegiatan landscape & portrait
 │
-├── kelas/                          # Halaman Modul & Pembelajaran Mandiri
-│   ├── index.html                  # Hub utama Kelas (Pilihan level, modul, kurikulum, latihan)
+├── kelas/                          # Halaman Modul Kelas & Kurikulum Pembelajaran Mandiri
+│   ├── index.html                  # Hub utama Kelas & Kurikulum (Pilihan level, modul, kurikulum, latihan)
 │   ├── dasar.html                  # Modul Kelas Dasar (Hiragana & Katakana)
 │   ├── lanjutan.html               # Modul Kelas Lanjutan (Kanji & Tata Bahasa)
 │   ├── kurikulum.html              # Peta belajar kurikulum terstruktur & panduan mengajar
