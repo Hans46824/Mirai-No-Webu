@@ -219,8 +219,8 @@ function setupReveal() {
     ];
 
     document.querySelectorAll(cardSelectors.join(",")).forEach((card) => {
-        // Jangan beri animasi scroll pada elemen di dalam hero, header, floating drawer chat, atau modal
-        if (card.closest(".hero, .page-hero, .about-hero, .lomba-hero, .activities-hero, .class-hero, #drawer, #launcher, .sidebar-nav, .home-header, .lightbox, .modal")) return;
+        // Jangan beri animasi scroll pada elemen di dalam hero, header, floating drawer chat, atau modal/latihan
+        if (card.closest(".hero, .page-hero, .about-hero, .lomba-hero, .activities-hero, .class-hero, #drawer, #launcher, .sidebar-nav, .home-header, .lightbox, .modal, .practice-view, .result-view, [data-practice-view], [data-result-view]")) return;
 
         if (!card.classList.contains("motion-reveal") && !card.classList.contains("reveal")) {
             card.classList.add("motion-reveal");

@@ -1041,7 +1041,11 @@ function initKanaQuest() {
             started: Date.now()
         };
 
-        $("[data-practice-view]").hidden = false;
+        const practiceView = $("[data-practice-view]");
+        if (practiceView) {
+            practiceView.hidden = false;
+            practiceView.scrollTop = 0;
+        }
         document.body.classList.add("is-practicing");
         renderQuestion();
     }
@@ -1929,6 +1933,7 @@ function initKanaQuest() {
 
     $("[data-result-home]").addEventListener("click", () => {
         $("[data-result-view]").hidden = true;
+        document.body.classList.remove("is-practicing");
         renderDashboard();
     });
 
@@ -1980,8 +1985,12 @@ function initKanaQuest() {
 
         save();
         $("[data-practice-view]").hidden = true;
-        $("[data-result-view]").hidden = false;
-        document.body.classList.remove("is-practicing");
+        const resultView = $("[data-result-view]");
+        if (resultView) {
+            resultView.hidden = false;
+            resultView.scrollTop = 0;
+        }
+        document.body.classList.add("is-practicing");
 
         const xpEl = $("[data-result-xp]");
         if (xpEl) xpEl.style.display = "none";

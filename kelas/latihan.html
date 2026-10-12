@@ -981,6 +981,70 @@ body.theme-dark .level-badge--locked {
         margin-top: 14px !important;
     }
 }
+
+/* ==========================================================================
+   VIEWPORT-FIXED MODAL LATIHAN & HASIL KANA (latihan.html)
+   Memastikan modal tampil tepat di depan pandangan pengguna dan mengikuti layar
+   ========================================================================== */
+body,
+body.learning-app,
+body.page-latihan {
+    transform: none !important;
+    filter: none !important;
+    perspective: none !important;
+}
+
+body.is-practicing {
+    overflow: hidden !important;
+}
+
+.practice-view,
+.result-view,
+.learning-app .practice-view,
+.learning-app .result-view {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    width: 100% !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    max-height: 100vh !important;
+    z-index: 99999 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    padding: 24px 16px !important;
+    background: rgba(24, 18, 25, 0.94) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+}
+
+.practice-view[hidden],
+.result-view[hidden],
+.learning-app .practice-view[hidden],
+.learning-app .result-view[hidden] {
+    display: none !important;
+}
+
+.practice-shell,
+.result-card,
+.learning-app .practice-shell,
+.learning-app .result-card {
+    position: relative !important;
+    width: min(680px, 100%) !important;
+    margin: 20px auto !important;
+    box-sizing: border-box !important;
+    opacity: 1 !important;
+    transform: none !important;
+}
 </style>
 </head>
 <body class="learning-app page-latihan">
