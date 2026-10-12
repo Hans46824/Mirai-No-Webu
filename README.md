@@ -115,6 +115,10 @@ Website **Mirai no Webu** terdiri dari berbagai modul tematik yang memiliki pera
 ### 12. 🚫 Halaman 404 Estetik (`/404.html`)
 * Halaman penanganan tautan salah ketik berdesain elegan khas tema obsidian-pink Mirai no Hana, dilengkapi ilustrasi maskot Sora yang tersesat dan tombol kembali cepat ke Beranda, Kamus, atau Kelas.
 
+### 13. 🌸 Hero Parallax Sinematik & Akses Media Sosial Cepat (`index.html`)
+* **Parallax Scroll Effect**: Latar belakang banner hero di Beranda menerapkan efek parallax menetap (`background-attachment: fixed`), membuat gambar latar tetap diam sementara seksi profil `.about-preview` dengan elevasi bayangan meluncur menutupinya secara dramatis ("kemakan page").
+* **Akses Media Sosial Cepat**: Tombol lingkaran kaca mengambang vertikal di pojok kanan hero yang posisinya sejajar dengan teks judul hero menghubungkan pengunjung langsung ke [Instagram](https://www.instagram.com/mirainohana_smawh2) dan [TikTok](https://www.tiktok.com/@nihongo.kurabu.wh2) resmi klub. Dilengkapi integrasi penuh ke protokol auto-hide floating controls.
+
 ---
 
 ## 📂 4. Arsitektur Direktori (Clean Root Standard)
@@ -240,6 +244,7 @@ Sebagai wujud integritas akademik, keterbukaan informasi, dan penghormatan setin
 | **Pembersih Sanitasi HTML** | [DOMPurify](https://github.com/cure53/DOMPurify) (Cure53) | Apache-2.0 / MPL-2.0 | Mencegah celah kerentanan Cross-Site Scripting (XSS) pada antarmuka chat. |
 | **API Pembantu Terjemahan** | [MyMemory Translated API](https://mymemory.translated.net) | Free Educational Tier | Endpoint pembantu terjemahan kosakata otomatis. |
 | **Mesin Gerakan Antarmuka** | Native CSS3 & W3C Cross-Document View Transitions API | Standar Web Native (Zero Dependency) | Mesin transisi halaman mulus, cascading delays, dan scroll reveal tanpa library luar. |
+| **Saluran Media Sosial Resmi** | [Instagram @mirainohana_smawh2](https://www.instagram.com/mirainohana_smawh2) & [TikTok @nihongo.kurabu.wh2](https://www.tiktok.com/@nihongo.kurabu.wh2) | Kanal Publik Resmi Klub | Saluran publikasi resmi klub, pengumuman kegiatan, dan interaksi multimedia anggota. |
 
 ---
 

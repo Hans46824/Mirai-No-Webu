@@ -301,10 +301,11 @@ Website Mirai no Hana memiliki elemen kontrol mengambang global yang selalu mene
 - **Tombol Menu Navigasi** (`.menu-btn`) di pojok kanan atas.
 - **Tombol Launcher Chat Sora** (`#launcher` & `.sora-widget`) di pojok kanan bawah.
 - **Tombol Kembali ke Atas** (`.to-top`) di pojok kanan bawah.
+- **Sidebar Ikon Media Sosial Hero** (`.hero-social-sidebar`) di pojok kanan hero (sejajar horizontal dengan judul hero).
 
 ### Aturan Wajib Anti-Halangan (Sekarang & Fitur Mendatang):
 1. **Otomatis Bersembunyi Saat Ada Fitur/Modal yang Dibuka**:
-   Setiap kali ada fitur interaktif yang menutupi layar atau memerlukan fokus pengguna sedang berjalan/dibuka, seluruh tombol kontrol mengambang di atas **WAJIB otomatis bersembunyi / tertutup** (`opacity: 0 !important; visibility: hidden !important; pointer-events: none !important;`):
+   Setiap kali ada fitur interaktif yang menutupi layar atau memerlukan fokus pengguna sedang berjalan/dibuka, seluruh tombol kontrol mengambang di atas **WAJIB otomatis bersembunyi / tertutup** (`opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; transform: translateY(12px) scale(0.88) !important;`):
    - **Latihan Mandiri Kana** (`.practice-view`, `.result-view`, `body.is-practicing`).
    - **Chatbot Asora Aokita (Sora)** (`#drawer.open`, `#drawer.fullscreen`, `body.sora-drawer-open`, `body.sora-fullscreen-active`, `.sora-panel`).
    - **Sidebar Navigasi Menu** (`.sidebar-nav.active`, `body.sidebar-open`).
@@ -316,6 +317,14 @@ Website Mirai no Hana memiliki elemen kontrol mengambang global yang selalu mene
    - Lapisan CSS menggunakan selector canggih `body:has(...)` untuk deteksi otomatis tanpa bergantung penuh pada JS.
    - Lapisan JavaScript menyediakan penanda kelas status di `document.body` (`.is-practicing`, `.sora-drawer-open`, `.sora-fullscreen-active`, `.sidebar-open`, `.lightbox-open`) untuk kompatibilitas mutlak 100% di semua peramban.
    - Setiap penambahan fitur overlay atau modal baru di masa depan **WAJIB mematuhi protokol ini**.
+
+### Media Sosial Resmi & Efek Hero Parallax:
+1. **Dua Saluran Komunikasi Resmi Klub**:
+   - **Instagram**: `https://www.instagram.com/mirainohana_smawh2?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==` (`@mirainohana_smawh2`).
+   - **TikTok**: `https://www.tiktok.com/@nihongo.kurabu.wh2?is_from_webapp=1&sender_device=pc` (`@nihongo.kurabu.wh2`).
+2. **Hero Parallax & Desain Ikon Sosial Cepat**:
+   - Background hero menggunakan `background-attachment: fixed` dengan gradien gelap. Saat halaman digulir, gambar tetap menetap di latar belakang sementara seksi `.about-preview` dengan elevasi bayangan atas dramatis (`box-shadow: 0 -24px 50px rgba(0, 0, 0, 0.55)`) meluncur menutupinya secara sinematik ("kemakan page").
+   - Ikon media sosial di pojok kanan hero berdesain lingkaran kaca Tengoku style (`backdrop-filter: blur(8px)`, pendar pink saat disentuh mouse), posisinya sejajar vertikal dengan teks judul hero (`bottom: 15%` pada desktop, `bottom: 12%` pada mobile).
 
 ---
 
