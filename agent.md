@@ -203,9 +203,9 @@ Koleksi 20 stiker chibi resmi Genshin Impact untuk profil anggota, papan peringk
   - **Tipografi Bersih & Bebas Teks Redundan**:
     - Hero banner dilarang menampilkan eyebrow teks redundan "Kelas Dasar · Latihan Mandiri".
     - Seksi Latihan Gabungan menggunakan judul utama Two-Tone yang kokoh: `<h2>Latihan <span>Gabungan</span></h2>` dengan kicker kategori `<p class="kicker">MODE TANTANGAN</p>`. Dilarang menampilkan teks usang seperti "Campur materi" maupun kalimat deskripsi panjang "Pilih cakupan latihan. Materi yang terkunci tidak akan masuk ke soal." agar layout tetap bersih, minimalis, dan seragam.
-  - **Badge Informasi Isi Latihan & Penghapusan Teks "Mulai dari sini"**:
-    - Setiap kartu level kana wajib memuat deretan badge informasi komposisi soal latihan (`.level-badges`) di bawah huruf kana:
-      - **Desain Seragam 1 Jenis**: Seluruh badge wajib menggunakan desain kaca aksen pink seragam yang estetik persis seperti desain badge "20 Soal" (latar belakang semi-transparan pink, border pink halus, dan teks pink cerah `#ff659b` / `var(--pink)` tanpa stiker putih).
+  - **Badge Informasi Isi Latihan Berada di Bawah Judul Materi (Bukan di Dalam Kartu)**:
+    - Deretan badge informasi komposisi latihan (`.script-overview-badges` / `[data-script-badges]`) ditempatkan **tepat di bawah judul materi** (`Hiragana ひらがな` atau `Katakana カタカナ`), bukan di dalam kartu-kartu level:
+      - **Desain Seragam 1 Jenis**: Seluruh badge menggunakan desain pil aksen pink seragam yang estetik persis seperti desain badge "20 Soal" (latar belakang semi-transparan pink, border pink halus, dan teks pink cerah `#ff659b` / `var(--pink)`).
       - **Daftar Lencana Lengkap (6 Item)**:
         1. **20 Soal**: Total jumlah soal latihan.
         2. **Kana → Romaji**: Dinamis sesuai alfabet (`Hiragana → Romaji` atau `Katakana → Romaji`).
@@ -213,8 +213,8 @@ Koleksi 20 stiker chibi resmi Genshin Impact untuk profil anggota, papan peringk
         4. **Goresan**: Menandai soal interaktif menulis goresan kana ala Duolingo (tanpa emoji).
         5. **Kosakata**: Menandai soal latihan tebak kata.
         6. **Pasangkan Kata**: Menandai soal pencocokan pasangan kata.
-      - **✓ Selesai / 🔒 Terkunci**: Lencana status jika materi telah dituntaskan atau masih terkunci.
-    - **Dilarang Keras**: Menampilkan teks basi/usang seperti "Mulai dari sini" atau kalimat teks bantuan panjang di kartu level. Seluruh informasi disajikan ringkas, estetik, dan rapi dalam format lencana pil (*badges*).
+    - **Kartu Level Tetap Bersih & Proporsional**: Dilarang menaruh deretan badge isi soal tersebut di dalam masing-masing kartu level (`level-card`), sehingga kartu level bebas dari repetisi elemen redundan, memiliki ketinggian kompak (`min-height: 230px`), dan fokus menampilkan nomor level, karakter kana, serta tombol aksi.
+    - **Dilarang Keras**: Menampilkan teks basi/usang seperti "Mulai dari sini" atau kalimat teks bantuan panjang di kartu level.
 
 ---
 

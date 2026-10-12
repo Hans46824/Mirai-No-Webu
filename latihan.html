@@ -884,11 +884,12 @@ body.theme-dark .mix-section .section-heading h2 {
    BADGE INFORMASI ISI SOAL LATIHAN KANA (Level Card Badges)
    Semua badge seragam menggunakan gaya aksen pink elegan (seperti 20 Soal)
    ========================================================================== */
-.level-badges {
+.level-badges,
+.script-overview-badges {
     display: flex !important;
     flex-wrap: wrap !important;
-    gap: 6px !important;
-    margin: 12px 0 16px !important;
+    gap: 8px !important;
+    margin: 14px 0 0 !important;
     align-items: center !important;
     position: relative !important;
     z-index: 2 !important;
@@ -899,12 +900,12 @@ body.theme-dark .mix-section .section-heading h2 {
     align-items: center !important;
     justify-content: center !important;
     gap: 4px !important;
-    padding: 3.5px 9px !important;
-    font-size: 11px !important;
+    padding: 5px 12px !important;
+    font-size: 11.5px !important;
     font-weight: 700 !important;
     font-family: Arial, Helvetica, sans-serif !important;
     line-height: 1.3 !important;
-    letter-spacing: 0.2px !important;
+    letter-spacing: 0.25px !important;
     border-radius: 999px !important;
     background: rgba(233, 30, 99, 0.09) !important;
     color: var(--pink, #e91e63) !important;
@@ -913,7 +914,7 @@ body.theme-dark .mix-section .section-heading h2 {
     transition: all 0.2s ease !important;
 }
 
-.level-card:hover .level-badge {
+.level-badge:hover {
     background: rgba(233, 30, 99, 0.16) !important;
     border-color: rgba(233, 30, 99, 0.5) !important;
     box-shadow: 0 2px 8px rgba(233, 30, 99, 0.15) !important;
@@ -939,7 +940,7 @@ body.theme-dark .level-badge {
     border: 1px solid rgba(233, 30, 99, 0.45) !important;
 }
 
-body.theme-dark .level-card:hover .level-badge {
+body.theme-dark .level-badge:hover {
     background: rgba(233, 30, 99, 0.32) !important;
     border-color: #ff659b !important;
     box-shadow: 0 0 10px rgba(233, 30, 99, 0.3) !important;
@@ -958,12 +959,26 @@ body.theme-dark .level-badge--locked {
 }
 
 .learning-app .level-card {
-    min-height: 315px !important;
+    min-height: 230px !important;
 }
 
 @media (max-width: 560px) {
     .learning-app .level-card {
         min-height: auto !important;
+    }
+}
+
+.quest-overview .progress-heading {
+    align-items: flex-start !important;
+}
+
+.quest-overview .path-meter {
+    margin-top: 26px !important;
+}
+
+@media (max-width: 560px) {
+    .quest-overview .path-meter {
+        margin-top: 14px !important;
     }
 }
 </style>
@@ -1006,7 +1021,7 @@ body.theme-dark .level-badge--locked {
     </aside>
 <main class="quest-main">
 <section class="quest-hero"><span data-review-count hidden>0</span><span data-streak hidden>1</span><span data-user-level hidden>1</span><span data-total-xp hidden>0</span><span data-level-xp hidden>0</span><span data-xp-bar hidden></span><div><h1>Latihan<br><span>Kana</span></h1></div> </section>
-<section class="quest-section quest-overview"><div class="script-tabs" role="tablist"><button class="is-active" data-script="hiragana" role="tab">ひらがな <small>Hiragana</small></button><button data-script="katakana" role="tab">カタカナ <small>Katakana</small></button></div><div class="progress-heading"><div><p class="kicker">PILIH MATERI</p><h2 data-script-title>Hiragana <span>ひらがな</span></h2></div><div class="path-meter"><strong data-script-progress>0%</strong><div class="progress-track"><i data-script-progress-bar></i></div></div></div><div class="level-grid" data-level-grid></div></section>
+<section class="quest-section quest-overview"><div class="script-tabs" role="tablist"><button class="is-active" data-script="hiragana" role="tab">ひらがな <small>Hiragana</small></button><button data-script="katakana" role="tab">カタカナ <small>Katakana</small></button></div><div class="progress-heading"><div><p class="kicker">PILIH MATERI</p><h2 data-script-title>Hiragana <span>ひらがな</span></h2><div class="level-badges script-overview-badges" data-script-badges><span class="level-badge">20 Soal</span><span class="level-badge">Hiragana → Romaji</span><span class="level-badge">Romaji → Hiragana</span><span class="level-badge">Goresan</span><span class="level-badge">Kosakata</span><span class="level-badge">Pasangkan Kata</span></div></div><div class="path-meter"><strong data-script-progress>0%</strong><div class="progress-track"><i data-script-progress-bar></i></div></div></div><div class="level-grid" data-level-grid></div></section>
 <section class="quest-section mix-section" data-script="hiragana"><div class="section-heading"><div><p class="kicker">MODE TANTANGAN</p><h2>Latihan <span>Gabungan</span></h2></div></div><div class="mode-grid" data-mode-grid data-script="hiragana"></div></section>
 </main>
 
@@ -1033,6 +1048,6 @@ body.theme-dark .level-badge--locked {
 
 </div></section>
 
-<button class="to-top" type="button" aria-label="Kembali ke atas">↑</button><script src="js/stroke-data.js?v=20261011p"></script><script src="js/sora.js"></script><script src="js/main.js"></script><script src="script.js?v=20261011p"></script>
+<button class="to-top" type="button" aria-label="Kembali ke atas">↑</button><script src="js/stroke-data.js?v=20261012a"></script><script src="js/sora.js"></script><script src="js/main.js"></script><script src="script.js?v=20261012a"></script>
 </body>
 </html>
