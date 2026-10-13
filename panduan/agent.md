@@ -227,6 +227,12 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
   - Tokoh Asta (Black Clover) dan Kageyama/Hinata (Haikyuu!!) telah dihapus.
 
 ### L. Aturan Spasi dan Tata Letak (Layout)
+- **Menu Navigasi Parsial (Non-Fullscreen Off-Canvas Drawer di HP & Laptop)**:
+  - Menu navigasi (`.sidebar-nav`) **dilarang keras membuka secara layar penuh (fullscreen 100% width)** baik di HP maupun di laptop.
+  - Pada perangkat seluler/HP (`max-width: 600px`), menu harus muncul **sebagian dari sisi kanan** layaknya mode laptop (`width: 78%`, `max-width: 310px`, `min-width: 250px`), dengan sisi kiri (~22%) tetap memperlihatkan latar belakang halaman yang diredupkan oleh `.sidebar-overlay`.
+  - Mengetuk/mengklik area redup di sebelah kiri wajib langsung menutup menu secara instan.
+  - Menu memiliki scrollbar halus bertema pink gelap (`scrollbar-width: thin; scrollbar-color: rgba(255, 79, 145, 0.35) transparent`) tanpa menampilkan scrollbar default abu-abu/putih sistem operasi.
+  - Saat menu aktif, scroll halaman latar belakang dikunci via `body.sidebar-open { overflow: hidden !important; }`.
 - **Anti Ruang Hampa**: Di layar laptop, kartu tidak boleh menyisakan ruang kosong hitam atau putih yang melompong di tengah antara judul dan tombol bawah. Susun elemen secara padat dan seimbang.
 - **Pemusatan Kartu Ganjil**: Jika jumlah kartu dalam satu seksi berjumlah ganjil (seperti 11 kartu pengurus Kabinet Clover), kartu pada baris terakhir diletakkan tepat di posisi tengah (rata tengah), tidak boleh miring sendirian di sebelah kiri.
 - **Keseragaman Kartu Program Kerja & Divisi**: Ukuran kartu Program Kerja (tinggi, padding, border-radius, font judul, dan posisi tombol) wajib disamaratakan persis dengan kartu Divisi agar tampilan sejajar dan rapi.

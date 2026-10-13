@@ -1195,6 +1195,11 @@ body:has(dialog[open]) .hero-social-sidebar {
     visibility: visible;
 }
 
+/* Kunci Scroll Latar saat Sidebar Nav Aktif */
+body.sidebar-open {
+    overflow: hidden !important;
+}
+
 /* Sidebar Nav (Off-Canvas) */
 .sidebar-nav {
     position: fixed;
@@ -1217,7 +1222,28 @@ body:has(dialog[open]) .hero-social-sidebar {
     justify-content: space-between;
     box-sizing: border-box;
     overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
     box-shadow: -15px 0 45px rgba(0, 0, 0, 0.8);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 79, 145, 0.35) transparent;
+}
+
+.sidebar-nav::-webkit-scrollbar {
+    width: 4px;
+}
+
+.sidebar-nav::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+    background: rgba(255, 79, 145, 0.35);
+    border-radius: 4px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb:hover {
+    background: var(--pink, #e91e63);
 }
 
 .sidebar-nav.active {
@@ -1401,9 +1427,60 @@ body:has(dialog[open]) .hero-social-sidebar {
     }
 
     .sidebar-nav {
-        width: 100%;
-        right: -100%;
-        padding: 28px 20px;
+        width: 78% !important;
+        max-width: 310px !important;
+        min-width: 250px !important;
+        right: -115% !important;
+        padding: 22px 18px 20px !important;
+        border-left: 1.5px solid rgba(255, 79, 145, 0.35) !important;
+        box-shadow: -15px 0 45px rgba(0, 0, 0, 0.9), 0 0 25px rgba(233, 30, 99, 0.15) !important;
+    }
+
+    .sidebar-nav.active {
+        right: 0 !important;
+    }
+
+    .sidebar-header {
+        margin-bottom: 12px !important;
+        padding-bottom: 10px !important;
+    }
+
+    .sidebar-label {
+        font-size: 13px !important;
+        letter-spacing: 3px !important;
+    }
+
+    .close-btn {
+        width: 34px !important;
+        height: 34px !important;
+        font-size: 15px !important;
+    }
+
+    .sidebar-links {
+        gap: 6px !important;
+        margin: 6px 0 auto !important;
+        padding: 4px 0 !important;
+    }
+
+    .sidebar-links a {
+        font-size: 0.95rem !important;
+        padding: 5px 0 !important;
+        letter-spacing: 0.6px !important;
+    }
+
+    .sidebar-footer {
+        padding-top: 14px !important;
+        gap: 6px !important;
+    }
+
+    .sidebar-footer-logo {
+        width: 170px !important;
+        margin-bottom: 4px !important;
+    }
+
+    .sidebar-footer-desc {
+        font-size: 10.5px !important;
+        margin-bottom: 4px !important;
     }
 }
 
