@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Latihan Kana — MIRAI NO HANA</title>
-<link rel="stylesheet" href="../css/style.css?v=20261013threetier">
+<link rel="stylesheet" href="../css/style.css?v=20261013kanascroll">
 <style>
 .answer-grid.is-match-grid,
 .learning-app .answer-grid.is-match-grid,
@@ -138,157 +138,218 @@
 
 /* Redesigned Review Kesalahan Cards */
 .mistake-review-header {
-    margin-bottom: 16px;
-    padding-top: 18px;
-    border-top: 1px solid #f0dbe2;
-    text-align: left;
+    margin-bottom: 16px !important;
+    padding-top: 22px !important;
+    border-top: 1.5px dashed rgba(233, 30, 99, 0.22) !important;
+    text-align: left !important;
 }
 
 .mistake-review-header h3 {
-    margin: 0 0 4px 0 !important;
-    font-size: 20px !important;
-    color: var(--ink);
+    margin: 0 0 6px 0 !important;
+    font-size: 21px !important;
+    font-family: Georgia, serif !important;
+    font-weight: 700 !important;
+    color: var(--ink) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
 }
 
-.mistake-review-header p {
+.mistake-review-header p,
+.mistake-list p.mistake-desc {
+    display: block !important;
+    width: 100% !important;
     margin: 0 !important;
-    font-size: 13px !important;
+    padding: 0 !important;
+    border: none !important;
+    font-size: 13.5px !important;
+    line-height: 1.55 !important;
     color: var(--muted) !important;
+    grid-template-columns: none !important;
 }
 
 .mistake-list-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    margin-top: 14px;
-    text-align: left;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+    margin-top: 16px !important;
+    text-align: left !important;
 }
 
 .mistake-item-card {
-    background: #ffffff;
-    border: 1px solid #ebdbe2;
-    border-radius: 10px;
-    padding: 16px 18px;
-    box-shadow: 0 4px 12px rgba(32, 28, 38, 0.05);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    background: #ffffff !important;
+    border: 1px solid #ebdbe2 !important;
+    border-left: 4px solid var(--pink, #e91e63) !important;
+    border-radius: 12px !important;
+    padding: 16px 18px !important;
+    box-shadow: 0 4px 14px rgba(32, 28, 38, 0.05) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.mistake-item-card:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 20px rgba(32, 28, 38, 0.08) !important;
 }
 
 .mistake-card-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
 }
 
 .mistake-badge {
-    display: inline-block;
-    padding: 3px 8px;
-    border-radius: 4px;
-    background: #fdf0f4;
-    color: var(--pink, #e91e63);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
+    display: inline-block !important;
+    padding: 3px 9px !important;
+    border-radius: 6px !important;
+    background: #fdf0f4 !important;
+    color: var(--pink, #e91e63) !important;
+    font-size: 10.5px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.8px !important;
+}
+
+.mistake-audio-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    padding: 3px 9px !important;
+    border-radius: 99px !important;
+    background: #fff0f5 !important;
+    border: 1px solid rgba(233, 30, 99, 0.25) !important;
+    color: var(--pink, #e91e63) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+}
+.mistake-audio-btn:hover {
+    background: var(--pink, #e91e63) !important;
+    color: #ffffff !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 10px rgba(233, 30, 99, 0.25) !important;
 }
 
 .mistake-num {
-    font-size: 12px;
-    color: var(--muted);
-    font-weight: 600;
+    font-size: 12px !important;
+    color: var(--muted) !important;
+    font-weight: 700 !important;
 }
 
 .mistake-prompt {
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--ink);
-    margin: 2px 0 4px;
+    font-size: 38px !important;
+    font-weight: 800 !important;
+    font-family: "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif !important;
+    color: var(--ink) !important;
+    line-height: 1.15 !important;
+    text-align: center !important;
+    margin: 4px 0 6px !important;
 }
 
 .mistake-comparison-boxes {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
 }
 
 .mistake-box {
-    padding: 10px 12px;
-    border-radius: 6px;
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
+    padding: 10px 14px !important;
+    border-radius: 8px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 3px !important;
 }
 
 .mistake-box small {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
+    font-size: 10.5px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.4px !important;
 }
 
 .mistake-box strong {
-    font-size: 16px;
-    font-weight: 700;
-    word-break: break-word;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    word-break: break-word !important;
 }
 
 .mistake-box.is-wrong {
-    background: #fff0f2;
-    border: 1px solid #f9ccd3;
-    color: #a82337;
+    background: #fff0f2 !important;
+    border: 1px solid #f9ccd3 !important;
+    color: #a82337 !important;
 }
 
 .mistake-box.is-wrong small {
-    color: #c0392b;
+    color: #c0392b !important;
 }
 
 .mistake-box.is-correct {
-    background: #eefaf3;
-    border: 1px solid #c4eed5;
-    color: #15693c;
+    background: #eefaf3 !important;
+    border: 1px solid #c4eed5 !important;
+    color: #15693c !important;
 }
 
 .mistake-box.is-correct small {
-    color: #27ae60;
+    color: #27ae60 !important;
 }
 
 .mistake-explanation-box {
-    background: #f8f6fb;
-    border-left: 3px solid var(--pink, #e91e63);
-    padding: 8px 12px;
-    border-radius: 0 6px 6px 0;
-    font-size: 13px;
-    line-height: 1.45;
-    color: var(--ink);
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
+    background: #fbf7f9 !important;
+    border: 1px solid #f3e2e8 !important;
+    border-left: 3px solid var(--pink, #e91e63) !important;
+    padding: 10px 14px !important;
+    border-radius: 0 8px 8px 0 !important;
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    color: var(--ink) !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
 }
 
 .mistake-explanation-box .exp-icon {
-    font-size: 14px;
-    flex-shrink: 0;
+    font-size: 15px !important;
+    flex-shrink: 0 !important;
+    line-height: 1.2 !important;
 }
 
 .perfect-note {
-    padding: 20px;
-    background: #eefaf3;
-    border: 1px solid #bcecd0;
-    border-radius: 8px;
-    text-align: center;
-    color: #196f3d;
+    padding: 24px 20px !important;
+    background: linear-gradient(135deg, #eefaf3 0%, #e3f7ec 100%) !important;
+    border: 1.5px solid #a8e6cf !important;
+    border-radius: 14px !important;
+    text-align: center !important;
+    margin-top: 18px !important;
+    box-shadow: 0 8px 24px rgba(46, 204, 113, 0.1) !important;
 }
 
-.perfect-note strong {
-    display: block;
-    font-size: 16px;
-    margin-bottom: 4px;
+.perfect-badge {
+    display: inline-block !important;
+    padding: 4px 12px !important;
+    border-radius: 99px !important;
+    background: #27ae60 !important;
+    color: #ffffff !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1px !important;
+    margin-bottom: 10px !important;
+}
+
+.perfect-note strong,
+.perfect-note h3 {
+    margin: 0 0 6px !important;
+    font-size: 20px !important;
+    color: #196f3d !important;
+    font-weight: 800 !important;
+    display: block !important;
 }
 
 .perfect-note p {
-    margin: 0;
-    font-size: 13px;
-    color: #27ae60;
+    margin: 0 !important;
+    font-size: 13.5px !important;
+    color: #27ae60 !important;
 }
 
 /* Navbar Coming Soon Overlay */
@@ -1080,6 +1141,7 @@ body.is-practicing {
 .learning-app .practice-view,
 .learning-app .result-view {
     position: fixed !important;
+    inset: 0 !important;
     top: 0 !important;
     left: 0 !important;
     right: 0 !important;
@@ -1088,20 +1150,43 @@ body.is-practicing {
     width: 100% !important;
     height: 100vh !important;
     height: 100dvh !important;
-    max-height: 100vh !important;
+    max-height: none !important;
     z-index: 99999 !important;
     overflow-y: auto !important;
     overflow-x: hidden !important;
-    -webkit-overflow-scrolling: touch;
-    padding: 24px 16px !important;
-    background: rgba(24, 18, 25, 0.94) !important;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
+    padding: clamp(24px, 4vh, 48px) clamp(14px, 3vw, 24px) clamp(44px, 6vh, 68px) !important;
+    background: rgba(18, 13, 20, 0.93) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
     box-sizing: border-box !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: flex-start !important;
+    scrollbar-width: thin !important;
+    scrollbar-color: var(--pink, #e91e63) rgba(255, 255, 255, 0.08) !important;
+}
+
+.practice-view::-webkit-scrollbar,
+.result-view::-webkit-scrollbar {
+    width: 8px !important;
+}
+.practice-view::-webkit-scrollbar-track,
+.result-view::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border-radius: 99px !important;
+    margin: 14px 0 !important;
+}
+.practice-view::-webkit-scrollbar-thumb,
+.result-view::-webkit-scrollbar-thumb {
+    background: var(--pink, #e91e63) !important;
+    border-radius: 99px !important;
+}
+.practice-view::-webkit-scrollbar-thumb:hover,
+.result-view::-webkit-scrollbar-thumb:hover {
+    background: #ff4081 !important;
 }
 
 .practice-view[hidden],
@@ -1116,11 +1201,22 @@ body.is-practicing {
 .learning-app .practice-shell,
 .learning-app .result-card {
     position: relative !important;
-    width: min(680px, 100%) !important;
-    margin: 20px auto !important;
+    width: min(660px, 100%) !important;
+    margin: 0 auto !important;
+    flex-shrink: 0 !important;
+    flex-grow: 0 !important;
+    min-height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
     box-sizing: border-box !important;
     opacity: 1 !important;
     transform: none !important;
+    background: #ffffff !important;
+    border-radius: 18px !important;
+    box-shadow: 0 28px 70px rgba(0, 0, 0, 0.4), 0 2px 14px rgba(233, 30, 99, 0.1) !important;
+    border: 1px solid rgba(233, 30, 99, 0.14) !important;
+    padding: clamp(26px, 4vw, 36px) clamp(18px, 4vw, 32px) !important;
+    text-align: center !important;
 }
 
 /* Sembunyikan kontrol mengambang saat sesi latihan/hasil aktif */
@@ -1216,6 +1312,6 @@ body:has(.result-view:not([hidden])) .to-top {
 
 </div></section>
 
-<button class="to-top" type="button" aria-label="Kembali ke atas">↑</button><script src="../js/stroke-data.js?v=20261012b"></script><script src="../js/sora.js"></script><script src="../js/main.js"></script><script src="../js/script.js?v=20261012b"></script>
+<button class="to-top" type="button" aria-label="Kembali ke atas">↑</button><script src="../js/stroke-data.js?v=20261012b"></script><script src="../js/sora.js"></script><script src="../js/main.js"></script><script src="../js/script.js?v=20261013kanascroll"></script>
 </body>
 </html>

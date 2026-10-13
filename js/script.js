@@ -1950,8 +1950,11 @@ function initKanaQuest() {
         startPractice(currentSession.levels);
     });
 
-    $("[data-review-result]").addEventListener("click", () => {
-        $("[data-mistake-list]").scrollIntoView({ behavior: "smooth" });
+    $("[data-review-result]")?.addEventListener("click", () => {
+        const mistakeList = $("[data-mistake-list]");
+        if (mistakeList) {
+            mistakeList.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
     });
 
     $("[data-audio]").addEventListener("click", () => {
@@ -2023,7 +2026,8 @@ function initKanaQuest() {
                     prompt: `${q.answer.character} (${q.answer.romaji})`,
                     userAns: result.userChoice || "Dilewati",
                     correctAns: `Goresan Huruf ${q.answer.character} (${q.answer.romaji})`,
-                    explanation: `Latihan menulis goresan huruf “${q.answer.character}” (${q.answer.romaji}) sesuai urutan baku goresan kana.`
+                    explanation: `Latihan menulis goresan huruf “${q.answer.character}” (${q.answer.romaji}) sesuai urutan baku goresan kana.`,
+                    speakText: q.answer.romaji || q.answer.character
                 });
                 return;
             }
@@ -2044,7 +2048,8 @@ function initKanaQuest() {
                 prompt,
                 userAns,
                 correctAns,
-                explanation
+                explanation,
+                speakText: q.answer.romaji || q.answer.character
             });
         });
 
@@ -2056,24 +2061,37 @@ function initKanaQuest() {
                     prompt,
                     userAns: m.chosenRomaji,
                     correctAns: m.correctRomaji,
-                    explanation: `“${m.character}” berpasangan dengan “${m.correctRomaji}” yang berarti “${m.meaning}”.`
+                    explanation: `“${m.character}” berpasangan dengan “${m.correctRomaji}” yang berarti “${m.meaning}”.`,
+                    speakText: m.correctRomaji || m.character
                 });
             }
         });
+
+        const reviewBtn = $("[data-review-result]");
+        if (reviewBtn) {
+            if (allMistakes.length > 0) {
+                reviewBtn.textContent = `Tinjau Kesalahan (${allMistakes.length})`;
+            } else {
+                reviewBtn.textContent = "Nilai Sempurna 🎉";
+            }
+        }
 
         const mistakeContainer = $("[data-mistake-list]");
         if (allMistakes.length > 0) {
             mistakeContainer.innerHTML = `
                 <div class="mistake-review-header">
                     <h3>Review Kesalahan (${allMistakes.length})</h3>
-                    <p>Pelajari kembali catatan di bawah untuk memperkuat ingatanmu.</p>
+                    <p class="mistake-desc">Pelajari kembali catatan di bawah untuk memperkuat ingatanmu.</p>
                 </div>
                 <div class="mistake-list-wrap">
                     ${allMistakes.map((item, idx) => `
                         <div class="mistake-item-card">
                             <div class="mistake-card-top">
                                 <span class="mistake-badge">${item.badge}</span>
-                                <span class="mistake-num">#${idx + 1}</span>
+                                <div style="display:inline-flex;align-items:center;gap:8px;">
+                                    ${item.speakText ? `<button type="button" class="mistake-audio-btn" data-mistake-speak="${item.speakText}" aria-label="Dengarkan pengucapan ${item.speakText}">🔊 Dengarkan</button>` : ""}
+                                    <span class="mistake-num">#${idx + 1}</span>
+                                </div>
                             </div>
                             <div class="mistake-prompt">${item.prompt}</div>
                             <div class="mistake-comparison-boxes">
@@ -2094,11 +2112,25 @@ function initKanaQuest() {
                     `).join("")}
                 </div>
             `;
+
+            mistakeContainer.querySelectorAll("[data-mistake-speak]").forEach((btn) => {
+                btn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    const txt = btn.getAttribute("data-mistake-speak");
+                    if (txt && "speechSynthesis" in window) {
+                        speechSynthesis.cancel();
+                        const utterance = new SpeechSynthesisUtterance(txt);
+                        utterance.lang = "ja-JP";
+                        speechSynthesis.speak(utterance);
+                    }
+                });
+            });
         } else {
             mistakeContainer.innerHTML = `
                 <div class="perfect-note">
-                    <strong>🎉 Luar Biasa! Sempurna!</strong>
-                    <p>Semua soal kamu selesaikan dengan benar tanpa ada kesalahan.</p>
+                    <div class="perfect-badge">PERFECT SCORE · 満点達成</div>
+                    <h3>🎉 Luar Biasa! Sempurna!</h3>
+                    <p>Semua soal dalam sesi latihan ini berhasil kamu selesaikan 100% tepat tanpa ada kesalahan.</p>
                 </div>
             `;
         }
