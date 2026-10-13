@@ -46,6 +46,17 @@ Seluruh berkas website Mirai no Webu dikelompokkan secara terstruktur ke dalam f
   - **WAJIB menjalankan skrip validasi tautan Python sebelum commit** untuk memindai seluruh berkas HTML dan memastikan jumlah tautan rusak adalah **0 (nol)**.
   - Dilarang membuat commit jika masih ditemukan broken link internal.
 
+### E. Prinsip Proaktif Pengembangan Ide Mentah & Copywriting Orisinal (Proactive Idea Refinement & Anti-Plagiarism Rule)
+- **Mandat Proaktif AI sebagai Partner Kreatif**:
+  - AI asisten **wajib proaktif mengolah, menyempurnakan, dan mengembangkan ide mentah pengguna** menjadi solusi yang matang, elegan, dan berkelas, tanpa sekadar menjiplak draf kasar.
+- **Copywriting Orisinal & Anti-Plagiarisme (Tone of Voice Eksklusif Mirai No Webu)**:
+  - Dilarang meniru mentah-mentah (*copy-paste*) struktur kalimat dari website eksternal (seperti web Tengoku).
+  - Teks deskripsi, legalitas, narasi kegiatan, dan penamaan wajib disusun ulang secara orisinal dengan gaya bahasa yang santun, profesional, bangga, dan mencerminkan prestise **Klub Bahasa & Kebudayaan Jepang MIRAI NO HANA SMA Wachid Hasyim 2 Taman Sidoarjo**.
+- **Standar Narasi Independensi & Hak Cipta**:
+  - **Klarifikasi Independensi Klub (Sidebar Footer)**: Menghindari kata-kata kaku/defensif (seperti "tidak ada campur tangan pihak sekolah"), digantikan dengan narasi berwibawa: *Portal ini dirancang dan dikembangkan secara independen oleh kepengurusan siswa Klub Jepang MIRAI NO HANA sebagai ruang kreatif dan media belajar mandiri.*
+  - **Disclaimer & Atribusi (Global Footer)**: Menggunakan standar *educational fair-use*: *Seluruh karya seni visual, materi budaya, dan karakter dalam situs ini merupakan hak cipta dari masing-masing kreator aslinya. Website ini dihadirkan murni sebagai media pembelajaran kreatif non-komersial bagi anggota dan sahabat pecinta bahasa Jepang.*
+  - **Copyright Bottom Bar**: Diseragamkan menjadi: *© 2026 MIRAI NO HANA — SMA Wachid Hasyim 2 Taman | Kabinet Sora | Ditenagai oleh GitHub Pages*.
+
 ---
 
 ## 2. Inventaris Sumber Daya Gambar & Berkas (Colocation & Shared)
