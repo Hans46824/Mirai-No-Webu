@@ -99,6 +99,13 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
     - **HANYA BOLEH menampilkan sub-judul (bahasa Jepang murni dari kata judul halaman tersebut) dan judul utama (`<h1>`), TANPA deskripsi**.
     - **Deskripsi Dihilangkan**: Dilarang menampilkan paragraf deskripsi (`.page-hero-desc` / `.hero-desc`) di area hero ber-background. Hal ini bertujuan agar tampilan visual ilustrasi Sora dan judul halaman tampak megah, bersih, lapang, dan tidak tertutup tumpukan teks panjang.
     - **Sub-judul HANYA Bahasa Jepang Murni**: Sub-judul berupa terjemahan/istilah asli bahasa Jepang dari kata judul halaman tersebut yang dibungkus tag `<span class="jp-kanji">...</span>` (contoh: `<p class="page-hero-eyebrow"><span class="jp-kanji">公式ショップ</span></p>`). Dilarang menambahkan embel-embel teks bahasa Indonesia di sampingnya.
+- **Ikon Media Sosial Resmi di Hero (`.hero-social-sidebar`)**:
+  - Setiap background hero yang memiliki judul teks halaman **WAJIB menyematkan sidebar ikon media sosial vertikal** berisi tautan Instagram resmi (`@mirainohana_smawh2`) dan TikTok resmi (`@nihongo.kurabu.wh2`).
+  - **Peletakan Presisi Identik dengan Beranda**: Posisi tombol media sosial ini dikunci pada sisi kanan bawah hero (`position: absolute; bottom: 15%; right: 5%;` di desktop, `bottom: 12%; right: 6%;` di mobile) di samping karakter maskot Sora, persis seperti tata letak foto Beranda.
+  - Tombol medsos hero secara otomatis disembunyikan halus ketika panel navigasi samping (sidebar menu), modal dialog, latihan interaktif, atau lightbox gambar aktif.
+- **Sub-Judul Khusus Hero Beranda (`.hero-yokoso-kanji`)**:
+  - Khusus pada Beranda (`index.html`), sub-judul hero tidak menggunakan badge pill pink nama klub, melainkan secara spesifik menggunakan kata sambutan **"ようこそ"** (Yokoso) berukuran besar (`clamp(26px, 3.8vw, 44px)`), berbobot tebal (`font-weight: 800`), font aksara Jepang murni (`Noto Serif JP`), dan berwarna **putih bersih `#ffffff`** dengan bayangan teks lembut.
+  - Tampilan ini sengaja dibuat berbeda dari halaman lain sebagai ucapan selamat datang utama yang megah dan berwibawa di atas judul `MIRAI NO WEBU`.
 - **Arsitektur Sticky Curtain Reveal**:
   - Hero menerapkan `position: sticky; top: 0; z-index: 1; min-height: 59svh; display: flex; align-items: flex-end;`.
   - Gambar latar Sora menetap diam di layar saat halaman digulir (*parallax-free clean anchor*).
@@ -150,7 +157,7 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
      - Terletak tepat di bawah judul seksi dengan panjang 1–2 kalimat ringkas, padat, dan informatif.
      - Menerangkan maksud dan isi konten dari seksi tersebut secara jelas dan mudah dipahami.
 - **Daftar Baku Sub-Judul Jepang Murni untuk Halaman & Seksi**:
-  - **Beranda**: Hero: `<span class="jp-kanji">未来の花 · ようこそ</span>` | Apa itu Web: `<span class="jp-kanji">ウェブについて</span>` | Belajar Digital: `<span class="jp-kanji">デジタル学習</span>` | Lainnya: `<span class="jp-kanji">その他の活動</span>`
+  - **Beranda**: Hero: `<span class="jp-kanji hero-yokoso-kanji">ようこそ</span>` (Besar & Putih Bersih) | Apa itu Web: `<span class="jp-kanji">ウェブについて</span>` | Belajar Digital: `<span class="jp-kanji">デジタル学習</span>` | Lainnya: `<span class="jp-kanji">その他の活動</span>`
   - **Kelas & Kurikulum**: Hero: `<span class="jp-kanji">クラス＆カリキュラム</span>` | Kelas Dasar: `<span class="jp-kanji">基礎クラス</span>` | Kelas Lanjutan: `<span class="jp-kanji">上級クラス</span>` | Kurikulum: `<span class="jp-kanji">カリキュラムと指導法</span>`
   - **Tentang Klub**: Hero: `<span class="jp-kanji">日本語クラブについて</span>` | Profil: `<span class="jp-kanji">クラブ概要</span>` | Bendera: `<span class="jp-kanji">公式旗</span>` | Nama: `<span class="jp-kanji">名前の由来</span>` | Logo NK: `<span class="jp-kanji">ロゴの意味</span>` | Slogan: `<span class="jp-kanji">合言葉</span>` | Visi & Misi: `<span class="jp-kanji">ビジョン＆ミッション</span>` | Sejarah: `<span class="jp-kanji">クラブの歴史</span>` | Prestasi: `<span class="jp-kanji">実績と表彰</span>` | Haori: `<span class="jp-kanji">公式羽織</span>` | Aksesoris: `<span class="jp-kanji">アクセサリー</span>` | Kepengurusan: `<span class="jp-kanji">役員構成</span>`
   - **Program & Fasilitas**: Hero: `<span class="jp-kanji">プログラム＆施設</span>` | Divisi: `<span class="jp-kanji">専門部門</span>` | Program Kerja: `<span class="jp-kanji">主要年間プログラム</span>` | Fasilitas: `<span class="jp-kanji">クラブ施設と備品</span>`
@@ -159,9 +166,13 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
   - **Papan Peringkat**: Hero: `<span class="jp-kanji">ランキングボード</span>` | Papan Peringkat: `<span class="jp-kanji">栄誉ランキング</span>`
   - **Rekomendasi**: Hero: `<span class="jp-kanji">おすすめ作品</span>` | Rekomendasi Media: `<span class="jp-kanji">人気メディア作品</span>`
   - **Kamus**: Hero: `<span class="jp-kanji">日本語辞書</span>` | Pencarian: `<span class="jp-kanji">文字と語彙検索</span>`
-  - **Kamus Kanji**: Hero & Seksi: `<span class="jp-kanji">漢字辞典</span>`
+  - **Kamus Kanji**: Hero: `<span class="jp-kanji">漢字辞典</span>` | Pencarian Kanji: `<span class="jp-kanji">漢字検索</span>`
   - **Kata Motivasi**: Hero: `<span class="jp-kanji">名言集</span>` | Koleksi: `<span class="jp-kanji">名言コレクション</span>`
-  - **Divisi Resmi**: Hero & Seksi: `<span class="jp-kanji">公式部門</span>`
+  - **Divisi**: Hub Divisi Hero: `<span class="jp-kanji">公式部門</span>` | Seksi: `<span class="jp-kanji">部門一覧</span>` | Bahasa: `<span class="jp-kanji">言語部門</span>` | Cosplay: `<span class="jp-kanji">コスプレ部門</span>` | Desain: `<span class="jp-kanji">デザイン部門</span>` | KWU: `<span class="jp-kanji">起業部門</span>`
+  - **Latihan Kana**: Hero: `<span class="jp-kanji">仮名練習</span>` | Materi: `<span class="jp-kanji">教材選択</span>` | Campuran: `<span class="jp-kanji">総合練習</span>` | Hasil: `<span class="jp-kanji">学習完了</span>`
+  - **Materi Buuku Dasar**: Hub Dasar Hero: `<span class="jp-kanji">基礎学習</span>` | Hiragana: `<span class="jp-kanji">平仮名入門</span>` | Katakana: `<span class="jp-kanji">片仮名入門</span>` | Jikoshokai: `<span class="jp-kanji">自己紹介</span>`
+  - **Materi Buuku Lanjutan**: Hub Lanjutan Hero: `<span class="jp-kanji">上級学習</span>` | Grammar: `<span class="jp-kanji">応用文法</span>` | Kanji JLPT: `<span class="jp-kanji">漢字学習＆JLPT</span>`
+  - **Proker Spesifik**: KTN: `<span class="jp-kanji">君と日本</span>` | NJR: `<span class="jp-kanji">日本語ラジオ</span>` | Konbini: `<span class="jp-kanji">未来のコンビニ</span>` | Ramadhan: `<span class="jp-kanji">ラマダン祝福</span>` | Tomodachi: `<span class="jp-kanji">日本友達</span>` | Dokumentasi: `<span class="jp-kanji">活動記録</span>`
 
 ### G. Arsitektur Komposisi Warna Teks Anti-Nabrak (Color Contrast Architecture Rule)
 - **Prinsip Utama: Dilarang Keras Teks/Elemen Nabrak Background**:
