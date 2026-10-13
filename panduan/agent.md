@@ -214,20 +214,29 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
   - **Proker Spesifik**: KTN: `<span class="jp-kanji">君と日本</span>` | NJR: `<span class="jp-kanji">日本語ラジオ</span>` | Konbini: `<span class="jp-kanji">未来のコンビニ</span>` | Ramadhan: `<span class="jp-kanji">ラマダン祝福</span>` | Tomodachi: `<span class="jp-kanji">日本友達</span>` | Dokumentasi: `<span class="jp-kanji">活動記録</span>`
 
 ### G. Arsitektur Komposisi Warna Teks Anti-Nabrak (Color Contrast Architecture Rule)
-- **Prinsip Utama: Dilarang Keras Teks/Elemen Nabrak Background**:
-  Kontras warna teks terhadap latar belakang halaman, kartu, maupun badge wajib lolos standar keterbacaan tinggi WCAG AAA.
-- **1. Pada Seksi Berlatar Terang / Putih Solid (`#ffffff`)**:
-  - **DILARANG KERAS teks putih (`#ffffff`) di atas latar putih**.
-  - Sub-judul / Kanji (`.section-eyebrow` dan `.section-eyebrow .jp-kanji`): Wajib menggunakan teks *deep berry pink* (`#c2185b !important`), latar belakang semi-transparan pink lembut `rgba(233, 30, 99, 0.08)`, dan border tegas `1.5px solid rgba(233, 30, 99, 0.28)`. Teks terbaca tajam dan tidak pudar.
-  - Judul Heading (`.heading`): Menggunakan warna hitam pekat `#18151b` dengan aksen pink sakura `<span>`.
-  - Deskripsi Seksi (`.section-desc`): Menggunakan warna abu-abu gelap slate (`#475569 !important`) dengan kontras tajam tanpa bayangan kabur.
-  - Kartu Komponen: Latar putih solid dengan border pink halus (`#ffccd9` / `#ebd0dc`) dan teks hitam/abu gelap.
-- **2. Pada Seksi Berlatar Gelap / Hitam Solid (`#0e0b12` / `#111115` / `.soft-section` dll)**:
-  - Sub-judul / Kanji (`.section-eyebrow .jp-kanji`): Menggunakan teks putih bersih `#ffffff !important` berbalut pil semi-transparan pink `rgba(255, 79, 145, 0.22)` dengan border pendar pink `#ff85b3` dan bayangan lembut.
-  - Judul Heading: Putih bersih `#ffffff` dengan aksen pink sakura.
-  - Deskripsi Seksi (`.section-desc`): Menggunakan abu-abu terang lembut (`#cbd5e1 !important`) agar nyaman dan tidak silau di mata.
-  - Kartu Komponen: Permukaan gelap elegan gradasi dengan teks abu terang.
-- **3. Pada Hero Banner Ber-Background Ilustrasi Karakter (Sora / Header Utama)**:
+- **PRINSIP MUTLAK & ZERO-TOLERANCE: DILARANG KERAS TEKS MENABRAK BACKGROUND**:
+  Jangan pernah meletakkan teks gelap di halaman/seksi gelap, dan JANGAN PERNAH meletakkan teks terang/pudar di halaman/seksi putih/terang! Seluruh kombinasi warna teks, paragraf, deskripsi seksi, judul, dan isi kartu WAJIB lolos uji kontras tinggi WCAG AAA.
+
+- **1. Pada Seksi Berlatar Terang / Putih Solid (`#ffffff`, `#dasar`, `#kurikulum`, `.lomba-catalog-section`, `.toko-guide-white-section`, dll)**:
+  - **DILARANG KERAS** teks putih atau abu-abu terang/pudar (`#ffffff`, `#cbd5e1`, `#d5ccd3`, `#94a3b8`, dsb.) di atas latar putih. Ini membuat teks tidak terlihat / harus diblok mouse baru terbaca.
+  - **Teks Deskripsi Seksi (`.section-desc`, `p.section-desc`, `.copy`, `.lead`, `.doc-desc`)**: WAJIB menggunakan warna **abu-abu gelap slate pekat** (`color: #475569 !important;` atau `#334155 !important;` atau `#554857 !important;`), font-weight 500, tanpa bayangan teks kabur (`text-shadow: none !important;`).
+  - **Judul Heading (`.heading`, `h2`)**: Menggunakan warna hitam arang pekat (`#18151b !important;` / `#1a151e !important;`) dipadukan aksen pink berry/sakura pada `<span>` (`color: var(--pink, #e91e63) !important;`).
+  - **Sub-judul / Kanji (`.section-eyebrow`, `.section-eyebrow .jp-kanji`)**: Menggunakan teks *deep berry pink* (`color: #c2185b !important;` / `#e91e63 !important;`), latar belakang semi-transparan pink lembut `rgba(233, 30, 99, 0.08)`, dan border tegas `1.5px solid rgba(233, 30, 99, 0.28)`. Teks terbaca tajam dan tidak pudar.
+  - **Kartu Komponen & Deskripsi Kartu (`.course-card`, `.doc-big-card`, dsb.)**: Latar putih solid dengan border pink lembut (`#ffccd9` / `rgba(255, 101, 155, 0.35)`), judul kartu hitam pekat (`#18151b !important;`), dan deskripsi kartu abu-abu gelap (`#475569 !important;` / `#554857 !important;`).
+
+- **2. Pada Seksi Berlatar Gelap / Hitam Solid (`#0e0b12`, `#111111`, `.soft-section`, `#lanjutan`, `.facility-section`, `.toko-catalog-section`, dll)**:
+  - **DILARANG KERAS** teks hitam atau abu-abu gelap pekat (`#18151b`, `#333333`, `#475569`, `#554e57`, dsb.) di atas latar gelap. Ini membuat teks tenggelam ke dalam latar hitam.
+  - **Teks Deskripsi Seksi (`.section-desc`, `p.section-desc`, `.copy`, `.lead`)**: WAJIB menggunakan warna **abu-abu terang bersih** (`color: #cbd5e1 !important;` atau `#e2e8f0 !important;`), nyaman di mata, kontras tinggi, dengan `text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5) !important;`.
+  - **Judul Heading (`.heading`, `h2`)**: Menggunakan warna putih murni (`#ffffff !important;`) dipadukan aksen pink bercahaya pada `<span>` (`color: var(--pink, #e91e63) !important;`).
+  - **Sub-judul / Kanji (`.section-eyebrow`, `.section-eyebrow .jp-kanji`)**: Menggunakan teks pink cerah berpendar (`color: #ff659b !important;`) berbalut pil semi-transparan pink `rgba(255, 79, 145, 0.18)` dengan border pendar pink `rgba(255, 101, 155, 0.45)`.
+  - **Kartu Komponen & Deskripsi Kartu**: Permukaan gelap gradasi obsidian (`#1d1624` -> `#130f18`), border pink halus, judul kartu putih bersih (`#ffffff !important;`), dan deskripsi kartu abu-abu terang (`#cbd5e1 !important;` / `#d5ccd3 !important;`).
+
+- **3. Larangan Keras Selector CSS Brittle (`:nth-of-type(even/odd)`) Tanpa Pengecualian**:
+  - Dilarang keras mengandalkan selector global `main > section:nth-of-type(even) p` atau `main > section:nth-of-type(odd) p` untuk mengatur warna teks deskripsi secara buta.
+  - Mengapa? Karena keberadaan `<section class="page-hero">` menggeser urutan ganjil-genap sehingga seksi terang `#dasar` dan `#kurikulum` menjadi genap (terkena warna teks putih/terang), sedangkan seksi gelap `#lanjutan` menjadi ganjil (terkena warna teks gelap pekat).
+  - Setiap seksi yang memiliki tema spesifik (seperti `.learning-path`, `#dasar`, `#lanjutan`, `#kurikulum`, `.facility-section`, `.division-section`) WAJIB dikecualikan dari selector nth-of-type global (`:not(...)`) dan WAJIB diberikan aturan warna teks eksplisit dengan selector berbobot spesifisitas tinggi (`!important`).
+
+- **4. Pada Hero Banner Ber-Background Ilustrasi Karakter (Sora / Header Utama)**:
   - **Sub-judul / Kanji Hero Banner (`.page-hero-eyebrow .jp-kanji`, `.hero-eyebrow .jp-kanji`)**:
     - **DILARANG MENGGUNAKAN PILL / BADGE KOTAK/OVAL** pada background banner hero (background: `transparent`, border: `none`, padding: `0`, border-radius: `0`, box-shadow: `none`).
     - Warna sub-judul Jepang pada background banner hero **WAJIB PINK GLOWING** (`#ff659b !important`) dengan text-shadow bayangan gelap dan pendaran pink halus agar terbaca jelas dan menyatu artistik dengan ilustrasi.
