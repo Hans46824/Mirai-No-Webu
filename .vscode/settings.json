@@ -1,0 +1,7 @@
+{
+    "files.saveConflictResolution": "overwriteFileOnDisk",
+    "cSpell.enabled": false,
+    "cSpell.ignorePaths": [
+        "**/*"
+    ]
+}

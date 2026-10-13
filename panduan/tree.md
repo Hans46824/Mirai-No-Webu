@@ -8,6 +8,9 @@ Mirai-No-Webu/
 ├── index.html                      # Gerbang utama website (Beranda)
 ├── 404.html                        # Halaman penanganan tautan salah / tidak ditemukan
 ├── README.md                       # Profil utama repositori & dokumentasi Sources & Credits
+├── cspell.json                     # Konfigurasi Code Spell Checker (kamus & ignorasi kata bilingual)
+├── .vscode/                        # Konfigurasi workspace editor VS Code / Antigravity
+│   └── settings.json               # Pengaturan workspace (linter & penonaktifan false-positive spell check)
 │
 ├── css/                            # Master Stylesheet (Gaya & Desain Antarmuka)
 │   └── style.css                   # Master CSS (Tema gelap, terang, kartu wagara, tipografi, & komponen)

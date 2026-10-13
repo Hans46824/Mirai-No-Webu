@@ -13,7 +13,7 @@ Gunakan bahasa yang sederhana, manusiawi, dan langsung ke intinya. Hindari penul
 
 ### A. Arsitektur Folder Modular (Clean Root Standard)
 Seluruh berkas website Mirai no Webu dikelompokkan secara terstruktur ke dalam folder tematik:
-- **Root (`/`)**: Berisi **index.html** (gerbang utama Beranda), **404.html** (halaman penanganan error ramah pengunjung bertema Mirai no Hana), dan **README.md** (etalase profil repositori GitHub dan dokumentasi kredit).
+- **Root (`/`)**: Berisi **index.html** (gerbang utama Beranda), **404.html** (halaman penanganan error ramah pengunjung bertema Mirai no Hana), **README.md** (etalase profil repositori GitHub dan dokumentasi kredit), **cspell.json** (konfigurasi spell checker bilingual), dan folder **`.vscode/`** (`settings.json` konfigurasi workspace).
 - **`css/`**: Berisi master stylesheet antarmuka (`css/style.css`).
 - **`js/`**: Berisi seluruh logika JavaScript modular (`main.js`, `script.js`, `kanji.js`, `kana.js`, `stroke.js`, `stroke-data.js`, `sora.js`, dll.).
 - **`panduan/`**: Berisi dokumentasi arsitektur proyek (`panduan/tree.md`, `panduan/agent.md`).
