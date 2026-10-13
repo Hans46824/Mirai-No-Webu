@@ -233,6 +233,11 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
   - Mengetuk/mengklik area redup di sebelah kiri wajib langsung menutup menu secara instan.
   - Menu memiliki scrollbar halus bertema pink gelap (`scrollbar-width: thin; scrollbar-color: rgba(255, 79, 145, 0.35) transparent`) tanpa menampilkan scrollbar default abu-abu/putih sistem operasi.
   - Saat menu aktif, scroll halaman latar belakang dikunci via `body.sidebar-open { overflow: hidden !important; }`.
+- **Navigasi Halaman Ringkas & Pintar (Smart Pagination with Ellipsis & Arrow-Only)**:
+  - Tombol navigasi halaman (`Sebelumnya` dan `Selanjutnya`) **dilarang memuat teks panjang** yang menyebabkan pematahan baris (*line wrap*) di layar HP. Wajib hanya menampilkan simbol panah ringkas (`←` dan `→`) dalam wadah bujur sangkar/lingkaran kompak (42px di desktop, 38px di HP) lengkap dengan `aria-label` semantik.
+  - Penomoran halaman wajib menggunakan sistem **Smart Ellipsis (`...`)**:
+    - Jika total halaman > 5, tampilkan halaman pertama, jendela halaman aktif, titik tiga (`...`), dan halaman terakhir (contoh: pada halaman 1 dari 6 tampil `[←] [1] [2] [...] [6] [→]`).
+    - Memastikan seluruh kontrol navigasi pagination tertata rapi dalam 1 baris tunggal (*single horizontal row*) tanpa terpotong atau turun ke baris berikutnya di perangkat seluler.
 - **Anti Ruang Hampa**: Di layar laptop, kartu tidak boleh menyisakan ruang kosong hitam atau putih yang melompong di tengah antara judul dan tombol bawah. Susun elemen secara padat dan seimbang.
 - **Pemusatan Kartu Ganjil**: Jika jumlah kartu dalam satu seksi berjumlah ganjil (seperti 11 kartu pengurus Kabinet Clover), kartu pada baris terakhir diletakkan tepat di posisi tengah (rata tengah), tidak boleh miring sendirian di sebelah kiri.
 - **Keseragaman Kartu Program Kerja & Divisi**: Ukuran kartu Program Kerja (tinggi, padding, border-radius, font judul, dan posisi tombol) wajib disamaratakan persis dengan kartu Divisi agar tampilan sejajar dan rapi.

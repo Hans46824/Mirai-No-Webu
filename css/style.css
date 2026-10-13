@@ -18750,31 +18750,41 @@ body.theme-dark .lomba-detail-card:hover::after {
 
 /* Navigasi Pagination Bawah Katalog */
 .catalog-bottom-pagination {
-    margin: 40px auto 0 auto;
+    margin: 36px auto 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
+    user-select: none;
 }
 .catalog-nav-btn {
-    padding: 8px 18px;
-    border-radius: 20px;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 50%;
     background: #f1f5f9;
     border: 1px solid #cbd5e1;
     color: #334155;
-    font-size: 13px;
-    font-weight: 700;
+    font-size: 15px;
+    font-weight: 800;
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
-.catalog-nav-btn:hover:not(:disabled) 
 .catalog-nav-btn:hover:not(:disabled) {
     background: #e2e8f0;
     color: #0f172a;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
 }
 .catalog-nav-btn:disabled {
-    opacity: 0.4;
+    opacity: 0.35;
     cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 .catalog-page-numbers {
     display: flex;
@@ -18970,49 +18980,75 @@ body.theme-dark .lomba-detail-card:hover::after {
 .lomba-pagination,
 .rekomendasi-pagination {
     max-width: 1200px;
-    margin: 44px auto 0 auto;
+    margin: 40px auto 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
     flex-wrap: wrap;
+    user-select: none;
 }
 
 .pagination-btn {
     min-width: 42px;
     height: 42px;
-    padding: 0 16px;
+    padding: 0 12px;
     border-radius: 12px;
     background: #141418;
     border: 1px solid rgba(255, 255, 255, 0.12);
     color: #cbd5e1;
-    font-size: 13.5px;
+    font-size: 14px;
     font-weight: 700;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.pagination-btn.pagination-nav-btn {
+    width: 42px;
+    padding: 0;
+    font-size: 16px;
+    font-weight: 800;
 }
 
 .pagination-btn:hover:not(:disabled) {
     color: #ffffff;
-    background: #1e1e24;
-    border-color: rgba(233, 30, 99, 0.5);
+    background: #1e1e26;
+    border-color: rgba(255, 79, 145, 0.6);
     transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(233, 30, 99, 0.35);
 }
 
 .pagination-btn.active {
-    background: var(--pink, #e91e63);
+    background: linear-gradient(135deg, #ff4f91 0%, #e91e63 100%);
     color: #ffffff;
-    border-color: var(--pink, #e91e63);
-    box-shadow: 0 4px 16px rgba(233, 30, 99, 0.45);
+    border-color: transparent;
+    box-shadow: 0 6px 20px rgba(233, 30, 99, 0.55), 0 0 14px rgba(255, 79, 145, 0.4);
+    transform: translateY(-1px);
 }
 
 .pagination-btn:disabled {
-    opacity: 0.35;
+    opacity: 0.28;
     cursor: not-allowed;
-    transform: none;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.pagination-dots {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    height: 42px;
+    color: #94a3b8;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    user-select: none;
+    pointer-events: none;
 }
 
 .lomba-empty-state {
@@ -19545,6 +19581,29 @@ body.theme-dark .lomba-detail-card:hover::after {
     }
     .lomba-detail-card {
         padding: 24px 20px !important;
+    }
+    .lomba-pagination,
+    .rekomendasi-pagination {
+        gap: 6px !important;
+        margin-top: 28px !important;
+    }
+    .pagination-btn {
+        min-width: 38px !important;
+        height: 38px !important;
+        padding: 0 8px !important;
+        border-radius: 10px !important;
+        font-size: 13px !important;
+    }
+    .pagination-btn.pagination-nav-btn {
+        width: 38px !important;
+        padding: 0 !important;
+        font-size: 15px !important;
+    }
+    .pagination-dots {
+        min-width: 20px !important;
+        height: 38px !important;
+        font-size: 14px !important;
+        letter-spacing: 1px !important;
     }
 }
 
