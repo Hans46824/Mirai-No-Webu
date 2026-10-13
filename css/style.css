@@ -1957,6 +1957,93 @@ body.dark-mode .program-section {
     color: rgba(255, 255, 255, 0.9);
 }
 
+/* ==========================================================================
+   THREE-TIER JAPANESE HEADER SYSTEM (SISTEM TIGA LAPIS JUDUL HALAMAN & SEKSI)
+   Lapisan 1: Sub-judul / Kicker Bahasa Jepang di atas judul (.page-hero-eyebrow / .section-eyebrow)
+   Lapisan 2: Judul Utama Halaman / Seksi (.page-title / .heading / .hero-title)
+   Lapisan 3: Deskripsi Singkat Elegan di bawah judul (.page-hero-desc / .section-desc / .hero-desc)
+   ========================================================================== */
+
+.page-hero-eyebrow,
+.hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: clamp(12px, 1.2vw, 13.5px);
+    font-weight: 800;
+    letter-spacing: 2.8px;
+    text-transform: uppercase;
+    color: var(--pink, #ff659b);
+    margin: 0 0 16px 0;
+    text-shadow: 0 2px 12px rgba(233, 30, 99, 0.4);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.page-hero-eyebrow .jp-kanji,
+.hero-eyebrow .jp-kanji,
+.section-eyebrow .jp-kanji {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #ffffff;
+    background: rgba(255, 79, 145, 0.22);
+    border: 1px solid rgba(255, 79, 145, 0.45);
+    padding: 3px 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(233, 30, 99, 0.25);
+    display: inline-block;
+}
+
+.page-hero-desc,
+.hero-desc {
+    margin: 20px 0 0 0;
+    max-width: 660px;
+    font-size: clamp(14.5px, 1.4vw, 16.5px);
+    line-height: 1.75;
+    color: rgba(241, 245, 249, 0.92);
+    font-weight: 500;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85);
+}
+
+.section-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11.5px;
+    font-weight: 800;
+    letter-spacing: 2.4px;
+    text-transform: uppercase;
+    color: var(--pink, #e91e63);
+    margin: 0 0 10px 0;
+}
+
+.section-desc {
+    margin: 12px 0 0 0;
+    max-width: 620px;
+    font-size: 15px;
+    line-height: 1.65;
+    color: #64748b;
+    font-weight: 500;
+}
+
+/* Dark mode and dark sections */
+body.theme-dark .section-desc,
+.about-intro-section .section-desc,
+.slogan-section .section-desc,
+.vision-mission-section .section-desc {
+    color: rgba(226, 232, 240, 0.88);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+}
+
+.proker-hero-inner .proker-hero-desc {
+    display: block !important;
+    margin: 14px 0 0 0 !important;
+    font-size: 14.5px !important;
+    color: rgba(255, 255, 255, 0.92) !important;
+    max-width: 580px !important;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6) !important;
+}
+
 .buttons {
     display: flex;
     flex-wrap: wrap;
@@ -19604,6 +19691,31 @@ body.theme-dark .lomba-detail-card:hover::after {
         height: 38px !important;
         font-size: 14px !important;
         letter-spacing: 1px !important;
+    }
+    .page-hero-eyebrow,
+    .hero-eyebrow {
+        font-size: 11px !important;
+        letter-spacing: 1.8px !important;
+        margin-bottom: 12px !important;
+    }
+    .page-hero-eyebrow .jp-kanji,
+    .hero-eyebrow .jp-kanji {
+        padding: 2px 8px !important;
+        font-size: 11.5px !important;
+    }
+    .page-hero-desc,
+    .hero-desc {
+        font-size: 13.5px !important;
+        line-height: 1.6 !important;
+        margin-top: 14px !important;
+    }
+    .section-eyebrow {
+        font-size: 10.5px !important;
+        letter-spacing: 1.8px !important;
+    }
+    .section-desc {
+        font-size: 13.5px !important;
+        line-height: 1.55 !important;
     }
 }
 

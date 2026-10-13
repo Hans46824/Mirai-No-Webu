@@ -135,23 +135,37 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
   - Merah (#f43f5e / #e11d48): Tingkat nasional, status pendaftaran ditutup, batas akhir waktu.
   - Ungu (#a855f7 / #c084fc): Kategori acara festival cosplay dan ruang maskot Sora.
 
-### F. Aturan Judul Bersih Tanpa Deskripsi Pengantar (Clean Standalone Headings Rule)
-- **Aturan Mutlak: Pengguna Tidak Menyukai Judul yang Diberi Deskripsi Pengantar**:
-  - Dilarang keras menaruh teks deskripsi, subjudul, atau paragraf pengantar (`<p class="section-desc">...`) tepat di bawah judul hero halaman maupun di bawah judul seksi (`.section-intro .heading`).
-  - Judul wajib tampil bersih, percaya diri, elegan, dan mandiri (*clean standalone heading*).
-  - Contoh penerapannya:
-    - Judul hero hanya menampilkan judul halaman murni: `<h1 class="page-title">Toko</h1>`.
-    - Judul seksi hanya menampilkan heading two-tone murni: `<h2 class="heading">Etalase <span>Koleksi Produk</span></h2>`, `<h2 class="heading">Cara <span>Pemesanan</span></h2>`, dll., **tanpa ada `<p class="section-desc">` di bawahnya**.
-- **Judul Hero Halaman (Hero Title)**:
-  - Bersih mandiri, tegas, berbobot tebal (`font-weight: 800 - 900`, `letter-spacing: -0.08em`, `font-size: clamp(58px, 8vw, 116px)`).
-  - Pada halaman Toko, judul hero adalah murni **"Toko"** (`<h1 class="page-title">Toko</h1>`).
-- **Judul Seksi Halaman (Section Heading)**:
-  - Gaya Two-Tone: Warna dasar (putih di seksi gelap / `#18151b` di seksi terang) dipadukan dengan kata kunci penting berwarna pink sakura di dalam tag `<span>`.
-  - Format rata kiri seragam (`.heading`), tanpa penomoran angka 01/02, dan tanpa garis miring (/) yang kaku.
-- **Judul pada Kartu (Card Title)**:
-  - Berukuran proporsional (`16px` - `18px`, `font-weight: 800`).
-  - Langsung menamai entitas produk/fitur/materi secara spesifik, padat, dan tidak berulang.
-  - Didukung metadata tipografi aksara Jepang jika relevan (`.toko-jp-name` bergaya *Noto Serif JP* warna pink).
+### F. Sistem Tipografi Judul Tiga Lapis (Three-Tier Japanese Header System)
+- **Hierarki Standar Tiga Lapis pada Setiap Judul Halaman & Seksi**:
+  Setiap judul halaman utama (*page hero*) dan seksi fitur di Mirai no Webu wajib menggunakan susunan **tiga lapis** (*Three-Tier Hierarchy*):
+  1. **Lapisan 1 — Sub-judul / Kicker Bahasa Jepang di Atas Judul (`.page-hero-eyebrow` / `.section-eyebrow`)**:
+     - Terletak tepat di atas judul utama.
+     - Memuat terjemahan atau istilah aksara Jepang (*Kanji / Katakana / Hiragana*) dari kata kunci halaman yang dibungkus tag `<span class="jp-kanji">...</span>` berbalut *badge pill* semi-transparan pink (`background: rgba(255, 79, 145, 0.22); border: 1px solid rgba(255, 79, 145, 0.45); font-family: 'Noto Serif JP'; border-radius: 8px;`).
+     - Diikuti tanda titik tengah (`·`) dan label kategori huruf kapital bahasa Indonesia (contoh: `<p class="page-hero-eyebrow"><span class="jp-kanji">公式ショップ</span> · TOKO &amp; KONBINI</p>`).
+  2. **Lapisan 2 — Judul Utama Tebal (`.page-title` / `.heading` / `.hero-title`)**:
+     - Tipografi tegas, berbobot tebal (`font-weight: 800 - 900`, `letter-spacing: -0.08em`, `font-size: clamp(58px, 8vw, 116px)`).
+     - Gaya Two-Tone: Warna putih murni dipadukan dengan kata kunci penting berwarna pink sakura di dalam tag `<span>`.
+  3. **Lapisan 3 — Deskripsi Singkat Elegan di Bawah Judul (`.page-hero-desc` / `.section-desc` / `.hero-desc`)**:
+     - Terletak tepat di bawah judul utama dengan panjang 1–2 kalimat ringkas, informatif, dan berbobot (maksimal 660px lebar wadah).
+     - Menerangkan isi halaman atau makna filosofis dari kata judul tersebut.
+     - Menggunakan warna perak terang lembut (`rgba(241, 245, 249, 0.92)`) di latar gelap dengan bayangan teks lembut agar 100% terbaca jelas di atas gambar latar belakang bintang/awan/Sora, serta abu-abu slate di latar putih.
+- **Kamus Standar Kicker Bahasa Jepang untuk Setiap Halaman**:
+  - **Beranda**: `<span class="jp-kanji">未来の花 · ようこそ</span> · PORTAL RESMI`
+  - **Toko**: `<span class="jp-kanji">公式ショップ</span> · TOKO &amp; KONBINI`
+  - **Lomba & Acara**: `<span class="jp-kanji">大会 &amp; イベント</span> · INFORMASI KEGIATAN`
+  - **Papan Peringkat**: `<span class="jp-kanji">リーダーボード</span> · PAPAN PERINGKAT`
+  - **Rekomendasi**: `<span class="jp-kanji">おすすめ作品</span> · REKOMENDASI KARYA`
+  - **Tentang Klub**: `<span class="jp-kanji">クラブ紹介</span> · TENTANG KLUB`
+  - **Kelas & Kurikulum**: `<span class="jp-kanji">クラス &amp; カリキュラム</span> · RUANG BELAJAR`
+  - **Kamus Jepang**: `<span class="jp-kanji">日本語辞書</span> · KAMUS JEPANG`
+  - **Kamus Kanji**: `<span class="jp-kanji">漢字辞典</span> · ALAT BELAJAR`
+  - **Program & Fasilitas**: `<span class="jp-kanji">プログラム &amp; 施設</span> · PROGRAM KERJA`
+  - **Divisi Resmi**: `<span class="jp-kanji">公式部門</span> · STRUKTUR DIVISI`
+  - **Kata Motivasi**: `<span class="jp-kanji">名言集</span> · KUTIPAN INSPIRATIF`
+  - **Divisi Bahasa**: `<span class="jp-kanji">言語部門</span> · DIVISI 1`
+  - **Divisi Cosplay**: `<span class="jp-kanji">コスプレ部門</span> · DIVISI 2`
+  - **Divisi Desain**: `<span class="jp-kanji">デザイン部門</span> · DIVISI 3`
+  - **Divisi Kewirausahaan**: `<span class="jp-kanji">起業部門</span> · DIVISI 4`
 
 ### G. Aturan Bahasa Antarmuka (Pemberantasan Bahasa Inggris yang Tidak Perlu)
 - Seluruh teks tampilan website (judul, deskripsi, tombol, menu navigasi, badge, filter, dan pesan) **WAJIB murni menggunakan Bahasa Indonesia** sebagai bahasa pengantar dan **Bahasa Jepang** (Kanji, Hiragana, Katakana, dan Romaji) untuk materi pembelajaran klub.
