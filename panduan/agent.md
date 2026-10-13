@@ -271,12 +271,19 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
   - **Bebas Interaksi Tanpa Jebakan (No Lock-In)**: Poster murni menjadi visual kartu yang aman disentuh, di-drag, atau di-scroll tanpa memicu modal lightbox yang mengunci scroll layar (`overflow: hidden`). Navigasi halaman poster kedua dilakukan murni via tombol panah tengah samping atau swipe.
 - **Avatar Lingkaran**: Wadah avatar profil atau juara wajib memiliki latar belakang putih (#ffffff) dengan gambar berukuran contain dan sedikit padding, agar bagian telinga, rambut, atau topi chibi tidak terpotong garis tepi lingkaran.
 
-### L. Aturan Kanvas Display Putih untuk Produk Toko (White Product Canvas Rule)
-- **Wadah Kanvas Display Putih (`.toko-thumb-canvas`)**:
-  - Seluruh produk pada etalase Toko wajib menggunakan wadah/kartu alas display putih solid (`background: #ffffff; border-radius: 12px; box-shadow: ...`).
-  - Tujuannya agar produk hasil potong latar belakang (seperti Lanyard, ID Card, Nametag, Pin, dan Cinderamata Akrilik) tidak memperlihatkan artefak tepian kasar atau halo putih saat diletakkan di kartu bernuansa gelap. Dengan kanvas putih, foto produk tampil bersih, estetik, dan tampak profesional layaknya pemotretan studio katalog.
-- **Tampilan Khusus Haori (Duo View Depan & Belakang)**:
-  - Pada produk Haori Resmi Klub, kanvas display menampilkan dua sudut pandang sekaligus: Tampak Depan (`haori-depan-new.png`) dan Tampak Belakang (`haori-belakang-new.png`) berdampingan dengan label indikator pill (`Depan` dan `Belakang`). Hal ini penting agar kaligrafi kanji punggung [未来の花] dan detail bordir depan terlihat jelas tanpa perlu berpindah halaman.
+### L. Aturan Format Foto Produk Toko Ringkas (Shopee Style) & Carousel Geser Mandiri
+- **Format Ukuran Foto Ringkas & Kanvas Seamless (Shopee-Style Display)**:
+  - Header kartu produk toko menggunakan format ringkas dan bersih (`.toko-card-thumb` dengan tinggi 185px di desktop, 155px di HP) tanpa canvas kotak ganda berspasi tebal yang menyisakan terlalu banyak ruang putih kosong.
+  - Kanvas foto menyatu langsung dengan bagian atas kartu produk (`border-radius: 14px 14px 0 0; background: #ffffff; border-bottom: 1px solid rgba(255, 79, 145, 0.18)`).
+  - Foto makanan & minuman asli (`oni.jpeg`, `tak.jpeg`, `dan.jpeg`, `mat.jpeg`, `teh.jpeg`) tampil penuh (`object-fit: cover`) layaknya etalase Shopee tanpa margin kosong berlebih.
+  - Produk cinderamata/atribut berbasis potong latar belakang tampil proporsional (`object-fit: contain; max-width: 88%; max-height: 86%`) di tengah kanvas putih bersih.
+- **Carousel Geser Kiri-Kanan utk Produk Lebih dari 1 Foto (Haori & Kartu Tanda Anggota)**:
+  - Jika produk memiliki lebih dari 1 foto/sudut pandang (seperti **Haori**: tampak depan `haori-depan-new.png` & belakang `haori-belakang-new.png`; serta **Kartu Tanda Anggota**: tampak depan `idc-front.jpeg` & belakang `idc-back.jpeg`), gunakan sistem carousel horizontal (`.toko-poster-carousel` [data-product-carousel]):
+    - Menampilkan **1 sudut pandang penuh** per slide dengan label badge pill indikator posisi (`Depan` / `Belakang`).
+    - Dilengkapi tombol panah geser melayang di samping kiri (`‹`) dan kanan (`›`) dengan gaya semi-transparan ber-blur dan efek pendar pink saat disentuh/di-hover.
+    - Mendukung navigasi tombol klik, swipe jari di HP, dan mouse drag di desktop dengan scroll-snapping halus (`scroll-snap-type: x mandatory`).
+- **Keterangan Bahan & Spesifikasi Wajib Dipertahankan**:
+  - Seluruh informasi bahan, ukuran, porsi, dan dimensi teknis pada kotak spesifikasi (`.toko-card-specs`) wajib dipertahankan secara utuh dan jelas di bawah nama produk.
 - **Katalog Produk Terkurasi (12 Item Aktif) & Aturan Penamaan Lugas (Anti-Fluff Naming Rule)**:
   - **Nama Produk Wajib Lugas & Langsung ke Inti**: Dilarang menambahkan kata-kata hiasan/pemasaran berlebihan pada nama produk (misalnya: dilarang memakai "Resmi Klub", "Personal", "Spesial", dsb). Nama produk harus to the point:
     - Atribut Mirai no Hana (5): `Haori`, `Kartu Tanda Anggota`, `Lanyard`, `Pin`, `Nametag`.
