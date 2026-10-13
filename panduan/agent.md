@@ -128,11 +128,27 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
   - Kartu Gelap (c1b / w1b): Transparansi sekitar 4.5% (opacity: 0.045, mix-blend-mode: screen). Saat disorot mouse (hover) naik halus ke 8% (opacity: 0.08).
   - Kartu Terang (c1w / w1w): Transparansi sekitar 10% (opacity: 0.10, mix-blend-mode: multiply). Saat disorot mouse naik ke 16% (opacity: 0.16).
 
-### D. Penggunaan Ikon Chibi: Jangan Sampai Mendominasi
+### D. Penggunaan Ikon Chibi: Jangan Sampai Mendominasi & Konsistensi Kartu Kelas
 - Ikon chibi diletakkan di sudut kartu (.card-corner-chibi) atau avatar peringkat sebagai aksen pemanis desain saja.
 - Ikon chibi **TIDAK BOLEH mendominasi tampilan kartu**.
 - Tidak masalah jika stiker atau elemen lain menimpa bagian chibi. Yang paling utama adalah **isi teks dan fungsi web**.
 - Jangan pernah mengorbankan keterbacaan materi atau tatanan tata letak hanya demi memperlihatkan gambar chibi.
+- **Konsistensi Ikon Chibi pada Seluruh Kartu Pembelajaran & Dokumen Hub Kelas (`kelas/index.html`)**:
+  - Untuk menjaga keharmonisan dan konsistensi visual di halaman Kelas (`kelas/index.html`), seluruh kartu modul dan kartu dokumen wajib dilengkapi stiker maskot chibi Genshin Impact di sudut kanan bawah (`.card-corner-chibi`):
+    - **Kelas Dasar**: Hu Tao (`Hu.png`), Kazuha (`Ka.png`), Faruzan (`Fa.png`), Freminet (`Fli.png`).
+    - **Kelas Lanjutan**: Chiori (`Chi.png`), Wanderer (`Wa.png`).
+    - **Kurikulum Pembelajaran**: Alhaitham (`Al.png` — cendekiawan analitis yang selaras dengan acuan kurikulum & silabus materi).
+    - **Tata Cara Mengajar**: Furina (`Fu.png` — sosok pemandu & instruktur ekspresif yang serasi untuk panduan pengajaran tutor).
+- **Prinsip Desain Kartu Dokumen: Mode HP (Mobile-First) Utama & Mode Laptop Presentasi**:
+  - **Prioritas Utama Mode HP (Smartphone-First)**:
+    - Mayoritas pengunjung mengakses web via ponsel cerdas (*handphone*), sehingga kenyamanan genggaman layar sentuh menjadi prioritas nomor satu.
+    - **Bebas Blok Kaku 100%**: Dilarang membuat tombol aksi kartu dokumen berjejer vertikal selebar 100% kartu yang membuat kartu terlalu tinggi dan menabrak maskot chibi.
+    - **Tombol Ringkas Berdampingan (Side-by-Side Ergonomics)**: Tombol aksi primer ("Unduh PDF") dan sekunder ("Buka") ditata berdampingan dengan pembatas lebar aman (`max-width: calc(100% - 70px)`). Hal ini memastikan tombol mudah dijangkau sentuhan jempol dan maskot chibi di pojok kanan bawah memiliki ruang lega tanpa tumpang tindih.
+    - **Label Responsif Adaptif**: Pada mode HP gunakan label ringkas (`.doc-btn-label-short` contoh: "Buka"), sedangkan pada layar desktop laptop tampil penuh (`.doc-btn-label-full` contoh: "Buka Dokumen").
+    - **Lencana Aksara Kanji Sejajar**: Bagian header kartu dokumen dilengkapi lencana kanji tematik (`教本` untuk Kurikulum, `指導` untuk Tata Cara Mengajar) dengan `white-space: nowrap` agar konsisten dengan kartu modul di atasnya dan tidak terpecah baris di layar sempit.
+    - **Permukaan Kartu Menyatu (Seamless Texture)**: Hindari penggunaan kotak footer putih kaku terpisah. Permukaan kartu menyatu utuh dengan tekstur pola ombak Wagara Seigaiha (`w1w.jpeg` / `w1b.jpeg`) bergradasi lembut.
+  - **Kerapian Mode Laptop (Presentation-Ready Standard)**:
+    - Pada layar laptop/desktop, kartu tampil proporsional dalam grid 2 kolom simetris dengan jarak lapang, tipografi seimbang, dan efek interaksi hover halus (`translateY(-5px) scale(1.08) rotate(-3deg)` pada chibi) yang rapi, mewah, dan siap dipresentasikan di hadapan guru pembina maupun anggota klub.
 
 ### E. Skema Warna Web (Pink, Putih, Hitam + Multi-Color)
 - Warna pondasi klub: Pink sakura (#ff4f91 dan #e91e63), putih (#ffffff), dan hitam gelap (#09090d / #111115).
