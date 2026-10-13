@@ -17,10 +17,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function setupHeroContentScroll() {
     // Efek sticky curtain dan ascending text (solid 100% tanpa transparansi) untuk seluruh hero
-    const hero = document.querySelector(".hero, .page-hero, .proker-hero, .quest-hero");
+    const hero = document.querySelector(".hero, .page-hero, .proker-hero, .quest-hero, .toko-hero");
     if (!hero) return;
 
-    const heroContent = hero.querySelector(".hero-text-box, .hero-content, .page-hero > div, .proker-hero-inner, .quest-hero > div");
+    const heroContent = hero.querySelector(".hero-text-box, .hero-content, .page-hero > div, .proker-hero-inner, .quest-hero > div, .toko-hero > div, div");
     const heroSocial = hero.querySelector(".hero-social-sidebar");
 
     let ticking = false;
@@ -223,10 +223,13 @@ function setupBackToTop() {
 }
 
 function setupReveal() {
-    // 1. Daftarkan seluruh seksi halaman (kecuali hero di paling atas yang sudah memicu animasi saat page load)
+    // 1. Daftarkan seluruh seksi halaman
+    // PENTING: Seksi pertama tepat di bawah hero (.hero + section, .page-hero + section, .toko-catalog-section)
+    // TIDAK BOLEH disembunyikan dengan opacity 0 karena berfungsi sebagai tirai penutup solid yang langsung terlihat di viewport awal (above the fold)
+    const heroExclusions = ":not(.hero):not(.page-hero):not(.about-hero):not(.lomba-hero):not(.activities-hero):not(.class-hero):not(.peringkat-hero):not(.rekomendasi-hero):not(.toko-hero):not(.motivasi-hero):not(.buuku-hero):not(.quest-hero)";
+    
     const sectionSelectors = [
-        "main > section:not(.hero):not(.page-hero):not(.about-hero):not(.lomba-hero):not(.activities-hero):not(.class-hero):not(.peringkat-hero):not(.rekomendasi-hero)",
-        "main > .section",
+        `main > section${heroExclusions}:not(.toko-catalog-section)`,
         ".proker-section",
         ".kegiatan-section",
         ".content-section",
@@ -240,6 +243,13 @@ function setupReveal() {
     ];
 
     document.querySelectorAll(sectionSelectors.join(",")).forEach((sec) => {
+        // Jangan beri section-reveal ke seksi pertama tepat di bawah hero
+        if (sec.matches(".hero + section, .page-hero + section, .proker-hero + section, .quest-hero + section, .toko-catalog-section")) {
+            sec.classList.remove("section-reveal");
+            sec.classList.add("is-visible");
+            return;
+        }
+
         if (!sec.classList.contains("section-reveal")) {
             sec.classList.add("section-reveal");
         }
@@ -288,6 +298,15 @@ function setupReveal() {
     const targets = document.querySelectorAll(".section-reveal, .motion-reveal, .reveal");
     if (!targets.length) return;
 
+    // Langsung aktifkan elemen yang sudah berada di dalam atau di atas viewport saat render awal (above the fold)
+    // agar konten tidak pernah tertahan sembunyi (blank/black void) saat pengguna pertama kali membuka halaman
+    targets.forEach((target) => {
+        const rect = target.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+            target.classList.add("is-visible");
+        }
+    });
+
     if (!("IntersectionObserver" in window)) {
         targets.forEach((target) => target.classList.add("is-visible"));
         return;
@@ -295,16 +314,21 @@ function setupReveal() {
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
+            if (entry.isIntersecting || entry.intersectionRatio > 0) {
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+            }
         });
     }, { 
-        threshold: 0.06, 
-        rootMargin: "0px 0px -40px 0px" 
+        threshold: 0.01, 
+        rootMargin: "0px 0px -10px 0px" 
     });
 
-    targets.forEach((target) => observer.observe(target));
+    targets.forEach((target) => {
+        if (!target.classList.contains("is-visible")) {
+            observer.observe(target);
+        }
+    });
 }
 
 async function setupKanjiDictionary() {

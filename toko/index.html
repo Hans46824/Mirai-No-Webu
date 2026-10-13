@@ -4,11 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Toko — MIRAI NO HANA</title>
-    <link rel="stylesheet" href="../css/style.css?v=20261012canvas">
+    <link rel="stylesheet" href="../css/style.css?v=20261013sticky">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Noto+Serif+JP:wght@600;700;900&display=swap" rel="stylesheet">
     <style>
+        /* Pastikan seksi katalog dan filter bar langsung tampil seketika saat dibuka (above the fold) */
+        .toko-catalog-section,
+        .toko-catalog-section .section-intro,
+        .toko-catalog-section .heading,
+        .toko-catalog-section .toko-filter-bar,
+        .toko-catalog-section .toko-result-meta {
+            opacity: 1 !important;
+            transform: none !important;
+            visibility: visible !important;
+        }
+
         /* Standalone White Product Canvas Rules for Instant Reliable Rendering */
         .toko-card-thumb {
             position: relative !important;

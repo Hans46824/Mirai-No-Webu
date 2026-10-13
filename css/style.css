@@ -1452,10 +1452,26 @@ body.page-beranda .about-preview,
 .hero + section,
 .page-hero + section,
 .proker-hero + section,
-.quest-hero + section {
+.quest-hero + section,
+.toko-catalog-section,
+.rekomendasi-section,
+.peringkat-section,
+.lomba-upcoming-section,
+.motivasi-section {
     position: relative !important;
     z-index: 12 !important;
     box-shadow: 0 -35px 85px rgba(0, 0, 0, 0.98) !important;
+}
+
+/* Tirai seksi pertama di bawah hero wajib langsung terlihat solid (tidak blank/opacity: 0) saat pertama kali halaman dimuat */
+.hero + section,
+.page-hero + section,
+.proker-hero + section,
+.quest-hero + section,
+.toko-catalog-section {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
 }
 
 body.page-beranda .about-preview,
@@ -1768,16 +1784,28 @@ body.dark-mode .program-section {
 }
 
 
-.page-hero {
-    position: sticky;
-    top: 0;
-    overflow: hidden;
+.page-hero,
+.hero,
+.proker-hero,
+.quest-hero,
+.about-hero,
+.activities-hero,
+.class-hero,
+.motivasi-hero,
+.rekomendasi-hero,
+.peringkat-hero,
+.lomba-hero,
+.buuku-hero,
+.toko-hero {
+    position: sticky !important;
+    top: 0 !important;
+    overflow: hidden !important;
     color: var(--white);
-    background-image: url("../images/mirai/background/Sora.png");
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    z-index: 1;
+    background-image: url("../images/mirai/background/Sora.png") !important;
+    background-position: center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    z-index: 1 !important;
 }
 
 .page-hero::before {
@@ -6436,7 +6464,9 @@ body.theme-dark .kana-empty-state {
 }
 
 .buuku-hero {
-    position: relative;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1 !important;
 }
 
 .buuku-hero-chibi {
@@ -6805,8 +6835,10 @@ body.theme-dark .kana-empty-state {
 
 /* Quest Hero Chibi Deco (Latihan & Tantangan) */
 .quest-hero {
-    position: relative;
-    overflow: hidden;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1 !important;
+    overflow: hidden !important;
 }
 .quest-hero-deco {
     position: absolute;
@@ -12593,7 +12625,9 @@ img:not(.img-lightbox-img) {
 
 /* ===== HALAMAN KURIKULUM & TATA CARA MENGAJAR ===== */
 .page-kurikulum .page-hero {
-    position: relative !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1 !important;
     overflow: hidden !important;
     min-height: 28svh !important;
     padding: 80px 0 24px !important;
@@ -15784,7 +15818,9 @@ body:not(.page-kamus) .quick-stroke-btn {
 }
 
 .motivasi-hero {
-    position: relative !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1 !important;
     overflow: hidden !important;
 }
 
@@ -16285,7 +16321,9 @@ body.page-rekomendasi,
 }
 
 .rekomendasi-hero {
-    position: relative !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1 !important;
     overflow: hidden !important;
 }
 
@@ -17184,7 +17222,9 @@ body.page-rekomendasi,
 }
 
 .peringkat-hero {
-    position: relative !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1 !important;
     overflow: hidden !important;
 }
 
@@ -18164,7 +18204,9 @@ body.page-lomba,
 }
 
 .lomba-hero {
-    position: relative !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1 !important;
     overflow: hidden !important;
 }
 
@@ -20933,6 +20975,18 @@ body.page-toko,
     color: #e2e8f0 !important;
     box-shadow: 0 -35px 85px rgba(0, 0, 0, 0.98) !important;
     padding: 70px 7vw 90px !important;
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+}
+
+.toko-catalog-section .section-intro,
+.toko-catalog-section .heading,
+.toko-catalog-section .toko-filter-bar,
+.toko-catalog-section .toko-result-meta {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
 }
 
 .toko-catalog-section .section-intro,
