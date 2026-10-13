@@ -93,18 +93,30 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
   - Kartu komponen menggunakan permukaan putih bersih (`#ffffff`) dengan border pink pastel (`#ffccd9` / `#ebd0dc`) dan pola terang (`c1w.jpeg` atau `w1w.jpeg`) transparansi 10% (`mix-blend-mode: multiply`).
 - **Perlindungan Lebar Penuh (Anti-Bleed Background Rule)**: Setiap seksi wajib membentang penuh 100% lebar layar (`width: 100%`), sedangkan isi konten di dalamnya dibatasi dalam kontainer tengah (`max-width: 1200px` - `1240px; margin: 0 auto;`), sehingga tidak terjadi kebocoran latar belakang (*background bleed*) di layar monitor lebar.
 
-### B. Aturan Latar Belakang Judul Hero (Hero Ber-Background: Hanya Sub-Judul Jepang & Judul, Tanpa Deskripsi)
+### B. Aturan Latar Belakang Judul Hero & Standar Sub-Judul Jepang (Pill Kanji)
 - **Aturan Hero Ber-Background (Background Judul)**:
   - Pada area hero yang memiliki gambar latar belakang (ilustrasi maskot Sora, wagara, atau latar tematik):
     - **HANYA BOLEH menampilkan sub-judul (bahasa Jepang murni dari kata judul halaman tersebut) dan judul utama (`<h1>`), TANPA deskripsi**.
     - **Deskripsi Dihilangkan**: Dilarang menampilkan paragraf deskripsi (`.page-hero-desc` / `.hero-desc`) di area hero ber-background. Hal ini bertujuan agar tampilan visual ilustrasi Sora dan judul halaman tampak megah, bersih, lapang, dan tidak tertutup tumpukan teks panjang.
     - **Sub-judul HANYA Bahasa Jepang Murni**: Sub-judul berupa terjemahan/istilah asli bahasa Jepang dari kata judul halaman tersebut yang dibungkus tag `<span class="jp-kanji">...</span>` (contoh: `<p class="page-hero-eyebrow"><span class="jp-kanji">公式ショップ</span></p>`). Dilarang menambahkan embel-embel teks bahasa Indonesia di sampingnya.
+- **Standar Sub-Judul Jepang Menyeluruh (Pill Kanji: Wajib Pink, Lebih Besar, & Seragam Noto Serif JP)**:
+  - **1. Konsistensi Warna Pink Seluruh Sub-Judul**: Seluruh sub-judul Jepang pada header hero maupun sub-judul seksi (`.jp-kanji`) **WAJIB menggunakan teks warna pink sakura yang seragam**, bukan teks putih atau hitam:
+    - **Di Latar Gelap / Hero Banner**: Teks berwarna pink sakura cerah berpendar (`color: #ff659b !important; text-shadow: 0 0 10px rgba(255, 101, 155, 0.45);`) dengan latar pill transparan anggun (`background: rgba(255, 79, 145, 0.18); border: 1.5px solid rgba(255, 101, 155, 0.45);`).
+    - **Di Latar Terang / Putih**: Teks berwarna pink tua berry tegas (`color: #e91e63 !important;`) dengan kontras tinggi standar WCAG AAA di atas latar putih (`background: rgba(233, 30, 99, 0.08); border: 1.5px solid rgba(233, 30, 99, 0.28);`).
+  - **2. Ukuran Lebih Besar & Proporsional Agar Guratan Kanji Jelas**:
+    - Guratan aksara Kanji yang kompleks membutuhkan ukuran yang cukup agar tidak tampak rapat atau buram:
+      - **Mode Laptop / Desktop**: `14.5px - 15px` (`font-weight: 700; padding: 5px 15px; border-radius: 99px;`).
+      - **Mode HP (Mobile)**: `13px` (`font-weight: 700; padding: 3.5px 12px; border-radius: 99px;`).
+  - **3. Keseragaman Font Jepang Murni (100% Noto Serif JP)**:
+    - Dilarang keras membiarkan halaman merender font sistem bawaan (*system fallback*) yang membuat aksara kanji berbeda-beda bentuknya di tiap komputer/perangkat.
+    - Seluruh berkas HTML proyek wajib menyematkan tautan Google Fonts resmi (`Noto Serif JP` & `Plus Jakarta Sans`).
+    - Stylesheet master `css/style.css` menyertakan `@import` font di baris teratas sebagai jaminan ganda (*fail-safe*) bahwa seluruh sub-judul Jepang di seluruh halaman terjamin 100% menggunakan font yang sama persis.
 - **Ikon Media Sosial Resmi di Hero (`.hero-social-sidebar`)**:
   - Setiap background hero yang memiliki judul teks halaman **WAJIB menyematkan sidebar ikon media sosial vertikal** berisi tautan Instagram resmi (`@mirainohana_smawh2`) dan TikTok resmi (`@nihongo.kurabu.wh2`).
   - **Peletakan Presisi Identik dengan Beranda**: Posisi tombol media sosial ini dikunci pada sisi kanan bawah hero (`position: absolute; bottom: 15%; right: 5%;` di desktop, `bottom: 12%; right: 6%;` di mobile) di samping karakter maskot Sora, persis seperti tata letak foto Beranda.
   - Tombol medsos hero secara otomatis disembunyikan halus ketika panel navigasi samping (sidebar menu), modal dialog, latihan interaktif, atau lightbox gambar aktif.
 - **Sub-Judul Khusus Hero Beranda (`.hero-yokoso-kanji`)**:
-  - Khusus pada Beranda (`index.html`), sub-judul hero tidak menggunakan badge pill pink nama klub, melainkan secara spesifik menggunakan kata sambutan **"ようこそ"** (Yokoso) berukuran besar (`clamp(26px, 3.8vw, 44px)`), berbobot tebal (`font-weight: 800`), font aksara Jepang murni (`Noto Serif JP`), dan berwarna **putih bersih `#ffffff`** dengan bayangan teks lembut.
+  - Khusus pada Beranda (`index.html`), sub-judul hero tidak menggunakan badge pill pink nama klub, melainkan secara spesifik menggunakan kata sambutan **"ようこそ"** (Yokoso) berukuran besar (`clamp(26px, 3.8vw, 44px)`), berbobot tebal (`font-weight: 800`), font aksara Jepang murni (`Noto Serif JP`), dan berwarna **putih bersih `#ffffff`** dengan bayangan pendaran lembut.
   - Tampilan ini sengaja dibuat berbeda dari halaman lain sebagai ucapan selamat datang utama yang megah dan berwibawa di atas judul `MIRAI NO WEBU`.
 - **Arsitektur Sticky Curtain Reveal**:
   - Hero menerapkan `position: sticky; top: 0; z-index: 1; min-height: 59svh; display: flex; align-items: flex-end;`.
