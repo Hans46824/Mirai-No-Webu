@@ -93,11 +93,12 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
   - Kartu komponen menggunakan permukaan putih bersih (`#ffffff`) dengan border pink pastel (`#ffccd9` / `#ebd0dc`) dan pola terang (`c1w.jpeg` atau `w1w.jpeg`) transparansi 10% (`mix-blend-mode: multiply`).
 - **Perlindungan Lebar Penuh (Anti-Bleed Background Rule)**: Setiap seksi wajib membentang penuh 100% lebar layar (`width: 100%`), sedangkan isi konten di dalamnya dibatasi dalam kontainer tengah (`max-width: 1200px` - `1240px; margin: 0 auto;`), sehingga tidak terjadi kebocoran latar belakang (*background bleed*) di layar monitor lebar.
 
-### B. Aturan Latar Belakang Hero (Clean Hero & Sticky Curtain Reveal Rule)
-- **Aturan Judul Bersih Hero (Clean Hero Rule)**:
-  - Pada halaman yang memiliki gambar latar maskot Sora (`background-image: url("../images/mirai/background/Sora.png")`), area hero **HANYA BOLEH menampilkan judul halaman murni (`<h1>`)** tanpa teks kicker/eyebrow, tanpa subjudul, dan tanpa paragraf pengantar.
-  - Tujuannya agar visual ilustrasi karakter Sora tampil megah, bersih, lapang, dan tidak tertutup tumpukan teks yang berantakan.
-  - Contoh: Pada halaman Toko, judul hero murni berupa `<h1 class="page-title">Toko</h1>` tanpa embel-embel teks lainnya.
+### B. Aturan Latar Belakang Judul Hero (Hero Ber-Background: Hanya Sub-Judul Jepang & Judul, Tanpa Deskripsi)
+- **Aturan Hero Ber-Background (Background Judul)**:
+  - Pada area hero yang memiliki gambar latar belakang (ilustrasi maskot Sora, wagara, atau latar tematik):
+    - **HANYA BOLEH menampilkan sub-judul (bahasa Jepang murni dari kata judul halaman tersebut) dan judul utama (`<h1>`), TANPA deskripsi**.
+    - **Deskripsi Dihilangkan**: Dilarang menampilkan paragraf deskripsi (`.page-hero-desc` / `.hero-desc`) di area hero ber-background. Hal ini bertujuan agar tampilan visual ilustrasi Sora dan judul halaman tampak megah, bersih, lapang, dan tidak tertutup tumpukan teks panjang.
+    - **Sub-judul HANYA Bahasa Jepang Murni**: Sub-judul berupa terjemahan/istilah asli bahasa Jepang dari kata judul halaman tersebut yang dibungkus tag `<span class="jp-kanji">...</span>` (contoh: `<p class="page-hero-eyebrow"><span class="jp-kanji">公式ショップ</span></p>`). Dilarang menambahkan embel-embel teks bahasa Indonesia di sampingnya.
 - **Arsitektur Sticky Curtain Reveal**:
   - Hero menerapkan `position: sticky; top: 0; z-index: 1; min-height: 59svh; display: flex; align-items: flex-end;`.
   - Gambar latar Sora menetap diam di layar saat halaman digulir (*parallax-free clean anchor*).
@@ -135,39 +136,53 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
   - Merah (#f43f5e / #e11d48): Tingkat nasional, status pendaftaran ditutup, batas akhir waktu.
   - Ungu (#a855f7 / #c084fc): Kategori acara festival cosplay dan ruang maskot Sora.
 
-### F. Sistem Tipografi Judul Tiga Lapis (Three-Tier Japanese Header System)
-- **Hierarki Standar Tiga Lapis pada Setiap Judul Halaman & Seksi**:
-  Setiap judul halaman utama (*page hero*) dan seksi fitur di Mirai no Webu wajib menggunakan susunan **tiga lapis** (*Three-Tier Hierarchy*):
-  1. **Lapisan 1 — Sub-judul / Kicker Bahasa Jepang di Atas Judul (`.page-hero-eyebrow` / `.section-eyebrow`)**:
-     - Terletak tepat di atas judul utama.
-     - Memuat terjemahan atau istilah aksara Jepang (*Kanji / Katakana / Hiragana*) dari kata kunci halaman yang dibungkus tag `<span class="jp-kanji">...</span>` berbalut *badge pill* semi-transparan pink (`background: rgba(255, 79, 145, 0.22); border: 1px solid rgba(255, 79, 145, 0.45); font-family: 'Noto Serif JP'; border-radius: 8px;`).
-     - Diikuti tanda titik tengah (`·`) dan label kategori huruf kapital bahasa Indonesia (contoh: `<p class="page-hero-eyebrow"><span class="jp-kanji">公式ショップ</span> · TOKO &amp; KONBINI</p>`).
-  2. **Lapisan 2 — Judul Utama Tebal (`.page-title` / `.heading` / `.hero-title`)**:
-     - Tipografi tegas, berbobot tebal (`font-weight: 800 - 900`, `letter-spacing: -0.08em`, `font-size: clamp(58px, 8vw, 116px)`).
-     - Gaya Two-Tone: Warna putih murni dipadukan dengan kata kunci penting berwarna pink sakura di dalam tag `<span>`.
-  3. **Lapisan 3 — Deskripsi Singkat Elegan di Bawah Judul (`.page-hero-desc` / `.section-desc` / `.hero-desc`)**:
-     - Terletak tepat di bawah judul utama dengan panjang 1–2 kalimat ringkas, informatif, dan berbobot (maksimal 660px lebar wadah).
-     - Menerangkan isi halaman atau makna filosofis dari kata judul tersebut.
-     - Menggunakan warna perak terang lembut (`rgba(241, 245, 249, 0.92)`) di latar gelap dengan bayangan teks lembut agar 100% terbaca jelas di atas gambar latar belakang bintang/awan/Sora, serta abu-abu slate di latar putih.
-- **Kamus Standar Kicker Bahasa Jepang untuk Setiap Halaman**:
-  - **Beranda**: `<span class="jp-kanji">未来の花 · ようこそ</span> · PORTAL RESMI`
-  - **Toko**: `<span class="jp-kanji">公式ショップ</span> · TOKO &amp; KONBINI`
-  - **Lomba & Acara**: `<span class="jp-kanji">大会 &amp; イベント</span> · INFORMASI KEGIATAN`
-  - **Papan Peringkat**: `<span class="jp-kanji">リーダーボード</span> · PAPAN PERINGKAT`
-  - **Rekomendasi**: `<span class="jp-kanji">おすすめ作品</span> · REKOMENDASI KARYA`
-  - **Tentang Klub**: `<span class="jp-kanji">クラブ紹介</span> · TENTANG KLUB`
-  - **Kelas & Kurikulum**: `<span class="jp-kanji">クラス &amp; カリキュラム</span> · RUANG BELAJAR`
-  - **Kamus Jepang**: `<span class="jp-kanji">日本語辞書</span> · KAMUS JEPANG`
-  - **Kamus Kanji**: `<span class="jp-kanji">漢字辞典</span> · ALAT BELAJAR`
-  - **Program & Fasilitas**: `<span class="jp-kanji">プログラム &amp; 施設</span> · PROGRAM KERJA`
-  - **Divisi Resmi**: `<span class="jp-kanji">公式部門</span> · STRUKTUR DIVISI`
-  - **Kata Motivasi**: `<span class="jp-kanji">名言集</span> · KUTIPAN INSPIRATIF`
-  - **Divisi Bahasa**: `<span class="jp-kanji">言語部門</span> · DIVISI 1`
-  - **Divisi Cosplay**: `<span class="jp-kanji">コスプレ部門</span> · DIVISI 2`
-  - **Divisi Desain**: `<span class="jp-kanji">デザイン部門</span> · DIVISI 3`
-  - **Divisi Kewirausahaan**: `<span class="jp-kanji">起業部門</span> · DIVISI 4`
+### F. Sistem Tipografi Judul Tiga Lapis pada Seluruh Seksi Halaman (Three-Tier Japanese Header System)
+- **Hierarki Wajib Tiga Lapis pada Setiap Judul Seksi Halaman**:
+  Seluruh seksi konten di Mirai no Webu (termasuk Kelas, Tentang, Program, Fasilitas, Toko, Lomba, Peringkat, Rekomendasi, Kamus, Divisi, dan Beranda) **WAJIB menerapkan sistem tiga lapis**:
+  1. **Lapisan 1 — Sub-judul / Kicker Bahasa Jepang Murni di Atas Judul (`.section-eyebrow`)**:
+     - Terletak tepat di atas judul seksi.
+     - **HANYA memuat aksara Jepang murni (Kanji / Katakana / Hiragana)** dari kata kunci judul seksi tersebut dalam tag `<span class="jp-kanji">...</span>`.
+     - **Dilarang keras menambahkan teks bahasa Indonesia di sampingnya** (tanpa embel-embel atau label bahasa Indonesia).
+  2. **Lapisan 2 — Judul Seksi Heading Tebal (`.heading` / `<h2>`)**:
+     - Tipografi tegas, berbobot tebal (`font-weight: 800 - 900`).
+     - Menggunakan gaya Two-Tone: Warna solid teks dipadukan aksen pink sakura di dalam tag `<span>`.
+  3. **Lapisan 3 — Deskripsi Singkat Elegan di Bawah Judul (`.section-desc`)**:
+     - Terletak tepat di bawah judul seksi dengan panjang 1–2 kalimat ringkas, padat, dan informatif.
+     - Menerangkan maksud dan isi konten dari seksi tersebut secara jelas dan mudah dipahami.
+- **Daftar Baku Sub-Judul Jepang Murni untuk Halaman & Seksi**:
+  - **Beranda**: Hero: `<span class="jp-kanji">未来の花 · ようこそ</span>` | Apa itu Web: `<span class="jp-kanji">ウェブについて</span>` | Belajar Digital: `<span class="jp-kanji">デジタル学習</span>` | Lainnya: `<span class="jp-kanji">その他の活動</span>`
+  - **Kelas & Kurikulum**: Hero: `<span class="jp-kanji">クラス＆カリキュラム</span>` | Kelas Dasar: `<span class="jp-kanji">基礎クラス</span>` | Kelas Lanjutan: `<span class="jp-kanji">上級クラス</span>` | Kurikulum: `<span class="jp-kanji">カリキュラムと指導法</span>`
+  - **Tentang Klub**: Hero: `<span class="jp-kanji">日本語クラブについて</span>` | Profil: `<span class="jp-kanji">クラブ概要</span>` | Bendera: `<span class="jp-kanji">公式旗</span>` | Nama: `<span class="jp-kanji">名前の由来</span>` | Logo NK: `<span class="jp-kanji">ロゴの意味</span>` | Slogan: `<span class="jp-kanji">合言葉</span>` | Visi & Misi: `<span class="jp-kanji">ビジョン＆ミッション</span>` | Sejarah: `<span class="jp-kanji">クラブの歴史</span>` | Prestasi: `<span class="jp-kanji">実績と表彰</span>` | Haori: `<span class="jp-kanji">公式羽織</span>` | Aksesoris: `<span class="jp-kanji">アクセサリー</span>` | Kepengurusan: `<span class="jp-kanji">役員構成</span>`
+  - **Program & Fasilitas**: Hero: `<span class="jp-kanji">プログラム＆施設</span>` | Divisi: `<span class="jp-kanji">専門部門</span>` | Program Kerja: `<span class="jp-kanji">主要年間プログラム</span>` | Fasilitas: `<span class="jp-kanji">クラブ施設と備品</span>`
+  - **Toko**: Hero: `<span class="jp-kanji">公式ショップ</span>` | Katalog Produk: `<span class="jp-kanji">商品カタログ</span>`
+  - **Lomba & Acara**: Hero: `<span class="jp-kanji">大会＆イベント</span>` | Info Lomba: `<span class="jp-kanji">大会とイベント情報</span>`
+  - **Papan Peringkat**: Hero: `<span class="jp-kanji">ランキングボード</span>` | Papan Peringkat: `<span class="jp-kanji">栄誉ランキング</span>`
+  - **Rekomendasi**: Hero: `<span class="jp-kanji">おすすめ作品</span>` | Rekomendasi Media: `<span class="jp-kanji">人気メディア作品</span>`
+  - **Kamus**: Hero: `<span class="jp-kanji">日本語辞書</span>` | Pencarian: `<span class="jp-kanji">文字と語彙検索</span>`
+  - **Kamus Kanji**: Hero & Seksi: `<span class="jp-kanji">漢字辞典</span>`
+  - **Kata Motivasi**: Hero: `<span class="jp-kanji">名言集</span>` | Koleksi: `<span class="jp-kanji">名言コレクション</span>`
+  - **Divisi Resmi**: Hero & Seksi: `<span class="jp-kanji">公式部門</span>`
 
-### G. Aturan Bahasa Antarmuka (Pemberantasan Bahasa Inggris yang Tidak Perlu)
+### G. Arsitektur Komposisi Warna Teks Anti-Nabrak (Color Contrast Architecture Rule)
+- **Prinsip Utama: Dilarang Keras Teks/Elemen Nabrak Background**:
+  Kontras warna teks terhadap latar belakang halaman, kartu, maupun badge wajib lolos standar keterbacaan tinggi WCAG AAA.
+- **1. Pada Seksi Berlatar Terang / Putih Solid (`#ffffff`)**:
+  - **DILARANG KERAS teks putih (`#ffffff`) di atas latar putih**.
+  - Sub-judul / Kanji (`.section-eyebrow` dan `.section-eyebrow .jp-kanji`): Wajib menggunakan teks *deep berry pink* (`#c2185b !important`), latar belakang semi-transparan pink lembut `rgba(233, 30, 99, 0.08)`, dan border tegas `1.5px solid rgba(233, 30, 99, 0.28)`. Teks terbaca tajam dan tidak pudar.
+  - Judul Heading (`.heading`): Menggunakan warna hitam pekat `#18151b` dengan aksen pink sakura `<span>`.
+  - Deskripsi Seksi (`.section-desc`): Menggunakan warna abu-abu gelap slate (`#475569 !important`) dengan kontras tajam tanpa bayangan kabur.
+  - Kartu Komponen: Latar putih solid dengan border pink halus (`#ffccd9` / `#ebd0dc`) dan teks hitam/abu gelap.
+- **2. Pada Seksi Berlatar Gelap / Hitam Solid (`#0e0b12` / `#111115` / `.soft-section` dll)**:
+  - Sub-judul / Kanji (`.section-eyebrow .jp-kanji`): Menggunakan teks putih bersih `#ffffff !important` berbalut pil semi-transparan pink `rgba(255, 79, 145, 0.22)` dengan border pendar pink `#ff85b3` dan bayangan lembut.
+  - Judul Heading: Putih bersih `#ffffff` dengan aksen pink sakura.
+  - Deskripsi Seksi (`.section-desc`): Menggunakan abu-abu terang lembut (`#cbd5e1 !important`) agar nyaman dan tidak silau di mata.
+  - Kartu Komponen: Permukaan gelap elegan gradasi dengan teks abu terang.
+- **3. Pada Hero Banner Ber-Background Sora / Bintang**:
+  - Sub-judul / Kanji (`.page-hero-eyebrow .jp-kanji`): Teks putih bersih `#ffffff !important` berbalut pill blur `rgba(255, 79, 145, 0.25)` dan border `rgba(255, 79, 145, 0.55)` dengan text-shadow tebal agar kontras 100% di atas visual ilustrasi.
+  - Judul: Teks putih dan pink sakura tebal.
+  - Tanpa deskripsi di hero agar tidak menabrak ilustrasi karakter Sora.
+
+### H. Aturan Bahasa Antarmuka (Pemberantasan Bahasa Inggris yang Tidak Perlu)
 - Seluruh teks tampilan website (judul, deskripsi, tombol, menu navigasi, badge, filter, dan pesan) **WAJIB murni menggunakan Bahasa Indonesia** sebagai bahasa pengantar dan **Bahasa Jepang** (Kanji, Hiragana, Katakana, dan Romaji) untuk materi pembelajaran klub.
 - **Dilarang keras memakai Bahasa Inggris yang tidak perlu** pada teks yang dilihat pengunjung web.
 - **Kamus Standar Padanan Istilah UI/UX**:
@@ -187,7 +202,7 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
   - *Level / Challenge* &rarr; **Tingkat / Tantangan**
 - Gunakan bahasa manusia yang hangat, santai, dan bersahabat seperti gaya komunikasi anak muda sekolah. Hindari istilah kaku buatan mesin AI.
 
-### H. Aturan Deskripsi dan Teks Pendukung (Card & Page Description Rule)
+### I. Aturan Deskripsi dan Teks Pendukung (Card & Page Description Rule)
 - **Etalase Produk Toko Bersih & Ringkas**:
   - Pada kartu produk Toko, dilarang menaruh deskripsi produk panjang (`.toko-card-desc`) dan dilarang menampilkan rating bintang ulasan (`.toko-rating`) agar kartu tampil bersih, rapi, dan berfokus pada foto produk, nama produk, spesifikasi teknis penting, harga, dan tombol aksi.
   - Pada halaman lain yang memerlukan deskripsi materi, deskripsi harus padat, informatif, dan ringkas (maksimal 2 sampai 3 baris kalimat).
@@ -196,13 +211,13 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
   - Di latar putih/terang: Warna teks menggunakan abu gelap pekat (`#554857` atau `#475569`), bukan hitam murni tajam, untuk kenyamanan membaca optimal.
 - Dilarang membuat kalimat deskripsi bertele-tele, klise, atau membuang ruang visual kartu.
 
-### I. Aturan Tombol
+### J. Aturan Tombol
 - Sudut tombol melengkung halus dan modern (border-radius: 12px), bukan kotak kaku dan bukan oval lonjong.
 - Memakai warna gradien pink sakura dengan bayangan berpendar lembut (glow).
 - Saat disorot mouse (hover), tombol naik sedikit (translateY -2px) dan pendaran warnanya semakin menyala.
 - Ukuran tombol harus pas dan proporsional dengan isi teksnya (tidak boleh melar memenuhi seluruh kartu).
 
-### J. Aturan Penataan Foto, Poster, dan Avatar
+### K. Aturan Penataan Foto, Poster, dan Avatar
 - **Format Kartu Lomba (Poster Utuh di Atas & Teks Info di Bawah)**:
   - Kartu event/lomba (`.event-card`) ditata secara bertumpuk vertikal (**Vertical Stacked Layout**):
     - **Sisi Atas (Poster Display)**: Menampilkan poster lomba secara utuh, lengkap, dan proporsional tanpa terpotong (`object-fit: contain`) dengan rasio tinggi yang lapang (tinggi 540px di desktop, 460px di tablet, 380px di mobile) serta latar belakang gelap netral (`#08080c`).
@@ -217,7 +232,7 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
   - **Bebas Interaksi Tanpa Jebakan (No Lock-In)**: Poster murni menjadi visual kartu yang aman disentuh, di-drag, atau di-scroll tanpa memicu modal lightbox yang mengunci scroll layar (`overflow: hidden`). Navigasi halaman poster kedua dilakukan murni via tombol panah tengah samping atau swipe.
 - **Avatar Lingkaran**: Wadah avatar profil atau juara wajib memiliki latar belakang putih (#ffffff) dengan gambar berukuran contain dan sedikit padding, agar bagian telinga, rambut, atau topi chibi tidak terpotong garis tepi lingkaran.
 
-### K. Aturan Kanvas Display Putih untuk Produk Toko (White Product Canvas Rule)
+### L. Aturan Kanvas Display Putih untuk Produk Toko (White Product Canvas Rule)
 - **Wadah Kanvas Display Putih (`.toko-thumb-canvas`)**:
   - Seluruh produk pada etalase Toko wajib menggunakan wadah/kartu alas display putih solid (`background: #ffffff; border-radius: 12px; box-shadow: ...`).
   - Tujuannya agar produk hasil potong latar belakang (seperti Lanyard, ID Card, Nametag, Pin, dan Cinderamata Akrilik) tidak memperlihatkan artefak tepian kasar atau halo putih saat diletakkan di kartu bernuansa gelap. Dengan kanvas putih, foto produk tampil bersih, estetik, dan tampak profesional layaknya pemotretan studio katalog.
@@ -240,7 +255,7 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
     5. Tanjiro Kamado (`tan.jpeg`) · Demon Slayer
   - Tokoh Asta (Black Clover) dan Kageyama/Hinata (Haikyuu!!) telah dihapus.
 
-### L. Aturan Spasi dan Tata Letak (Layout)
+### M. Aturan Spasi dan Tata Letak (Layout)
 - **Menu Navigasi Parsial (Non-Fullscreen Off-Canvas Drawer di HP & Laptop)**:
   - Menu navigasi (`.sidebar-nav`) **dilarang keras membuka secara layar penuh (fullscreen 100% width)** baik di HP maupun di laptop.
   - Pada perangkat seluler/HP (`max-width: 600px`), menu harus muncul **sebagian dari sisi kanan** layaknya mode laptop (`width: 78%`, `max-width: 310px`, `min-width: 250px`), dengan sisi kiri (~22%) tetap memperlihatkan latar belakang halaman yang diredupkan oleh `.sidebar-overlay`.
