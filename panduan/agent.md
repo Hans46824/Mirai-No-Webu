@@ -227,10 +227,16 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
   - Judul Heading: Putih bersih `#ffffff` dengan aksen pink sakura.
   - Deskripsi Seksi (`.section-desc`): Menggunakan abu-abu terang lembut (`#cbd5e1 !important`) agar nyaman dan tidak silau di mata.
   - Kartu Komponen: Permukaan gelap elegan gradasi dengan teks abu terang.
-- **3. Pada Hero Banner Ber-Background Sora / Bintang**:
-  - Sub-judul / Kanji (`.page-hero-eyebrow .jp-kanji`): Teks putih bersih `#ffffff !important` berbalut pill blur `rgba(255, 79, 145, 0.25)` dan border `rgba(255, 79, 145, 0.55)` dengan text-shadow tebal agar kontras 100% di atas visual ilustrasi.
-  - Judul: Teks putih dan pink sakura tebal.
-  - Tanpa deskripsi di hero agar tidak menabrak ilustrasi karakter Sora.
+- **3. Pada Hero Banner Ber-Background Ilustrasi Karakter (Sora / Header Utama)**:
+  - **Sub-judul / Kanji Hero Banner (`.page-hero-eyebrow .jp-kanji`, `.hero-eyebrow .jp-kanji`)**:
+    - **DILARANG MENGGUNAKAN PILL / BADGE KOTAK/OVAL** pada background banner hero (background: `transparent`, border: `none`, padding: `0`, border-radius: `0`, box-shadow: `none`).
+    - Warna sub-judul Jepang pada background banner hero **WAJIB PINK GLOWING** (`#ff659b !important`) dengan text-shadow bayangan gelap dan pendaran pink halus agar terbaca jelas dan menyatu artistik dengan ilustrasi.
+    - Sub-judul Beranda (`ようこそ`): Huruf Jepang Noto Serif JP besar berukuran jelas, berwarna pink glowing (`#ff659b !important`) tanpa badge box.
+  - **Judul Utama Hero Beranda (`.hero-title`)**:
+    - Format dwinafas: kata pertama/kedua putih, kata penutup pink (`MIRAI NO` berwarna putih `#ffffff`, `<span>WEBU</span>` berwarna pink sakura `var(--pink)`).
+  - **Tata Letak Hero & Ikon Sosial Media (Harmonis Seperti Beranda)**:
+    - Seluruh halaman inner hero (`.page-hero`, `.proker-hero`, `.quest-hero`, `.toko-hero`) wajib memiliki perataan bawah (*grounded baseline*) yang sama dengan Beranda: blok teks berada di kiri bawah (`bottom: 14%`, `left: 5%` atau `6%`) dan sidebar ikon sosial media (`.hero-social-sidebar`) berada di kanan bawah (`bottom: 14%`, `right: 5%` atau `6%`), tidak mengambang canggung di tengah badan ilustrasi karakter.
+  - **Tanpa Deskripsi di Hero**: Hero banner berlatar gambar ilustrasi hanya memuat Sub-judul Jepang dan Judul Utama agar tidak menutupi visual karakter Sora.
 
 ### H. Aturan Bahasa Antarmuka (Pemberantasan Bahasa Inggris yang Tidak Perlu)
 - Seluruh teks tampilan website (judul, deskripsi, tombol, menu navigasi, badge, filter, dan pesan) **WAJIB murni menggunakan Bahasa Indonesia** sebagai bahasa pengantar dan **Bahasa Jepang** (Kanji, Hiragana, Katakana, dan Romaji) untuk materi pembelajaran klub.
