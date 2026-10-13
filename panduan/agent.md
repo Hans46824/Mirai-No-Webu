@@ -256,7 +256,10 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
   - *Clear Cart* &rarr; **Kosongkan Keranjang**
   - *Search* &rarr; **Cari Produk / Materi**
   - *Level / Challenge* &rarr; **Tingkat / Tantangan**
-- Gunakan bahasa manusia yang hangat, santai, dan bersahabat seperti gaya komunikasi anak muda sekolah. Hindari istilah kaku buatan mesin AI.
+- **Gaya Bahasa & Nada Bicara (Tone of Voice Anak SMA)**:
+  - Setiap teks, deskripsi, pesan sambutan, maupun pengantar konten **WAJIB ditulis dengan gaya bahasa anak SMA yang semi-formal, santun, hangat, dan bersahabat**.
+  - Bawa vibes organisasi/ekskul sekolah yang aktif dan guyub: komunikatif, menghargai sesama teman (*"kalian", "sahabat", "bareng-bareng"*), tidak birokratis kaku seperti instansi pemerintah, dan tidak dibuat-buat seperti bot robot AI.
+  - Untuk bagian feedback/kritik & saran: ajak audiens secara terbuka bila menemukan kendala tampilan/bug di Mirai no Webu maupun ide kegiatan kreatif untuk klub Mirai no Hana.
 
 ### I. Aturan Deskripsi dan Teks Pendukung (Card & Page Description Rule)
 - **Etalase Produk Toko Bersih & Ringkas**:
