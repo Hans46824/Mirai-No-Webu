@@ -189,6 +189,10 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
 - Ukuran tombol harus pas dan proporsional dengan isi teksnya (tidak boleh melar memenuhi seluruh kartu).
 
 ### J. Aturan Penataan Foto, Poster, dan Avatar
+- **Format Kartu Lomba (Poster Utuh di Atas & Teks Info di Bawah)**:
+  - Kartu event/lomba (`.event-card`) ditata secara bertumpuk vertikal (**Vertical Stacked Layout**):
+    - **Sisi Atas (Poster Display)**: Menampilkan poster lomba secara utuh, lengkap, dan proporsional tanpa terpotong (`object-fit: contain`) dengan rasio tinggi yang lapang (tinggi 540px di desktop, 460px di tablet, 380px di mobile) serta latar belakang gelap netral (`#08080c`).
+    - **Sisi Bawah (Informasi Teks & Aksi)**: Menampung header badge (kategori lomba/acara, level wilayah, status tanggal), judul lomba tebal, tag penyelenggara, deskripsi singkat, grid spesifikasi 4 kolom (Pelaksanaan, Biaya, Lokasi, Cabang), dan tombol aksi lebar penuh.
 - **Frame 1 Poster & Carousel Geser Mandiri**: Wadah poster di kartu event wajib berukuran 1 poster tunggal yang utuh (Single Poster View), tidak boleh menampilkan poster bertumpuk vertikal ataupun berdampingan terpotong:
   - Jika event memiliki lebih dari 1 poster/halaman (seperti ITS & UNESA), gunakan carousel horizontal yang bisa digeser dengan panah, drag mouse di desktop, atau swipe jari di HP.
   - **Tombol Panah Navigasi**: Wajib berada tepat di **bagian tengah samping kiri (‹) dan kanan (›)** poster dengan gaya semi-transparan ber-blur dan efek pendar pink saat disorot. Jika poster hanya ada 1 lembar, tombol panah otomatis disembunyikan.
