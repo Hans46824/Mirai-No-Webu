@@ -3,5 +3,17 @@
     "cSpell.enabled": false,
     "cSpell.ignorePaths": [
         "**/*"
-    ]
+    ],
+    "search.exclude": {
+        "**/data/*.json": true,
+        "**/js/stroke-data.js": true,
+        "**/skrip/arsip/**": true,
+        "**/*.bak": true
+    },
+    "files.watcherExclude": {
+        "**/data/*.json": true,
+        "**/js/stroke-data.js": true,
+        "**/skrip/arsip/**": true,
+        "**/*.bak": true
+    }
 }
