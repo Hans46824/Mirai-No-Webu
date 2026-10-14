@@ -590,15 +590,16 @@ body:not(.dark-mode):not(.theme-dark) main > section:nth-of-type(odd):not(.home-
    ===================================================== */
 .about-preview {
     display: block !important;
-    padding: 48px 7vw 56px !important;
+    padding: 56px 4.5vw 64px !important;
     position: relative !important;
     z-index: 5 !important;
     box-shadow: 0 -24px 50px rgba(0, 0, 0, 0.55) !important;
 }
 
 .about-preview .section-intro {
-    max-width: 1200px !important;
-    margin: 0 auto 26px auto !important;
+    max-width: 1360px !important;
+    width: 100% !important;
+    margin: 0 auto 28px auto !important;
     text-align: left !important;
 }
 
@@ -629,9 +630,10 @@ body:not(.dark-mode):not(.theme-dark) main > section:nth-of-type(odd):not(.home-
     position: relative !important;
     overflow: hidden !important;
     box-sizing: border-box !important;
-    max-width: 1200px !important;
+    max-width: 1360px !important;
+    width: 100% !important;
     margin: 0 auto !important;
-    padding: 34px 40px 30px !important;
+    padding: 38px 46px 36px !important;
     background: linear-gradient(165deg, #1c1523 0%, #130f18 100%) !important;
     border: 1.5px solid rgba(255, 101, 155, 0.25) !important;
     border-radius: 24px !important;
@@ -759,7 +761,7 @@ body:not(.dark-mode):not(.theme-dark) main > section:nth-of-type(odd):not(.home-
     flex-direction: column !important;
     gap: 16px !important;
     align-items: flex-start !important;
-    max-width: 860px !important;
+    max-width: calc(100% - 130px) !important;
 }
 
 .about-feature-body.stacked-layout .about-card-title {
@@ -779,7 +781,7 @@ body:not(.dark-mode):not(.theme-dark) main > section:nth-of-type(odd):not(.home-
     font-size: 16px !important;
     line-height: 1.8 !important;
     margin: 0 !important;
-    max-width: 800px !important;
+    max-width: 100% !important;
     color: #ece4ec !important;
 }
 
@@ -829,7 +831,7 @@ main .about-feature-card p,
     font-size: 15px !important;
     line-height: 1.65 !important;
     margin: 0 0 20px 0 !important;
-    max-width: calc(100% - 60px) !important;
+    max-width: calc(100% - 130px) !important;
 }
 
 .about-feature-action {
@@ -948,7 +950,7 @@ main .about-feature-card p,
 .feedback-preview,
 .feedback-section--home {
     display: block !important;
-    padding: 48px 7vw 56px !important;
+    padding: 56px 4.5vw 64px !important;
     border-top: none !important;
 }
 
@@ -1484,8 +1486,8 @@ body.page-tentang .feedback-feature-card > .card-corner-chibi {
 .about-cards-wrap {
     display: flex !important;
     flex-direction: column !important;
-    gap: 24px !important;
-    max-width: 1200px !important;
+    gap: 26px !important;
+    max-width: 1360px !important;
     margin: 0 auto !important;
     width: 100% !important;
 }
