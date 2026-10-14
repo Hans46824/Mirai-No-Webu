@@ -952,33 +952,22 @@ function setupAboutDrawerCard() {
     const card = document.getElementById("mnhAboutDrawerCard");
     if (!card) return;
 
-    let isPulled = false;
-
     card.addEventListener("click", (e) => {
-        // Jika belum ditarik: klik 1x menarik laci keluar menampilkan logo NK
-        if (!isPulled) {
-            e.preventDefault();
-            isPulled = true;
-            card.classList.add("is-pulled");
-            const hintText = card.querySelector(".drawer-hint-text");
-            if (hintText) {
-                hintText.textContent = "Laci terbuka! Klik lagi untuk menuju halaman Tentang →";
-            }
-            const btnText = card.querySelector(".drawer-btn-text");
-            if (btnText) {
-                btnText.textContent = "BUKA PROFIL SEKARANG";
-            }
-        } else {
-            // Jika sudah ditarik: klik lagi langsung pergi ke page tentang
-            window.location.href = "tentang/index.html";
+        // Jika yang diklik adalah tombol link Tentang, biarkan langsung bernavigasi
+        if (e.target.closest(".drawer-action-btn")) {
+            return;
         }
+
+        // Klik pada card: TOGGLE BUKA / TUTUP LACI (efek membuka dan menutup laci kembali)
+        card.classList.toggle("is-pulled");
     });
 
-    // Aksesibilitas keyboard (Enter / Spasi)
+    // Aksesibilitas keyboard (Enter / Spasi untuk toggle)
     card.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
+        if ((e.key === "Enter" || e.key === " ") && !e.target.closest(".drawer-action-btn")) {
             e.preventDefault();
-            card.click();
+            card.classList.toggle("is-pulled");
         }
     });
 }
+

@@ -1478,32 +1478,26 @@ body.page-tentang .feedback-feature-card > .card-corner-chibi {
     filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.4)) !important;
 }
 
-
 /* =====================================================
-   ABOUT PREVIEW — 2 CARDS GRID & DRAWER LOGO NK
+   ABOUT PREVIEW — BERTUMPUK ATAS-BAWAH & DRAWER LOGO NK
    ===================================================== */
 .about-cards-wrap {
-    display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    display: flex !important;
+    flex-direction: column !important;
     gap: 24px !important;
     max-width: 1200px !important;
     margin: 0 auto !important;
-    align-items: stretch !important;
+    width: 100% !important;
 }
 
-@media (max-width: 960px) {
-    .about-cards-wrap {
-        grid-template-columns: 1fr !important;
-        gap: 20px !important;
-    }
-}
-
-/* Card 2: Tentang Mirai no Hana dengan Garis Vertikal Kiri & Animasi Laci */
+/* Card 2: Tentang Mirai no Hana dengan Garis Vertikal Kiri */
 .about-drawer-card {
     border-left: 6px solid var(--pink, #e91e63) !important;
     cursor: pointer !important;
     user-select: none !important;
-    transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease, padding 0.35s ease !important;
+    position: relative !important;
+    overflow: hidden !important;
+    transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease !important;
 }
 
 .about-drawer-card:hover {
@@ -1512,33 +1506,44 @@ body.page-tentang .feedback-feature-card > .card-corner-chibi {
     box-shadow: 0 24px 50px rgba(233, 30, 99, 0.26), 0 6px 18px rgba(0, 0, 0, 0.6) !important;
 }
 
-.about-drawer-card .about-feature-body {
-    transition: padding-right 0.38s cubic-bezier(0.16, 1, 0.3, 1) !important;
+/* Tombol Tentang Mirai no Hana Berbentuk Agak Lingkaran / Rounded Pill */
+.about-drawer-action {
+    margin-top: 20px !important;
 }
 
-.about-drawer-card.is-pulled .about-feature-body {
-    padding-right: 140px !important;
+.about-drawer-action .drawer-action-btn {
+    border-radius: 999px !important;
+    padding: 13px 32px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    box-shadow: 0 8px 24px rgba(233, 30, 99, 0.35) !important;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-/* Kompartemen Laci Geser Logo NK (Drawer Tray) */
+.about-drawer-action .drawer-action-btn:hover {
+    transform: translateY(-3px) scale(1.03) !important;
+    box-shadow: 0 12px 30px rgba(233, 30, 99, 0.55) !important;
+}
+
+/* Kompartemen Laci Geser Logo NK (Melahap Sisi Kanan Tanpa Menggeser Teks) */
 .drawer-tray {
     position: absolute !important;
     top: 0 !important;
     right: 0 !important;
     bottom: 0 !important;
-    width: 145px !important;
-    background: linear-gradient(135deg, rgba(28, 20, 36, 0.98), rgba(16, 12, 22, 0.99)) !important;
-    border-left: 1.5px solid rgba(255, 79, 145, 0.45) !important;
-    box-shadow: -14px 0 38px rgba(0, 0, 0, 0.75) !important;
+    width: clamp(220px, 30vw, 340px) !important;
+    background: linear-gradient(135deg, rgba(32, 22, 42, 0.98), rgba(15, 11, 20, 0.99)) !important;
+    border-left: 2px solid rgba(255, 79, 145, 0.6) !important;
+    box-shadow: -20px 0 50px rgba(0, 0, 0, 0.85), inset 1px 0 0 rgba(255, 255, 255, 0.1) !important;
     display: flex !important;
-    flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 16px !important;
+    padding: 24px !important;
     box-sizing: border-box !important;
-    transform: translateX(100%) !important;
-    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) !important;
-    z-index: 5 !important;
+    transform: translateX(105%) !important;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    z-index: 10 !important;
     pointer-events: none !important;
 }
 
@@ -1546,116 +1551,28 @@ body.page-tentang .feedback-feature-card > .card-corner-chibi {
     transform: translateX(0) !important;
 }
 
-/* Pegangan / Tab Laci yang terlihat mengintip */
-.drawer-pull-tab {
-    position: absolute !important;
-    left: -14px !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    width: 14px !important;
-    height: 52px !important;
-    background: var(--pink, #e91e63) !important;
-    border-radius: 6px 0 0 6px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    box-shadow: -4px 0 14px rgba(233, 30, 99, 0.55) !important;
-}
-
-.drawer-pull-line {
-    width: 2.5px !important;
-    height: 22px !important;
-    background: #ffffff !important;
-    border-radius: 2px !important;
-}
-
-.about-drawer-card.is-pulled .drawer-pull-tab {
+/* Logo NK Besar dengan Efek Animasi Rotasi */
+.drawer-nk-logo {
+    width: clamp(120px, 16vw, 165px) !important;
+    height: auto !important;
+    object-fit: contain !important;
+    filter: drop-shadow(0 10px 28px rgba(233, 30, 99, 0.65)) !important;
+    transform: rotate(-180deg) scale(0.4) !important;
     opacity: 0 !important;
-    visibility: hidden !important;
+    transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) 0.08s, opacity 0.35s ease 0.05s !important;
 }
 
-/* Konten Logo NK di Dalam Laci */
-.drawer-content-box {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    text-align: center !important;
-    gap: 8px !important;
-    transform: scale(0.85) !important;
-    opacity: 0.7 !important;
-    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s, opacity 0.35s ease 0.1s !important;
-}
-
-.about-drawer-card.is-pulled .drawer-content-box {
-    transform: scale(1) !important;
+.about-drawer-card.is-pulled .drawer-nk-logo {
+    transform: rotate(0deg) scale(1) !important;
     opacity: 1 !important;
 }
 
-.drawer-nk-logo {
-    width: 82px !important;
-    height: auto !important;
-    object-fit: contain !important;
-    filter: drop-shadow(0 6px 18px rgba(233, 30, 99, 0.55)) !important;
-}
-
-.drawer-nk-title {
-    font-size: 11px !important;
-    font-weight: 800 !important;
-    letter-spacing: 1.5px !important;
-    color: var(--pink, #ff4f91) !important;
-    text-transform: uppercase !important;
-}
-
-.drawer-nk-sub {
-    font-size: 9.5px !important;
-    font-weight: 700 !important;
-    color: #ffffff !important;
-    letter-spacing: 1px !important;
-    opacity: 0.85 !important;
-}
-
-/* Action & Hint Text */
-.about-drawer-action {
-    display: flex !important;
-    align-items: center !important;
-    gap: 16px !important;
-    flex-wrap: wrap !important;
-    margin-top: 14px !important;
-}
-
-.drawer-hint {
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 7px !important;
-    font-size: 12px !important;
-    color: var(--pink, #ff659b) !important;
-    font-weight: 600 !important;
-    letter-spacing: 0.4px !important;
-}
-
-.drawer-hint-dot {
-    width: 6px !important;
-    height: 6px !important;
-    border-radius: 50% !important;
-    background: var(--pink, #e91e63) !important;
-    box-shadow: 0 0 8px var(--pink, #e91e63) !important;
-    animation: drawerPulse 1.8s infinite !important;
-}
-
-@keyframes drawerPulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.4); opacity: 0.6; }
-}
-
 @media (max-width: 600px) {
-    .about-drawer-card.is-pulled .about-feature-body {
-        padding-right: 110px !important;
-    }
     .drawer-tray {
-        width: 115px !important;
-        padding: 10px !important;
+        width: 170px !important;
+        padding: 14px !important;
     }
     .drawer-nk-logo {
-        width: 64px !important;
+        width: 105px !important;
     }
 }
