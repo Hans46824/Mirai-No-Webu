@@ -23,10 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function setupHeroContentScroll() {
     // Efek sticky curtain dan ascending text (solid 100% tanpa transparansi) untuk seluruh hero
-    const hero = document.querySelector(".hero, .page-hero, .proker-hero, .quest-hero, .toko-hero");
+    const hero = document.querySelector(".hero, .page-hero, .proker-hero, .quest-hero, .toko-hero, .class-hero, .about-hero, .activities-hero, .rekomendasi-hero, .peringkat-hero, .lomba-hero, .motivasi-hero");
     if (!hero) return;
 
-    const heroContent = hero.querySelector(".hero-text-box, .hero-content, .page-hero > div, .proker-hero-inner, .quest-hero > div, .toko-hero > div, div");
+    const heroContent = hero.querySelector(".hero-text-box, .hero-content, .proker-hero-inner, .page-hero > div:not(.hero-social-sidebar), .quest-hero > div:not(.hero-social-sidebar), .toko-hero > div:not(.hero-social-sidebar), div:not(.hero-social-sidebar):not(.proker-back-wrap)");
     const heroSocial = hero.querySelector(".hero-social-sidebar");
 
     let ticking = false;

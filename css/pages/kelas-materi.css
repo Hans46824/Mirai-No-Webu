@@ -15,8 +15,10 @@
     grid-template-columns: minmax(0, 1.3fr) minmax(320px, .7fr);
     gap: 7vw;
     align-items: end;
-    min-height: 380px;
-    padding: 135px 8vw 58px;
+    height: 100vh !important;
+    height: 100dvh !important;
+    min-height: 550px !important;
+    padding: 0 !important;
     color: var(--white);
     background-image: url("../../images/mirai/background/Sora.png");
     background-position: center 30%;
@@ -3201,8 +3203,10 @@ main > section.buuku-lesson {
     top: 0 !important;
     z-index: 1 !important;
     overflow: hidden !important;
-    min-height: 28svh !important;
-    padding: 80px 0 24px !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    min-height: 550px !important;
+    padding: 0 !important;
 }
 
 .kurikulum-page-section {
@@ -3921,8 +3925,10 @@ body.page-kurikulum .doc-back-btn:hover,
 .page-kelas .page-hero.class-hero {
     display: flex !important;
     align-items: flex-end !important;
-    min-height: 59svh !important;
-    padding: 130px 0 68px !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    min-height: 550px !important;
+    padding: 0 !important;
 }
 
 .class-hero .page-title {

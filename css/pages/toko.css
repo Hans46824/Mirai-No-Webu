@@ -27,8 +27,10 @@ body.page-toko,
     z-index: 1 !important;
     display: flex !important;
     align-items: flex-end !important;
-    min-height: 59svh !important;
-    padding: 130px 0 68px !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    min-height: 550px !important;
+    padding: 0 !important;
 }
 
 .toko-hero > div {

@@ -889,6 +889,10 @@ body.dark-mode .program-section {
     background-size: cover !important;
     background-repeat: no-repeat !important;
     z-index: 1 !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    min-height: 550px !important;
+    box-sizing: border-box !important;
 }
 
 .page-hero::before {
@@ -900,9 +904,9 @@ body.dark-mode .program-section {
 }
 
 .hero-content,
-.page-hero > div,
+.page-hero > div:not(.hero-social-sidebar),
 .proker-hero-inner,
-.quest-hero > div {
+.quest-hero > div:not(.hero-social-sidebar) {
     position: relative;
     z-index: 1;
     width: min(1080px, 88%);
@@ -1378,8 +1382,10 @@ body.theme-dark .section-desc {
 .page-hero {
     display: flex;
     align-items: flex-end;
-    min-height: 59svh;
-    padding: 130px 0 68px;
+    height: 100vh !important;
+    height: 100dvh !important;
+    min-height: 550px !important;
+    padding: 0 !important;
 }
 
 .about-hero {
@@ -1968,7 +1974,9 @@ body.theme-dark .menu-toggle {
     position: sticky !important;
     top: 0 !important;
     z-index: 1 !important;
-    min-height: 59svh !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    min-height: 550px !important;
     display: flex !important;
     align-items: flex-end !important;
     overflow: hidden !important;
@@ -1976,6 +1984,7 @@ body.theme-dark .menu-toggle {
 }
 
 /* a) Blok teks judul di kiri bawah persis seperti Beranda */
+.hero-text-box,
 .page-hero > div:not(.hero-social-sidebar),
 .proker-hero-inner,
 .quest-hero > div:not(.hero-social-sidebar),
@@ -1989,9 +1998,9 @@ body.theme-dark .menu-toggle {
 .motivasi-hero > div:not(.hero-social-sidebar) {
     position: absolute !important;
     bottom: 14% !important;
-    left: 6% !important;
+    left: 5% !important;
     width: auto !important;
-    max-width: calc(100% - 110px) !important;
+    max-width: calc(100% - 130px) !important;
     margin: 0 !important;
     padding: 0 !important;
     z-index: 5 !important;
@@ -2043,14 +2052,20 @@ body.theme-dark .menu-toggle {
     bottom: 14% !important;
     right: 5% !important;
     top: auto !important;
-    transform: none !important;
+    left: auto !important;
+    width: auto !important;
+    max-width: none !important;
+    margin: 0 !important;
     display: flex !important;
     flex-direction: column !important;
     gap: 12px !important;
+    align-items: center !important;
     z-index: 10 !important;
+    will-change: transform, opacity;
 }
 
 @media (max-width: 600px) {
+    .hero-text-box,
     .page-hero > div:not(.hero-social-sidebar),
     .proker-hero-inner,
     .quest-hero > div:not(.hero-social-sidebar),

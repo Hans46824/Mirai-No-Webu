@@ -31,12 +31,13 @@
    PROKER PAGE – SHARED LAYOUT
    ===================================================== */
 .proker-hero {
-    min-height: 54vh;
-    min-height: 54dvh;
+    height: 100vh !important;
+    height: 100dvh !important;
+    min-height: 550px !important;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: 120px 7vw 64px;
+    padding: 0 !important;
     background-image: url("../../images/mirai/background/Sora.png") !important;
     background-size: cover !important;
     background-position: center right !important;
