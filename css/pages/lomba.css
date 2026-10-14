@@ -214,7 +214,7 @@ body.page-lomba,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("../images/mirai/background/c1w.jpeg") !important;
+    background-image: url("../../images/mirai/background/c1w.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -233,7 +233,7 @@ body.page-lomba,
 
 body.dark-mode .lomba-detail-card::after,
 body.theme-dark .lomba-detail-card::after {
-    background-image: url("../images/mirai/background/c1b.jpeg") !important;
+    background-image: url("../../images/mirai/background/c1b.jpeg") !important;
     opacity: 0.045 !important;
     mix-blend-mode: screen !important;
 }

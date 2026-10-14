@@ -135,6 +135,7 @@ Mirai-No-Webu/
 │       ├── fix_japanese.py
 │       ├── fix_sora.py
 │       ├── fix_sora2.py
+│       ├── fix_visual_bugs.py
 │       ├── move_menu_btn.py
 │       ├── replace_cards.py
 │       ├── replace_cards_revert.py

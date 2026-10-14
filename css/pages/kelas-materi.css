@@ -18,7 +18,7 @@
     min-height: 380px;
     padding: 135px 8vw 58px;
     color: var(--white);
-    background-image: url("../images/mirai/background/Sora.png");
+    background-image: url("../../images/mirai/background/Sora.png");
     background-position: center 30%;
     background-size: cover;
     background-repeat: no-repeat;
@@ -3310,7 +3310,7 @@ main > section.buuku-lesson {
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("../images/mirai/background/c1b.jpeg") !important;
+    background-image: url("../../images/mirai/background/c1b.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -3847,7 +3847,7 @@ body.page-kurikulum .doc-back-btn:hover,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("../images/mirai/background/w1b.jpeg") !important;
+    background-image: url("../../images/mirai/background/w1b.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -4087,7 +4087,7 @@ body.page-kurikulum .doc-back-btn:hover,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("../images/mirai/background/w1w.jpeg") !important;
+    background-image: url("../../images/mirai/background/w1w.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -4525,7 +4525,7 @@ body.theme-dark .page-kelas #kurikulum .doc-big-card {
 
 body.dark-mode .page-kelas #kurikulum .doc-big-card::after,
 body.theme-dark .page-kelas #kurikulum .doc-big-card::after {
-    background-image: url("../images/mirai/background/w1b.jpeg") !important;
+    background-image: url("../../images/mirai/background/w1b.jpeg") !important;
     opacity: 0.045 !important;
     mix-blend-mode: screen !important;
 }
@@ -4669,7 +4669,7 @@ body.theme-dark .page-kelas #kurikulum .doc-card-footer a.doc-btn-view:hover svg
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("../images/mirai/background/w1b.jpeg") !important;
+    background-image: url("../../images/mirai/background/w1b.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -4842,7 +4842,7 @@ body.theme-dark .page-kelas #kurikulum .doc-card-footer a.doc-btn-view:hover svg
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("../images/mirai/background/w1w.jpeg") !important;
+    background-image: url("../../images/mirai/background/w1w.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -5018,7 +5018,7 @@ body.theme-dark .page-kelas #kurikulum .doc-card-footer a.doc-btn-view:hover svg
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("../images/mirai/background/w1w.jpeg") !important;
+    background-image: url("../../images/mirai/background/w1w.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -5032,7 +5032,7 @@ body.theme-dark .page-kelas #kurikulum .doc-card-footer a.doc-btn-view:hover svg
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("../images/mirai/background/w1b.jpeg") !important;
+    background-image: url("../../images/mirai/background/w1b.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -5674,7 +5674,7 @@ body.theme-dark .perfect-note p {
 .learning-app [data-script="hiragana"] .level-card::after,
 .learning-app .level-grid[data-script="hiragana"] .level-card::after,
 body[data-active-kana="hiragana"] .level-card::after {
-    background-image: url("../images/mirai/background/c1b.jpeg") !important;
+    background-image: url("../../images/mirai/background/c1b.jpeg") !important;
     opacity: 0.045 !important;
     mix-blend-mode: screen !important;
 }
@@ -5691,7 +5691,7 @@ body[data-active-kana="hiragana"] .level-card:hover::after {
 .learning-app [data-script="katakana"] .level-card::after,
 .learning-app .level-grid[data-script="katakana"] .level-card::after,
 body[data-active-kana="katakana"] .level-card::after {
-    background-image: url("../images/mirai/background/w1b.jpeg") !important;
+    background-image: url("../../images/mirai/background/w1b.jpeg") !important;
     opacity: 0.045 !important;
     mix-blend-mode: screen !important;
 }
@@ -5732,7 +5732,7 @@ body[data-active-kana="katakana"] .level-card:hover::after {
 .learning-app .mix-section[data-script="hiragana"] .mode-card::after,
 .learning-app .mode-grid[data-script="hiragana"] .mode-card::after,
 body[data-active-kana="hiragana"] .mode-card::after {
-    background-image: url("../images/mirai/background/c1w.jpeg") !important;
+    background-image: url("../../images/mirai/background/c1w.jpeg") !important;
     opacity: 0.10 !important;
     mix-blend-mode: multiply !important;
 }
@@ -5751,7 +5751,7 @@ body.theme-dark .learning-app [data-script="hiragana"] .mode-card::after,
 body.theme-dark .learning-app .mix-section[data-script="hiragana"] .mode-card::after,
 body.theme-dark .learning-app .mode-grid[data-script="hiragana"] .mode-card::after,
 body.theme-dark[data-active-kana="hiragana"] .mode-card::after {
-    background-image: url("../images/mirai/background/c1w.jpeg") !important;
+    background-image: url("../../images/mirai/background/c1w.jpeg") !important;
     opacity: 0.08 !important;
     mix-blend-mode: multiply !important;
 }
@@ -5770,7 +5770,7 @@ body.theme-dark[data-active-kana="hiragana"] .mode-card:hover::after {
 .learning-app .mix-section[data-script="katakana"] .mode-card::after,
 .learning-app .mode-grid[data-script="katakana"] .mode-card::after,
 body[data-active-kana="katakana"] .mode-card::after {
-    background-image: url("../images/mirai/background/w1b.jpeg") !important;
+    background-image: url("../../images/mirai/background/w1b.jpeg") !important;
     opacity: 0.045 !important;
     mix-blend-mode: screen !important;
 }
@@ -5789,7 +5789,7 @@ body.theme-dark .learning-app [data-script="katakana"] .mode-card::after,
 body.theme-dark .learning-app .mix-section[data-script="katakana"] .mode-card::after,
 body.theme-dark .learning-app .mode-grid[data-script="katakana"] .mode-card::after,
 body.theme-dark[data-active-kana="katakana"] .mode-card::after {
-    background-image: url("../images/mirai/background/w1b.jpeg") !important;
+    background-image: url("../../images/mirai/background/w1b.jpeg") !important;
     opacity: 0.045 !important;
     mix-blend-mode: screen !important;
 }
@@ -5808,7 +5808,7 @@ body:not(.theme-dark):not(.dark-mode) .learning-app [data-script="katakana"] .mo
 body:not(.theme-dark):not(.dark-mode) .learning-app .mix-section[data-script="katakana"] .mode-card::after,
 body:not(.theme-dark):not(.dark-mode) .learning-app .mode-grid[data-script="katakana"] .mode-card::after,
 body:not(.theme-dark):not(.dark-mode)[data-active-kana="katakana"] .mode-card::after {
-    background-image: url("../images/mirai/background/w1b.jpeg") !important;
+    background-image: url("../../images/mirai/background/w1b.jpeg") !important;
     filter: invert(1) !important;
     opacity: 0.10 !important;
     mix-blend-mode: multiply !important;

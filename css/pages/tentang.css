@@ -1959,7 +1959,7 @@ body.theme-dark .accessory-badge {
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("../images/mirai/background/w1b.jpeg") !important;
+    background-image: url("../../images/mirai/background/w1b.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -3223,7 +3223,7 @@ body.theme-dark .faq-chat-bubble::before {
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("../images/mirai/background/w1b.jpeg") !important;
+    background-image: url("../../images/mirai/background/w1b.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -3290,7 +3290,7 @@ body.theme-dark .faq-chat-bubble::before {
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("../images/mirai/background/c1b.jpeg") !important;
+    background-image: url("../../images/mirai/background/c1b.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -3412,7 +3412,7 @@ body.theme-dark .faq-chat-bubble::before {
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("../images/mirai/background/w1w.jpeg") !important;
+    background-image: url("../../images/mirai/background/w1w.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
@@ -3459,7 +3459,7 @@ body.theme-dark .faq-chat-bubble::before {
 }
 
 body.theme-dark .ketentuan-card::after {
-    background-image: url("../images/mirai/background/w1b.jpeg") !important;
+    background-image: url("../../images/mirai/background/w1b.jpeg") !important;
     opacity: 0.045 !important;
     mix-blend-mode: screen !important;
 }
@@ -3776,7 +3776,7 @@ body.page-tentang main > section.feedback-preview {
 }
 
 body.page-tentang .feedback-feature-card::after {
-    background-image: url("../images/mirai/background/w1b.jpeg") !important;
+    background-image: url("../../images/mirai/background/w1b.jpeg") !important;
 }
 
 /* ==========================================================================
@@ -3797,7 +3797,7 @@ body.page-tentang .feedback-feature-card::after {
    -------------------------------------------------------------------------- */
 .page-kegiatan .division-card::after,
 .page-kegiatan .facility-card::after {
-    background-image: url("../images/mirai/background/w1b.jpeg") !important;
+    background-image: url("../../images/mirai/background/w1b.jpeg") !important;
     opacity: 0.045 !important;
     mix-blend-mode: screen !important;
 }
@@ -3809,7 +3809,7 @@ body.page-tentang .feedback-feature-card::after {
 }
 
 .page-kegiatan .program-card::after {
-    background-image: url("../images/mirai/background/w1w.jpeg") !important;
+    background-image: url("../../images/mirai/background/w1w.jpeg") !important;
     opacity: 0.10 !important;
     mix-blend-mode: multiply !important;
 }
@@ -3821,7 +3821,7 @@ body.page-tentang .feedback-feature-card::after {
 
 body.dark-mode .page-kegiatan .program-card::after,
 body.theme-dark .page-kegiatan .program-card::after {
-    background-image: url("../images/mirai/background/w1b.jpeg") !important;
+    background-image: url("../../images/mirai/background/w1b.jpeg") !important;
     opacity: 0.045 !important;
     mix-blend-mode: screen !important;
 }
@@ -3838,7 +3838,7 @@ body.theme-dark .page-kegiatan .program-card:hover::after {
 .page-rekomendasi .rek-cat-explain-card::after,
 .page-rekomendasi .media-tips-card::after,
 .page-rekomendasi .media-col-card::after {
-    background-image: url("../images/mirai/background/c1b.jpeg") !important;
+    background-image: url("../../images/mirai/background/c1b.jpeg") !important;
     opacity: 0.045 !important;
     mix-blend-mode: screen !important;
 }
@@ -3854,7 +3854,7 @@ body.theme-dark .page-kegiatan .program-card:hover::after {
    7. LOMBA & ACARA (.page-lomba) - Pola Awan (c1b & c1w)
    -------------------------------------------------------------------------- */
 .page-lomba .event-card::after {
-    background-image: url("../images/mirai/background/c1b.jpeg") !important;
+    background-image: url("../../images/mirai/background/c1b.jpeg") !important;
     opacity: 0.045 !important;
     mix-blend-mode: screen !important;
 }
@@ -3864,7 +3864,7 @@ body.theme-dark .page-kegiatan .program-card:hover::after {
 }
 
 .page-lomba .lomba-detail-card::after {
-    background-image: url("../images/mirai/background/c1w.jpeg") !important;
+    background-image: url("../../images/mirai/background/c1w.jpeg") !important;
     opacity: 0.10 !important;
     mix-blend-mode: multiply !important;
 }
@@ -3875,7 +3875,7 @@ body.theme-dark .page-kegiatan .program-card:hover::after {
 
 body.dark-mode .page-lomba .lomba-detail-card::after,
 body.theme-dark .page-lomba .lomba-detail-card::after {
-    background-image: url("../images/mirai/background/c1b.jpeg") !important;
+    background-image: url("../../images/mirai/background/c1b.jpeg") !important;
     opacity: 0.045 !important;
     mix-blend-mode: screen !important;
 }

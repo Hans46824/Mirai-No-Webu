@@ -499,7 +499,7 @@ body.sidebar-open {
     color: var(--white);
     box-sizing: border-box;
     z-index: 1;
-    background-image: url("../images/mirai/background/Sora.png");
+    background-image: url("../../images/mirai/background/Sora.png");
     background-size: cover;
     background-position: center 25%;
     background-repeat: no-repeat;
@@ -691,7 +691,7 @@ body.dark-mode .program-section {
     inset: 0;
     background-image:
         radial-gradient(ellipse at 50% 0%, rgba(233, 30, 99, 0.09) 0%, transparent 70%),
-        url("../images/mirai/background/c1b.jpeg");
+        url("../../images/mirai/background/c1b.jpeg");
     background-size: cover, 280px auto;
     background-repeat: no-repeat, repeat;
     background-position: center, center;
@@ -884,7 +884,7 @@ body.dark-mode .program-section {
     top: 0 !important;
     overflow: hidden !important;
     color: var(--white);
-    background-image: url("../images/mirai/background/Sora.png") !important;
+    background-image: url("../../images/mirai/background/Sora.png") !important;
     background-position: center !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
@@ -1949,80 +1949,143 @@ body.theme-dark .menu-toggle {
 
 /* Hero Layout Guardrail */
 /* ========================================================================
-   HERO LAYOUT GUARDRAIL
+   HERO LAYOUT GUARDRAIL (PENYERAGAMAN MENYELURUH DENGAN BERANDA)
    Semua hero halaman memakai satu garis dasar yang sama: subjudul, judul,
-   dan tombol sosial tidak lagi bergantung pada margin otomatis flex. Margin
-   otomatis sebelumnya mengambil ruang vertikal hero sehingga posisi konten
-   berbeda-beda antarhalaman.
+   dan tombol sosial diposisikan secara konsisten dan proporsional.
    ======================================================================== */
+.hero,
 .page-hero,
-.toko-hero {
+.proker-hero,
+.quest-hero,
+.toko-hero,
+.class-hero,
+.about-hero,
+.activities-hero,
+.rekomendasi-hero,
+.peringkat-hero,
+.lomba-hero,
+.motivasi-hero {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1 !important;
+    min-height: 59svh !important;
     display: flex !important;
     align-items: flex-end !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
 }
 
+/* a) Blok teks judul di kiri bawah persis seperti Beranda */
 .page-hero > div:not(.hero-social-sidebar),
-.toko-hero > div:not(.hero-social-sidebar) {
-    width: min(1080px, 88%) !important;
-    margin: 0 auto !important;
-    padding: 0 !important;
-    z-index: 2 !important;
-}
-
-.page-hero .page-hero-eyebrow,
-.page-hero .page-title {
-    max-width: min(760px, calc(100vw - 7rem));
-}
-
-.page-hero .page-hero-eyebrow {
-    margin: 0 0 14px !important;
-}
-
-.page-hero .page-title {
+.proker-hero-inner,
+.quest-hero > div:not(.hero-social-sidebar),
+.toko-hero > div:not(.hero-social-sidebar),
+.class-hero > div:not(.hero-social-sidebar),
+.about-hero > div:not(.hero-social-sidebar),
+.activities-hero > div:not(.hero-social-sidebar),
+.rekomendasi-hero > div:not(.hero-social-sidebar),
+.peringkat-hero > div:not(.hero-social-sidebar),
+.lomba-hero > div:not(.hero-social-sidebar),
+.motivasi-hero > div:not(.hero-social-sidebar) {
+    position: absolute !important;
+    bottom: 14% !important;
+    left: 6% !important;
+    width: auto !important;
+    max-width: calc(100% - 110px) !important;
     margin: 0 !important;
-    overflow-wrap: anywhere;
+    padding: 0 !important;
+    z-index: 5 !important;
 }
 
-/* Ikon selalu berada di sisi kanan bawah hero, terpisah dari blok judul. */
+/* b) Ukuran judul proporsional tidak merusak baris */
+.page-title,
+.hero-title,
+.proker-hero h1,
+.quest-hero h1,
+.toko-hero h1,
+.class-hero .page-title,
+.about-hero .page-title,
+.activities-hero .page-title,
+.rekomendasi-hero .page-title,
+.peringkat-hero .page-title,
+.lomba-hero .page-title,
+.motivasi-hero .page-title {
+    font-size: clamp(2.4rem, 7vw, 4.8rem) !important;
+    line-height: 1.02 !important;
+    letter-spacing: -0.04em !important;
+    margin: 0 !important;
+    color: #ffffff !important;
+    text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.5) !important;
+    overflow-wrap: break-word !important;
+}
+
+/* c) Sub-judul eyebrow di atas judul berjarak rapi */
+.page-hero-eyebrow,
+.proker-hero .eyebrow,
+.hero-subtitle {
+    margin: 0 0 8px 0 !important;
+}
+
+/* d) Ikon sosial media di semua halaman terkunci di pojok kanan bawah sejajar judul */
+.hero-social-sidebar,
 .page-hero > .hero-social-sidebar,
-.toko-hero > .hero-social-sidebar {
-    right: 6% !important;
-    bottom: 68px !important;
-    z-index: 3 !important;
+.proker-hero > .hero-social-sidebar,
+.quest-hero > .hero-social-sidebar,
+.toko-hero > .hero-social-sidebar,
+.class-hero > .hero-social-sidebar,
+.about-hero > .hero-social-sidebar,
+.activities-hero > .hero-social-sidebar,
+.rekomendasi-hero > .hero-social-sidebar,
+.peringkat-hero > .hero-social-sidebar,
+.lomba-hero > .hero-social-sidebar,
+.motivasi-hero > .hero-social-sidebar {
+    position: absolute !important;
+    bottom: 14% !important;
+    right: 5% !important;
+    top: auto !important;
+    transform: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    z-index: 10 !important;
 }
 
 @media (max-width: 600px) {
-    .page-hero,
-    .page-kelas .page-hero.class-hero,
-    .toko-hero {
-        min-height: 56svh !important;
-        padding: 104px 0 36px !important;
-    }
-
     .page-hero > div:not(.hero-social-sidebar),
-    .toko-hero > div:not(.hero-social-sidebar) {
-        width: min(calc(100% - 40px), 1080px) !important;
+    .proker-hero-inner,
+    .quest-hero > div:not(.hero-social-sidebar),
+    .toko-hero > div:not(.hero-social-sidebar),
+    .class-hero > div:not(.hero-social-sidebar),
+    .about-hero > div:not(.hero-social-sidebar),
+    .activities-hero > div:not(.hero-social-sidebar),
+    .rekomendasi-hero > div:not(.hero-social-sidebar),
+    .peringkat-hero > div:not(.hero-social-sidebar),
+    .lomba-hero > div:not(.hero-social-sidebar),
+    .motivasi-hero > div:not(.hero-social-sidebar) {
+        bottom: 12% !important;
+        left: 5% !important;
+        max-width: calc(100% - 75px) !important;
     }
 
-    .page-hero .page-hero-eyebrow,
-    .page-hero .page-title {
-        max-width: calc(100vw - 40px);
-    }
-
-    .page-hero .page-title,
-    .class-hero .page-title,
-    .about-hero .page-title,
-    .rekomendasi-hero .page-title,
-    .peringkat-hero .page-title,
-    .lomba-hero .page-title {
-        font-size: clamp(40px, 11vw, 56px) !important;
-        line-height: .9 !important;
-        letter-spacing: -.06em !important;
-    }
-
+    .hero-social-sidebar,
     .page-hero > .hero-social-sidebar,
-    .toko-hero > .hero-social-sidebar {
-        right: 20px !important;
-        bottom: 36px !important;
+    .proker-hero > .hero-social-sidebar,
+    .quest-hero > .hero-social-sidebar,
+    .toko-hero > .hero-social-sidebar,
+    .class-hero > .hero-social-sidebar,
+    .about-hero > .hero-social-sidebar,
+    .activities-hero > .hero-social-sidebar,
+    .rekomendasi-hero > .hero-social-sidebar,
+    .peringkat-hero > .hero-social-sidebar,
+    .lomba-hero > .hero-social-sidebar,
+    .motivasi-hero > .hero-social-sidebar {
+        bottom: 12% !important;
+        right: 4% !important;
+        gap: 8px !important;
+    }
+
+    .hero-social-btn {
+        width: 38px !important;
+        height: 38px !important;
     }
 }

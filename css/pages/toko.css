@@ -266,7 +266,7 @@ body.page-toko,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("../images/mirai/background/c1b.jpeg") !important;
+    background-image: url("../../images/mirai/background/c1b.jpeg") !important;
     background-size: 240px auto !important;
     opacity: 0.045 !important;
     mix-blend-mode: screen !important;
@@ -736,7 +736,7 @@ body.page-toko,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("../images/mirai/background/c1w.jpeg") !important;
+    background-image: url("../../images/mirai/background/c1w.jpeg") !important;
     background-size: 240px auto !important;
     opacity: 0.10 !important;
     mix-blend-mode: multiply !important;
@@ -822,7 +822,7 @@ body.page-toko,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("../images/mirai/background/c1b.jpeg") !important;
+    background-image: url("../../images/mirai/background/c1b.jpeg") !important;
     background-size: 260px auto !important;
     opacity: 0.045 !important;
     mix-blend-mode: screen !important;
@@ -928,7 +928,7 @@ body.page-toko,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("../images/mirai/background/c1w.jpeg") !important;
+    background-image: url("../../images/mirai/background/c1w.jpeg") !important;
     background-size: 240px auto !important;
     opacity: 0.08 !important;
     mix-blend-mode: multiply !important;

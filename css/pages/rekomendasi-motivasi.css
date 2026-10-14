@@ -74,7 +74,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background-image: url("../images/mirai/background/c1b.jpeg");
+    background-image: url("../../images/mirai/background/c1b.jpeg");
     background-size: 260px auto;
     background-repeat: repeat;
     background-position: top left;
@@ -740,7 +740,7 @@ body.page-rekomendasi,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background-image: url("../images/mirai/background/c1b.jpeg") !important;
+    background-image: url("../../images/mirai/background/c1b.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;

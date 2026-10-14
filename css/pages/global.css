@@ -535,7 +535,7 @@ main:has(.proker-hero) > section:nth-of-type(even) .proker-detail-card {
 .proker-hero ~ section:nth-of-type(even) .proker-detail-card::after,
 main:has(.proker-hero) > section:nth-of-type(even) .proker-benefit-card::after,
 main:has(.proker-hero) > section:nth-of-type(even) .proker-detail-card::after {
-    background-image: url("../images/mirai/background/w1b.jpeg") !important;
+    background-image: url("../../images/mirai/background/w1b.jpeg") !important;
     background-size: 260px auto !important;
     background-repeat: repeat !important;
     background-position: top left !important;
