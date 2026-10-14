@@ -1,3 +1,9 @@
+/**
+ * File: js/stroke.js
+ * Fungsi: Mesin animasi kanvas urutan goresan karakter Kanji dan kombinasi Kana Yoon di atas kisi Genkouyoushi.
+ * Penggunaan: kamus/index.html dan kamus/kanji.html.
+ */
+
 window.currentPenSize = window.currentPenSize || 'thick';
 
 window.togglePenSize = function togglePenSize() {

@@ -1,8 +1,9 @@
 /**
- * MiraiData - Unified API & Data Service for MIRAI NO HANA
- * Provides consistent data, reading, Indonesian meaning, and stroke-order
- * across Kanji, Hiragana, and Katakana with persistent localStorage caching.
+ * File: js/api.js
+ * Fungsi: Layanan terpadu API data kamus & karakter (MiraiData), caching localStorage, dan loader dataset data/kana.json.
+ * Penggunaan: Modul penyedia data sentral untuk fitur kamus, pencarian kanji, dan pembelajaran aksara.
  */
+
 (() => {
     const KANJI_API_BASE = "https://kanjiapi.dev/v1";
     let kanaDataCache = null;

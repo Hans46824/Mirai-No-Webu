@@ -1,18 +1,7 @@
 /**
- * ==============================================================================
- * Mirai No Hana — Kamus & Karakter Belajar (Kana & Kanji)
- * ==============================================================================
- * Modul ini mengatur fungsionalitas pencarian, filter, animasi goresan (stroke order),
- * pengambilan data KanjiAPI.dev, lokalisasi Romaji, translasi dinamis Bahasa Indonesia,
- * serta pengurutan kanji berdasarkan goresan (stroke count) dan tingkat pendidikan (grade).
- * 
- * Fitur Utama:
- * 1. Pemuatan Metadata Kanji: Memetakan 13.000+ karakter ke stroke count dan grade dari data/kanji-meta.json.
- * 2. Pengurutan Kanji Otomatis: Diurutkan berdasarkan jumlah goresan (Ascending) lalu grade (Ascending).
- * 3. Detail Kanji Komprehensif: Onyomi (China), Kunyomi (Jepang), Romaji, arti Bahasa Indonesia murni.
- * 4. Kosakata Terkait: Menampilkan [Kanji] [Kana] ([Romaji]) — [Arti Bahasa Indonesia] dengan translasi lazy.
- * 5. Tab Hiragana & Katakana: Kamus interaktif dengan animasi goresan huruf.
- * ==============================================================================
+ * File: js/kanji.js
+ * Fungsi: Mesin pencarian dan ensiklopedia 2.136 karakter Joyo Kanji, filter tingkat JLPT/kelas, dan modal detail kanji.
+ * Penggunaan: kamus/index.html dan kamus/kanji.html.
  */
 
 /**

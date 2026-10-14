@@ -118,6 +118,7 @@ Mirai-No-Webu/
 ├── skrip/                          # Pemeliharaan Kode Python
 │   ├── README.md                   # Panduan skrip pengembang
 │   └── arsip/                      # Arsip skrip perbaikan sekali-pakai (dikecualikan dari watcher)
+│       ├── add_js_headers.py
 │       ├── add_nametag.py
 │       ├── fix_heroes.py
 │       ├── fix_index_links.py

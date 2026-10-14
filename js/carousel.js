@@ -1,3 +1,9 @@
+/**
+ * File: js/carousel.js
+ * Fungsi: Komponen slider horizontal utilitas [data-slider] dengan navigasi panah, pagination dots, dan touch swipe.
+ * Penggunaan: Komponen mandiri untuk etalase slider benefit/fitur pada sub-halaman interaktif.
+ */
+
 document.addEventListener("DOMContentLoaded", () => {
     const slider = document.querySelector("[data-slider]");
     if (!slider) return;

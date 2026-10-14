@@ -1,3 +1,9 @@
+/**
+ * File: js/main.js
+ * Fungsi: Pengendali UI global (navbar, sidebar drawer, hero sticky curtain, back-to-top, scroll reveal, dan tema).
+ * Penggunaan: Universal di seluruh 30 halaman HTML website (index.html, tentang, kelas, kegiatan, divisi, lomba, toko, dll.).
+ */
+
 document.addEventListener("DOMContentLoaded", () => {
     normalizeNavigation();
     setupThemeToggle();

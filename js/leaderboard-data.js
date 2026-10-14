@@ -1,6 +1,7 @@
 /**
- * MIRAI NO WEBU — Data Terpusat Papan Peringkat (Leaderboard Master Data)
- * Sumber data tunggal untuk Papan Peringkat (peringkat.html) dan Statistik Prestasi (tentang.html).
+ * File: js/leaderboard-data.js
+ * Fungsi: Master data terpusat untuk papan peringkat keaktifan, presensi kehadiran anggota, dan rekam jejak prestasi siswa.
+ * Penggunaan: peringkat/index.html dan tentang/index.html.
  */
 
 (function() {

@@ -1,3 +1,9 @@
+/**
+ * File: js/translator.js
+ * Fungsi: Mesin penerjemah leksikal kamus (MiraiTranslator) dari makna bahasa Inggris ke padanan istilah Bahasa Indonesia.
+ * Penggunaan: kamus/index.html dan kamus/kanji.html.
+ */
+
 (() => {
     // Instant offline English -> Indonesian dictionary for Japanese/Kanji glosses
     const dictionary = {

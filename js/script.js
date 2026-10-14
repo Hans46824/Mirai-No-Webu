@@ -1,136 +1,14 @@
+/**
+ * File: js/script.js
+ * Fungsi: Mesin kuis interaktif pembelajaran mandiri Kana Quest (20 soal adaptif, goresan kanvas, dan evaluasi hasil).
+ * Penggunaan: Digunakan di kelas/latihan.html (serta modul interaktif lomba, peringkat, rekomendasi, dan toko).
+ */
+
 document.addEventListener("DOMContentLoaded", () => {
-    const topButton = document.querySelector(".to-top");
-
-    if (topButton) {
-        const update = () => {
-            topButton.classList.toggle("is-visible", window.scrollY > 500);
-        };
-
-        update();
-        window.addEventListener("scroll", update, { passive: true });
-        topButton.addEventListener("click", () => {
-            window.scrollTo({ top: 0, behavior: "smooth" });
-        });
-    }
-
-    document.querySelectorAll(".reveal").forEach((section) => {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("is-visible");
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.12 });
-
-        observer.observe(section);
-    });
-
-    const slider = document.querySelector("[data-slider]");
-    if (slider) {
-        const slides = [...slider.querySelectorAll(".benefit-slide")];
-        const dots = document.querySelector("[data-dots]");
-        let active = 0;
-
-        const render = (index) => {
-            active = (index + slides.length) % slides.length;
-            slides.forEach((slide, i) => slide.classList.toggle("is-active", i === active));
-            dots.querySelectorAll("button").forEach((dot, i) => {
-                dot.classList.toggle("is-active", i === active);
-            });
-        };
-
-        slides.forEach((_, i) => {
-            const dot = document.createElement("button");
-            dot.type = "button";
-            dot.setAttribute("aria-label", "Tampilkan slide " + (i + 1));
-            dot.addEventListener("click", () => render(i));
-            dots.appendChild(dot);
-        });
-
-        document.querySelector("[data-slide='prev']").addEventListener("click", () => render(active - 1));
-        document.querySelector("[data-slide='next']").addEventListener("click", () => render(active + 1));
-        render(0);
-        setInterval(() => render(active + 1), 5500);
-    }
-
-    const sora = document.querySelector(".sora-widget");
-    if (sora) {
-        const toggle = sora.querySelector(".sora-toggle");
-        const panel = sora.querySelector(".sora-panel");
-
-        const close = () => {
-            panel.hidden = true;
-            toggle.setAttribute("aria-expanded", "false");
-        };
-
-        toggle.addEventListener("click", () => {
-            const open = panel.hidden;
-            panel.hidden = !open;
-            toggle.setAttribute("aria-expanded", String(open));
-        });
-
-        sora.querySelector("[data-sora-close]").addEventListener("click", close);
-        sora.querySelectorAll("[data-sora-link]").forEach((button) => {
-            button.addEventListener("click", () => {
-                window.location.href = button.dataset.soraLink;
-            });
-        });
-    }
-
     const app = document.querySelector(".learning-app");
     if (app) {
         initKanaQuest();
     }
-
-    // Toggle sidebar navigation (Tengoku Style)
-    const menuBtn = document.querySelector(".menu-btn");
-    const closeBtn = document.querySelector(".close-btn");
-    const sidebarNav = document.querySelector(".sidebar-nav");
-    const sidebarOverlay = document.querySelector(".sidebar-overlay");
-
-    const openSidebar = () => {
-        sidebarNav.classList.add("active");
-        if (sidebarOverlay) sidebarOverlay.classList.add("active");
-        document.body.classList.add("sidebar-open");
-        if (menuBtn) {
-            menuBtn.setAttribute("aria-expanded", "true");
-            menuBtn.style.opacity = "0";
-            menuBtn.style.visibility = "hidden";
-            menuBtn.style.pointerEvents = "none";
-        }
-    };
-
-    const closeSidebar = () => {
-        sidebarNav.classList.remove("active");
-        if (sidebarOverlay) sidebarOverlay.classList.remove("active");
-        document.body.classList.remove("sidebar-open");
-        if (menuBtn) {
-            menuBtn.setAttribute("aria-expanded", "false");
-            menuBtn.style.opacity = "";
-            menuBtn.style.visibility = "";
-            menuBtn.style.pointerEvents = "";
-        }
-    };
-
-    if (menuBtn && sidebarNav && !menuBtn.dataset.sidebarInit) {
-        menuBtn.dataset.sidebarInit = "true";
-        menuBtn.addEventListener("click", openSidebar);
-    }
-
-    if (closeBtn && sidebarNav) {
-        closeBtn.addEventListener("click", closeSidebar);
-    }
-
-    if (sidebarOverlay && sidebarNav) {
-        sidebarOverlay.addEventListener("click", closeSidebar);
-    }
-
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && sidebarNav && sidebarNav.classList.contains("active")) {
-            closeSidebar();
-        }
-    });
 });
 
 const rows = [

@@ -1,3 +1,9 @@
+/**
+ * File: js/kana.js
+ * Fungsi: Pengelola modul tabel aksara Kana (Hiragana & Katakana), filter Gojuuon/Dakuon/Yoon, pencarian, dan audio pelafalan.
+ * Penggunaan: kamus/index.html dan kamus/kanji.html.
+ */
+
 (() => {
     const hiraRows = [
         "あいうえお", "かきくけこ", "さしすせそ", "たちつてと", "なにぬねの",

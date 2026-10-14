@@ -1,5 +1,9 @@
-// Shared Independent Documentation Slider (Portrait & Landscape)
-// Used in kegiatan.html and all proker pages (ktn.html, njr.html, konbini.html, ramadhan.html)
+/**
+ * File: js/proker-slider.js
+ * Fungsi: Pengendali interaktif slider galeri program kerja & dokumentasi kegiatan klub dengan touch swipe & tombol panah.
+ * Penggunaan: kegiatan/index.html, kimi-to-nippon.html, konbini.html, nihon-go-rajio.html, ramadhan.html, tomodachi.html.
+ */
+
 function initIndependentSliders() {
   const wrappers = document.querySelectorAll('.slider-wrapper');
 

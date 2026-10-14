@@ -1,3 +1,9 @@
+/**
+ * File: js/sora.js
+ * Fungsi: Logika asisten chatbot maskot Asora Aokita (Sora), filter jawaban offline cerdas, saran halaman, dan drawer UI.
+ * Penggunaan: 18 halaman yang menyematkan widget Sora (index.html, kelas/*, divisi/index.html, lomba, toko, kamus, materi).
+ */
+
 window.SoraService = (() => {
     const fallbackReply = (message) => {
         const text = message.toLowerCase().trim();
