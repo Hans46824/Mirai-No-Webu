@@ -9,7 +9,8 @@
         "word": "あさ",
         "romaji": "asa",
         "meaning": "pagi"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "い",
@@ -20,7 +21,8 @@
         "word": "いぬ",
         "romaji": "inu",
         "meaning": "anjing"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "う",
@@ -31,7 +33,8 @@
         "word": "うみ",
         "romaji": "umi",
         "meaning": "laut"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "え",
@@ -42,7 +45,8 @@
         "word": "えき",
         "romaji": "eki",
         "meaning": "stasiun"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "お",
@@ -53,7 +57,8 @@
         "word": "おちゃ",
         "romaji": "ocha",
         "meaning": "teh hijau"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "か",
@@ -64,7 +69,8 @@
         "word": "かさ",
         "romaji": "kasa",
         "meaning": "payung"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "き",
@@ -75,7 +81,8 @@
         "word": "き",
         "romaji": "ki",
         "meaning": "pohon"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "く",
@@ -86,7 +93,8 @@
         "word": "くるま",
         "romaji": "kuruma",
         "meaning": "mobil"
-      }
+      },
+      "strokes": 1
     },
     {
       "character": "け",
@@ -97,7 +105,8 @@
         "word": "けさ",
         "romaji": "kesa",
         "meaning": "pagi ini"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "こ",
@@ -108,7 +117,8 @@
         "word": "こども",
         "romaji": "kodomo",
         "meaning": "anak-anak"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "さ",
@@ -119,7 +129,8 @@
         "word": "さくら",
         "romaji": "sakura",
         "meaning": "bunga sakura"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "し",
@@ -130,7 +141,8 @@
         "word": "しま",
         "romaji": "shima",
         "meaning": "pulau"
-      }
+      },
+      "strokes": 1
     },
     {
       "character": "す",
@@ -141,7 +153,8 @@
         "word": "すし",
         "romaji": "sushi",
         "meaning": "sushi"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "せ",
@@ -152,7 +165,8 @@
         "word": "せんせい",
         "romaji": "sensei",
         "meaning": "guru"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "そ",
@@ -163,7 +177,8 @@
         "word": "そら",
         "romaji": "sora",
         "meaning": "langit"
-      }
+      },
+      "strokes": 1
     },
     {
       "character": "た",
@@ -174,7 +189,8 @@
         "word": "たまご",
         "romaji": "tamago",
         "meaning": "telur"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "ち",
@@ -185,7 +201,8 @@
         "word": "ちず",
         "romaji": "chizu",
         "meaning": "peta"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "つ",
@@ -196,7 +213,8 @@
         "word": "つき",
         "romaji": "tsuki",
         "meaning": "bulan"
-      }
+      },
+      "strokes": 1
     },
     {
       "character": "て",
@@ -207,7 +225,8 @@
         "word": "て",
         "romaji": "te",
         "meaning": "tangan"
-      }
+      },
+      "strokes": 1
     },
     {
       "character": "と",
@@ -218,7 +237,8 @@
         "word": "とり",
         "romaji": "tori",
         "meaning": "burung"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "な",
@@ -229,7 +249,8 @@
         "word": "なつ",
         "romaji": "natsu",
         "meaning": "musim panas"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "に",
@@ -240,7 +261,8 @@
         "word": "にほん",
         "romaji": "nihon",
         "meaning": "Jepang"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "ぬ",
@@ -251,7 +273,8 @@
         "word": "ぬいぐるみ",
         "romaji": "nuigurumi",
         "meaning": "boneka"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "ね",
@@ -262,7 +285,8 @@
         "word": "ねこ",
         "romaji": "neko",
         "meaning": "kucing"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "の",
@@ -273,7 +297,8 @@
         "word": "のみもの",
         "romaji": "nomimono",
         "meaning": "minuman"
-      }
+      },
+      "strokes": 1
     },
     {
       "character": "は",
@@ -284,7 +309,8 @@
         "word": "はな",
         "romaji": "hana",
         "meaning": "bunga"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "ひ",
@@ -295,7 +321,8 @@
         "word": "ひと",
         "romaji": "hito",
         "meaning": "orang"
-      }
+      },
+      "strokes": 1
     },
     {
       "character": "ふ",
@@ -306,7 +333,8 @@
         "word": "ふね",
         "romaji": "fune",
         "meaning": "kapal"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "へ",
@@ -317,7 +345,8 @@
         "word": "へや",
         "romaji": "heya",
         "meaning": "kamar"
-      }
+      },
+      "strokes": 1
     },
     {
       "character": "ほ",
@@ -328,7 +357,8 @@
         "word": "ほん",
         "romaji": "hon",
         "meaning": "buku"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "ま",
@@ -339,7 +369,8 @@
         "word": "まど",
         "romaji": "mado",
         "meaning": "jendela"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "み",
@@ -350,7 +381,8 @@
         "word": "みず",
         "romaji": "mizu",
         "meaning": "air"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "む",
@@ -361,7 +393,8 @@
         "word": "むし",
         "romaji": "mushi",
         "meaning": "serangga"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "め",
@@ -372,7 +405,8 @@
         "word": "め",
         "romaji": "me",
         "meaning": "mata"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "も",
@@ -383,7 +417,8 @@
         "word": "もり",
         "romaji": "mori",
         "meaning": "hutan"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "や",
@@ -394,7 +429,8 @@
         "word": "やま",
         "romaji": "yama",
         "meaning": "gunung"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "ゆ",
@@ -405,7 +441,8 @@
         "word": "ゆき",
         "romaji": "yuki",
         "meaning": "salju"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "よ",
@@ -416,7 +453,8 @@
         "word": "よる",
         "romaji": "yoru",
         "meaning": "malam"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "ら",
@@ -427,7 +465,8 @@
         "word": "らいねん",
         "romaji": "rainen",
         "meaning": "tahun depan"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "り",
@@ -438,7 +477,8 @@
         "word": "りんご",
         "romaji": "ringo",
         "meaning": "apel"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "る",
@@ -449,7 +489,8 @@
         "word": "るす",
         "romaji": "rusu",
         "meaning": "tidak di rumah"
-      }
+      },
+      "strokes": 1
     },
     {
       "character": "れ",
@@ -460,7 +501,8 @@
         "word": "れきし",
         "romaji": "rekishi",
         "meaning": "sejarah"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "ろ",
@@ -471,7 +513,8 @@
         "word": "ろうそく",
         "romaji": "rousoku",
         "meaning": "lilin"
-      }
+      },
+      "strokes": 1
     },
     {
       "character": "わ",
@@ -482,7 +525,8 @@
         "word": "わたし",
         "romaji": "watashi",
         "meaning": "saya"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "を",
@@ -493,7 +537,8 @@
         "word": "ほんをよむ",
         "romaji": "hon o yomu",
         "meaning": "membaca buku (partikel)"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "ん",
@@ -504,7 +549,8 @@
         "word": "にほん",
         "romaji": "nihon",
         "meaning": "Jepang"
-      }
+      },
+      "strokes": 1
     },
     {
       "character": "が",
@@ -515,7 +561,8 @@
         "word": "がくせい",
         "romaji": "gakusei",
         "meaning": "siswa"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "ぎ",
@@ -526,7 +573,8 @@
         "word": "ぎんこう",
         "romaji": "ginkou",
         "meaning": "bank"
-      }
+      },
+      "strokes": 6
     },
     {
       "character": "ぐ",
@@ -537,7 +585,8 @@
         "word": "ぐんたい",
         "romaji": "guntai",
         "meaning": "tentara"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "げ",
@@ -548,7 +597,8 @@
         "word": "げんき",
         "romaji": "genki",
         "meaning": "sehat / bersemangat"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "ご",
@@ -559,7 +609,8 @@
         "word": "ごはん",
         "romaji": "gohan",
         "meaning": "nasi"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "ざ",
@@ -570,7 +621,8 @@
         "word": "ざっし",
         "romaji": "zasshi",
         "meaning": "majalah"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "じ",
@@ -581,7 +633,8 @@
         "word": "じかん",
         "romaji": "jikan",
         "meaning": "waktu"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "ず",
@@ -592,7 +645,8 @@
         "word": "ずっと",
         "romaji": "zutto",
         "meaning": "selamanya / terus"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "ぜ",
@@ -603,7 +657,8 @@
         "word": "ぜんぶ",
         "romaji": "zenbu",
         "meaning": "semua"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "ぞ",
@@ -614,7 +669,8 @@
         "word": "ぞう",
         "romaji": "zou",
         "meaning": "gajah"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "だ",
@@ -625,7 +681,8 @@
         "word": "だいがく",
         "romaji": "daigaku",
         "meaning": "universitas"
-      }
+      },
+      "strokes": 6
     },
     {
       "character": "ぢ",
@@ -636,7 +693,8 @@
         "word": "はなぢ",
         "romaji": "hanaji",
         "meaning": "mimisan"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "づ",
@@ -647,7 +705,8 @@
         "word": "つづく",
         "romaji": "tsuzuku",
         "meaning": "berlanjut"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "で",
@@ -658,7 +717,8 @@
         "word": "でんしゃ",
         "romaji": "densha",
         "meaning": "kereta listrik"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "ど",
@@ -669,7 +729,8 @@
         "word": "どこ",
         "romaji": "doko",
         "meaning": "di mana"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "ば",
@@ -680,7 +741,8 @@
         "word": "ばしょ",
         "romaji": "basho",
         "meaning": "tempat"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "び",
@@ -691,7 +753,8 @@
         "word": "びょういん",
         "romaji": "byouin",
         "meaning": "rumah sakit"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "ぶ",
@@ -702,7 +765,8 @@
         "word": "ぶんか",
         "romaji": "bunka",
         "meaning": "budaya"
-      }
+      },
+      "strokes": 6
     },
     {
       "character": "べ",
@@ -713,7 +777,8 @@
         "word": "べんきょう",
         "romaji": "benkyou",
         "meaning": "belajar"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "ぼ",
@@ -724,7 +789,8 @@
         "word": "ぼうし",
         "romaji": "boushi",
         "meaning": "topi"
-      }
+      },
+      "strokes": 6
     },
     {
       "character": "ぱ",
@@ -735,7 +801,8 @@
         "word": "ぱん",
         "romaji": "pan",
         "meaning": "roti"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "ぴ",
@@ -746,7 +813,8 @@
         "word": "ぴかぴか",
         "romaji": "pikapika",
         "meaning": "berkilau"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "ぷ",
@@ -757,7 +825,8 @@
         "word": "ぷれぜんと",
         "romaji": "purezento",
         "meaning": "hadiah"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "ぺ",
@@ -768,7 +837,8 @@
         "word": "ぺん",
         "romaji": "pen",
         "meaning": "pena"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "ぽ",
@@ -779,7 +849,8 @@
         "word": "ぽけっと",
         "romaji": "poketto",
         "meaning": "saku"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "きゃ",
@@ -790,7 +861,8 @@
         "word": "きゃく",
         "romaji": "kyaku",
         "meaning": "tamu / pelanggan"
-      }
+      },
+      "strokes": 7
     },
     {
       "character": "きゅ",
@@ -801,7 +873,8 @@
         "word": "きゅうり",
         "romaji": "kyuuri",
         "meaning": "mentimun"
-      }
+      },
+      "strokes": 6
     },
     {
       "character": "きょ",
@@ -812,7 +885,8 @@
         "word": "きょう",
         "romaji": "kyou",
         "meaning": "hari ini"
-      }
+      },
+      "strokes": 6
     },
     {
       "character": "しゃ",
@@ -823,7 +897,8 @@
         "word": "しゃしん",
         "romaji": "shashin",
         "meaning": "foto"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "しゅ",
@@ -834,7 +909,8 @@
         "word": "しゅくだい",
         "romaji": "shukudai",
         "meaning": "pekerjaan rumah"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "しょ",
@@ -845,7 +921,8 @@
         "word": "しょくどう",
         "romaji": "shokudou",
         "meaning": "kantin"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "ちゃ",
@@ -856,7 +933,8 @@
         "word": "おちゃ",
         "romaji": "ocha",
         "meaning": "teh"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "ちゅ",
@@ -867,7 +945,8 @@
         "word": "ちゅうごく",
         "romaji": "chuugoku",
         "meaning": "China"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "ちょ",
@@ -878,7 +957,8 @@
         "word": "ちょっと",
         "romaji": "chotto",
         "meaning": "sebentar"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "にゃ",
@@ -889,7 +969,8 @@
         "word": "にゃー",
         "romaji": "nyaa",
         "meaning": "meong (suara kucing)"
-      }
+      },
+      "strokes": 6
     },
     {
       "character": "にゅ",
@@ -900,7 +981,8 @@
         "word": "にゅうがく",
         "romaji": "nyuugaku",
         "meaning": "masuk sekolah"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "にょ",
@@ -911,7 +993,8 @@
         "word": "にょうぼう",
         "romaji": "nyoubou",
         "meaning": "istri"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "ひゃ",
@@ -922,7 +1005,8 @@
         "word": "ひゃく",
         "romaji": "hyaku",
         "meaning": "seratus"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "ひゅ",
@@ -933,7 +1017,8 @@
         "word": "ひゅうひゅう",
         "romaji": "hyuuhyuu",
         "meaning": "desiran angin"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "ひょ",
@@ -944,7 +1029,8 @@
         "word": "ひょうじ",
         "romaji": "hyouji",
         "meaning": "tampilan"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "みゃ",
@@ -955,7 +1041,8 @@
         "word": "みゃく",
         "romaji": "myaku",
         "meaning": "denyut nadi"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "みゅ",
@@ -966,7 +1053,8 @@
         "word": "みゅーじっく",
         "romaji": "myuujikku",
         "meaning": "musik"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "みょ",
@@ -977,7 +1065,8 @@
         "word": "みょうじ",
         "romaji": "myouji",
         "meaning": "nama keluarga"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "りゃ",
@@ -988,7 +1077,8 @@
         "word": "りゃくご",
         "romaji": "ryakugo",
         "meaning": "singkatan"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "りゅ",
@@ -999,7 +1089,8 @@
         "word": "りゅうがく",
         "romaji": "ryuugaku",
         "meaning": "studi luar negeri"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "りょ",
@@ -1010,7 +1101,8 @@
         "word": "りょこう",
         "romaji": "ryokou",
         "meaning": "perjalanan / liburan"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "ぎゃ",
@@ -1021,7 +1113,8 @@
         "word": "ぎゃくてん",
         "romaji": "gyakuten",
         "meaning": "pembalikan keadaan"
-      }
+      },
+      "strokes": 9
     },
     {
       "character": "ぎゅ",
@@ -1032,7 +1125,8 @@
         "word": "ぎゅうにゅう",
         "romaji": "gyuunyuu",
         "meaning": "susu sapi"
-      }
+      },
+      "strokes": 8
     },
     {
       "character": "ぎょ",
@@ -1043,7 +1137,8 @@
         "word": "ぎょぎょう",
         "romaji": "gyogyou",
         "meaning": "perikanan"
-      }
+      },
+      "strokes": 8
     },
     {
       "character": "じゃ",
@@ -1054,7 +1149,8 @@
         "word": "じゃがいも",
         "romaji": "jagaimo",
         "meaning": "kentang"
-      }
+      },
+      "strokes": 6
     },
     {
       "character": "じゅ",
@@ -1065,7 +1161,8 @@
         "word": "じゅぎょう",
         "romaji": "jugyou",
         "meaning": "pelajaran"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "じょ",
@@ -1076,7 +1173,8 @@
         "word": "じょせい",
         "romaji": "josei",
         "meaning": "wanita"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "びゃ",
@@ -1087,7 +1185,8 @@
         "word": "びゃくだん",
         "romaji": "byakudan",
         "meaning": "kayu cendana"
-      }
+      },
+      "strokes": 6
     },
     {
       "character": "びゅ",
@@ -1098,7 +1197,8 @@
         "word": "びゅうびゅう",
         "romaji": "byuubyuu",
         "meaning": "tiupan angin kencang"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "びょ",
@@ -1109,7 +1209,8 @@
         "word": "びょうき",
         "romaji": "byouki",
         "meaning": "sakit / penyakit"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "ぴゃ",
@@ -1120,7 +1221,8 @@
         "word": "さんぴゃく",
         "romaji": "sanpyaku",
         "meaning": "tiga ratus"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "ぴゅ",
@@ -1131,7 +1233,8 @@
         "word": "ぴゅーま",
         "romaji": "pyuuma",
         "meaning": "puma"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "ぴょ",
@@ -1142,7 +1245,8 @@
         "word": "ぴょんぴょん",
         "romaji": "pyonpyon",
         "meaning": "melompat-lompat"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "っ",
@@ -1153,7 +1257,8 @@
         "word": "がっこう",
         "romaji": "gakkou",
         "meaning": "sekolah (konsonan ganda)"
-      }
+      },
+      "strokes": 1
     }
   ],
   "katakana": [
@@ -1166,7 +1271,8 @@
         "word": "アニメ",
         "romaji": "anime",
         "meaning": "animasi / anime"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "イ",
@@ -1177,7 +1283,8 @@
         "word": "インターネット",
         "romaji": "intaanetto",
         "meaning": "internet"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "ウ",
@@ -1188,7 +1295,8 @@
         "word": "ウイルス",
         "romaji": "uirusu",
         "meaning": "virus"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "エ",
@@ -1199,7 +1307,8 @@
         "word": "エレベーター",
         "romaji": "erebeetaa",
         "meaning": "lift / elevator"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "オ",
@@ -1210,7 +1319,8 @@
         "word": "オレンジ",
         "romaji": "orenji",
         "meaning": "jeruk"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "カ",
@@ -1221,7 +1331,8 @@
         "word": "カメラ",
         "romaji": "kamera",
         "meaning": "kamera"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "キ",
@@ -1232,7 +1343,8 @@
         "word": "キッチン",
         "romaji": "kicchin",
         "meaning": "dapur"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "ク",
@@ -1243,7 +1355,8 @@
         "word": "クラス",
         "romaji": "kurasu",
         "meaning": "kelas"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "ケ",
@@ -1254,7 +1367,8 @@
         "word": "ケーキ",
         "romaji": "keeki",
         "meaning": "kue"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "コ",
@@ -1265,7 +1379,8 @@
         "word": "コーヒー",
         "romaji": "koohii",
         "meaning": "kopi"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "サ",
@@ -1276,7 +1391,8 @@
         "word": "サラダ",
         "romaji": "sarada",
         "meaning": "salad"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "シ",
@@ -1287,7 +1403,8 @@
         "word": "シャツ",
         "romaji": "shatsu",
         "meaning": "kemeja"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "ス",
@@ -1298,7 +1415,8 @@
         "word": "スポーツ",
         "romaji": "supootsu",
         "meaning": "olahraga"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "セ",
@@ -1309,7 +1427,8 @@
         "word": "セーター",
         "romaji": "seetaa",
         "meaning": "sweater"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "ソ",
@@ -1320,7 +1439,8 @@
         "word": "ソファ",
         "romaji": "sofa",
         "meaning": "sofa"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "タ",
@@ -1331,7 +1451,8 @@
         "word": "タクシー",
         "romaji": "takushii",
         "meaning": "taksi"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "チ",
@@ -1342,7 +1463,8 @@
         "word": "チーズ",
         "romaji": "chiizu",
         "meaning": "keju"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "ツ",
@@ -1353,7 +1475,8 @@
         "word": "ツアー",
         "romaji": "tsuaa",
         "meaning": "tur / perjalanan"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "テ",
@@ -1364,7 +1487,8 @@
         "word": "テレビ",
         "romaji": "terebi",
         "meaning": "televisi"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "ト",
@@ -1375,7 +1499,8 @@
         "word": "トイレ",
         "romaji": "toire",
         "meaning": "toilet"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "ナ",
@@ -1386,7 +1511,8 @@
         "word": "ナイフ",
         "romaji": "naifu",
         "meaning": "pisau"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "ニ",
@@ -1397,7 +1523,8 @@
         "word": "ニュース",
         "romaji": "nyuusu",
         "meaning": "berita"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "ヌ",
@@ -1408,7 +1535,8 @@
         "word": "ヌードル",
         "romaji": "nuudoru",
         "meaning": "mi"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "ネ",
@@ -1419,7 +1547,8 @@
         "word": "ネクタイ",
         "romaji": "nekutai",
         "meaning": "dasi"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "ノ",
@@ -1430,7 +1559,8 @@
         "word": "ノート",
         "romaji": "nooto",
         "meaning": "buku catatan"
-      }
+      },
+      "strokes": 1
     },
     {
       "character": "ハ",
@@ -1441,7 +1571,8 @@
         "word": "ホテル",
         "romaji": "hoteru",
         "meaning": "hotel"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "ヒ",
@@ -1452,7 +1583,8 @@
         "word": "ヒーター",
         "romaji": "hiitaa",
         "meaning": "pemanas"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "フ",
@@ -1463,7 +1595,8 @@
         "word": "フォーク",
         "romaji": "fooku",
         "meaning": "garpu"
-      }
+      },
+      "strokes": 1
     },
     {
       "character": "ヘ",
@@ -1474,7 +1607,8 @@
         "word": "ヘリコプター",
         "romaji": "herikoputaa",
         "meaning": "helikopter"
-      }
+      },
+      "strokes": 1
     },
     {
       "character": "ホ",
@@ -1485,7 +1619,8 @@
         "word": "ホーム",
         "romaji": "hoomu",
         "meaning": "peron stasiun"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "マ",
@@ -1496,7 +1631,8 @@
         "word": "マンガ",
         "romaji": "manga",
         "meaning": "komik jepang"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "ミ",
@@ -1507,7 +1643,8 @@
         "word": "ミルク",
         "romaji": "miruku",
         "meaning": "susu"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "ム",
@@ -1518,7 +1655,8 @@
         "word": "ムービー",
         "romaji": "muubii",
         "meaning": "film"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "メ",
@@ -1529,7 +1667,8 @@
         "word": "メニュー",
         "romaji": "menyuu",
         "meaning": "menu"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "モ",
@@ -1540,7 +1679,8 @@
         "word": "モデル",
         "romaji": "moderu",
         "meaning": "model"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "ヤ",
@@ -1551,7 +1691,8 @@
         "word": "ヤンキー",
         "romaji": "yankii",
         "meaning": "anak muda bergaya"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "ユ",
@@ -1562,7 +1703,8 @@
         "word": "ユーザー",
         "romaji": "yuuzaa",
         "meaning": "pengguna"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "ヨ",
@@ -1573,7 +1715,8 @@
         "word": "ヨーグルト",
         "romaji": "yooguruto",
         "meaning": "yogurt"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "ラ",
@@ -1584,7 +1727,8 @@
         "word": "ラジオ",
         "romaji": "rajio",
         "meaning": "radio"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "リ",
@@ -1595,7 +1739,8 @@
         "word": "リモコン",
         "romaji": "rimokon",
         "meaning": "remote control"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "ル",
@@ -1606,7 +1751,8 @@
         "word": "ルール",
         "romaji": "ruuru",
         "meaning": "aturan"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "レ",
@@ -1617,7 +1763,8 @@
         "word": "レストラン",
         "romaji": "resutoran",
         "meaning": "restoran"
-      }
+      },
+      "strokes": 1
     },
     {
       "character": "ロ",
@@ -1628,7 +1775,8 @@
         "word": "ロボット",
         "romaji": "robotto",
         "meaning": "robot"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "ワ",
@@ -1639,7 +1787,8 @@
         "word": "ワイン",
         "romaji": "wain",
         "meaning": "anggur / wine"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "ヲ",
@@ -1650,7 +1799,8 @@
         "word": "ヲタク",
         "romaji": "wotaku",
         "meaning": "penggemar berat / otaku"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "ン",
@@ -1661,7 +1811,8 @@
         "word": "パン",
         "romaji": "pan",
         "meaning": "roti"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "ガ",
@@ -1672,7 +1823,8 @@
         "word": "ガクセイ",
         "romaji": "gakusei",
         "meaning": "siswa"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "ギ",
@@ -1683,7 +1835,8 @@
         "word": "ギンコウ",
         "romaji": "ginkou",
         "meaning": "bank"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "グ",
@@ -1694,7 +1847,8 @@
         "word": "グンタイ",
         "romaji": "guntai",
         "meaning": "tentara"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "ゲ",
@@ -1705,7 +1859,8 @@
         "word": "ゲンキ",
         "romaji": "genki",
         "meaning": "sehat / bersemangat"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "ゴ",
@@ -1716,7 +1871,8 @@
         "word": "ゴハン",
         "romaji": "gohan",
         "meaning": "nasi"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "ザ",
@@ -1727,7 +1883,8 @@
         "word": "ザッシ",
         "romaji": "zasshi",
         "meaning": "majalah"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "ジ",
@@ -1738,7 +1895,8 @@
         "word": "ジカン",
         "romaji": "jikan",
         "meaning": "waktu"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "ズ",
@@ -1749,7 +1907,8 @@
         "word": "ズット",
         "romaji": "zutto",
         "meaning": "selamanya / terus"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "ゼ",
@@ -1760,7 +1919,8 @@
         "word": "ゼンブ",
         "romaji": "zenbu",
         "meaning": "semua"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "ゾ",
@@ -1771,7 +1931,8 @@
         "word": "ゾウ",
         "romaji": "zou",
         "meaning": "gajah"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "ダ",
@@ -1782,7 +1943,8 @@
         "word": "ダイガク",
         "romaji": "daigaku",
         "meaning": "universitas"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "ヂ",
@@ -1793,7 +1955,8 @@
         "word": "ハナヂ",
         "romaji": "hanaji",
         "meaning": "mimisan"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "ヅ",
@@ -1804,7 +1967,8 @@
         "word": "ツヅク",
         "romaji": "tsuzuku",
         "meaning": "berlanjut"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "デ",
@@ -1815,7 +1979,8 @@
         "word": "デンシャ",
         "romaji": "densha",
         "meaning": "kereta listrik"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "ド",
@@ -1826,7 +1991,8 @@
         "word": "ドコ",
         "romaji": "doko",
         "meaning": "di mana"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "バ",
@@ -1837,7 +2003,8 @@
         "word": "バショ",
         "romaji": "basho",
         "meaning": "tempat"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "ビ",
@@ -1848,7 +2015,8 @@
         "word": "ビョウイン",
         "romaji": "byouin",
         "meaning": "rumah sakit"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "ブ",
@@ -1859,7 +2027,8 @@
         "word": "ブンカ",
         "romaji": "bunka",
         "meaning": "budaya"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "ベ",
@@ -1870,7 +2039,8 @@
         "word": "ベンキョウ",
         "romaji": "benkyou",
         "meaning": "belajar"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "ボ",
@@ -1881,7 +2051,8 @@
         "word": "ボウシ",
         "romaji": "boushi",
         "meaning": "topi"
-      }
+      },
+      "strokes": 6
     },
     {
       "character": "パ",
@@ -1892,7 +2063,8 @@
         "word": "パン",
         "romaji": "pan",
         "meaning": "roti"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "ピ",
@@ -1903,7 +2075,8 @@
         "word": "ピカピカ",
         "romaji": "pikapika",
         "meaning": "berkilau"
-      }
+      },
+      "strokes": 3
     },
     {
       "character": "プ",
@@ -1914,7 +2087,8 @@
         "word": "プレゼント",
         "romaji": "purezento",
         "meaning": "hadiah"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "ペ",
@@ -1925,7 +2099,8 @@
         "word": "ペン",
         "romaji": "pen",
         "meaning": "pena"
-      }
+      },
+      "strokes": 2
     },
     {
       "character": "ポ",
@@ -1936,7 +2111,8 @@
         "word": "ポケット",
         "romaji": "poketto",
         "meaning": "saku"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "キャ",
@@ -1947,7 +2123,8 @@
         "word": "キャク",
         "romaji": "kyaku",
         "meaning": "tamu / pelanggan"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "キュ",
@@ -1958,7 +2135,8 @@
         "word": "キュウリ",
         "romaji": "kyuuri",
         "meaning": "mentimun"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "キョ",
@@ -1969,7 +2147,8 @@
         "word": "キョウ",
         "romaji": "kyou",
         "meaning": "hari ini"
-      }
+      },
+      "strokes": 6
     },
     {
       "character": "シャ",
@@ -1980,7 +2159,8 @@
         "word": "シャシン",
         "romaji": "shashin",
         "meaning": "foto"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "シュ",
@@ -1991,7 +2171,8 @@
         "word": "シュクダイ",
         "romaji": "shukudai",
         "meaning": "pekerjaan rumah"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "ショ",
@@ -2002,7 +2183,8 @@
         "word": "ショクドウ",
         "romaji": "shokudou",
         "meaning": "kantin"
-      }
+      },
+      "strokes": 6
     },
     {
       "character": "チャ",
@@ -2013,7 +2195,8 @@
         "word": "オチャ",
         "romaji": "ocha",
         "meaning": "teh"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "チュ",
@@ -2024,7 +2207,8 @@
         "word": "チュウゴク",
         "romaji": "chuugoku",
         "meaning": "China"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "チョ",
@@ -2035,7 +2219,8 @@
         "word": "チョット",
         "romaji": "chotto",
         "meaning": "sebentar"
-      }
+      },
+      "strokes": 6
     },
     {
       "character": "ニャ",
@@ -2046,7 +2231,8 @@
         "word": "ニャー",
         "romaji": "nyaa",
         "meaning": "meong (suara kucing)"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "ニュ",
@@ -2057,7 +2243,8 @@
         "word": "ニュウガク",
         "romaji": "nyuugaku",
         "meaning": "masuk sekolah"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "ニョ",
@@ -2068,7 +2255,8 @@
         "word": "ニョウボウ",
         "romaji": "nyoubou",
         "meaning": "istri"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "ヒャ",
@@ -2079,7 +2267,8 @@
         "word": "ヒャク",
         "romaji": "hyaku",
         "meaning": "seratus"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "ヒュ",
@@ -2090,7 +2279,8 @@
         "word": "ヒュウヒュウ",
         "romaji": "hyuuhyuu",
         "meaning": "desiran angin"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "ヒョ",
@@ -2101,7 +2291,8 @@
         "word": "ヒョウジ",
         "romaji": "hyouji",
         "meaning": "tampilan"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "ミャ",
@@ -2112,7 +2303,8 @@
         "word": "ミャク",
         "romaji": "myaku",
         "meaning": "denyut nadi"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "ミュ",
@@ -2123,7 +2315,8 @@
         "word": "ミュージック",
         "romaji": "myuujikku",
         "meaning": "musik"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "ミョ",
@@ -2134,7 +2327,8 @@
         "word": "ミョウジ",
         "romaji": "myouji",
         "meaning": "nama keluarga"
-      }
+      },
+      "strokes": 6
     },
     {
       "character": "リャ",
@@ -2145,7 +2339,8 @@
         "word": "リャクゴ",
         "romaji": "ryakugo",
         "meaning": "singkatan"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "リュ",
@@ -2156,7 +2351,8 @@
         "word": "リュウガク",
         "romaji": "ryuugaku",
         "meaning": "studi luar negeri"
-      }
+      },
+      "strokes": 4
     },
     {
       "character": "リョ",
@@ -2167,7 +2363,8 @@
         "word": "リョコウ",
         "romaji": "ryokou",
         "meaning": "perjalanan / liburan"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "ギャ",
@@ -2178,7 +2375,8 @@
         "word": "ギャクテン",
         "romaji": "gyakuten",
         "meaning": "pembalikan keadaan"
-      }
+      },
+      "strokes": 7
     },
     {
       "character": "ギュ",
@@ -2189,7 +2387,8 @@
         "word": "ギュウニュウ",
         "romaji": "gyuunyuu",
         "meaning": "susu sapi"
-      }
+      },
+      "strokes": 7
     },
     {
       "character": "ギョ",
@@ -2200,7 +2399,8 @@
         "word": "ギョギョウ",
         "romaji": "gyogyou",
         "meaning": "perikanan"
-      }
+      },
+      "strokes": 8
     },
     {
       "character": "ジャ",
@@ -2211,7 +2411,8 @@
         "word": "ジャガイモ",
         "romaji": "jagaimo",
         "meaning": "kentang"
-      }
+      },
+      "strokes": 7
     },
     {
       "character": "ジュ",
@@ -2222,7 +2423,8 @@
         "word": "ジュギョウ",
         "romaji": "jugyou",
         "meaning": "pelajaran"
-      }
+      },
+      "strokes": 7
     },
     {
       "character": "ジョ",
@@ -2233,7 +2435,8 @@
         "word": "ジョセイ",
         "romaji": "josei",
         "meaning": "wanita"
-      }
+      },
+      "strokes": 8
     },
     {
       "character": "ビャ",
@@ -2244,7 +2447,8 @@
         "word": "ビャクダン",
         "romaji": "byakudan",
         "meaning": "kayu cendana"
-      }
+      },
+      "strokes": 6
     },
     {
       "character": "ビュ",
@@ -2255,7 +2459,8 @@
         "word": "ビュウビュウ",
         "romaji": "byuubyuu",
         "meaning": "tiupan angin kencang"
-      }
+      },
+      "strokes": 6
     },
     {
       "character": "ビョ",
@@ -2266,7 +2471,8 @@
         "word": "ビョウキ",
         "romaji": "byouki",
         "meaning": "sakit / penyakit"
-      }
+      },
+      "strokes": 7
     },
     {
       "character": "ピャ",
@@ -2277,7 +2483,8 @@
         "word": "サンピャク",
         "romaji": "sanpyaku",
         "meaning": "tiga ratus"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "ピュ",
@@ -2288,7 +2495,8 @@
         "word": "ピューマ",
         "romaji": "pyuuma",
         "meaning": "puma"
-      }
+      },
+      "strokes": 5
     },
     {
       "character": "ピョ",
@@ -2299,7 +2507,8 @@
         "word": "ピョンピョン",
         "romaji": "pyonpyon",
         "meaning": "melompat-lompat"
-      }
+      },
+      "strokes": 6
     },
     {
       "character": "ッ",
@@ -2310,7 +2519,8 @@
         "word": "ベッド",
         "romaji": "beddo",
         "meaning": "tempat tidur (konsonan ganda)"
-      }
+      },
+      "strokes": 3
     }
   ]
 }

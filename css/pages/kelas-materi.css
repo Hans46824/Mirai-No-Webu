@@ -5579,6 +5579,125 @@ body.theme-dark .mistake-explanation-box {
     line-height: 1.2 !important;
 }
 
+/* Pratinjau Urutan Goresan KanjiVG pada Kartu Review Kesalahan */
+.mistake-stroke-preview-section {
+    margin: 10px 0 !important;
+    padding: 12px 14px !important;
+    background: #fdf8fa !important;
+    border-radius: 10px !important;
+    border: 1px dashed rgba(233, 30, 99, 0.28) !important;
+}
+
+body.theme-dark .mistake-stroke-preview-section {
+    background: #221825 !important;
+    border-color: rgba(233, 30, 99, 0.38) !important;
+}
+
+.mistake-stroke-header {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    font-size: 11.5px !important;
+    font-weight: 700 !important;
+    color: var(--pink, #e91e63) !important;
+    margin-bottom: 10px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+
+body.theme-dark .mistake-stroke-header {
+    color: #ff65a3 !important;
+}
+
+.mistake-stroke-grid {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+    align-items: center !important;
+}
+
+.mistake-stroke-char-card {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 6px !important;
+}
+
+.stroke-preview-svg {
+    width: 82px !important;
+    height: 82px !important;
+    background: #ffffff !important;
+    border-radius: 10px !important;
+    border: 1.5px solid #ecd3dc !important;
+    box-shadow: 0 4px 14px rgba(35, 20, 32, 0.06) !important;
+    display: block !important;
+}
+
+body.theme-dark .stroke-preview-svg {
+    background: #18121f !important;
+    border-color: #423040 !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35) !important;
+}
+
+.stroke-preview-svg .stroke-grid-lines line {
+    stroke: rgba(200, 185, 195, 0.45) !important;
+    stroke-dasharray: 3 3 !important;
+    stroke-width: 1 !important;
+}
+
+body.theme-dark .stroke-preview-svg .stroke-grid-lines line {
+    stroke: rgba(255, 255, 255, 0.14) !important;
+}
+
+.stroke-preview-svg .stroke-preview-path {
+    stroke: #251e29 !important;
+    stroke-width: 4.5 !important;
+}
+
+body.theme-dark .stroke-preview-svg .stroke-preview-path {
+    stroke: #ffffff !important;
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.6)) !important;
+}
+
+.stroke-preview-svg .stroke-preview-number {
+    fill: var(--pink, #e91e63) !important;
+    font-size: 9.5px !important;
+    font-weight: 700 !important;
+    font-family: monospace, sans-serif !important;
+}
+
+body.theme-dark .stroke-preview-svg .stroke-preview-number {
+    fill: #ff65a3 !important;
+}
+
+.mistake-stroke-char-caption {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    color: var(--muted, #7a6e78) !important;
+}
+
+body.theme-dark .mistake-stroke-char-caption {
+    color: #c4b3c5 !important;
+}
+
+.stroke-count-indicator {
+    display: inline-block !important;
+    margin-top: 4px !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    color: var(--pink, #e91e63) !important;
+    background: rgba(233, 30, 99, 0.08) !important;
+    padding: 3px 12px !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(233, 30, 99, 0.18) !important;
+}
+
+body.theme-dark .stroke-count-indicator {
+    color: #ff65a3 !important;
+    background: rgba(233, 30, 99, 0.16) !important;
+    border-color: rgba(233, 30, 99, 0.32) !important;
+}
+
 /* Perfect Score Celebratory Note */
 .perfect-note {
     padding: 24px 20px !important;

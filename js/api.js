@@ -173,8 +173,11 @@
             try {
                 const cached = localStorage.getItem(cacheKey);
                 if (cached) {
-                    kanaDataCache = JSON.parse(cached);
-                    return kanaDataCache;
+                    const parsed = JSON.parse(cached);
+                    if (parsed?.hiragana?.[0]?.strokes) {
+                        kanaDataCache = parsed;
+                        return kanaDataCache;
+                    }
                 }
             } catch (e) {}
 

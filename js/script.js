@@ -477,6 +477,22 @@ function getWordBank(type) {
     return type === "katakana" ? wordBankKatakana : wordBankHiragana;
 }
 
+function getKanaStrokeCount(character) {
+    if (!character) return 0;
+    if (window.MIRAI_STROKE_DATA && window.MIRAI_STROKE_DATA[character]?.paths?.length) {
+        return window.MIRAI_STROKE_DATA[character].paths.length;
+    }
+    const chars = Array.from(character);
+    if (window.MIRAI_STROKE_DATA) {
+        let total = 0;
+        for (const ch of chars) {
+            total += window.MIRAI_STROKE_DATA[ch]?.paths?.length || 0;
+        }
+        if (total > 0) return total;
+    }
+    return 0;
+}
+
 function makeKana(type) {
     const offset = type === "katakana" ? 0x30a0 - 0x3040 : 0;
     const convert = (text) => [...text].map((char) => String.fromCodePoint(char.codePointAt(0) + offset)).join("");
@@ -484,13 +500,15 @@ function makeKana(type) {
 
     rows.forEach(([level, chars, readings]) => {
         [...chars].forEach((character, index) => {
+            const converted = convert(character);
             data.push({
-                character: convert(character),
+                character: converted,
                 romaji: readings[index],
                 category: readings.join(" "),
                 level,
                 kanaType: type,
                 difficulty: level > 6 ? 2 : 1,
+                strokes: getKanaStrokeCount(converted),
                 exampleWords: [],
                 audio: null
             });
@@ -499,13 +517,15 @@ function makeKana(type) {
 
     voiced.forEach(([chars, readings], index) => {
         [...chars].forEach((character, charIndex) => {
+            const converted = convert(character);
             data.push({
-                character: convert(character),
+                character: converted,
                 romaji: readings[charIndex],
                 category: readings.join(" "),
                 level: 11 + index,
                 kanaType: type,
                 difficulty: 2,
+                strokes: getKanaStrokeCount(converted),
                 exampleWords: [],
                 audio: null
             });
@@ -514,13 +534,15 @@ function makeKana(type) {
 
     combos.forEach(([chars, readings], comboIndex) => {
         chars.forEach((character, index) => {
+            const converted = convert(character);
             data.push({
-                character: convert(character),
+                character: converted,
                 romaji: readings[index],
                 category: readings.join(" "),
                 level: 16 + comboIndex,
                 kanaType: type,
                 difficulty: 3,
+                strokes: getKanaStrokeCount(converted),
                 exampleWords: [],
                 audio: null
             });
@@ -704,6 +726,7 @@ function buildStrokeQuestion(pool, scriptType = "hiragana", previous = null) {
         romaji: answer.romaji,
         category: answer.category || "Kana dasar",
         strokeData: strokeDataMap[answer.character] || null,
+        strokes: strokeDataMap[answer.character]?.paths?.length || answer.strokes || 0,
         promptDisplay: "romaji"
     };
 }
@@ -735,6 +758,7 @@ function buildPracticeQuestions(levels, pool, scriptType = "hiragana", fullPool 
                 romaji: item.romaji,
                 category: item.category || "Kana dasar",
                 strokeData: strokeDataMap[item.character],
+                strokes: strokeDataMap[item.character]?.paths?.length || item.strokes || 0,
                 promptDisplay: "romaji"
             });
         }
@@ -1029,6 +1053,9 @@ function initKanaQuest() {
                         <div class="stroke-grid-line vertical"></div>
                     </div>
                     <svg class="stroke-svg-layer" id="strokeSvgLayer" viewBox="0 0 109 109" role="img" aria-label="Kanvas goresan ${char}">
+                        <g class="stroke-ghost-group" id="strokeGhostGroup">
+                            ${paths.map((p) => `<path class="stroke-ghost-path" d="${p}" />`).join("")}
+                        </g>
                         <g class="stroke-completed-group" id="strokeCompletedGroup"></g>
                         <g class="stroke-guide-group" id="strokeGuideGroup"></g>
                         <g class="stroke-start-marker" id="strokeStartMarker"></g>
@@ -1443,10 +1470,14 @@ function initKanaQuest() {
                 defaultSub.hidden = true;
             }
 
-            $("[data-question-kind]").textContent = "TULIS KANA (DARI ROMAJI)";
+            const strokeCount = question.strokeData?.paths?.length || (window.MIRAI_STROKE_DATA?.[question.answer.character]?.paths?.length) || question.strokes || question.answer.strokes || "";
+            const strokeBadgeText = strokeCount ? `${strokeCount} Goresan` : "";
+
+            $("[data-question-kind]").textContent = strokeBadgeText ? `TULIS KANA (${strokeBadgeText.toUpperCase()})` : "TULIS KANA (DARI ROMAJI)";
             $("[data-question-prompt]").innerHTML = `
                 <div class="stroke-prompt-wrap">
                     <span class="stroke-prompt-char is-romaji">${question.answer.romaji}</span>
+                    ${strokeBadgeText ? `<span class="stroke-count-indicator">${strokeBadgeText}</span>` : ""}
                 </div>
             `;
 
@@ -1890,6 +1921,35 @@ function initKanaQuest() {
         $("[data-result-time]").textContent = formatTime(Date.now() - currentSession.started);
         $("[data-result-streak]").textContent = `Runtunan terbaik: ${currentSession.best}`;
 
+        // Helper render pratinjau SVG urutan goresan baku KanjiVG (viewBox 0 0 109 109)
+        function renderStrokeSvgPreview(character) {
+            if (!character || !window.MIRAI_STROKE_DATA) return "";
+            const chars = Array.from(character);
+            const validChars = chars.filter((c) => window.MIRAI_STROKE_DATA[c]?.paths?.length);
+            if (!validChars.length) return "";
+
+            return validChars.map((c) => {
+                const rec = window.MIRAI_STROKE_DATA[c];
+                const paths = rec.paths || [];
+                const numbers = rec.numbers || [];
+                const pathsSvg = paths.map((d) => `<path class="stroke-preview-path" d="${d}" fill="none" stroke-linecap="round" stroke-linejoin="round" />`).join("");
+                const numbersSvg = numbers.map((n, i) => `<text class="stroke-preview-number" x="${n.x}" y="${n.y}">${n.text || (i + 1)}</text>`).join("");
+                return `
+                    <div class="mistake-stroke-char-card">
+                        <svg class="stroke-preview-svg" viewBox="0 0 109 109" role="img" aria-label="Urutan goresan ${c}">
+                            <g class="stroke-grid-lines" aria-hidden="true">
+                                <line x1="5" y1="54.5" x2="104" y2="54.5" />
+                                <line x1="54.5" y1="5" x2="54.5" y2="104" />
+                            </g>
+                            <g class="stroke-paths-group">${pathsSvg}</g>
+                            <g class="stroke-numbers-group">${numbersSvg}</g>
+                        </svg>
+                        <span class="mistake-stroke-char-caption">${c} • ${paths.length} Goresan</span>
+                    </div>
+                `;
+            }).join("");
+        }
+
         // Compile all mistakes (both quiz questions and match mismatches)
         const allMistakes = [];
 
@@ -1899,13 +1959,17 @@ function initKanaQuest() {
                 return;
             }
             if (q.type === "stroke") {
+                const strokeRec = q.strokeData || (window.MIRAI_STROKE_DATA && window.MIRAI_STROKE_DATA[q.answer.character]);
+                const strokeCnt = strokeRec?.paths?.length || q.answer.strokes || 0;
                 allMistakes.push({
                     badge: "GORESAN KANA",
+                    character: q.answer.character,
                     prompt: `${q.answer.character} (${q.answer.romaji})`,
                     userAns: result.userChoice || "Dilewati",
                     correctAns: `Goresan Huruf ${q.answer.character} (${q.answer.romaji})`,
-                    explanation: `Latihan menulis goresan huruf “${q.answer.character}” (${q.answer.romaji}) sesuai urutan baku goresan kana.`,
-                    speakText: q.answer.romaji || q.answer.character
+                    explanation: `Latihan menulis goresan huruf “${q.answer.character}” (${q.answer.romaji}) sesuai urutan baku goresan kana (${strokeCnt} goresan).`,
+                    speakText: q.answer.romaji || q.answer.character,
+                    hasStrokePreview: true
                 });
                 return;
             }
@@ -1917,17 +1981,23 @@ function initKanaQuest() {
             const userAns = result.userChoice || result.value || "Dilewati";
             const correctAns = result.correctChoice || (q.kind === "kana" || q.kind === "audio" || isWord ? q.answer.romaji : q.answer.character);
 
+            const strokeRec = !isWord && (window.MIRAI_STROKE_DATA && window.MIRAI_STROKE_DATA[q.answer.character]);
+            const strokeCnt = strokeRec?.paths?.length || q.answer.strokes || 0;
+            const strokeText = strokeCnt ? ` • ${strokeCnt} Goresan` : "";
+
             const explanation = isWord
                 ? `Kata “${q.answer.character}” dibaca “${q.answer.romaji}”, artinya “${q.answer.meaning}”.`
-                : `Huruf “${q.answer.character}” dibaca “${q.answer.romaji}” (${q.answer.category || "Kana dasar"}).`;
+                : `Huruf “${q.answer.character}” dibaca “${q.answer.romaji}” (${q.answer.category || "Kana dasar"}${strokeText}).`;
 
             allMistakes.push({
                 badge,
+                character: !isWord ? q.answer.character : null,
                 prompt,
                 userAns,
                 correctAns,
                 explanation,
-                speakText: q.answer.romaji || q.answer.character
+                speakText: q.answer.romaji || q.answer.character,
+                hasStrokePreview: !isWord && !!strokeRec
             });
         });
 
@@ -1982,6 +2052,17 @@ function initKanaQuest() {
                                     <strong>${item.correctAns}</strong>
                                 </div>
                             </div>
+                            ${item.hasStrokePreview && item.character ? `
+                                <div class="mistake-stroke-preview-section">
+                                    <div class="mistake-stroke-header">
+                                        <span class="mistake-stroke-icon">✍️</span>
+                                        <span class="mistake-stroke-title">Urutan & Bentuk Goresan Resmi (KanjiVG)</span>
+                                    </div>
+                                    <div class="mistake-stroke-grid">
+                                        ${renderStrokeSvgPreview(item.character)}
+                                    </div>
+                                </div>
+                            ` : ""}
                             <div class="mistake-explanation-box">
                                 <span class="exp-icon">💡</span>
                                 <span>${item.explanation}</span>

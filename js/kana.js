@@ -288,6 +288,22 @@
         );
     }
 
+    function getStrokeCount(character) {
+        if (!character) return 0;
+        if (window.MIRAI_STROKE_DATA && window.MIRAI_STROKE_DATA[character]?.paths?.length) {
+            return window.MIRAI_STROKE_DATA[character].paths.length;
+        }
+        const chars = Array.from(character);
+        if (window.MIRAI_STROKE_DATA) {
+            let total = 0;
+            for (const ch of chars) {
+                total += window.MIRAI_STROKE_DATA[ch]?.paths?.length || 0;
+            }
+            if (total > 0) return total;
+        }
+        return 3;
+    }
+
     function getDetail(character, type) {
         let reading = "";
         if (type === "hiragana") {
@@ -299,8 +315,9 @@
             reading = kataRoman[character] || combinationReading[hiraChar] || roman[hiraChar];
         }
 
+        const strokes = getStrokeCount(character);
         const example = examples[character] || [character, reading || "bunyi", "contoh penggunaan"];
-        return { character, reading: reading || "bunyi gabungan", example };
+        return { character, reading: reading || "bunyi gabungan", example, strokes };
     }
 
     function initLesson() {
@@ -316,9 +333,9 @@
             const item = getDetail(character, type);
             player?.destroy();
             detail.innerHTML = `
-                <p class="card-number">${type.toUpperCase()} / ${item.reading}</p>
+                <p class="card-number">${type.toUpperCase()} / ${item.reading} • ${item.strokes} Goresan</p>
                 <div class="selected-kana">${character}</div>
-                <h3>Urutan Menulis</h3>
+                <h3>Urutan Menulis (${item.strokes} Goresan)</h3>
                 <p>Ikuti arah setiap goresan, lalu ulangi perlahan dengan tanganmu.</p>
                 <div data-stroke-player></div>
                 <h4>Contoh kata</h4>
@@ -326,7 +343,7 @@
                     <p><b>${item.example[0]}</b><span>${item.example[1]}</span>${item.example[2]}</p>
                 </div>
             `;
-            player = window.createStrokePlayer(detail.querySelector("[data-stroke-player]"), character, 3, {
+            player = window.createStrokePlayer(detail.querySelector("[data-stroke-player]"), character, item.strokes, {
                 showClear: true
             });
         }
@@ -413,6 +430,7 @@
     window.KanaData = {
         getCharacters,
         getDetail,
+        getStrokeCount,
         hiraRows,
         kataRows,
         roman,
