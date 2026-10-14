@@ -952,13 +952,29 @@ function setupAboutDrawerCard() {
     const card = document.getElementById("mnhAboutDrawerCard");
     if (!card) return;
 
+    const btn = card.querySelector(".drawer-action-btn");
+
+    if (btn) {
+        btn.addEventListener("click", (e) => {
+            // Jika tombol dipencet saat animasi belum muncul (laci tertutup),
+            // munculkan animasinya terlebih dahulu, baru bisa pergi ke Tentang pada klik berikutnya.
+            if (!card.classList.contains("is-pulled")) {
+                e.preventDefault();
+                e.stopPropagation();
+                card.classList.add("is-pulled");
+                return;
+            }
+            // Jika animasi sudah muncul (laci terbuka), klik tombol akan bernavigasi normal ke tentang/index.html
+        });
+    }
+
     card.addEventListener("click", (e) => {
-        // Jika yang diklik adalah tombol link Tentang, biarkan langsung bernavigasi
+        // Jika yang diklik adalah tombol link Tentang, ditangani listener tombol
         if (e.target.closest(".drawer-action-btn")) {
             return;
         }
 
-        // Klik pada card: TOGGLE BUKA / TUTUP LACI (efek membuka dan menutup laci kembali)
+        // Klik pada area card: TOGGLE BUKA / TUTUP LACI (efek membuka dan menutup laci kembali)
         card.classList.toggle("is-pulled");
     });
 
