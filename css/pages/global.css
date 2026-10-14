@@ -59,7 +59,10 @@ html {
 
 #proker-list,
 #dasar,
-#lanjutan {
+#lanjutan,
+#kurikulum,
+#kurikulum-doc,
+#tatacara {
     scroll-margin-top: 100px;
 }
 
