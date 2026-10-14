@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setupManagementSlider();
     setupImageLightbox();
     setupFooterQuoteSlider();
+    setupAboutDrawerCard();
     window.initKanjiDictionary?.();
     window.initSora?.();
 });
@@ -946,3 +947,38 @@ function setupFooterQuoteSlider() {
     startAutoTimer();
 }
 
+
+function setupAboutDrawerCard() {
+    const card = document.getElementById("mnhAboutDrawerCard");
+    if (!card) return;
+
+    let isPulled = false;
+
+    card.addEventListener("click", (e) => {
+        // Jika belum ditarik: klik 1x menarik laci keluar menampilkan logo NK
+        if (!isPulled) {
+            e.preventDefault();
+            isPulled = true;
+            card.classList.add("is-pulled");
+            const hintText = card.querySelector(".drawer-hint-text");
+            if (hintText) {
+                hintText.textContent = "Laci terbuka! Klik lagi untuk menuju halaman Tentang →";
+            }
+            const btnText = card.querySelector(".drawer-btn-text");
+            if (btnText) {
+                btnText.textContent = "BUKA PROFIL SEKARANG";
+            }
+        } else {
+            // Jika sudah ditarik: klik lagi langsung pergi ke page tentang
+            window.location.href = "tentang/index.html";
+        }
+    });
+
+    // Aksesibilitas keyboard (Enter / Spasi)
+    card.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            card.click();
+        }
+    });
+}

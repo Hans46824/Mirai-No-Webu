@@ -1478,3 +1478,184 @@ body.page-tentang .feedback-feature-card > .card-corner-chibi {
     filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.4)) !important;
 }
 
+
+/* =====================================================
+   ABOUT PREVIEW — 2 CARDS GRID & DRAWER LOGO NK
+   ===================================================== */
+.about-cards-wrap {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 24px !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    align-items: stretch !important;
+}
+
+@media (max-width: 960px) {
+    .about-cards-wrap {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+}
+
+/* Card 2: Tentang Mirai no Hana dengan Garis Vertikal Kiri & Animasi Laci */
+.about-drawer-card {
+    border-left: 6px solid var(--pink, #e91e63) !important;
+    cursor: pointer !important;
+    user-select: none !important;
+    transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease, padding 0.35s ease !important;
+}
+
+.about-drawer-card:hover {
+    transform: translateY(-5px) !important;
+    border-color: var(--pink, #e91e63) !important;
+    box-shadow: 0 24px 50px rgba(233, 30, 99, 0.26), 0 6px 18px rgba(0, 0, 0, 0.6) !important;
+}
+
+.about-drawer-card .about-feature-body {
+    transition: padding-right 0.38s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.about-drawer-card.is-pulled .about-feature-body {
+    padding-right: 140px !important;
+}
+
+/* Kompartemen Laci Geser Logo NK (Drawer Tray) */
+.drawer-tray {
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 145px !important;
+    background: linear-gradient(135deg, rgba(28, 20, 36, 0.98), rgba(16, 12, 22, 0.99)) !important;
+    border-left: 1.5px solid rgba(255, 79, 145, 0.45) !important;
+    box-shadow: -14px 0 38px rgba(0, 0, 0, 0.75) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 16px !important;
+    box-sizing: border-box !important;
+    transform: translateX(100%) !important;
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    z-index: 5 !important;
+    pointer-events: none !important;
+}
+
+.about-drawer-card.is-pulled .drawer-tray {
+    transform: translateX(0) !important;
+}
+
+/* Pegangan / Tab Laci yang terlihat mengintip */
+.drawer-pull-tab {
+    position: absolute !important;
+    left: -14px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 14px !important;
+    height: 52px !important;
+    background: var(--pink, #e91e63) !important;
+    border-radius: 6px 0 0 6px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: -4px 0 14px rgba(233, 30, 99, 0.55) !important;
+}
+
+.drawer-pull-line {
+    width: 2.5px !important;
+    height: 22px !important;
+    background: #ffffff !important;
+    border-radius: 2px !important;
+}
+
+.about-drawer-card.is-pulled .drawer-pull-tab {
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+/* Konten Logo NK di Dalam Laci */
+.drawer-content-box {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 8px !important;
+    transform: scale(0.85) !important;
+    opacity: 0.7 !important;
+    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s, opacity 0.35s ease 0.1s !important;
+}
+
+.about-drawer-card.is-pulled .drawer-content-box {
+    transform: scale(1) !important;
+    opacity: 1 !important;
+}
+
+.drawer-nk-logo {
+    width: 82px !important;
+    height: auto !important;
+    object-fit: contain !important;
+    filter: drop-shadow(0 6px 18px rgba(233, 30, 99, 0.55)) !important;
+}
+
+.drawer-nk-title {
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1.5px !important;
+    color: var(--pink, #ff4f91) !important;
+    text-transform: uppercase !important;
+}
+
+.drawer-nk-sub {
+    font-size: 9.5px !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    letter-spacing: 1px !important;
+    opacity: 0.85 !important;
+}
+
+/* Action & Hint Text */
+.about-drawer-action {
+    display: flex !important;
+    align-items: center !important;
+    gap: 16px !important;
+    flex-wrap: wrap !important;
+    margin-top: 14px !important;
+}
+
+.drawer-hint {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 7px !important;
+    font-size: 12px !important;
+    color: var(--pink, #ff659b) !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.4px !important;
+}
+
+.drawer-hint-dot {
+    width: 6px !important;
+    height: 6px !important;
+    border-radius: 50% !important;
+    background: var(--pink, #e91e63) !important;
+    box-shadow: 0 0 8px var(--pink, #e91e63) !important;
+    animation: drawerPulse 1.8s infinite !important;
+}
+
+@keyframes drawerPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.6; }
+}
+
+@media (max-width: 600px) {
+    .about-drawer-card.is-pulled .about-feature-body {
+        padding-right: 110px !important;
+    }
+    .drawer-tray {
+        width: 115px !important;
+        padding: 10px !important;
+    }
+    .drawer-nk-logo {
+        width: 64px !important;
+    }
+}
