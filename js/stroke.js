@@ -44,7 +44,7 @@ window.togglePenSize = function togglePenSize() {
 try {
     for (let i = localStorage.length - 1; i >= 0; i--) {
         const k = localStorage.key(i);
-        if (k && (k.startsWith("mirai_stroke_v1_") || k.startsWith("mirai_stroke_v2_") || k.startsWith("mirai_stroke_v3_"))) {
+        if (k && k.startsWith("mirai_stroke_")) {
             localStorage.removeItem(k);
         }
     }
@@ -153,46 +153,15 @@ function calculateStrokeNumbers(paths, officialNumbers) {
         let nx, ny;
 
         if (hasOfficial && officialNumbers[i] && typeof officialNumbers[i].x === 'number') {
-            const off = officialNumbers[i];
-            const dist = Math.hypot(off.x - sx, off.y - sy);
-            // Validasi: nomor tidak boleh terlalu jauh dari awal goresan (<= 20) dan dalam batas kanvas yang nyaman [9, 100]
-            if (dist <= 20 && off.x >= 9 && off.x <= 100 && off.y >= 9 && off.y <= 100) {
-                nx = off.x;
-                ny = off.y;
-            } else {
-                // Re-anchor dekat titik awal goresan agar tidak melenceng jauh
-                nx = sx >= 12 ? sx - 6.5 : sx + 6;
-                ny = sy >= 12 ? sy - 2.5 : sy + 7;
-            }
+            nx = officialNumbers[i].x;
+            ny = officialNumbers[i].y;
         } else {
             nx = sx >= 12 ? sx - 6.5 : sx + 6;
             ny = sy >= 12 ? sy - 2.5 : sy + 7;
         }
 
-        // Hindari tabrakan visual antar-label nomor
-        for (let attempt = 0; attempt < 5; attempt++) {
-            let collision = false;
-            for (let j = 0; j < placed.length; j++) {
-                const dx = nx - placed[j].x;
-                const dy = ny - placed[j].y;
-                if (Math.hypot(dx, dy) < 7.5) {
-                    collision = true;
-                    break;
-                }
-            }
-            if (collision) {
-                if (ny > 16) {
-                    ny -= 5.5;
-                } else {
-                    nx += 6.5;
-                }
-            } else {
-                break;
-            }
-        }
-
-        nx = Math.max(7, Math.min(101, nx));
-        ny = Math.max(9, Math.min(102, ny));
+        nx = Math.max(5, Math.min(104, nx));
+        ny = Math.max(5, Math.min(104, ny));
 
         placed.push({
             x: nx,
@@ -297,7 +266,7 @@ window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallba
                 : ["M55 52 L165 52", "M72 38 L72 172", "M52 115 L168 115", "M164 48 L164 172"].slice(0, Math.max(2, Math.min(fallbackCount || 3, 4)));
 
             let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-            svg.setAttribute("viewBox", rec?.viewBox || "0 0 109 109");
+            svg.setAttribute("viewBox", "0 0 109 109");
             svg.setAttribute("role", "img");
             svg.setAttribute("aria-label", `Urutan goresan ${char}`);
             svg.style.width = '100%';
