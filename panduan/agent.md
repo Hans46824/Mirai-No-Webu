@@ -7,14 +7,45 @@ Gunakan bahasa yang sederhana, manusiawi, dan langsung ke intinya. Hindari penul
 
 ---
 
-## 1. Aturan Wajib: Pembaruan Mandiri Dokumentasi
+## 1. Protokol Eksekusi Cepat (Fast-Execution Protocol)
+
+Setiap AI asisten atau pengembang yang bekerja pada repositori ini **WAJIB mematuhi 4 aturan inti eksekusi cepat** berikut tanpa kecuali:
+
+### 1. Peta Modul CSS (DILARANG Membaca style.css Utuh)
+- **DILARANG KERAS** membaca `css/style.css` secara keseluruhan atau memindai semua modul CSS sekaligus ke dalam konteks percakapan.
+- `css/style.css` kini murni berfungsi sebagai master index pengimpor (`@import`) 5 modul terpisah.
+- Untuk membaca atau mengedit aturan CSS, **hanya buka modul spesifik yang relevan** sesuai peta berikut:
+  - **`css/modules/01-base-theme.css`**: Variabel warna root, CSS reset, sistem selang-seling background ganjil/genap, dan tombol dasar.
+  - **`css/modules/02-header-hero-footer.css`**: Floating navbar, off-canvas sidebar menu, banner hero section semua halaman, global footer, dan three-tier header.
+  - **`css/modules/03-kelas-kamus-latihan.css`**: Halaman Kelas (`kelas/*`), Materi (`materi/*`), Kamus (`kamus/*`), kuis Latihan Kana, kanvas urutan goresan (stroke order), dan kurikulum.
+  - **`css/modules/04-proker-tentang.css`**: Halaman Kegiatan/Proker (`kegiatan/*`), Divisi (`divisi/*`), Tentang Klub (`tentang/index.html`), filosofi, logo, slogan, visi misi, haori, kepengurusan, timeline, sora profile, prestasi, dan FAQ.
+  - **`css/modules/05-fitur-ekstra.css`**: Komponen Beranda (`index.html`), Rekomendasi (`rekomendasi/index.html`), Peringkat (`peringkat/index.html`), Lomba (`lomba/index.html`), Toko (`toko/index.html`), 404 (`404.html`), animasi umum, dan Hero Guardrail.
+
+### 2. Peta JavaScript (`js/`)
+Akses logika interaktif langsung ke berkas terkait tanpa membaca seluruh folder:
+- **Logika UI global & navigasi**: `js/main.js` (header scroll, hero motion, launcher) dan `js/script.js` (master interaksi kuis, kartu, & efek global).
+- **Chatbot Sora**: `js/sora.js` (logika chatbot offline & UI), `js/api.js` (endpoint data), dan `js/translator.js` (mesin bantu terjemahan).
+- **Kamus, Kana, Kanji & Goresan**: `js/kana.js` (kartu & audio pelafalan), `js/kanji.js` (ensiklopedia & filter kanji), dan `js/stroke.js` (animasi kanvas goresan). Catatan: `js/stroke-data.js` berisi vektor koordinat garis besar dan dikecualikan dari pemindaian.
+- **Slider & Carousel**: `js/carousel.js` (carousel umum & produk) dan `js/proker-slider.js` (slider khusus proker kegiatan).
+
+### 3. Larangan Menyalakan Server & Screenshot Otomatis
+- **DILARANG KERAS** menyalakan/merestart HTTP server lokal (`python3 -m http.server`, live-server, dll.) atau mengambil screenshot otomatis via browser/tool kecuali diminta secara eksplisit oleh user.
+- Fokus langsung pada eksekusi cepat kode dan pembaruan dokumentasi.
+
+### 4. Eksekusi Batch HTML Berulang Wajib Skrip Python Terminal
+- Jika diminta mengubah elemen HTML yang berulang di banyak halaman (seperti navbar, sidebar, hero, atau footer di 26+ file HTML), **WAJIB menggunakan satu script Python singkat via terminal**.
+- **DILARANG KERAS** mengedit file HTML satu per satu secara manual dengan tool pengedit teks yang lambat dan membebani konteks percakapan.
+
+---
+
+## 2. Aturan Wajib: Pembaruan Mandiri Dokumentasi
 - Setiap kali ada halaman baru, file script baru, atau aset gambar baru yang diunggah ke proyek, AI WAJIB langsung memperbarui dokumen **agent.md** dan **tree.md**.
 - Jangan hanya mengubah kode web tanpa mencatat perubahannya di dokumentasi. Struktur direktori dan aturan desain harus selalu selaras dengan kondisi web terkini.
 
 ### A. Arsitektur Folder Modular (Clean Root Standard)
 Seluruh berkas website Mirai no Webu dikelompokkan secara terstruktur ke dalam folder tematik:
 - **Root (`/`)**: Berisi **index.html** (gerbang utama Beranda), **404.html** (halaman penanganan error ramah pengunjung bertema Mirai no Hana), **README.md** (etalase profil repositori GitHub dan dokumentasi kredit), **cspell.json** (konfigurasi spell checker bilingual), dan folder **`.vscode/`** (`settings.json` konfigurasi workspace).
-- **`css/`**: Berisi master stylesheet antarmuka (`css/style.css`).
+- **`css/`**: Berisi master stylesheet antarmuka (`css/style.css`) yang memanggil 5 modul terpisah di `css/modules/` (`01-base-theme.css` s.d. `05-fitur-ekstra.css`).
 - **`js/`**: Berisi seluruh logika JavaScript modular (`main.js`, `script.js`, `kanji.js`, `kana.js`, `stroke.js`, `stroke-data.js`, `sora.js`, dll.).
 - **`panduan/`**: Berisi dokumentasi arsitektur proyek (`panduan/tree.md`, `panduan/agent.md`).
 - **`data/`**: Berisi basis data lokal JSON (`kana.json`, `kanji.json`, `kanji-meta.json`) yang menyuplai data untuk Kamus dan Latihan Kana/Kanji.
@@ -29,7 +60,7 @@ Seluruh berkas website Mirai no Webu dikelompokkan secara terstruktur ke dalam f
 - **`kamus/`**: Kamus interaktif pencarian Kana & Kanji (`index.html`) dan Ensiklopedia Kanji (`kanji.html`).
 - **`materi/`**: Modul pembelajaran terperinci (`materi/dasar/` dan `materi/lanjutan/`).
 - **`sora/`**: Playground bot obrolan maskot Sora (`index.html`).
-- **`skrip/`**: Kumpulan skrip otomasi & pemeliharaan kode Python.
+- **`skrip/`**: Kumpulan skrip otomasi & pemeliharaan kode Python, serta sub-folder `skrip/arsip/` untuk menyimpan arsip skrip sekali-pakai.
 - **Folder `video/` telah dihapus** agar repositori bersih dari berkas rekaman lokal yang tidak terpakai.
 
 ### B. Aturan Wajib: Pembaruan Mandiri Sumber Daya & Kredit (Sources & Credits)
@@ -59,7 +90,7 @@ Seluruh berkas website Mirai no Webu dikelompokkan secara terstruktur ke dalam f
 
 ---
 
-## 2. Inventaris Sumber Daya Gambar & Berkas (Colocation & Shared)
+## 3. Inventaris Sumber Daya Gambar & Berkas (Colocation & Shared)
 
 Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
 
@@ -87,7 +118,7 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
 
 ---
 
-## 3. Aturan Desain & Tampilan Visual
+## 4. Aturan Desain & Tampilan Visual
 
 ### A. Konsep Selang-Seling Hitam dan Putih (Universal Section Alternation)
 - Seluruh halaman web (Beranda, Tentang, Program & Fasilitas, serta Toko) menggunakan sistem seksi warna selang-seling antara hitam (#0e0b12 atau #111115) dan putih murni (#ffffff).
@@ -415,7 +446,7 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
 
 ---
 
-## 4. Perawatan & Pengelolaan Fitur Chat Sora
+## 5. Perawatan & Pengelolaan Fitur Chat Sora
 
 Fitur bot obrolan maskot Sora beroperasi melalui berkas **js/sora.js** dan halaman **sora/index.html**:
 
@@ -431,7 +462,7 @@ Fitur bot obrolan maskot Sora beroperasi melalui berkas **js/sora.js** dan halam
 
 ---
 
-## 5. Sistem Motion & Animasi Masuk Halaman (Native Motion Engine)
+## 6. Sistem Motion & Animasi Masuk Halaman (Native Motion Engine)
 
 Website Mirai no Webu menerapkan animasi masuk (*page entrance motion*) dan scroll reveal yang anggun, modern, dan ringan tanpa dependensi pustaka berat:
 
@@ -450,7 +481,7 @@ Website Mirai no Webu menerapkan animasi masuk (*page entrance motion*) dan scro
 
 ---
 
-## 6. Standar Halaman Penanganan Error 404 Kustom (404.html)
+## 7. Standar Halaman Penanganan Error 404 Kustom (404.html)
 
 Halaman penanganan tautan salah (`404.html`) di root repositori wajib mempertahankan identitas khas Mirai no Hana dan dilarang disederhanakan menjadi teks polos kaku:
 1. **Efek Kelopak Sakura Melayang (`.sakura-field`)**: Menggunakan animasi murni CSS3 untuk menghadirkan atmosfer visual jejepangan yang anggun di latar belakang kartu error.
@@ -460,7 +491,7 @@ Halaman penanganan tautan salah (`404.html`) di root repositori wajib mempertaha
 
 ---
 
-## 7. Pengelolaan Basis Data Offline JSON & Vektor KanjiVG (Folder data/)
+## 8. Pengelolaan Basis Data Offline JSON & Vektor KanjiVG (Folder data/)
 
 Seluruh data karakter, kosakata, dan goresan di website beroperasi murni secara offline melalui berkas lokal:
 - **`data/kana.json`**: Menyimpan seluruh inventaris karakter Hiragana dan Katakana (Gojūon, Dakuon, Handakuon, Yōon, Sokuon).
@@ -471,7 +502,7 @@ Seluruh data karakter, kosakata, dan goresan di website beroperasi murni secara 
 
 ---
 
-## 8. Standar Keamanan Siber & Sanitasi Input
+## 9. Standar Keamanan Siber & Sanitasi Input
 
 Untuk menjaga keamanan pengunjung dan integritas website:
 1. **Pencegahan Celah XSS (Cross-Site Scripting)**:
@@ -485,7 +516,7 @@ Untuk menjaga keamanan pengunjung dan integritas website:
 
 ---
 
-## 9. Konvensi Pesan Git Commit (Conventional Commits)
+## 10. Konvensi Pesan Git Commit (Conventional Commits)
 
 Seluruh riwayat commit repositori wajib rapi dan seragam menggunakan bahasa Indonesia dengan format baku:
 - **`feat:`** — Penambahan fitur atau halaman baru (contoh: `feat: buat halaman 404 estetik`).
@@ -497,7 +528,7 @@ Seluruh riwayat commit repositori wajib rapi dan seragam menggunakan bahasa Indo
 
 ---
 
-## 10. Protokol Universal Anti-Halangan Kontrol Mengambang (Floating Controls Auto-Hide)
+## 11. Protokol Universal Anti-Halangan Kontrol Mengambang (Floating Controls Auto-Hide)
 
 Website Mirai no Hana memiliki elemen kontrol mengambang global yang selalu menempel di layar (*fixed overlay*), yaitu:
 - **Tombol Menu Navigasi** (`.menu-btn`) di pojok kanan atas.
@@ -535,7 +566,7 @@ Website Mirai no Hana memiliki elemen kontrol mengambang global yang selalu mene
 
 ---
 
-## 11. Protokol Dokumentasi Hidup Terpadu (Living Documentation & Auto-Sync Protocol)
+## 12. Protokol Dokumentasi Hidup Terpadu (Living Documentation & Auto-Sync Protocol)
 
 Seluruh berkas dokumentasi di repositori Mirai-No-Webu berprinsip sebagai **Dokumentasi Hidup (*Living Documentation*)** yang wajib selalu mutakhir (*up-to-date*) dan sinkron dengan kondisi kode riil saat ini.
 

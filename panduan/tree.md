@@ -1,19 +1,25 @@
 # Struktur Direktori Proyek Mirai no Webu
 
-Dokumen ini memetakan seluruh susunan berkas, folder, halaman web, aset gambar, basis data, dan logika skrip yang aktif di website **Mirai no Webu**.
-Struktur direktori menerapkan standar **Feature-Based Asset Colocation** dan **Clean Root Architecture**, di mana berkas/foto yang spesifik berkaitan dengan halaman tertentu berada di dalam folder halaman tersebut:
+Dokumen ini memetakan seluruh susunan berkas, folder, modul stylesheet, halaman web, aset gambar, basis data, dan logika skrip yang aktif di website **Mirai no Webu**.
+Struktur direktori menerapkan standar **Feature-Based Asset Colocation**, **Modular CSS Architecture**, dan **Clean Root Standard**:
 
 ```text
 Mirai-No-Webu/
 ├── index.html                      # Gerbang utama website (Beranda)
-├── 404.html                        # Halaman penanganan tautan salah / tidak ditemukan
+├── 404.html                        # Halaman penanganan tautan salah / tidak ditemukan bertema Sora
 ├── README.md                       # Profil utama repositori & dokumentasi Sources & Credits
 ├── cspell.json                     # Konfigurasi Code Spell Checker (kamus & ignorasi kata bilingual)
 ├── .vscode/                        # Konfigurasi workspace editor VS Code / Antigravity
-│   └── settings.json               # Pengaturan workspace (linter & penonaktifan false-positive spell check)
+│   └── settings.json               # Pengaturan workspace, search.exclude, & files.watcherExclude
 │
-├── css/                            # Master Stylesheet (Gaya & Desain Antarmuka)
-│   └── style.css                   # Master CSS (Tema gelap, terang, kartu wagara, tipografi, & komponen)
+├── css/                            # Master & Arsitektur Stylesheet Modular
+│   ├── style.css                   # Master CSS Index (Hanya memuat @import Google Fonts & 5 modul)
+│   └── modules/                    # Sub-folder pecahan stylesheet modular (terisolasi & performan)
+│       ├── 01-base-theme.css       # Variabel warna, CSS reset, tombol dasar, & sistem selang-seling
+│       ├── 02-header-hero-footer.css # Floating navbar, off-canvas sidebar, hero banners, & footer
+│       ├── 03-kelas-kamus-latihan.css # Modul pembelajaran kelas, kana quest, kamus, stroke order, & kurikulum
+│       ├── 04-proker-tentang.css   # Divisi, proker, profil klub, filosofi, logo, slogan, visi misi, haori, FAQ
+│       └── 05-fitur-ekstra.css     # Kartu beranda, kutipan motivasi, rekomendasi, peringkat, lomba, toko, animasi
 │
 ├── js/                             # Logika JavaScript Modular
 │   ├── main.js                     # Logika navbar, sidebar mobile, launcher Sora, dan tema
@@ -23,7 +29,7 @@ Mirai-No-Webu/
 │   ├── kanji.js                    # Mesin pencari & filter ensiklopedia Kanji
 │   ├── kana.js                     # Logika audio pelafalan & kartu Kana
 │   ├── stroke.js                   # Animasi kanvas urutan goresan Yoon & kanji
-│   ├── stroke-data.js              # Vektor koordinat garis KanjiVG terkurasi
+│   ├── stroke-data.js              # Vektor koordinat garis KanjiVG terkurasi (dikecualikan dari watcher)
 │   ├── carousel.js                 # Logika slider / carousel umum
 │   ├── proker-slider.js            # Slider khusus halaman kegiatan & proker
 │   ├── translator.js               # Mesin bantu terjemahan
@@ -31,7 +37,7 @@ Mirai-No-Webu/
 │
 ├── panduan/                        # Dokumentasi & Panduan Proyek
 │   ├── tree.md                     # Peta struktur direktori lengkap proyek ini
-│   └── agent.md                    # Pedoman aturan desain, fungsi, dan persona AI asisten
+│   └── agent.md                    # Pedoman aturan desain, protokol eksekusi cepat, dan persona AI
 │
 ├── data/                           # Basis Data Lokal JSON (Menyuplai Kamus & Latihan)
 │   ├── README.md                   # Dokumentasi relasi & fungsi basis data JSON
@@ -44,16 +50,11 @@ Mirai-No-Webu/
 │   ├── index.html                  # Sejarah klub, filosofi bunga, bendera, Haori, dan 11 profil pengurus
 │   └── images/                     # Aset foto spesifik halaman Tentang
 │       ├── anggota/                # Dokumentasi foto anggota kepengurusan (1.jpg - 8.jpg)
-│       └── identitas/              # Foto Haori resmi, kartu tanda anggota (IDC), lanyard, & pin
+│       └── identitas/              # Foto Haori resmi (depan/belakang), IDC, lanyard, nametag, & pin
 │
 ├── lomba/                          # Halaman Informasi Kompetisi & Matsuri
 │   ├── index.html                  # Informasi 18 lomba & festival jejepangan
-│   └── images/                     # Poster resmi lomba (ITS, UNAIR, UNESA)
-│       ├── its1.jpeg
-│       ├── its2.jpeg
-│       ├── una.jpeg
-│       ├── une1.jpeg
-│       └── une2.jpeg
+│   └── images/                     # Poster resmi lomba (ITS 1 & 2, UNAIR, UNESA 1 & 2)
 │
 ├── kegiatan/                       # Halaman Program Kerja Unggulan & Fasilitas
 │   ├── index.html                  # Hub Program & Fasilitas (4 Divisi, 5 Proker, Fasilitas, & Galeri Foto)
@@ -114,11 +115,28 @@ Mirai-No-Webu/
 │       ├── kanji.html              # Panduan aksara Kanji & JLPT
 │       └── grammar.html            # Panduan tata bahasa (Bunpou) lanjutan
 │
-├── skrip/                          # Kumpulan Skrip Otomasi Pemeliharaan Kode (.py)
-│   └── README.md                   # Panduan & daftar fungsi skrip otomasi pengembang
+├── skrip/                          # Pemeliharaan Kode Python
+│   ├── README.md                   # Panduan skrip pengembang
+│   └── arsip/                      # Arsip skrip perbaikan sekali-pakai (dikecualikan dari watcher)
+│       ├── add_nametag.py
+│       ├── fix_heroes.py
+│       ├── fix_index_links.py
+│       ├── fix_japanese.py
+│       ├── fix_sora.py
+│       ├── fix_sora2.py
+│       ├── move_menu_btn.py
+│       ├── replace_cards.py
+│       ├── replace_cards_revert.py
+│       ├── replace_sidebar_text.py
+│       ├── replace_sora_grid.py
+│       ├── update_agent_docs.py
+│       ├── update_carousel.py
+│       ├── update_carousel_js.py
+│       ├── update_index_hero.py
+│       └── update_kelas.py
 │
 └── images/mirai/                   # Aset Bersama (Shared Global Assets)
-    ├── background/                 # Pola Wagara master CSS (w1b, w1w, c1b, c1w, Sora.png, chat.jpeg)
+    ├── background/                 # Pola Wagara master CSS (w1b, w1w, c1b, c1w, w2w, chat, Sora)
     ├── logo/                       # Logo resmi klub (MNH1.png, MNH1-nav.png, NK.png, comingsoon.jpg)
     ├── icon/                       # Ikon chibi Genshin Impact (Al, Ay, Chi, Fa, Fu, Hu, Ka, Ki, Lo, dll.)
     ├── karakter/                   # Foto karakter anime kutipan (luf, ere, nar, dek, tan)
