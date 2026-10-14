@@ -1,0 +1,1046 @@
+/* ==========================================================================
+   KAMUS & ENSIKLOPEDIA AKSARA — Mirai no Webu
+   dictionary-section, kana-card, kanji-card, stroke-stage, kanjivg,
+   quick-stroke-btn, script-intro-card, kanvas goresan Yoon, dan practice banner.
+   ========================================================================== */
+
+/* ==========================================================================
+   Script Intro & Guide Cards (Hiragana, Katakana, Kanji in Kamus)
+   ========================================================================== */
+.script-intro-card {
+    background: #ffffff;
+    border: 1.5px solid var(--pink-border, #fcd1e5);
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 16px rgba(72, 32, 52, 0.04);
+    box-sizing: border-box;
+}
+
+.script-intro-badge-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+.script-intro-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    background: rgba(233, 30, 99, 0.08);
+    border: 1px solid rgba(233, 30, 99, 0.25);
+    color: var(--pink, #e91e63);
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.script-intro-tag-info {
+    font-size: 11px;
+    color: var(--muted, #857b88);
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.script-intro-title {
+    margin: 0 0 10px;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--ink, #201c26);
+    line-height: 1.35;
+}
+
+.script-intro-lead {
+    margin: 0 0 16px;
+    font-size: 14px;
+    line-height: 1.75;
+    color: #4a4250;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.script-intro-lead strong {
+    color: var(--ink, #201c26);
+}
+
+.script-intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 14px;
+}
+
+.script-intro-col {
+    background: #fff8fa;
+    border: 1px solid #f4d8e2;
+    border-radius: 9px;
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+}
+
+.script-intro-subtitle {
+    margin: 0 0 12px;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--pink, #e91e63);
+    letter-spacing: 0.3px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.script-intro-list {
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.script-intro-list li {
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: #554d58;
+    position: relative;
+    padding-left: 16px;
+}
+
+.script-intro-list li::before {
+    content: "•";
+    position: absolute;
+    left: 2px;
+    color: var(--pink, #e91e63);
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.script-intro-list li strong {
+    color: var(--ink, #201c26);
+}
+
+.jlpt-chips-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+    margin: 10px 0 12px;
+}
+
+.jlpt-chip-item {
+    background: #ffffff;
+    border: 1px solid #edd0df;
+    border-radius: 6px;
+    padding: 6px 9px;
+    font-size: 11.5px;
+    line-height: 1.4;
+    color: #322b35;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.jlpt-chip-item strong {
+    color: var(--pink, #e91e63);
+}
+
+.script-intro-note-box {
+    background: rgba(233, 30, 99, 0.07);
+    border-left: 3px solid var(--pink, #e91e63);
+    padding: 9px 12px;
+    border-radius: 0 6px 6px 0;
+    margin-top: auto;
+    font-size: 11.5px;
+    line-height: 1.55;
+    color: #382c3c;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Dukungan Mode Gelap untuk Kartu Pengenalan Huruf */
+body.dark-mode .script-intro-card,
+body.theme-dark .script-intro-card {
+    background: #18131c !important;
+    border-color: #38293d !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+}
+
+body.dark-mode .script-intro-title,
+body.theme-dark .script-intro-title {
+    color: #ffffff !important;
+}
+
+body.dark-mode .script-intro-lead,
+body.theme-dark .script-intro-lead {
+    color: #d8ccd9 !important;
+}
+
+body.dark-mode .script-intro-lead strong,
+body.theme-dark .script-intro-lead strong {
+    color: #ffffff !important;
+}
+
+body.dark-mode .script-intro-col,
+body.theme-dark .script-intro-col {
+    background: #1f1824 !important;
+    border-color: #3a2b40 !important;
+}
+
+body.dark-mode .script-intro-list li,
+body.theme-dark .script-intro-list li {
+    color: #cfc2d1 !important;
+}
+
+body.dark-mode .script-intro-list li strong,
+body.theme-dark .script-intro-list li strong {
+    color: #ffffff !important;
+}
+
+body.dark-mode .jlpt-chip-item,
+body.theme-dark .jlpt-chip-item {
+    background: #140f17 !important;
+    border-color: #3c2a42 !important;
+    color: #e4d8e6 !important;
+}
+
+body.dark-mode .script-intro-note-box,
+body.theme-dark .script-intro-note-box {
+    background: rgba(233, 30, 99, 0.15) !important;
+    color: #f1e6f3 !important;
+}
+
+@media(max-width: 850px) {
+    .script-intro-grid {
+        grid-template-columns: 1fr;
+    }
+    .jlpt-chips-wrap {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Penyesuaian Tema Gelap */
+body.theme-dark .question-prompt-text {
+    color: #fff;
+}
+
+body.theme-dark .question-prompt-meaning {
+    color: #ff9abb;
+}
+
+body.theme-dark .match-title {
+    color: #fff;
+}
+
+body.theme-dark .match-subtitle {
+    color: #caa0b4;
+}
+
+body.theme-dark .match-button {
+    background: #241d26;
+    border-color: #4a3442;
+    color: #fff;
+}
+
+body.theme-dark .match-button:hover:not(:disabled):not(.is-selected) {
+    background: #312434;
+    border-color: var(--pink);
+}
+
+body.theme-dark .match-button.is-selected {
+    background: #3d2538;
+    border-color: var(--pink);
+}
+
+body.theme-dark .match-button.is-matched {
+    background: #183327;
+    border-color: #2e7a53;
+    color: #7de8b0;
+}
+
+body.theme-dark .match-button.is-matched .match-meaning {
+    color: #62d699;
+}
+
+body.theme-dark .match-button.is-wrong-match {
+    background: #3f1922;
+    border-color: #a82e42;
+    color: #f796a5;
+}
+
+body.theme-dark .kana-section-group {
+    border-bottom-color: #3f2a37;
+}
+
+body.theme-dark .kana-section-title {
+    color: #fff;
+}
+
+body.theme-dark .kana-section-badge {
+    background: #31212b;
+    border-color: #553347;
+    color: #ff9abb;
+}
+
+body.theme-dark .kana-section-desc-card {
+    background: #231c26;
+    border-left-color: var(--pink);
+}
+
+body.theme-dark .kana-section-desc {
+    color: #c9b7c2;
+}
+
+body.theme-dark .kana-empty-state {
+    background: #231c26;
+    border-color: #44303d;
+    color: #c9b7c2;
+}
+
+
+
+/* Urutan Goresan KanjiVG & Karakter Yoon */
+/* ==========================================================================
+   URUTAN GORESAN: GORESAN TRANSPARAN & ANGKA NOMOR URUTAN (KANJIVG)
+   ========================================================================== */
+/* Garis Kotak Panduan Genkouyoushi (Japanese Practice Grid) */
+.stroke-grid-line,
+svg .stroke-grid-line {
+    stroke: rgba(233, 30, 99, 0.16) !important;
+    stroke-width: 0.9px !important;
+    stroke-dasharray: 4, 4 !important;
+    fill: none !important;
+    pointer-events: none !important;
+}
+
+body.theme-dark .stroke-grid-line,
+body.theme-dark svg .stroke-grid-line {
+    stroke: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Panduan Urutan Goresan (Stroke Guide Path) */
+
+.stroke-guide-path,
+svg .stroke-guide-path {
+    stroke: rgba(233, 30, 99, 0.35) !important;
+    fill: none !important;
+    stroke-linecap: round !important;
+    stroke-linejoin: round !important;
+    pointer-events: none !important;
+    transition: stroke 0.3s ease !important;
+}
+
+.stroke-thin .stroke-guide-path {
+    stroke-width: 2.2px !important;
+}
+
+.stroke-thick .stroke-guide-path {
+    stroke-width: 3.6px !important;
+}
+
+body.theme-dark .stroke-guide-path,
+body.theme-dark svg .stroke-guide-path {
+    stroke: rgba(255, 255, 255, 0.28) !important;
+}
+
+/* Goresan Aktif Berwarna (Active Animated Strokes) */
+.stroke-active-path,
+path[data-stroke] {
+    stroke: var(--pink, #e91e63) !important;
+    fill: none !important;
+    stroke-linecap: round !important;
+    stroke-linejoin: round !important;
+}
+
+body.theme-dark .stroke-active-path,
+body.theme-dark path[data-stroke] {
+    stroke: #ff4081 !important;
+}
+
+/* Label Nomor Urutan Goresan pada Kanvas */
+.stroke-number-label {
+    font-size: 7.5px !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+    font-weight: 800 !important;
+    fill: #d81b60 !important;
+    stroke: #ffffff !important;
+    stroke-width: 1.8px !important;
+    paint-order: stroke fill !important;
+    stroke-linecap: round !important;
+    stroke-linejoin: round !important;
+    cursor: pointer !important;
+    user-select: none !important;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), fill 0.2s ease, opacity 0.25s ease, stroke 0.2s ease !important;
+}
+
+.stroke-number-label:hover {
+    transform: scale(1.25);
+    fill: #ad1457 !important;
+}
+
+.stroke-number-label.is-active {
+    fill: #ffffff !important;
+    stroke: #e91e63 !important;
+    stroke-width: 2.4px !important;
+    font-weight: 900 !important;
+    transform: scale(1.2);
+}
+
+.stroke-number-label.is-done {
+    opacity: 0.75 !important;
+    fill: #ad1457 !important;
+}
+
+body.theme-dark .stroke-number-label {
+    fill: #ff659b !important;
+    stroke: #121319 !important;
+    stroke-width: 2px !important;
+}
+
+body.theme-dark .stroke-number-label:hover {
+    fill: #ffffff !important;
+    stroke: #ff4081 !important;
+}
+
+body.theme-dark .stroke-number-label.is-active {
+    fill: #ffffff !important;
+    stroke: #ff4081 !important;
+}
+
+body.theme-dark .stroke-number-label.is-done {
+    opacity: 0.75 !important;
+    fill: #f472b6 !important;
+}
+
+/* Tombol Toggle Ukuran Pena */
+.btn-pen-style {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-height: 28px;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--pink, #e91e63);
+    background: #fff;
+    border: 1px solid var(--pink-border, #f9c2d6);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    user-select: none;
+    box-shadow: 0 2px 6px rgba(233, 30, 99, 0.08);
+}
+
+.btn-pen-style:hover {
+    color: #fff;
+    background: var(--pink, #e91e63);
+    border-color: var(--pink, #e91e63);
+    box-shadow: 0 4px 12px rgba(233, 30, 99, 0.25);
+    transform: translateY(-1px);
+}
+
+.btn-pen-style:active {
+    transform: translateY(0);
+}
+
+
+
+/* Kamus Jepang Exclusive Clean White Theme & Practice Banner */
+/* ====================================================
+   KAMUS JEPANG (kamus.html) - EXCLUSIVE CLEAN WHITE THEME
+   Menjamin Kamus 100% Berwarna Putih Bersih, Rapi & Elegan
+   ==================================================== */
+.dictionary-section,
+main > section.dictionary-section,
+main > .dictionary-section {
+    background-color: #ffffff !important;
+    color: #18151b !important;
+}
+
+.dictionary-section .heading,
+.dictionary-section h1,
+.dictionary-section h2,
+.dictionary-section h3,
+.dictionary-section h4 {
+    color: #18151b !important;
+}
+
+.dictionary-section .heading span {
+    color: var(--pink, #e91e63) !important;
+}
+
+.dictionary-section p,
+.dictionary-section .copy,
+.dictionary-section .result-count {
+    color: #554e57 !important;
+}
+
+.dictionary-section .kicker,
+.dictionary-section .eyebrow {
+    color: var(--pink, #e91e63) !important;
+}
+
+.dictionary-section .script-tabs {
+    margin-top: 28px !important;
+    margin-bottom: 24px !important;
+    gap: 10px !important;
+}
+
+.dictionary-section .script-tabs button {
+    background: #ffffff !important;
+    color: #333333 !important;
+    border: 1.5px solid var(--pink-border, #f4bfd3) !important;
+    border-radius: 6px !important;
+    font-weight: 700 !important;
+    padding: 12px 24px !important;
+    transition: all 0.2s ease !important;
+}
+
+.dictionary-section .script-tabs button:hover {
+    background: #fff5f8 !important;
+    color: var(--pink, #e91e63) !important;
+    border-color: var(--pink, #e91e63) !important;
+}
+
+.dictionary-section .script-tabs button.is-active {
+    background: var(--pink, #e91e63) !important;
+    color: #ffffff !important;
+    border-color: var(--pink, #e91e63) !important;
+    box-shadow: 0 4px 14px rgba(233, 30, 99, 0.25) !important;
+}
+
+.dictionary-section .dictionary-controls {
+    background: #ffffff !important;
+    border: 1px solid var(--pink-border, #f4bfd3) !important;
+    border-radius: 10px !important;
+    padding: 18px 22px !important;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04) !important;
+}
+
+.dictionary-section .dictionary-controls label {
+    color: #222222 !important;
+    font-weight: 600 !important;
+}
+
+.dictionary-section .dictionary-controls input,
+.dictionary-section .dictionary-controls select {
+    background: #ffffff !important;
+    color: #18151b !important;
+    border: 1.5px solid var(--pink-border, #f4bfd3) !important;
+    border-radius: 6px !important;
+}
+
+.dictionary-section .dictionary-controls input:focus,
+.dictionary-section .dictionary-controls select:focus {
+    border-color: var(--pink, #e91e63) !important;
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.15) !important;
+}
+
+.dictionary-section .kanji-grid {
+    background: transparent !important;
+}
+
+.dictionary-section .kanji-card {
+    background: #ffffff !important;
+    border: 1.5px solid var(--pink-border, #f4bfd3) !important;
+    color: #18151b !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.dictionary-section .kanji-card:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 8px 20px rgba(233, 30, 99, 0.14) !important;
+    border-color: var(--pink, #e91e63) !important;
+}
+
+.dictionary-section .kanji-card .kanji-char {
+    color: var(--pink, #e91e63) !important;
+}
+
+.dictionary-section .kanji-card .kanji-meaning {
+    color: #222222 !important;
+}
+
+.dictionary-section .kanji-card .kanji-readings {
+    color: #666666 !important;
+}
+
+.dictionary-section .kanji-detail {
+    background: #fffafa !important;
+    border: 1.5px solid var(--pink-border, #f4bfd3) !important;
+    border-radius: 10px !important;
+    color: #18151b !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+}
+
+.dictionary-section .kanji-detail h3 {
+    color: #18151b !important;
+}
+
+.dictionary-section .kanji-detail .selected-kana {
+    color: var(--pink, #e91e63) !important;
+}
+
+.dictionary-section .kana-grid table,
+.dictionary-section .kana-table {
+    background: #ffffff !important;
+    border-color: var(--pink-border, #f4bfd3) !important;
+}
+
+.dictionary-section .kana-grid th {
+    background: #fff0f5 !important;
+    color: var(--pink, #e91e63) !important;
+    border-color: var(--pink-border, #f4bfd3) !important;
+}
+
+.dictionary-section .kana-grid td {
+    background: #ffffff !important;
+    color: #18151b !important;
+    border-color: #f7d5e2 !important;
+}
+
+.dictionary-section .kana-grid td:hover {
+    background: #fff5f8 !important;
+}
+
+/* ==========================================================================
+   KARTU UJI KEMAMPUAN / LATIHAN KANA (DICTIONARY PRACTICE BANNER)
+   ========================================================================== */
+.dictionary-section .dictionary-practice-link,
+.dictionary-practice-link {
+    position: relative !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+    max-width: 100% !important;
+    margin: 16px auto 8px auto !important;
+    padding: 12px 24px 12px 20px !important;
+    background: linear-gradient(145deg, #ffffff 0%, #fff4f8 100%) !important;
+    border: 1.5px solid rgba(233, 30, 99, 0.2) !important;
+    border-radius: 14px !important;
+    box-shadow: 0 4px 16px rgba(233, 30, 99, 0.06), 0 1px 3px rgba(0, 0, 0, 0.02) !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 16px !important;
+    min-height: 0 !important;
+    height: auto !important;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
+}
+
+.dictionary-practice-link:hover {
+    transform: translateY(-2px) !important;
+    border-color: var(--pink, #e91e63) !important;
+    box-shadow: 0 8px 24px rgba(233, 30, 99, 0.12), 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Garis aksen atas */
+.dictionary-practice-link::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 3px !important;
+    background: linear-gradient(90deg, #ff4f91 0%, #e91e63 50%, #ff75a6 100%) !important;
+    z-index: 2 !important;
+}
+
+/* Pattern halus c1w */
+.dictionary-practice-link::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background-image: url("../images/mirai/background/c1w.jpeg") !important;
+    background-size: 260px auto !important;
+    background-repeat: repeat !important;
+    background-position: top left !important;
+    opacity: 0.10 !important;
+    mix-blend-mode: multiply !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+}
+
+/* Bagian Kiri: Info & Teks */
+.practice-feature-text,
+.practice-feature-body {
+    position: relative !important;
+    z-index: 2 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    gap: 2px !important;
+}
+
+/* Header Kartu: Badge & Tag */
+.practice-feature-header {
+    position: relative !important;
+    z-index: 2 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 8px !important;
+    margin: 0 !important;
+    flex-wrap: wrap !important;
+}
+
+.practice-feature-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    padding: 2px 8px !important;
+    border-radius: 999px !important;
+    background: rgba(233, 30, 99, 0.08) !important;
+    border: 1px solid rgba(233, 30, 99, 0.2) !important;
+    color: var(--pink, #e91e63) !important;
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1px !important;
+    text-transform: uppercase !important;
+}
+
+.practice-feature-badge .badge-dot {
+    width: 5px !important;
+    height: 5px !important;
+    border-radius: 50% !important;
+    background: var(--pink, #e91e63) !important;
+    box-shadow: 0 0 5px var(--pink, #e91e63) !important;
+    display: inline-block !important;
+}
+
+.practice-feature-tag {
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1px !important;
+    color: var(--muted, #888888) !important;
+    text-transform: uppercase !important;
+}
+
+/* Judul Banner */
+.dictionary-practice-link h3,
+.practice-card-title {
+    flex: none !important;
+    margin: 2px 0 0 0 !important;
+    padding: 0 !important;
+    font-size: clamp(16px, 1.8vw, 19px) !important;
+    font-weight: 800 !important;
+    line-height: 1.25 !important;
+    color: #18151b !important;
+    letter-spacing: -0.3px !important;
+    position: relative !important;
+    z-index: 2 !important;
+    min-height: 0 !important;
+    height: auto !important;
+}
+
+.practice-card-title .highlight {
+    color: var(--pink, #e91e63) !important;
+}
+
+.practice-card-desc {
+    display: none !important;
+}
+
+/* Bagian Kanan: Tombol Aksi */
+.practice-feature-action {
+    position: relative !important;
+    z-index: 2 !important;
+    flex-shrink: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.dictionary-practice-link .practice-cta-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: auto !important;
+    min-height: 38px !important;
+    padding: 8px 18px !important;
+    box-sizing: border-box !important;
+    border-radius: 10px !important;
+    background: linear-gradient(135deg, #ff4f91 0%, #e91e63 100%) !important;
+    border: none !important;
+    color: #ffffff !important;
+    font-size: 11.5px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1px !important;
+    text-transform: uppercase !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+    box-shadow: 0 4px 14px rgba(233, 30, 99, 0.25) !important;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    cursor: pointer !important;
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+.dictionary-practice-link .practice-cta-btn:hover {
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: 0 8px 20px rgba(233, 30, 99, 0.38) !important;
+    background: linear-gradient(135deg, #ff659b 0%, #d81557 100%) !important;
+    color: #ffffff !important;
+}
+
+.dictionary-practice-link .practice-cta-btn .btn-arrow {
+    margin-left: 6px !important;
+    font-size: 15px !important;
+    line-height: 1 !important;
+    transition: transform 0.25s ease !important;
+    display: inline-block !important;
+}
+
+.dictionary-practice-link .practice-cta-btn:hover .btn-arrow {
+    transform: translateX(4px) !important;
+}
+
+/* Maskot Chibi Dekorasi: murni hiasan di pojok kanan, tidak memakan ruang */
+.practice-card-chibi {
+    position: absolute !important;
+    right: 6px !important;
+    bottom: -4px !important;
+    top: auto !important;
+    width: 48px !important;
+    height: 48px !important;
+    object-fit: contain !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+    opacity: 0.8 !important;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.1)) !important;
+    transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    display: block !important;
+}
+
+.dictionary-practice-link:hover .practice-card-chibi {
+    transform: translateY(-2px) scale(1.08) rotate(-2deg) !important;
+}
+
+/* Mode Gelap (Dark Theme) */
+body.theme-dark .dictionary-practice-link,
+body.dark-mode .dictionary-practice-link {
+    background: linear-gradient(165deg, #1f1826 0%, #140e1b 100%) !important;
+    border-color: rgba(255, 101, 155, 0.25) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+}
+
+body.theme-dark .dictionary-practice-link:hover,
+body.dark-mode .dictionary-practice-link:hover {
+    border-color: var(--pink, #e91e63) !important;
+    box-shadow: 0 12px 28px rgba(233, 30, 99, 0.2), 0 2px 8px rgba(0, 0, 0, 0.55) !important;
+}
+
+body.theme-dark .dictionary-practice-link::after,
+body.dark-mode .dictionary-practice-link::after {
+    background-image: url("../images/mirai/background/c1b.jpeg") !important;
+    background-size: 260px auto !important;
+    background-repeat: repeat !important;
+    background-position: top left !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
+}
+
+body.theme-dark .practice-card-title,
+body.dark-mode .practice-card-title {
+    color: #ffffff !important;
+}
+
+body.theme-dark .practice-feature-tag,
+body.dark-mode .practice-feature-tag {
+    color: rgba(255, 255, 255, 0.45) !important;
+}
+
+/* Responsif Mobile & Layar Kecil */
+@media (max-width: 680px) {
+    .dictionary-section .dictionary-practice-link,
+    .dictionary-practice-link {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+        padding: 12px 14px !important;
+        margin-top: 14px !important;
+        border-radius: 12px !important;
+    }
+
+    .practice-feature-text,
+    .practice-feature-body {
+        gap: 3px !important;
+    }
+
+    .practice-card-title {
+        font-size: 16px !important;
+    }
+
+    .practice-feature-action {
+        width: 100% !important;
+    }
+
+    .dictionary-practice-link .practice-cta-btn {
+        width: 100% !important;
+        min-height: 38px !important;
+        font-size: 11.5px !important;
+        padding: 8px 16px !important;
+    }
+
+    .practice-card-chibi {
+        width: 40px !important;
+        height: 40px !important;
+        bottom: auto !important;
+        top: 6px !important;
+        right: 8px !important;
+        opacity: 0.7 !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .practice-feature-tag {
+        display: none !important;
+    }
+}
+
+
+
+/* Respacing Kamus */
+/* =====================================================
+   RESPACING MINIMAL UNTUK HALAMAN KAMUS (.page-kamus)
+   ===================================================== */
+.page-kamus .dictionary-section {
+    padding-top: clamp(32px, 4.5vw, 48px) !important;
+}
+
+.page-kamus .dictionary-section .script-tabs {
+    margin-top: 0 !important;
+}
+
+
+
+/* Quick Floating Button Goresan */
+/* ==========================================================================
+   QUICK FLOATING BUTTON: GESER LANGSUNG KE URUTAN GORESAN (KHUSUS KAMUS)
+   - Mengikuti pergerakan scroll (fixed position)
+   - Hanya muncul di halaman Kamus (body.page-kamus)
+   - Indikator panah otomatis menyesuaikan posisi urutan goresan (atas / bawah / terlihat)
+   ========================================================================== */
+
+/* Pastikan tidak muncul di halaman non-kamus */
+body:not(.page-kamus) .quick-stroke-btn {
+    display: none !important;
+}
+
+.quick-stroke-btn {
+    position: fixed !important;
+    right: 24px !important;
+    bottom: 80px !important;
+    z-index: 99 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    min-height: 44px !important;
+    padding: 10px 18px 10px 14px !important;
+    border-radius: 50px !important;
+    background: linear-gradient(135deg, #ff659b 0%, #e91e63 100%) !important;
+    color: #ffffff !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
+    box-shadow: 0 8px 24px rgba(233, 30, 99, 0.38), 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+    cursor: pointer !important;
+    font-family: inherit !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.6px !important;
+    text-transform: uppercase !important;
+    text-decoration: none !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    transition: transform 0.24s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.24s ease, background 0.24s ease, opacity 0.24s ease !important;
+    opacity: 0.96;
+}
+
+.quick-stroke-btn:hover {
+    transform: translateY(-3px) scale(1.04) !important;
+    background: linear-gradient(135deg, #ff4081 0%, #c2185b 100%) !important;
+    box-shadow: 0 12px 30px rgba(233, 30, 99, 0.55), 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    opacity: 1 !important;
+}
+
+.quick-stroke-btn:active {
+    transform: translateY(1px) scale(0.97) !important;
+    box-shadow: 0 4px 14px rgba(233, 30, 99, 0.4) !important;
+}
+
+.quick-stroke-icon {
+    font-size: 16px !important;
+    line-height: 1 !important;
+    display: inline-block !important;
+    transition: transform 0.24s ease !important;
+}
+
+.quick-stroke-btn:hover .quick-stroke-icon {
+    transform: rotate(-12deg) scale(1.15) !important;
+}
+
+.quick-stroke-text {
+    white-space: nowrap !important;
+    font-size: 12.5px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.8px !important;
+}
+
+.quick-stroke-arrow {
+    font-size: 14px !important;
+    line-height: 1 !important;
+    display: inline-block !important;
+    font-weight: 900 !important;
+    transition: transform 0.24s ease !important;
+}
+
+.quick-stroke-btn:hover .quick-stroke-arrow {
+    transform: translateY(2px) !important;
+}
+
+/* Animasi pulse highlight saat stroke stage digeser */
+@keyframes strokeTargetGlow {
+    0% {
+        box-shadow: 0 0 0 0 rgba(233, 30, 99, 0.7);
+        outline: 3px solid rgba(233, 30, 99, 0.8);
+    }
+    50% {
+        box-shadow: 0 0 28px rgba(233, 30, 99, 0.55);
+        outline: 3px solid rgba(233, 30, 99, 1);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(233, 30, 99, 0);
+        outline: 3px solid transparent;
+    }
+}
+
+.stroke-target-pulse {
+    animation: strokeTargetGlow 1.2s ease-out !important;
+}
+
+/* Responsif Mobile untuk Quick Button */
+@media (max-width: 600px) {
+    .quick-stroke-btn {
+        right: 16px !important;
+        bottom: 70px !important;
+        min-height: 40px !important;
+        padding: 8px 14px 8px 12px !important;
+    }
+
+    .quick-stroke-text {
+        font-size: 11.5px !important;
+    }
+
+    .quick-stroke-icon {
+        font-size: 14px !important;
+    }
+}
+

@@ -1,0 +1,1480 @@
+/* ==========================================================================
+   BERANDA (HOME) — Mirai no Webu
+   Seksi Apa itu Web, start-grid, aktivitas beranda (2 kartu besar),
+   masukan & saran (feedback preview), dan section quote slider.
+   ========================================================================== */
+
+/* =====================================================
+   HOME PAGE – KEGIATAN & ORGANISASI (2 BIG CARDS)
+   ===================================================== */
+.home-activities-dark-section {
+    padding: 90px 6vw;
+    position: relative;
+    background-color: #0c0810 !important;
+    background: #0c0810 !important;
+    z-index: 10 !important;
+}
+.home-activities-dark-section .kicker {
+    color: var(--pink-accent, var(--pink));
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+.home-activities-dark-section .heading {
+    font-size: clamp(32px, 4.5vw, 54px);
+    line-height: 1.1;
+    margin: 0 0 32px !important;
+}
+.home-activities-dark-section .heading span {
+    color: var(--pink-accent, var(--pink));
+}
+.home-activities-dark-section .copy {
+    max-width: 620px;
+    font-size: 16px;
+    line-height: 1.7;
+    margin: 0 0 36px;
+}
+.home-activities-dark-section .activity-start-card {
+    border: 1px solid var(--pink-border);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+}
+.activities-two-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    justify-content: center;
+    gap: 22px;
+    margin-top: 10px;
+    width: 100%;
+}
+@media (max-width: 680px) {
+    .activities-two-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.activity-start-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 230px;
+    padding: 30px 28px 34px;
+    background: var(--white);
+    border: 1px solid var(--pink-border);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.activity-card-active:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 36px rgba(233, 30, 99, 0.22);
+    border-color: var(--pink-accent, var(--pink));
+}
+.activity-start-card span.card-badge {
+    color: var(--pink-accent, var(--pink));
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: inline-block;
+}
+.activity-start-card h3 {
+    margin: 10px 0 10px;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.25;
+}
+.activity-start-card p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14.5px;
+    line-height: 1.6;
+    max-width: 320px;
+}
+.activity-start-card b {
+    position: absolute;
+    right: 24px;
+    bottom: 22px;
+    font-size: 22px;
+    color: var(--pink-accent, var(--pink));
+    transition: transform 0.2s ease;
+    z-index: 2;
+}
+.activity-card-active:hover b {
+    transform: translateX(4px);
+}
+.activity-card-locked {
+    cursor: not-allowed;
+    background: #fbf6f8;
+    border-color: #ebccd8;
+}
+
+/* Mode gelap untuk Aktivitas Beranda */
+body.dark-mode .home-activities-dark-section .heading,
+body.theme-dark .home-activities-dark-section .heading {
+    color: #fff;
+}
+body.dark-mode .home-activities-dark-section .copy,
+body.theme-dark .home-activities-dark-section .copy {
+    color: #d7ccd2;
+}
+body.dark-mode .activity-start-card,
+body.theme-dark .activity-start-card {
+    background: #18151c;
+    border-color: #3b2e38;
+    color: #fff;
+    box-shadow: none;
+}
+body.dark-mode .activity-start-card h3,
+body.theme-dark .activity-start-card h3 {
+    color: #fff;
+}
+body.dark-mode .activity-start-card p,
+body.theme-dark .activity-start-card p {
+    color: #d7ccd2;
+}
+body.dark-mode .activity-card-locked,
+body.theme-dark .activity-card-locked {
+    background: #1f1b22;
+    border-color: #3b2e38;
+}
+.activity-card-blurred-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+.activity-card-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    pointer-events: none;
+    background: rgba(24, 21, 27, 0.4);
+}
+.activity-cs-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 20px;
+    background: var(--pink-accent, var(--pink));
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: 30px;
+    box-shadow: 0 6px 20px rgba(233, 30, 99, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ==========================================================================
+   Wagara Patterns pada Seluruh Tombol Besar (Tanpa Kotak Informatif Tentang)
+   - Tombol Besar Putih: Pattern Kumo Awan Halus (c1w.jpeg)
+   - Tombol Besar Hitam: Pattern Kumo Awan Gelap (c1b.jpeg)
+   ========================================================================== */
+
+/* 1. Tombol Besar pada Halaman/Section Putih Beranda (c1w.jpeg) */
+.start-card,
+.curriculum-cards a {
+    position: relative;
+    overflow: hidden;
+    background-color: #ffffff;
+}
+
+.start-card > *,
+.curriculum-cards a > * {
+    position: relative;
+    z-index: 2;
+}
+
+.curriculum-cards a::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    content: "";
+    background: var(--pink, #e91e63);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+    z-index: 3;
+}
+
+.curriculum-cards a:hover::before {
+    transform: scaleX(1);
+}
+
+.start-card::after,
+.curriculum-cards a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("../images/mirai/background/c1w.jpeg");
+    background-size: 260px auto;
+    background-repeat: repeat;
+    background-position: top left;
+    opacity: 0.10;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    z-index: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.start-card:hover::after,
+.curriculum-cards a:hover::after {
+    opacity: 0.16;
+    transform: scale(1.02);
+}
+
+/* Dukungan Dark Mode / Section Genap untuk Tombol Besar Halaman Putih Beranda */
+body.dark-mode .start-card::after,
+body.theme-dark .start-card::after,
+main > section:nth-of-type(even) .start-card::after,
+body.dark-mode .curriculum-cards a::after,
+body.theme-dark .curriculum-cards a::after {
+    background-image: url("../images/mirai/background/c1b.jpeg");
+    background-size: 260px auto;
+    background-repeat: repeat;
+    background-position: top left;
+    opacity: 0.045;
+    mix-blend-mode: screen;
+}
+
+body.dark-mode .start-card:hover::after,
+body.theme-dark .start-card:hover::after,
+main > section:nth-of-type(even) .start-card:hover::after,
+body.dark-mode .curriculum-cards a:hover::after,
+body.theme-dark .curriculum-cards a:hover::after {
+    opacity: 0.08;
+}
+
+/* 2. Tombol Besar pada Halaman/Section Hitam Beranda (c1b.jpeg) */
+.activity-start-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.activity-start-card > * {
+    position: relative;
+    z-index: 2;
+}
+
+.activity-start-card::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    content: "";
+    background: linear-gradient(90deg, var(--pink, #e91e63), #ff4f91, var(--pink, #e91e63));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+    z-index: 3;
+}
+
+.activity-card-active:hover::before,
+.activity-start-card:hover::before {
+    transform: scaleX(1);
+}
+
+.activity-start-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("../images/mirai/background/c1b.jpeg");
+    background-size: 260px auto;
+    background-repeat: repeat;
+    background-position: top left;
+    opacity: 0.045;
+    mix-blend-mode: screen;
+    pointer-events: none;
+    z-index: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.activity-card-active:hover::after,
+.activity-start-card:hover::after {
+    opacity: 0.08;
+    transform: scale(1.02);
+}
+
+/* 3. Kartu Kelas (Menu Genap 2: Pola Ombak w1b & w1w) */
+.class-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.class-card > * {
+    position: relative;
+    z-index: 2;
+}
+
+.class-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("../images/mirai/background/w1b.jpeg");
+    background-size: 260px auto;
+    background-repeat: repeat;
+    background-position: top left;
+    opacity: 0.045;
+    mix-blend-mode: screen;
+    pointer-events: none;
+    z-index: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.class-card:hover::after {
+    opacity: 0.08;
+    transform: scale(1.02);
+}
+
+/* 4. Kartu Kegiatan (Menu Genap 4: Pola Ombak w1b & w1w) */
+.division-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.division-card > * {
+    position: relative;
+    z-index: 2;
+}
+
+.division-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("../images/mirai/background/w1b.jpeg");
+    background-size: 260px auto;
+    background-repeat: repeat;
+    background-position: top left;
+    opacity: 0.045;
+    mix-blend-mode: screen;
+    pointer-events: none;
+    z-index: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.division-card:hover::after,
+.division-card-link:hover .division-card::after {
+    opacity: 0.08;
+    transform: scale(1.02);
+}
+
+.program-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.program-card > * {
+    position: relative;
+    z-index: 2;
+}
+
+.program-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("../images/mirai/background/w1w.jpeg");
+    background-size: 260px auto;
+    background-repeat: repeat;
+    background-position: top left;
+    opacity: 0.10;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    z-index: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.program-card:hover::after,
+.program-card-link:hover .program-card::after {
+    opacity: 0.16;
+    transform: scale(1.02);
+}
+
+body.dark-mode .program-card::after,
+body.theme-dark .program-card::after {
+    background-image: url("../images/mirai/background/w1b.jpeg");
+    opacity: 0.045;
+    mix-blend-mode: screen;
+}
+
+body.dark-mode .program-card:hover::after,
+body.theme-dark .program-card:hover::after {
+    opacity: 0.08;
+}
+
+/* Jika .activity-start-card berada di section terang/putih */
+body:not(.dark-mode):not(.theme-dark) main > section:nth-of-type(odd):not(.home-activities-dark-section) .activity-start-card::after {
+    background-image: url("../images/mirai/background/c1w.jpeg");
+    background-size: 260px auto;
+    background-repeat: repeat;
+    background-position: top left;
+    opacity: 0.10;
+    mix-blend-mode: multiply;
+}
+
+
+
+/* Nomor & Arrow Lingkaran Kartu Beranda */
+/* Penyesuaian Nomor & Arrow Berbentuk Lingkaran Elegan di Kartu Beranda */
+.start-card b {
+    position: absolute !important;
+    right: 22px !important;
+    top: 22px !important;
+    bottom: auto !important;
+    width: 38px !important;
+    height: 38px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 50% !important;
+    background: rgba(233, 30, 99, 0.08) !important;
+    border: 1.5px solid rgba(233, 30, 99, 0.25) !important;
+    color: var(--pink, #e91e63) !important;
+    font-size: 16px !important;
+    line-height: 1 !important;
+    box-shadow: 0 3px 10px rgba(233, 30, 99, 0.08);
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    z-index: 3 !important;
+}
+
+.start-card:hover b {
+    background: var(--pink, #e91e63) !important;
+    border-color: var(--pink, #e91e63) !important;
+    color: #ffffff !important;
+    transform: scale(1.12) translateX(2px);
+    box-shadow: 0 6px 16px rgba(233, 30, 99, 0.35);
+}
+
+.start-card span {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 50% !important;
+    background: rgba(233, 30, 99, 0.08) !important;
+    border: 1.5px solid rgba(233, 30, 99, 0.22) !important;
+    color: var(--pink, #e91e63) !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.5px !important;
+    box-shadow: 0 3px 10px rgba(233, 30, 99, 0.06);
+    transition: all 0.25s ease !important;
+    z-index: 3 !important;
+}
+
+.start-card:hover span {
+    background: rgba(233, 30, 99, 0.16) !important;
+    border-color: var(--pink, #e91e63) !important;
+    transform: scale(1.06);
+}
+
+.start-card h3 {
+    position: relative !important;
+    z-index: 3 !important;
+    margin-top: 18px !important;
+    max-width: 62% !important;
+}
+
+.start-card p {
+    position: relative !important;
+    z-index: 3 !important;
+    max-width: 60% !important;
+}
+
+.activity-start-card b {
+    position: absolute !important;
+    right: 24px !important;
+    top: 24px !important;
+    bottom: auto !important;
+    width: 38px !important;
+    height: 38px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
+    color: #ffffff !important;
+    font-size: 17px !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    z-index: 3 !important;
+}
+
+.activity-card-active:hover b,
+.activity-start-card:hover b {
+    background: #ff2e83 !important;
+    border-color: #ff659b !important;
+    color: #ffffff !important;
+    transform: scale(1.12) translateX(3px);
+    box-shadow: 0 0 24px rgba(255, 46, 131, 0.85), 0 4px 14px rgba(0, 0, 0, 0.5) !important;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8) !important;
+}
+
+.activity-start-card span {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.2) !important;
+    color: #ff75a6 !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.5px !important;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.25s ease !important;
+    z-index: 3 !important;
+}
+
+.activity-card-active:hover span,
+.activity-start-card:hover span {
+    background: rgba(233, 30, 99, 0.22) !important;
+    border-color: var(--pink, #e91e63) !important;
+    color: #ffffff !important;
+    transform: scale(1.06);
+}
+
+.activity-start-card h3 {
+    position: relative !important;
+    z-index: 3 !important;
+    margin-top: 18px !important;
+}
+
+.activity-start-card p {
+    position: relative !important;
+    z-index: 3 !important;
+    max-width: 62% !important;
+}
+
+@media (max-width: 600px) {
+    .start-card > .card-corner-chibi,
+    .start-card img.card-corner-chibi,
+    .activity-start-card > .card-corner-chibi {
+        width: 68px !important;
+        height: 68px !important;
+        right: 10px !important;
+        bottom: 8px !important;
+    }
+}
+
+
+
+/* Feature Card: Apa Itu Mirai no Webu */
+/* =====================================================
+   8. FEATURE CARD: APA ITU MIRAI NO WEBU? (INDEX.HTML)
+   - Latar: Gradien Obsidian Gelap (#1c1523 -> #130f18)
+   - Pattern: c1b.jpeg (mix-blend-mode: screen)
+   - Icon: Chibi Mascot Ayato (Ay.png) di pojok kanan bawah
+   - Button: Tombol Magenta Elegan ke tentang.html
+   ===================================================== */
+.about-preview {
+    display: block !important;
+    padding: 48px 7vw 56px !important;
+    position: relative !important;
+    z-index: 5 !important;
+    box-shadow: 0 -24px 50px rgba(0, 0, 0, 0.55) !important;
+}
+
+.about-preview .section-intro {
+    max-width: 1200px !important;
+    margin: 0 auto 26px auto !important;
+    text-align: left !important;
+}
+
+.about-preview .section-intro .kicker {
+    color: var(--pink, #e91e63) !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    letter-spacing: 2px !important;
+    text-transform: uppercase !important;
+    margin: 0 0 12px 0 !important;
+    display: block !important;
+}
+
+.about-preview .section-intro .heading {
+    font-size: clamp(30px, 4vw, 48px) !important;
+    line-height: 1.15 !important;
+    margin: 0 !important;
+    color: #ffffff !important;
+    font-weight: 900 !important;
+    letter-spacing: -0.5px !important;
+}
+
+.about-preview .section-intro .heading span {
+    color: var(--pink, #e91e63) !important;
+}
+
+.about-feature-card {
+    position: relative !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 34px 40px 30px !important;
+    background: linear-gradient(165deg, #1c1523 0%, #130f18 100%) !important;
+    border: 1.5px solid rgba(255, 101, 155, 0.25) !important;
+    border-radius: 24px !important;
+    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+    transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease !important;
+}
+
+.about-feature-card:hover {
+    transform: translateY(-5px) !important;
+    border-color: var(--pink, #e91e63) !important;
+    box-shadow: 0 24px 50px rgba(233, 30, 99, 0.22), 0 6px 18px rgba(0, 0, 0, 0.6) !important;
+}
+
+.about-feature-card::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 3.5px !important;
+    background: linear-gradient(90deg, #ff659b, #e91e63) !important;
+    transform: scaleX(0) !important;
+    transform-origin: left !important;
+    transition: transform 0.3s ease !important;
+    z-index: 4 !important;
+}
+
+.about-feature-card:hover::before {
+    transform: scaleX(1) !important;
+}
+
+.about-feature-card::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background-image: url("../images/mirai/background/c1b.jpeg") !important;
+    background-size: 260px auto !important;
+    background-repeat: repeat !important;
+    background-position: top left !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
+    pointer-events: none !important;
+    z-index: 0 !important;
+    display: block !important;
+    transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+
+.about-feature-card:hover::after {
+    opacity: 0.08 !important;
+    transform: scale(1.02) !important;
+}
+
+.about-feature-card > * {
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+.about-feature-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 16px !important;
+    margin-bottom: 20px !important;
+    flex-wrap: wrap !important;
+}
+
+.about-feature-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 6px 16px !important;
+    border-radius: 20px !important;
+    background: rgba(233, 30, 99, 0.16) !important;
+    border: 1.5px solid rgba(233, 30, 99, 0.4) !important;
+    color: var(--pink, #e91e63) !important;
+    font-size: 11.5px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1.5px !important;
+    text-transform: uppercase !important;
+}
+
+.about-feature-badge .badge-dot {
+    width: 7px !important;
+    height: 7px !important;
+    border-radius: 50% !important;
+    background: var(--pink, #e91e63) !important;
+    box-shadow: 0 0 8px var(--pink, #e91e63) !important;
+    display: inline-block !important;
+}
+
+.about-feature-tag {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 6px 16px !important;
+    border-radius: 20px !important;
+    background: rgba(233, 30, 99, 0.16) !important;
+    border: 1.5px solid rgba(233, 30, 99, 0.4) !important;
+    color: var(--pink, #e91e63) !important;
+    font-size: 11.5px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1.5px !important;
+    text-transform: uppercase !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25) !important;
+}
+
+.about-feature-tag .badge-dot {
+    width: 7px !important;
+    height: 7px !important;
+    border-radius: 50% !important;
+    background: var(--pink, #e91e63) !important;
+    box-shadow: 0 0 8px var(--pink, #e91e63) !important;
+    display: inline-block !important;
+}
+
+.about-feature-body {
+    display: grid !important;
+    grid-template-columns: 1.05fr 1fr !important;
+    gap: 36px !important;
+    align-items: center !important;
+}
+
+.about-feature-body.stacked-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+    align-items: flex-start !important;
+    max-width: 860px !important;
+}
+
+.about-feature-body.stacked-layout .about-card-title {
+    margin: 0 !important;
+    font-size: clamp(26px, 3.4vw, 38px) !important;
+    font-weight: 900 !important;
+    line-height: 1.25 !important;
+    color: #ffffff !important;
+    letter-spacing: -0.5px !important;
+}
+
+.about-feature-body.stacked-layout .about-card-title span.highlight {
+    color: var(--pink, #e91e63) !important;
+}
+
+.about-feature-body.stacked-layout .about-card-desc {
+    font-size: 16px !important;
+    line-height: 1.8 !important;
+    margin: 0 !important;
+    max-width: 800px !important;
+    color: #ece4ec !important;
+}
+
+.about-feature-body.stacked-layout .about-feature-action {
+    margin-top: 6px !important;
+}
+main .about-feature-card h2,
+main .about-feature-card .heading,
+.about-feature-card h2.heading,
+.about-feature-card .heading,
+.about-feature-left .heading {
+    margin: 0 !important;
+    font-size: clamp(26px, 3.2vw, 38px) !important;
+    font-weight: 900 !important;
+    line-height: 1.25 !important;
+    color: #ffffff !important;
+    letter-spacing: -0.5px !important;
+}
+
+.about-card-title span,
+.about-card-title span.highlight,
+main .about-feature-card .heading span,
+main .about-feature-card .heading span.highlight,
+.about-feature-card .heading span.highlight,
+.about-feature-card .heading span,
+.about-feature-left .heading span.highlight,
+.about-feature-left .heading span {
+    color: var(--pink, #e91e63) !important;
+}
+
+.about-card-lead {
+    margin: 12px 0 0 0 !important;
+    color: #f3a8c5 !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.8px !important;
+    line-height: 1.5 !important;
+    text-transform: uppercase !important;
+}
+
+.about-card-desc,
+main .about-feature-card .copy,
+main .about-feature-card p,
+.about-feature-right .copy,
+.about-feature-card p.copy {
+    color: #ece4ec !important;
+    font-size: 15px !important;
+    line-height: 1.65 !important;
+    margin: 0 0 20px 0 !important;
+    max-width: calc(100% - 60px) !important;
+}
+
+.about-feature-action {
+    display: flex !important;
+    align-items: center !important;
+    gap: 16px !important;
+}
+
+.about-cta-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    min-height: 44px !important;
+    padding: 10px 26px !important;
+    border-radius: 12px !important;
+    background: var(--pink, #e91e63) !important;
+    color: #ffffff !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1px !important;
+    text-decoration: none !important;
+    border: none !important;
+    box-shadow: 0 6px 18px rgba(233, 30, 99, 0.35) !important;
+    transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease !important;
+    align-self: flex-start !important;
+}
+
+.about-cta-btn:hover {
+    background: #c2185b !important;
+    color: #ffffff !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 24px rgba(233, 30, 99, 0.5) !important;
+}
+
+.about-cta-btn .btn-arrow {
+    font-size: 16px !important;
+    transition: transform 0.25s ease !important;
+    display: inline-block !important;
+}
+
+.about-cta-btn:hover .btn-arrow {
+    transform: translateX(4px) !important;
+}
+
+.about-feature-card > .card-corner-chibi {
+    position: absolute !important;
+    bottom: 16px !important;
+    right: 22px !important;
+    width: 96px !important;
+    height: 96px !important;
+    object-fit: contain !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+    opacity: 0.96 !important;
+    filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.4)) !important;
+    transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    display: block !important;
+}
+
+.about-feature-card:hover > .card-corner-chibi {
+    transform: translateY(-5px) scale(1.08) rotate(-3deg) !important;
+}
+
+@media (max-width: 850px) {
+    .about-preview {
+        padding: 50px 5vw 60px !important;
+    }
+
+    .about-preview .section-intro {
+        margin-bottom: 24px !important;
+    }
+
+    .about-feature-card {
+        padding: 30px 22px 28px !important;
+        border-radius: 20px !important;
+    }
+
+    .about-feature-body {
+        grid-template-columns: 1fr !important;
+        gap: 22px !important;
+    }
+
+    .about-feature-right .copy,
+    .about-card-desc {
+        max-width: 100% !important;
+        font-size: 14px !important;
+        line-height: 1.75 !important;
+        margin-bottom: 22px !important;
+    }
+
+    .about-cta-btn {
+        padding: 10px 22px !important;
+        font-size: 12.5px !important;
+    }
+
+    .about-feature-card > .card-corner-chibi {
+        width: 72px !important;
+        height: 72px !important;
+        bottom: 12px !important;
+        right: 14px !important;
+        z-index: 1 !important;
+    }
+}
+
+
+
+/* Feedback Preview Card */
+/* =====================================================
+   KARTU MASUKAN & SARAN (FEEDBACK FEATURE CARD)
+   - Latar: Gradien Obsidian Gelap (#1c1523 -> #130f18)
+   - Pattern: c1b.jpeg (mix-blend-mode: screen; opacity: 0.16)
+   - Icon: Chibi Mascot Faruzan (Fa.png) di pojok kanan bawah
+   - Button: Primary CTA (Google Form ↗)
+   ===================================================== */
+.feedback-preview,
+.feedback-section--home {
+    display: block !important;
+    padding: 48px 7vw 56px !important;
+    border-top: none !important;
+}
+
+.feedback-feature-card {
+    position: relative !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 34px 40px 30px !important;
+    background: linear-gradient(165deg, #1c1523 0%, #130f18 100%) !important;
+    border: 1.5px solid rgba(255, 101, 155, 0.25) !important;
+    border-radius: 24px !important;
+    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+    transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease !important;
+}
+
+.feedback-feature-card:hover {
+    transform: translateY(-5px) !important;
+    border-color: var(--pink, #e91e63) !important;
+    box-shadow: 0 24px 50px rgba(233, 30, 99, 0.22), 0 6px 18px rgba(0, 0, 0, 0.6) !important;
+}
+
+.feedback-feature-card::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 3.5px !important;
+    background: linear-gradient(90deg, #ff659b, #e91e63) !important;
+    transform: scaleX(0) !important;
+    transform-origin: left !important;
+    transition: transform 0.3s ease !important;
+    z-index: 4 !important;
+}
+
+.feedback-feature-card:hover::before {
+    transform: scaleX(1) !important;
+}
+
+.feedback-feature-card::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background-image: url("../images/mirai/background/c1b.jpeg") !important;
+    background-size: 260px auto !important;
+    background-repeat: repeat !important;
+    background-position: top left !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
+    pointer-events: none !important;
+    z-index: 0 !important;
+    display: block !important;
+    transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+
+.feedback-feature-card:hover::after {
+    opacity: 0.08 !important;
+    transform: scale(1.02) !important;
+}
+
+.feedback-feature-card > * {
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+.feedback-feature-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 16px !important;
+    margin-bottom: 20px !important;
+    flex-wrap: wrap !important;
+}
+
+.feedback-feature-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 6px 16px !important;
+    border-radius: 20px !important;
+    background: rgba(233, 30, 99, 0.16) !important;
+    border: 1.5px solid rgba(233, 30, 99, 0.4) !important;
+    color: var(--pink, #e91e63) !important;
+    font-size: 11.5px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1.5px !important;
+    text-transform: uppercase !important;
+}
+
+.feedback-feature-badge .badge-dot {
+    width: 7px !important;
+    height: 7px !important;
+    border-radius: 50% !important;
+    background: var(--pink, #e91e63) !important;
+    box-shadow: 0 0 8px var(--pink, #e91e63) !important;
+    display: inline-block !important;
+}
+
+.feedback-feature-tag {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 6px 16px !important;
+    border-radius: 20px !important;
+    background: rgba(233, 30, 99, 0.16) !important;
+    border: 1.5px solid rgba(233, 30, 99, 0.4) !important;
+    color: var(--pink, #e91e63) !important;
+    font-size: 11.5px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1.5px !important;
+    text-transform: uppercase !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25) !important;
+}
+
+.feedback-feature-tag .badge-dot {
+    width: 7px !important;
+    height: 7px !important;
+    border-radius: 50% !important;
+    background: var(--pink, #e91e63) !important;
+    box-shadow: 0 0 8px var(--pink, #e91e63) !important;
+    display: inline-block !important;
+}
+
+.feedback-feature-body {
+    display: grid !important;
+    grid-template-columns: 1.05fr 1fr !important;
+    gap: 36px !important;
+    align-items: center !important;
+}
+
+.feedback-feature-body.stacked-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+    align-items: flex-start !important;
+    max-width: 860px !important;
+}
+
+.feedback-feature-body.stacked-layout .feedback-card-title {
+    margin: 0 !important;
+    font-size: clamp(26px, 3.4vw, 38px) !important;
+    font-weight: 900 !important;
+    line-height: 1.25 !important;
+    color: #ffffff !important;
+    letter-spacing: -0.5px !important;
+}
+
+.feedback-feature-body.stacked-layout .feedback-card-title span.highlight {
+    color: var(--pink, #e91e63) !important;
+}
+
+.feedback-feature-body.stacked-layout .feedback-card-desc {
+    font-size: 16px !important;
+    line-height: 1.8 !important;
+    margin: 0 !important;
+    max-width: 800px !important;
+    color: #ece4ec !important;
+}
+
+.feedback-feature-body.stacked-layout .feedback-feature-action {
+    margin-top: 6px !important;
+}
+main .feedback-feature-card h2,
+main .feedback-feature-card .heading,
+.feedback-feature-card h2.heading,
+.feedback-feature-card .heading,
+.feedback-feature-left .heading {
+    margin: 0 !important;
+    font-size: clamp(26px, 3.2vw, 38px) !important;
+    font-weight: 900 !important;
+    line-height: 1.25 !important;
+    color: #ffffff !important;
+    letter-spacing: -0.5px !important;
+}
+
+.feedback-card-title span,
+.feedback-card-title span.highlight,
+main .feedback-feature-card .heading span,
+main .feedback-feature-card .heading span.highlight,
+.feedback-feature-card .heading span.highlight,
+.feedback-feature-card .heading span,
+.feedback-feature-left .heading span.highlight,
+.feedback-feature-left .heading span {
+    color: var(--pink, #e91e63) !important;
+}
+
+.feedback-card-lead {
+    margin: 12px 0 0 0 !important;
+    color: #f3a8c5 !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.8px !important;
+    line-height: 1.5 !important;
+    text-transform: uppercase !important;
+}
+
+.feedback-card-desc,
+main .feedback-feature-card .copy,
+main .feedback-feature-card p,
+.feedback-feature-right .copy,
+.feedback-feature-card p.copy {
+    color: #ece4ec !important;
+    font-size: 15px !important;
+    line-height: 1.65 !important;
+    margin: 0 0 20px 0 !important;
+    max-width: calc(100% - 60px) !important;
+}
+
+.feedback-feature-action {
+    display: flex !important;
+    align-items: center !important;
+    gap: 14px !important;
+    flex-wrap: wrap !important;
+}
+
+.feedback-cta-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    min-height: 44px !important;
+    padding: 10px 24px !important;
+    border-radius: 12px !important;
+    background: var(--pink, #e91e63) !important;
+    color: #ffffff !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1px !important;
+    text-decoration: none !important;
+    border: none !important;
+    box-shadow: 0 6px 18px rgba(233, 30, 99, 0.35) !important;
+    transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease !important;
+    align-self: flex-start !important;
+}
+
+.feedback-cta-btn:hover {
+    background: #c2185b !important;
+    color: #ffffff !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 24px rgba(233, 30, 99, 0.5) !important;
+}
+
+.feedback-cta-btn .btn-arrow {
+    font-size: 15px !important;
+    transition: transform 0.25s ease !important;
+    display: inline-block !important;
+}
+
+.feedback-cta-btn:hover .btn-arrow {
+    transform: translate(2px, -2px) !important;
+}
+
+.feedback-sec-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    min-height: 44px !important;
+    padding: 10px 22px !important;
+    border-radius: 12px !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+    color: #ffffff !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.8px !important;
+    text-decoration: none !important;
+    transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, color 0.25s ease !important;
+    align-self: flex-start !important;
+}
+
+.feedback-sec-btn:hover {
+    background: var(--pink, #e91e63) !important;
+    border-color: var(--pink, #e91e63) !important;
+    color: #ffffff !important;
+    transform: translateY(-2px) !important;
+}
+
+.feedback-sec-btn .btn-arrow {
+    font-size: 15px !important;
+    transition: transform 0.25s ease !important;
+    display: inline-block !important;
+}
+
+.feedback-sec-btn:hover .btn-arrow {
+    transform: translateX(4px) !important;
+}
+
+.feedback-feature-card > .card-corner-chibi {
+    position: absolute !important;
+    bottom: 16px !important;
+    right: 22px !important;
+    width: 96px !important;
+    height: 96px !important;
+    object-fit: contain !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+    opacity: 0.96 !important;
+    filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.4)) !important;
+    transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    display: block !important;
+}
+
+.feedback-feature-card:hover > .card-corner-chibi {
+    transform: translateY(-5px) scale(1.08) rotate(-3deg) !important;
+}
+
+@media (max-width: 850px) {
+    .feedback-preview,
+    .feedback-section--home {
+        padding: 50px 5vw 60px !important;
+    }
+
+    .feedback-feature-card {
+        padding: 30px 22px 28px !important;
+        border-radius: 20px !important;
+    }
+
+    .feedback-feature-body {
+        grid-template-columns: 1fr !important;
+        gap: 22px !important;
+    }
+
+    .feedback-feature-right .copy,
+    .feedback-card-desc {
+        max-width: 100% !important;
+        font-size: 14px !important;
+        line-height: 1.75 !important;
+        margin-bottom: 22px !important;
+    }
+
+    .feedback-feature-action {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+    }
+
+    .feedback-cta-btn,
+    .feedback-sec-btn {
+        width: 100% !important;
+        min-height: 44px !important;
+        font-size: 12.5px !important;
+        padding: 10px 20px !important;
+    }
+
+    .feedback-feature-card > .card-corner-chibi {
+        width: 72px !important;
+        height: 72px !important;
+        bottom: 12px !important;
+        right: 14px !important;
+        z-index: 1 !important;
+    }
+}
+
+/* ==========================================================================
+   KARTU MASUKAN & SARAN (FEEDBACK) — VARIASI TEMA PER HALAMAN
+   - Beranda (body.page-beranda): Versi Putih / Cerah (Latar putih, pola c1w, teks gelap, aksen pink)
+   - Tentang (body.page-tentang): Tetap Hitam / Obsidian Gelap (Latar gelap, pola w1b, teks putih)
+   ========================================================================== */
+
+/* 1. VERSI PUTIH / CERAH (KHUSUS BERANDA) */
+body.page-beranda .feedback-preview {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    position: relative !important;
+    z-index: 10 !important;
+}
+
+body.page-beranda .feedback-feature-card {
+    background: #ffffff !important;
+    border: 1.5px solid rgba(233, 30, 99, 0.25) !important;
+    box-shadow: 0 16px 45px rgba(233, 30, 99, 0.08), 0 4px 18px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+body.page-beranda .feedback-feature-card:hover {
+    border-color: var(--pink, #e91e63) !important;
+    box-shadow: 0 24px 50px rgba(233, 30, 99, 0.18), 0 8px 22px rgba(0, 0, 0, 0.06) !important;
+}
+
+body.page-beranda .feedback-feature-card::before {
+    background: linear-gradient(90deg, #ff659b, #e91e63) !important;
+}
+
+body.page-beranda .feedback-feature-card::after {
+    background-image: url("../images/mirai/background/c1w.jpeg") !important;
+    background-size: 260px auto !important;
+    background-repeat: repeat !important;
+    background-position: top left !important;
+    opacity: 0.10 !important;
+    mix-blend-mode: multiply !important;
+}
+
+body.page-beranda .feedback-feature-card:hover::after {
+    opacity: 0.16 !important;
+}
+
+body.page-beranda .feedback-feature-badge,
+body.page-beranda .feedback-feature-tag {
+    background: rgba(233, 30, 99, 0.08) !important;
+    border: 1.5px solid rgba(233, 30, 99, 0.28) !important;
+    color: var(--pink, #e91e63) !important;
+    box-shadow: 0 2px 8px rgba(233, 30, 99, 0.08) !important;
+}
+
+body.page-beranda .feedback-feature-badge .badge-dot,
+body.page-beranda .feedback-feature-tag .badge-dot {
+    background: var(--pink, #e91e63) !important;
+    box-shadow: 0 0 6px rgba(233, 30, 99, 0.45) !important;
+}
+
+body.page-beranda .feedback-feature-body.stacked-layout .feedback-card-title,
+body.page-beranda main .feedback-feature-card h2,
+body.page-beranda main .feedback-feature-card .heading,
+body.page-beranda .feedback-feature-card h2.heading,
+body.page-beranda .feedback-feature-card .heading {
+    color: #18151b !important;
+}
+
+body.page-beranda .feedback-card-title span,
+body.page-beranda .feedback-card-title span.highlight,
+body.page-beranda main .feedback-feature-card .heading span,
+body.page-beranda main .feedback-feature-card .heading span.highlight,
+body.page-beranda .feedback-feature-card .heading span.highlight,
+body.page-beranda .feedback-feature-card .heading span {
+    color: var(--pink, #e91e63) !important;
+}
+
+body.page-beranda .feedback-feature-body.stacked-layout .feedback-card-desc,
+body.page-beranda .feedback-card-desc,
+body.page-beranda main .feedback-feature-card .copy,
+body.page-beranda main .feedback-feature-card p,
+body.page-beranda .feedback-feature-card p.copy {
+    color: #3d3640 !important;
+}
+
+body.page-beranda .feedback-cta-btn {
+    background: var(--pink, #e91e63) !important;
+    color: #ffffff !important;
+    box-shadow: 0 6px 18px rgba(233, 30, 99, 0.35) !important;
+}
+
+body.page-beranda .feedback-cta-btn:hover {
+    background: #c2185b !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 24px rgba(233, 30, 99, 0.45) !important;
+}
+
+body.page-beranda .feedback-feature-card > .card-corner-chibi {
+    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.12)) !important;
+}
+
+/* 2. VERSI HITAM GELAP (TETAP GELAP KHUSUS TENTANG) */
+body.page-tentang main > section.feedback-preview {
+    background-color: #111111 !important;
+    background: #111111 !important;
+    color: #f5edf4 !important;
+}
+
+body.page-tentang .feedback-feature-card {
+    background: linear-gradient(165deg, #1c1523 0%, #130f18 100%) !important;
+    border: 1.5px solid rgba(255, 101, 155, 0.25) !important;
+    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+}
+
+body.page-tentang .feedback-feature-card:hover {
+    border-color: var(--pink, #e91e63) !important;
+    box-shadow: 0 24px 50px rgba(233, 30, 99, 0.22), 0 6px 18px rgba(0, 0, 0, 0.6) !important;
+}
+
+body.page-tentang .feedback-feature-card::before {
+    background: linear-gradient(90deg, #ff659b, #e91e63) !important;
+}
+
+body.page-tentang .feedback-feature-card::after {
+    background-image: url("../images/mirai/background/w1b.jpeg") !important;
+    background-size: 260px auto !important;
+    background-repeat: repeat !important;
+    background-position: top left !important;
+    opacity: 0.045 !important;
+    mix-blend-mode: screen !important;
+}
+
+body.page-tentang .feedback-feature-card:hover::after {
+    opacity: 0.08 !important;
+}
+
+body.page-tentang .feedback-feature-badge,
+body.page-tentang .feedback-feature-tag {
+    background: rgba(233, 30, 99, 0.16) !important;
+    border: 1.5px solid rgba(233, 30, 99, 0.4) !important;
+    color: var(--pink, #e91e63) !important;
+}
+
+body.page-tentang .feedback-feature-body.stacked-layout .feedback-card-title,
+body.page-tentang main .feedback-feature-card h2,
+body.page-tentang main .feedback-feature-card .heading,
+body.page-tentang .feedback-feature-card h2.heading,
+body.page-tentang .feedback-feature-card .heading {
+    color: #ffffff !important;
+}
+
+body.page-tentang .feedback-card-title span,
+body.page-tentang .feedback-card-title span.highlight,
+body.page-tentang main .feedback-feature-card .heading span,
+body.page-tentang main .feedback-feature-card .heading span.highlight,
+body.page-tentang .feedback-feature-card .heading span.highlight,
+body.page-tentang .feedback-feature-card .heading span {
+    color: var(--pink, #e91e63) !important;
+}
+
+body.page-tentang .feedback-feature-body.stacked-layout .feedback-card-desc,
+body.page-tentang .feedback-card-desc,
+body.page-tentang main .feedback-feature-card .copy,
+body.page-tentang main .feedback-feature-card p,
+body.page-tentang .feedback-feature-card p.copy {
+    color: #ece4ec !important;
+}
+
+body.page-tentang .feedback-cta-btn {
+    background: var(--pink, #e91e63) !important;
+    color: #ffffff !important;
+}
+
+body.page-tentang .feedback-feature-card > .card-corner-chibi {
+    filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.4)) !important;
+}
+

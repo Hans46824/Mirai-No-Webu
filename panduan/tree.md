@@ -9,17 +9,26 @@ Mirai-No-Webu/
 ├── 404.html                        # Halaman penanganan tautan salah / tidak ditemukan bertema Sora
 ├── README.md                       # Profil utama repositori & dokumentasi Sources & Credits
 ├── cspell.json                     # Konfigurasi Code Spell Checker (kamus & ignorasi kata bilingual)
+├── .cursorrules                    # Aturan otomatis workspace editor Cursor (Otak Otomatis AI)
+├── .github/                        # Konfigurasi integrasi GitHub
+│   └── copilot-instructions.md     # Instruksi otomatis GitHub Copilot (Otak Otomatis AI)
 ├── .vscode/                        # Konfigurasi workspace editor VS Code / Antigravity
 │   └── settings.json               # Pengaturan workspace, search.exclude, & files.watcherExclude
 │
-├── css/                            # Master & Arsitektur Stylesheet Modular
-│   ├── style.css                   # Master CSS Index (Hanya memuat @import Google Fonts & 5 modul)
-│   └── modules/                    # Sub-folder pecahan stylesheet modular (terisolasi & performan)
-│       ├── 01-base-theme.css       # Variabel warna, CSS reset, tombol dasar, & sistem selang-seling
-│       ├── 02-header-hero-footer.css # Floating navbar, off-canvas sidebar, hero banners, & footer
-│       ├── 03-kelas-kamus-latihan.css # Modul pembelajaran kelas, kana quest, kamus, stroke order, & kurikulum
-│       ├── 04-proker-tentang.css   # Divisi, proker, profil klub, filosofi, logo, slogan, visi misi, haori, FAQ
-│       └── 05-fitur-ekstra.css     # Kartu beranda, kutipan motivasi, rekomendasi, peringkat, lomba, toko, animasi
+├── css/                            # Master & Arsitektur Stylesheet Berbasis Halaman
+│   ├── style.css                   # Master CSS Index (Memanggil @import Google Fonts & 11 file css/pages/)
+│   └── pages/                      # Sub-folder stylesheet 100% intuitif per-halaman web
+│       ├── global.css              # Variabel :root, reset, sistem background selang-seling, tombol dasar, dark mode, 404, animasi
+│       ├── navbar-hero-footer.css  # Floating navbar, off-canvas sidebar nav, hero banners, hero guardrail, & footer
+│       ├── beranda.css             # Apa itu web, start-grid, aktivitas beranda (2 kartu besar), masukan & saran, quote slider
+│       ├── kelas-materi.css        # Alur kelas, kelas dasar (#dasar), kelas lanjutan (#lanjutan), buuku lesson, kurikulum, kuis latihan
+│       ├── kamus.css               # Kamus kana & kanji, stage goresan KanjiVG, kanvas Yoon, quick stroke button
+│       ├── kegiatan-divisi.css     # Hub kegiatan, 5 halaman proker, 4 divisi resmi, fasilitas klub (format landscape), slider galeri
+│       ├── tentang.css             # Profil klub, bendera, logo, slogan, visi misi, timeline angkatan 1-8, Sora RPG, prestasi, haori, FAQ
+│       ├── rekomendasi-motivasi.css # Kata motivasi anime (3 box), rekomendasi pop culture, & media legal
+│       ├── peringkat.css           # Multi-leaderboard keaktifan rajio, presensi kehadiran, podium rank 1-3, tabel skor, modal riwayat
+│       ├── lomba.css               # Papan info lomba/acara, kartu event bertumpuk vertikal, poster carousel kiri-kanan, modal juknis
+│       └── toko.css                # Etalase atribut & F&B konbini, Shopee-style 185px, poster carousel Haori/KTA, drawer keranjang
 │
 ├── js/                             # Logika JavaScript Modular
 │   ├── main.js                     # Logika navbar, sidebar mobile, launcher Sora, dan tema
@@ -36,6 +45,7 @@ Mirai-No-Webu/
 │   └── api.js                      # Koneksi endpoint data
 │
 ├── panduan/                        # Dokumentasi & Panduan Proyek
+│   ├── CONTEKAN-TAG.md             # Acuan cepat pemetaan halaman -> CSS -> JS (Otak Otomatis)
 │   ├── tree.md                     # Peta struktur direktori lengkap proyek ini
 │   └── agent.md                    # Pedoman aturan desain, protokol eksekusi cepat, dan persona AI
 │
@@ -130,6 +140,7 @@ Mirai-No-Webu/
 │       ├── replace_cards_revert.py
 │       ├── replace_sidebar_text.py
 │       ├── replace_sora_grid.py
+│       ├── revamp_css_pages_and_rules.py
 │       ├── update_agent_docs.py
 │       ├── update_carousel.py
 │       ├── update_carousel_js.py

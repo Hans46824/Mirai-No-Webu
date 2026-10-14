@@ -11,15 +11,21 @@ Gunakan bahasa yang sederhana, manusiawi, dan langsung ke intinya. Hindari penul
 
 Setiap AI asisten atau pengembang yang bekerja pada repositori ini **WAJIB mematuhi 4 aturan inti eksekusi cepat** berikut tanpa kecuali:
 
-### 1. Peta Modul CSS (DILARANG Membaca style.css Utuh)
-- **DILARANG KERAS** membaca `css/style.css` secara keseluruhan atau memindai semua modul CSS sekaligus ke dalam konteks percakapan.
-- `css/style.css` kini murni berfungsi sebagai master index pengimpor (`@import`) 5 modul terpisah.
-- Untuk membaca atau mengedit aturan CSS, **hanya buka modul spesifik yang relevan** sesuai peta berikut:
-  - **`css/modules/01-base-theme.css`**: Variabel warna root, CSS reset, sistem selang-seling background ganjil/genap, dan tombol dasar.
-  - **`css/modules/02-header-hero-footer.css`**: Floating navbar, off-canvas sidebar menu, banner hero section semua halaman, global footer, dan three-tier header.
-  - **`css/modules/03-kelas-kamus-latihan.css`**: Halaman Kelas (`kelas/*`), Materi (`materi/*`), Kamus (`kamus/*`), kuis Latihan Kana, kanvas urutan goresan (stroke order), dan kurikulum.
-  - **`css/modules/04-proker-tentang.css`**: Halaman Kegiatan/Proker (`kegiatan/*`), Divisi (`divisi/*`), Tentang Klub (`tentang/index.html`), filosofi, logo, slogan, visi misi, haori, kepengurusan, timeline, sora profile, prestasi, dan FAQ.
-  - **`css/modules/05-fitur-ekstra.css`**: Komponen Beranda (`index.html`), Rekomendasi (`rekomendasi/index.html`), Peringkat (`peringkat/index.html`), Lomba (`lomba/index.html`), Toko (`toko/index.html`), 404 (`404.html`), animasi umum, dan Hero Guardrail.
+### 1. Peta CSS Halaman Intuitif (DILARANG Membaca style.css Utuh)
+- **DILARANG KERAS** membaca `css/style.css` secara keseluruhan atau memindai seluruh folder CSS sekaligus ke dalam konteks percakapan.
+- `css/style.css` kini murni berfungsi sebagai master index pengimpor (`@import`) 11 file CSS berbasis halaman di `css/pages/`.
+- Rujuk tabel di **`panduan/CONTEKAN-TAG.md`** atau peta berikut untuk langsung membuka file target:
+  - **`css/pages/global.css`**: Variabel :root, CSS reset, sistem background selang-seling, tombol standar, dark mode master, 404 estetik, dan sistem animasi reveal.
+  - **`css/pages/navbar-hero-footer.css`**: Floating navbar, off-canvas sidebar nav, banner hero section semua halaman, hero-social-sidebar, hero guardrail, dan global footer.
+  - **`css/pages/beranda.css`**: Komponen Beranda (`index.html`), apa itu web (`.about-preview`, `.start-grid`), aktivitas beranda (2 kartu besar), masukan & saran (`.feedback-preview`), dan quote slider.
+  - **`css/pages/kelas-materi.css`**: Hub Kelas (`kelas/index.html`), jalur belajar (`.class-overview`), kelas dasar (`#dasar`), kelas lanjutan (`#lanjutan`), buuku lesson (`materi/*`), kurikulum (`#kurikulum`, `.doc-big-card`), dan kuis Kana Quest (`kelas/latihan.html`, `.practice-view`, `.result-view`).
+  - **`css/pages/kamus.css`**: Kamus Kana & Kanji (`kamus/index.html`, `kamus/kanji.html`), kartu karakter, stage urutan goresan KanjiVG, kanvas kombinasi Yoon, dan tombol quick stroke.
+  - **`css/pages/kegiatan-divisi.css`**: Hub Kegiatan & Fasilitas (`kegiatan/index.html`), 5 halaman proker (`kegiatan/*`), 4 halaman divisi (`divisi/*`), dan fasilitas klub (format landscape).
+  - **`css/pages/tentang.css`**: Halaman Profil Klub (`tentang/index.html`), bendera resmi, filosofi nama, makna logo, slogan, visi misi, timeline sejarah angkatan 1–8, profil Sora RPG, wall of fame prestasi, haori, aksesoris, slider kepengurusan, dan FAQ.
+  - **`css/pages/rekomendasi-motivasi.css`**: Halaman Kata Motivasi (`kelas/motivasi.html`), quote-card 3 box, rekomendasi karya (`rekomendasi/index.html`), hero dua warna, dan media legal.
+  - **`css/pages/peringkat.css`**: Halaman Papan Peringkat (`peringkat/index.html`), leaderboard-tabs, podium rank 1–3, tabel peringkat 4–10, dan modal riwayat keaktifan/prestasi.
+  - **`css/pages/lomba.css`**: Halaman Lomba & Acara (`lomba/index.html`), kartu event vertikal bertumpuk, poster carousel utuh, navigasi panah tengah samping, dan modal juknis.
+  - **`css/pages/toko.css`**: Toko Resmi & Konbini (`toko/index.html`), etalase 12 produk atribut & F&B, Shopee-style thumb 185px, carousel geser Haori & KTA, drawer keranjang belanja, dan panduan PO.
 
 ### 2. Peta JavaScript (`js/`)
 Akses logika interaktif langsung ke berkas terkait tanpa membaca seluruh folder:
@@ -45,7 +51,7 @@ Akses logika interaktif langsung ke berkas terkait tanpa membaca seluruh folder:
 ### A. Arsitektur Folder Modular (Clean Root Standard)
 Seluruh berkas website Mirai no Webu dikelompokkan secara terstruktur ke dalam folder tematik:
 - **Root (`/`)**: Berisi **index.html** (gerbang utama Beranda), **404.html** (halaman penanganan error ramah pengunjung bertema Mirai no Hana), **README.md** (etalase profil repositori GitHub dan dokumentasi kredit), **cspell.json** (konfigurasi spell checker bilingual), dan folder **`.vscode/`** (`settings.json` konfigurasi workspace).
-- **`css/`**: Berisi master stylesheet antarmuka (`css/style.css`) yang memanggil 5 modul terpisah di `css/modules/` (`01-base-theme.css` s.d. `05-fitur-ekstra.css`).
+- **`css/`**: Berisi master stylesheet antarmuka (`css/style.css`) yang memanggil 11 berkas CSS berbasis halaman di sub-folder `css/pages/` (`global.css`, `navbar-hero-footer.css`, `beranda.css`, `kelas-materi.css`, `kamus.css`, `kegiatan-divisi.css`, `tentang.css`, `rekomendasi-motivasi.css`, `peringkat.css`, `lomba.css`, `toko.css`).
 - **`js/`**: Berisi seluruh logika JavaScript modular (`main.js`, `script.js`, `kanji.js`, `kana.js`, `stroke.js`, `stroke-data.js`, `sora.js`, dll.).
 - **`panduan/`**: Berisi dokumentasi arsitektur proyek (`panduan/tree.md`, `panduan/agent.md`).
 - **`data/`**: Berisi basis data lokal JSON (`kana.json`, `kanji.json`, `kanji-meta.json`) yang menyuplai data untuk Kamus dan Latihan Kana/Kanji.

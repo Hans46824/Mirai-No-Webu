@@ -4,21 +4,39 @@
 /* ==========================================================================
    MIRAI NO WEBU — Master Modular Stylesheet Index
    Sistem Desain: Obsidian Gelap & Putih Bersih, Pola Wagara, Responsif
-   Struktur Modul Terfragmentasi untuk Performa Pembacaan & Perawatan Cepat
-   Urutan Cascade Dipertahankan Sempurna (100% Identik)
+   Arsitektur Berbasis Halaman 100% Intuitif (css/pages/)
+   Urutan Cascade Dipertahankan Sempurna (100% Identik & Zero Conflict)
    ========================================================================== */
 
-/* 1. Base Theme: Root variables, CSS reset global, sistem background selang-seling, & tombol standar */
-@import url('modules/01-base-theme.css');
+/* 1. Global: Variabel root, reset, background selang-seling, tombol dasar, dark mode, 404, animasi */
+@import url('pages/global.css');
 
-/* 2. Header, Hero, & Footer: Navbar melayang, off-canvas sidebar, hero banners, global footer, & three-tier header */
-@import url('modules/02-header-hero-footer.css');
+/* 2. Navbar, Hero, & Footer: Navbar melayang, off-canvas sidebar, hero banners, guardrail, & footer */
+@import url('pages/navbar-hero-footer.css');
 
-/* 3. Kelas, Kamus, & Latihan: Halaman pembelajaran kelas, kana quest, kamus kanji, buuku, stroke order, & kurikulum */
-@import url('modules/03-kelas-kamus-latihan.css');
+/* 3. Beranda: Seksi apa itu web, kisi fitur awal, aktivitas beranda, masukan & saran, quote slider */
+@import url('pages/beranda.css');
 
-/* 4. Proker & Tentang: Etalase proker & divisi, profil klub, filosofi nama, logo, slogan, visi misi, haori, timeline, sora profile, & FAQ */
-@import url('modules/04-proker-tentang.css');
+/* 4. Kelas & Materi: Alur kelas, kelas dasar, kelas lanjutan, buuku lesson, kurikulum, & latihan quest */
+@import url('pages/kelas-materi.css');
 
-/* 5. Fitur Ekstra & Guardrail: Kartu beranda/masukan, kutipan motivasi, rekomendasi media, leaderboard peringkat, lomba acara, katalog toko/konbini, sistem animasi, & hero guardrail */
-@import url('modules/05-fitur-ekstra.css');
+/* 5. Kamus & Aksara: Kamus kanji/kana, stroke order kanjivg, kanvas goresan, & quick button */
+@import url('pages/kamus.css');
+
+/* 6. Kegiatan & Divisi: Struktur 4 divisi, program kerja tahunan, fasilitas klub, & galeri slider */
+@import url('pages/kegiatan-divisi.css');
+
+/* 7. Tentang Klub: Profil klub, bendera, filosofi, logo, slogan, visi-misi, sejarah, haori, pengurus, FAQ */
+@import url('pages/tentang.css');
+
+/* 8. Rekomendasi & Motivasi: Kata motivasi anime, rekomendasi karya, & media legal */
+@import url('pages/rekomendasi-motivasi.css');
+
+/* 9. Papan Peringkat: Leaderboard keaktifan rajio, presensi, tabel skor, & modal prestasi */
+@import url('pages/peringkat.css');
+
+/* 10. Lomba & Acara: Papan info kompetisi, katalog lomba jejepangan, poster carousel, & modal */
+@import url('pages/lomba.css');
+
+/* 11. Toko & Konbini: Etalase atribut & F&B konbini, poster carousel produk, panduan PO, drawer keranjang */
+@import url('pages/toko.css');
