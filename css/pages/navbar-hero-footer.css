@@ -331,46 +331,7 @@ body.sidebar-open {
     gap: 8px;
 }
 
-/* Tombol Toggle Efek Suara UI */
-.sfx-toggle-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-    background: rgba(255, 255, 255, 0.08);
-    color: rgba(255, 255, 255, 0.92);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 11.5px;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: inherit;
-    margin-bottom: 4px;
-    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-    user-select: none;
-    letter-spacing: 0.3px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-}
 
-.sfx-toggle-btn:hover {
-    background: rgba(255, 255, 255, 0.16);
-    border-color: rgba(255, 255, 255, 0.35);
-    color: #ffffff;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
-}
-
-.sfx-toggle-btn:active {
-    transform: translateY(0);
-}
-
-.sfx-toggle-btn.is-muted {
-    color: rgba(255, 255, 255, 0.45);
-    background: rgba(255, 255, 255, 0.03);
-    border-color: rgba(255, 255, 255, 0.08);
-    box-shadow: none;
-}
 
 .sidebar-footer-logo {
     width: 220px;
@@ -514,12 +475,6 @@ body.sidebar-open {
     .sidebar-footer {
         padding-top: 14px !important;
         gap: 6px !important;
-    }
-
-    .sfx-toggle-btn {
-        font-size: 10.5px !important;
-        padding: 5px 12px !important;
-        margin-bottom: 2px !important;
     }
 
     .sidebar-footer-logo {

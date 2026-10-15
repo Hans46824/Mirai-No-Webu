@@ -570,60 +570,100 @@ const bunpouFallbackBank = [
     {
         meaning: "Saya adalah murid / pelajar",
         romaji: "Watashi wa gakusei desu",
+        kana: "わたし は がくせい です",
+        kanaText: "わたしはがくせいです",
+        tokensKana: ["わたし", "は", "がくせい", "です"],
+        tokensRomaji: ["Watashi", "wa", "gakusei", "desu"],
         target: ["わたし", "は", "がくせい", "です"],
         tokens: ["わたし", "は", "がくせい", "です"]
     },
     {
         meaning: "Saya belajar bahasa Jepang",
         romaji: "Watashi wa nihongo o benkyou shimasu",
+        kana: "わたし は にほんご を べんきょうします",
+        kanaText: "わたしはにほんごをべんきょうします",
+        tokensKana: ["わたし", "は", "にほんご", "を", "べんきょうします"],
+        tokensRomaji: ["Watashi", "wa", "nihongo", "o", "benkyou shimasu"],
         target: ["わたし", "は", "にほんご", "を", "べんきょうします"],
         tokens: ["わたし", "は", "にほんご", "を", "べんきょうします"]
     },
     {
         meaning: "Ini adalah buku milik saya",
         romaji: "Kore wa watashi no hon desu",
+        kana: "これ は わたし の ほん です",
+        kanaText: "これはわたしのほんです",
+        tokensKana: ["これ", "は", "わたし", "の", "ほん", "です"],
+        tokensRomaji: ["Kore", "wa", "watashi", "no", "hon", "desu"],
         target: ["これ", "は", "わたし", "の", "ほん", "です"],
         tokens: ["これ", "は", "わたし", "の", "ほん", "です"]
     },
     {
         meaning: "Setiap hari saya minum air putih",
         romaji: "Mainichi mizu o nomimasu",
+        kana: "まいにち みず を のみます",
+        kanaText: "まいにちみずをのみます",
+        tokensKana: ["まいにち", "みず", "を", "のみます"],
+        tokensRomaji: ["Mainichi", "mizu", "o", "nomimasu"],
         target: ["まいにち", "みず", "を", "のみます"],
         tokens: ["まいにち", "みず", "を", "のみます"]
     },
     {
         meaning: "Besok saya pergi ke sekolah",
         romaji: "Ashita gakkou e ikimasu",
+        kana: "あした がっこう へ いきます",
+        kanaText: "あしたがっこうへいきます",
+        tokensKana: ["あした", "がっこう", "へ", "いきます"],
+        tokensRomaji: ["Ashita", "gakkou", "e", "ikimasu"],
         target: ["あした", "がっこう", "へ", "いきます"],
         tokens: ["あした", "がっこう", "へ", "いきます"]
     },
     {
         meaning: "Kucing itu ada di bawah meja",
         romaji: "Neko wa tsukue no shita ni imasu",
+        kana: "ねこ は つくえ の した に います",
+        kanaText: "ねこはつくえのしたにいます",
+        tokensKana: ["ねこ", "は", "つくえ", "の", "した", "に", "います"],
+        tokensRomaji: ["Neko", "wa", "tsukue", "no", "shita", "ni", "imasu"],
         target: ["ねこ", "は", "つくえ", "の", "した", "に", "います"],
         tokens: ["ねこ", "は", "つくえ", "の", "した", "に", "います"]
     },
     {
         meaning: "Makan ramen enak di restoran",
         romaji: "Resutoran de oishii raamen o tabemasu",
+        kana: "レストラン で おいしい ラーメン を たべます",
+        kanaText: "レストランでおいしいラーメンをたべます",
+        tokensKana: ["レストラン", "で", "おいしい", "ラーメン", "を", "たべます"],
+        tokensRomaji: ["Resutoran", "de", "oishii", "raamen", "o", "tabemasu"],
         target: ["レストラン", "で", "おいしい", "ラーメン", "を", "たべます"],
         tokens: ["レストラン", "で", "おいしい", "ラーメン", "を", "たべます"]
     },
     {
         meaning: "Saya suka anime dan manga Jepang",
         romaji: "Watashi wa anime to manga ga suki desu",
+        kana: "わたし は アニメ と マンガ が すきです",
+        kanaText: "わたしはアニメとマンガがすきです",
+        tokensKana: ["わたし", "は", "アニメ", "と", "マンガ", "が", "すきです"],
+        tokensRomaji: ["Watashi", "wa", "anime", "to", "manga", "ga", "suki desu"],
         target: ["わたし", "は", "アニメ", "と", "マンガ", "が", "すきです"],
         tokens: ["わたし", "は", "アニメ", "と", "マンガ", "が", "すきです"]
     },
     {
         meaning: "Hari ini cuacanya sangat dingin",
         romaji: "Kyou no tenki wa totemo samui desu",
+        kana: "きょう の てんき は とても さむいです",
+        kanaText: "きょうのてんきはとてもさむいです",
+        tokensKana: ["きょう", "の", "てんき", "は", "とても", "さむいです"],
+        tokensRomaji: ["Kyou", "no", "tenki", "wa", "totemo", "samui desu"],
         target: ["きょう", "の", "てんき", "は", "とても", "さむいです"],
         tokens: ["きょう", "の", "てんき", "は", "とても", "さむいです"]
     },
     {
         meaning: "Tolong baca buku bahasa Jepang ini",
         romaji: "Kono nihongo no hon o yonde kudasai",
+        kana: "この にほんご の ほん を よんでください",
+        kanaText: "このにほんごのほんをよんでください",
+        tokensKana: ["この", "にほんご", "の", "ほん", "を", "よんでください"],
+        tokensRomaji: ["Kono", "nihongo", "no", "hon", "o", "yonde kudasai"],
         target: ["この", "にほんご", "の", "ほん", "を", "よんでください"],
         tokens: ["この", "にほんご", "の", "ほん", "を", "よんでください"]
     }
@@ -745,7 +785,7 @@ const MiraiWeakKana = window.MiraiWeakKana || {
 };
 window.MiraiWeakKana = MiraiWeakKana;
 
-function buildNormalQuestion(pool, previous, fullPool = pool) {
+function buildNormalQuestion(pool, previous, fullPool = pool, forceKind = null) {
     const validPool = pool.filter((item) => item && item.character && item.romaji);
     const sourcePool = validPool.length ? validPool : fullPool;
     const candidates = sourcePool.filter((item) => item.character !== previous?.answer?.character);
@@ -754,7 +794,7 @@ function buildNormalQuestion(pool, previous, fullPool = pool) {
     ];
 
     const kinds = ["kana", "romaji", "understand"];
-    const kind = kinds[Math.floor(Math.random() * kinds.length)];
+    const kind = forceKind || kinds[Math.floor(Math.random() * kinds.length)];
 
     let distractorCandidates = pool.filter(
         (item) => item && item.character && item.romaji && item.character !== answer.character && item.romaji !== answer.romaji
@@ -1129,6 +1169,15 @@ function initKanaQuest() {
                 icon: "🧩",
                 preview: "わたし・は・が・を・です",
                 subText: "10 Soal • Struktur N5"
+            },
+            {
+                id: "custom",
+                label: "⚙️ Latihan Kustom (Bebas Atur)",
+                isCustomMode: true,
+                levels: allLevelIds,
+                icon: "⚙️",
+                preview: "🎯 Kustomisasi Bebas",
+                subText: "Atur jumlah & jenis soal"
             }
         ];
 
@@ -1156,6 +1205,11 @@ function initKanaQuest() {
                 if (bpSaved !== null && bpSaved !== "" && !isNaN(bpSaved)) {
                     scoreText = `🏆 Skor Terbaik: ${parseInt(bpSaved, 10)}%`;
                 }
+            } else if (mode.isCustomMode) {
+                const customSaved = localStorage.getItem("mirai_mode_best_custom");
+                if (customSaved !== null && customSaved !== "" && !isNaN(customSaved)) {
+                    scoreText = `🏆 Skor Terbaik: ${parseInt(customSaved, 10)}%`;
+                }
             } else {
                 const storageKey = `mirai_mode_best_${script}_${mode.id || index}`;
                 const savedScore = localStorage.getItem(storageKey);
@@ -1165,7 +1219,7 @@ function initKanaQuest() {
             }
 
             const icon = mode.icon || (index === 9 ? "✦" : "→");
-            const extraClass = mode.isWeakMode ? "mode-card--weak" : mode.isTimeAttackMode ? "mode-card--time-attack" : mode.isBunpouMode ? "mode-card--bunpou" : "";
+            const extraClass = mode.isWeakMode ? "mode-card--weak" : mode.isTimeAttackMode ? "mode-card--time-attack" : mode.isBunpouMode ? "mode-card--bunpou" : mode.isCustomMode ? "mode-card--custom" : "";
 
             return `
                 <button class="mode-card mode-card--${script} ${extraClass}" data-mode="${index}" data-script="${script}">
@@ -1183,6 +1237,11 @@ function initKanaQuest() {
                 const modeIdx = Number(button.dataset.mode);
                 const mode = modes[modeIdx];
                 if (!mode) return;
+
+                if (mode.isCustomMode) {
+                    openCustomQuizModal();
+                    return;
+                }
 
                 if (mode.isTimeAttackMode) {
                     startTimeAttack();
@@ -1429,15 +1488,31 @@ function initKanaQuest() {
             modeKey: "mirai_mode_best_bunpou",
             levels: allLevelIds,
             pool: [],
-            questions: selected.map((s, i) => ({
-                type: "bunpou",
-                index: i,
-                meaning: s.meaning,
-                romaji: s.romaji,
-                target: s.target,
-                tokens: s.tokens,
-                shuffledTokens: shuffle([...s.tokens])
-            })),
+            questions: selected.map((s, i) => {
+                // Selang-seling variasi:
+                // i genap: Soal utama Romaji, arti di bawahnya dalam kurung, susun kepingan Kana
+                // i ganjil: Soal utama Kana, arti di bawahnya dalam kurung, susun kepingan Romaji
+                const puzzleMode = i % 2 === 0 ? "romaji_to_kana" : "kana_to_romaji";
+                const isRomajiToKana = puzzleMode === "romaji_to_kana";
+
+                const mainPrompt = isRomajiToKana ? s.romaji : (s.kana || (s.tokensKana || s.target).join(" "));
+                const targetTokens = isRomajiToKana ? (s.tokensKana || s.target) : (s.tokensRomaji || s.target);
+                const shuffledTokens = shuffle([...targetTokens]);
+
+                return {
+                    type: "bunpou",
+                    index: i,
+                    puzzleMode,
+                    meaning: s.meaning,
+                    romaji: s.romaji,
+                    kana: s.kana || (s.tokensKana ? s.tokensKana.join(" ") : s.target.join(" ")),
+                    kanaText: s.kanaText || (s.tokensKana ? s.tokensKana.join("") : s.target.join("")),
+                    mainPrompt,
+                    target: targetTokens,
+                    tokens: targetTokens,
+                    shuffledTokens
+                };
+            }),
             index: 0,
             results: [],
             matchMistakes: [],
@@ -1567,12 +1642,311 @@ function initKanaQuest() {
         renderQuestion();
     }
 
+    function buildSingleChoukaiQuestion(pool) {
+        const validPool = pool.filter((item) => item && item.character && item.romaji);
+        const source = validPool.length >= 4 ? validPool : (data[script] || makeKana(script));
+        const answer = source[Math.floor(Math.random() * source.length)];
+        const distractors = shuffle(source.filter((c) => c.character !== answer.character)).slice(0, 3);
+        return {
+            type: "choukai",
+            answer,
+            choices: shuffle([answer, ...distractors])
+        };
+    }
+
+    function buildSingleStrokeQuestion(pool) {
+        const strokeDataMap = window.MIRAI_STROKE_DATA || {};
+        const validStrokeItems = pool.filter((item) => item && item.character && strokeDataMap[item.character]?.paths?.length);
+        const source = validStrokeItems.length > 0 ? validStrokeItems : pool;
+        const answer = source[Math.floor(Math.random() * source.length)];
+
+        return {
+            type: "stroke",
+            answer,
+            character: answer.character,
+            romaji: answer.romaji,
+            category: answer.category || "Kana dasar",
+            strokeData: strokeDataMap[answer.character] || null,
+            strokes: strokeDataMap[answer.character]?.paths?.length || answer.strokes || 0,
+            promptDisplay: "romaji"
+        };
+    }
+
+    function buildSingleWordQuestion(scriptType = "hiragana", levels = null) {
+        const bank = getWordBank(scriptType);
+        const pool = filterLevelWordBank(bank, levels, scriptType, 4);
+        const item = pool[Math.floor(Math.random() * pool.length)];
+        const kind = Math.random() < 0.5 ? "romaji" : "kana";
+        const distractors = shuffle(pool.filter((c) => c.character !== item.character)).slice(0, 3);
+        return {
+            type: "word",
+            answer: item,
+            kind,
+            choices: shuffle([item, ...distractors])
+        };
+    }
+
+    function buildSingleBunpouQuestion(index = 0) {
+        const sentences = window.BunpouData?.sentences || bunpouFallbackBank;
+        const s = sentences[Math.floor(Math.random() * sentences.length)];
+        const puzzleMode = Math.random() < 0.5 ? "romaji_to_kana" : "kana_to_romaji";
+        const isRomajiToKana = puzzleMode === "romaji_to_kana";
+
+        const mainPrompt = isRomajiToKana ? s.romaji : (s.kana || (s.tokensKana || s.target).join(" "));
+        const targetTokens = isRomajiToKana ? (s.tokensKana || s.target) : (s.tokensRomaji || s.target);
+        const shuffledTokens = shuffle([...targetTokens]);
+
+        return {
+            type: "bunpou",
+            index,
+            puzzleMode,
+            meaning: s.meaning,
+            romaji: s.romaji,
+            kana: s.kana || (s.tokensKana ? s.tokensKana.join(" ") : s.target.join(" ")),
+            kanaText: s.kanaText || (s.tokensKana ? s.tokensKana.join("") : s.target.join("")),
+            mainPrompt,
+            target: targetTokens,
+            tokens: targetTokens,
+            shuffledTokens
+        };
+    }
+
+    function buildCustomQuestions(totalCount, activeTypes, fullPool, chosenScripts) {
+        const questions = [];
+        const typesList = activeTypes && activeTypes.length ? activeTypes : ["kana", "romaji"];
+
+        while (questions.length < totalCount) {
+            const chosenType = typesList[Math.floor(Math.random() * typesList.length)];
+            const chosenScript = chosenScripts[Math.floor(Math.random() * chosenScripts.length)] || script;
+
+            if (chosenType === "kana") {
+                questions.push(buildNormalQuestion(fullPool, questions.at(-1), fullPool, "kana"));
+            } else if (chosenType === "romaji") {
+                questions.push(buildNormalQuestion(fullPool, questions.at(-1), fullPool, "romaji"));
+            } else if (chosenType === "audio") {
+                questions.push(buildSingleChoukaiQuestion(fullPool));
+            } else if (chosenType === "stroke") {
+                questions.push(buildSingleStrokeQuestion(fullPool));
+            } else if (chosenType === "word") {
+                questions.push(buildSingleWordQuestion(chosenScript, allLevelIds));
+            } else if (chosenType === "match") {
+                questions.push(buildMatchQuestion(chosenScript, allLevelIds));
+            } else if (chosenType === "bunpou") {
+                questions.push(buildSingleBunpouQuestion(questions.length));
+            } else {
+                questions.push(buildNormalQuestion(fullPool, questions.at(-1), fullPool));
+            }
+        }
+
+        return shuffle(questions).slice(0, totalCount);
+    }
+
+    function startCustomPractice(options) {
+        let fullPool = [];
+        const chosenScripts = options.scripts && options.scripts.length ? options.scripts : [script];
+
+        chosenScripts.forEach((sc) => {
+            const scPool = data[sc] && data[sc].length ? data[sc] : makeKana(sc);
+            const yoonStart = rows.length + voiced.length + 1;
+            const total = rows.length + voiced.length + combos.length;
+
+            const allowedLevels = [];
+            if (options.groups.includes("seion")) {
+                for (let i = 1; i <= rows.length; i++) allowedLevels.push(i);
+            }
+            if (options.groups.includes("dakuten")) {
+                for (let i = rows.length + 1; i <= rows.length + voiced.length; i++) allowedLevels.push(i);
+            }
+            if (options.groups.includes("yoon")) {
+                for (let i = yoonStart; i <= total; i++) allowedLevels.push(i);
+            }
+
+            const filtered = scPool.filter((item) => allowedLevels.includes(item.level));
+            fullPool = [...fullPool, ...filtered];
+        });
+
+        if (fullPool.length < 4) {
+            fullPool = [...(data[script] || makeKana(script))];
+        }
+
+        const totalCount = Math.max(1, Math.min(50, options.count || 20));
+        const questions = buildCustomQuestions(totalCount, options.types, fullPool, chosenScripts);
+
+        currentSession = {
+            mode: "custom",
+            isCustom: true,
+            modeKey: "mirai_mode_best_custom",
+            levels: allLevelIds,
+            pool: fullPool,
+            questions,
+            index: 0,
+            results: [],
+            matchMistakes: [],
+            streak: 0,
+            best: 0,
+            started: Date.now(),
+            customOptions: options
+        };
+
+        const practiceView = $("[data-practice-view]");
+        if (practiceView) {
+            practiceView.hidden = false;
+            practiceView.scrollTop = 0;
+        }
+        document.body.classList.add("is-practicing");
+        document.body.classList.remove("is-time-attack-mode");
+
+        const scoreBadge = $("[data-ta-score-badge]");
+        const comboBadge = $("[data-ta-combo-badge]");
+        if (scoreBadge) scoreBadge.hidden = true;
+        if (comboBadge) comboBadge.hidden = true;
+
+        renderQuestion();
+    }
+
+    function openCustomQuizModal() {
+        const modal = $("[data-custom-quiz-modal]");
+        if (!modal) return;
+        loadCustomModalState();
+        modal.hidden = false;
+        document.body.classList.add("is-modal-open");
+    }
+
+    function closeCustomQuizModal() {
+        const modal = $("[data-custom-quiz-modal]");
+        if (!modal) return;
+        modal.hidden = true;
+        document.body.classList.remove("is-modal-open");
+    }
+
+    function loadCustomModalState() {
+        try {
+            const raw = localStorage.getItem("mirai_custom_quiz_settings");
+            if (!raw) return;
+            const savedCfg = JSON.parse(raw);
+            if (!savedCfg || typeof savedCfg !== "object") return;
+
+            if (savedCfg.count) {
+                const slider = $("[data-custom-count-slider]");
+                const display = $("[data-custom-count-display]");
+                if (slider) slider.value = savedCfg.count;
+                if (display) display.textContent = `${savedCfg.count} Soal`;
+                document.querySelectorAll(".quick-pill-btn").forEach((btn) => {
+                    btn.classList.toggle("is-active", Number(btn.dataset.setCount) === Number(savedCfg.count));
+                });
+            }
+
+            if (Array.isArray(savedCfg.scripts) && savedCfg.scripts.length) {
+                document.querySelectorAll('input[name="custom-script"]').forEach((cb) => {
+                    cb.checked = savedCfg.scripts.includes(cb.value);
+                });
+            }
+
+            if (Array.isArray(savedCfg.groups) && savedCfg.groups.length) {
+                document.querySelectorAll('input[name="custom-group"]').forEach((cb) => {
+                    cb.checked = savedCfg.groups.includes(cb.value);
+                });
+            }
+
+            if (Array.isArray(savedCfg.types) && savedCfg.types.length) {
+                document.querySelectorAll('input[name="custom-type"]').forEach((cb) => {
+                    cb.checked = savedCfg.types.includes(cb.value);
+                });
+            }
+        } catch (e) {}
+    }
+
+    function initCustomQuizModalEvents() {
+        const modal = $("[data-custom-quiz-modal]");
+        if (!modal) return;
+
+        modal.querySelectorAll("[data-close-custom-modal]").forEach((btn) => {
+            btn.addEventListener("click", closeCustomQuizModal);
+        });
+
+        const slider = $("[data-custom-count-slider]");
+        const display = $("[data-custom-count-display]");
+        const quickPills = modal.querySelectorAll(".quick-pill-btn");
+
+        if (slider && display) {
+            slider.addEventListener("input", () => {
+                const val = Number(slider.value);
+                display.textContent = `${val} Soal`;
+                quickPills.forEach((p) => {
+                    p.classList.toggle("is-active", Number(p.dataset.setCount) === val);
+                });
+            });
+        }
+
+        quickPills.forEach((pill) => {
+            pill.addEventListener("click", () => {
+                const val = Number(pill.dataset.setCount);
+                if (slider) slider.value = val;
+                if (display) display.textContent = `${val} Soal`;
+                quickPills.forEach((p) => p.classList.remove("is-active"));
+                pill.classList.add("is-active");
+            });
+        });
+
+        const typeCheckboxes = modal.querySelectorAll('input[name="custom-type"]');
+        $("[data-custom-select-all-types]")?.addEventListener("click", () => {
+            typeCheckboxes.forEach((cb) => (cb.checked = true));
+        });
+
+        $("[data-custom-select-kana-only]")?.addEventListener("click", () => {
+            typeCheckboxes.forEach((cb) => {
+                cb.checked = ["kana", "romaji", "audio", "stroke"].includes(cb.value);
+            });
+        });
+
+        $("[data-custom-select-games-only]")?.addEventListener("click", () => {
+            typeCheckboxes.forEach((cb) => {
+                cb.checked = ["match", "bunpou", "word"].includes(cb.value);
+            });
+        });
+
+        $("[data-start-custom-quiz]")?.addEventListener("click", () => {
+            const count = Number(slider ? slider.value : 20);
+
+            const scripts = Array.from(modal.querySelectorAll('input[name="custom-script"]:checked')).map((cb) => cb.value);
+            if (scripts.length === 0) {
+                alert("Pilih minimal 1 aksara (Hiragana atau Katakana)!");
+                return;
+            }
+
+            const groups = Array.from(modal.querySelectorAll('input[name="custom-group"]:checked')).map((cb) => cb.value);
+            if (groups.length === 0) {
+                alert("Pilih minimal 1 kelompok huruf (Seion, Dakuon, atau Yōon)!");
+                return;
+            }
+
+            const types = Array.from(modal.querySelectorAll('input[name="custom-type"]:checked')).map((cb) => cb.value);
+            if (types.length === 0) {
+                alert("Pilih minimal 1 kategori tipe soal!");
+                return;
+            }
+
+            const options = {
+                count,
+                scripts,
+                groups,
+                types
+            };
+
+            try {
+                localStorage.setItem("mirai_custom_quiz_settings", JSON.stringify(options));
+            } catch (e) {}
+
+            closeCustomQuizModal();
+            startCustomPractice(options);
+        });
+    }
+
 
     function playStrokeChime(isFinal) {
         try {
-            const AudioCtx = window.AudioContext || window.webkitAudioContext;
-            if (!AudioCtx) return;
-            const audioCtx = new AudioCtx();
+            const audioCtx = window.MiraiSound?.getContext() || (window.AudioContext ? new AudioContext() : null);
+            if (!audioCtx) return;
             const now = audioCtx.currentTime;
 
             if (!isFinal) {
@@ -1582,7 +1956,7 @@ function initKanaQuest() {
                     const gain = audioCtx.createGain();
                     osc.type = "sine";
                     osc.frequency.setValueAtTime(freq, now + idx * 0.08);
-                    gain.gain.setValueAtTime(0.12, now + idx * 0.08);
+                    gain.gain.setValueAtTime(0.28, now + idx * 0.08);
                     gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.22);
                     osc.connect(gain);
                     gain.connect(audioCtx.destination);
@@ -1596,7 +1970,7 @@ function initKanaQuest() {
                     const gain = audioCtx.createGain();
                     osc.type = "sine";
                     osc.frequency.setValueAtTime(freq, now + idx * 0.08);
-                    gain.gain.setValueAtTime(0.15, now + idx * 0.08);
+                    gain.gain.setValueAtTime(0.32, now + idx * 0.08);
                     gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.4);
                     osc.connect(gain);
                     gain.connect(audioCtx.destination);
@@ -2008,8 +2382,13 @@ function initKanaQuest() {
 
         if (currentSession.isTimeAttack) {
             $("[data-practice-label]").textContent = `⚡ TIME ATTACK • 60 DETIK`;
+        } else if (currentSession.isCustom) {
+            const kindText = question.type === "bunpou" ? "SUSUN KALIMAT" : question.type === "match-table" ? "PASANGKAN KATA" : question.type === "word" ? "KOSAKATA" : question.type === "stroke" ? "TULIS GORESAN" : question.type === "choukai" ? "TEBAK SUARA" : question.kind === "romaji" ? "ROMAJI → KANA" : "KANA → ROMAJI";
+            $("[data-practice-label]").textContent = `⚙️ KUSTOM • ${kindText}`;
         } else if (question.type === "bunpou") {
-            $("[data-practice-label]").textContent = "BUNPOU • SUSUN KALIMAT N5";
+            $("[data-practice-label]").textContent = question.puzzleMode === "kana_to_romaji"
+                ? "BUNPOU • SUSUN ROMAJI N5"
+                : "BUNPOU • SUSUN KANA N5";
         } else if (question.type === "choukai") {
             $("[data-practice-label]").textContent = "CHOUKAI • TEBAK SUARA KILAT";
         } else if (question.type === "memory") {
@@ -2254,18 +2633,36 @@ function initKanaQuest() {
             $("[data-answer-grid]").classList.remove("is-match-grid");
             $("[data-answer-grid]").style.cssText = "display: block !important; width: 100% !important; max-width: 620px !important; margin: 0 auto !important; grid-template-columns: none !important;";
 
+            const isRomaji = question.puzzleMode === "kana_to_romaji";
+            const hintText = isRomaji
+                ? "Ketuk kepingan kata Romaji di bawah untuk menyusun kalimat yang tepat:"
+                : "Ketuk kepingan aksara Kana di bawah untuk menyusun kalimat yang tepat:";
+
             if (defaultSub) {
                 defaultSub.hidden = false;
-                defaultSub.textContent = "Ketuk kepingan kata di bawah untuk menyusun kalimat yang tepat:";
+                defaultSub.textContent = hintText;
             }
 
-            $("[data-question-kind]").textContent = "SUSUN KALIMAT JEPANG (N5)";
+            $("[data-question-kind]").textContent = isRomaji ? "SUSUN ROMAJI (N5)" : "SUSUN KANA (N5)";
             $("[data-question-prompt]").innerHTML = `
                 <div class="bunpou-prompt-wrap">
-                    <div class="bunpou-meaning-text">${question.meaning}</div>
-                    <span class="bunpou-prompt-hint">Susun kata bahasa Jepang yang sesuai dengan arti di atas</span>
+                    <div class="bunpou-meaning-text">
+                        <span>${question.mainPrompt}</span>
+                        <button type="button" class="bunpou-audio-btn" aria-label="Dengarkan pelafalan" title="Dengarkan pelafalan">🔊</button>
+                    </div>
+                    <div class="bunpou-meaning-sub">(${question.meaning})</div>
+                    <span class="bunpou-prompt-hint">${hintText}</span>
                 </div>
             `;
+
+            const audioBtn = $("[data-question-prompt] .bunpou-audio-btn");
+            if (audioBtn) {
+                audioBtn.addEventListener("click", () => {
+                    if (window.speakJapanese) {
+                        window.speakJapanese(question.kanaText || question.kana);
+                    }
+                });
+            }
 
             $("[data-answer-grid]").innerHTML = `
                 <div class="bunpou-puzzle-board">
@@ -2341,9 +2738,20 @@ function initKanaQuest() {
             if (checkBtn) {
                 checkBtn.addEventListener("click", () => {
                     if (selectedIndices.length === 0) return;
-                    const assembledStr = selectedIndices.map((i) => shuffled[i]).join("");
-                    const targetStr = question.target.join("");
-                    const isCorrect = assembledStr === targetStr;
+
+                    let isCorrect = false;
+                    let assembledStr = "";
+                    let targetStr = "";
+
+                    if (isRomaji) {
+                        assembledStr = selectedIndices.map((i) => shuffled[i].trim().toLowerCase()).join(" ");
+                        targetStr = question.target.map((t) => t.trim().toLowerCase()).join(" ");
+                        isCorrect = assembledStr === targetStr;
+                    } else {
+                        assembledStr = selectedIndices.map((i) => shuffled[i].trim()).join("");
+                        targetStr = question.target.map((t) => t.trim()).join("");
+                        isCorrect = assembledStr === targetStr;
+                    }
 
                     const feedback = $("[data-feedback]");
                     feedback.hidden = false;
@@ -2354,14 +2762,17 @@ function initKanaQuest() {
                         if (window.MiraiSound) window.MiraiSound.play("success");
 
                         feedback.className = "feedback is-good";
-                        feedback.innerHTML = `<strong>Tepat Sekali! 🎉</strong><span>Kalimat: <b>${targetStr}</b> (${question.romaji})</span>`;
+                        const answerSummary = isRomaji
+                            ? `<b>${question.target.join(" ")}</b> (${question.kanaText || question.kana})`
+                            : `<b>${question.target.join("")}</b> (${question.romaji})`;
+                        feedback.innerHTML = `<strong>Tepat Sekali! 🎉</strong><span>Kalimat: ${answerSummary} • <i>${question.meaning}</i></span>`;
 
                         currentSession.results[currentSession.index] = {
                             state: "is-correct",
                             question,
                             value: assembledStr,
                             userChoice: selectedIndices.map((i) => shuffled[i]).join(" "),
-                            correctChoice: question.target.join(" ")
+                            correctChoice: question.target.join(isRomaji ? " " : "")
                         };
                         currentSession.streak += 1;
                         currentSession.best = Math.max(currentSession.best, currentSession.streak);
@@ -2383,7 +2794,7 @@ function initKanaQuest() {
                         if (window.MiraiSound) window.MiraiSound.play("wrong");
 
                         feedback.className = "feedback is-bad";
-                        feedback.innerHTML = "<strong>Susunan Belum Tepat</strong><span>Periksa urutan partikel atau kata kerjanya, lalu coba atur ulang!</span>";
+                        feedback.innerHTML = "<strong>Susunan Belum Tepat</strong><span>Periksa urutan kata atau partikelnya, lalu coba atur ulang!</span>";
 
                         setTimeout(() => {
                             if (trayEl) trayEl.classList.remove("is-wrong-shake");
@@ -2403,7 +2814,10 @@ function initKanaQuest() {
                     if (feedback) {
                         feedback.hidden = false;
                         feedback.className = "feedback is-good";
-                        feedback.innerHTML = `<strong>Benar! 🎉</strong><span>Kalimat: <b>${question.target.join("")}</b> (${question.romaji})</span>`;
+                        const answerSummary = isRomaji
+                            ? `<b>${question.target.join(" ")}</b> (${question.kanaText || question.kana})`
+                            : `<b>${question.target.join("")}</b> (${question.romaji})`;
+                        feedback.innerHTML = `<strong>Benar! 🎉</strong><span>Kalimat: ${answerSummary} • <i>${question.meaning}</i></span>`;
                     }
                 }
             }
@@ -3007,6 +3421,8 @@ function initKanaQuest() {
             startChoukaiGame();
         } else if (currentSession && currentSession.isMemory) {
             startMemoryGame();
+        } else if (currentSession && currentSession.isCustom) {
+            startCustomPractice(currentSession.customOptions);
         } else {
             startPractice(currentSession.levels, currentSession.pool, currentSession.modeKey, currentSession.isWeakMode);
         }
@@ -3286,13 +3702,14 @@ function initKanaQuest() {
                 return;
             }
             if (q.type === "bunpou") {
+                const isRomaji = q.puzzleMode === "kana_to_romaji";
                 allMistakes.push({
-                    badge: "SUSUN KALIMAT",
-                    prompt: q.meaning,
+                    badge: isRomaji ? "SUSUN ROMAJI" : "SUSUN KANA",
+                    prompt: `${q.mainPrompt} (${q.meaning})`,
                     userAns: result.userChoice || "Dilewati",
-                    correctAns: q.target.join(" ") + " (" + q.romaji + ")",
-                    explanation: `Kalimat tepat: “${q.target.join("")}” (${q.romaji}) berarti “${q.meaning}”.`,
-                    speakText: q.target.join("")
+                    correctAns: isRomaji ? q.target.join(" ") : q.target.join(""),
+                    explanation: `Kalimat tepat: “${q.kanaText || q.kana}” (${q.romaji}) berarti “${q.meaning}”.`,
+                    speakText: q.kanaText || q.kana
                 });
                 return;
             }
@@ -3511,6 +3928,13 @@ function initKanaQuest() {
             }
         });
     });
+
+    // Inisialisasi event modal latihan kustom
+    initCustomQuizModalEvents();
+
+    if (urlParams.get("custom") === "1" || urlParams.get("mode") === "custom") {
+        setTimeout(openCustomQuizModal, 100);
+    }
 
 }
 

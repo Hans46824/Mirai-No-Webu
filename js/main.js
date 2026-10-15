@@ -4,6 +4,267 @@
  * Penggunaan: Universal di seluruh 30 halaman HTML website (index.html, tentang, kelas, kegiatan, divisi, lomba, toko, dll.).
  */
 
+/* ==========================================================================
+   MIRAI AUDIO / SFX ENGINE (Web Audio API Synthesizer)
+   Menghadirkan sound effect UI yang jernih, responsif, dan terdengar jelas
+   di desktop & mobile tanpa ketergantungan aset eksternal.
+   ========================================================================== */
+
+const MiraiSound = {
+    audioCtx: null,
+    enabled: true,
+    lastPlayTime: 0,
+    lastClickTime: 0,
+
+    getContext() {
+        if (!this.enabled) return null;
+        const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtxClass) return null;
+        if (!this.audioCtx) {
+            this.audioCtx = new AudioCtxClass();
+        }
+        if (this.audioCtx.state === "suspended") {
+            this.audioCtx.resume().catch(() => {});
+        }
+        return this.audioCtx;
+    },
+
+    unlock() {
+        if (!this.enabled) return;
+        const ctx = this.getContext();
+        if (ctx && ctx.state === "suspended") {
+            ctx.resume().catch(() => {});
+        }
+    },
+
+    play(name) {
+        if (!this.enabled) return;
+        try {
+            const ctx = this.getContext();
+            if (!ctx) return;
+
+            const now = ctx.currentTime;
+
+            switch (name) {
+                case "click":
+                case "tap": {
+                    // Hindari duplikasi klik beruntun dalam rentang 50ms
+                    if (Date.now() - this.lastClickTime < 50) return;
+                    this.lastClickTime = Date.now();
+                    this.lastPlayTime = Date.now();
+
+                    // 1. Transient attack (nada tinggi yang turun cepat: sensasi klik renyah)
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = "sine";
+                    osc.frequency.setValueAtTime(1250, now);
+                    osc.frequency.exponentialRampToValueAtTime(420, now + 0.038);
+
+                    gain.gain.setValueAtTime(0.35, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.045);
+
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.05);
+
+                    // 2. Body resonance (ketukan hangat)
+                    const osc2 = ctx.createOscillator();
+                    const gain2 = ctx.createGain();
+                    osc2.type = "triangle";
+                    osc2.frequency.setValueAtTime(320, now);
+                    gain2.gain.setValueAtTime(0.20, now);
+                    gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.035);
+
+                    osc2.connect(gain2);
+                    gain2.connect(ctx.destination);
+                    osc2.start(now);
+                    osc2.stop(now + 0.04);
+                    break;
+                }
+
+                case "pop": {
+                    this.lastPlayTime = Date.now();
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = "sine";
+                    osc.frequency.setValueAtTime(460, now);
+                    osc.frequency.exponentialRampToValueAtTime(980, now + 0.05);
+
+                    gain.gain.setValueAtTime(0.32, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.065);
+                    break;
+                }
+
+                case "success": {
+                    this.lastPlayTime = Date.now();
+                    // Nada perayaan 4 tingkat: C5 -> E5 -> G5 -> C6
+                    const notes = [523.25, 659.25, 783.99, 1046.5];
+                    notes.forEach((freq, idx) => {
+                        const noteStart = now + idx * 0.07;
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = "sine";
+                        osc.frequency.setValueAtTime(freq, noteStart);
+
+                        gain.gain.setValueAtTime(0.001, noteStart);
+                        gain.gain.linearRampToValueAtTime(0.30, noteStart + 0.012);
+                        gain.gain.exponentialRampToValueAtTime(0.001, noteStart + 0.28);
+
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start(noteStart);
+                        osc.stop(noteStart + 0.32);
+                    });
+                    break;
+                }
+
+                case "wrong": {
+                    this.lastPlayTime = Date.now();
+                    // Nada ganda penolakan/salah: 220Hz -> 160Hz
+                    const freqs = [220, 160];
+                    freqs.forEach((freq, idx) => {
+                        const noteStart = now + idx * 0.09;
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        const filter = ctx.createBiquadFilter();
+
+                        filter.type = "lowpass";
+                        filter.frequency.setValueAtTime(680, noteStart);
+
+                        osc.type = "sawtooth";
+                        osc.frequency.setValueAtTime(freq, noteStart);
+
+                        gain.gain.setValueAtTime(0.001, noteStart);
+                        gain.gain.linearRampToValueAtTime(0.30, noteStart + 0.012);
+                        gain.gain.exponentialRampToValueAtTime(0.001, noteStart + 0.13);
+
+                        osc.connect(filter);
+                        filter.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start(noteStart);
+                        osc.stop(noteStart + 0.15);
+                    });
+                    break;
+                }
+
+                case "toggle": {
+                    this.lastPlayTime = Date.now();
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = "sine";
+                    osc.frequency.setValueAtTime(620, now);
+                    osc.frequency.setValueAtTime(880, now + 0.03);
+
+                    gain.gain.setValueAtTime(0.24, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.065);
+                    break;
+                }
+
+                default:
+                    this.play("click");
+                    break;
+            }
+        } catch (e) {
+            // Audio safe fallback
+        }
+    },
+
+    playClickIfIdle() {
+        if (Date.now() - this.lastClickTime < 50) return;
+        this.play("click");
+    }
+};
+
+window.MiraiSound = MiraiSound;
+
+function setupGlobalSoundClicks() {
+    // Unlock Web Audio context pada sentuhan atau interaksi pertama pengguna
+    ["pointerdown", "touchstart", "keydown"].forEach((evt) => {
+        window.addEventListener(evt, () => {
+            window.MiraiSound?.unlock();
+        }, { passive: true, capture: true });
+    });
+
+    const INTERACTIVE_SELECTOR = [
+        "button",
+        "a[href]",
+        "summary",
+        '[role="button"]',
+        '[role="tab"]',
+        '[role="switch"]',
+        'input[type="button"]',
+        'input[type="submit"]',
+        'input[type="reset"]',
+        'input[type="radio"]',
+        'input[type="checkbox"]',
+        ".mode-card",
+        ".course-card",
+        ".choice-card",
+        ".nav-card",
+        ".practice-card",
+        ".kanji-card",
+        ".kanji-cell",
+        ".dict-tab-btn",
+        ".quiz-chip",
+        ".bunpou-chip",
+        ".match-button",
+        ".tab-btn",
+        ".filter-btn",
+        ".accordion-header",
+        ".accordion-btn",
+        ".lightbox-close",
+        ".lightbox-prev",
+        ".lightbox-next",
+        ".slider-btn",
+        ".to-top",
+        ".menu-toggle",
+        ".hero-btn",
+        ".btn",
+        ".memory-card",
+        ".flashcard",
+        "[data-clickable]"
+    ].join(", ");
+
+    // Global click listener pada capture phase untuk tanggapan instan
+    document.addEventListener("click", (e) => {
+        window.MiraiSound?.unlock();
+        const target = e.target;
+        if (!target) return;
+
+        const el = target.closest(INTERACTIVE_SELECTOR);
+        if (!el) return;
+
+        // Jangan bersuara jika elemen disabled
+        if (
+            el.disabled ||
+            el.getAttribute("aria-disabled") === "true" ||
+            el.classList?.contains("disabled") ||
+            el.classList?.contains("is-disabled")
+        ) {
+            return;
+        }
+
+        // Jangan bunyikan jika data-sound="none"
+        if (el.dataset?.sound === "none") return;
+
+        window.MiraiSound?.playClickIfIdle();
+    }, true);
+}
+
+// Inisialisasi listener klik audio secepat mungkin
+setupGlobalSoundClicks();
+
 document.addEventListener("DOMContentLoaded", () => {
     normalizeNavigation();
     setupThemeToggle();
@@ -1480,42 +1741,10 @@ const MiraiProgress = {
             }
         });
 
-        // 2. Tampilkan banner "Lanjutkan Belajar" jika ada materi terakhir atau progres
-        if (lastMateri) {
-            const parentContainer = document.querySelector(".material-library, .learning-path#dasar, .learning-path");
-            if (parentContainer && !document.querySelector(".progress-resume-banner")) {
-                const pct = Math.round((completed.length / this.TOTAL_MATERI) * 100);
-
-                const banner = document.createElement("div");
-                banner.className = "progress-resume-banner";
-                banner.innerHTML = `
-                    <div class="progress-resume-left">
-                        <div class="progress-resume-icon" aria-hidden="true">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                        </div>
-                        <div class="progress-resume-title-wrap">
-                            <h4>Lanjutkan Belajar Terakhir (${lastMateri.step || "Modul"})</h4>
-                            <p>${lastMateri.title || "Materi Pembelajaran"}</p>
-                        </div>
-                    </div>
-                    <div class="progress-resume-center">
-                        <div class="progress-resume-stat">
-                            <span>Progres Kurikulum</span>
-                            <span>${completed.length} / ${this.TOTAL_MATERI} Materi (${pct}%)</span>
-                        </div>
-                        <div class="progress-bar-track">
-                            <div class="progress-bar-fill" style="width: ${pct}%"></div>
-                        </div>
-                    </div>
-                    <div class="progress-resume-right">
-                        <a class="progress-resume-btn" href="${lastMateri.url}">
-                            <span>LANJUTKAN →</span>
-                        </a>
-                    </div>
-                `;
-                parentContainer.prepend(banner);
-            }
-        }
+        // Hapus elemen banner jika sempat ter-render atau tersisa
+        document.querySelectorAll(".progress-resume-banner").forEach((banner) => {
+            banner.remove();
+        });
     }
 };
 

@@ -721,6 +721,7 @@ body.page-toko,
     display: grid !important;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important;
     gap: 24px !important;
+    align-items: stretch !important;
 }
 
 .toko-step-card-white {
@@ -732,6 +733,10 @@ body.page-toko,
     overflow: hidden !important;
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
     box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+    box-sizing: border-box !important;
 }
 
 .toko-step-card-white::after {

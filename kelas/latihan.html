@@ -3183,6 +3183,168 @@ body.dark-mode .memory-card.is-matched .memory-card-front {
 
 </div></section>
 
+<!-- Modal Pengaturan Latihan Kustom -->
+<div class="custom-quiz-modal" data-custom-quiz-modal hidden>
+    <div class="custom-modal-backdrop" data-close-custom-modal></div>
+    <div class="custom-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="custom-modal-title">
+        <div class="custom-modal-header">
+            <div class="custom-modal-title-group">
+                <span class="custom-modal-badge">⚙️ MODE KUSTOM</span>
+                <h3 id="custom-modal-title">Pengaturan Soal Latihan</h3>
+                <p>Atur jumlah soal, aksara, dan kategori latihan sesuai kebutuhanmu.</p>
+            </div>
+            <button type="button" class="custom-modal-close" data-close-custom-modal aria-label="Tutup pengaturan">✕</button>
+        </div>
+
+        <div class="custom-modal-body">
+            <!-- 1. JUMLAH SOAL -->
+            <div class="custom-config-section">
+                <div class="custom-section-head">
+                    <h4>1. Jumlah Soal</h4>
+                    <span class="custom-count-badge" data-custom-count-display>20 Soal</span>
+                </div>
+                <div class="custom-range-wrapper">
+                    <input type="range" class="custom-range-slider" data-custom-count-slider min="1" max="50" value="20" step="1">
+                    <div class="custom-range-ticks">
+                        <span>1</span>
+                        <span>10</span>
+                        <span>20</span>
+                        <span>30</span>
+                        <span>40</span>
+                        <span>50</span>
+                    </div>
+                </div>
+                <div class="custom-quick-pills">
+                    <button type="button" class="quick-pill-btn" data-set-count="5">5 Soal</button>
+                    <button type="button" class="quick-pill-btn" data-set-count="10">10 Soal</button>
+                    <button type="button" class="quick-pill-btn is-active" data-set-count="20">20 Soal</button>
+                    <button type="button" class="quick-pill-btn" data-set-count="30">30 Soal</button>
+                    <button type="button" class="quick-pill-btn" data-set-count="50">50 Soal</button>
+                </div>
+            </div>
+
+            <!-- 2. PILIHAN AKSARA & KELOMPOK -->
+            <div class="custom-config-section">
+                <div class="custom-section-head">
+                    <h4>2. Aksara &amp; Kelompok Huruf</h4>
+                    <small>Pilih aksara yang ingin diuji</small>
+                </div>
+                <div class="custom-toggle-grid">
+                    <label class="custom-check-card">
+                        <input type="checkbox" name="custom-script" value="hiragana" checked>
+                        <span class="check-card-body">
+                            <span class="check-card-icon">あ</span>
+                            <span class="check-card-title">Hiragana</span>
+                            <small class="check-card-desc">Aksara asli Jepang</small>
+                        </span>
+                    </label>
+                    <label class="custom-check-card">
+                        <input type="checkbox" name="custom-script" value="katakana" checked>
+                        <span class="check-card-body">
+                            <span class="check-card-icon">ア</span>
+                            <span class="check-card-title">Katakana</span>
+                            <small class="check-card-desc">Kata serapan asing</small>
+                        </span>
+                    </label>
+                </div>
+                <div class="custom-pills-checkboxes">
+                    <label class="custom-sub-check">
+                        <input type="checkbox" name="custom-group" value="seion" checked>
+                        <span>Seion Dasar (あ-ん / ア-ン)</span>
+                    </label>
+                    <label class="custom-sub-check">
+                        <input type="checkbox" name="custom-group" value="dakuten" checked>
+                        <span>Dakuon &amp; Handakuon (が-ぱ)</span>
+                    </label>
+                    <label class="custom-sub-check">
+                        <input type="checkbox" name="custom-group" value="yoon" checked>
+                        <span>Yōon Kombinasi (きゃ-ぴょ)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 3. KATEGORI TIPE SOAL -->
+            <div class="custom-config-section">
+                <div class="custom-section-head">
+                    <h4>3. Kategori Tipe Soal</h4>
+                    <div class="custom-type-quick-actions">
+                        <button type="button" class="btn-text-action" data-custom-select-all-types>Pilih Semua</button>
+                        <span class="action-divider">•</span>
+                        <button type="button" class="btn-text-action" data-custom-select-kana-only>Hanya Kana</button>
+                        <span class="action-divider">•</span>
+                        <button type="button" class="btn-text-action" data-custom-select-games-only>Hanya Mini-Game</button>
+                    </div>
+                </div>
+                <div class="custom-types-list">
+                    <label class="custom-type-card">
+                        <input type="checkbox" name="custom-type" value="kana" checked>
+                        <span class="type-card-indicator">✓</span>
+                        <div class="type-card-info">
+                            <strong>🔤 Kana → Romaji</strong>
+                            <span>Lihat aksara Jepang, pilih cara baca romaji yang tepat</span>
+                        </div>
+                    </label>
+                    <label class="custom-type-card">
+                        <input type="checkbox" name="custom-type" value="romaji" checked>
+                        <span class="type-card-indicator">✓</span>
+                        <div class="type-card-info">
+                            <strong>🔤 Romaji → Kana</strong>
+                            <span>Lihat romaji, tebak bentuk aksara Jepang yang tepat</span>
+                        </div>
+                    </label>
+                    <label class="custom-type-card">
+                        <input type="checkbox" name="custom-type" value="audio" checked>
+                        <span class="type-card-indicator">✓</span>
+                        <div class="type-card-info">
+                            <strong>🎧 Tebak Suara (Choukai)</strong>
+                            <span>Dengarkan pelafalan asli audio Jepang lalu pilih aksara yang tepat</span>
+                        </div>
+                    </label>
+                    <label class="custom-type-card">
+                        <input type="checkbox" name="custom-type" value="stroke" checked>
+                        <span class="type-card-indicator">✓</span>
+                        <div class="type-card-info">
+                            <strong>✍️ Tulis Goresan Kana (Duolingo Canvas)</strong>
+                            <span>Latihan menarik goresan KanjiVG langsung di kanvas</span>
+                        </div>
+                    </label>
+                    <label class="custom-type-card">
+                        <input type="checkbox" name="custom-type" value="word" checked>
+                        <span class="type-card-indicator">✓</span>
+                        <div class="type-card-info">
+                            <strong>📖 Kosakata Dasar N5 (Vocabulary)</strong>
+                            <span>Uji pemahaman kosakata benda, salam, dan kata kerja dasar</span>
+                        </div>
+                    </label>
+                    <label class="custom-type-card">
+                        <input type="checkbox" name="custom-type" value="match" checked>
+                        <span class="type-card-indicator">✓</span>
+                        <div class="type-card-info">
+                            <strong>🃏 Pasangkan Kata (Match Cards)</strong>
+                            <span>Hubungkan pasangan kata Jepang dengan arti &amp; romajinya</span>
+                        </div>
+                    </label>
+                    <label class="custom-type-card">
+                        <input type="checkbox" name="custom-type" value="bunpou" checked>
+                        <span class="type-card-indicator">✓</span>
+                        <div class="type-card-info">
+                            <strong>🧩 Susun Kalimat (Bunpou N5)</strong>
+                            <span>Menyusun kepingan kata menjadi kalimat bahasa Jepang utuh</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="custom-modal-footer">
+            <button type="button" class="btn-custom-cancel" data-close-custom-modal>Batal</button>
+            <button type="button" class="btn-custom-start" data-start-custom-quiz>
+                <span>Mulai Latihan Kustom 🚀</span>
+            </button>
+        </div>
+    </div>
+</div>
+
 <button class="to-top" type="button" aria-label="Kembali ke atas">↑</button><script src="../js/stroke-data.js?v=20261012b"></script><script src="../js/sora.js"></script><script src="../js/main.js"></script><script src="../js/kana.js?v=20261015"></script><script src="../js/script.js?v=20261013kanascroll"></script>
 </body>
 </html>
