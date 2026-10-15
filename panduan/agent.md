@@ -53,7 +53,7 @@ Seluruh berkas website Mirai no Webu dikelompokkan secara terstruktur ke dalam f
 - **Root (`/`)**: Berisi **index.html** (gerbang utama Beranda), **404.html** (halaman penanganan error ramah pengunjung bertema Mirai no Hana), **README.md** (etalase profil repositori GitHub dan dokumentasi kredit), **cspell.json** (konfigurasi spell checker bilingual), dan folder **`.vscode/`** (`settings.json` konfigurasi workspace).
 - **`css/`**: Berisi master stylesheet antarmuka (`css/style.css`) yang memanggil 11 berkas CSS berbasis halaman di sub-folder `css/pages/` (`global.css`, `navbar-hero-footer.css`, `beranda.css`, `kelas-materi.css`, `kamus.css`, `kegiatan-divisi.css`, `tentang.css`, `rekomendasi-motivasi.css`, `peringkat.css`, `lomba.css`, `toko.css`).
 - **`js/`**: Berisi seluruh logika JavaScript modular (`main.js`, `script.js`, `kanji.js`, `kana.js`, `stroke.js`, `stroke-data.js`, `sora.js`, dll.).
-- **`panduan/`**: Berisi dokumentasi arsitektur proyek (`panduan/tree.md`, `panduan/agent.md`).
+- **`panduan/`**: Berisi dokumentasi arsitektur proyek (`panduan/tree.md`, `panduan/agent.md`, `panduan/CONTEKAN-TAG.md`, `panduan/PANDUAN-DEVELOPER.md`, dan folder konfigurasi AI `panduan/ai-configs/`).
 - **`data/`**: Berisi basis data lokal JSON (`kana.json`, `kanji.json`, `kanji-meta.json`) yang menyuplai data untuk Kamus dan Latihan Kana/Kanji.
 - **`tentang/`**: Profil lengkap klub Mirai No Hana (`index.html`).
 - **`lomba/`**: Informasi 18 lomba & festival jejepangan (`index.html`).
@@ -452,6 +452,26 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
 
 ---
 
+### N. Standar Kartu Expandable Beranda & Tentang (Tap-to-Expand Standard)
+- **Arsitektur Tap-to-Expand**:
+  - Kartu navigasi Beranda (`.start-card`, `.activity-start-card`) dan kartu fitur besar (`.about-feature-card`, `.feedback-feature-card`) menggunakan tag `<div>` dengan atribut `[data-expand-card]`, BUKAN tag link pembungkus `<a>`.
+  - **Kondisi Awal (Collapsed)**: Hanya menampilkan nomor urut (`.card-step-num`), judul (`<h3>` atau `<h2>`), maskot chibi di pojok kanan bawah, tombol aksi CTA, dan tombol panah buka-tutup (`.card-toggle`). Deskripsi disembunyikan.
+  - **Kondisi Terbuka (`.is-expanded`)**: Mengetuk kartu atau tombol panah membuka deskripsi menggunakan transisi CSS Grid modern `grid-template-rows: 0fr -> 1fr` (`.card-collapsible-content > .card-collapsible-inner`) tanpa `display: none` agar animasi berjalan mulus.
+  - **Perilaku Tombol Aksi (`[data-expand-cta]`)**:
+    * Jika tombol ditekan saat kartu masih tertutup: kartu membuka terlebih dahulu, tidak langsung berpindah halaman.
+    * Jika tombol ditekan saat kartu sudah terbuka: berpindah ke halaman tujuan.
+    * Kombinasi Ctrl/Cmd/Shift/Alt klik dibiarkan membuka tab baru secara normal.
+  - **Format Tombol Seragam**: Seluruh tombol aksi kartu berformat kotak agak bundar (`border-radius: 12px`).
+  - **Ikon Panah Toggle (`.card-toggle`)**: Menggunakan chevron CSS murni di sudut kanan atas dengan atribut `aria-expanded` dan styling `:focus-visible`.
+  - **Laci Logo NK (`#mnhAboutDrawerCard`)**: Tampil di seluruh ukuran layar (desktop, tablet, mobile). Saat kartu diekspansi (`.is-expanded` / `.is-pulled`), laci logo NK meluncur keluar dari kanan (`transform: translateX(0)`) melahap/memakan sisi kanan kartu tanpa menggeser teks, disertai animasi rotasi spring/elastic logo NK (`rotate(-180deg) scale(0.4) -> rotate(0deg) scale(1)`).
+  - **Tata Letak Responsif**:
+    * `.start-grid`: 2 kolom di tablet/desktop, 4 kolom di layar lebar `>= 1400px`, 1 kolom di HP `<= 600px`.
+    * `.activities-two-grid`: 2 kolom di tablet/desktop (kartu ganjil terakhir span penuh), 12 kolom di `>= 1400px` (4 kartu span 3, 3 kartu span 4), 1 kolom di HP `<= 600px`.
+    * HP (`<= 600px`): Nomor urut, judul, dan panah tertata dalam 1 baris, tombol `max-width: calc(100% - 76px)` dan maskot chibi 62px di pojok kanan bawah.
+
+
+---
+
 ## 5. Perawatan & Pengelolaan Fitur Chat Sora
 
 Fitur bot obrolan maskot Sora beroperasi melalui berkas **js/sora.js** dan halaman **sora/index.html**:
@@ -503,8 +523,13 @@ Seluruh data karakter, kosakata, dan goresan di website beroperasi murni secara 
 - **`data/kana.json`**: Menyimpan seluruh inventaris karakter Hiragana dan Katakana (Gojūon, Dakuon, Handakuon, Yōon, Sokuon).
 - **`data/kanji.json`**: Menyimpan basis data lengkap 2.136 karakter Jōyō Kanji, terjemahan Bahasa Indonesia, serta bacaan On'yomi dan Kun'yomi.
 - **`data/kanji-meta.json`**: Menyimpan metadata radikal, jumlah goresan (*stroke count*), dan tingkatan JLPT (N5 s.d N1).
-- **`js/stroke-data.js`**: Menyimpan vektor koordinat kurva KanjiVG terkurasi untuk animasi goresan.
-- **Aturan Sinkronisasi**: Jika ada penambahan kanji atau kosakata baru pada Kamus maupun Latihan Mandiri, pengembang **WAJIB memastikan keselarasan data** antara berkas JSON di `data/` dan pustaka goresan di `js/stroke-data.js` agar fitur pencarian dan animasi goresan tetap akurat.
+- **`js/stroke-data.js`**: Menyimpan vektor koordinat kurva KanjiVG terkurasi (viewBox: `0 0 109 109`) untuk animasi goresan kanvas.
+- **`data/stroke-coverage-manifest.json`**: Laporan cakupan status validasi goresan, sampel pengujian, dan catatan diskrepansi metadata.
+- **Skrip Pemeliharaan & Validasi**:
+  - `python3 skrip/arsip/validate_stroke_data.py`: Memvalidasi kelengkapan, viewBox, kurva path SVG, koordinat, dan konsistensi metadata tanpa mengubah berkas.
+  - `python3 skrip/arsip/fetch_kanjivg_strokes.py --staging-only`: Menyiapkan pembaruan data ke berkas pementasan `js/stroke-data.tmp.js`.
+  - `python3 skrip/arsip/fetch_kanjivg_strokes.py --apply`: Menerapkan pembaruan data secara atomik setelah validasi 100% lolos.
+- **Aturan Sinkronisasi**: Jika ada penambahan kanji atau kosakata baru pada Kamus maupun Latihan Mandiri, pengembang **WAJIB menjalankan validator** untuk memastikan keselarasan data antara berkas JSON di `data/` dan pustaka goresan di `js/stroke-data.js` agar fitur pencarian dan animasi goresan tetap akurat.
 
 ---
 
@@ -599,5 +624,48 @@ Setiap kali Agent atau pengembang melakukan modifikasi kode, penambahan fitur, p
 5. **Prinsip Satu Kesatuan Komit (*Atomic Documentation Commits*)**:
    - Pembaruan dokumentasi harus dilakukan bersamaan dengan kode perubahannya (atau dalam commit dokumentasi lanjutan langsung) agar tidak pernah ada jeda waktu di mana dokumentasi tertinggal dari implementasi kode (*zero documentation drift*).
 
+---
 
+## 13. Panduan Lokasi Data Dinamis (Pembaruan Rutin Pengurus)
+
+Website Mirai no Webu mengadopsi arsitektur *Zero-Framework* yang mengelompokkan data dinamis ke dalam berkas-berkas spesifik agar pengurus klub mudah melakukan pembaruan konten secara teratur tanpa merusak struktur visual halaman:
+
+### 1. Skor & Riwayat Peringkat (`js/leaderboard-data.js`)
+- **Tujuan**: Memperbarui peringkat keaktifan siaran Nihon Go Rajio (NJR), presensi kehadiran rapat klub, dan rekam jejak juara siswa.
+- **Cara Update**: Buka `js/leaderboard-data.js`, sesuaikan array data:
+  - `RAJIO_LEADERBOARD`: Nama siswa, avatar chibi (`Al`, `Ay`, `Hu`, dll.), kelas, poin keaktifan, dan status siaran.
+  - `ATTENDANCE_LEADERBOARD`: Persentase presensi dan akumulasi kehadiran per semester.
+  - `ACHIEVEMENT_DATA`: Riwayat medali dan kejuaraan perlombaan eksternal.
+- **Dampak Visual**: Otomatis memperbarui podium Rank 1–3, tabel peringkat di `peringkat/index.html`, serta galeri prestasi di `tentang/index.html`.
+
+### 2. Data Kamus, Karakter & Goresan (`data/kana.json`, `data/kanji.json`, `js/stroke-data.js`)
+- **Tujuan**: Menambah kosakata baru, melengkapi arti kanji bahasa Indonesia, atau memperbarui koordinat animasi goresan kuas.
+- **Berkas Terkait**:
+  - `data/kana.json`: Inventaris aksara Hiragana & Katakana beserta audio pelafalan.
+  - `data/kanji.json` & `data/kanji-meta.json`: Basis data lengkap 2.136 Joyo Kanji (N5–N1), level JLPT, jumlah goresan, arti Bahasa Indonesia, On'yomi, Kun'yomi, dan contoh kosakata.
+  - `js/stroke-data.js`: Koordinat vektor goresan KanjiVG terkurasi untuk kanvas interaktif.
+- **Catatan Penting**: Pastikan struktur JSON valid (tanpa koma berlebih di elemen terakhir). Jika menambah kanji baru, pastikan koordinat goresannya terdaftar di `js/stroke-data.js` agar animasi goresan tidak kosong.
+
+### 3. Katalog Lomba & Acara (`lomba/index.html`)
+- **Tujuan**: Menambah informasi lomba jejepangan tingkat kota/provinsi/nasional atau pengumuman festival matsuri terbaru.
+- **Cara Update**: Tambahkan kartu `<article class="event-card" data-event-type="..." data-event-region="...">` baru di dalam kontainer `.lomba-grid`.
+- **Komponen Wajib**:
+  - Poster resmi beresolusi jelas di `lomba/images/` dalam kontainer carousel `[data-event-carousel]`.
+  - Grid spesifikasi: Pelaksanaan, Biaya Pendaftaran, Lokasi/Platform, dan Cabang Lomba.
+  - Tombol aksi tautan pendaftaran atau informasi Instagram resmi (`target="_blank"`).
+
+### 4. Katalog Toko / Mirai no Konbini (`toko/index.html`)
+- **Tujuan**: Menambah atau memperbarui atribut resmi klub (Haori, KTA, lanyard) serta menu kuliner/minuman Jepang bazaar Konbini.
+- **Cara Update**: Tambahkan kartu produk `<div class="toko-card" data-category="...">` di dalam grid `.toko-grid`.
+- **Standar Format Produk**:
+  - Foto Shopee-style 185px (makanan cover penuh di `images/mirai/produk/`, atribut berlatar putih bersih).
+  - Jika produk memiliki tampak depan & belakang (seperti Haori / KTA), gunakan komponen carousel `[data-product-carousel]`.
+  - Spesifikasi bahan, status ketersediaan (Tersedia / Pra-Pesan PO), dan harga rupiah yang jelas.
+
+### 5. Kepengurusan, Sejarah & Prestasi (`tentang/index.html`)
+- **Tujuan**: Melakukan pembaruan struktur organisasi saat Serah Terima Jabatan (Sertijab) tahunan, penambahan timeline sejarah angkatan baru, dan wall of fame prestasi siswa.
+- **Komponen Terkait**:
+  - Slider Kepengurusan: Tambahkan slide kabinet baru atau perbarui kartu pengurus di `tentang/index.html` (foto potret anggota di `tentang/images/anggota/`, nama lengkap, jabatan tunggal di `.member-label`, dan kutipan moto).
+  - Garis Waktu Angkatan (Timeline): Tambahkan balok angkatan baru di seksi sejarah klub (`#sejarah`).
+  - Dinding Prestasi (Wall of Fame): Tambahkan kartu piala dan piagam penghargaan anggota di seksi `#prestasi`.
 

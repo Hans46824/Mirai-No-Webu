@@ -739,17 +739,25 @@ body.sora-fullscreen-active .menu-btn {
 
 
 /* Mobile Responsive */
-@media (max-width: 480px) {
+@media (max-width: 600px) {
     #launcher {
-        bottom: 76px;
-        right: 14px;
-        width: 40px;
-        height: 40px;
-        padding: 0;
+        bottom: 64px !important;
+        right: 14px !important;
+        width: 38px !important;
+        height: 38px !important;
+        padding: 0 !important;
+        border-radius: 50% !important;
     }
     #launcher .launcher-chat-img {
-        width: 23px;
-        height: 23px;
+        width: 22px !important;
+        height: 22px !important;
+    }
+    .to-top {
+        width: 38px !important;
+        height: 38px !important;
+        right: 14px !important;
+        bottom: 16px !important;
+        border-radius: 50% !important;
     }
     #drawer:not(.fullscreen) {
         bottom: 12px;
@@ -788,6 +796,7 @@ body.sora-fullscreen-active .menu-btn {
             <a href="tentang/index.html">TENTANG</a>
         </nav>
         <div class="sidebar-footer">
+            <button type="button" class="sfx-toggle-btn" aria-label="Pengaturan Suara UI">🔊 Suara: ON</button>
             <img class="sidebar-footer-logo" src="images/mirai/logo/MNH1-nav.png" alt="MIRAI NO HANA">
             <p class="sidebar-footer-desc">Website Resmi Klub Bahasa &amp; Kebudayaan Jepang MIRAI NO HANA SMA Wachid Hasyim 2 Taman Sidoarjo.<br><br><span class="sidebar-footer-sub">Portal ini dirancang dan dikembangkan secara independen oleh kepengurusan siswa Klub Jepang MIRAI NO HANA sebagai ruang kreatif dan media belajar mandiri.</span></p>
             <div class="sidebar-footer-social">
@@ -820,56 +829,51 @@ body.sora-fullscreen-active .menu-btn {
         </section>
 
         <section class="section about-preview">
-            <div class="section-intro">
-                <p class="section-eyebrow"><span class="jp-kanji">ウェブについて</span></p>
-                <h2 class="heading">Apa itu<br><span>Mirai no Webu?</span></h2>
-                <p class="section-desc">Fasilitas belajar digital interaktif untuk mendalami bahasa dan kebudayaan Jepang.</p>
-            </div>
             <div class="about-cards-wrap">
-                <!-- CARD 1: MIRAI NO WEBU (FASILITAS BELAJAR DIGITAL - ATAS) -->
-                <div class="about-feature-card">
+                <!-- CARD 1: APA ITU MIRAI NO WEBU? (FASILITAS BELAJAR DIGITAL) -->
+                <div class="about-feature-card" data-expand-card>
                     <div class="about-feature-header">
                         <span class="about-feature-badge">
                             <span class="badge-dot"></span>
                             FASILITAS BELAJAR DIGITAL
                         </span>
-                        <span class="about-feature-tag">
-                            <span class="badge-dot"></span>
-                            MIRAI NO WEBU
-                        </span>
                     </div>
                     <div class="about-feature-body stacked-layout">
-                        <h2 class="about-card-title">Belajar di mana pun,<br><span class="highlight">dan kapanpun.</span></h2>
-                        <p class="about-card-desc">Berfungsi sebagai fasilitas belajar mandiri yang bertujuan mempermudah anggota menguasai aksara, kosakata, dan tata bahasa Jepang secara terstruktur, interaktif, dan fleksibel.</p>
+                        <h2 class="about-card-title">Apa itu<br><span class="highlight">Mirai no Webu?</span></h2>
+                        <div class="card-collapsible-content">
+                            <div class="card-collapsible-inner">
+                                <p class="about-card-desc">Fasilitas belajar digital interaktif mandiri yang bertujuan mempermudah anggota menguasai aksara, kosakata, dan tata bahasa Jepang secara terstruktur, interaktif, dan fleksibel.</p>
+                            </div>
+                        </div>
                     </div>
+                    <button type="button" class="card-toggle" aria-expanded="false" aria-label="Buka tutup detail"></button>
                     <img class="card-corner-chibi" src="images/mirai/icon/Ay.png" alt="Mascot Mirai No Webu" aria-hidden="true">
                 </div>
 
                 <!-- CARD 2: TENTANG MIRAI NO HANA (LACI GESER LOGO NK - BAWAH) -->
-                <div class="about-feature-card about-drawer-card" id="mnhAboutDrawerCard" role="region" aria-label="Profil Klub Jepang Mirai no Hana">
+                <div class="about-feature-card about-drawer-card" id="mnhAboutDrawerCard" role="region" aria-label="Profil Klub Jepang Mirai no Hana" data-expand-card>
                     <div class="about-feature-header">
                         <span class="about-feature-badge">
                             <span class="badge-dot"></span>
                             PROFIL KLUB JEPANG
                         </span>
-                        <span class="about-feature-tag">
-                            <span class="badge-dot"></span>
-                            TENTANG KAMI
-                        </span>
                     </div>
                     <div class="about-feature-body stacked-layout">
                         <h2 class="about-card-title">Kenali Lebih Dekat<br><span class="highlight">Mirai no Hana.</span></h2>
-                        <p class="about-card-desc">Jelajahi profil lengkap Mirai no Hana mulai dari sejarah berdirinya klub, visi &amp; misi, filosofi logo serta haori resmi, struktur kepengurusan siswa, linimasa perjalanan, hingga serba-serbi maskot klub.</p>
+                        <div class="card-collapsible-content">
+                            <div class="card-collapsible-inner">
+                                <p class="about-card-desc">Jelajahi profil lengkap Mirai no Hana mulai dari sejarah berdirinya klub, visi &amp; misi, filosofi logo serta haori resmi, struktur kepengurusan siswa, linimasa perjalanan, hingga serba-serbi maskot klub.</p>
+                            </div>
+                        </div>
                         <div class="about-drawer-action">
-                            <a class="btn primary drawer-action-btn" href="tentang/index.html">
-                                <span class="drawer-btn-text">TENTANG MIRAI NO HANA</span>
-                                <span class="btn-arrow">→</span>
-                            </a>
+                            <a class="btn primary drawer-action-btn" data-expand-cta href="tentang/index.html">
+                                    <span class="drawer-btn-text">TENTANG MIRAI NO HANA</span>
+                                    <span class="btn-arrow">→</span>
+                                </a>
                         </div>
                     </div>
+                    <button type="button" class="card-toggle" aria-expanded="false" aria-label="Buka tutup detail"></button>
                     <img class="card-corner-chibi" src="images/mirai/icon/Ka.png" alt="Mascot Mirai No Hana" aria-hidden="true">
-                    
-                    <!-- Kompartemen Laci Geser Logo NK (Melahap Sisi Kanan Tanpa Menggeser Teks) -->
                     <div class="drawer-tray" aria-hidden="true">
                         <img class="drawer-nk-logo" src="images/mirai/logo/NK.png" alt="Logo Nihongo Kurabu">
                     </div>
@@ -884,34 +888,54 @@ body.sora-fullscreen-active .menu-btn {
                 <p class="section-desc">Mulai petualangan belajarmu dari pengenalan aksara dasar hingga eksplorasi kosakata kamus lengkap.</p>
             </div>
             <div class="start-grid">
-                <a class="start-card" href="kelas/index.html#dasar">
+                <div class="start-card nav-card" data-expand-card>
                     <img class="card-corner-chibi" src="images/mirai/icon/Al.png" alt="" aria-hidden="true">
-                    <span>1</span>
+                    <span class="card-step-num">1</span>
                     <h3>Kelas Dasar</h3>
-                    <p>Hiragana, katakana, dan fondasi belajar.</p>
-                    <b>→</b>
-                </a>
-                <a class="start-card" href="kelas/index.html#lanjutan">
+                    <div class="card-collapsible-content">
+                        <div class="card-collapsible-inner">
+                            <p>Hiragana, katakana, dan fondasi belajar.</p>
+                        </div>
+                    </div>
+                    <a class="card-go-btn" href="kelas/index.html#dasar" data-expand-cta>Buka Kelas Dasar →</a>
+                    <button type="button" class="card-toggle" aria-expanded="false" aria-label="Buka tutup detail"></button>
+                </div>
+                <div class="start-card nav-card" data-expand-card>
                     <img class="card-corner-chibi" src="images/mirai/icon/Lo.png" alt="" aria-hidden="true">
-                    <span>2</span>
+                    <span class="card-step-num">2</span>
                     <h3>Kelas Lanjutan</h3>
-                    <p>Kanji dan pemahaman bahasa yang lebih dalam.</p>
-                    <b>→</b>
-                </a>
-                <a class="start-card" href="kamus/index.html">
+                    <div class="card-collapsible-content">
+                        <div class="card-collapsible-inner">
+                            <p>Kanji dan pemahaman bahasa yang lebih dalam.</p>
+                        </div>
+                    </div>
+                    <a class="card-go-btn" href="kelas/index.html#lanjutan" data-expand-cta>Buka Kelas Lanjutan →</a>
+                    <button type="button" class="card-toggle" aria-expanded="false" aria-label="Buka tutup detail"></button>
+                </div>
+                <div class="start-card nav-card" data-expand-card>
                     <img class="card-corner-chibi" src="images/mirai/icon/Fu.png" alt="" aria-hidden="true">
-                    <span>3</span>
+                    <span class="card-step-num">3</span>
                     <h3>Kamus</h3>
-                    <p>Cari kana, kanji, arti, bacaan, dan contoh.</p>
-                    <b>→</b>
-                </a>
-                <a class="start-card" href="kelas/index.html#kurikulum">
+                    <div class="card-collapsible-content">
+                        <div class="card-collapsible-inner">
+                            <p>Cari kana, kanji, arti, bacaan, dan contoh.</p>
+                        </div>
+                    </div>
+                    <a class="card-go-btn" href="kamus/index.html" data-expand-cta>Buka Kamus →</a>
+                    <button type="button" class="card-toggle" aria-expanded="false" aria-label="Buka tutup detail"></button>
+                </div>
+                <div class="start-card nav-card" data-expand-card>
                     <img class="card-corner-chibi" src="images/mirai/icon/Ay.png" alt="" aria-hidden="true">
-                    <span>4</span>
+                    <span class="card-step-num">4</span>
                     <h3>Kurikulum &amp; Tata Cara</h3>
-                    <p>Silabus resmi alur belajar dan panduan teknis pengajaran tutor.</p>
-                    <b>→</b>
-                </a>
+                    <div class="card-collapsible-content">
+                        <div class="card-collapsible-inner">
+                            <p>Silabus resmi alur belajar dan panduan teknis pengajaran tutor.</p>
+                        </div>
+                    </div>
+                    <a class="card-go-btn" href="kelas/index.html#kurikulum" data-expand-cta>Buka Kurikulum & Tata Cara →</a>
+                    <button type="button" class="card-toggle" aria-expanded="false" aria-label="Buka tutup detail"></button>
+                </div>
             </div>
         </section>
 
@@ -923,86 +947,122 @@ body.sora-fullscreen-active .menu-btn {
             </div>
 
             <div class="activities-two-grid">
-                <a class="activity-start-card activity-card-active" href="kegiatan/index.html#divisi">
+                <div class="activity-start-card nav-card activity-card-active" data-expand-card>
                     <img class="card-corner-chibi" src="images/mirai/icon/Ka.png" alt="" aria-hidden="true">
-                    <span>1</span>
+                    <span class="card-step-num">1</span>
                     <h3>Struktur Divisi</h3>
-                    <p>Mengenal divisi-divisi penggerak di Mirai No Hana yang saling bersinergi dan berkolaborasi.</p>
-                    <b>→</b>
-                </a>
+                    <div class="card-collapsible-content">
+                        <div class="card-collapsible-inner">
+                            <p>Mengenal divisi-divisi penggerak di Mirai No Hana yang saling bersinergi dan berkolaborasi.</p>
+                        </div>
+                    </div>
+                    <a class="card-go-btn" href="kegiatan/index.html#divisi" data-expand-cta>Buka Struktur Divisi →</a>
+                    <button type="button" class="card-toggle" aria-expanded="false" aria-label="Buka tutup detail"></button>
+                </div>
 
-                <a class="activity-start-card activity-card-active" href="kegiatan/index.html#proker">
+                <div class="activity-start-card nav-card activity-card-active" data-expand-card>
                     <img class="card-corner-chibi" src="images/mirai/icon/Hu.png" alt="" aria-hidden="true">
-                    <span>2</span>
+                    <span class="card-step-num">2</span>
                     <h3>Program Kerja</h3>
-                    <p>Eksplorasi berbagai program kerja seru dan penuh makna di Mirai No Hana.</p>
-                    <b>→</b>
-                </a>
+                    <div class="card-collapsible-content">
+                        <div class="card-collapsible-inner">
+                            <p>Eksplorasi berbagai program kerja seru dan penuh makna di Mirai No Hana.</p>
+                        </div>
+                    </div>
+                    <a class="card-go-btn" href="kegiatan/index.html#proker" data-expand-cta>Buka Program Kerja →</a>
+                    <button type="button" class="card-toggle" aria-expanded="false" aria-label="Buka tutup detail"></button>
+                </div>
 
-                <a class="activity-start-card activity-card-active" href="kegiatan/index.html#fasilitas">
+                <div class="activity-start-card nav-card activity-card-active" data-expand-card>
                     <img class="card-corner-chibi" src="images/mirai/icon/Al.png" alt="" aria-hidden="true">
-                    <span>3</span>
+                    <span class="card-step-num">3</span>
                     <h3>Fasilitas</h3>
-                    <p>Sarana ruang kelas pertemuan di sekolah dan infrastruktur belajar digital Mirai no Webu.</p>
-                    <b>→</b>
-                </a>
+                    <div class="card-collapsible-content">
+                        <div class="card-collapsible-inner">
+                            <p>Sarana ruang kelas pertemuan di sekolah dan infrastruktur belajar digital Mirai no Webu.</p>
+                        </div>
+                    </div>
+                    <a class="card-go-btn" href="kegiatan/index.html#fasilitas" data-expand-cta>Buka Fasilitas →</a>
+                    <button type="button" class="card-toggle" aria-expanded="false" aria-label="Buka tutup detail"></button>
+                </div>
 
-                <a class="activity-start-card activity-card-active" href="toko/index.html">
+                <div class="activity-start-card nav-card activity-card-active" data-expand-card>
                     <img class="card-corner-chibi" src="images/mirai/icon/Ay.png" alt="" aria-hidden="true">
-                    <span>4</span>
+                    <span class="card-step-num">4</span>
                     <h3>Toko</h3>
-                    <p>Etalase resmi Haori klub, aksesori kebanggaan, dan stan kuliner khas Mirai no Konbini.</p>
-                    <b>→</b>
-                </a>
+                    <div class="card-collapsible-content">
+                        <div class="card-collapsible-inner">
+                            <p>Etalase resmi Haori klub, aksesori kebanggaan, dan stan kuliner khas Mirai no Konbini.</p>
+                        </div>
+                    </div>
+                    <a class="card-go-btn" href="toko/index.html" data-expand-cta>Buka Toko →</a>
+                    <button type="button" class="card-toggle" aria-expanded="false" aria-label="Buka tutup detail"></button>
+                </div>
 
-                <a class="activity-start-card activity-card-active" href="rekomendasi/index.html">
+                <div class="activity-start-card nav-card activity-card-active" data-expand-card>
                     <img class="card-corner-chibi" src="images/mirai/icon/Ki.png" alt="" aria-hidden="true">
-                    <span>5</span>
+                    <span class="card-step-num">5</span>
                     <h3>Rekomendasi</h3>
-                    <p>Kumpulan rekomendasi anime, musik, dan konten kebudayaan Jepang pilihan.</p>
-                    <b>→</b>
-                </a>
+                    <div class="card-collapsible-content">
+                        <div class="card-collapsible-inner">
+                            <p>Kumpulan rekomendasi anime, musik, dan konten kebudayaan Jepang pilihan.</p>
+                        </div>
+                    </div>
+                    <a class="card-go-btn" href="rekomendasi/index.html" data-expand-cta>Buka Rekomendasi →</a>
+                    <button type="button" class="card-toggle" aria-expanded="false" aria-label="Buka tutup detail"></button>
+                </div>
 
-                <a class="activity-start-card activity-card-active" href="peringkat/index.html">
+                <div class="activity-start-card nav-card activity-card-active" data-expand-card>
                     <img class="card-corner-chibi" src="images/mirai/icon/Wa.png" alt="" aria-hidden="true">
-                    <span>6</span>
+                    <span class="card-step-num">6</span>
                     <h3>Papan Peringkat</h3>
-                    <p>Pantau skor, poin keaktifan, dan pencapaian prestasi belajar seluruh anggota.</p>
-                    <b>→</b>
-                </a>
+                    <div class="card-collapsible-content">
+                        <div class="card-collapsible-inner">
+                            <p>Pantau skor, poin keaktifan, dan pencapaian prestasi belajar seluruh anggota.</p>
+                        </div>
+                    </div>
+                    <a class="card-go-btn" href="peringkat/index.html" data-expand-cta>Buka Papan Peringkat →</a>
+                    <button type="button" class="card-toggle" aria-expanded="false" aria-label="Buka tutup detail"></button>
+                </div>
 
-                <a class="activity-start-card activity-card-active" href="lomba/index.html">
+                <div class="activity-start-card nav-card activity-card-active" data-expand-card>
                     <img class="card-corner-chibi" src="images/mirai/icon/Chi.png" alt="" aria-hidden="true">
-                    <span>7</span>
+                    <span class="card-step-num">7</span>
                     <h3>Lomba & Acara</h3>
-                    <p>Informasi perlombaan, festival budaya, dan agenda kegiatan seru seputar Jepang.</p>
-                    <b>→</b>
-                </a>
+                    <div class="card-collapsible-content">
+                        <div class="card-collapsible-inner">
+                            <p>Informasi perlombaan, festival budaya, dan agenda kegiatan seru seputar Jepang.</p>
+                        </div>
+                    </div>
+                    <a class="card-go-btn" href="lomba/index.html" data-expand-cta>Buka Lomba & Acara →</a>
+                    <button type="button" class="card-toggle" aria-expanded="false" aria-label="Buka tutup detail"></button>
+                </div>
             </div>
         </section>
 
         <section class="section feedback-preview" id="masukan">
-            <div class="feedback-feature-card">
+            <div class="feedback-feature-card" data-expand-card>
                 <div class="feedback-feature-header">
-                    <span class="feedback-feature-badge">
-                        <span class="badge-dot"></span>
-                        KRITIK DAN SARAN
-                    </span>
                     <span class="feedback-feature-tag">
                         <span class="badge-dot"></span>
                         SUARA MIRAI NO HANA
                     </span>
                 </div>
                 <div class="feedback-feature-body stacked-layout">
-                    <h2 class="feedback-card-title">Suaramu membuat,<br><span class="highlight">kami bertumbuh.</span></h2>
-                    <p class="feedback-card-desc">Nemu kendala tampilan atau bug di Mirai no Webu? Atau punya ide kreatif, saran kegiatan, dan masukan membangun buat klub Mirai no Hana? Sampaikan langsung lewat formulir ini ya! Setiap masukan dari kalian sangat berharga biar website dan klub kita bisa berkembang lebih keren lagi bareng-bareng.</p>
+                    <h2 class="feedback-card-title">Kritik &amp;<br><span class="highlight">Saran.</span></h2>
+                    <div class="card-collapsible-content">
+                        <div class="card-collapsible-inner">
+                            <p class="feedback-card-desc">Punya ide, saran kegiatan, atau kendala di website? Sampaikan lewat formulir ini agar Mirai no Hana terus berkembang!</p>
+                        </div>
+                    </div>
                     <div class="feedback-feature-action">
-                        <a class="btn primary feedback-cta-btn" href="https://forms.gle/dFPRM842xxKq5YMt9" target="_blank" rel="noopener noreferrer">
-                            <span>GFORM KRITIK DAN SARAN</span>
-                            <span class="btn-arrow">↗</span>
-                        </a>
+                        <a class="btn primary feedback-cta-btn" data-expand-cta href="https://forms.gle/dFPRM842xxKq5YMt9" target="_blank" rel="noopener noreferrer">
+                                <span>GFORM KRITIK DAN SARAN</span>
+                                <span class="btn-arrow">↗</span>
+                            </a>
                     </div>
                 </div>
+                <button type="button" class="card-toggle" aria-expanded="false" aria-label="Buka tutup detail"></button>
                 <img class="card-corner-chibi" src="images/mirai/icon/Fa.png" alt="Mascot Feedback Mirai No Hana" aria-hidden="true">
             </div>
         </section>

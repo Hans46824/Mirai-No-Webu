@@ -1,180 +1,303 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Script to fetch official SVG stroke paths and stroke numbers from KanjiVG
-for all characters in data/kana.json and data/kanji.json,
-write js/stroke-data.js, and calibrate js/stroke.js viewBox & positioning.
+Script: skrip/arsip/fetch_kanjivg_strokes.py
+Fungsi: Mengambil, mem-parsing via XML/SVG, memvalidasi, dan memperbarui dataset goresan KanjiVG
+        untuk seluruh karakter di data/kana.json dan data/kanji.json secara aman.
+
+Fitur Keamanan & Arsitektur:
+  1. Parser XML/SVG berbasis xml.etree.ElementTree (mematuhi hierarki StrokePaths & urutan -sN).
+  2. Ekstraksi koordinat angka goresan presisi dari StrokeNumbers.
+  3. Perlindungan dataset lama: hasil ditulis ke berkas pementasan (staging) js/stroke-data.tmp.js.
+  4. Penggabungan bertahap (incremental merge): entri yang sudah valid tidak pernah dibuang jika fetch parsial.
+  5. Validasi otomatis pra-terap sebelum menimpa berkas produksi js/stroke-data.js.
+  6. Mempertahankan lisensi resmi KanjiVG (CC BY-SA 3.0, Ulrich Apel & kontributor) dan atribusi.
+  7. Menghasilkan manifest cakupan data di data/stroke-coverage-manifest.json.
 """
 
+import sys
+import os
 import json
 import re
+import zipfile
 import urllib.request
-import concurrent.futures
+import argparse
 import time
+from datetime import datetime, timezone
+import xml.etree.ElementTree as ET
 
-def get_characters():
-    with open('data/kana.json', 'r', encoding='utf-8') as f:
-        kana = json.load(f)
-    with open('data/kanji.json', 'r', encoding='utf-8') as f:
-        kanji = json.load(f)
-    with open('js/stroke-data.js', 'r', encoding='utf-8') as f:
-        stroke_content = f.read()
+# Impor modul validator lokal jika tersedia di path
+try:
+    from validate_stroke_data import validate_dataset, load_app_requirements, generate_coverage_manifest
+except ImportError:
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    sys.path.insert(0, script_dir)
+    from validate_stroke_data import validate_dataset, load_app_requirements, generate_coverage_manifest
 
-    chars = set()
-    # 1. Kana (Hiragana & Katakana, including Yoon parts)
-    for h in kana.get('hiragana', []):
-        for c in h.get('character', ''):
-            chars.add(c)
-    for k in kana.get('katakana', []):
-        for c in k.get('character', ''):
-            chars.add(c)
+KANJIVG_RELEASE_ZIP_URL = "https://github.com/KanjiVG/kanjivg/releases/download/r20260714/kanjivg-20260714-main.zip"
+CACHE_DIR = ".cache/kanjivg"
+CACHE_ZIP_PATH = os.path.join(CACHE_DIR, "kanjivg-20260714-main.zip")
+STAGING_FILE = "js/stroke-data.tmp.js"
+PROD_FILE = "js/stroke-data.js"
+MANIFEST_FILE = "data/stroke-coverage-manifest.json"
 
-    # 2. Kanji
-    for kj in kanji:
-        for c in kj.get('kanji', ''):
-            chars.add(c)
-
-    # 3. Existing stroke-data keys (to preserve small vowels like ヴ, ァ, etc.)
-    for c in re.findall(r'\"([^\"]+)\"\s*:\s*\{', stroke_content):
-        chars.add(c)
-
-    return sorted(list(chars))
-
-def fetch_one(ch):
-    hex_code = f'{ord(ch):05x}'
-    url = f'https://raw.githubusercontent.com/KanjiVG/kanjivg/master/kanji/{hex_code}.svg'
-    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-    try:
-        with urllib.request.urlopen(req, timeout=12) as resp:
-            data = resp.read().decode('utf-8')
-        
-        # Extract path d="..." attributes
-        paths = re.findall(r'<path[^>]+d=\"([^\"]+)\"', data)
-        
-        # Extract stroke numbers: <text ... transform="matrix(1 0 0 1 x y)">num</text>
-        raw_nums = re.findall(r'<text[^>]+transform=\"matrix\([^)]+\s+([\d\.]+)\s+([\d\.]+)\)\"[^>]*>([^<]+)</text>', data)
-        numbers = [{'x': round(float(x), 2), 'y': round(float(y), 2), 'text': t.strip()} for x, y, t in raw_nums]
-
-        if not paths:
-            print(f"Warning: No paths found for {ch} ({hex_code})")
-            return ch, None
-
-        return ch, {
-            'viewBox': '0 0 109 109',
-            'paths': paths,
-            'numbers': numbers,
-            'source': 'KanjiVG'
-        }
-    except Exception as e:
-        print(f"Error fetching {ch} ({hex_code}): {e}")
-        return ch, None
-
-def update_stroke_data_js(char_data_map):
-    print("Writing updated js/stroke-data.js...")
-    header = """/**
+HEADER_TEMPLATE = """/**
  * File: js/stroke-data.js
- * Fungsi: Vektor koordinat kurva goresan resmi KanjiVG untuk Kana & Kanji (viewBox: 0 0 109 109).
- * Penggunaan: Dimuat di kamus/index.html, kamus/kanji.html, dan kelas/latihan.html.
+ * Lisensi & Atribusi:
+ *   Data vektor kurva goresan bersumber dari proyek resmi KanjiVG (https://kanjivg.tagaini.net/).
+ *   Hak Cipta (C) 2009-2026 Ulrich Apel dan para kontributor KanjiVG.
+ *   Dilisensikan di bawah Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0).
+ *   Lihat: https://creativecommons.org/licenses/by-sa/3.0/ dan data/STROKES-LICENSE.md
+ *
+ * Spesifikasi:
+ *   - Sistem koordinat kanvas: viewBox="0 0 109 109"
+ *   - Urutan goresan: tersortir secara kronologis berdasarkan indeks resmi KanjiVG
+ *   - Penggunaan: kamus/index.html, kamus/kanji.html, kelas/latihan.html, dan latihan interaktif
  */
 
 window.MIRAI_STROKE_DATA = """
-    
-    # Dump JSON with compact separators
-    json_str = json.dumps(char_data_map, ensure_ascii=False, indent=2)
-    output = header + json_str + ";\n"
 
-    with open('js/stroke-data.js', 'w', encoding='utf-8') as f:
-        f.write(output)
-    print(f"js/stroke-data.js successfully written ({len(output)} bytes)")
+def load_existing_stroke_data(filepath=PROD_FILE):
+    """
+    Membaca dataset yang sudah ada agar tidak ada data hilang jika pemrosesan parsial.
+    """
+    if not os.path.isfile(filepath):
+        return {}
+    try:
+        with open(filepath, 'r', encoding='utf-8') as f:
+            content = f.read()
+        m = re.search(r'window\.MIRAI_STROKE_DATA\s*=\s*(\{[\s\S]*\});?\s*$', content)
+        if m:
+            return json.loads(m.group(1))
+    except Exception as e:
+        print(f"Peringatan: Gagal membaca {filepath}: {e}")
+    return {}
 
-def update_stroke_js():
-    print("Calibrating js/stroke.js to KanjiVG 0 0 109 109 standard...")
-    with open('js/stroke.js', 'r', encoding='utf-8') as f:
-        content = f.read()
+def ensure_kanjivg_archive():
+    """
+    Memastikan arsip rilis resmi KanjiVG tersedia di direktori cache lokal.
+    """
+    os.makedirs(CACHE_DIR, exist_ok=True)
+    if os.path.isfile(CACHE_ZIP_PATH) and os.path.getsize(CACHE_ZIP_PATH) > 1000000:
+        return CACHE_ZIP_PATH
 
-    # 1. Update calculateStrokeNumbers to trust official KanjiVG numbers directly
-    old_calc_pattern = r'function calculateStrokeNumbers\(paths,\s*officialNumbers\)\s*\{[\s\S]*?\n\}'
-    new_calc = """function calculateStrokeNumbers(paths, officialNumbers) {
-    function parseStart(d) {
-        let sx = 25, sy = 25;
-        const m = /^[Mm]\\s*([-\\d\\.]+)[,\\s]+([-\\d\\.]+)/.exec(d);
-        if (m) {
-            sx = parseFloat(m[1]);
-            sy = parseFloat(m[2]);
-        }
-        return { sx, sy };
-    }
+    print(f"Mengunduh arsip rilis resmi KanjiVG ({KANJIVG_RELEASE_ZIP_URL})...")
+    req = urllib.request.Request(KANJIVG_RELEASE_ZIP_URL, headers={'User-Agent': 'Mozilla/5.0 (compatible; MiraiNoWebu/1.0)'})
+    with urllib.request.urlopen(req, timeout=60) as resp, open(CACHE_ZIP_PATH, 'wb') as out:
+        out.write(resp.read())
+    print(f"Unduhan selesai: {os.path.getsize(CACHE_ZIP_PATH)} byte tersimpan di {CACHE_ZIP_PATH}")
+    return CACHE_ZIP_PATH
 
-    const hasOfficial = Array.isArray(officialNumbers) && officialNumbers.length >= paths.length;
-    const placed = [];
+def parse_kanjivg_svg(svg_content):
+    """
+    Mem-parsing konten SVG KanjiVG menggunakan XML ElementTree secara struktural.
+    Mengembalikan dict data atau None jika tidak valid.
+    """
+    try:
+        root = ET.fromstring(svg_content)
+    except ET.ParseError as err:
+        return None, f"Kesalahan parsing XML: {err}"
 
-    paths.forEach((d, i) => {
-        const { sx, sy } = parseStart(d);
-        let nx, ny;
+    view_box = root.attrib.get('viewBox', '0 0 109 109')
 
-        if (hasOfficial && officialNumbers[i] && typeof officialNumbers[i].x === 'number') {
-            nx = officialNumbers[i].x;
-            ny = officialNumbers[i].y;
-        } else {
-            nx = sx >= 12 ? sx - 6.5 : sx + 6;
-            ny = sy >= 12 ? sy - 2.5 : sy + 7;
-        }
+    # Cari grup StrokePaths dan StrokeNumbers
+    paths_group = None
+    numbers_group = None
 
-        nx = Math.max(5, Math.min(104, nx));
-        ny = Math.max(5, Math.min(104, ny));
+    for elem in root.iter():
+        elem_id = elem.attrib.get('id', '')
+        if 'StrokePaths' in elem_id:
+            paths_group = elem
+        elif 'StrokeNumbers' in elem_id:
+            numbers_group = elem
 
-        placed.push({
-            x: nx,
-            y: ny,
-            text: (hasOfficial && officialNumbers[i]?.text) ? officialNumbers[i].text : String(i + 1)
-        });
-    });
+    # 1. Ekstrak path kurva goresan
+    path_entries = []
+    search_root = paths_group if paths_group is not None else root
+    for elem in search_root.iter():
+        if elem.tag.endswith('path'):
+            pid = elem.attrib.get('id', '')
+            d = elem.attrib.get('d', '').strip()
+            if d:
+                # Ambil indeks goresan (-s1, -s2, ...)
+                m = re.search(r'-s(\d+)$', pid)
+                order_idx = int(m.group(1)) if m else len(path_entries) + 1
+                path_entries.append((order_idx, pid, d))
 
-    return placed;
-}"""
+    if not path_entries:
+        return None, "Tidak ada elemen path goresan yang ditemukan"
 
-    match = re.search(old_calc_pattern, content)
-    if match:
-        content = content[:match.start()] + new_calc + content[match.end():]
-        print("Updated calculateStrokeNumbers in js/stroke.js")
+    # Sortir berdasarkan indeks urutan resmi goresan
+    path_entries.sort(key=lambda x: x[0])
+    sorted_paths = [p[2] for p in path_entries]
 
-    # 2. Ensure svg.setAttribute("viewBox", "0 0 109 109")
-    content = content.replace('svg.setAttribute("viewBox", rec?.viewBox || "0 0 109 109");', 'svg.setAttribute("viewBox", "0 0 109 109");')
+    # 2. Ekstrak label angka dan koordinat transform
+    numbers = []
+    if numbers_group is not None:
+        for elem in numbers_group.iter():
+            if elem.tag.endswith('text'):
+                trans = elem.attrib.get('transform', '')
+                txt = (elem.text or '').strip()
+                # Pola matrix(1 0 0 1 x y) atau matrix(1,0,0,1,x,y)
+                m = re.search(r'matrix\s*\(\s*[^,\s]+\s*[, ]\s*[^,\s]+\s*[, ]\s*[^,\s]+\s*[, ]\s*[^,\s]+\s*[, ]\s*([-\d\.]+)\s*[, ]\s*([-\d\.]+)\s*\)', trans)
+                if m and txt:
+                    numbers.append({
+                        'x': round(float(m.group(1)), 2),
+                        'y': round(float(m.group(2)), 2),
+                        'text': txt
+                    })
 
-    # 3. Clean all stroke caches in localStorage
-    old_cache_cleaner = 'if (k && (k.startsWith("mirai_stroke_v1_") || k.startsWith("mirai_stroke_v2_") || k.startsWith("mirai_stroke_v3_")))'
-    new_cache_cleaner = 'if (k && k.startsWith("mirai_stroke_"))'
-    if old_cache_cleaner in content:
-        content = content.replace(old_cache_cleaner, new_cache_cleaner)
-        print("Updated localStorage cache invalidation in js/stroke.js")
+    return {
+        'viewBox': view_box,
+        'paths': sorted_paths,
+        'numbers': numbers,
+        'source': 'KanjiVG'
+    }, None
 
-    with open('js/stroke.js', 'w', encoding='utf-8') as f:
+def fetch_single_from_network(hex_code, retries=3):
+    """
+    Fallback untuk mengambil satu berkas SVG dari repositori GitHub resmi jika diperlukan.
+    """
+    url = f"https://raw.githubusercontent.com/KanjiVG/kanjivg/master/kanji/{hex_code}.svg"
+    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (compatible; MiraiNoWebu/1.0)'})
+    for attempt in range(retries):
+        try:
+            with urllib.request.urlopen(req, timeout=10) as resp:
+                return resp.read().decode('utf-8')
+        except Exception:
+            if attempt < retries - 1:
+                time.sleep(1.0)
+    return None
+
+def write_staging_dataset(data_map, filepath=STAGING_FILE):
+    """
+    Menulis data ke berkas pementasan sementara.
+    """
+    os.makedirs(os.path.dirname(filepath) or '.', exist_ok=True)
+    json_body = json.dumps(data_map, ensure_ascii=False, indent=2)
+    content = HEADER_TEMPLATE + json_body + ";\n"
+    with open(filepath, 'w', encoding='utf-8') as f:
         f.write(content)
-    print("js/stroke.js calibrated successfully")
+    return len(content)
 
 def main():
-    chars = get_characters()
-    print(f"Fetching official KanjiVG SVG data for {len(chars)} unique characters...")
+    parser = argparse.ArgumentParser(description="Pembaruan dan ekstraksi data goresan resmi KanjiVG.")
+    parser.add_argument('--limit', type=int, default=0, help='Batasi pemrosesan hanya untuk N karakter pertama (untuk pengetesan)')
+    parser.add_argument('--staging-only', action='store_true', help='Hanya tulis berkas staging (js/stroke-data.tmp.js) tanpa mengganti file produksi')
+    parser.add_argument('--dry-run', action='store_true', help='Uji pengambilan dan validasi tanpa menulis file apa pun ke disk')
+    parser.add_argument('--apply', action='store_true', help='Terapkan ke produksi (js/stroke-data.js) setelah validasi 100%% lolos')
+    args = parser.parse_args()
+
+    print(f"==================================================")
+    print(f"🌸 MIRAI NO WEBU - KANJIVG STROKE DATA PIPELINE")
+    print(f"==================================================")
+
+    # 1. Muat metadata aplikasi untuk mengetahui target karakter
+    kana_map, kanji_map = load_app_requirements()
+    target_chars = sorted(list(set(k for k in kana_map.keys() if len(k) == 1) | set(kanji_map.keys())))
+    if args.limit > 0:
+        target_chars = target_chars[:args.limit]
+        print(f"⚠ Mode dibatasi: memproses {len(target_chars)} karakter pertama.")
+    else:
+        print(f"✔ Target karakter terdeteksi: {len(target_chars)} karakter ({len(kana_map)} kana, {len(kanji_map)} kanji).")
+
+    # 2. Muat dataset lama untuk melindungi data jika fetch parsial
+    existing_data = load_existing_stroke_data(PROD_FILE)
+    print(f"✔ Dataset lama dimuat: {len(existing_data)} entri sudah ada.")
+
+    # 3. Pastikan arsip rilis KanjiVG tersedia
+    try:
+        zip_path = ensure_kanjivg_archive()
+    except Exception as e:
+        print(f"❌ Gagal memuat arsip KanjiVG: {e}")
+        sys.exit(1)
+
+    # 4. Buka arsip dan ekstrak seluruh target karakter
+    data_map = dict(existing_data)  # Salin data lama sebagai dasar perlindungan
+    failed_chars = []
+    success_count = 0
+
     t0 = time.time()
+    with zipfile.ZipFile(zip_path, 'r') as zf:
+        zip_namelist = set(zf.namelist())
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=25) as executor:
-        results = list(executor.map(fetch_one, chars))
+        for idx, char in enumerate(target_chars):
+            hex_code = f"{ord(char):05x}"
+            svg_filename = f"kanji/{hex_code}.svg"
 
-    data_map = {}
-    failed = []
-    for ch, data in results:
-        if data:
-            data_map[ch] = data
-        else:
-            failed.append(ch)
+            svg_text = None
+            if svg_filename in zip_namelist:
+                svg_text = zf.read(svg_filename).decode('utf-8')
+            else:
+                # Coba fallback individual jaringan jika tidak ada di arsip
+                svg_text = fetch_single_from_network(hex_code)
 
-    print(f"Fetched {len(data_map)} / {len(chars)} characters in {time.time()-t0:.2f}s")
-    if failed:
-        print(f"WARNING: Failed to fetch: {failed}")
+            if not svg_text:
+                if char not in data_map:
+                    failed_chars.append((char, hex_code, "Berkas SVG tidak ditemukan di arsip maupun jaringan"))
+                continue
 
-    update_stroke_data_js(data_map)
-    update_stroke_js()
-    print("\nALL TASKS COMPLETED SUCCESSFULLY!")
+            parsed, err = parse_kanjivg_svg(svg_text)
+            if err or not parsed:
+                if char not in data_map:
+                    failed_chars.append((char, hex_code, err or "Parsing gagal"))
+            else:
+                data_map[char] = parsed
+                success_count += 1
+
+    dur = time.time() - t0
+    print(f"✔ Pemrosesan selesai dalam {dur:.2f} detik: {success_count} karakter berhasil diproses dari KanjiVG.")
+    if failed_chars:
+        print(f"⚠ Karakter yang gagal didapatkan ({len(failed_chars)}):")
+        for fch, fhex, ferr in failed_chars[:5]:
+            print(f"  - {fch} ({fhex}): {ferr}")
+        if len(failed_chars) > 5:
+            print(f"  ... dan {len(failed_chars) - 5} lainnya.")
+
+    print(f"✔ Total karakter dalam dataset baru yang disiapkan: {len(data_map)} entri.")
+
+    if args.dry_run:
+        print("\n[DRY RUN] Tidak ada berkas yang ditulis ke disk.")
+        sys.exit(0)
+
+    # 5. Tulis ke berkas pementasan sementara (staging file)
+    bytes_written = write_staging_dataset(data_map, STAGING_FILE)
+    print(f"✔ Berkas staging berhasil ditulis: {STAGING_FILE} ({bytes_written} byte).")
+
+    # 6. Jalankan validator terhadap berkas staging
+    print(f"\n🔍 Menjalankan validator terhadap berkas staging ({STAGING_FILE})...")
+    val_results = validate_dataset(data_map, kana_map, kanji_map)
+    manifest = generate_coverage_manifest(data_map, val_results, kana_map, kanji_map, MANIFEST_FILE)
+
+    val_summary = manifest['summary']
+    print(f"  - Total entri staging : {val_summary['dataset_total_entries']}")
+    print(f"  - Entri valid         : {val_summary['dataset_valid_entries']}")
+    print(f"  - Entri tidak valid   : {val_summary['dataset_invalid_entries']}")
+    print(f"  - Tingkat cakupan     : {val_summary['coverage_rate_percent']}%")
+    print(f"  - Discrepancy meta    : {val_summary['metadata_discrepancies']}")
+
+    # 7. Evaluasi apakah aman untuk diterapkan ke produksi
+    if val_summary['dataset_invalid_entries'] > 0:
+        print(f"\n❌ VALIDASI STAGING GAGAL: {val_summary['dataset_invalid_entries']} entri tidak valid.")
+        print(f"   Berkas produksi {PROD_FILE} DILINDUNGI dan TIDAK disentuh.")
+        sys.exit(1)
+
+    print(f"✔ Seluruh {val_summary['dataset_valid_entries']} entri dalam staging 100% VALID.")
+
+    if args.staging_only:
+        print(f"\n✔ Mode --staging-only aktif: Hasil pementasan disimpan di {STAGING_FILE}.")
+        print(f"  Berkas produksi {PROD_FILE} belum diperbarui.")
+        sys.exit(0)
+
+    if args.apply:
+        # Penggantian berkas secara atomik
+        print(f"\n🚀 Menerapkan staging ({STAGING_FILE}) ke produksi ({PROD_FILE})...")
+        os.replace(STAGING_FILE, PROD_FILE)
+        print(f"✔ Dataset produksi {PROD_FILE} berhasil diperbarui secara atomik!")
+        print(f"✔ Manifest laporan cakupan tersimpan di {MANIFEST_FILE}.")
+    else:
+        print(f"\n💡 File pementasan siap di {STAGING_FILE}.")
+        print(f"   Jalankan dengan bendera '--apply' untuk memperbarui {PROD_FILE} secara permanen.")
 
 if __name__ == '__main__':
     main()

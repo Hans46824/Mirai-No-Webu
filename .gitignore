@@ -1,0 +1,10 @@
+# Cache & Temporary Files
+.cache/
+__pycache__/
+*.py[cod]
+*$py.class
+*.tmp
+*.tmp.js
+.DS_Store
+Thumbs.db
+

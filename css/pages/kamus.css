@@ -447,8 +447,50 @@ body.theme-dark .stroke-number-label.is-done {
     transform: translateY(0);
 }
 
+/* Tampilan Status Urutan Goresan Belum Tersedia */
+.stroke-unavailable {
+    background: #faf7f9 !important;
+    border: 1px dashed var(--pink-border, #f9c2d6) !important;
+}
 
+body.theme-dark .stroke-unavailable {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border-color: rgba(233, 30, 99, 0.3) !important;
+}
 
+.stroke-unavailable-box {
+    padding: 10px 14px;
+    background: rgba(233, 30, 99, 0.04);
+    border-radius: 8px;
+    border: 1px solid rgba(233, 30, 99, 0.12);
+}
+
+body.theme-dark .stroke-unavailable-box {
+    background: rgba(233, 30, 99, 0.1);
+    border-color: rgba(233, 30, 99, 0.25);
+}
+
+.stroke-stage {
+    overflow: visible !important;
+}
+
+.stroke-stage svg {
+    overflow: visible !important;
+}
+
+.stroke-controls button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-height: 42px !important;
+    padding: 8px 14px !important;
+    font-size: 11px !important;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    user-select: none;
+    box-sizing: border-box;
+}
 /* Kamus Jepang Exclusive Clean White Theme & Practice Banner */
 /* ====================================================
    KAMUS JEPANG (kamus.html) - EXCLUSIVE CLEAN WHITE THEME
@@ -930,10 +972,11 @@ body.dark-mode .practice-feature-tag {
    - Indikator panah otomatis menyesuaikan posisi urutan goresan (atas / bawah / terlihat)
    ========================================================================== */
 
-/* Pastikan tidak muncul di halaman non-kamus */
+/* Pastikan tidak muncul di halaman non-kamus dan disembunyikan di layar tablet/desktop (>=768px) */
 body:not(.page-kamus) .quick-stroke-btn {
     display: none !important;
 }
+
 
 .quick-stroke-btn {
     position: fixed !important;
@@ -1045,4 +1088,135 @@ body:not(.page-kamus) .quick-stroke-btn {
         font-size: 14px !important;
     }
 }
+
+/* Sembunyikan quick floating button pada layar tablet & laptop (>= 768px) karena layout sudah 2-panel berdampingan */
+@media (min-width: 768px) {
+    .quick-stroke-btn {
+        display: none !important;
+    }
+}
+
+/* ==========================================================================
+   URUTAN GORESAN DENGAN THUMBNAIL STEP-BY-STEP
+   ========================================================================== */
+.stroke-order {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    padding: 0 !important;
+    margin: 12px 0 16px !important;
+    list-style: none !important;
+    align-items: center !important;
+}
+
+.stroke-order li.stroke-step-thumb {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 48px !important;
+    height: 48px !important;
+    background: #ffffff !important;
+    border: 1.5px solid var(--pink-border, #fbcfe8) !important;
+    border-radius: 10px !important;
+    cursor: pointer !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+    transition: transform 0.15s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
+    overflow: hidden !important;
+    user-select: none !important;
+    flex-shrink: 0 !important;
+    padding: 0 !important;
+}
+
+.stroke-order li.stroke-step-thumb:hover {
+    transform: translateY(-2px) !important;
+    border-color: var(--pink, #e91e63) !important;
+    box-shadow: 0 4px 10px rgba(233, 30, 99, 0.2) !important;
+}
+
+.stroke-order li.stroke-step-thumb.is-active {
+    border-color: var(--pink, #e91e63) !important;
+    box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.25) !important;
+    background: #fff5f8 !important;
+}
+
+.stroke-order li.stroke-step-thumb.is-done {
+    border-color: #cbd5e1 !important;
+    background: #f8fafc !important;
+}
+
+.stroke-step-thumb .step-thumb-badge {
+    position: absolute !important;
+    top: 2px !important;
+    left: 2px !important;
+    min-width: 15px !important;
+    height: 15px !important;
+    padding: 0 3px !important;
+    background: rgba(40, 35, 43, 0.78) !important;
+    color: #ffffff !important;
+    font-size: 9.5px !important;
+    font-weight: 700 !important;
+    line-height: 15px !important;
+    text-align: center !important;
+    border-radius: 4px !important;
+    pointer-events: none !important;
+    z-index: 2 !important;
+}
+
+.stroke-order li.stroke-step-thumb.is-active .step-thumb-badge {
+    background: var(--pink, #e91e63) !important;
+}
+
+.stroke-step-thumb .step-thumb-svg {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    pointer-events: none !important;
+}
+
+.step-thumb-grid {
+    stroke: #e2e8f0 !important;
+    stroke-width: 0.9px !important;
+    stroke-dasharray: 3, 3 !important;
+}
+
+.step-thumb-prev {
+    stroke: #334155 !important;
+    stroke-width: 4.8px !important;
+    stroke-linecap: round !important;
+    stroke-linejoin: round !important;
+    fill: none !important;
+}
+
+.step-thumb-current {
+    stroke: var(--pink, #e91e63) !important;
+    stroke-width: 5.4px !important;
+    stroke-linecap: round !important;
+    stroke-linejoin: round !important;
+    fill: none !important;
+}
+
+/* Dark mode untuk thumbnail visual goresan */
+body.theme-dark .stroke-order li.stroke-step-thumb {
+    background: #1e1b2e !important;
+    border-color: #4a3b52 !important;
+}
+body.theme-dark .stroke-order li.stroke-step-thumb.is-done {
+    background: #252033 !important;
+    border-color: #3f364d !important;
+}
+body.theme-dark .stroke-order li.stroke-step-thumb.is-active {
+    background: #2d1c2d !important;
+    border-color: #ff4081 !important;
+}
+body.theme-dark .step-thumb-grid {
+    stroke: #3a3347 !important;
+}
+body.theme-dark .step-thumb-prev {
+    stroke: #e2e8f0 !important;
+}
+body.theme-dark .step-thumb-current {
+    stroke: #ff4081 !important;
+}
+
 

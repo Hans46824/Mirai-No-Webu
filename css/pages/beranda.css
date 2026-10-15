@@ -457,7 +457,8 @@ body:not(.dark-mode):not(.theme-dark) main > section:nth-of-type(odd):not(.home-
     box-shadow: 0 6px 16px rgba(233, 30, 99, 0.35);
 }
 
-.start-card span {
+.start-card > span:first-of-type,
+.start-card > .card-step-num {
     position: relative !important;
     display: inline-flex !important;
     align-items: center !important;
@@ -476,7 +477,8 @@ body:not(.dark-mode):not(.theme-dark) main > section:nth-of-type(odd):not(.home-
     z-index: 3 !important;
 }
 
-.start-card:hover span {
+.start-card:hover > span:first-of-type,
+.start-card:hover > .card-step-num {
     background: rgba(233, 30, 99, 0.16) !important;
     border-color: var(--pink, #e91e63) !important;
     transform: scale(1.06);
@@ -528,7 +530,8 @@ body:not(.dark-mode):not(.theme-dark) main > section:nth-of-type(odd):not(.home-
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8) !important;
 }
 
-.activity-start-card span {
+.activity-start-card > span:first-of-type,
+.activity-start-card > .card-step-num {
     position: relative !important;
     display: inline-flex !important;
     align-items: center !important;
@@ -1569,12 +1572,517 @@ body.page-tentang .feedback-feature-card > .card-corner-chibi {
     opacity: 1 !important;
 }
 
-@media (max-width: 600px) {
-    .drawer-tray {
-        width: 170px !important;
-        padding: 14px !important;
+
+
+
+/* =====================================================
+   RESPONSIF MOBILE / HP (MAX-WIDTH: 680PX)
+   1. Teks tidak terjepit (max-width: 100%) & padding-bottom: 84px saat expanded
+   2. Chibi kompak 64px di pojok kanan bawah
+   3. Drawer laci logo NK tampil penuh 100% (tidak memotong teks vertikal)
+   ===================================================== */
+@media (max-width: 680px) {
+    .about-feature-card,
+    .feedback-feature-card {
+        padding-bottom: 28px !important;
     }
-    .drawer-nk-logo {
-        width: 105px !important;
+
+    .about-feature-card.is-expanded,
+    .feedback-feature-card.is-expanded {
+        padding-bottom: 84px !important;
+    }
+
+    .about-feature-body.stacked-layout,
+    .about-card-desc,
+    .about-feature-card h2,
+    .about-feature-card .about-card-title,
+    .about-feature-body.stacked-layout .about-card-title,
+    .about-feature-body.stacked-layout .about-card-desc,
+    .feedback-feature-body.stacked-layout,
+    .feedback-card-desc,
+    .feedback-feature-card h2,
+    .feedback-feature-card .feedback-card-title,
+    .feedback-feature-body.stacked-layout .feedback-card-title,
+    .feedback-feature-body.stacked-layout .feedback-card-desc {
+        max-width: 100% !important;
+        padding-right: 0 !important;
+    }
+
+    .about-feature-card > .card-corner-chibi,
+    .feedback-feature-card > .card-corner-chibi {
+        width: 64px !important;
+        height: 64px !important;
+        bottom: 10px !important;
+        right: 12px !important;
     }
 }
+
+/* =====================================================
+   TOMBOL BUKA HALAMAN SPESIFIK: KOTAK AGAK BUNDAR (ALA GAMBAR 2)
+   ===================================================== */
+.card-go-btn,
+.card-go-pill {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 7px !important;
+    width: fit-content !important;
+    margin-top: 14px !important;
+    padding: 8px 18px !important;
+    background: linear-gradient(135deg, var(--pink, #e91e63), #ff4f91) !important;
+    color: #ffffff !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    border-radius: 12px !important; /* Kotak agak bundar ala drawer-action-btn gambar 2 */
+    letter-spacing: 0.3px !important;
+    box-shadow: 0 4px 14px rgba(233, 30, 99, 0.35) !important;
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease, background 0.2s ease !important;
+    z-index: 3 !important;
+    user-select: none !important;
+    text-decoration: none !important;
+    line-height: 1.2 !important;
+}
+
+.card-go-btn:hover,
+.card-go-pill:hover,
+.start-card:hover .card-go-btn,
+.activity-start-card:hover .card-go-btn {
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: 0 8px 22px rgba(233, 30, 99, 0.5) !important;
+}
+
+.card-go-btn:active,
+.card-go-pill:active {
+    transform: translateY(0) scale(0.98) !important;
+}
+
+/* MNH-CARD-EXPAND START */
+/* ==========================================================================
+   INTERACTIVE TAP-TO-EXPAND CARDS (BERANDA & TENTANG)
+   Animasi buka-tutup modern berbasis CSS grid-template-rows (0fr -> 1fr).
+   ========================================================================== */
+
+/* 1. Tata Letak Grid Responsif Beranda */
+.start-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+    align-items: start !important;
+}
+
+@media (min-width: 1400px) {
+    .start-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+}
+
+.activities-two-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 22px !important;
+    align-items: start !important;
+}
+
+.activities-two-grid > .activity-start-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1 !important;
+}
+
+@media (min-width: 1400px) {
+    .activities-two-grid {
+        grid-template-columns: repeat(12, 1fr) !important;
+    }
+    .activities-two-grid > .activity-start-card:nth-child(-n+4) {
+        grid-column: span 3 !important;
+    }
+    .activities-two-grid > .activity-start-card:nth-child(n+5) {
+        grid-column: span 4 !important;
+    }
+    .activities-two-grid > .activity-start-card:last-child:nth-child(odd) {
+        grid-column: span 4 !important;
+    }
+}
+
+/* 2. Format Kartu Navigasi (Tinggi Seragam & Mode Tap-to-Expand) */
+.start-card,
+.activity-start-card {
+    min-height: 232px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    position: relative !important;
+    cursor: pointer !important;
+    user-select: none !important;
+    box-sizing: border-box !important;
+    border-radius: 18px !important;
+    padding: 24px 22px !important;
+    background: #ffffff !important;
+    border: 1.5px solid rgba(255, 101, 155, 0.28) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04) !important;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease !important;
+}
+
+body.theme-dark .start-card,
+body.theme-dark .activity-start-card {
+    background: linear-gradient(160deg, #1d1624, #130f18) !important;
+    border-color: rgba(255, 101, 155, 0.22) !important;
+}
+
+.start-card.is-expanded,
+.activity-start-card.is-expanded,
+.about-feature-card.is-expanded,
+.feedback-feature-card.is-expanded {
+    border-color: var(--pink, #e91e63) !important;
+    box-shadow: 0 14px 36px rgba(233, 30, 99, 0.22) !important;
+}
+
+/* 3. Animasi Collapsible Modern Grid (0fr -> 1fr) */
+.card-collapsible-content {
+    display: grid !important;
+    grid-template-rows: 0fr !important;
+    transition: grid-template-rows 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.28s ease, margin 0.35s ease !important;
+    opacity: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    pointer-events: none !important;
+    position: relative !important;
+    z-index: 3 !important;
+}
+
+.card-collapsible-content > .card-collapsible-inner {
+    overflow: hidden !important;
+    min-height: 0 !important;
+}
+
+.card-collapsible-content > .card-collapsible-inner p,
+.about-card-desc,
+.feedback-card-desc {
+    margin: 0 !important;
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+    font-size: 13.5px !important;
+    line-height: 1.55 !important;
+    color: #475569 !important;
+}
+
+body.theme-dark .card-collapsible-content > .card-collapsible-inner p,
+body.theme-dark .about-card-desc,
+body.theme-dark .feedback-card-desc {
+    color: #cbd5e1 !important;
+}
+
+[data-expand-card].is-expanded .card-collapsible-content,
+.about-feature-card.is-expanded .card-collapsible-content,
+.feedback-feature-card.is-expanded .card-collapsible-content {
+    grid-template-rows: 1fr !important;
+    opacity: 1 !important;
+    margin-top: 10px !important;
+    margin-bottom: 8px !important;
+    pointer-events: auto !important;
+}
+
+/* 4. Tombol Aksi Seragam: Kotak Agak Bundar (Border-Radius: 12px) */
+.card-go-btn,
+.drawer-action-btn,
+.feedback-cta-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    width: fit-content !important;
+    margin-top: auto !important;
+    padding: 9px 18px !important;
+    background: linear-gradient(135deg, var(--pink, #e91e63), #ff4f91) !important;
+    color: #ffffff !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    border-radius: 12px !important;
+    letter-spacing: 0.3px !important;
+    box-shadow: 0 4px 14px rgba(233, 30, 99, 0.35) !important;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, background 0.2s ease !important;
+    text-decoration: none !important;
+    line-height: 1.25 !important;
+    cursor: pointer !important;
+    user-select: none !important;
+    z-index: 3 !important;
+}
+
+.about-feature-card .drawer-action-btn,
+.feedback-feature-card .feedback-cta-btn {
+    margin-top: 14px !important;
+}
+
+.card-go-btn:hover,
+.drawer-action-btn:hover,
+.feedback-cta-btn:hover {
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: 0 8px 22px rgba(233, 30, 99, 0.5) !important;
+}
+
+.card-go-btn:active,
+.drawer-action-btn:active,
+.feedback-cta-btn:active {
+    transform: translateY(0) scale(0.98) !important;
+}
+
+/* 5. Penanda Buka-Tutup: Ikon Panah Chevron CSS Murni */
+.card-toggle {
+    position: absolute !important;
+    top: 18px !important;
+    right: 18px !important;
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 50% !important;
+    background: rgba(255, 79, 145, 0.12) !important;
+    border: 1px solid rgba(255, 101, 155, 0.28) !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
+    z-index: 15 !important;
+    padding: 0 !important;
+    color: var(--pink, #ff659b) !important;
+}
+
+.card-toggle::after {
+    content: "" !important;
+    display: block !important;
+    width: 8px !important;
+    height: 8px !important;
+    border-right: 2px solid currentColor !important;
+    border-bottom: 2px solid currentColor !important;
+    transform: translateY(-2px) rotate(45deg) !important;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+[data-expand-card].is-expanded .card-toggle::after,
+.about-feature-card.is-expanded .card-toggle::after,
+.feedback-feature-card.is-expanded .card-toggle::after {
+    transform: translateY(2px) rotate(-135deg) !important;
+}
+
+.card-toggle:hover {
+    background: rgba(255, 79, 145, 0.25) !important;
+    border-color: rgba(255, 101, 155, 0.6) !important;
+    transform: scale(1.06) !important;
+}
+
+.card-toggle:focus-visible,
+[data-expand-cta]:focus-visible,
+.card-go-btn:focus-visible,
+.drawer-action-btn:focus-visible,
+.feedback-cta-btn:focus-visible {
+    outline: 2px solid var(--pink, #ff4f91) !important;
+    outline-offset: 3px !important;
+}
+
+/* Sembunyikan elemen lama: panah b dan teks detail hint */
+.start-card b,
+.activity-start-card b,
+.card-expand-hint,
+.card-detail-hint {
+    display: none !important;
+}
+
+/* 6. Kompartemen Laci Geser Logo NK (Melahap Sisi Kanan Tanpa Menggeser Teks dengan Animasi Rotasi) */
+.drawer-tray {
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: clamp(220px, 30vw, 340px) !important;
+    background: linear-gradient(135deg, rgba(32, 22, 42, 0.98), rgba(15, 11, 20, 0.99)) !important;
+    border-left: 2px solid rgba(255, 79, 145, 0.6) !important;
+    box-shadow: -20px 0 50px rgba(0, 0, 0, 0.85), inset 1px 0 0 rgba(255, 255, 255, 0.1) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 24px !important;
+    box-sizing: border-box !important;
+    transform: translateX(105%) !important;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    z-index: 10 !important;
+    pointer-events: none !important;
+}
+
+.about-drawer-card.is-pulled .drawer-tray {
+    transform: translateX(0) !important;
+}
+
+/* Logo NK Besar dengan Efek Animasi Rotasi Halus Spring/Elastic */
+.drawer-nk-logo {
+    width: clamp(120px, 16vw, 165px) !important;
+    height: auto !important;
+    object-fit: contain !important;
+    filter: drop-shadow(0 10px 28px rgba(233, 30, 99, 0.65)) !important;
+    transform: rotate(-180deg) scale(0.4) !important;
+    opacity: 0 !important;
+    transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) 0.08s, opacity 0.35s ease 0.05s !important;
+}
+
+.about-drawer-card.is-pulled .drawer-nk-logo {
+    transform: rotate(0deg) scale(1) !important;
+    opacity: 1 !important;
+}
+
+/* Efek Memudar Halus Maskot Chibi Pojok Saat Laci Meluncur Masuk */
+.about-drawer-card.is-pulled > .card-corner-chibi {
+    opacity: 0 !important;
+    transition: opacity 0.25s ease !important;
+}
+
+.about-drawer-action,
+.about-drawer-card .drawer-action-btn {
+    position: relative !important;
+    z-index: 12 !important;
+}
+
+.about-drawer-card.is-expanded .card-toggle {
+    background: rgba(30, 20, 40, 0.75) !important;
+    border-color: rgba(255, 101, 155, 0.5) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Responsif Layar Tablet (601px - 900px) untuk Laci Logo NK */
+@media (min-width: 601px) and (max-width: 900px) {
+    .drawer-tray {
+        width: clamp(175px, 28vw, 240px) !important;
+        padding: 16px !important;
+    }
+    .drawer-nk-logo {
+        width: clamp(100px, 16vw, 130px) !important;
+    }
+}
+
+/* Responsif Layar HP (<= 600px) untuk Laci Logo NK (Melahap Sisi Kanan 40-45%) */
+@media (max-width: 600px) {
+    .drawer-tray {
+        width: clamp(140px, 42vw, 175px) !important;
+        padding: 12px !important;
+    }
+    .drawer-nk-logo {
+        width: clamp(85px, 24vw, 108px) !important;
+    }
+}
+
+/* 7. Responsif Layar HP (<= 600px) untuk Kartu Navigasi */
+@media (max-width: 600px) {
+    .start-grid,
+    .activities-two-grid {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+    }
+
+    .activities-two-grid > .activity-start-card:last-child:nth-child(odd) {
+        grid-column: auto !important;
+    }
+
+    .start-card,
+    .activity-start-card {
+        display: grid !important;
+        grid-template-columns: auto 1fr auto !important;
+        grid-template-areas:
+            "num title toggle"
+            "desc desc desc"
+            "btn btn btn" !important;
+        align-items: center !important;
+        row-gap: 8px !important;
+        column-gap: 12px !important;
+        min-height: auto !important;
+        padding: 15px 16px !important;
+    }
+
+    .start-card .card-step-num,
+    .activity-start-card .card-step-num {
+        grid-area: num !important;
+        margin: 0 !important;
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 13px !important;
+    }
+
+    .start-card h3,
+    .activity-start-card h3 {
+        grid-area: title !important;
+        margin: 0 !important;
+        font-size: 15px !important;
+        line-height: 1.25 !important;
+        max-width: 100% !important;
+    }
+
+    .start-card .card-toggle,
+    .activity-start-card .card-toggle {
+        grid-area: toggle !important;
+        position: static !important;
+        width: 32px !important;
+        height: 32px !important;
+        margin: 0 !important;
+    }
+
+    .start-card .card-collapsible-content,
+    .activity-start-card .card-collapsible-content {
+        grid-area: desc !important;
+        width: 100% !important;
+    }
+
+    .start-card .card-go-btn,
+    .activity-start-card .card-go-btn {
+        grid-area: btn !important;
+        margin-top: 6px !important;
+        max-width: calc(100% - 76px) !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+
+    .start-card .card-corner-chibi,
+    .activity-start-card .card-corner-chibi {
+        position: absolute !important;
+        width: 62px !important;
+        height: 62px !important;
+        bottom: 8px !important;
+        right: 10px !important;
+        z-index: 2 !important;
+    }
+}
+
+/* 8. Responsif Layar HP (<= 680px) untuk Kartu Fitur Besar */
+@media (max-width: 680px) {
+    .about-feature-card,
+    .feedback-feature-card {
+        padding: 18px 18px !important;
+        padding-bottom: 24px !important;
+    }
+
+    .about-feature-card.is-expanded,
+    .feedback-feature-card.is-expanded {
+        padding-bottom: 84px !important;
+    }
+
+    .about-feature-card > .card-corner-chibi,
+    .feedback-feature-card > .card-corner-chibi {
+        width: 64px !important;
+        height: 64px !important;
+        bottom: 10px !important;
+        right: 12px !important;
+    }
+
+    .about-feature-body.stacked-layout,
+    .about-card-desc,
+    .feedback-card-desc {
+        max-width: 100% !important;
+        padding-right: 0 !important;
+    }
+}
+
+/* 9. Aksesibilitas Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .card-collapsible-content,
+    .card-toggle,
+    .card-toggle::after,
+    .drawer-tray,
+    .about-feature-body,
+    .drawer-nk-logo {
+        transition: none !important;
+    }
+}
+/* MNH-CARD-EXPAND END */

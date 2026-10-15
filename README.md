@@ -210,8 +210,11 @@ Mirai-No-Webu/
 │   └── STROKES-LICENSE.md          # Lisensi resmi data goresan KanjiVG
 │
 ├── panduan/                        # Dokumentasi Arsitektur & Panduan AI
+│   ├── PANDUAN-DEVELOPER.md        # Buku panduan serah-terima pengurus & developer klub
+│   ├── CONTEKAN-TAG.md             # Acuan cepat pemetaan halaman -> CSS -> JS
 │   ├── tree.md                     # Peta pohon direktori komprehensif
-│   └── agent.md                    # Pedoman aturan desain, fungsi, dan persona asisten
+│   ├── agent.md                    # Pedoman aturan desain, fungsi, dan persona asisten
+│   └── ai-configs/                 # Konfigurasi AI Assistant (Cursor, Copilot, dll.)
 │
 ├── skrip/                          # Skrip Otomasi & Pemeliharaan Kode Python
 │   ├── README.md                   # Panduan kegunaan skrip pemeliharaan

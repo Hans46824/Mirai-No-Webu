@@ -9,9 +9,6 @@ Mirai-No-Webu/
 ├── 404.html                        # Halaman penanganan tautan salah / tidak ditemukan bertema Sora
 ├── README.md                       # Profil utama repositori & dokumentasi Sources & Credits
 ├── cspell.json                     # Konfigurasi Code Spell Checker (kamus & ignorasi kata bilingual)
-├── .cursorrules                    # Aturan otomatis workspace editor Cursor (Otak Otomatis AI)
-├── .github/                        # Konfigurasi integrasi GitHub
-│   └── copilot-instructions.md     # Instruksi otomatis GitHub Copilot (Otak Otomatis AI)
 ├── .vscode/                        # Konfigurasi workspace editor VS Code / Antigravity
 │   └── settings.json               # Pengaturan workspace, search.exclude, & files.watcherExclude
 │
@@ -45,9 +42,14 @@ Mirai-No-Webu/
 │   └── api.js                      # Koneksi endpoint data
 │
 ├── panduan/                        # Dokumentasi & Panduan Proyek
+│   ├── PANDUAN-DEVELOPER.md        # Buku panduan serah-terima pengurus & developer klub
 │   ├── CONTEKAN-TAG.md             # Acuan cepat pemetaan halaman -> CSS -> JS (Otak Otomatis)
 │   ├── tree.md                     # Peta struktur direktori lengkap proyek ini
-│   └── agent.md                    # Pedoman aturan desain, protokol eksekusi cepat, dan persona AI
+│   ├── agent.md                    # Pedoman aturan desain, protokol eksekusi cepat, dan persona AI
+│   └── ai-configs/                 # Konfigurasi AI Assistant (Clean Root Standard)
+│       ├── .cursorrules            # Aturan otomatis untuk Cursor AI
+│       ├── copilot-instructions.md # Instruksi otomatis untuk GitHub Copilot
+│       └── README.md               # Panduan penggunaan AI rules di berbagai editor
 │
 ├── data/                           # Basis Data Lokal JSON (Menyuplai Kamus & Latihan)
 │   ├── README.md                   # Dokumentasi relasi & fungsi basis data JSON
@@ -128,26 +130,7 @@ Mirai-No-Webu/
 ├── skrip/                          # Pemeliharaan Kode Python
 │   ├── README.md                   # Panduan skrip pengembang
 │   └── arsip/                      # Arsip skrip perbaikan sekali-pakai (dikecualikan dari watcher)
-│       ├── add_js_headers.py
-│       ├── add_nametag.py
-│       ├── fetch_kanjivg_strokes.py
-│       ├── fix_heroes.py
-│       ├── fix_index_links.py
-│       ├── fix_japanese.py
-│       ├── fix_sora.py
-│       ├── fix_sora2.py
-│       ├── fix_visual_bugs.py
-│       ├── move_menu_btn.py
-│       ├── replace_cards.py
-│       ├── replace_cards_revert.py
-│       ├── replace_sidebar_text.py
-│       ├── replace_sora_grid.py
-│       ├── revamp_css_pages_and_rules.py
-│       ├── update_agent_docs.py
-│       ├── update_carousel.py
-│       ├── update_carousel_js.py
-│       ├── update_index_hero.py
-│       └── update_kelas.py
+│       ├── apply_card_expand.py
 │
 └── images/mirai/                   # Aset Bersama (Shared Global Assets)
     ├── background/                 # Pola Wagara master CSS (w1b, w1w, c1b, c1w, w2w, chat, Sora)

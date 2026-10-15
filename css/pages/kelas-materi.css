@@ -1419,9 +1419,9 @@ body.theme-dark .quest-hero::before {
 .logo-meaning h3 { margin-top:0; }
 .stroke-guide { margin:8px 0; color:var(--muted); font-size:12px; }
 .stroke-order { display:flex; flex-wrap:wrap; gap:6px; padding:0; margin:10px 0 15px; list-style:none; }
-.stroke-order li { display:grid; width:27px; height:27px; place-items:center; color:var(--muted); background:#fff; border:1px solid var(--pink-border); border-radius:50%; font-size:11px; font-weight:700; }
-.stroke-order li.is-active { color:#fff; background:var(--pink); border-color:var(--pink); box-shadow:0 0 0 4px rgba(233,30,99,.16); }
-.stroke-order li.is-done { color:#fff; background:#28232b; border-color:#28232b; }
+.stroke-order li:not(.stroke-step-thumb) { display:grid; width:27px; height:27px; place-items:center; color:var(--muted); background:#fff; border:1px solid var(--pink-border); border-radius:50%; font-size:11px; font-weight:700; }
+.stroke-order li:not(.stroke-step-thumb).is-active { color:#fff; background:var(--pink); border-color:var(--pink); box-shadow:0 0 0 4px rgba(233,30,99,.16); }
+.stroke-order li:not(.stroke-step-thumb).is-done { color:#fff; background:#28232b; border-color:#28232b; }
 .dictionary-practice-link { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:12px 24px; margin-top:20px; background:var(--pink-soft); border:1px solid var(--pink-border); }.dictionary-practice-link h3 { margin:0; font-size:18px; }.dictionary-practice-link .btn { flex-shrink:0; }
 .dictionary-practice-link { flex-wrap:nowrap; }.dictionary-practice-link h3 { flex:none; min-width:0; }.dictionary-practice-link > .kicker { flex-basis:100%; }
 .learning-app .level-card-top b { display:none; }
@@ -5945,5 +5945,1428 @@ body:not(.theme-dark):not(.dark-mode) .learning-app .mix-section[data-script="ka
 body:not(.theme-dark):not(.dark-mode) .learning-app .mode-grid[data-script="katakana"] .mode-card:hover::after,
 body:not(.theme-dark):not(.dark-mode)[data-active-kana="katakana"] .mode-card:hover::after {
     opacity: 0.16 !important;
+}
+
+/* =====================================================
+   LATIHAN GABUNGAN: PREVIEW HURUF, SKOR TERBAIK & KETIK CEPAT
+   ===================================================== */
+.mode-card {
+    position: relative !important;
+}
+
+.mode-best-score {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 10.5px;
+    font-weight: 700;
+    line-height: 1.2;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fde68a;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    z-index: 3;
+    pointer-events: none;
+    letter-spacing: 0.01em;
+}
+
+body.theme-dark .mode-best-score,
+body.dark-mode .mode-best-score {
+    background: rgba(245, 158, 11, 0.2);
+    color: #fde68a;
+    border-color: rgba(245, 158, 11, 0.4);
+}
+
+.mode-kana-preview {
+    display: inline-flex;
+    align-items: center;
+    align-self: start;
+    width: fit-content;
+    max-width: 100%;
+    box-sizing: border-box;
+    font-size: 11.5px;
+    font-weight: 700;
+    line-height: 1.35;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: #fdf2f8;
+    color: #db2777;
+    border: 1px solid #fbcfe8;
+    letter-spacing: 0.02em;
+    font-family: "Noto Serif JP", "Plus Jakarta Sans", sans-serif;
+    word-break: break-word;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.mode-card:hover .mode-kana-preview {
+    background: #fce7f3;
+    color: #be185d;
+    border-color: #f472b6;
+}
+
+body.theme-dark .mode-kana-preview,
+body.dark-mode .mode-kana-preview {
+    background: rgba(219, 39, 119, 0.16);
+    color: #f472b6;
+    border-color: rgba(219, 39, 119, 0.35);
+}
+
+body.theme-dark .mode-card:hover .mode-kana-preview,
+body.dark-mode .mode-card:hover .mode-kana-preview {
+    background: rgba(219, 39, 119, 0.28);
+    color: #fbcfe8;
+    border-color: rgba(219, 39, 119, 0.55);
+}
+
+.mode-card--weak {
+    border-color: #fca5a5 !important;
+    background: #fff9f9 !important;
+}
+
+.mode-card--weak b {
+    color: #ef4444 !important;
+}
+
+.mode-card--weak:hover {
+    background: #3b1d28 !important;
+    border-color: #f87171 !important;
+}
+
+.mode-card--weak .mode-kana-preview {
+    background: #fff1f2;
+    color: #e11d48;
+    border-color: #fecdd3;
+}
+
+body.theme-dark .mode-card--weak,
+body.dark-mode .mode-card--weak {
+    background: #23161c !important;
+    border-color: rgba(239, 68, 68, 0.5) !important;
+}
+
+body.theme-dark .mode-card--weak:hover,
+body.dark-mode .mode-card--weak:hover {
+    background: #3a1a25 !important;
+}
+
+/* Mode Ketik Cepat (Type Romaji) */
+.type-romaji-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    gap: 12px;
+    box-sizing: border-box;
+}
+
+.type-romaji-input-wrap {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+    box-sizing: border-box;
+}
+
+.type-romaji-input {
+    flex: 1;
+    min-width: 0;
+    height: 54px;
+    padding: 0 18px;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink, #1f2937);
+    background: #ffffff;
+    border: 2px solid #ebccd8;
+    border-radius: 12px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+    box-sizing: border-box;
+    text-align: center;
+    letter-spacing: 0.05em;
+}
+
+.type-romaji-input:focus {
+    border-color: #ec4899;
+    box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.18);
+}
+
+.type-romaji-input.is-correct-glow {
+    border-color: #10b981 !important;
+    background: #ecfdf5 !important;
+    color: #065f46 !important;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.22) !important;
+}
+
+.type-romaji-input.is-wrong-input {
+    border-color: #ef4444 !important;
+    background: #fef2f2 !important;
+    color: #991b1b !important;
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.22) !important;
+    animation: typeRomajiShake 0.4s ease;
+}
+
+@keyframes typeRomajiShake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+}
+
+.type-romaji-submit-btn {
+    height: 54px;
+    padding: 0 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #ffffff;
+    background: linear-gradient(135deg, #ec4899, #db2777);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(219, 39, 119, 0.28);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
+.type-romaji-submit-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(219, 39, 119, 0.38);
+}
+
+.type-romaji-submit-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.type-romaji-submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.type-submit-icon {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.type-romaji-tip {
+    font-size: 12.5px;
+    color: var(--muted, #6b7280);
+    margin: 0;
+    text-align: center;
+}
+
+body.theme-dark .type-romaji-input,
+body.dark-mode .type-romaji-input {
+    background: #1f1b24;
+    color: #f3f4f6;
+    border-color: #4b3648;
+}
+
+body.theme-dark .type-romaji-input:focus,
+body.dark-mode .type-romaji-input:focus {
+    border-color: #f472b6;
+    box-shadow: 0 0 0 4px rgba(244, 114, 182, 0.2);
+}
+
+body.theme-dark .type-romaji-input.is-correct-glow,
+body.dark-mode .type-romaji-input.is-correct-glow {
+    background: rgba(16, 185, 129, 0.15) !important;
+    color: #6ee7b7 !important;
+    border-color: #10b981 !important;
+}
+
+body.theme-dark .type-romaji-input.is-wrong-input,
+body.dark-mode .type-romaji-input.is-wrong-input {
+    background: rgba(239, 68, 68, 0.15) !important;
+    color: #fca5a5 !important;
+    border-color: #ef4444 !important;
+}
+
+body.theme-dark .type-romaji-tip,
+body.dark-mode .type-romaji-tip {
+    color: #9ca3af;
+}
+
+@media (max-width: 540px) {
+    .type-romaji-input-wrap {
+        flex-direction: column;
+        width: 100%;
+    }
+    .type-romaji-input {
+        width: 100%;
+        height: 48px;
+        font-size: 18px;
+    }
+    .type-romaji-submit-btn {
+        width: 100%;
+        height: 44px;
+    }
+}
+
+
+/* =====================================================
+   MINI-GAME: TIME ATTACK 60S & BUNPOU PUZZLE
+   ===================================================== */
+/* Kartu Mode Time Attack */
+.mode-card--time-attack {
+    border-color: #fde68a !important;
+    background: #fffdf5 !important;
+}
+
+.mode-card--time-attack b {
+    color: #d97706 !important;
+    text-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+}
+
+.mode-card--time-attack:hover {
+    background: #332717 !important;
+    border-color: #f59e0b !important;
+}
+
+.mode-card--time-attack .mode-kana-preview {
+    background: #fef3c7 !important;
+    color: #b45309 !important;
+    border-color: #fde68a !important;
+}
+
+.mode-best-score.is-ta-score {
+    background: #fef3c7;
+    color: #b45309;
+    border-color: #fde68a;
+}
+
+/* Kartu Mode Bunpou Puzzle */
+.mode-card--bunpou {
+    border-color: #ddd6fe !important;
+    background: #fdfcff !important;
+}
+
+.mode-card--bunpou b {
+    color: #7c3aed !important;
+    text-shadow: 0 0 10px rgba(139, 92, 246, 0.35);
+}
+
+.mode-card--bunpou:hover {
+    background: #261f38 !important;
+    border-color: #8b5cf6 !important;
+}
+
+.mode-card--bunpou .mode-kana-preview {
+    background: #f5f3ff !important;
+    color: #7c3aed !important;
+    border-color: #ddd6fe !important;
+}
+
+/* HUD Time Attack */
+.practice-head-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.ta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12.5px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 999px;
+    line-height: 1.2;
+}
+
+.ta-score-badge {
+    background: #fef3c7;
+    color: #b45309;
+    border: 1px solid #fde68a;
+}
+
+.ta-combo-badge {
+    background: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #fca5a5;
+    animation: taPulseCombo 0.8s infinite alternate ease-in-out;
+}
+
+@keyframes taPulseCombo {
+    from { transform: scale(1); }
+    to { transform: scale(1.06); }
+}
+
+.is-timer-low {
+    color: #ef4444 !important;
+    font-weight: 900 !important;
+    animation: taTimerBlink 0.5s infinite alternate !important;
+}
+
+@keyframes taTimerBlink {
+    from { opacity: 1; }
+    to { opacity: 0.35; }
+}
+
+.new-record-pill {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 8px;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: #fef3c7;
+    color: #b45309;
+    border: 1px solid #fde68a;
+    animation: taPulseCombo 1s infinite alternate;
+}
+
+/* Bunpou Puzzle Board */
+.bunpou-prompt-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 6px;
+}
+
+.bunpou-meaning-text {
+    font-size: clamp(20px, 4vw, 27px);
+    font-weight: 800;
+    color: var(--ink, #1f2937);
+    text-align: center;
+    line-height: 1.35;
+}
+
+.bunpou-prompt-hint {
+    font-size: 13px;
+    color: var(--muted, #6b7280);
+    text-align: center;
+}
+
+.bunpou-puzzle-board {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 620px;
+    margin: 0 auto;
+    gap: 16px;
+    box-sizing: border-box;
+}
+
+.bunpou-target-tray {
+    min-height: 74px;
+    padding: 14px 18px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #f8fafc;
+    border: 2px dashed #cbd5e1;
+    border-radius: 14px;
+    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+}
+
+.bunpou-target-tray.is-correct-glow {
+    border-color: #10b981 !important;
+    background: #ecfdf5 !important;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.22) !important;
+}
+
+.bunpou-target-tray.is-wrong-shake {
+    border-color: #ef4444 !important;
+    background: #fef2f2 !important;
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.22) !important;
+    animation: taShakeTray 0.4s ease;
+}
+
+@keyframes taShakeTray {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+}
+
+.bunpou-tray-placeholder {
+    font-size: 13.5px;
+    color: #94a3b8;
+    font-style: italic;
+    pointer-events: none;
+    user-select: none;
+}
+
+.bunpou-source-bank {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 54px;
+    padding: 6px;
+    box-sizing: border-box;
+}
+
+.bunpou-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 18px;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 10px;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    font-family: "Noto Serif JP", "Plus Jakarta Sans", sans-serif;
+}
+
+.bunpou-chip.is-in-tray {
+    background: linear-gradient(135deg, #ec4899, #db2777);
+    color: #ffffff;
+    box-shadow: 0 3px 8px rgba(219, 39, 119, 0.25);
+    border: none;
+}
+
+.bunpou-chip.is-in-tray:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, #f43f5e, #e11d48);
+}
+
+.bunpou-chip.is-in-bank {
+    background: #ffffff;
+    color: var(--ink, #1f2937);
+    border: 1.5px solid #e2e8f0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.bunpou-chip.is-in-bank:hover:not(:disabled) {
+    transform: translateY(-2px);
+    border-color: #ec4899;
+    box-shadow: 0 4px 10px rgba(236, 72, 153, 0.2);
+}
+
+.bunpou-chip.is-in-bank.is-used {
+    opacity: 0.22;
+    pointer-events: none;
+    cursor: default;
+    transform: none;
+    border-color: #e2e8f0;
+}
+
+.bunpou-puzzle-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 6px;
+}
+
+.bunpou-ctrl-btn {
+    height: 48px;
+    padding: 0 22px;
+    font-size: 14.5px;
+    font-weight: 700;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bunpou-ctrl-btn.reset-btn {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+}
+
+.bunpou-ctrl-btn.reset-btn:hover:not(:disabled) {
+    background: #e2e8f0;
+}
+
+.bunpou-ctrl-btn.check-btn {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #ffffff;
+    border: none;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.28);
+}
+
+.bunpou-ctrl-btn.check-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.38);
+}
+
+.bunpou-ctrl-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Dark Mode untuk Mini-Game */
+body.theme-dark .mode-card--time-attack,
+body.dark-mode .mode-card--time-attack {
+    background: #231e14 !important;
+    border-color: rgba(245, 158, 11, 0.45) !important;
+}
+
+body.theme-dark .mode-card--time-attack:hover,
+body.dark-mode .mode-card--time-attack:hover {
+    background: #382c16 !important;
+}
+
+body.theme-dark .mode-card--bunpou,
+body.dark-mode .mode-card--bunpou {
+    background: #1f1a29 !important;
+    border-color: rgba(139, 92, 246, 0.45) !important;
+}
+
+body.theme-dark .mode-card--bunpou:hover,
+body.dark-mode .mode-card--bunpou:hover {
+    background: #2f2542 !important;
+}
+
+body.theme-dark .bunpou-meaning-text,
+body.dark-mode .bunpou-meaning-text {
+    color: #f3f4f6;
+}
+
+body.theme-dark .bunpou-prompt-hint,
+body.dark-mode .bunpou-prompt-hint {
+    color: #9ca3af;
+}
+
+body.theme-dark .bunpou-target-tray,
+body.dark-mode .bunpou-target-tray {
+    background: #1d1924;
+    border-color: #4b3e57;
+}
+
+body.theme-dark .bunpou-target-tray.is-correct-glow,
+body.dark-mode .bunpou-target-tray.is-correct-glow {
+    background: rgba(16, 185, 129, 0.15) !important;
+    border-color: #10b981 !important;
+}
+
+body.theme-dark .bunpou-target-tray.is-wrong-shake,
+body.dark-mode .bunpou-target-tray.is-wrong-shake {
+    background: rgba(239, 68, 68, 0.15) !important;
+    border-color: #ef4444 !important;
+}
+
+body.theme-dark .bunpou-chip.is-in-bank,
+body.dark-mode .bunpou-chip.is-in-bank {
+    background: #27222e;
+    color: #f3f4f6;
+    border-color: #45384d;
+}
+
+body.theme-dark .bunpou-ctrl-btn.reset-btn,
+body.dark-mode .bunpou-ctrl-btn.reset-btn {
+    background: #27222e;
+    color: #cbd5e1;
+    border-color: #45384d;
+}
+
+@media (max-width: 540px) {
+    .bunpou-chip {
+        padding: 8px 14px;
+        font-size: 16px;
+    }
+    .bunpou-ctrl-btn {
+        height: 44px;
+        padding: 0 16px;
+        font-size: 13.5px;
+    }
+}
+
+
+/* =====================================================
+   MINI-GAMES: CHOUKAI & MEMORY FLIP
+   ===================================================== */
+/* Shortcut Bar */
+.mini-game-shortcut-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 22px auto 0 auto;
+    padding: 14px 20px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid #ebccd8;
+    border-radius: 14px;
+    max-width: 780px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+}
+
+.shortcut-bar-label {
+    font-size: 13px;
+    font-weight: 800;
+    color: #db2777;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.mini-game-shortcut-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 18px;
+    border-radius: 999px;
+    font-size: 13.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.mini-game-shortcut-btn.btn-choukai {
+    background: #eff6ff;
+    color: #1d4ed8;
+    border: 1.5px solid #bfdbfe;
+}
+
+.mini-game-shortcut-btn.btn-choukai:hover {
+    background: #dbeafe;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(29, 78, 216, 0.18);
+}
+
+.mini-game-shortcut-btn.btn-memory {
+    background: #faf5ff;
+    color: #7e22ce;
+    border: 1.5px solid #e9d5ff;
+}
+
+.mini-game-shortcut-btn.btn-memory:hover {
+    background: #f3e8ff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(126, 34, 206, 0.18);
+}
+
+/* Choukai UI */
+.choukai-audio-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 18px;
+    box-sizing: border-box;
+}
+
+.choukai-replay-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 32px;
+    font-size: 20px;
+    font-weight: 800;
+    color: #ffffff;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.choukai-replay-btn:hover {
+    transform: scale(1.04);
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.45);
+}
+
+.choukai-replay-btn:active,
+.choukai-replay-btn.is-playing {
+    transform: scale(0.97);
+}
+
+.choukai-speaker-icon {
+    font-size: 26px;
+    line-height: 1;
+}
+
+.choukai-hint-text {
+    font-size: 13px;
+    color: var(--muted, #6b7280);
+}
+
+.choukai-choice-btn {
+    min-height: 90px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 16px !important;
+}
+
+.choukai-char {
+    font-size: clamp(34px, 6vw, 44px) !important;
+    font-weight: 800 !important;
+    font-family: "Noto Serif JP", "Plus Jakarta Sans", sans-serif !important;
+    line-height: 1 !important;
+}
+
+/* Memory Flip Grid (4x3 Desktop, 3x4 Mobile) */
+.memory-status-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink, #1f2937);
+    margin-bottom: 8px;
+}
+
+.memory-status-wrap b {
+    color: #db2777;
+    font-size: 20px;
+}
+
+.memory-board-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 110px);
+    gap: 12px;
+    width: 100%;
+    max-width: 620px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.memory-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    perspective: 1000px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.memory-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-sizing: border-box;
+}
+
+.memory-card.is-flipped .memory-card-inner,
+.memory-card.is-matched .memory-card-inner {
+    transform: rotateY(180deg);
+}
+
+.memory-card-back,
+.memory-card-front {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.memory-card-back {
+    background: linear-gradient(135deg, #302431, #1f1b24);
+    color: #f472b6;
+    border: 2px solid #ebccd8;
+    gap: 4px;
+}
+
+.card-logo-sym {
+    font-size: 22px;
+    line-height: 1;
+}
+
+.card-back-hint {
+    font-size: 15px;
+    font-weight: 800;
+    opacity: 0.6;
+}
+
+.memory-card-front {
+    transform: rotateY(180deg);
+    background: #ffffff;
+    color: #1f2937;
+    border: 2px solid #db2777;
+    padding: 8px;
+}
+
+.memory-card-text {
+    font-size: clamp(24px, 4vw, 32px);
+    font-weight: 800;
+    line-height: 1.1;
+    font-family: "Noto Serif JP", "Plus Jakarta Sans", sans-serif;
+}
+
+.memory-card-type {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #9ca3af;
+    text-transform: uppercase;
+    margin-top: 4px;
+}
+
+.memory-card.is-matched .memory-card-front {
+    border-color: #10b981 !important;
+    background: #ecfdf5 !important;
+    color: #065f46 !important;
+    box-shadow: 0 0 14px rgba(16, 185, 129, 0.35) !important;
+}
+
+@media (max-width: 600px) {
+    .memory-board-grid {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(4, 96px);
+        gap: 8px;
+    }
+    .memory-card-text {
+        font-size: 24px;
+    }
+}
+
+/* Dark Mode untuk Choukai & Memory */
+body.theme-dark .mini-game-shortcut-bar,
+body.dark-mode .mini-game-shortcut-bar {
+    background: rgba(31, 27, 36, 0.85);
+    border-color: #4b3648;
+}
+
+body.theme-dark .mini-game-shortcut-btn.btn-choukai,
+body.dark-mode .mini-game-shortcut-btn.btn-choukai {
+    background: #172554;
+    color: #93c5fd;
+    border-color: #1e40af;
+}
+
+body.theme-dark .mini-game-shortcut-btn.btn-memory,
+body.dark-mode .mini-game-shortcut-btn.btn-memory {
+    background: #2e1065;
+    color: #d8b4fe;
+    border-color: #581c87;
+}
+
+body.theme-dark .memory-card-front,
+body.dark-mode .memory-card-front {
+    background: #231c27;
+    color: #f3f4f6;
+    border-color: #e879f9;
+}
+
+body.theme-dark .memory-card.is-matched .memory-card-front,
+body.dark-mode .memory-card.is-matched .memory-card-front {
+    background: rgba(16, 185, 129, 0.2) !important;
+    color: #6ee7b7 !important;
+    border-color: #10b981 !important;
+}
+
+/* ==========================================================================
+   PROGRES BELAJAR & MODUL PEMBELAJARAN TERPADU (MIRAI PROGRESS)
+   ========================================================================== */
+
+/* Banner Lanjutkan Belajar */
+.progress-resume-banner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 24px;
+    margin: 0 auto 36px;
+    max-width: 1200px;
+    width: 100%;
+    box-sizing: border-box;
+    background: linear-gradient(135deg, #ffffff 0%, #fff0f5 100%);
+    border: 1.5px solid #fbcfe8;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(244, 63, 94, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-resume-banner::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background: linear-gradient(180deg, #ec4899, #f43f5e);
+}
+
+.progress-resume-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1 1 300px;
+}
+
+.progress-resume-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffe4e6;
+    border-radius: 12px;
+    color: #e11d48;
+    flex-shrink: 0;
+}
+
+.progress-resume-title-wrap h4 {
+    margin: 0 0 4px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #e11d48;
+}
+
+.progress-resume-title-wrap p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 800;
+    color: #1f2937;
+}
+
+.progress-resume-center {
+    flex: 1 1 240px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.progress-resume-stat {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 700;
+    color: #4b5563;
+}
+
+.progress-bar-track {
+    width: 100%;
+    height: 8px;
+    background: #fce7f3;
+    border-radius: 99px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ec4899, #f43f5e);
+    border-radius: 99px;
+    transition: width 0.4s ease;
+}
+
+.progress-resume-right {
+    flex-shrink: 0;
+}
+
+.progress-resume-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff !important;
+    background: linear-gradient(135deg, #ec4899, #f43f5e);
+    border-radius: 10px;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(244, 63, 94, 0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.progress-resume-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(244, 63, 94, 0.35);
+}
+
+/* Badge Status Selesai pada Kartu Materi */
+.materi-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 800;
+    border-radius: 99px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.materi-status-badge.is-completed {
+    background: #ecfdf5;
+    color: #059669;
+    border: 1px solid #a7f3d0;
+}
+
+.materi-status-badge.is-pending {
+    background: #f3f4f6;
+    color: #6b7280;
+    border: 1px solid #e5e7eb;
+}
+
+/* Modul Pembelajaran: Tujuan, Kuis Cepat, Pembahasan, Rangkuman */
+.buuku-objectives {
+    background: #fff;
+    border: 1.5px solid #fce7f3;
+    border-left: 5px solid #ec4899;
+    border-radius: 14px;
+    padding: 22px 26px;
+    margin: 28px 0;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+}
+
+.buuku-objectives h3 {
+    margin: 0 0 12px;
+    font-size: 18px;
+    font-weight: 800;
+    color: #9d174d;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.buuku-objectives ul {
+    margin: 0;
+    padding-left: 20px;
+    color: #374151;
+    line-height: 1.75;
+}
+
+.buuku-objectives li {
+    margin-bottom: 6px;
+}
+
+/* Kuis Cepat Pemahaman */
+.buuku-quiz-section {
+    background: #ffffff;
+    border: 1.5px solid #fbcfe8;
+    border-radius: 16px;
+    padding: 26px;
+    margin: 36px 0;
+    box-shadow: 0 4px 16px rgba(236, 72, 153, 0.06);
+}
+
+.buuku-quiz-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1.5px dashed #fce7f3;
+}
+
+.buuku-quiz-header h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 800;
+    color: #be185d;
+}
+
+.buuku-quiz-card {
+    background: #fff7fa;
+    border: 1px solid #fce7f3;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 18px;
+}
+
+.buuku-quiz-question {
+    font-size: 15.5px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 14px;
+}
+
+.buuku-quiz-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+}
+
+.buuku-quiz-opt-btn {
+    text-align: left;
+    padding: 12px 14px;
+    background: #ffffff;
+    border: 1.5px solid #fbcfe8;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    transition: all 0.2s ease;
+}
+
+.buuku-quiz-opt-btn:hover:not(:disabled) {
+    background: #fdf2f8;
+    border-color: #ec4899;
+    color: #9d174d;
+    transform: translateY(-1px);
+}
+
+.buuku-quiz-opt-btn.is-correct {
+    background: #ecfdf5 !important;
+    border-color: #10b981 !important;
+    color: #065f46 !important;
+    font-weight: 700 !important;
+}
+
+.buuku-quiz-opt-btn.is-wrong {
+    background: #fef2f2 !important;
+    border-color: #ef4444 !important;
+    color: #991b1b !important;
+}
+
+.buuku-quiz-feedback {
+    margin-top: 12px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    display: none;
+}
+
+.buuku-quiz-feedback.is-visible {
+    display: block;
+}
+
+.buuku-quiz-feedback.correct {
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+}
+
+.buuku-quiz-feedback.wrong {
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+/* Rangkuman Materi */
+.buuku-summary {
+    background: linear-gradient(135deg, #fdf2f8 0%, #ffffff 100%);
+    border: 1.5px solid #fbcfe8;
+    border-radius: 14px;
+    padding: 22px 26px;
+    margin: 32px 0;
+}
+
+.buuku-summary h3 {
+    margin: 0 0 12px;
+    font-size: 18px;
+    font-weight: 800;
+    color: #be185d;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.buuku-summary ul {
+    margin: 0;
+    padding-left: 20px;
+    color: #374151;
+    line-height: 1.75;
+}
+
+/* Navigasi Pembelajaran Bawah (Prev / Mark Complete / Next) */
+.materi-footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 24px 0;
+    margin-top: 40px;
+    border-top: 1.5px solid #fce7f3;
+}
+
+.materi-nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.materi-nav-btn.prev {
+    background: #f3f4f6;
+    color: #374151;
+    border: 1px solid #d1d5db;
+}
+
+.materi-nav-btn.prev:hover {
+    background: #e5e7eb;
+    color: #111827;
+}
+
+.materi-nav-btn.next {
+    background: linear-gradient(135deg, #ec4899, #f43f5e);
+    color: #ffffff;
+    border: none;
+    box-shadow: 0 4px 12px rgba(244, 63, 94, 0.25);
+}
+
+.materi-nav-btn.next:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(244, 63, 94, 0.35);
+}
+
+.materi-complete-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 12px;
+    background: #ffffff;
+    border: 2px solid #ec4899;
+    color: #be185d;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.materi-complete-toggle:hover {
+    background: #fdf2f8;
+}
+
+.materi-complete-toggle.is-active {
+    background: #10b981;
+    border-color: #10b981;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+}
+
+/* Tombol Ulangi Soal yang Salah di Latihan */
+.btn-retry-wrong {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 22px;
+    font-size: 14.5px;
+    font-weight: 800;
+    color: #991b1b !important;
+    background: #fee2e2;
+    border: 1.5px solid #f87171;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-retry-wrong:hover {
+    background: #fecaca;
+    border-color: #ef4444;
+    transform: translateY(-1px);
+}
+
+/* Mode Gelap (Dark Mode) */
+body.theme-dark .progress-resume-banner,
+body.dark-mode .progress-resume-banner {
+    background: linear-gradient(135deg, #1f1b24 0%, #291c2c 100%);
+    border-color: #582e4e;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+body.theme-dark .progress-resume-title-wrap p,
+body.dark-mode .progress-resume-title-wrap p {
+    color: #f3f4f6;
+}
+
+body.theme-dark .progress-resume-stat,
+body.dark-mode .progress-resume-stat {
+    color: #d1d5db;
+}
+
+body.theme-dark .progress-bar-track,
+body.dark-mode .progress-bar-track {
+    background: #47263c;
+}
+
+body.theme-dark .buuku-objectives,
+body.dark-mode .buuku-objectives {
+    background: #1f1b24;
+    border-color: #582e4e;
+    color: #f3f4f6;
+}
+
+body.theme-dark .buuku-objectives ul,
+body.dark-mode .buuku-objectives ul {
+    color: #d1d5db;
+}
+
+body.theme-dark .buuku-quiz-section,
+body.dark-mode .buuku-quiz-section {
+    background: #1f1b24;
+    border-color: #582e4e;
+}
+
+body.theme-dark .buuku-quiz-card,
+body.dark-mode .buuku-quiz-card {
+    background: #281d2a;
+    border-color: #4b2b40;
+}
+
+body.theme-dark .buuku-quiz-question,
+body.dark-mode .buuku-quiz-question {
+    color: #f3f4f6;
+}
+
+body.theme-dark .buuku-quiz-opt-btn,
+body.dark-mode .buuku-quiz-opt-btn {
+    background: #1a1620;
+    border-color: #4b2b40;
+    color: #e5e7eb;
+}
+
+body.theme-dark .buuku-summary,
+body.dark-mode .buuku-summary {
+    background: linear-gradient(135deg, #241b27 0%, #1f1b24 100%);
+    border-color: #582e4e;
+    color: #f3f4f6;
+}
+
+body.theme-dark .buuku-summary ul,
+body.dark-mode .buuku-summary ul {
+    color: #d1d5db;
+}
+
+body.theme-dark .materi-nav-btn.prev,
+body.dark-mode .materi-nav-btn.prev {
+    background: #281d2a;
+    border-color: #4b2b40;
+    color: #e5e7eb;
+}
+
+body.theme-dark .materi-complete-toggle,
+body.dark-mode .materi-complete-toggle {
+    background: #1f1b24;
+    border-color: #ec4899;
+    color: #f472b6;
 }
 

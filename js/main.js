@@ -17,7 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
     setupManagementSlider();
     setupImageLightbox();
     setupFooterQuoteSlider();
-    setupAboutDrawerCard();
+    setupExpandableCards();
+    initMiraiProgress();
     window.initKanjiDictionary?.();
     window.initSora?.();
 });
@@ -948,42 +949,581 @@ function setupFooterQuoteSlider() {
 }
 
 
-function setupAboutDrawerCard() {
-    const card = document.getElementById("mnhAboutDrawerCard");
-    if (!card) return;
+function setupExpandableCards() {
+    const cards = document.querySelectorAll("[data-expand-card]");
+    if (!cards.length) return;
 
-    const btn = card.querySelector(".drawer-action-btn");
+    cards.forEach((card) => {
+        const toggleBtn = card.querySelector(".card-toggle");
+        const isAboutDrawerCard = card.classList.contains("about-drawer-card") || card.id === "mnhAboutDrawerCard";
 
-    if (btn) {
-        btn.addEventListener("click", (e) => {
-            // Jika tombol dipencet saat animasi belum muncul (laci tertutup),
-            // munculkan animasinya terlebih dahulu, baru bisa pergi ke Tentang pada klik berikutnya.
-            if (!card.classList.contains("is-pulled")) {
-                e.preventDefault();
-                e.stopPropagation();
-                card.classList.add("is-pulled");
-                return;
-            }
-            // Jika animasi sudah muncul (laci terbuka), klik tombol akan bernavigasi normal ke tentang/index.html
-        });
-    }
-
-    card.addEventListener("click", (e) => {
-        // Jika yang diklik adalah tombol link Tentang, ditangani listener tombol
-        if (e.target.closest(".drawer-action-btn")) {
+        if (isAboutDrawerCard) {
+            setupAboutDrawerCard(card, toggleBtn);
             return;
         }
 
-        // Klik pada area card: TOGGLE BUKA / TUTUP LACI (efek membuka dan menutup laci kembali)
-        card.classList.toggle("is-pulled");
-    });
+        // Standard 2-step card logic for all other cards
+        card.addEventListener("click", (e) => {
+            const ctaBtn = e.target.closest("[data-expand-cta]");
+            if (ctaBtn) {
+                // Biarkan kombinasi Ctrl / Cmd / Shift / Alt klik membuka tab baru secara normal
+                if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) {
+                    return;
+                }
 
-    // Aksesibilitas keyboard (Enter / Spasi untuk toggle)
-    card.addEventListener("keydown", (e) => {
-        if ((e.key === "Enter" || e.key === " ") && !e.target.closest(".drawer-action-btn")) {
-            e.preventDefault();
-            card.classList.toggle("is-pulled");
+                // Jika kartu masih tertutup: buka kartu dulu dan batalkan navigasi
+                if (!card.classList.contains("is-expanded")) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleCard(card, true);
+                    return;
+                }
+                // Jika kartu sudah terbuka: navigasi berjalan normal, stop bubbling agar kartu tidak tertutup
+                e.stopPropagation();
+                return;
+            }
+
+            // Jika klik pada link atau tombol interaktif lain selain toggle
+            const otherInteractive = e.target.closest("a, button:not(.card-toggle), input, textarea, select");
+            if (otherInteractive) {
+                return;
+            }
+
+            // Toggle buka / tutup kartu
+            const nextState = !card.classList.contains("is-expanded");
+            toggleCard(card, nextState);
+        });
+
+        // Handler khusus toggle button (keyboard accessible & click)
+        if (toggleBtn) {
+            toggleBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const nextState = !card.classList.contains("is-expanded");
+                toggleCard(card, nextState);
+            });
         }
     });
+
+    function toggleCard(card, shouldOpen) {
+        card.classList.toggle("is-expanded", shouldOpen);
+
+        const toggleBtn = card.querySelector(".card-toggle");
+        if (toggleBtn) {
+            toggleBtn.setAttribute("aria-expanded", shouldOpen ? "true" : "false");
+            toggleBtn.setAttribute("aria-label", shouldOpen ? "Tutup detail kartu" : "Buka detail kartu");
+        }
+    }
+
+    /**
+     * Khusus Card Tentang Mirai no Hana:
+     * Alur 3x Klik & Penutupan Bertahap:
+     * - Klik 1 (card / tombol saat tertutup): buka deskripsi kartu (is-expanded: true, is-pulled: false)
+     * - Klik 2 (card / tombol saat deskripsi buka): buka animasi laci logo NK (is-pulled: true)
+     * - Klik 3 (tombol saat animasi logo NK buka): navigasi menuju halaman tujuan (tentang/index.html)
+     * - Klik mundur 1 (card saat animasi logo NK buka): tutup animasi logo NK (is-pulled: false, deskripsi tetap buka)
+     * - Klik mundur 2 (card saat deskripsi buka setelah animasi tutup): tutup deskripsi kartu (is-expanded: false)
+     */
+    function setupAboutDrawerCard(card, toggleBtn) {
+        function updateToggle(shouldOpen) {
+            if (toggleBtn) {
+                toggleBtn.setAttribute("aria-expanded", shouldOpen ? "true" : "false");
+                toggleBtn.setAttribute("aria-label", shouldOpen ? "Tutup detail kartu" : "Buka detail kartu");
+            }
+        }
+
+        card.addEventListener("click", (e) => {
+            const ctaBtn = e.target.closest("[data-expand-cta]");
+
+            // 1. Aksi Klik pada Tombol CTA ("TENTANG MIRAI NO HANA ->")
+            if (ctaBtn) {
+                if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) {
+                    return;
+                }
+
+                // Klik 1: Jika kartu masih tertutup -> buka deskripsi
+                if (!card.classList.contains("is-expanded")) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    card.classList.add("is-expanded");
+                    card.classList.remove("is-pulled");
+                    card.dataset.drawerPhase = "desc";
+                    updateToggle(true);
+                    return;
+                }
+
+                // Klik 2: Jika deskripsi sudah buka, tapi animasi logo NK belum buka -> buka animasi logo NK
+                if (!card.classList.contains("is-pulled")) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    card.classList.add("is-pulled");
+                    card.dataset.drawerPhase = "logo";
+                    return;
+                }
+
+                // Klik 3: Jika animasi logo NK sudah buka -> pindah ke page yang dituju
+                e.stopPropagation();
+                return;
+            }
+
+            // Abaikan jika klik elemen interaktif lain selain toggle
+            const otherInteractive = e.target.closest("a, input, textarea, select");
+            if (otherInteractive) {
+                return;
+            }
+
+            // 2. Aksi Klik pada Area Card atau Tombol Toggle
+            // Klik 1: Jika kartu masih tertutup -> buka deskripsi
+            if (!card.classList.contains("is-expanded")) {
+                card.classList.add("is-expanded");
+                card.classList.remove("is-pulled");
+                card.dataset.drawerPhase = "desc";
+                updateToggle(true);
+                return;
+            }
+
+            // Klik mundur 1: Jika animasi logo NK sedang buka -> tutup animasi logo NK
+            if (card.classList.contains("is-pulled")) {
+                card.classList.remove("is-pulled");
+                card.dataset.drawerPhase = "closing"; // Tandai fase penutupan mundur
+                return;
+            }
+
+            // Klik mundur 2: Jika deskripsi buka dan animasi baru ditutup -> tutup deskripsi
+            if (card.dataset.drawerPhase === "closing") {
+                card.classList.remove("is-expanded");
+                card.classList.remove("is-pulled");
+                card.dataset.drawerPhase = "0";
+                updateToggle(false);
+                return;
+            }
+
+            // Klik 2 (fase maju): Jika deskripsi buka -> buka animasi logo NK
+            card.classList.add("is-pulled");
+            card.dataset.drawerPhase = "logo";
+        });
+    }
 }
+
+/* ==========================================================================
+   5 EFEK MIKRO-INTERAKSI MODERN (GPU-Accelerated & 60fps)
+   ========================================================================== */
+
+/**
+ * 1. Top Scroll Progress Bar
+ * Membuat elemen progress bar di bagian paling atas viewport yang lebarnya
+ * di-update menggunakan requestAnimationFrame saat user scroll.
+ */
+function setupScrollProgressBar() {
+    let bar = document.querySelector(".scroll-progress-bar");
+    if (!bar) {
+        bar = document.createElement("div");
+        bar.className = "scroll-progress-bar";
+        document.body.prepend(bar);
+    }
+
+    let ticking = false;
+    function updateProgress() {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
+        bar.style.width = `${progress}%`;
+        ticking = false;
+    }
+
+    window.addEventListener("scroll", () => {
+        if (!ticking) {
+            window.requestAnimationFrame(updateProgress);
+            ticking = true;
+        }
+    }, { passive: true });
+
+    window.addEventListener("resize", () => {
+        if (!ticking) {
+            window.requestAnimationFrame(updateProgress);
+            ticking = true;
+        }
+    }, { passive: true });
+
+    updateProgress();
+}
+
+/**
+ * 2. Ambient Sakura Petals pada Hero Banner
+ * Menyuntikkan kontainer .hero-sakura-layer dan 10 partikel kelopak sakura
+ * CSS murni (.hero-petal) ke dalam seluruh hero banner.
+ */
+function setupHeroSakuraPetals() {
+    const heroElements = document.querySelectorAll(".hero, .page-hero, .proker-hero, .quest-hero, .toko-hero");
+    if (!heroElements.length) return;
+
+    heroElements.forEach((hero) => {
+        if (hero.querySelector(".hero-sakura-layer")) return;
+
+        const layer = document.createElement("div");
+        layer.className = "hero-sakura-layer";
+        layer.setAttribute("aria-hidden", "true");
+
+        // 10 partikel kelopak sakura dengan parameter acak
+        for (let i = 0; i < 10; i++) {
+            const petal = document.createElement("div");
+            petal.className = "hero-petal";
+
+            const left = Math.random() * 92 + 2; // 2% - 94%
+            const width = 10 + Math.random() * 6; // 10px - 16px
+            const height = width * 1.35;
+            const duration = 8 + Math.random() * 6; // 8s - 14s
+            const delay = -(Math.random() * duration); // Tersebar merata sejak awal
+            const opacity = 0.5 + Math.random() * 0.35;
+
+            petal.style.left = `${left.toFixed(1)}%`;
+            petal.style.width = `${width.toFixed(1)}px`;
+            petal.style.height = `${height.toFixed(1)}px`;
+            petal.style.animationDuration = `${duration.toFixed(2)}s`;
+            petal.style.animationDelay = `${delay.toFixed(2)}s`;
+            petal.style.opacity = `${opacity.toFixed(2)}`;
+
+            layer.appendChild(petal);
+        }
+
+        hero.appendChild(layer);
+    });
+}
+
+/**
+ * 3. Interactive Spotlight Glow & 3D Tilt Halus pada Kartu
+ * Pada perangkat hover: hover, menambahkan efek spotlight kursor (--mouse-x, --mouse-y)
+ * dan kemiringan perspektif 3D halus (maksimal 3.5 derajat).
+ */
+function setupCardTiltAndSpotlight() {
+    const isHoverDevice = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    if (!isHoverDevice) return;
+
+    const cardSelectors = [
+        ".start-card",
+        ".activity-start-card",
+        ".class-card",
+        ".course-card",
+        ".division-card",
+        ".program-card",
+        ".podium-card",
+        ".toko-card"
+    ];
+    const cards = document.querySelectorAll(cardSelectors.join(","));
+    if (!cards.length) return;
+
+    cards.forEach((card) => {
+        if (!card.querySelector(".card-spotlight-glow")) {
+            const glow = document.createElement("div");
+            glow.className = "card-spotlight-glow";
+            glow.setAttribute("aria-hidden", "true");
+            card.appendChild(glow);
+        }
+
+        let rafId = null;
+
+        card.addEventListener("mousemove", (e) => {
+            if (rafId) cancelAnimationFrame(rafId);
+            rafId = requestAnimationFrame(() => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+
+                // 3D Tilt: maksimal 3.5 derajat
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (((y - centerY) / centerY) * -3.5).toFixed(2);
+                const rotateY = (((x - centerX) / centerX) * 3.5).toFixed(2);
+
+                card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-3px)`;
+            });
+        });
+
+        card.addEventListener("mouseleave", () => {
+            if (rafId) cancelAnimationFrame(rafId);
+            card.style.transform = "none";
+        });
+    });
+}
+
+/**
+ * 4. Sakura Ripple Effect saat Klik / Tap
+ * Memunculkan riak lingkaran sakura di titik koordinat klik yang membesar
+ * dan memudar dalam 0.55 detik lalu otomatis dihapus.
+ */
+function setupSakuraRipple() {
+    const targetSelector = ".btn, button, .start-card, .class-card, .rek-cat-btn, .lb-tab-btn, .toko-cat-btn";
+
+    document.addEventListener("pointerdown", (e) => {
+        const target = e.target.closest(targetSelector);
+        if (!target) return;
+
+        // Jangan picu ripple pada tombol yang dinonaktifkan
+        if (target.disabled || target.getAttribute("aria-disabled") === "true") return;
+
+        const rect = target.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height) * 0.9;
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        // Pastikan kontainer memiliki posisi non-static dan overflow hidden
+        const comp = window.getComputedStyle(target);
+        if (comp.position === "static") {
+            target.style.position = "relative";
+        }
+        if (comp.overflow !== "hidden") {
+            target.style.overflow = "hidden";
+        }
+
+        const ripple = document.createElement("span");
+        ripple.className = "sakura-ripple";
+        ripple.style.width = `${size}px`;
+        ripple.style.height = `${size}px`;
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+
+        target.appendChild(ripple);
+
+        setTimeout(() => {
+            ripple.remove();
+        }, 550);
+    }, { passive: true });
+}
+
+/**
+ * 5. Tab Cascade Transition
+ * Memberikan animasi masuk fadeSlideUp setiap kali konten tab di Kamus,
+ * Peringkat, Rekomendasi, Lomba, atau Toko berganti.
+ */
+function setupTabCascadeTransition() {
+    document.addEventListener("click", (e) => {
+        const tabBtn = e.target.closest(".lb-tab-btn, .rek-cat-btn, .lomba-filter-chip, .toko-cat-btn, .mgmt-tab-btn, [role='tab'], .tab-btn");
+        if (!tabBtn) return;
+
+        requestAnimationFrame(() => {
+            const targetContainers = document.querySelectorAll(
+                "#rekomendasiGrid, #eventsGrid, #tokoProductGrid, .lb-points-grid, .lb-podium-grid, .leaderboard-table-wrapper, .tab-pane.active, .tab-content.active, [data-tab-content].active, .kanji-grid, .mgmt-slider-container"
+            );
+            targetContainers.forEach((container) => {
+                container.classList.remove("tab-cascade-animate");
+                void container.offsetWidth; // Reflow trigger
+                container.classList.add("tab-cascade-animate");
+            });
+        });
+    }, { passive: true });
+}
+
+/* ==========================================================================
+   MIRAI PROGRESS ENGINE (localStorage-based learning progress)
+   ========================================================================== */
+
+const MiraiProgress = {
+    STORAGE_KEY_COMPLETED: "mirai_completed_materi",
+    STORAGE_KEY_LAST: "mirai_last_materi",
+    STORAGE_KEY_WRONG: "mirai_wrong_questions",
+
+    TOTAL_MATERI: 8,
+
+    getCompleted() {
+        try {
+            const raw = localStorage.getItem(this.STORAGE_KEY_COMPLETED);
+            if (!raw) return [];
+            const parsed = JSON.parse(raw);
+            return Array.isArray(parsed) ? parsed : [];
+        } catch (e) {
+            return [];
+        }
+    },
+
+    isCompleted(materiId) {
+        if (!materiId) return false;
+        return this.getCompleted().includes(materiId);
+    },
+
+    toggleCompleted(materiId) {
+        if (!materiId) return false;
+        let list = this.getCompleted();
+        let newState = false;
+        if (list.includes(materiId)) {
+            list = list.filter((id) => id !== materiId);
+            newState = false;
+        } else {
+            list.push(materiId);
+            newState = true;
+        }
+        try {
+            localStorage.setItem(this.STORAGE_KEY_COMPLETED, JSON.stringify(list));
+        } catch (e) {
+            console.warn("Gagal menyimpan progress materi:", e);
+        }
+        return newState;
+    },
+
+    getLastMateri() {
+        try {
+            const raw = localStorage.getItem(this.STORAGE_KEY_LAST);
+            if (!raw) return null;
+            const parsed = JSON.parse(raw);
+            return typeof parsed === "object" && parsed !== null ? parsed : null;
+        } catch (e) {
+            return null;
+        }
+    },
+
+    setLastMateri(id, title, step, url) {
+        if (!id || !url) return;
+        try {
+            const item = {
+                id,
+                title: title || id,
+                step: step || "",
+                url,
+                timestamp: Date.now()
+            };
+            localStorage.setItem(this.STORAGE_KEY_LAST, JSON.stringify(item));
+        } catch (e) {}
+    },
+
+    setupLessonPage() {
+        const container = document.querySelector("[data-materi-id]");
+        if (!container) return;
+
+        const materiId = container.dataset.materiId;
+        const materiTitle = container.dataset.materiTitle || document.title.split("—")[0].trim();
+        const materiStep = container.dataset.materiStep || "Modul";
+
+        // Otomatis simpan sebagai materi terakhir dibuka
+        this.setLastMateri(materiId, materiTitle, materiStep, window.location.href);
+
+        // Pengendali tombol "Tandai Materi Selesai"
+        const toggleBtn = document.querySelector(".materi-complete-toggle");
+        if (toggleBtn) {
+            const updateBtnUI = (isDone) => {
+                if (isDone) {
+                    toggleBtn.classList.add("is-active");
+                    toggleBtn.innerHTML = `<span>✓</span><span>Materi Selesai</span>`;
+                    toggleBtn.setAttribute("aria-pressed", "true");
+                } else {
+                    toggleBtn.classList.remove("is-active");
+                    toggleBtn.innerHTML = `<span>○</span><span>Tandai Selesai</span>`;
+                    toggleBtn.setAttribute("aria-pressed", "false");
+                }
+            };
+
+            updateBtnUI(this.isCompleted(materiId));
+
+            toggleBtn.addEventListener("click", () => {
+                const isNowDone = this.toggleCompleted(materiId);
+                updateBtnUI(isNowDone);
+            });
+        }
+
+        // Pengendali Kuis Cepat Pemahaman
+        const quizCards = document.querySelectorAll(".buuku-quiz-card");
+        quizCards.forEach((card) => {
+            const optButtons = card.querySelectorAll(".buuku-quiz-opt-btn");
+            const feedbackEl = card.querySelector(".buuku-quiz-feedback");
+
+            optButtons.forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    const isCorrect = btn.dataset.correct === "true";
+                    optButtons.forEach((b) => {
+                        b.disabled = true;
+                        if (b.dataset.correct === "true") {
+                            b.classList.add("is-correct");
+                        }
+                    });
+
+                    if (!isCorrect) {
+                        btn.classList.add("is-wrong");
+                    }
+
+                    if (feedbackEl) {
+                        feedbackEl.classList.add("is-visible");
+                        feedbackEl.classList.add(isCorrect ? "correct" : "wrong");
+                    }
+                });
+            });
+        });
+    },
+
+    setupResumeBanner() {
+        const isClassIndex = window.location.pathname.endsWith("/kelas/index.html") || window.location.pathname.endsWith("/kelas/");
+        const isMateriDasarIndex = window.location.pathname.includes("/materi/dasar/index.html") || window.location.pathname.endsWith("/materi/dasar/");
+        const isMateriLanjutanIndex = window.location.pathname.includes("/materi/lanjutan/index.html") || window.location.pathname.endsWith("/materi/lanjutan/");
+
+        if (!isClassIndex && !isMateriDasarIndex && !isMateriLanjutanIndex) return;
+
+        const completed = this.getCompleted();
+        const lastMateri = this.getLastMateri();
+
+        // 1. Beri badge "✓ Selesai" pada kartu modul yang link-nya cocok
+        const cards = document.querySelectorAll(".material-card, .course-card");
+        cards.forEach((card) => {
+            const href = card.getAttribute("href") || "";
+            const matchedId = completed.find((id) => {
+                const shortName = id.replace("materi-dasar-", "").replace("materi-lanjutan-", "");
+                return href.includes(shortName);
+            });
+
+            if (matchedId && !card.querySelector(".materi-status-badge")) {
+                const badge = document.createElement("span");
+                badge.className = "materi-status-badge is-completed";
+                badge.innerHTML = "✓ Selesai";
+                badge.style.marginLeft = "8px";
+                const heading = card.querySelector("h3");
+                if (heading) {
+                    heading.appendChild(badge);
+                }
+            }
+        });
+
+        // 2. Tampilkan banner "Lanjutkan Belajar" jika ada materi terakhir atau progres
+        if (lastMateri) {
+            const parentContainer = document.querySelector(".material-library, .learning-path#dasar, .learning-path");
+            if (parentContainer && !document.querySelector(".progress-resume-banner")) {
+                const pct = Math.round((completed.length / this.TOTAL_MATERI) * 100);
+
+                const banner = document.createElement("div");
+                banner.className = "progress-resume-banner";
+                banner.innerHTML = `
+                    <div class="progress-resume-left">
+                        <div class="progress-resume-icon" aria-hidden="true">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                        </div>
+                        <div class="progress-resume-title-wrap">
+                            <h4>Lanjutkan Belajar Terakhir (${lastMateri.step || "Modul"})</h4>
+                            <p>${lastMateri.title || "Materi Pembelajaran"}</p>
+                        </div>
+                    </div>
+                    <div class="progress-resume-center">
+                        <div class="progress-resume-stat">
+                            <span>Progres Kurikulum</span>
+                            <span>${completed.length} / ${this.TOTAL_MATERI} Materi (${pct}%)</span>
+                        </div>
+                        <div class="progress-bar-track">
+                            <div class="progress-bar-fill" style="width: ${pct}%"></div>
+                        </div>
+                    </div>
+                    <div class="progress-resume-right">
+                        <a class="progress-resume-btn" href="${lastMateri.url}">
+                            <span>LANJUTKAN →</span>
+                        </a>
+                    </div>
+                `;
+                parentContainer.prepend(banner);
+            }
+        }
+    }
+};
+
+window.MiraiProgress = MiraiProgress;
+
+function initMiraiProgress() {
+    MiraiProgress.setupLessonPage();
+    MiraiProgress.setupResumeBanner();
+}
+
 

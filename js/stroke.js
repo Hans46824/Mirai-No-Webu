@@ -4,80 +4,80 @@
  * Penggunaan: kamus/index.html dan kamus/kanji.html.
  */
 
-window.currentPenSize = window.currentPenSize || 'thick';
+window.currentPenSize = 'thick';
 
 window.togglePenSize = function togglePenSize() {
-    const strokeContainer = document.getElementById('stroke-stage');
-    const penBtn = document.getElementById('btn-toggle-pen');
-
-    if (strokeContainer) {
-        if (strokeContainer.classList.contains('stroke-thin')) {
-            strokeContainer.classList.remove('stroke-thin');
-            strokeContainer.classList.add('stroke-thick');
-            window.currentPenSize = 'thick';
-            if (penBtn) penBtn.innerHTML = 'Kuas: Tebal 🖌️';
-        } else {
-            strokeContainer.classList.remove('stroke-thick');
-            strokeContainer.classList.add('stroke-thin');
-            window.currentPenSize = 'thin';
-            if (penBtn) penBtn.innerHTML = 'Kuas: Tipis 🖊️';
-        }
-    } else {
-        window.currentPenSize = window.currentPenSize === 'thin' ? 'thick' : 'thin';
-    }
-
-    // Sync all stroke stages and buttons across page
-    document.querySelectorAll('.stroke-stage').forEach((el) => {
-        if (window.currentPenSize === 'thick') {
-            el.classList.remove('stroke-thin');
-            el.classList.add('stroke-thick');
-        } else {
-            el.classList.remove('stroke-thick');
-            el.classList.add('stroke-thin');
-        }
-    });
-    document.querySelectorAll('.btn-pen-style, #btn-toggle-pen').forEach((btn) => {
-        btn.innerHTML = window.currentPenSize === 'thick' ? 'Kuas: Tebal 🖌️' : 'Kuas: Tipis 🖊️';
-    });
+    // Fitur pemilihan ukuran kuas dinonaktifkan sesuai permintaan pengguna (kuas standar dipertahankan)
 };
 
+/* ==========================================================================
+   SKEMA VALIDASI DATA & MANAJEMEN CACHE RESMI (KANJIVG v4)
+   ========================================================================== */
+
+/**
+ * Memvalidasi apakah rekaman data goresan mematuhi spesifikasi standar KanjiVG.
+ */
+function isValidStrokeRecord(record) {
+    if (!record || typeof record !== 'object') return false;
+    if (record.viewBox !== '0 0 109 109') return false;
+    if (!Array.isArray(record.paths) || record.paths.length === 0) return false;
+    for (let i = 0; i < record.paths.length; i++) {
+        const p = record.paths[i];
+        if (typeof p !== 'string' || !/^\s*[Mm]\s*[-\d\.]+/.test(p)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// Bersihkan cache versi usang (v1, v2, v3) tanpa menghapus data v4 yang valid
 try {
     for (let i = localStorage.length - 1; i >= 0; i--) {
         const k = localStorage.key(i);
-        if (k && k.startsWith("mirai_stroke_")) {
+        if (k && (k.startsWith("mirai_stroke_v1_") || k.startsWith("mirai_stroke_v2_") || k.startsWith("mirai_stroke_v3_"))) {
             localStorage.removeItem(k);
         }
     }
 } catch (e) {}
 
-/* Animated player for local & dynamic KanjiVG-derived SVG paths. */
+/**
+ * Mengambil data goresan secara asinkron dengan hierarki aman:
+ * 1. Pustaka lokal tervalidasi (window.MIRAI_STROKE_DATA) - prioritas tertinggi
+ * 2. Cache lokal terverifikasi skema (mirai_stroke_v4_*)
+ * 3. Jaringan resmi KanjiVG via CDN dengan parsing DOMParser & validasi ketat
+ */
 window.getStrokeDataAsync = async function getStrokeDataAsync(character) {
     if (!character) return null;
 
-    // 1. Curated local data takes absolute first priority (hand-verified standard)
+    // 1. Data lokal kurasi (window.MIRAI_STROKE_DATA) prioritas mutlak
     if (window.MIRAI_STROKE_DATA?.[character]) {
-        return window.MIRAI_STROKE_DATA[character];
+        const localRec = window.MIRAI_STROKE_DATA[character];
+        if (isValidStrokeRecord(localRec)) {
+            return localRec;
+        }
     }
 
-    const cacheKey = "mirai_stroke_v3_" + character;
+    const cacheKey = "mirai_stroke_v4_" + character;
 
-    // 2. Check localStorage cache (v3)
+    // 2. Periksa cache localStorage (skema v4)
     try {
-        const cached = localStorage.getItem(cacheKey);
-        if (cached) {
-            const parsed = JSON.parse(cached);
-            if (parsed?.paths?.length) {
+        const cachedRaw = localStorage.getItem(cacheKey);
+        if (cachedRaw) {
+            const parsedEnvelope = JSON.parse(cachedRaw);
+            if (parsedEnvelope?.v === 4 && isValidStrokeRecord(parsedEnvelope?.record)) {
                 if (!window.MIRAI_STROKE_DATA) window.MIRAI_STROKE_DATA = {};
-                window.MIRAI_STROKE_DATA[character] = parsed;
-                return parsed;
+                window.MIRAI_STROKE_DATA[character] = parsedEnvelope.record;
+                return parsedEnvelope.record;
+            } else {
+                localStorage.removeItem(cacheKey);
             }
         }
     } catch (e) {}
 
-    // Multi-char: fetch parts separately
+    // Multi-karakter (Yoon / kata): ambil bagian-bagiannya
     if (character.length > 1) {
         const parts = await Promise.all(Array.from(character).map((c) => window.getStrokeDataAsync(c)));
-        if (parts.every(Boolean)) {
+        if (parts.length > 0 && parts.every((p) => p && isValidStrokeRecord(p))) {
             return {
                 isMulti: true,
                 characters: Array.from(character),
@@ -85,9 +85,10 @@ window.getStrokeDataAsync = async function getStrokeDataAsync(character) {
                 source: "KanjiVG"
             };
         }
+        return null;
     }
 
-    // 3. Fetch official SVG from KanjiVG via jsDelivr CDN
+    // 3. Fallback: Unduh berkas SVG resmi dari KanjiVG via CDN
     try {
         const cp = character.codePointAt(0);
         if (!cp) return null;
@@ -95,39 +96,58 @@ window.getStrokeDataAsync = async function getStrokeDataAsync(character) {
         const res = await fetch(`https://cdn.jsdelivr.net/gh/KanjiVG/kanjivg@master/kanji/${hex}.svg`);
         if (res.ok) {
             const svgText = await res.text();
-            const paths = [];
-            const regex = /<path[^>]+d="([^"]+)"/g;
-            let match;
-            while ((match = regex.exec(svgText)) !== null) {
-                paths.push(match[1]);
-            }
-            const numbers = [];
-            const numRegex = /<text[^>]+transform="matrix\([^)]+\s+([\d\.]+)\s+([\d\.]+)\)"[^>]*>([^<]+)<\/text>/g;
-            let numMatch;
-            while ((numMatch = numRegex.exec(svgText)) !== null) {
-                numbers.push({
-                    x: parseFloat(numMatch[1]),
-                    y: parseFloat(numMatch[2]),
-                    text: numMatch[3].trim()
+            let paths = [];
+            let numbers = [];
+
+            try {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(svgText, "image/svg+xml");
+                const pathsGroup = doc.querySelector("[id*='StrokePaths']") || doc;
+                const pathElements = Array.from(pathsGroup.querySelectorAll("path"));
+
+                pathElements.sort((a, b) => {
+                    const ma = /-s(\d+)$/.exec(a.id || "");
+                    const mb = /-s(\d+)$/.exec(b.id || "");
+                    if (ma && mb) return parseInt(ma[1], 10) - parseInt(mb[1], 10);
+                    return 0;
                 });
+                paths = pathElements.map((p) => p.getAttribute("d")).filter(Boolean);
+
+                const numbersGroup = doc.querySelector("[id*='StrokeNumbers']");
+                if (numbersGroup) {
+                    numbersGroup.querySelectorAll("text").forEach((t) => {
+                        const trans = t.getAttribute("transform") || "";
+                        const m = /matrix\s*\(\s*[^,\s]+\s*[, ]\s*[^,\s]+\s*[, ]\s*[^,\s]+\s*[, ]\s*[^,\s]+\s*[, ]\s*([-\d\.]+)\s*[, ]\s*([-\d\.]+)\s*\)/i.exec(trans);
+                        if (m) {
+                            numbers.push({
+                                x: parseFloat(m[1]),
+                                y: parseFloat(m[2]),
+                                text: (t.textContent || "").trim()
+                            });
+                        }
+                    });
+                }
+            } catch (parseErr) {
+                const regex = /<path[^>]+d="([^"]+)"/g;
+                let match;
+                while ((match = regex.exec(svgText)) !== null) {
+                    paths.push(match[1]);
+                }
             }
-            if (paths.length > 0) {
-                const record = { viewBox: "0 0 109 109", paths, numbers, source: "KanjiVG-CDN" };
+
+            const record = { viewBox: "0 0 109 109", paths, numbers, source: "KanjiVG-CDN" };
+            if (isValidStrokeRecord(record)) {
                 if (!window.MIRAI_STROKE_DATA) window.MIRAI_STROKE_DATA = {};
                 window.MIRAI_STROKE_DATA[character] = record;
                 try {
-                    localStorage.setItem(cacheKey, JSON.stringify(record));
+                    const envelope = { v: 4, char: character, time: Date.now(), record };
+                    localStorage.setItem(cacheKey, JSON.stringify(envelope));
                 } catch (e) {}
                 return record;
             }
         }
     } catch (err) {
         console.warn("Gagal memuat stroke KanjiVG CDN untuk:", character, err);
-    }
-
-    // 4. Fallback if any
-    if (window.MIRAI_STROKE_DATA?.[character]) {
-        return window.MIRAI_STROKE_DATA[character];
     }
 
     return null;
@@ -173,9 +193,25 @@ function calculateStrokeNumbers(paths, officialNumbers) {
     return placed;
 }
 
-window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallbackCount, options = {}) {
+/* ==========================================================================
+   PEMUTAR ANIMASI GORESAN UTAMA (createStrokePlayer)
+   ========================================================================== */
 
+window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallbackCount, options = {}) {
     if (!kanaString || !host) return null;
+
+    // 1. Batalkan dan bersihkan instance pemutar lama pada host yang sama
+    if (host._miraiStrokeController && typeof host._miraiStrokeController.destroy === 'function') {
+        try {
+            host._miraiStrokeController.destroy();
+        } catch (e) {}
+        host._miraiStrokeController = null;
+    }
+
+    // 2. Penghitung generasi host untuk mencegah hasil permintaan lama menimpa karakter baru
+    host._miraiStrokeGen = (host._miraiStrokeGen || 0) + 1;
+    const currentGen = host._miraiStrokeGen;
+
     const showClearControl = options.showClear === true;
     let destroyed = false;
     let internalController = null;
@@ -183,39 +219,109 @@ window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallba
     const characters = Array.from(kanaString);
     const isMulti = characters.length > 1;
 
-    // Helper to get cached character record
-    const getCached = (c) => window.MIRAI_STROKE_DATA?.[c];
+    // Helper data karakter lokal
+    const getCached = (c) => {
+        const rec = window.MIRAI_STROKE_DATA?.[c];
+        return (rec && isValidStrokeRecord(rec)) ? rec : null;
+    };
     const allImmediate = characters.every(getCached);
+
+    function renderUnavailableState() {
+        if (destroyed || !host) return;
+
+        host.innerHTML = `
+            <div class="stroke-stage stroke-unavailable ${window.currentPenSize === 'thick' ? 'stroke-thick' : 'stroke-thin'}" aria-label="Urutan goresan ${kanaString} belum tersedia">
+                <div class="kanjivg-char-box single-char" style="position:relative; width:100%; max-width:200px; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center;">
+                    <svg viewBox="0 0 109 109" preserveAspectRatio="xMidYMid meet" style="width:100%; height:100%; display:block;" role="img" aria-label="Kanvas ${kanaString}">
+                        <g class="stroke-grid-group" aria-hidden="true">
+                            <line x1="5" y1="54.5" x2="104" y2="54.5" class="stroke-grid-line" />
+                            <line x1="54.5" y1="5" x2="54.5" y2="104" class="stroke-grid-line" />
+                        </g>
+                    </svg>
+                    <span class="stroke-fallback-glyph" style="position:absolute; font-size:${isMulti ? '70px' : '110px'}; opacity:0.65; user-select:none;">${kanaString}</span>
+                </div>
+            </div>
+            <div class="stroke-unavailable-box" style="margin: 14px 0 8px; text-align: center;">
+                <p class="stroke-source" style="margin:0 0 4px; font-weight:700; color:var(--pink, #e91e63);">Data Urutan Goresan Belum Tersedia</p>
+                <p class="stroke-guide" style="margin:0; font-size:12.5px; color:var(--muted, #666); line-height:1.5;">
+                    Vektor kurva goresan resmi untuk karakter <b>&ldquo;${kanaString}&rdquo;</b> belum terdaftar dalam pustaka offline.
+                </p>
+            </div>
+        `;
+
+        internalController = {
+            destroy: () => { destroyed = true; },
+            play: () => {},
+            pause: () => {},
+            resume: () => {},
+            togglePlay: () => {},
+            replay: () => {},
+            prev: () => {},
+            next: () => {},
+            reset: () => {},
+            clear: () => {},
+            isAvailable: false,
+            getStep: () => 0,
+            getTotalSteps: () => 0,
+            isPlaying: () => false,
+            isPaused: () => false
+        };
+        host._miraiStrokeController = internalController;
+    }
 
     function setupPlayerWithRecords(records) {
         if (destroyed || !host) return;
 
-        // Calculate total strokes
-        let totalStrokes = 0;
-        records.forEach((rec) => {
-            if (rec?.paths?.length) {
-                totalStrokes += rec.paths.length;
-            }
-        });
-        if (totalStrokes === 0) {
-            totalStrokes = Math.max(2, Math.min(fallbackCount || 3, 4)) * characters.length;
+        // Validasi ketersediaan data untuk semua karakter
+        const hasAllValidRecords = records.length > 0 && records.every((rec) => rec && isValidStrokeRecord(rec));
+        if (!hasAllValidRecords) {
+            renderUnavailableState();
+            return;
         }
 
-        const currentPenClass = window.currentPenSize === 'thick' ? 'stroke-thick' : 'stroke-thin';
-        const currentPenLabel = window.currentPenSize === 'thick' ? 'Kuas: Tebal 🖌️' : 'Kuas: Tipis 🖊️';
+        // Hitung total goresan asli tanpa memalsukan
+        const totalStrokes = records.reduce((sum, rec) => sum + rec.paths.length, 0);
+        if (totalStrokes === 0) {
+            renderUnavailableState();
+            return;
+        }
 
-        // Render external controls skeleton
+        // Buat daftar thumbnail goresan per langkah progresif
+        const flattenedStrokes = [];
+        records.forEach((rec, cIdx) => {
+            rec.paths.forEach((d, pIdx) => {
+                flattenedStrokes.push({
+                    charIdx: cIdx,
+                    pathIdx: pIdx,
+                    paths: rec.paths,
+                    d: d
+                });
+            });
+        });
+
+        const strokeThumbsHtml = flattenedStrokes.map((item, index) => {
+            const prevPaths = item.paths.slice(0, item.pathIdx);
+            const prevSvg = prevPaths.map((p) => `<path d="${p}" class="step-thumb-prev"></path>`).join("");
+            const currentSvg = `<path d="${item.d}" class="step-thumb-current"></path>`;
+
+            return `<li class="stroke-step-thumb" data-stroke-step="${index}" title="Goresan ke-${index + 1}">` +
+                `<span class="step-thumb-badge">${index + 1}</span>` +
+                `<svg class="step-thumb-svg" viewBox="-8 -8 125 125" aria-hidden="true">` +
+                `<line x1="5" y1="54.5" x2="104" y2="54.5" class="step-thumb-grid"></line>` +
+                `<line x1="54.5" y1="5" x2="54.5" y2="104" class="step-thumb-grid"></line>` +
+                `${prevSvg}` +
+                `${currentSvg}` +
+                `</svg>` +
+                `</li>`;
+        }).join("");
+
+        // Render kerangka kontrol UI pemutar lengkap
         host.innerHTML = `
-            <div class="stroke-stage ${currentPenClass}" id="stroke-stage" aria-label="Animasi urutan menulis ${kanaString}"></div>
-            <div style="display:flex; justify-content:space-between; align-items:center; margin:8px 0 4px; gap:10px;">
-                <p class="stroke-source" style="margin:0;">${isMulti ? "Animasi multi-karakter" : "Standar Penulisan Karakter Jepang"}</p>
-                <button id="btn-toggle-pen" class="btn-pen-style" type="button" onclick="togglePenSize()">${currentPenLabel}</button>
-            </div>
+            <div class="stroke-stage stroke-thick" aria-label="Animasi urutan menulis ${kanaString}"></div>
             <div class="stroke-status">Goresan <b data-stroke-number>1</b> dari ${totalStrokes}</div>
-            <p class="stroke-guide" data-stroke-guide role="status" aria-live="polite">Ikuti angka urutan goresan di kanvas atau tekan PUTAR untuk animasi.</p>
-            <ol class="stroke-order" aria-label="Urutan goresan">${Array.from({ length: totalStrokes }, (_, index) => `<li data-stroke-step="${index}">${index + 1}</li>`).join("")}</ol>
-            <div class="stroke-controls">
-                <button type="button" data-stroke-play>PUTAR</button>
+            <ol class="stroke-order" aria-label="Urutan visual goresan">${strokeThumbsHtml}</ol>
+            <div class="stroke-controls" role="toolbar" aria-label="Kontrol animasi goresan">
+                <button type="button" data-stroke-play aria-label="Putar animasi goresan">PUTAR ▶</button>
                 ${showClearControl ? `<button type="button" data-stroke-clear aria-label="Bersihkan tampilan urutan goresan ${kanaString}">BERSIHKAN</button>` : ""}
                 <label>Kecepatan<select data-stroke-speed aria-label="Kecepatan animasi stroke">
                     <option value="1.6">0.5×</option>
@@ -226,7 +332,7 @@ window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallba
             </div>
         `;
 
-        // 2. Isolasi Instance Render (JS)
+        // Render kontainer kanvas SVG responsif
         const strokeStage = host.querySelector('.stroke-stage');
         strokeStage.innerHTML = "";
         strokeStage.style.display = 'flex';
@@ -238,8 +344,8 @@ window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallba
 
         let globalStrokeOffset = 0;
 
-        Array.from(kanaString).forEach((char, index) => {
-            let charWrapper = document.createElement('div');
+        characters.forEach((char, index) => {
+            const charWrapper = document.createElement('div');
             charWrapper.id = 'stroke-char-' + index;
             charWrapper.className = 'kanjivg-char-box';
             charWrapper.style.position = 'relative';
@@ -247,26 +353,28 @@ window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallba
             if (isMulti) {
                 if (characters.length === 2) {
                     charWrapper.classList.add('yoon-char');
-                    charWrapper.style.width = '185px';
-                    charWrapper.style.height = '185px';
+                    charWrapper.style.width = '100%';
+                    charWrapper.style.maxWidth = '180px';
+                    charWrapper.style.aspectRatio = '1 / 1';
                 } else {
                     charWrapper.classList.add('multi-char');
-                    charWrapper.style.width = characters.length === 3 ? '110px' : '90px';
-                    charWrapper.style.height = characters.length === 3 ? '110px' : '90px';
+                    charWrapper.style.width = '100%';
+                    charWrapper.style.maxWidth = characters.length === 3 ? '110px' : '90px';
+                    charWrapper.style.aspectRatio = '1 / 1';
                 }
             } else {
-                charWrapper.style.width = '200px';
-                charWrapper.style.height = '200px';
+                charWrapper.style.width = '100%';
+                charWrapper.style.maxWidth = '200px';
+                charWrapper.style.aspectRatio = '1 / 1';
                 charWrapper.classList.add('single-char');
             }
 
             const rec = records[index];
-            const paths = rec?.paths?.length
-                ? rec.paths
-                : ["M55 52 L165 52", "M72 38 L72 172", "M52 115 L168 115", "M164 48 L164 172"].slice(0, Math.max(2, Math.min(fallbackCount || 3, 4)));
+            const paths = rec.paths;
 
-            let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
             svg.setAttribute("viewBox", "0 0 109 109");
+            svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
             svg.setAttribute("role", "img");
             svg.setAttribute("aria-label", `Urutan goresan ${char}`);
             svg.style.width = '100%';
@@ -311,7 +419,7 @@ window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallba
             });
             svg.appendChild(guideGroup);
 
-            // Layer 3 (Tengah): Goresan Animasi Solid (Active Animated Strokes)
+            // Layer 2 (Tengah): Goresan Animasi Solid (Active Animated Strokes)
             const activeGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
             activeGroup.setAttribute("class", "stroke-active-group");
             paths.forEach((d, pathIndex) => {
@@ -326,10 +434,10 @@ window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallba
             });
             svg.appendChild(activeGroup);
 
-            // Layer 4 (Atas): Angka Penunjuk Urutan Goresan (Stroke Order Numbers)
+            // Layer 3 (Atas): Angka Penunjuk Urutan Goresan (Stroke Order Numbers)
             const numbersGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
             numbersGroup.setAttribute("class", "stroke-numbers-group");
-            const numPositions = calculateStrokeNumbers(paths, rec?.numbers);
+            const numPositions = calculateStrokeNumbers(paths, rec.numbers);
             numPositions.forEach((pos, pathIndex) => {
                 const textEl = document.createElementNS("http://www.w3.org/2000/svg", "text");
                 textEl.setAttribute("class", "stroke-number-label");
@@ -342,53 +450,57 @@ window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallba
             svg.appendChild(numbersGroup);
 
             globalStrokeOffset += paths.length;
-
             charWrapper.appendChild(svg);
-
-            if (!rec?.paths?.length) {
-                const fallbackSpan = document.createElement('span');
-                fallbackSpan.className = 'stroke-fallback-glyph';
-                fallbackSpan.textContent = char;
-                fallbackSpan.style.fontSize = isMulti ? (characters.length === 2 ? '115px' : '50px') : '130px';
-                charWrapper.appendChild(fallbackSpan);
-            }
-
-            // Append ke container utama
             strokeStage.appendChild(charWrapper);
         });
 
-        // Kumpulkan semua path aktif berurutan secara kronologis
+        // Koleksi elemen kontrol animasi
         const lines = [...strokeStage.querySelectorAll("path[data-stroke]")];
         const numberLabels = [...strokeStage.querySelectorAll(".stroke-number-label")];
         const number = host.querySelector("[data-stroke-number]");
-        const guide = host.querySelector("[data-stroke-guide]");
         const order = [...host.querySelectorAll("[data-stroke-step]")];
         const speed = host.querySelector("[data-stroke-speed]");
+        const playBtn = host.querySelector("[data-stroke-play]");
+
         let step = 0;
-        let animation;
+        let animation = null;
         let playing = false;
+        let paused = false;
         let cleared = false;
 
-        const duration = () => 650 * Number(speed.value);
+        const duration = () => 650 * Number(speed.value || 1);
 
         function setStepLabel() {
+            if (destroyed) return;
             const visibleStep = Math.min(step + 1, lines.length);
             number.textContent = cleared ? "0" : String(visibleStep);
-            guide.textContent = cleared
-                ? "Tampilan goresan dibersihkan. Tekan PUTAR untuk menampilkan ulang."
-                : step >= lines.length
-                    ? "Selesai! Semua goresan sudah ditampilkan."
-                    : (playing
-                        ? `Memutar goresan ke-${visibleStep} dari ${lines.length}...`
-                        : `Langkah ${visibleStep}: ikuti goresan pink atau angka urutan di atas.`);
+
             order.forEach((item, index) => {
-                item.classList.toggle("is-active", index === step && playing);
+                item.classList.toggle("is-active", index === step && (playing || paused));
                 item.classList.toggle("is-done", index < step);
             });
+
             numberLabels.forEach((numLabel, index) => {
-                numLabel.classList.toggle("is-active", index === step && playing);
+                numLabel.classList.toggle("is-active", index === step && (playing || paused));
                 numLabel.classList.toggle("is-done", index < step);
             });
+
+            // Perbarui label tombol putar utama (PUTAR / JEDA / LANJUTKAN)
+            if (playBtn) {
+                if (playing) {
+                    playBtn.innerHTML = "JEDA ⏸";
+                    playBtn.setAttribute("aria-label", "Jeda animasi goresan");
+                } else if (paused) {
+                    playBtn.innerHTML = "LANJUTKAN ▶";
+                    playBtn.setAttribute("aria-label", "Lanjutkan animasi goresan");
+                } else if (step >= lines.length || cleared) {
+                    playBtn.innerHTML = "PUTAR ULANG ▶";
+                    playBtn.setAttribute("aria-label", "Putar ulang dari goresan pertama");
+                } else {
+                    playBtn.innerHTML = "PUTAR ▶";
+                    playBtn.setAttribute("aria-label", "Putar animasi goresan");
+                }
+            }
         }
 
         function hideFutureStrokes() {
@@ -400,56 +512,150 @@ window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallba
             });
         }
 
+        function renderStaticState() {
+            lines.forEach((line, index) => {
+                const length = line.getTotalLength();
+                line.style.strokeDasharray = `${length}`;
+                if (index <= step) {
+                    line.style.strokeDashoffset = "0";
+                    line.style.opacity = "1";
+                } else {
+                    line.style.strokeDashoffset = `${length}`;
+                    line.style.opacity = "0";
+                }
+            });
+            setStepLabel();
+        }
+
         function finishCurrentStroke() {
             step += 1;
-            animation = undefined;
-            if (step >= lines.length) playing = false;
+            animation = null;
+            if (step >= lines.length) {
+                playing = false;
+                paused = false;
+            }
             setStepLabel();
-            if (playing) drawCurrentStroke();
+            if (playing) {
+                drawCurrentStroke();
+            }
         }
 
         function drawCurrentStroke() {
-            if (!playing || step >= lines.length || animation) return;
+            if (destroyed || !playing || step >= lines.length || animation) return;
             const line = lines[step];
             const length = line.getTotalLength();
             line.style.strokeDasharray = `${length}`;
             line.style.strokeDashoffset = `${length}`;
             line.style.opacity = "1";
             setStepLabel();
-            animation = line.animate(
-                [{ strokeDashoffset: length }, { strokeDashoffset: 0 }],
-                { duration: duration(), easing: "cubic-bezier(.35, 0, .2, 1)", fill: "forwards" }
-            );
-            animation.finished.then(finishCurrentStroke).catch(() => {});
+
+            try {
+                animation = line.animate(
+                    [{ strokeDashoffset: length }, { strokeDashoffset: 0 }],
+                    { duration: duration(), easing: "cubic-bezier(.35, 0, .2, 1)", fill: "forwards" }
+                );
+                animation.finished.then(finishCurrentStroke).catch(() => {});
+            } catch (animErr) {
+                line.style.strokeDashoffset = "0";
+                finishCurrentStroke();
+            }
         }
 
         function play() {
-            if (playing && animation) {
-                reset();
-            } else if (step >= lines.length) {
+            if (paused) {
+                resume();
+                return;
+            }
+            if (step >= lines.length || cleared) {
                 reset();
             }
             cleared = false;
+            paused = false;
             playing = true;
-            if (animation?.playState === "paused") {
-                animation.play();
-                setStepLabel();
-                return;
-            }
+            setStepLabel();
             drawCurrentStroke();
         }
 
         function pause() {
-            if (!animation || animation.playState !== "running") return;
-            animation.pause();
+            if (animation && animation.playState === "running") {
+                animation.pause();
+            }
             playing = false;
+            paused = true;
             setStepLabel();
         }
 
-        function reset() {
-            animation?.cancel();
-            animation = undefined;
+        function resume() {
+            if (animation && animation.playState === "paused") {
+                animation.play();
+                playing = true;
+                paused = false;
+                setStepLabel();
+                return;
+            }
+            playing = true;
+            paused = false;
+            setStepLabel();
+            drawCurrentStroke();
+        }
+
+        function togglePlay() {
+            if (playing) {
+                pause();
+            } else {
+                play();
+            }
+        }
+
+        function replay() {
+            if (animation) {
+                try { animation.cancel(); } catch (e) {}
+                animation = null;
+            }
+            step = 0;
+            cleared = false;
+            paused = false;
+            playing = true;
+            hideFutureStrokes();
+            setStepLabel();
+            drawCurrentStroke();
+        }
+
+        function prevStep() {
+            if (animation) {
+                try { animation.cancel(); } catch (e) {}
+                animation = null;
+            }
             playing = false;
+            paused = false;
+            cleared = false;
+            if (step > 0) {
+                step -= 1;
+            }
+            renderStaticState();
+        }
+
+        function nextStep() {
+            if (animation) {
+                try { animation.cancel(); } catch (e) {}
+                animation = null;
+            }
+            playing = false;
+            paused = false;
+            cleared = false;
+            if (step < lines.length - 1) {
+                step += 1;
+            }
+            renderStaticState();
+        }
+
+        function reset() {
+            if (animation) {
+                try { animation.cancel(); } catch (e) {}
+                animation = null;
+            }
+            playing = false;
+            paused = false;
             step = 0;
             cleared = false;
             hideFutureStrokes();
@@ -457,86 +663,142 @@ window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallba
         }
 
         function clear() {
-            animation?.cancel();
-            animation = undefined;
+            if (animation) {
+                try { animation.cancel(); } catch (e) {}
+                animation = null;
+            }
             playing = false;
+            paused = false;
             step = 0;
             cleared = true;
             hideFutureStrokes();
             setStepLabel();
         }
 
-        host.querySelector("[data-stroke-play]").addEventListener("click", play);
+        function destroy() {
+            destroyed = true;
+            if (animation) {
+                try { animation.cancel(); } catch (e) {}
+                animation = null;
+            }
+            if (host._miraiStrokeController === internalController) {
+                host._miraiStrokeController = null;
+            }
+        }
+
+        // Hubungkan event listeners ke antarmuka kontrol
+        host.querySelector("[data-stroke-play]")?.addEventListener("click", togglePlay);
         host.querySelector("[data-stroke-pause]")?.addEventListener("click", pause);
-        host.querySelector("[data-stroke-replay]")?.addEventListener("click", () => {
-            reset();
-            play();
-        });
+        host.querySelector("[data-stroke-resume]")?.addEventListener("click", resume);
+        host.querySelector("[data-stroke-replay]")?.addEventListener("click", replay);
+        host.querySelector("[data-stroke-prev]")?.addEventListener("click", prevStep);
+        host.querySelector("[data-stroke-next]")?.addEventListener("click", nextStep);
         host.querySelector("[data-stroke-clear]")?.addEventListener("click", clear);
+
         speed.addEventListener("change", () => {
-            if (animation?.playState === "running") {
-                animation.cancel();
-                animation = undefined;
+            if (animation && animation.playState === "running") {
+                try { animation.cancel(); } catch (e) {}
+                animation = null;
                 drawCurrentStroke();
             }
         });
 
-        // Interaksi klik angka urutan: pengguna bisa klik angka di kanvas atau di bawah untuk melihat goresan
+        // Interaksi klik tombol penomoran goresan (pills)
         order.forEach((item, index) => {
             item.style.cursor = "pointer";
-            item.title = `Lihat goresan ke-${index + 1}`;
             item.addEventListener("click", () => {
-                animation?.cancel();
-                animation = undefined;
+                if (animation) {
+                    try { animation.cancel(); } catch (e) {}
+                    animation = null;
+                }
                 step = index;
+                playing = false;
+                paused = false;
                 cleared = false;
-                playing = true;
-                hideFutureStrokes();
-                drawCurrentStroke();
+                renderStaticState();
             });
         });
 
+        // Interaksi klik angka label di kanvas SVG
         numberLabels.forEach((numLabel, index) => {
             numLabel.style.cursor = "pointer";
             numLabel.addEventListener("click", () => {
-                animation?.cancel();
-                animation = undefined;
+                if (animation) {
+                    try { animation.cancel(); } catch (e) {}
+                    animation = null;
+                }
                 step = index;
+                playing = false;
+                paused = false;
                 cleared = false;
-                playing = true;
-                hideFutureStrokes();
-                drawCurrentStroke();
+                renderStaticState();
             });
         });
 
         reset();
-        internalController = { destroy: () => animation?.cancel(), play, reset, clear };
+
+        internalController = {
+            destroy,
+            play,
+            pause,
+            resume,
+            togglePlay,
+            replay,
+            prev: prevStep,
+            next: nextStep,
+            reset,
+            clear,
+            isAvailable: true,
+            getStep: () => step,
+            getTotalSteps: () => lines.length,
+            isPlaying: () => playing,
+            isPaused: () => paused
+        };
+        host._miraiStrokeController = internalController;
     }
 
     if (allImmediate) {
         setupPlayerWithRecords(characters.map(getCached));
     } else {
-        // Show loading state and fetch async per character from KanjiVG
+        // Tampilkan status memuat transparan jika membutuhkan fetch jaringan
         host.innerHTML = `
-            <div class="stroke-stage is-fallback">
-                <span class="stroke-fallback-glyph" style="opacity:0.35;">${kanaString}</span>
+            <div class="stroke-stage is-loading ${window.currentPenSize === 'thick' ? 'stroke-thick' : 'stroke-thin'}">
+                <div class="kanjivg-char-box single-char" style="position:relative; width:100%; max-width:200px; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center;">
+                    <svg viewBox="0 0 109 109" preserveAspectRatio="xMidYMid meet" style="width:100%; height:100%; display:block;" role="img" aria-hidden="true">
+                        <g class="stroke-grid-group">
+                            <line x1="5" y1="54.5" x2="104" y2="54.5" class="stroke-grid-line" />
+                            <line x1="54.5" y1="5" x2="54.5" y2="104" class="stroke-grid-line" />
+                        </g>
+                    </svg>
+                    <span class="stroke-fallback-glyph" style="position:absolute; font-size:${isMulti ? '70px' : '110px'}; opacity:0.35; user-select:none;">${kanaString}</span>
+                </div>
             </div>
-            <p class="stroke-source">Memuat data goresan KanjiVG...</p>
+            <p class="stroke-source" style="margin: 8px 0; text-align: center;">Memuat data goresan KanjiVG...</p>
         `;
+
         Promise.all(characters.map((c) => window.getStrokeDataAsync(c))).then((records) => {
-            if (!destroyed) {
+            if (!destroyed && host._miraiStrokeGen === currentGen) {
                 setupPlayerWithRecords(records);
+            }
+        }).catch(() => {
+            if (!destroyed && host._miraiStrokeGen === currentGen) {
+                renderUnavailableState();
             }
         });
     }
 
     return {
-        destroy: () => {
-            destroyed = true;
-            internalController?.destroy();
-        },
+        destroy: () => internalController?.destroy(),
         play: () => internalController?.play(),
+        pause: () => internalController?.pause(),
+        resume: () => internalController?.resume(),
+        togglePlay: () => internalController?.togglePlay(),
+        replay: () => internalController?.replay(),
+        prev: () => internalController?.prev(),
+        next: () => internalController?.next(),
         reset: () => internalController?.reset(),
-        clear: () => internalController?.clear()
+        clear: () => internalController?.clear(),
+        isAvailable: () => internalController ? internalController.isAvailable : false
     };
 };
+

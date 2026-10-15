@@ -2618,3 +2618,194 @@ body.page-latihan {
     }
 }
 
+
+
+/* =====================================================
+   RESPONSIF MOBILE / HP — FLOATING BUTTONS
+   Ukuran kompak .to-top (38x38) dan #launcher (bottom: 64px)
+   ===================================================== */
+@media (max-width: 600px) {
+    .to-top {
+        width: 38px !important;
+        height: 38px !important;
+        right: 14px !important;
+        bottom: 16px !important;
+        border-radius: 50% !important;
+        font-size: 16px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    #launcher,
+    .sora-widget {
+        width: 38px !important;
+        height: 38px !important;
+        right: 14px !important;
+        bottom: 64px !important;
+        border-radius: 50% !important;
+        padding: 0 !important;
+    }
+
+    #launcher .launcher-chat-img,
+    .sora-widget img {
+        width: 22px !important;
+        height: 22px !important;
+    }
+}
+
+
+/* ==========================================================================
+   3. SPOTLIGHT GLOW & 3D TILT, 4. SAKURA RIPPLE, 5. CHIBI IDLE & TAB CASCADE
+   ========================================================================== */
+
+/* 3. Interactive Spotlight Glow & 3D Tilt Halus pada Kartu */
+@media (hover: hover) and (pointer: fine) {
+    .start-card,
+    .activity-start-card,
+    .class-card,
+    .course-card,
+    .division-card,
+    .program-card,
+    .podium-card,
+    .toko-card {
+        --mouse-x: 50%;
+        --mouse-y: 50%;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+    }
+
+    .card-spotlight-glow {
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: radial-gradient(circle 240px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 105, 159, 0.14), transparent 72%);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        z-index: 2;
+    }
+
+    .start-card:hover > .card-spotlight-glow,
+    .activity-start-card:hover > .card-spotlight-glow,
+    .class-card:hover > .card-spotlight-glow,
+    .course-card:hover > .card-spotlight-glow,
+    .division-card:hover > .card-spotlight-glow,
+    .program-card:hover > .card-spotlight-glow,
+    .podium-card:hover > .card-spotlight-glow,
+    .toko-card:hover > .card-spotlight-glow {
+        opacity: 1;
+    }
+}
+
+/* 4. Sakura Ripple Effect saat Klik / Tap */
+.sakura-ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 120, 175, 0.45) 0%, rgba(233, 30, 99, 0.28) 45%, rgba(255, 79, 145, 0) 75%);
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0);
+    animation: sakuraRippleAnim 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    z-index: 9999;
+    will-change: transform, opacity;
+}
+
+@keyframes sakuraRippleAnim {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0.95;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(3.5);
+        opacity: 0;
+    }
+}
+
+/* 5. Chibi Idle Breathing / Floating Animation */
+@keyframes chibiIdleFloat {
+    0% {
+        transform: translateY(0px) scale(1);
+    }
+    50% {
+        transform: translateY(-4px) scale(1.02);
+    }
+    100% {
+        transform: translateY(0px) scale(1);
+    }
+}
+
+.card-corner-chibi,
+.page-hero-chibi {
+    animation: chibiIdleFloat 3.6s ease-in-out infinite;
+    will-change: transform;
+    transform-origin: center bottom;
+}
+
+:hover > .card-corner-chibi,
+:hover > .page-hero-chibi,
+.course-card:hover .card-corner-chibi,
+.start-card:hover .card-corner-chibi,
+.activity-start-card:hover .card-corner-chibi,
+.page-hero:hover .page-hero-chibi,
+.hero:hover .page-hero-chibi {
+    animation-play-state: paused;
+}
+
+/* Tab Cascade Transition */
+@keyframes fadeSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tab-cascade-animate,
+.tab-content.is-active,
+.tab-pane.is-active,
+.lb-tab-pane.is-active,
+.rek-tab-pane.is-active,
+.lomba-grid[data-active="true"],
+.toko-catalog-grid.is-active {
+    animation: fadeSlideUp 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Accessibility: Nonaktifkan seluruh animasi jika prefers-reduced-motion aktif */
+@media (prefers-reduced-motion: reduce) {
+    .card-corner-chibi,
+    .page-hero-chibi {
+        animation: none !important;
+    }
+    .tab-cascade-animate,
+    .tab-content.is-active,
+    .tab-pane.is-active,
+    .lb-tab-pane.is-active,
+    .rek-tab-pane.is-active,
+    .lomba-grid[data-active="true"],
+    .toko-catalog-grid.is-active {
+        animation: none !important;
+    }
+    .sakura-ripple {
+        display: none !important;
+        animation: none !important;
+    }
+    .start-card,
+    .activity-start-card,
+    .class-card,
+    .course-card,
+    .division-card,
+    .program-card,
+    .podium-card,
+    .toko-card {
+        transform: none !important;
+        transition: none !important;
+    }
+    .card-spotlight-glow {
+        display: none !important;
+    }
+}
+

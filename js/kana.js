@@ -427,6 +427,155 @@
         render();
     }
 
+    
+    const MiraiWeakKana = {
+        getAll() {
+            try {
+                const raw = localStorage.getItem("mirai_weak_kana");
+                if (!raw) return {};
+                const parsed = JSON.parse(raw);
+                return typeof parsed === "object" && parsed !== null ? parsed : {};
+            } catch (e) {
+                return {};
+            }
+        },
+        recordMistake(character, romaji = "", scriptType = "hiragana") {
+            if (!character) return;
+            try {
+                const data = this.getAll();
+                if (!data[character]) {
+                    data[character] = {
+                        character,
+                        romaji: romaji || "",
+                        script: scriptType,
+                        count: 1,
+                        lastMistake: Date.now()
+                    };
+                } else {
+                    data[character].count = (data[character].count || 1) + 1;
+                    data[character].lastMistake = Date.now();
+                    if (romaji) data[character].romaji = romaji;
+                    if (scriptType) data[character].script = scriptType;
+                }
+                localStorage.setItem("mirai_weak_kana", JSON.stringify(data));
+            } catch (e) {
+                console.warn("Gagal menyimpan mirai_weak_kana:", e);
+            }
+        },
+        recordCorrect(character) {
+            if (!character) return;
+            try {
+                const data = this.getAll();
+                if (data[character]) {
+                    data[character].count = (data[character].count || 1) - 1;
+                    if (data[character].count <= 0) {
+                        delete data[character];
+                    }
+                    localStorage.setItem("mirai_weak_kana", JSON.stringify(data));
+                }
+            } catch (e) {}
+        },
+        getList(scriptType = null) {
+            const all = this.getAll();
+            const list = Object.values(all);
+            if (!scriptType) return list;
+            return list.filter((item) => !item.script || item.script === scriptType);
+        },
+        getCharacters(scriptType = null) {
+            return this.getList(scriptType).map((item) => item.character);
+        },
+        clear() {
+            try {
+                localStorage.removeItem("mirai_weak_kana");
+            } catch (e) {}
+        }
+    };
+
+    window.MiraiWeakKana = MiraiWeakKana;
+
+    
+    const bunpouSentences = [
+        {
+            meaning: "Saya adalah murid / pelajar",
+            romaji: "Watashi wa gakusei desu",
+            target: ["わたし", "は", "がくせい", "です"],
+            tokens: ["わたし", "は", "がくせい", "です"]
+        },
+        {
+            meaning: "Saya belajar bahasa Jepang",
+            romaji: "Watashi wa nihongo o benkyou shimasu",
+            target: ["わたし", "は", "にほんご", "を", "べんきょうします"],
+            tokens: ["わたし", "は", "にほんご", "を", "べんきょうします"]
+        },
+        {
+            meaning: "Ini adalah buku milik saya",
+            romaji: "Kore wa watashi no hon desu",
+            target: ["これ", "は", "わたし", "の", "ほん", "です"],
+            tokens: ["これ", "は", "わたし", "の", "ほん", "です"]
+        },
+        {
+            meaning: "Setiap hari saya minum air putih",
+            romaji: "Mainichi mizu o nomimasu",
+            target: ["まいにち", "みず", "を", "のみます"],
+            tokens: ["まいにち", "みず", "を", "のみます"]
+        },
+        {
+            meaning: "Besok saya pergi ke sekolah",
+            romaji: "Ashita gakkou e ikimasu",
+            target: ["あした", "がっこう", "へ", "いきます"],
+            tokens: ["あした", "がっこう", "へ", "いきます"]
+        },
+        {
+            meaning: "Kucing itu ada di bawah meja",
+            romaji: "Neko wa tsukue no shita ni imasu",
+            target: ["ねこ", "は", "つくえ", "の", "した", "に", "います"],
+            tokens: ["ねこ", "は", "つくえ", "の", "した", "に", "います"]
+        },
+        {
+            meaning: "Makan ramen enak di restoran",
+            romaji: "Resutoran de oishii raamen o tabemasu",
+            target: ["レストラン", "で", "おいしい", "ラーメン", "を", "たべます"],
+            tokens: ["レストラン", "で", "おいしい", "ラーメン", "を", "たべます"]
+        },
+        {
+            meaning: "Saya suka anime dan manga Jepang",
+            romaji: "Watashi wa anime to manga ga suki desu",
+            target: ["わたし", "は", "アニメ", "と", "マンガ", "が", "すきです"],
+            tokens: ["わたし", "は", "アニメ", "と", "マンガ", "が", "すきです"]
+        },
+        {
+            meaning: "Hari ini cuacanya sangat dingin",
+            romaji: "Kyou no tenki wa totemo samui desu",
+            target: ["きょう", "の", "てんき", "は", "とても", "さむいです"],
+            tokens: ["きょう", "の", "てんき", "は", "とても", "さむいです"]
+        },
+        {
+            meaning: "Tolong baca buku bahasa Jepang ini",
+            romaji: "Kono nihongo no hon o yonde kudasai",
+            target: ["この", "にほんご", "の", "ほん", "を", "よんでください"],
+            tokens: ["この", "にほんご", "の", "ほん", "を", "よんでください"]
+        }
+    ];
+
+    
+    function speakJapanese(text) {
+        if (!text || !("speechSynthesis" in window)) return;
+        try {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = "ja-JP";
+            utterance.rate = 0.88;
+            window.speechSynthesis.speak(utterance);
+        } catch (e) {
+            console.warn("Speech synthesis error:", e);
+        }
+    }
+    window.speakJapanese = speakJapanese;
+
+    window.BunpouData = {
+        sentences: bunpouSentences
+    };
+
     window.KanaData = {
         getCharacters,
         getDetail,
@@ -435,7 +584,10 @@
         kataRows,
         roman,
         kataRoman,
-        categoriesConfig
+        categoriesConfig,
+        weakKana: MiraiWeakKana,
+        bunpou: window.BunpouData,
+        speak: speakJapanese
     };
 
     document.addEventListener("DOMContentLoaded", initLesson);

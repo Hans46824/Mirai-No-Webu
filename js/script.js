@@ -4,12 +4,18 @@
  * Penggunaan: Digunakan di kelas/latihan.html (serta modul interaktif lomba, peringkat, rekomendasi, dan toko).
  */
 
-document.addEventListener("DOMContentLoaded", () => {
+function bootKanaApp() {
     const app = document.querySelector(".learning-app");
     if (app) {
         initKanaQuest();
     }
-});
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bootKanaApp);
+} else {
+    bootKanaApp();
+}
 
 const rows = [
     [1, "あいうえお", ["a", "i", "u", "e", "o"]],
@@ -558,6 +564,187 @@ function shuffle(array) {
     return [...array].sort(() => Math.random() - 0.5);
 }
 
+
+
+const bunpouFallbackBank = [
+    {
+        meaning: "Saya adalah murid / pelajar",
+        romaji: "Watashi wa gakusei desu",
+        target: ["わたし", "は", "がくせい", "です"],
+        tokens: ["わたし", "は", "がくせい", "です"]
+    },
+    {
+        meaning: "Saya belajar bahasa Jepang",
+        romaji: "Watashi wa nihongo o benkyou shimasu",
+        target: ["わたし", "は", "にほんご", "を", "べんきょうします"],
+        tokens: ["わたし", "は", "にほんご", "を", "べんきょうします"]
+    },
+    {
+        meaning: "Ini adalah buku milik saya",
+        romaji: "Kore wa watashi no hon desu",
+        target: ["これ", "は", "わたし", "の", "ほん", "です"],
+        tokens: ["これ", "は", "わたし", "の", "ほん", "です"]
+    },
+    {
+        meaning: "Setiap hari saya minum air putih",
+        romaji: "Mainichi mizu o nomimasu",
+        target: ["まいにち", "みず", "を", "のみます"],
+        tokens: ["まいにち", "みず", "を", "のみます"]
+    },
+    {
+        meaning: "Besok saya pergi ke sekolah",
+        romaji: "Ashita gakkou e ikimasu",
+        target: ["あした", "がっこう", "へ", "いきます"],
+        tokens: ["あした", "がっこう", "へ", "いきます"]
+    },
+    {
+        meaning: "Kucing itu ada di bawah meja",
+        romaji: "Neko wa tsukue no shita ni imasu",
+        target: ["ねこ", "は", "つくえ", "の", "した", "に", "います"],
+        tokens: ["ねこ", "は", "つくえ", "の", "した", "に", "います"]
+    },
+    {
+        meaning: "Makan ramen enak di restoran",
+        romaji: "Resutoran de oishii raamen o tabemasu",
+        target: ["レストラン", "で", "おいしい", "ラーメン", "を", "たべます"],
+        tokens: ["レストラン", "で", "おいしい", "ラーメン", "を", "たべます"]
+    },
+    {
+        meaning: "Saya suka anime dan manga Jepang",
+        romaji: "Watashi wa anime to manga ga suki desu",
+        target: ["わたし", "は", "アニメ", "と", "マンガ", "が", "すきです"],
+        tokens: ["わたし", "は", "アニメ", "と", "マンガ", "が", "すきです"]
+    },
+    {
+        meaning: "Hari ini cuacanya sangat dingin",
+        romaji: "Kyou no tenki wa totemo samui desu",
+        target: ["きょう", "の", "てんき", "は", "とても", "さむいです"],
+        tokens: ["きょう", "の", "てんき", "は", "とても", "さむいです"]
+    },
+    {
+        meaning: "Tolong baca buku bahasa Jepang ini",
+        romaji: "Kono nihongo no hon o yonde kudasai",
+        target: ["この", "にほんご", "の", "ほん", "を", "よんでください"],
+        tokens: ["この", "にほんご", "の", "ほん", "を", "よんでください"]
+    }
+];
+
+
+function speakJapanese(text) {
+    if (!text || !("speechSynthesis" in window)) return;
+    try {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = "ja-JP";
+        utterance.rate = 0.88;
+        window.speechSynthesis.speak(utterance);
+    } catch (e) {
+        console.warn("Speech synthesis error:", e);
+    }
+}
+window.speakJapanese = window.speakJapanese || speakJapanese;
+
+function isRomajiMatch(typed, targetRomaji) {
+    typed = (typed || "").trim().toLowerCase().replace(/\s+/g, "");
+    targetRomaji = (targetRomaji || "").trim().toLowerCase().replace(/\s+/g, "");
+    if (!typed || !targetRomaji) return false;
+    if (typed === targetRomaji) return true;
+
+    const aliases = {
+        "shi": ["si", "shi"],
+        "chi": ["ti", "chi"],
+        "tsu": ["tu", "tsu"],
+        "fu": ["hu", "fu"],
+        "ji": ["zi", "ji"],
+        "zi": ["zi", "ji"],
+        "di": ["di", "ji", "dzi"],
+        "du": ["du", "zu", "dzu"],
+        "sha": ["sya", "sha"],
+        "shu": ["syu", "shu"],
+        "sho": ["syo", "sho"],
+        "cha": ["tya", "cha"],
+        "chu": ["tyu", "chu"],
+        "cho": ["tyo", "cho"],
+        "ja": ["zya", "jya", "ja"],
+        "ju": ["zyu", "jyu", "ju"],
+        "jo": ["zyo", "jyo", "jo"],
+        "n": ["n", "nn"],
+        "wo": ["wo", "o"]
+    };
+
+    const validSet = aliases[targetRomaji] || [targetRomaji];
+    return validSet.includes(typed);
+}
+
+function formatKanaPreview(text, currentScript) {
+    if (!text || currentScript !== "katakana") return text;
+    return text.replace(/[\u3041-\u3096]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) + 0x60));
+}
+
+const MiraiWeakKana = window.MiraiWeakKana || {
+    getAll() {
+        try {
+            const raw = localStorage.getItem("mirai_weak_kana");
+            if (!raw) return {};
+            const parsed = JSON.parse(raw);
+            return typeof parsed === "object" && parsed !== null ? parsed : {};
+        } catch (e) {
+            return {};
+        }
+    },
+    recordMistake(character, romaji = "", scriptType = "hiragana") {
+        if (!character) return;
+        try {
+            const data = this.getAll();
+            if (!data[character]) {
+                data[character] = {
+                    character,
+                    romaji: romaji || "",
+                    script: scriptType,
+                    count: 1,
+                    lastMistake: Date.now()
+                };
+            } else {
+                data[character].count = (data[character].count || 1) + 1;
+                data[character].lastMistake = Date.now();
+                if (romaji) data[character].romaji = romaji;
+                if (scriptType) data[character].script = scriptType;
+            }
+            localStorage.setItem("mirai_weak_kana", JSON.stringify(data));
+        } catch (e) {
+            console.warn("Gagal menyimpan mirai_weak_kana:", e);
+        }
+    },
+    recordCorrect(character) {
+        if (!character) return;
+        try {
+            const data = this.getAll();
+            if (data[character]) {
+                data[character].count = (data[character].count || 1) - 1;
+                if (data[character].count <= 0) {
+                    delete data[character];
+                }
+                localStorage.setItem("mirai_weak_kana", JSON.stringify(data));
+            }
+        } catch (e) {}
+    },
+    getList(scriptType = null) {
+        const all = this.getAll();
+        const list = Object.values(all);
+        if (!scriptType) return list;
+        return list.filter((item) => !item.script || item.script === scriptType);
+    },
+    getCharacters(scriptType = null) {
+        return this.getList(scriptType).map((item) => item.character);
+    },
+    clear() {
+        try {
+            localStorage.removeItem("mirai_weak_kana");
+        } catch (e) {}
+    }
+};
+window.MiraiWeakKana = MiraiWeakKana;
+
 function buildNormalQuestion(pool, previous, fullPool = pool) {
     const validPool = pool.filter((item) => item && item.character && item.romaji);
     const sourcePool = validPool.length ? validPool : fullPool;
@@ -565,6 +752,7 @@ function buildNormalQuestion(pool, previous, fullPool = pool) {
     const answer = (candidates.length ? candidates : sourcePool)[
         Math.floor(Math.random() * (candidates.length || sourcePool.length))
     ];
+
     const kinds = ["kana", "romaji", "understand"];
     const kind = kinds[Math.floor(Math.random() * kinds.length)];
 
@@ -731,10 +919,10 @@ function buildStrokeQuestion(pool, scriptType = "hiragana", previous = null) {
     };
 }
 
-function buildPracticeQuestions(levels, pool, scriptType = "hiragana", fullPool = pool) {
+function buildPracticeQuestions(levels, pool, scriptType = "hiragana", fullPool = pool, isWeakMode = false) {
     const strokeDataMap = window.MIRAI_STROKE_DATA || {};
 
-    // 10 Soal pilihan ganda normal (kana -> romaji, romaji -> kana) murni dari pool level terpilih
+    // 10 Soal latihan mandiri: variasi pilihan ganda aksara & romaji
     const standardQuestions = [];
     while (standardQuestions.length < 10) {
         standardQuestions.push(buildNormalQuestion(pool, standardQuestions.at(-1), fullPool));
@@ -745,7 +933,6 @@ function buildPracticeQuestions(levels, pool, scriptType = "hiragana", fullPool 
     const validStrokeItems = pool.filter((item) => item && item.character && strokeDataMap[item.character] && strokeDataMap[item.character].paths?.length);
 
     if (validStrokeItems.length > 0) {
-        // Ambil karakter unik dari validStrokeItems terlebih dahulu, lalu siklus jika kurang dari 5
         const shuffledStrokeItems = shuffle([...validStrokeItems]);
         let pickIndex = 0;
         while (strokeQuestions.length < 5) {
@@ -763,19 +950,19 @@ function buildPracticeQuestions(levels, pool, scriptType = "hiragana", fullPool 
             });
         }
     } else {
-        // Fallback jika level terpilih tidak memiliki data stroke (misal level kombinasi), gunakan soal normal dari pool level tersebut
+        // Fallback jika tidak memiliki data goresan, gunakan soal pilihan ganda
         while (strokeQuestions.length < 5) {
             strokeQuestions.push(buildNormalQuestion(pool, strokeQuestions.at(-1), fullPool));
         }
     }
 
-    // Gabungkan 10 soal normal + 5 soal goresan dan acak posisinya (random, bukan selang-seling tetap)
+    // Gabungkan 10 soal pilihan ganda + 5 soal goresan dan acak posisinya
     const firstPart = shuffle([...standardQuestions, ...strokeQuestions]);
 
     const wordQuestions = buildWordQuestions(scriptType, levels);
     const matchQuestion = buildMatchQuestion(scriptType, levels);
 
-    // Total 20 soal: 15 soal kana acak (10 pilihan ganda + 5 goresan) + 4 kosakata + 1 pasangkan kata
+    // Total 20 soal: 15 soal kana acak + 4 kosakata + 1 pasangkan kata
     return [...firstPart, ...wordQuestions, matchQuestion];
 }
 
@@ -834,22 +1021,26 @@ function initKanaQuest() {
         }
 
         const userLevel = Math.floor(saved.xp / 1000) + 1;
-        $("[data-user-level]").textContent = userLevel;
-        $("[data-total-xp]").textContent = saved.xp;
-        $("[data-level-xp]").textContent = saved.xp % 1000;
-        $("[data-xp-bar]").style.width = `${(saved.xp % 1000) / 10}%`;
-        $("[data-streak]").textContent = saved.streak;
-        $("[data-review-count]").textContent = saved.review.length;
-        $("[data-script-title]").innerHTML = `${script[0].toUpperCase() + script.slice(1)} <span>${script === "hiragana" ? "ひらがな" : "カタカナ"}</span>`;
+        const userLevelEl = $("[data-user-level]");
+        if (userLevelEl) userLevelEl.textContent = userLevel;
+        const totalXpEl = $("[data-total-xp]");
+        if (totalXpEl) totalXpEl.textContent = saved.xp;
+        const levelXpEl = $("[data-level-xp]");
+        if (levelXpEl) levelXpEl.textContent = saved.xp % 1000;
+        const xpBarEl = $("[data-xp-bar]");
+        if (xpBarEl) xpBarEl.style.width = `${(saved.xp % 1000) / 10}%`;
+        const streakEl = $("[data-streak]");
+        if (streakEl) streakEl.textContent = saved.streak;
+        const reviewCountEl = $("[data-review-count]");
+        if (reviewCountEl) reviewCountEl.textContent = saved.review.length;
+        const scriptTitleEl = $("[data-script-title]");
+        if (scriptTitleEl) scriptTitleEl.innerHTML = `${script[0].toUpperCase() + script.slice(1)} <span>${script === "hiragana" ? "ひらがな" : "カタカナ"}</span>`;
 
         const progress = Math.round((saved[script].unlocked - 1) / (totalLevels - 1) * 100);
-        $("[data-script-progress]").textContent = `${progress}%`;
-        $("[data-script-progress-bar]").style.width = `${progress}%`;
-
-        const levelGrid = $("[data-level-grid]");
-        if (levelGrid) {
-            levelGrid.dataset.script = script;
-        }
+        const scriptProgEl = $("[data-script-progress]");
+        if (scriptProgEl) scriptProgEl.textContent = `${progress}%`;
+        const scriptProgBarEl = $("[data-script-progress-bar]");
+        if (scriptProgBarEl) scriptProgBarEl.style.width = `${progress}%`;
 
         const scriptLabel = script === "katakana" ? "Katakana" : "Hiragana";
         const scriptBadges = $("[data-script-badges]");
@@ -864,44 +1055,81 @@ function initKanaQuest() {
             `;
         }
 
-        $("[data-level-grid]").innerHTML = allLevels.map((level) => {
-            const unlocked = level.id <= saved[script].unlocked || saved[script].completed.includes(level.id);
-            const completed = saved[script].completed.includes(level.id);
+        const levelGrid = $("[data-level-grid]");
+        if (levelGrid) {
+            levelGrid.dataset.script = script;
+            levelGrid.innerHTML = allLevels.map((level) => {
+                const unlocked = level.id <= saved[script].unlocked || saved[script].completed.includes(level.id);
+                const completed = saved[script].completed.includes(level.id);
 
-            return `
-                <article class="level-card level-card--${script} ${unlocked ? "is-unlocked" : "is-locked"} ${completed ? "is-completed" : ""}" data-script="${script}">
-                    <div class="level-card-top">
-                        <span>${completed ? "✓ Completed" : unlocked ? "🔓 Unlocked" : "🔒 Locked"}</span>
-                        <b>LV ${level.id}</b>
-                    </div>
-                    <h3>${level.label}</h3>
-                    <strong>${displayChars(level.chars)}</strong>
-                    <button class="start-level" data-level="${level.id}" ${unlocked ? "" : "disabled"}>
-                        ${completed ? "Latih Lagi →" : "Mulai Latihan →"}
-                    </button>
-                </article>
-            `;
-        }).join("");
+                return `
+                    <article class="level-card level-card--${script} ${unlocked ? "is-unlocked" : "is-locked"} ${completed ? "is-completed" : ""}" data-script="${script}">
+                        <div class="level-card-top">
+                            <span>${completed ? "✓ Completed" : unlocked ? "🔓 Unlocked" : "🔒 Locked"}</span>
+                            <b>LV ${level.id}</b>
+                        </div>
+                        <h3>${level.label}</h3>
+                        <strong>${displayChars(level.chars)}</strong>
+                        <button class="start-level" data-level="${level.id}" ${unlocked ? "" : "disabled"}>
+                            ${completed ? "Latih Lagi →" : "Mulai Latihan →"}
+                        </button>
+                    </article>
+                `;
+            }).join("");
 
-        $("[data-level-grid]").querySelectorAll("[data-level]").forEach((button) => {
-            button.addEventListener("click", () => startPractice([Number(button.dataset.level)]));
-        });
+            levelGrid.querySelectorAll("[data-level]").forEach((button) => {
+                button.addEventListener("click", () => startPractice([Number(button.dataset.level)]));
+            });
+        }
 
         renderModes();
     };
 
     function renderModes() {
+        const weakKanaItems = (window.MiraiWeakKana ? window.MiraiWeakKana.getList(script) : []);
+        const weakKanaChars = weakKanaItems.map((item) => item.character);
+        const weakPreviewText = weakKanaChars.length > 0
+            ? `${weakKanaChars.slice(0, 4).join("・")}${weakKanaChars.length > 4 ? ` (+${weakKanaChars.length - 4})` : ` (${weakKanaChars.length} Huruf)`}`
+            : "✨ Belum ada huruf salah";
+
         const modes = [
-            { label: "LV 1–2", levels: [1, 2] },
-            { label: "LV 1–3", levels: [1, 2, 3] },
-            { label: "LV 1–5", levels: [1, 2, 3, 4, 5] },
-            { label: "LV 1–10", levels: Array.from({ length: rows.length }, (_, index) => index + 1) },
-            { label: "LV 6–10", levels: [6, 7, 8, 9, 10] },
-            { label: `Basic ${script}`, levels: Array.from({ length: rows.length }, (_, index) => index + 1) },
-            { label: "Dakuten & Handakuten", levels: Array.from({ length: voiced.length }, (_, index) => rows.length + index + 1) },
-            { label: "Yōon lengkap", levels: Array.from({ length: combos.length }, (_, index) => yoonStartLevel + index) },
-            { label: "SEMUA MATERI", levels: allLevelIds },
-            { label: "RANDOM CHALLENGE", levels: allLevelIds.filter((level) => level <= saved[script].unlocked) }
+            { label: "LV 1–2", levels: [1, 2], preview: "あ・か (a–ko)" },
+            { label: "LV 1–3", levels: [1, 2, 3], preview: "あ〜そ (a–so)" },
+            { label: "LV 1–5", levels: [1, 2, 3, 4, 5], preview: "あ〜の (a–no)" },
+            { label: "LV 1–10", levels: Array.from({ length: rows.length }, (_, index) => index + 1), preview: "あ〜ん (Semua 46 Huruf)" },
+            { label: "LV 6–10", levels: [6, 7, 8, 9, 10], preview: "は〜ん (ha–n)" },
+            { label: `Basic ${script}`, levels: Array.from({ length: rows.length }, (_, index) => index + 1), preview: "あ〜ん (Seion Dasar)" },
+            { label: "Dakuten & Handakuten", levels: Array.from({ length: voiced.length }, (_, index) => rows.length + index + 1), preview: "が・ざ・だ・ば・ぱ" },
+            { label: "Yōon lengkap", levels: Array.from({ length: combos.length }, (_, index) => yoonStartLevel + index), preview: "きゃ・しゅ・ちょ" },
+            { label: "SEMUA MATERI", levels: allLevelIds, preview: "あ〜ん・が〜ぱ・きゃ〜ぴょ" },
+            { label: "RANDOM CHALLENGE", levels: allLevelIds.filter((level) => level <= saved[script].unlocked), preview: "🎲 Acak Seluruh Materi" },
+            {
+                id: "weak",
+                label: "🔥 Fokus Perbaikan (Huruf Sering Salah)",
+                isWeakMode: true,
+                levels: allLevelIds,
+                icon: "🔥",
+                preview: weakPreviewText,
+                subText: weakKanaChars.length > 0 ? `${weakKanaChars.length} huruf sering salah` : "Evaluasi huruf yang sering salah"
+            },
+            {
+                id: "time_attack",
+                label: "⚡ Time Attack 60 Detik",
+                isTimeAttackMode: true,
+                levels: allLevelIds,
+                icon: "⚡",
+                preview: "⚡ Refleks Cepat (Combo)",
+                subText: "Dojo Refleks • 60 detik"
+            },
+            {
+                id: "bunpou",
+                label: "🧩 Susun Kalimat (Partikel & Bunpou)",
+                isBunpouMode: true,
+                levels: allLevelIds,
+                icon: "🧩",
+                preview: "わたし・は・が・を・です",
+                subText: "10 Soal • Struktur N5"
+            }
         ];
 
         const mixSection = document.querySelector(".mix-section");
@@ -915,25 +1143,134 @@ function initKanaQuest() {
         }
 
         $("[data-mode-grid]").innerHTML = modes.map((mode, index) => {
+            const previewText = mode.isWeakMode ? mode.preview : formatKanaPreview(mode.preview, script);
+            let scoreText = "";
+
+            if (mode.isTimeAttackMode) {
+                const taSaved = localStorage.getItem(`mirai_time_attack_best_${script}`) || localStorage.getItem("mirai_time_attack_best");
+                if (taSaved !== null && taSaved !== "" && !isNaN(taSaved)) {
+                    scoreText = `🏆 Rekor: ${parseInt(taSaved, 10)} Pts`;
+                }
+            } else if (mode.isBunpouMode) {
+                const bpSaved = localStorage.getItem("mirai_mode_best_bunpou");
+                if (bpSaved !== null && bpSaved !== "" && !isNaN(bpSaved)) {
+                    scoreText = `🏆 Skor Terbaik: ${parseInt(bpSaved, 10)}%`;
+                }
+            } else {
+                const storageKey = `mirai_mode_best_${script}_${mode.id || index}`;
+                const savedScore = localStorage.getItem(storageKey);
+                if (savedScore !== null && savedScore !== "" && !isNaN(savedScore)) {
+                    scoreText = `🏆 Skor Terbaik: ${parseInt(savedScore, 10)}%`;
+                }
+            }
+
+            const icon = mode.icon || (index === 9 ? "✦" : "→");
+            const extraClass = mode.isWeakMode ? "mode-card--weak" : mode.isTimeAttackMode ? "mode-card--time-attack" : mode.isBunpouMode ? "mode-card--bunpou" : "";
+
             return `
-                <button class="mode-card mode-card--${script}" data-mode="${index}" data-script="${script}">
-                    <b>${index === 9 ? "✦" : "→"}</b>
+                <button class="mode-card mode-card--${script} ${extraClass}" data-mode="${index}" data-script="${script}">
+                    ${scoreText ? `<span class="mode-best-score ${mode.isTimeAttackMode ? "is-ta-score" : ""}">${scoreText}</span>` : ""}
+                    <b>${icon}</b>
                     <span>${mode.label}</span>
-                    <small>20 soal • campuran</small>
+                    <span class="mode-kana-preview">${previewText}</span>
+                    <small>${mode.subText || "20 soal • campuran"}</small>
                 </button>
             `;
         }).join("");
 
         $("[data-mode-grid]").querySelectorAll("[data-mode]").forEach((button) => {
             button.addEventListener("click", () => {
-                startPractice(modes[Number(button.dataset.mode)].levels);
+                const modeIdx = Number(button.dataset.mode);
+                const mode = modes[modeIdx];
+                if (!mode) return;
+
+                if (mode.isTimeAttackMode) {
+                    startTimeAttack();
+                    return;
+                }
+
+                if (mode.isBunpouMode) {
+                    startBunpouPuzzle();
+                    return;
+                }
+
+                const modeKey = `mirai_mode_best_${script}_${mode.id || modeIdx}`;
+
+                if (mode.isWeakMode) {
+                    const weakItems = (window.MiraiWeakKana ? window.MiraiWeakKana.getList(script) : []);
+                    const weakChars = weakItems.map((item) => item.character);
+                    if (weakChars.length === 0) {
+                        alert(`Hebat! Belum ada huruf ${script === "katakana" ? "Katakana" : "Hiragana"} yang sering salah dijawab. Mari latihan campuran LV 1–2 untuk pemanasan!`);
+                        startPractice([1, 2], null, modeKey, false);
+                        return;
+                    }
+
+                    const weakPool = data[script].filter((item) => weakChars.includes(item.character));
+                    startPractice(allLevelIds, weakPool, modeKey, true);
+                    return;
+                }
+
+                startPractice(mode.levels, null, modeKey, false);
             });
         });
+        updateHomeRetryButton();
     }
 
-    function startPractice(levels) {
-        const unlockedLevels = levels.filter((level) => (level <= saved[script].unlocked || saved[script].completed.includes(level)) && level <= totalLevels);
-        const pool = data[script].filter((item) => unlockedLevels.includes(item.level));
+    function startRetrySession(questions) {
+        if (!questions || !questions.length) return;
+        currentSession = {
+            levels: [1],
+            pool: [],
+            questions: JSON.parse(JSON.stringify(questions)),
+            index: 0,
+            results: [],
+            started: Date.now(),
+            best: 0,
+            streak: 0,
+            modeKey: null,
+            isWeakMode: true
+        };
+        const resView = $("[data-result-view]");
+        if (resView) resView.hidden = true;
+        const pracView = $("[data-practice-view]");
+        if (pracView) pracView.hidden = false;
+        document.body.classList.add("is-practicing");
+        renderQuestion();
+    }
+
+    function updateHomeRetryButton() {
+        const homeRetryBtn = $("[data-home-retry-wrong]");
+        if (!homeRetryBtn) return;
+        try {
+            const raw = localStorage.getItem("mirai_wrong_questions");
+            const list = raw ? JSON.parse(raw) : [];
+            if (Array.isArray(list) && list.length > 0) {
+                homeRetryBtn.hidden = false;
+                const countEl = homeRetryBtn.querySelector("[data-wrong-count]");
+                if (countEl) countEl.textContent = list.length;
+                homeRetryBtn.onclick = () => {
+                    startRetrySession(list);
+                };
+            } else {
+                homeRetryBtn.hidden = true;
+            }
+        } catch (e) {
+            homeRetryBtn.hidden = true;
+        }
+    }
+
+    function startPractice(levels, customPool = null, modeKey = null, isWeakMode = false) {
+        let pool = [];
+        if (customPool && customPool.length > 0) {
+            pool = customPool;
+            if (pool.length < 3) {
+                const extras = data[script].filter((item) => !pool.some((p) => p.character === item.character));
+                pool = [...pool, ...extras.slice(0, 5 - pool.length)];
+            }
+        } else {
+            const unlockedLevels = levels.filter((level) => (level <= saved[script].unlocked || saved[script].completed.includes(level)) && level <= totalLevels);
+            pool = data[script].filter((item) => unlockedLevels.includes(item.level));
+        }
 
         if (pool.length < 3) {
             return;
@@ -942,7 +1279,165 @@ function initKanaQuest() {
         currentSession = {
             levels,
             pool,
-            questions: buildPracticeQuestions(levels, pool, script, data[script]),
+            questions: buildPracticeQuestions(levels, pool, script, data[script], isWeakMode),
+            index: 0,
+            results: [],
+            matchMistakes: [],
+            streak: 0,
+            best: 0,
+            started: Date.now(),
+            modeKey: modeKey || null,
+            isWeakMode: !!isWeakMode
+        };
+
+        const practiceView = $("[data-practice-view]");
+        if (practiceView) {
+            practiceView.hidden = false;
+            practiceView.scrollTop = 0;
+        }
+        document.body.classList.add("is-practicing");
+        document.body.classList.remove("is-time-attack-mode");
+
+        const scoreBadge = $("[data-ta-score-badge]");
+        const comboBadge = $("[data-ta-combo-badge]");
+        if (scoreBadge) scoreBadge.hidden = true;
+        if (comboBadge) comboBadge.hidden = true;
+
+        renderQuestion();
+    }
+
+    function startTimeAttack() {
+        const modeKey = `mirai_time_attack_best_${script}`;
+        const pool = data[script].length ? data[script] : makeKana(script);
+
+        const generateBatch = (count = 25) => {
+            const batch = [];
+            while (batch.length < count) {
+                batch.push(buildNormalQuestion(pool, batch.at(-1), pool, false));
+            }
+            return batch;
+        };
+
+        currentSession = {
+            mode: "time_attack",
+            isTimeAttack: true,
+            modeKey,
+            levels: allLevelIds,
+            pool,
+            questions: generateBatch(35),
+            index: 0,
+            results: [],
+            matchMistakes: [],
+            streak: 0,
+            best: 0,
+            score: 0,
+            combo: 1,
+            maxCombo: 1,
+            secondsLeft: 60,
+            started: Date.now()
+        };
+
+        const practiceView = $("[data-practice-view]");
+        if (practiceView) {
+            practiceView.hidden = false;
+            practiceView.scrollTop = 0;
+        }
+        document.body.classList.add("is-practicing");
+        document.body.classList.add("is-time-attack-mode");
+
+        const scoreBadge = $("[data-ta-score-badge]");
+        const comboBadge = $("[data-ta-combo-badge]");
+        if (scoreBadge) scoreBadge.hidden = false;
+        if (comboBadge) comboBadge.hidden = false;
+        const scoreEl = $("[data-ta-score]");
+        const comboEl = $("[data-ta-combo]");
+        if (scoreEl) scoreEl.textContent = "0";
+        if (comboEl) comboEl.textContent = "x1";
+
+        const timerEl = $("[data-timer]");
+        if (timerEl) {
+            timerEl.textContent = "60s";
+            timerEl.classList.remove("is-timer-low");
+        }
+
+        renderQuestion();
+    }
+
+    function finishTimeAttack() {
+        if (!currentSession || !currentSession.isTimeAttack) return;
+
+        const finalScore = currentSession.score;
+        const modeKey = currentSession.modeKey || `mirai_time_attack_best_${script}`;
+        const prevBest = parseInt(localStorage.getItem(modeKey) || "0", 10);
+        const isNewRecord = finalScore > prevBest;
+
+        if (isNewRecord) {
+            localStorage.setItem(modeKey, String(finalScore));
+            localStorage.setItem("mirai_time_attack_best", String(finalScore));
+        }
+
+        $("[data-practice-view]").hidden = true;
+        document.body.classList.remove("is-practicing");
+        document.body.classList.remove("is-time-attack-mode");
+
+        const scoreBadge = $("[data-ta-score-badge]");
+        const comboBadge = $("[data-ta-combo-badge]");
+        if (scoreBadge) scoreBadge.hidden = true;
+        if (comboBadge) comboBadge.hidden = true;
+
+        const resultView = $("[data-result-view]");
+        if (resultView) {
+            resultView.hidden = false;
+            resultView.scrollTop = 0;
+        }
+
+        const correctCount = currentSession.results.filter((r) => r.state === "is-correct").length;
+        const wrongCount = currentSession.results.filter((r) => r.state === "is-wrong").length;
+
+        const heading = resultView ? resultView.querySelector("h2") : null;
+        if (heading) {
+            heading.innerHTML = `⚡ Dojo Refleks Selesai! ${isNewRecord ? "<span class='new-record-pill'>🏆 Rekor Baru!</span>" : ""}`;
+        }
+
+        const accEl = $("[data-result-accuracy]");
+        if (accEl) {
+            accEl.textContent = `${finalScore} PTS`;
+            const accLabel = accEl.nextElementSibling;
+            if (accLabel) accLabel.textContent = "Total Poin";
+        }
+
+        $("[data-result-correct]").textContent = correctCount;
+        $("[data-result-wrong]").textContent = wrongCount;
+        $("[data-result-time]").textContent = "60s+";
+        $("[data-result-streak]").textContent = `Combo Tertinggi: x${currentSession.maxCombo || 1} • Rekor Dojo: ${Math.max(finalScore, prevBest)} PTS`;
+
+        const reviewBtn = $("[data-review-result]");
+        if (reviewBtn) reviewBtn.style.display = "none";
+        const mistakeContainer = $("[data-mistake-list]");
+        if (mistakeContainer) mistakeContainer.innerHTML = "";
+
+        renderDashboard();
+    }
+
+    function startBunpouPuzzle() {
+        const sentences = window.BunpouData?.sentences || bunpouFallbackBank;
+        const selected = shuffle([...sentences]).slice(0, 10);
+
+        currentSession = {
+            mode: "bunpou",
+            isBunpou: true,
+            modeKey: "mirai_mode_best_bunpou",
+            levels: allLevelIds,
+            pool: [],
+            questions: selected.map((s, i) => ({
+                type: "bunpou",
+                index: i,
+                meaning: s.meaning,
+                romaji: s.romaji,
+                target: s.target,
+                tokens: s.tokens,
+                shuffledTokens: shuffle([...s.tokens])
+            })),
             index: 0,
             results: [],
             matchMistakes: [],
@@ -957,8 +1452,121 @@ function initKanaQuest() {
             practiceView.scrollTop = 0;
         }
         document.body.classList.add("is-practicing");
+        document.body.classList.remove("is-time-attack-mode");
+
+        const scoreBadge = $("[data-ta-score-badge]");
+        const comboBadge = $("[data-ta-combo-badge]");
+        if (scoreBadge) scoreBadge.hidden = true;
+        if (comboBadge) comboBadge.hidden = true;
+
         renderQuestion();
     }
+
+    function startChoukaiGame() {
+        const pool = data[script].length ? data[script] : makeKana(script);
+        const shuffledPool = shuffle([...pool]);
+        const selected = shuffledPool.slice(0, 15);
+
+        const questions = selected.map((item) => {
+            const distractors = shuffle(
+                pool.filter((c) => c.character !== item.character)
+            ).slice(0, 3);
+            return {
+                type: "choukai",
+                answer: item,
+                choices: shuffle([item, ...distractors])
+            };
+        });
+
+        currentSession = {
+            mode: "choukai",
+            isChoukai: true,
+            modeKey: `mirai_choukai_best_${script}`,
+            levels: allLevelIds,
+            pool,
+            questions,
+            index: 0,
+            results: [],
+            matchMistakes: [],
+            streak: 0,
+            best: 0,
+            started: Date.now()
+        };
+
+        const practiceView = $("[data-practice-view]");
+        if (practiceView) {
+            practiceView.hidden = false;
+            practiceView.scrollTop = 0;
+        }
+        document.body.classList.add("is-practicing");
+        document.body.classList.remove("is-time-attack-mode");
+
+        const scoreBadge = $("[data-ta-score-badge]");
+        const comboBadge = $("[data-ta-combo-badge]");
+        if (scoreBadge) scoreBadge.hidden = true;
+        if (comboBadge) comboBadge.hidden = true;
+
+        renderQuestion();
+    }
+
+    function startMemoryGame() {
+        const pool = data[script].length ? data[script] : makeKana(script);
+        const selectedChars = shuffle([...pool]).slice(0, 6);
+
+        // Buat 12 kartu: 6 Aksara Kana + 6 Romaji
+        const cards = [];
+        selectedChars.forEach((item) => {
+            cards.push({
+                pairId: item.character,
+                side: "kana",
+                text: item.character,
+                romaji: item.romaji
+            });
+            cards.push({
+                pairId: item.character,
+                side: "romaji",
+                text: item.romaji,
+                romaji: item.romaji
+            });
+        });
+
+        const shuffledCards = shuffle(cards);
+
+        currentSession = {
+            mode: "memory",
+            isMemory: true,
+            modeKey: "mirai_memory_best",
+            levels: allLevelIds,
+            pool,
+            cards: shuffledCards,
+            totalPairs: 6,
+            matchedPairs: 0,
+            attempts: 0,
+            questions: [{ type: "memory" }],
+            index: 0,
+            results: [],
+            matchMistakes: [],
+            streak: 0,
+            best: 0,
+            started: Date.now()
+        };
+
+        const practiceView = $("[data-practice-view]");
+        if (practiceView) {
+            practiceView.hidden = false;
+            practiceView.scrollTop = 0;
+        }
+        document.body.classList.add("is-practicing");
+        document.body.classList.remove("is-time-attack-mode");
+
+        const scoreBadge = $("[data-ta-score-badge]");
+        const comboBadge = $("[data-ta-combo-badge]");
+        if (scoreBadge) scoreBadge.hidden = true;
+        if (comboBadge) comboBadge.hidden = true;
+
+        renderQuestion();
+    }
+
 
     function playStrokeChime(isFinal) {
         try {
@@ -1027,9 +1635,24 @@ function initKanaQuest() {
         const char = question.answer.character;
         const romaji = question.answer.romaji;
         const strokeRecord = question.strokeData || (window.MIRAI_STROKE_DATA && window.MIRAI_STROKE_DATA[char]);
-        const paths = (strokeRecord && strokeRecord.paths && strokeRecord.paths.length)
+        const paths = (strokeRecord && Array.isArray(strokeRecord.paths) && strokeRecord.paths.length)
             ? strokeRecord.paths
-            : ["M30,30 L79,30", "M55,18 L55,90"];
+            : null;
+
+        if (!paths) {
+            $("[data-answer-grid]").innerHTML = `
+                <div class="stroke-practice-board" style="padding: 28px 16px; text-align: center;">
+                    <div style="font-size: 54px; margin-bottom: 8px; color: var(--pink);">${char}</div>
+                    <p style="font-weight: 700; margin: 0 0 6px; color: var(--ink);">Data Goresan Belum Tersedia</p>
+                    <p style="font-size: 13px; color: var(--muted); margin: 0 0 16px;">Vektor urutan goresan interaktif belum tersedia untuk karakter ini.</p>
+                    <button class="btn btn-outline" type="button" data-skip-stroke-btn style="margin: 0 auto;">Lewati Soal Ini →</button>
+                </div>
+            `;
+            $("[data-skip-stroke-btn]")?.addEventListener("click", () => {
+                checkAnswer(null, true);
+            });
+            return;
+        }
         const totalStrokes = paths.length;
 
         let currentStep = 0;
@@ -1295,6 +1918,13 @@ function initKanaQuest() {
                 setTimeout(() => wrapper.classList.remove("is-shaking"), 460);
             }
 
+            if (window.MiraiWeakKana && question.answer?.character) {
+                window.MiraiWeakKana.recordMistake(question.answer.character, question.answer.romaji, script);
+            }
+            if (window.MiraiSound) {
+                window.MiraiSound.play("wrong");
+            }
+
             // KETIKA SALAH: Tampilkan garis panduan dan penanda titik awal yang benar!
             const startPt = currentSampled.points[0];
             if (guideGroup) {
@@ -1376,7 +2006,17 @@ function initKanaQuest() {
     function renderQuestion() {
         const question = currentSession.questions[currentSession.index];
 
-        $("[data-practice-label]").textContent = `${script[0].toUpperCase() + script.slice(1)} • ${question.type === "match-table" ? "PASANGKAN KATA" : question.type === "word" ? "KOSAKATA" : question.type === "stroke" ? "TULIS GORESAN" : question.answer?.category || "KANA"}`;
+        if (currentSession.isTimeAttack) {
+            $("[data-practice-label]").textContent = `⚡ TIME ATTACK • 60 DETIK`;
+        } else if (question.type === "bunpou") {
+            $("[data-practice-label]").textContent = "BUNPOU • SUSUN KALIMAT N5";
+        } else if (question.type === "choukai") {
+            $("[data-practice-label]").textContent = "CHOUKAI • TEBAK SUARA KILAT";
+        } else if (question.type === "memory") {
+            $("[data-practice-label]").textContent = "MEMORY FLIP • PASANGAN KARTU";
+        } else {
+            $("[data-practice-label]").textContent = `${script[0].toUpperCase() + script.slice(1)} • ${question.type === "match-table" ? "PASANGKAN KATA" : question.type === "word" ? "KOSAKATA" : question.type === "stroke" ? "TULIS GORESAN" : question.answer?.category || "KANA"}`;
+        }
         $("[data-question-total]").textContent = currentSession.questions.length;
         $("[data-question-number]").textContent = currentSession.index + 1;
         $("[data-question-progress]").style.width = `${(currentSession.index / currentSession.questions.length) * 100}%`;
@@ -1384,14 +2024,392 @@ function initKanaQuest() {
             const itemState = currentSession.results[index]
                 ? currentSession.results[index].state
                 : index === currentSession.index ? "is-current" : "";
-            return `<i class="${itemState}"></i>`;
+            return `<i class="${itemState}" data-dot-index="${index}" title="Soal ${index + 1}"></i>`;
         }).join("");
+
+        $("[data-question-dots]").querySelectorAll("[data-dot-index]").forEach((dot) => {
+            dot.addEventListener("click", () => jumpToQuestion(Number(dot.dataset.dotIndex)));
+        });
+
+        // Perbarui tombol navigasi Sebelumnya & Selanjutnya
+        const prevBtn = $("[data-nav-prev]");
+        if (prevBtn) {
+            prevBtn.disabled = currentSession.index <= 0;
+        }
+
+        const nextBtn = $("[data-nav-next]");
+        if (nextBtn) {
+            const isLast = currentSession.index >= currentSession.questions.length - 1;
+            nextBtn.innerHTML = isLast
+                ? `Selesai <b style="font-size:1.1em; margin-left:3px;">✓</b>`
+                : `Selanjutnya <span class="nav-arrow">→</span>`;
+        }
+
+        // Perbarui badge nomor soal di pojok kanan
+        const paletteCount = $("[data-palette-count]");
+        if (paletteCount) {
+            paletteCount.textContent = `${currentSession.index + 1}/${currentSession.questions.length}`;
+        }
 
         $("[data-audio]").hidden = true;
         $("[data-answer-grid]").innerHTML = "";
         $("[data-feedback]").hidden = true;
 
         const defaultSub = document.querySelector(".question-card > p");
+
+                if (question.type === "choukai") {
+            $("[data-practice-label]").textContent = "CHOUKAI • TEBAK SUARA KILAT";
+            $("[data-question-kind]").textContent = "TEBAK SUARA AKSARA JEPANG";
+            $("[data-answer-grid]").classList.remove("is-match-grid");
+            $("[data-answer-grid]").style.cssText = "display: grid !important; grid-template-columns: repeat(2, 1fr) !important; gap: 14px !important; width: 100% !important; max-width: 520px !important; margin: 0 auto !important;";
+
+            if (defaultSub) {
+                defaultSub.hidden = false;
+                defaultSub.textContent = "Dengarkan audio lalu pilih aksara Jepang yang tepat:";
+            }
+
+            // Putar audio secara otomatis saat soal muncul
+            setTimeout(() => {
+                if (window.speakJapanese) {
+                    window.speakJapanese(question.answer.character);
+                }
+            }, 100);
+
+            $("[data-question-prompt]").innerHTML = `
+                <div class="choukai-audio-center">
+                    <button type="button" class="choukai-replay-btn" data-choukai-replay aria-label="Putar ulang suara">
+                        <span class="choukai-speaker-icon">🔊</span>
+                        <span class="choukai-btn-text">Putar Ulang Suara</span>
+                    </button>
+                    <span class="choukai-hint-text">Ketuk tombol jika suara belum terdengar</span>
+                </div>
+            `;
+
+            const replayBtn = $("[data-choukai-replay]");
+            if (replayBtn) {
+                replayBtn.addEventListener("click", () => {
+                    if (window.speakJapanese) {
+                        window.speakJapanese(question.answer.character);
+                    }
+                    replayBtn.classList.add("is-playing");
+                    setTimeout(() => replayBtn.classList.remove("is-playing"), 400);
+                });
+            }
+
+            // Tampilkan 4 pilihan aksara Jepang MURNI tanpa bocoran Romaji
+            $("[data-answer-grid]").innerHTML = question.choices.map((choice) => `
+                <button class="choukai-choice-btn" data-answer="${choice.character}">
+                    <span class="choukai-char">${choice.character}</span>
+                </button>
+            `).join("");
+
+            $("[data-answer-grid]").querySelectorAll("button").forEach((button) => {
+                button.addEventListener("click", () => answerQuestion(button.dataset.answer));
+            });
+
+            const existingResult = currentSession.results[currentSession.index];
+            if (existingResult) {
+                const feedback = $("[data-feedback]");
+                if (existingResult.state === "is-correct") {
+                    feedback.hidden = false;
+                    feedback.className = "feedback is-good";
+                    feedback.innerHTML = `<strong>Tepat Sekali! 🎉</strong><span>Aksara <b>${question.answer.character}</b> dibaca “<b>${question.answer.romaji}</b>”</span>`;
+                    $("[data-answer-grid]").querySelectorAll("button").forEach((btn) => {
+                        btn.disabled = true;
+                        if (btn.dataset.answer === question.answer.character) btn.classList.add("is-answer");
+                    });
+                }
+            }
+            return;
+        }
+
+        if (question.type === "memory") {
+            $("[data-practice-label]").textContent = "MEMORY FLIP • PASANGAN KARTU";
+            $("[data-question-kind]").textContent = "COCOKKAN 12 KARTU TERTUTUP (6 PASANG)";
+            $("[data-answer-grid]").classList.remove("is-match-grid");
+            $("[data-answer-grid]").style.cssText = "display: block !important; width: 100% !important; max-width: 640px !important; margin: 0 auto !important;";
+
+            if (defaultSub) {
+                defaultSub.hidden = false;
+                defaultSub.textContent = "Buka 2 kartu untuk menemukan pasangan Aksara & Bacaan yang cocok:";
+            }
+
+            $("[data-question-prompt]").innerHTML = `
+                <div class="memory-status-wrap">
+                    <span class="memory-pair-count">Pasangan Cocok: <b data-memory-matched>${currentSession.matchedPairs}</b>/6</span>
+                    <span class="memory-flip-count">Percobaan: <b data-memory-flips>${currentSession.attempts}</b></span>
+                </div>
+            `;
+
+            $("[data-answer-grid]").innerHTML = `
+                <div class="memory-board-grid">
+                    ${currentSession.cards.map((card, i) => `
+                        <div class="memory-card" data-card-idx="${i}" data-pair="${card.pairId}">
+                            <div class="memory-card-inner">
+                                <div class="memory-card-back">
+                                    <span class="card-logo-sym">桜</span>
+                                    <span class="card-back-hint">?</span>
+                                </div>
+                                <div class="memory-card-front ${card.side}">
+                                    <span class="memory-card-text">${card.text}</span>
+                                    <small class="memory-card-type">${card.side === "kana" ? "Kana" : "Romaji"}</small>
+                                </div>
+                            </div>
+                        </div>
+                    `).join("")}
+                </div>
+            `;
+
+            let flipped = [];
+            let lockBoard = false;
+            const gridEl = $("[data-answer-grid]");
+
+            gridEl.querySelectorAll(".memory-card").forEach((cardEl) => {
+                cardEl.addEventListener("click", () => {
+                    if (lockBoard || cardEl.classList.contains("is-flipped") || cardEl.classList.contains("is-matched")) {
+                        return;
+                    }
+
+                    cardEl.classList.add("is-flipped");
+                    flipped.push(cardEl);
+                    if (window.MiraiSound) window.MiraiSound.play("click");
+
+                    if (flipped.length === 2) {
+                        currentSession.attempts += 1;
+                        const flipsEl = document.querySelector("[data-memory-flips]");
+                        if (flipsEl) flipsEl.textContent = currentSession.attempts;
+
+                        const [c1, c2] = flipped;
+                        const pair1 = c1.dataset.pair;
+                        const pair2 = c2.dataset.pair;
+
+                        if (pair1 === pair2) {
+                            // MATCH COCOK!
+                            currentSession.matchedPairs += 1;
+                            const matchedEl = document.querySelector("[data-memory-matched]");
+                            if (matchedEl) matchedEl.textContent = currentSession.matchedPairs;
+
+                            c1.classList.add("is-matched");
+                            c2.classList.add("is-matched");
+                            c1.classList.remove("is-flipped");
+                            c2.classList.remove("is-flipped");
+
+                            if (window.MiraiSound) window.MiraiSound.play("success");
+                            if (window.speakJapanese) window.speakJapanese(pair1);
+
+                            const feedback = $("[data-feedback]");
+                            if (feedback) {
+                                feedback.hidden = false;
+                                feedback.className = "feedback is-good";
+                                feedback.innerHTML = `<strong>Cocok! ✨</strong><span>Pasangan aksara <b>${pair1}</b> ditemukan!</span>`;
+                            }
+
+                            flipped = [];
+
+                            if (currentSession.matchedPairs >= currentSession.totalPairs) {
+                                // SEMUA 6 PASANG BERHASIL DITEMUKAN!
+                                try {
+                                    localStorage.setItem("mirai_memory_best_flips", String(currentSession.attempts));
+                                } catch (e) {}
+
+                                setTimeout(() => {
+                                    $("[data-practice-view]").hidden = true;
+                                    document.body.classList.remove("is-practicing");
+                                    const resultView = $("[data-result-view]");
+                                    if (resultView) {
+                                        resultView.hidden = false;
+                                        resultView.scrollTop = 0;
+                                    }
+                                    const heading = resultView ? resultView.querySelector("h2") : null;
+                                    if (heading) heading.innerHTML = "🃏 Memory Flip Selesai! 🎉";
+                                    $("[data-result-accuracy]").textContent = "100%";
+                                    $("[data-result-correct]").textContent = "6 Pasang";
+                                    $("[data-result-wrong]").textContent = `${currentSession.attempts}x Balik`;
+                                    $("[data-result-time]").textContent = formatTime(Date.now() - currentSession.started);
+                                    $("[data-result-streak]").textContent = `Percobaan total: ${currentSession.attempts} kali balik kartu`;
+                                    const reviewBtn = $("[data-review-result]");
+                                    if (reviewBtn) reviewBtn.style.display = "none";
+                                    renderDashboard();
+                                }, 800);
+                            }
+                        } else {
+                            // SALAH!
+                            lockBoard = true;
+                            if (window.MiraiSound) window.MiraiSound.play("wrong");
+                            setTimeout(() => {
+                                c1.classList.remove("is-flipped");
+                                c2.classList.remove("is-flipped");
+                                flipped = [];
+                                lockBoard = false;
+                            }, 850);
+                        }
+                    }
+                });
+            });
+
+            return;
+        }
+
+        if (question.type === "bunpou") {
+            $("[data-answer-grid]").classList.remove("is-match-grid");
+            $("[data-answer-grid]").style.cssText = "display: block !important; width: 100% !important; max-width: 620px !important; margin: 0 auto !important; grid-template-columns: none !important;";
+
+            if (defaultSub) {
+                defaultSub.hidden = false;
+                defaultSub.textContent = "Ketuk kepingan kata di bawah untuk menyusun kalimat yang tepat:";
+            }
+
+            $("[data-question-kind]").textContent = "SUSUN KALIMAT JEPANG (N5)";
+            $("[data-question-prompt]").innerHTML = `
+                <div class="bunpou-prompt-wrap">
+                    <div class="bunpou-meaning-text">${question.meaning}</div>
+                    <span class="bunpou-prompt-hint">Susun kata bahasa Jepang yang sesuai dengan arti di atas</span>
+                </div>
+            `;
+
+            $("[data-answer-grid]").innerHTML = `
+                <div class="bunpou-puzzle-board">
+                    <div class="bunpou-target-tray" data-bunpou-tray></div>
+                    <div class="bunpou-source-bank" data-bunpou-bank></div>
+                    <div class="bunpou-puzzle-controls">
+                        <button type="button" class="bunpou-ctrl-btn reset-btn" data-bunpou-reset>↺ Atur Ulang</button>
+                        <button type="button" class="bunpou-ctrl-btn check-btn" data-bunpou-check>Periksa Jawaban ✓</button>
+                    </div>
+                </div>
+            `;
+
+            const trayEl = $("[data-bunpou-tray]");
+            const bankEl = $("[data-bunpou-bank]");
+            const resetBtn = $("[data-bunpou-reset]");
+            const checkBtn = $("[data-bunpou-check]");
+
+            let selectedIndices = [];
+            const shuffled = question.shuffledTokens;
+
+            function renderBunpouState() {
+                if (!trayEl || !bankEl) return;
+                if (selectedIndices.length === 0) {
+                    trayEl.innerHTML = `<span class="bunpou-tray-placeholder">Ketuk kata di bawah untuk menyusun kalimat...</span>`;
+                } else {
+                    trayEl.innerHTML = selectedIndices.map((idx, pos) => `
+                        <button type="button" class="bunpou-chip is-in-tray" data-tray-pos="${pos}">
+                            ${shuffled[idx]}
+                        </button>
+                    `).join("");
+                }
+
+                bankEl.innerHTML = shuffled.map((token, idx) => {
+                    const isUsed = selectedIndices.includes(idx);
+                    return `
+                        <button type="button" class="bunpou-chip is-in-bank ${isUsed ? "is-used" : ""}" data-bank-idx="${idx}" ${isUsed ? "disabled" : ""}>
+                            ${token}
+                        </button>
+                    `;
+                }).join("");
+
+                trayEl.querySelectorAll("[data-tray-pos]").forEach((btn) => {
+                    btn.addEventListener("click", () => {
+                        const pos = Number(btn.dataset.trayPos);
+                        selectedIndices.splice(pos, 1);
+                        if (window.MiraiSound) window.MiraiSound.play("click");
+                        renderBunpouState();
+                    });
+                });
+
+                bankEl.querySelectorAll("[data-bank-idx]").forEach((btn) => {
+                    btn.addEventListener("click", () => {
+                        const idx = Number(btn.dataset.bankIdx);
+                        if (!selectedIndices.includes(idx)) {
+                            selectedIndices.push(idx);
+                            if (window.MiraiSound) window.MiraiSound.play("click");
+                            renderBunpouState();
+                        }
+                    });
+                });
+            }
+
+            renderBunpouState();
+
+            if (resetBtn) {
+                resetBtn.addEventListener("click", () => {
+                    selectedIndices = [];
+                    if (window.MiraiSound) window.MiraiSound.play("click");
+                    renderBunpouState();
+                });
+            }
+
+            if (checkBtn) {
+                checkBtn.addEventListener("click", () => {
+                    if (selectedIndices.length === 0) return;
+                    const assembledStr = selectedIndices.map((i) => shuffled[i]).join("");
+                    const targetStr = question.target.join("");
+                    const isCorrect = assembledStr === targetStr;
+
+                    const feedback = $("[data-feedback]");
+                    feedback.hidden = false;
+
+                    if (isCorrect) {
+                        trayEl.classList.remove("is-wrong-shake");
+                        trayEl.classList.add("is-correct-glow");
+                        if (window.MiraiSound) window.MiraiSound.play("success");
+
+                        feedback.className = "feedback is-good";
+                        feedback.innerHTML = `<strong>Tepat Sekali! 🎉</strong><span>Kalimat: <b>${targetStr}</b> (${question.romaji})</span>`;
+
+                        currentSession.results[currentSession.index] = {
+                            state: "is-correct",
+                            question,
+                            value: assembledStr,
+                            userChoice: selectedIndices.map((i) => shuffled[i]).join(" "),
+                            correctChoice: question.target.join(" ")
+                        };
+                        currentSession.streak += 1;
+                        currentSession.best = Math.max(currentSession.best, currentSession.streak);
+
+                        checkBtn.disabled = true;
+                        if (resetBtn) resetBtn.disabled = true;
+
+                        setTimeout(() => {
+                            currentSession.index += 1;
+                            if (currentSession.index >= currentSession.questions.length) {
+                                finishPractice();
+                            } else {
+                                renderQuestion();
+                            }
+                        }, 750);
+                    } else {
+                        trayEl.classList.remove("is-correct-glow");
+                        trayEl.classList.add("is-wrong-shake");
+                        if (window.MiraiSound) window.MiraiSound.play("wrong");
+
+                        feedback.className = "feedback is-bad";
+                        feedback.innerHTML = "<strong>Susunan Belum Tepat</strong><span>Periksa urutan partikel atau kata kerjanya, lalu coba atur ulang!</span>";
+
+                        setTimeout(() => {
+                            if (trayEl) trayEl.classList.remove("is-wrong-shake");
+                        }, 450);
+                    }
+                });
+            }
+
+            const existingResult = currentSession.results[currentSession.index];
+            if (existingResult) {
+                const feedback = $("[data-feedback]");
+                if (existingResult.state === "is-correct") {
+                    trayEl.innerHTML = question.target.map((t) => `<button type="button" class="bunpou-chip is-in-tray">${t}</button>`).join("");
+                    trayEl.classList.add("is-correct-glow");
+                    if (checkBtn) checkBtn.disabled = true;
+                    if (resetBtn) resetBtn.disabled = true;
+                    if (feedback) {
+                        feedback.hidden = false;
+                        feedback.className = "feedback is-good";
+                        feedback.innerHTML = `<strong>Benar! 🎉</strong><span>Kalimat: <b>${question.target.join("")}</b> (${question.romaji})</span>`;
+                    }
+                }
+            }
+
+            return;
+        }
 
         if (question.type === "match-table") {
             $("[data-answer-grid]").classList.add("is-match-grid");
@@ -1485,6 +2503,15 @@ function initKanaQuest() {
             return;
         }
 
+        if (question.kind === "type_romaji") {
+            question.kind = "kana";
+            if (!question.choices || question.choices.length < 3) {
+                const pool = currentSession?.pool || data[script];
+                const distractors = shuffle(pool.filter((c) => c && c.character && c.character !== question.answer.character)).slice(0, 3);
+                question.choices = shuffle([question.answer, ...distractors]);
+            }
+        }
+
         if (cardEl) cardEl.classList.remove("is-stroke-mode");
 
         $("[data-answer-grid]").classList.remove("is-match-grid");
@@ -1531,6 +2558,39 @@ function initKanaQuest() {
         $("[data-answer-grid]").querySelectorAll("button").forEach((button) => {
             button.addEventListener("click", () => answerQuestion(button.dataset.answer));
         });
+
+        // Tampilkan state soal jika sudah pernah dijawab atau dilewati sebelumnya
+        const existingResult = currentSession.results[currentSession.index];
+        if (existingResult) {
+            const feedback = $("[data-feedback]");
+            if (existingResult.state === "is-correct") {
+                feedback.hidden = false;
+                feedback.className = "feedback is-good";
+                feedback.innerHTML = `<strong>Benar! 🎉</strong><span>${question.answer?.character || ""} = ${question.answer?.romaji || ""} (Sudah Dijawab Benar)</span>`;
+                $("[data-answer-grid]").querySelectorAll("button").forEach((button) => {
+                    button.disabled = true;
+                    if (button.dataset.answer === question.answer?.character) {
+                        button.classList.add("is-answer");
+                    }
+                });
+            } else if (existingResult.state === "is-wrong") {
+                feedback.hidden = false;
+                feedback.className = "feedback is-bad";
+                feedback.innerHTML = `<strong>Jawaban Kurang Tepat</strong><span>Jawaban benar: <b>${question.answer?.character || ""}</b> = <b>${question.answer?.romaji || ""}</b> (Sudah Dijawab Salah)</span>`;
+                $("[data-answer-grid]").querySelectorAll("button").forEach((button) => {
+                    button.disabled = true;
+                    if (button.dataset.answer === question.answer?.character) {
+                        button.classList.add("is-correct-glow");
+                    } else if (button.dataset.answer === existingResult.userChoice) {
+                        button.classList.add("is-wrong-choice");
+                    }
+                });
+            } else if (existingResult.state === "skipped") {
+                feedback.hidden = false;
+                feedback.className = "feedback is-skip";
+                feedback.innerHTML = `<strong>Soal ini Sebelumnya Dilewati</strong><span>Kamu masih bisa memilih jawaban di bawah:</span>`;
+            }
+        }
     }
 
     function handleMatchSelection(side, id) {
@@ -1682,6 +2742,12 @@ function initKanaQuest() {
                 chosenRomaji: rightPair.romaji,
                 correctRomaji: leftPair.romaji
             });
+            if (window.MiraiWeakKana) {
+                window.MiraiWeakKana.recordMistake(leftPair.character, leftPair.romaji, script);
+            }
+            if (window.MiraiSound) {
+                window.MiraiSound.play("wrong");
+            }
         }
 
         const message = $("[data-feedback]");
@@ -1743,11 +2809,12 @@ function initKanaQuest() {
     }
 
     function answerQuestion(value, state = "answered") {
-        if (currentSession.results[currentSession.index]) {
+        if (currentSession.results[currentSession.index] && currentSession.results[currentSession.index].state !== "skipped") {
             return;
         }
 
         const question = currentSession.questions[currentSession.index];
+
         if (question.type === "match-table") {
             if (state === "skipped") {
                 skipMatchQuestion();
@@ -1757,6 +2824,9 @@ function initKanaQuest() {
 
         if (question.type === "stroke") {
             if (state === "skipped") {
+                if (window.MiraiWeakKana && question.answer?.character) {
+                    window.MiraiWeakKana.recordMistake(question.answer.character, question.answer.romaji, script);
+                }
                 currentSession.results[currentSession.index] = {
                     state: "skipped",
                     question,
@@ -1783,7 +2853,6 @@ function initKanaQuest() {
         }
 
         const correct = state !== "skipped" && value === question.answer.character;
-
         const displayKind = question.kind === "kana" || question.kind === "audio" ? "romaji" : "character";
         const chosenItem = question.choices ? question.choices.find((c) => c.character === value) : null;
         const userChoiceDisplay = state === "skipped"
@@ -1801,6 +2870,17 @@ function initKanaQuest() {
 
         currentSession.streak = correct ? currentSession.streak + 1 : 0;
         currentSession.best = Math.max(currentSession.best, currentSession.streak);
+
+        if (window.MiraiSound && state !== "skipped") {
+            window.MiraiSound.play(correct ? "success" : "wrong");
+        }
+
+        // Catat huruf salah ke mirai_weak_kana
+        if (!correct && question.answer?.character) {
+            if (window.MiraiWeakKana) {
+                window.MiraiWeakKana.recordMistake(question.answer.character, question.answer.romaji, script);
+            }
+        }
 
         const feedback = $("[data-feedback]");
         feedback.hidden = false;
@@ -1829,6 +2909,44 @@ function initKanaQuest() {
             }
         });
 
+        if (currentSession.isTimeAttack) {
+            if (correct) {
+                const bonusPts = 100 * currentSession.combo;
+                currentSession.score += bonusPts;
+                currentSession.secondsLeft += 1;
+                currentSession.combo += 1;
+                if (currentSession.combo > currentSession.maxCombo) {
+                    currentSession.maxCombo = currentSession.combo;
+                }
+                feedback.innerHTML = `<strong>Benar! 🎉 +1s (+${bonusPts} PTS)</strong><span>🔥 Combo x${currentSession.combo}</span>`;
+            } else {
+                currentSession.combo = 1;
+                feedback.innerHTML = `<strong>Kurang Tepat</strong><span>Jawaban benar: <b>${question.answer.character}</b> = <b>${question.answer.romaji}</b> (Combo ter-reset)</span>`;
+            }
+
+            const scoreEl = document.querySelector("[data-ta-score]");
+            if (scoreEl) scoreEl.textContent = currentSession.score;
+            const comboEl = document.querySelector("[data-ta-combo]");
+            if (comboEl) comboEl.textContent = `x${currentSession.combo}`;
+
+            if (currentSession.index >= currentSession.questions.length - 5) {
+                const newBatch = [];
+                const pool = currentSession.pool;
+                while (newBatch.length < 15) {
+                    newBatch.push(buildNormalQuestion(pool, newBatch.at(-1), pool, false));
+                }
+                currentSession.questions.push(...newBatch);
+                $("[data-question-total]").textContent = currentSession.questions.length;
+            }
+
+            const taDelay = correct ? 160 : 360;
+            setTimeout(() => {
+                currentSession.index += 1;
+                renderQuestion();
+            }, taDelay);
+            return;
+        }
+
         const transitionDelay = correct ? 350 : 850;
 
         setTimeout(() => {
@@ -1841,22 +2959,57 @@ function initKanaQuest() {
         }, transitionDelay);
     }
 
-    $("[data-skip]").addEventListener("click", () => answerQuestion("", "skipped"));
-
-    $("[data-close-practice]").addEventListener("click", () => {
-        $("[data-practice-view]").hidden = true;
-        document.body.classList.remove("is-practicing");
+    // Navigasi & Kontrol Kuis
+    $("[data-skip]")?.addEventListener("click", () => answerQuestion("", "skipped"));
+    $("[data-nav-prev]")?.addEventListener("click", handleNavPrev);
+    $("[data-nav-next]")?.addEventListener("click", handleNavNext);
+    $("[data-toggle-palette]")?.addEventListener("click", openPalette);
+    document.querySelectorAll("[data-close-palette]").forEach((btn) => {
+        btn.addEventListener("click", closePalette);
     });
 
-    $("[data-result-home]").addEventListener("click", () => {
+    $("[data-close-practice]")?.addEventListener("click", () => {
+        $("[data-practice-view]").hidden = true;
+        document.body.classList.remove("is-practicing");
+        document.body.classList.remove("is-time-attack-mode");
+        const scoreBadge = $("[data-ta-score-badge]");
+        const comboBadge = $("[data-ta-combo-badge]");
+        if (scoreBadge) scoreBadge.hidden = true;
+        if (comboBadge) comboBadge.hidden = true;
+        currentSession = null;
+    });
+
+    $("[data-result-home]")?.addEventListener("click", () => {
         $("[data-result-view]").hidden = true;
         document.body.classList.remove("is-practicing");
+        document.body.classList.remove("is-time-attack-mode");
+        const scoreBadge = $("[data-ta-score-badge]");
+        const comboBadge = $("[data-ta-combo-badge]");
+        if (scoreBadge) scoreBadge.hidden = true;
+        if (comboBadge) comboBadge.hidden = true;
+        const reviewBtn = $("[data-review-result]");
+        if (reviewBtn) reviewBtn.style.display = "";
+        const heading = document.querySelector("[data-result-view] h2");
+        if (heading) heading.innerHTML = "🎉 Latihan selesai!";
+        const accEl = $("[data-result-accuracy]");
+        if (accEl && accEl.nextElementSibling) accEl.nextElementSibling.textContent = "Akurasi";
+        currentSession = null;
         renderDashboard();
     });
 
-    $("[data-retry]").addEventListener("click", () => {
+    $("[data-retry]")?.addEventListener("click", () => {
         $("[data-result-view]").hidden = true;
-        startPractice(currentSession.levels);
+        if (currentSession && currentSession.isTimeAttack) {
+            startTimeAttack();
+        } else if (currentSession && currentSession.isBunpou) {
+            startBunpouPuzzle();
+        } else if (currentSession && currentSession.isChoukai) {
+            startChoukaiGame();
+        } else if (currentSession && currentSession.isMemory) {
+            startMemoryGame();
+        } else {
+            startPractice(currentSession.levels, currentSession.pool, currentSession.modeKey, currentSession.isWeakMode);
+        }
     });
 
     $("[data-review-result]")?.addEventListener("click", () => {
@@ -1866,8 +3019,8 @@ function initKanaQuest() {
         }
     });
 
-    $("[data-audio]").addEventListener("click", () => {
-        if ("speechSynthesis" in window) {
+    $("[data-audio]")?.addEventListener("click", () => {
+        if ("speechSynthesis" in window && currentSession?.questions?.[currentSession.index]?.answer?.romaji) {
             speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(currentSession.questions[currentSession.index].answer.romaji);
             utterance.lang = "ja-JP";
@@ -1875,10 +3028,10 @@ function initKanaQuest() {
         }
     });
 
-    $(".script-tabs").querySelectorAll("[data-script]").forEach((button) => {
+    document.querySelectorAll(".script-tabs [data-script]").forEach((button) => {
         button.addEventListener("click", () => {
             script = button.dataset.script;
-            $(".script-tabs .is-active").classList.remove("is-active");
+            document.querySelectorAll(".script-tabs [data-script]").forEach((b) => b.classList.remove("is-active"));
             button.classList.add("is-active");
             renderDashboard();
         });
@@ -1886,7 +3039,130 @@ function initKanaQuest() {
 
     renderDashboard();
 
+    
+    function jumpToQuestion(targetIndex) {
+        if (!currentSession || targetIndex < 0 || targetIndex >= currentSession.questions.length) return;
+
+        // Jika soal saat ini belum dijawab sama sekali dan pengguna melompat ke soal lain, tandai sebagai dilewati
+        if (!currentSession.results[currentSession.index] && targetIndex !== currentSession.index) {
+            const question = currentSession.questions[currentSession.index];
+            const correctDisplay = question.type === "match-table"
+                ? "Pasangkan Kata"
+                : question.answer ? (question.answer.romaji || question.answer.character) : "—";
+            currentSession.results[currentSession.index] = {
+                state: "skipped",
+                question,
+                value: "Dilewati",
+                userChoice: "Dilewati",
+                correctChoice: correctDisplay
+            };
+        }
+
+        currentSession.index = targetIndex;
+        renderQuestion();
+    }
+
+    function handleNavPrev() {
+        if (!currentSession || currentSession.index <= 0) return;
+        jumpToQuestion(currentSession.index - 1);
+    }
+
+    function handleNavNext() {
+        if (!currentSession) return;
+        if (currentSession.index < currentSession.questions.length - 1) {
+            jumpToQuestion(currentSession.index + 1);
+        } else {
+            // Jika di soal terakhir dan belum dijawab, tandai sebagai dilewati lalu selesaikan
+            if (!currentSession.results[currentSession.index]) {
+                const question = currentSession.questions[currentSession.index];
+                const correctDisplay = question.type === "match-table"
+                    ? "Pasangkan Kata"
+                    : question.answer ? (question.answer.romaji || question.answer.character) : "—";
+                currentSession.results[currentSession.index] = {
+                    state: "skipped",
+                    question,
+                    value: "Dilewati",
+                    userChoice: "Dilewati",
+                    correctChoice: correctDisplay
+                };
+            }
+            finishPractice();
+        }
+    }
+
+    function openPalette() {
+        const drawer = $("[data-palette-drawer]");
+        if (!drawer || !currentSession) return;
+        renderPaletteModal();
+        drawer.hidden = false;
+    }
+
+    function closePalette() {
+        const drawer = $("[data-palette-drawer]");
+        if (drawer) drawer.hidden = true;
+    }
+
+    function renderPaletteModal() {
+        const paletteGrid = $("[data-palette-grid]");
+        if (!paletteGrid || !currentSession) return;
+
+        paletteGrid.innerHTML = currentSession.questions.map((q, idx) => {
+            const result = currentSession.results[idx];
+            let statusClass = "is-unanswered";
+            let statusText = "Belum";
+
+            if (result) {
+                if (result.state === "is-correct") {
+                    statusClass = "is-correct";
+                    statusText = "✓ Benar";
+                } else if (result.state === "is-wrong") {
+                    statusClass = "is-wrong";
+                    statusText = "✕ Salah";
+                } else if (result.state === "skipped") {
+                    statusClass = "is-skipped";
+                    statusText = "↷ Lewati";
+                }
+            }
+
+            const isCurrent = idx === currentSession.index;
+            return `
+                <button
+                    type="button"
+                    class="palette-num-btn ${statusClass} ${isCurrent ? 'is-current' : ''}"
+                    data-jump-index="${idx}"
+                    title="Soal nomor ${idx + 1} (${statusText})"
+                >
+                    <span class="palette-num-number">${idx + 1}</span>
+                    <span class="palette-num-status">${statusText}</span>
+                </button>
+            `;
+        }).join("");
+
+        paletteGrid.querySelectorAll("[data-jump-index]").forEach((btn) => {
+            btn.addEventListener("click", () => {
+                const targetIndex = Number(btn.dataset.jumpIndex);
+                jumpToQuestion(targetIndex);
+                closePalette();
+            });
+        });
+    }
+
     function finishPractice() {
+        // Tandai seluruh soal yang belum terjawab sebagai skipped
+        if (currentSession && Array.isArray(currentSession.questions)) {
+            for (let i = 0; i < currentSession.questions.length; i++) {
+                if (!currentSession.results[i]) {
+                    const q = currentSession.questions[i];
+                    currentSession.results[i] = {
+                        state: "skipped",
+                        question: q,
+                        value: "Dilewati",
+                        userChoice: "Dilewati",
+                        correctChoice: q.type === "match-table" ? "Pasangkan Kata" : (q.answer?.romaji || "—")
+                    };
+                }
+            }
+        }
         const wrong = currentSession.results.filter((result) => result.state === "is-wrong" || result.state === "skipped");
         const correct = currentSession.results.filter((result) => result.state === "is-correct").length;
         const accuracy = Math.round((correct / currentSession.questions.length) * 100);
@@ -1897,11 +3173,62 @@ function initKanaQuest() {
             saved[script].completed = [...new Set([...saved[script].completed, ...currentSession.levels])];
         }
 
+        // Simpan skor tertinggi mode di localStorage
+        if (currentSession && currentSession.modeKey) {
+            try {
+                const prevBest = parseInt(localStorage.getItem(currentSession.modeKey) || "0", 10);
+                if (accuracy > prevBest) {
+                    localStorage.setItem(currentSession.modeKey, String(accuracy));
+                }
+            } catch (e) {
+                console.warn("Gagal menyimpan skor terbaik mode:", e);
+            }
+        }
+
+        // Jika dalam mode fokus perbaikan huruf salah, kurangi hitungan untuk jawaban yang benar
+        if (currentSession && currentSession.isWeakMode) {
+            currentSession.results.forEach((res) => {
+                if (res.state === "is-correct" && res.question?.answer?.character) {
+                    if (window.MiraiWeakKana) {
+                        window.MiraiWeakKana.recordCorrect(res.question.answer.character);
+                    }
+                }
+            });
+        }
+
         wrong.forEach((result) => {
-            if (result.question?.answer?.character && !saved.review.includes(result.question.answer.character)) {
-                saved.review.push(result.question.answer.character);
+            if (result.question?.answer?.character) {
+                if (!saved.review.includes(result.question.answer.character)) {
+                    saved.review.push(result.question.answer.character);
+                }
+                if (window.MiraiWeakKana) {
+                    window.MiraiWeakKana.recordMistake(result.question.answer.character, result.question.answer.romaji, script);
+                }
             }
         });
+
+        // Simpan daftar soal yang salah ke localStorage untuk fitur "Ulangi Soal yang Salah"
+        const wrongQuestions = wrong.map((r) => r.question).filter(Boolean);
+        try {
+            if (wrongQuestions.length > 0) {
+                localStorage.setItem("mirai_wrong_questions", JSON.stringify(wrongQuestions));
+            } else {
+                localStorage.removeItem("mirai_wrong_questions");
+            }
+        } catch (e) {}
+
+        const resultRetryWrongBtn = $("[data-result-retry-wrong]");
+        if (resultRetryWrongBtn) {
+            if (wrongQuestions.length > 0) {
+                resultRetryWrongBtn.hidden = false;
+                resultRetryWrongBtn.textContent = `🔁 Ulangi ${wrongQuestions.length} Soal yang Salah`;
+                resultRetryWrongBtn.onclick = () => {
+                    startRetrySession(wrongQuestions);
+                };
+            } else {
+                resultRetryWrongBtn.hidden = true;
+            }
+        }
 
         save();
         $("[data-practice-view]").hidden = true;
@@ -1956,6 +3283,17 @@ function initKanaQuest() {
         wrong.forEach((result) => {
             const q = result.question;
             if (q.type === "match-table") {
+                return;
+            }
+            if (q.type === "bunpou") {
+                allMistakes.push({
+                    badge: "SUSUN KALIMAT",
+                    prompt: q.meaning,
+                    userAns: result.userChoice || "Dilewati",
+                    correctAns: q.target.join(" ") + " (" + q.romaji + ")",
+                    explanation: `Kalimat tepat: “${q.target.join("")}” (${q.romaji}) berarti “${q.meaning}”.`,
+                    speakText: q.target.join("")
+                });
                 return;
             }
             if (q.type === "stroke") {
@@ -2101,7 +3439,27 @@ function initKanaQuest() {
     }
 
     setInterval(() => {
-        if (currentSession && !$("[data-practice-view]").hidden) {
+        if (!currentSession || $("[data-practice-view]").hidden) {
+            return;
+        }
+
+        if (currentSession.isTimeAttack) {
+            currentSession.secondsLeft -= 1;
+            const timerEl = $("[data-timer]");
+            if (currentSession.secondsLeft <= 0) {
+                currentSession.secondsLeft = 0;
+                if (timerEl) {
+                    timerEl.textContent = "0s";
+                    timerEl.classList.add("is-timer-low");
+                }
+                finishTimeAttack();
+                return;
+            }
+            if (timerEl) {
+                timerEl.textContent = `${currentSession.secondsLeft}s`;
+                timerEl.classList.toggle("is-timer-low", currentSession.secondsLeft <= 10);
+            }
+        } else {
             $("[data-timer]").textContent = formatTime(Date.now() - currentSession.started);
         }
     }, 1000);
@@ -2112,6 +3470,9 @@ function initKanaQuest() {
         }
 
         const question = currentSession.questions[currentSession.index];
+        if (!question) {
+            return;
+        }
         if (question.kind === "audio") {
             $("[data-question-prompt]").textContent = "🔊";
         }
@@ -2129,6 +3490,28 @@ function initKanaQuest() {
     });
 
     answerObserver.observe($("[data-answer-grid]"), { childList: true });
+
+    // Deteksi parameter URL (?game=choukai atau ?game=memory) untuk auto-launch
+    const urlParams = new URLSearchParams(window.location.search);
+    const gameParam = urlParams.get("game");
+    if (gameParam === "choukai") {
+        setTimeout(startChoukaiGame, 80);
+    } else if (gameParam === "memory") {
+        setTimeout(startMemoryGame, 80);
+    }
+
+    // Pasang listener untuk tombol pintas mini-game (.mini-game-shortcut-btn)
+    document.querySelectorAll("[data-game-shortcut]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const gameType = btn.dataset.gameShortcut || btn.dataset.mode;
+            if (gameType === "choukai") {
+                startChoukaiGame();
+            } else if (gameType === "memory") {
+                startMemoryGame();
+            }
+        });
+    });
+
 }
 
 document.addEventListener("DOMContentLoaded", () => {

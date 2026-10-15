@@ -1,0 +1,147 @@
+{
+  "generator": "skrip/arsip/validate_stroke_data.py",
+  "generated_at": "2026-10-15T12:51:20.744585+00:00",
+  "source_dataset": "KanjiVG (Ulrich Apel & contributors, CC BY-SA 3.0)",
+  "summary": {
+    "total_app_characters_required": 2374,
+    "required_kana_count": 163,
+    "required_kanji_count": 2211,
+    "dataset_total_entries": 2375,
+    "dataset_valid_entries": 2375,
+    "dataset_invalid_entries": 0,
+    "metadata_discrepancies": 1,
+    "coverage_rate_percent": 100.0,
+    "missing_characters_count": 0,
+    "failed_characters_count": 0
+  },
+  "sample_character_tests": [
+    {
+      "char": "一",
+      "hex": "04e00",
+      "category": "kanji",
+      "status": "PASSED",
+      "strokes": 1,
+      "expected_strokes": 1,
+      "discrepancy": false
+    },
+    {
+      "char": "二",
+      "hex": "04e8c",
+      "category": "kanji",
+      "status": "PASSED",
+      "strokes": 2,
+      "expected_strokes": 2,
+      "discrepancy": false
+    },
+    {
+      "char": "人",
+      "hex": "04eba",
+      "category": "kanji",
+      "status": "PASSED",
+      "strokes": 2,
+      "expected_strokes": 2,
+      "discrepancy": false
+    },
+    {
+      "char": "水",
+      "hex": "06c34",
+      "category": "kanji",
+      "status": "PASSED",
+      "strokes": 4,
+      "expected_strokes": 4,
+      "discrepancy": false
+    },
+    {
+      "char": "あ",
+      "hex": "03042",
+      "category": "kana",
+      "status": "PASSED",
+      "strokes": 3,
+      "expected_strokes": 3,
+      "discrepancy": false
+    },
+    {
+      "char": "い",
+      "hex": "03044",
+      "category": "kana",
+      "status": "PASSED",
+      "strokes": 2,
+      "expected_strokes": 2,
+      "discrepancy": false
+    },
+    {
+      "char": "か",
+      "hex": "0304b",
+      "category": "kana",
+      "status": "PASSED",
+      "strokes": 3,
+      "expected_strokes": 3,
+      "discrepancy": false
+    },
+    {
+      "char": "語",
+      "hex": "08a9e",
+      "category": "kanji",
+      "status": "PASSED",
+      "strokes": 14,
+      "expected_strokes": 14,
+      "discrepancy": false
+    },
+    {
+      "char": "議",
+      "hex": "08b70",
+      "category": "kanji",
+      "status": "PASSED",
+      "strokes": 20,
+      "expected_strokes": 20,
+      "discrepancy": false
+    },
+    {
+      "char": "艦",
+      "hex": "08266",
+      "category": "kanji",
+      "status": "PASSED",
+      "strokes": 21,
+      "expected_strokes": 21,
+      "discrepancy": false
+    },
+    {
+      "char": "驚",
+      "hex": "09a5a",
+      "category": "kanji",
+      "status": "PASSED",
+      "strokes": 22,
+      "expected_strokes": 22,
+      "discrepancy": false
+    },
+    {
+      "char": "鷹",
+      "hex": "09df9",
+      "category": "kanji",
+      "status": "PASSED",
+      "strokes": 24,
+      "expected_strokes": 24,
+      "discrepancy": false
+    },
+    {
+      "char": "衷",
+      "hex": "08877",
+      "category": "kanji",
+      "status": "PASSED",
+      "strokes": 9,
+      "expected_strokes": 10,
+      "discrepancy": true
+    }
+  ],
+  "metadata_discrepancies_detail": [
+    {
+      "char": "衷",
+      "hex": "08877",
+      "category": "kanji",
+      "kanjivg_strokes": 9,
+      "metadata_strokes": 10
+    }
+  ],
+  "missing_characters": [],
+  "failed_characters": []
+}

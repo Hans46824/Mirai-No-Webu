@@ -27,13 +27,21 @@
         },
 
         /* =========================================================================
-           KANJI API (KanjiAPI.dev)
+           KANJI API (Local Canonical Database & Fallback)
            ========================================================================= */
 
         /**
          * Fetch list of kanji characters for a given JLPT level (5 to 1)
          */
         async getKanjiList(levelNum) {
+            // Prioritaskan dataset lokal jika tersedia
+            if (Array.isArray(window.KANJI_FULL_DATA) && window.KANJI_FULL_DATA.length > 0) {
+                const local = window.KANJI_FULL_DATA
+                    .filter((k) => k.jlpt === `N${levelNum}`)
+                    .map((k) => k.kanji);
+                if (local.length > 0) return local;
+            }
+
             const cacheKey = `mnh_kapi_jlpt_${levelNum}`;
             try {
                 const cached = localStorage.getItem(cacheKey);
@@ -64,6 +72,29 @@
          */
         async getKanjiDetail(character) {
             if (!character) return null;
+
+            // 1. Cek basis data kanonikal lokal
+            if (Array.isArray(window.KANJI_FULL_DATA) && window.KANJI_FULL_DATA.length > 0) {
+                const localItem = window.KANJI_FULL_DATA.find((k) => k.kanji === character);
+                if (localItem) {
+                    return {
+                        kanji: localItem.kanji,
+                        grade: localItem.grade,
+                        stroke_count: localItem.strokes,
+                        meaningsEn: [localItem.meaningEn || localItem.meaning],
+                        meanings: [localItem.meaning],
+                        meaningsId: [localItem.meaning],
+                        kun_readings: localItem.kunyomi || [],
+                        on_readings: localItem.onyomi || [],
+                        name_readings: [],
+                        jlpt: localItem.jlpt,
+                        sentence: localItem.sentence,
+                        words: localItem.words || localItem.examples || [],
+                        verified: Boolean(localItem.verified)
+                    };
+                }
+            }
+
             const cacheKey = `mnh_kapi_detail_${character}`;
 
             // Check persistent cache
@@ -119,6 +150,20 @@
          */
         async getKanjiWords(character) {
             if (!character) return [];
+
+            // 1. Cek basis data kanonikal lokal
+            if (Array.isArray(window.KANJI_FULL_DATA) && window.KANJI_FULL_DATA.length > 0) {
+                const localItem = window.KANJI_FULL_DATA.find((k) => k.kanji === character);
+                if (localItem && (localItem.words?.length || localItem.examples?.length)) {
+                    return (localItem.words || localItem.examples).map((w) => ({
+                        word: w.word,
+                        reading: w.reading,
+                        meaning: w.meaning,
+                        meaningEn: w.meaning
+                    }));
+                }
+            }
+
             const cacheKey = `mnh_kapi_words_${character}`;
 
             try {
@@ -208,8 +253,36 @@
                     return kanaDataCache;
                 }
             } catch (err) {
-                console.warn("[MiraiData] Gagal memuat data/kana.json:", err);
+                console.warn("[MiraiData] Gagal memuat data/kana.json, beralih ke window.KanaData:", err);
             }
+
+            // Fallback luring jika fetch diblokir protokol file:///
+            if (window.KanaData && typeof window.KanaData.getCharacters === "function") {
+                const buildList = (type) => {
+                    const chars = window.KanaData.getCharacters(type);
+                    return chars.map((ch) => {
+                        const detail = window.KanaData.getDetail(ch, type);
+                        return {
+                            character: ch,
+                            reading: detail.reading,
+                            romaji: detail.reading,
+                            type: detail.category?.id || "basic",
+                            example: detail.example ? {
+                                word: detail.example.word,
+                                romaji: detail.example.romaji,
+                                meaning: detail.example.meaning
+                            } : null,
+                            strokes: window.KanaData.getStrokeCount(ch) || 1
+                        };
+                    });
+                };
+                kanaDataCache = {
+                    hiragana: buildList("hiragana"),
+                    katakana: buildList("katakana")
+                };
+                return kanaDataCache;
+            }
+
             return { hiragana: [], katakana: [] };
         },
 

@@ -852,27 +852,28 @@
 
         <!-- SECTION 6: MASUKAN / KRITIK & SARAN (SUARA ANGGOTA) -->
         <section class="section feedback-preview" id="masukan">
-            <div class="feedback-feature-card">
+            <div class="feedback-feature-card" data-expand-card>
                 <div class="feedback-feature-header">
-                    <span class="feedback-feature-badge">
-                        <span class="badge-dot"></span>
-                        KRITIK DAN SARAN
-                    </span>
                     <span class="feedback-feature-tag">
                         <span class="badge-dot"></span>
                         SUARA MIRAI NO HANA
                     </span>
                 </div>
                 <div class="feedback-feature-body stacked-layout">
-                    <h2 class="feedback-card-title">Suaramu membuat,<br><span class="highlight">kami bertumbuh.</span></h2>
-                    <p class="feedback-card-desc">Nemu kendala tampilan atau bug di Mirai no Webu? Atau punya ide kreatif, saran kegiatan, dan masukan membangun buat klub Mirai no Hana? Sampaikan langsung lewat formulir ini ya! Setiap masukan dari kalian sangat berharga biar website dan klub kita bisa berkembang lebih keren lagi bareng-bareng.</p>
+                    <h2 class="feedback-card-title">Kritik &amp;<br><span class="highlight">Saran.</span></h2>
+                    <div class="card-collapsible-content">
+                        <div class="card-collapsible-inner">
+                            <p class="feedback-card-desc">Nemu kendala tampilan atau bug di Mirai no Webu? Atau punya ide kreatif, saran kegiatan, dan masukan membangun buat klub Mirai no Hana? Sampaikan langsung lewat formulir ini ya! Setiap masukan dari kalian sangat berharga biar website dan klub kita bisa berkembang lebih keren lagi bareng-bareng.</p>
+                        </div>
+                    </div>
                     <div class="feedback-feature-action">
-                        <a class="btn primary feedback-cta-btn" href="https://forms.gle/dFPRM842xxKq5YMt9" target="_blank" rel="noopener noreferrer">
-                            <span>GFORM KRITIK DAN SARAN</span>
-                            <span class="btn-arrow">↗</span>
-                        </a>
+                        <a class="btn primary feedback-cta-btn" data-expand-cta href="https://forms.gle/dFPRM842xxKq5YMt9" target="_blank" rel="noopener noreferrer">
+                                <span>GFORM KRITIK DAN SARAN</span>
+                                <span class="btn-arrow">↗</span>
+                            </a>
                     </div>
                 </div>
+                <button type="button" class="card-toggle" aria-expanded="false" aria-label="Buka tutup detail"></button>
                 <img class="card-corner-chibi" src="../images/mirai/icon/Fa.png" alt="Mascot Feedback Mirai No Hana" aria-hidden="true">
             </div>
         </section>
