@@ -319,7 +319,7 @@ function formatWordItem(w) {
     const meaning = escapeHtml(w.meaning);
     const romaji = kanaToRomaji(w.reading);
     const readingText = romaji ? `${reading} (${escapeHtml(romaji)})` : reading;
-    return `<li><b>${word}</b> <span>${readingText}</span> — ${meaning}</li>`;
+    return `<li><b>${word}</b> <span>${readingText}</span> — ${meaning} <button type="button" class="mini-audio-btn" onclick="window.speakText && window.speakText('${word}', 'ja-JP')" title="Dengarkan pelafalan ${word}">🔊</button></li>`;
 }
 window.formatWordItem = formatWordItem;
 
@@ -661,6 +661,11 @@ window.initKanjiDictionary = async function initKanjiDictionary() {
                         <b>Onyomi (Cara baca China):</b> <span data-detail-onyomi>${formatKanaReadings(item.onyomi)}</span><br>
                         <b>Kunyomi (Cara baca Jepang):</b> <span data-detail-kunyomi>${formatKanaReadings(item.kunyomi)}</span>
                     </p>
+                    <div class="kanji-detail-audio-actions">
+                        <button type="button" class="btn-kanji-audio" id="speakKanjiBtn" title="Dengarkan pelafalan Kanji dan cara bacanya">
+                            <span>🔊 Dengarkan Kanji &amp; Cara Baca</span>
+                        </button>
+                    </div>
                 </div>
             </div>
             <h4>Urutan Menulis (KanjiVG)</h4>
@@ -674,6 +679,17 @@ window.initKanjiDictionary = async function initKanjiDictionary() {
                 ${item.sentence?.meaning || `Data resmi dari KanjiAPI.dev (JLPT ${item.jlpt})`}
             </p>
         `;
+
+        detail.querySelector("#speakKanjiBtn")?.addEventListener("click", () => {
+            const onyomi = (item.onyomi || []).join(", ");
+            const kunyomi = (item.kunyomi || []).join(", ");
+            const topWord = item.words?.[0]?.word || "";
+            let toSpeak = `${item.kanji}。 `;
+            if (kunyomi) toSpeak += `Kunyomi: ${kunyomi}。 `;
+            if (onyomi) toSpeak += `Onyomi: ${onyomi}。 `;
+            if (topWord) toSpeak += `Contoh kata: ${topWord}。`;
+            window.speakText ? window.speakText(toSpeak, "ja-JP") : window.speakJapanese?.(toSpeak);
+        });
 
         // Pasang aksi tombol tutup detail (khusus tampilan mobile)
         detail.querySelector("[data-close-detail]")?.addEventListener("click", () => {
@@ -1015,11 +1031,29 @@ function renderKanaPanel(mode) {
         detail.innerHTML = `
             <p class="card-number">${mode.toUpperCase()} / ${item.reading}</p>
             <div class="selected-kana">${character}</div>
+            <div class="kana-detail-audio-actions">
+                <button type="button" class="btn-kana-audio" data-speak-char="${character}" title="Lafalkan huruf ${character}">
+                    <span>🔊 Lafalkan Huruf (${character})</span>
+                </button>
+                <button type="button" class="btn-kana-audio btn-kana-audio-example" data-speak-word="${item.example[0]}" title="Lafalkan contoh kata ${item.example[0]}">
+                    <span>🔊 Lafalkan Contoh Kata (${item.example[0]})</span>
+                </button>
+            </div>
             <p><b>Romaji:</b> ${item.reading}</p>
-            <p><b>Contoh:</b> <b>${item.example[0]}</b> (<em>${item.example[1]}</em>) — ${item.example[2]}</p>
+            <p><b>Contoh:</b> <b>${item.example[0]}</b> (<em>${item.example[1]}</em>) — ${item.example[2]} <button type="button" class="mini-audio-btn" data-speak-word="${item.example[0]}" title="Dengarkan ${item.example[0]}">🔊</button></p>
             <h4>Urutan Menulis</h4>
             <div data-stroke-player></div>
         `;
+
+        detail.querySelector("[data-speak-char]")?.addEventListener("click", () => {
+            window.speakText ? window.speakText(character, "ja-JP") : window.speakJapanese?.(character);
+        });
+        detail.querySelectorAll("[data-speak-word]").forEach((btn) => {
+            btn.addEventListener("click", () => {
+                const word = btn.dataset.speakWord;
+                window.speakText ? window.speakText(word, "ja-JP") : window.speakJapanese?.(word);
+            });
+        });
 
         // Pasang aksi tombol tutup detail (khusus tampilan mobile)
         detail.querySelector("[data-close-detail]")?.addEventListener("click", () => {
@@ -1107,8 +1141,11 @@ function renderKanaPanel(mode) {
                 if (character === selectedChar) {
                     button.classList.add("is-selected");
                 }
-                button.innerHTML = `<strong>${character}</strong><span>${item.reading}</span>`;
-                button.addEventListener("click", () => show(character, { userInitiated: true }));
+                button.innerHTML = `<strong>${character}</strong><span>${item.reading}</span><span class="kana-card-speaker" title="Dengarkan suara ${character}">🔊</span>`;
+                button.addEventListener("click", () => {
+                    show(character, { userInitiated: true });
+                    window.speakText ? window.speakText(character, "ja-JP") : window.speakJapanese?.(character);
+                });
                 grid.append(button);
 
                 if (!firstButton) {

@@ -189,8 +189,8 @@ body.theme-dark .activity-card-locked {
     background-color: #ffffff;
 }
 
-.start-card > *,
-.curriculum-cards a > * {
+.start-card > *:not(.card-coming-soon-overlay),
+.curriculum-cards a > *:not(.card-coming-soon-overlay) {
     position: relative;
     z-index: 2;
 }
@@ -263,7 +263,7 @@ body.theme-dark .curriculum-cards a:hover::after {
     overflow: hidden;
 }
 
-.activity-start-card > * {
+.activity-start-card > *:not(.card-coming-soon-overlay) {
     position: relative;
     z-index: 2;
 }
@@ -314,7 +314,7 @@ body.theme-dark .curriculum-cards a:hover::after {
     overflow: hidden;
 }
 
-.class-card > * {
+.class-card > *:not(.card-coming-soon-overlay) {
     position: relative;
     z-index: 2;
 }
@@ -345,7 +345,7 @@ body.theme-dark .curriculum-cards a:hover::after {
     overflow: hidden;
 }
 
-.division-card > * {
+.division-card > *:not(.card-coming-soon-overlay) {
     position: relative;
     z-index: 2;
 }
@@ -376,7 +376,7 @@ body.theme-dark .curriculum-cards a:hover::after {
     overflow: hidden;
 }
 
-.program-card > * {
+.program-card > *:not(.card-coming-soon-overlay) {
     position: relative;
     z-index: 2;
 }
@@ -550,12 +550,21 @@ body:not(.dark-mode):not(.theme-dark) main > section:nth-of-type(odd):not(.home-
     z-index: 3 !important;
 }
 
-.activity-card-active:hover span,
-.activity-start-card:hover span {
+.activity-card-active:hover > .card-step-num,
+.activity-start-card:hover > .card-step-num {
     background: rgba(233, 30, 99, 0.22) !important;
     border-color: var(--pink, #e91e63) !important;
     color: #ffffff !important;
     transform: scale(1.06);
+}
+
+.activity-card-active:hover .card-sub-jp,
+.activity-start-card:hover .card-sub-jp {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    transform: none !important;
+    color: var(--pink, #ff659b) !important;
 }
 
 .activity-start-card h3 {
@@ -689,9 +698,28 @@ body:not(.dark-mode):not(.theme-dark) main > section:nth-of-type(odd):not(.home-
     transform: scale(1.02) !important;
 }
 
-.about-feature-card > * {
+.about-feature-header,
+.about-feature-body {
     position: relative !important;
     z-index: 2 !important;
+}
+
+.about-feature-card > .card-coming-soon-overlay,
+.about-drawer-card > .card-coming-soon-overlay {
+    position: absolute !important;
+    inset: 0 !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 99 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
 }
 
 .about-feature-header {
@@ -880,7 +908,8 @@ main .about-feature-card p,
     transform: translateX(4px) !important;
 }
 
-.about-feature-card > .card-corner-chibi {
+.about-feature-card > .card-corner-chibi,
+.about-drawer-card > .card-corner-chibi {
     position: absolute !important;
     bottom: 16px !important;
     right: 22px !important;
@@ -1311,34 +1340,41 @@ main .feedback-feature-card p,
 }
 
 /* ==========================================================================
-   KARTU MASUKAN & SARAN (FEEDBACK) — VARIASI TEMA PER HALAMAN
-   - Beranda (body.page-beranda): Versi Putih / Cerah (Latar putih, pola c1w, teks gelap, aksen pink)
-   - Tentang (body.page-tentang): Tetap Hitam / Obsidian Gelap (Latar gelap, pola w1b, teks putih)
+   KARTU MASUKAN & SARAN (FEEDBACK) — UNIVERSAL TEMA SELANG-SELING
+   - .feedback-theme-white: Latar putih bersih, teks gelap kontras tinggi, aksen pink
+   - .feedback-theme-dark: Latar obsidian gelap, teks terang kontras tinggi, aksen pink
    ========================================================================== */
 
-/* 1. VERSI PUTIH / CERAH (KHUSUS BERANDA) */
+/* 1. VERSI PUTIH / CERAH (.feedback-theme-white) */
+section.feedback-preview.feedback-theme-white,
+body.page-beranda section.feedback-preview.feedback-theme-white,
 body.page-beranda .feedback-preview {
     background-color: #ffffff !important;
     background: #ffffff !important;
     position: relative !important;
     z-index: 10 !important;
+    color: #374151 !important;
 }
 
+.feedback-theme-white .feedback-feature-card,
 body.page-beranda .feedback-feature-card {
-    background: #ffffff !important;
-    border: 1.5px solid rgba(233, 30, 99, 0.25) !important;
+    background: linear-gradient(165deg, #ffffff 0%, #fffbfc 100%) !important;
+    border: 1.5px solid #f4bfd3 !important;
     box-shadow: 0 16px 45px rgba(233, 30, 99, 0.08), 0 4px 18px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
 }
 
+.feedback-theme-white .feedback-feature-card:hover,
 body.page-beranda .feedback-feature-card:hover {
     border-color: var(--pink, #e91e63) !important;
     box-shadow: 0 24px 50px rgba(233, 30, 99, 0.18), 0 8px 22px rgba(0, 0, 0, 0.06) !important;
 }
 
+.feedback-theme-white .feedback-feature-card::before,
 body.page-beranda .feedback-feature-card::before {
-    background: linear-gradient(90deg, #ff659b, #e91e63) !important;
+    background: linear-gradient(90deg, #ff4f91, #e91e63) !important;
 }
 
+.feedback-theme-white .feedback-feature-card::after,
 body.page-beranda .feedback-feature-card::after {
     background-image: url("../../images/mirai/background/c1w.jpeg") !important;
     background-size: 260px auto !important;
@@ -1348,24 +1384,38 @@ body.page-beranda .feedback-feature-card::after {
     mix-blend-mode: multiply !important;
 }
 
+.feedback-theme-white .feedback-feature-card:hover::after,
 body.page-beranda .feedback-feature-card:hover::after {
     opacity: 0.16 !important;
 }
 
+.feedback-theme-white .feedback-feature-badge,
+.feedback-theme-white .feedback-feature-tag,
 body.page-beranda .feedback-feature-badge,
 body.page-beranda .feedback-feature-tag {
     background: rgba(233, 30, 99, 0.08) !important;
     border: 1.5px solid rgba(233, 30, 99, 0.28) !important;
-    color: var(--pink, #e91e63) !important;
+    color: #d81b60 !important;
     box-shadow: 0 2px 8px rgba(233, 30, 99, 0.08) !important;
 }
 
+.feedback-theme-white .feedback-feature-badge .badge-dot,
+.feedback-theme-white .feedback-feature-tag .badge-dot,
 body.page-beranda .feedback-feature-badge .badge-dot,
 body.page-beranda .feedback-feature-tag .badge-dot {
     background: var(--pink, #e91e63) !important;
     box-shadow: 0 0 6px rgba(233, 30, 99, 0.45) !important;
 }
 
+.feedback-theme-white .card-sub-jp {
+    color: #d81b60 !important;
+}
+
+.feedback-theme-white .feedback-feature-body.stacked-layout .feedback-card-title,
+.feedback-theme-white main .feedback-feature-card h2,
+.feedback-theme-white main .feedback-feature-card .heading,
+.feedback-theme-white .feedback-feature-card h2.heading,
+.feedback-theme-white .feedback-feature-card .heading,
 body.page-beranda .feedback-feature-body.stacked-layout .feedback-card-title,
 body.page-beranda main .feedback-feature-card h2,
 body.page-beranda main .feedback-feature-card .heading,
@@ -1374,6 +1424,12 @@ body.page-beranda .feedback-feature-card .heading {
     color: #18151b !important;
 }
 
+.feedback-theme-white .feedback-card-title span,
+.feedback-theme-white .feedback-card-title span.highlight,
+.feedback-theme-white main .feedback-feature-card .heading span,
+.feedback-theme-white main .feedback-feature-card .heading span.highlight,
+.feedback-theme-white .feedback-feature-card .heading span.highlight,
+.feedback-theme-white .feedback-feature-card .heading span,
 body.page-beranda .feedback-card-title span,
 body.page-beranda .feedback-card-title span.highlight,
 body.page-beranda main .feedback-feature-card .heading span,
@@ -1383,52 +1439,75 @@ body.page-beranda .feedback-feature-card .heading span {
     color: var(--pink, #e91e63) !important;
 }
 
+.feedback-theme-white .feedback-feature-body.stacked-layout .feedback-card-desc,
+.feedback-theme-white .feedback-card-desc,
+.feedback-theme-white main .feedback-feature-card .copy,
+.feedback-theme-white main .feedback-feature-card p,
+.feedback-theme-white .feedback-feature-card p.copy,
 body.page-beranda .feedback-feature-body.stacked-layout .feedback-card-desc,
 body.page-beranda .feedback-card-desc,
 body.page-beranda main .feedback-feature-card .copy,
 body.page-beranda main .feedback-feature-card p,
 body.page-beranda .feedback-feature-card p.copy {
-    color: #3d3640 !important;
+    color: #374151 !important;
 }
 
+.feedback-theme-white .feedback-cta-btn,
 body.page-beranda .feedback-cta-btn {
     background: var(--pink, #e91e63) !important;
     color: #ffffff !important;
     box-shadow: 0 6px 18px rgba(233, 30, 99, 0.35) !important;
 }
 
+.feedback-theme-white .feedback-cta-btn:hover,
 body.page-beranda .feedback-cta-btn:hover {
     background: #c2185b !important;
     color: #ffffff !important;
     box-shadow: 0 8px 24px rgba(233, 30, 99, 0.45) !important;
 }
 
+.feedback-theme-white .card-toggle {
+    background: rgba(233, 30, 99, 0.06) !important;
+    border: 1px solid rgba(233, 30, 99, 0.28) !important;
+}
+
+.feedback-theme-white .card-toggle::after {
+    border-right: 2px solid #e91e63 !important;
+    border-bottom: 2px solid #e91e63 !important;
+}
+
+.feedback-theme-white .feedback-feature-card > .card-corner-chibi,
 body.page-beranda .feedback-feature-card > .card-corner-chibi {
     filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.12)) !important;
 }
 
-/* 2. VERSI HITAM GELAP (TETAP GELAP KHUSUS TENTANG) */
+/* 2. VERSI HITAM GELAP (.feedback-theme-dark) */
+section.feedback-preview.feedback-theme-dark,
 body.page-tentang main > section.feedback-preview {
-    background-color: #111111 !important;
-    background: #111111 !important;
+    background-color: #0e0b12 !important;
+    background: #0e0b12 !important;
     color: #f5edf4 !important;
 }
 
+.feedback-theme-dark .feedback-feature-card,
 body.page-tentang .feedback-feature-card {
     background: linear-gradient(165deg, #1c1523 0%, #130f18 100%) !important;
-    border: 1.5px solid rgba(255, 101, 155, 0.25) !important;
+    border: 1.5px solid rgba(255, 101, 155, 0.28) !important;
     box-shadow: 0 16px 44px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
 }
 
+.feedback-theme-dark .feedback-feature-card:hover,
 body.page-tentang .feedback-feature-card:hover {
     border-color: var(--pink, #e91e63) !important;
     box-shadow: 0 24px 50px rgba(233, 30, 99, 0.22), 0 6px 18px rgba(0, 0, 0, 0.6) !important;
 }
 
+.feedback-theme-dark .feedback-feature-card::before,
 body.page-tentang .feedback-feature-card::before {
     background: linear-gradient(90deg, #ff659b, #e91e63) !important;
 }
 
+.feedback-theme-dark .feedback-feature-card::after,
 body.page-tentang .feedback-feature-card::after {
     background-image: url("../../images/mirai/background/w1b.jpeg") !important;
     background-size: 260px auto !important;
@@ -1438,17 +1517,37 @@ body.page-tentang .feedback-feature-card::after {
     mix-blend-mode: screen !important;
 }
 
+.feedback-theme-dark .feedback-feature-card:hover::after,
 body.page-tentang .feedback-feature-card:hover::after {
     opacity: 0.08 !important;
 }
 
+.feedback-theme-dark .feedback-feature-badge,
+.feedback-theme-dark .feedback-feature-tag,
 body.page-tentang .feedback-feature-badge,
 body.page-tentang .feedback-feature-tag {
     background: rgba(233, 30, 99, 0.16) !important;
     border: 1.5px solid rgba(233, 30, 99, 0.4) !important;
-    color: var(--pink, #e91e63) !important;
+    color: #ff659b !important;
 }
 
+.feedback-theme-dark .feedback-feature-badge .badge-dot,
+.feedback-theme-dark .feedback-feature-tag .badge-dot,
+body.page-tentang .feedback-feature-badge .badge-dot,
+body.page-tentang .feedback-feature-tag .badge-dot {
+    background: var(--pink, #e91e63) !important;
+    box-shadow: 0 0 8px var(--pink, #e91e63) !important;
+}
+
+.feedback-theme-dark .card-sub-jp {
+    color: #ff659b !important;
+}
+
+.feedback-theme-dark .feedback-feature-body.stacked-layout .feedback-card-title,
+.feedback-theme-dark main .feedback-feature-card h2,
+.feedback-theme-dark main .feedback-feature-card .heading,
+.feedback-theme-dark .feedback-feature-card h2.heading,
+.feedback-theme-dark .feedback-feature-card .heading,
 body.page-tentang .feedback-feature-body.stacked-layout .feedback-card-title,
 body.page-tentang main .feedback-feature-card h2,
 body.page-tentang main .feedback-feature-card .heading,
@@ -1457,6 +1556,12 @@ body.page-tentang .feedback-feature-card .heading {
     color: #ffffff !important;
 }
 
+.feedback-theme-dark .feedback-card-title span,
+.feedback-theme-dark .feedback-card-title span.highlight,
+.feedback-theme-dark main .feedback-feature-card .heading span,
+.feedback-theme-dark main .feedback-feature-card .heading span.highlight,
+.feedback-theme-dark .feedback-feature-card .heading span.highlight,
+.feedback-theme-dark .feedback-feature-card .heading span,
 body.page-tentang .feedback-card-title span,
 body.page-tentang .feedback-card-title span.highlight,
 body.page-tentang main .feedback-feature-card .heading span,
@@ -1466,6 +1571,11 @@ body.page-tentang .feedback-feature-card .heading span {
     color: var(--pink, #e91e63) !important;
 }
 
+.feedback-theme-dark .feedback-feature-body.stacked-layout .feedback-card-desc,
+.feedback-theme-dark .feedback-card-desc,
+.feedback-theme-dark main .feedback-feature-card .copy,
+.feedback-theme-dark main .feedback-feature-card p,
+.feedback-theme-dark .feedback-feature-card p.copy,
 body.page-tentang .feedback-feature-body.stacked-layout .feedback-card-desc,
 body.page-tentang .feedback-card-desc,
 body.page-tentang main .feedback-feature-card .copy,
@@ -1474,11 +1584,31 @@ body.page-tentang .feedback-feature-card p.copy {
     color: #ece4ec !important;
 }
 
+.feedback-theme-dark .feedback-cta-btn,
 body.page-tentang .feedback-cta-btn {
     background: var(--pink, #e91e63) !important;
     color: #ffffff !important;
+    box-shadow: 0 6px 18px rgba(233, 30, 99, 0.45) !important;
 }
 
+.feedback-theme-dark .feedback-cta-btn:hover,
+body.page-tentang .feedback-cta-btn:hover {
+    background: #c2185b !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 24px rgba(233, 30, 99, 0.55) !important;
+}
+
+.feedback-theme-dark .card-toggle {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 101, 155, 0.4) !important;
+}
+
+.feedback-theme-dark .card-toggle::after {
+    border-right: 2px solid #ff659b !important;
+    border-bottom: 2px solid #ff659b !important;
+}
+
+.feedback-theme-dark .feedback-feature-card > .card-corner-chibi,
 body.page-tentang .feedback-feature-card > .card-corner-chibi {
     filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.4)) !important;
 }
@@ -1824,7 +1954,9 @@ body.theme-dark .feedback-card-desc {
 }
 
 /* 5. Penanda Buka-Tutup: Ikon Panah Chevron CSS Murni */
-.card-toggle {
+.card-toggle,
+.about-feature-card > .card-toggle,
+.about-drawer-card > .card-toggle {
     position: absolute !important;
     top: 18px !important;
     right: 18px !important;
@@ -1884,7 +2016,9 @@ body.theme-dark .feedback-card-desc {
 }
 
 /* 6. Kompartemen Laci Geser Logo NK (Melahap Sisi Kanan Tanpa Menggeser Teks dengan Animasi Rotasi) */
-.drawer-tray {
+.drawer-tray,
+.about-feature-card > .drawer-tray,
+.about-drawer-card > .drawer-tray {
     position: absolute !important;
     top: 0 !important;
     right: 0 !important;
@@ -1981,11 +2115,12 @@ body.theme-dark .feedback-card-desc {
         display: grid !important;
         grid-template-columns: auto 1fr auto !important;
         grid-template-areas:
+            "num sub toggle"
             "num title toggle"
             "desc desc desc"
             "btn btn btn" !important;
         align-items: center !important;
-        row-gap: 8px !important;
+        row-gap: 2px !important;
         column-gap: 12px !important;
         min-height: auto !important;
         padding: 15px 16px !important;
@@ -1995,9 +2130,23 @@ body.theme-dark .feedback-card-desc {
     .activity-start-card .card-step-num {
         grid-area: num !important;
         margin: 0 !important;
-        width: 28px !important;
-        height: 28px !important;
+        width: 30px !important;
+        height: 30px !important;
         font-size: 13px !important;
+        align-self: center !important;
+    }
+
+    .start-card .card-sub-jp,
+    .activity-start-card .card-sub-jp {
+        grid-area: sub !important;
+        margin: 0 0 1px 0 !important;
+        font-size: 11px !important;
+        line-height: 1.2 !important;
+        align-self: end !important;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        transform: none !important;
     }
 
     .start-card h3,
@@ -2007,6 +2156,7 @@ body.theme-dark .feedback-card-desc {
         font-size: 15px !important;
         line-height: 1.25 !important;
         max-width: 100% !important;
+        align-self: start !important;
     }
 
     .start-card .card-toggle,
@@ -2086,3 +2236,28 @@ body.theme-dark .feedback-card-desc {
     }
 }
 /* MNH-CARD-EXPAND END */
+
+
+/* Perbaikan posisi Sub Judul & Judul pada Kartu Kegiatan / Beranda */
+.start-card > .card-step-num,
+.activity-start-card > .card-step-num {
+    margin-bottom: 12px !important;
+}
+
+.start-card .card-sub-jp,
+.activity-start-card .card-sub-jp {
+    display: block !important;
+    margin-top: 10px !important;
+    margin-bottom: 3px !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    transform: none !important;
+    color: var(--pink, #ff659b) !important;
+}
+
+.start-card h3,
+.activity-start-card h3 {
+    margin-top: 0 !important;
+}

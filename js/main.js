@@ -181,24 +181,230 @@ const MiraiSound = {
     },
 
     playClickIfIdle() {
-        if (Date.now() - this.lastClickTime < 50) return;
+        if (Date.now() - this.lastClickTime < 35) return;
         this.play("click");
     }
 };
 
 window.MiraiSound = MiraiSound;
 
+/**
+ * Text-to-Speech (TTS) Global Mirai no Webu
+ * Mendukung pelafalan bahasa Jepang (ja-JP) dan bahasa Indonesia (id-ID)
+ * @param {string} text - Teks yang akan dibacakan
+ * @param {string} [lang='ja-JP'] - Kode bahasa ('ja-JP' atau 'id-ID')
+ */
+function speakText(text, lang = "ja-JP") {
+    if (!text || typeof text !== "string") return;
+    const cleanText = text
+        .replace(/<[^>]*>/g, " ")
+        .replace(/[（()）「」『』]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    if (!cleanText || !("speechSynthesis" in window)) return;
+
+    try {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(cleanText);
+        utterance.lang = lang;
+        utterance.rate = lang === "ja-JP" ? 0.9 : 1.0;
+        utterance.pitch = 1.0;
+
+        const voices = window.speechSynthesis.getVoices();
+        if (voices && voices.length) {
+            const prefix = lang.split("-")[0].toLowerCase();
+            const matchingVoice =
+                voices.find((v) => v.lang && v.lang.toLowerCase().replace("_", "-").startsWith(prefix)) ||
+                voices.find((v) => v.lang && v.lang.toLowerCase().includes(prefix));
+            if (matchingVoice) {
+                utterance.voice = matchingVoice;
+            }
+        }
+        window.speechSynthesis.speak(utterance);
+    } catch (err) {
+        console.warn("TTS SpeechSynthesis warning:", err);
+    }
+}
+window.speakText = speakText;
+
+// Listener suara siap jika voice dimuat asinkron
+if ("speechSynthesis" in window && window.speechSynthesis.onvoiceschanged !== undefined) {
+    window.speechSynthesis.onvoiceschanged = () => {
+        window.__speechVoicesReady = true;
+    };
+}
+
+/**
+ * Global Count-Up Number Animator for Mirai no Webu
+ * Menghadirkan efek animasi angka yang menghitung dari 1 (atau 0) hingga angka hasil akhir.
+ * Mendukung teks berformat dengan prefix dan suffix (contoh: "21", "28 Kali", "100%", "🔥 12", "6 Pasang", "1500 PTS").
+ *
+ * @param {HTMLElement|string} target - Elemen target atau selector CSS
+ * @param {number|string} [customEndVal] - Nilai hasil akhir opsional
+ * @param {object} [options] - Pengaturan opsional: { startVal, duration, onComplete }
+ */
+function animateCountUp(target, customEndVal, options = {}) {
+    const el = typeof target === "string" ? document.querySelector(target) : target;
+    if (!el) return;
+
+    if (el.__countUpAnimId) {
+        cancelAnimationFrame(el.__countUpAnimId);
+        el.__countUpAnimId = null;
+    }
+
+    let sourceText = "";
+    if (customEndVal !== undefined && customEndVal !== null) {
+        sourceText = String(customEndVal).trim();
+    } else if (el.dataset.countTarget !== undefined) {
+        sourceText = String(el.dataset.countTarget).trim();
+    } else {
+        sourceText = (el.textContent || "").trim();
+    }
+
+    if (!sourceText) return;
+    el.dataset.countTarget = sourceText;
+
+    const match = sourceText.match(/^(.*?)(\d+[\d,.]*)(.*?)$/);
+    if (!match) {
+        el.textContent = sourceText;
+        return;
+    }
+
+    const prefix = match[1];
+    const rawNumStr = match[2];
+    const suffix = match[3];
+
+    const hasCommas = rawNumStr.includes(",");
+    const hasDots = rawNumStr.includes(".");
+    const isDecimal = hasDots && !hasCommas && /^\d+\.\d{1,2}$/.test(rawNumStr);
+
+    let targetVal = 0;
+    if (isDecimal) {
+        targetVal = parseFloat(rawNumStr);
+    } else {
+        targetVal = parseInt(rawNumStr.replace(/[.,]/g, ""), 10);
+    }
+
+    if (isNaN(targetVal)) {
+        el.textContent = sourceText;
+        return;
+    }
+
+    // Menghitung dari 1 ke angka hasil (atau dari 0 jika targetnya 0)
+    let startVal = options.startVal !== undefined
+        ? Number(options.startVal)
+        : (targetVal >= 1 ? 1 : 0);
+
+    if (startVal === targetVal) {
+        el.textContent = sourceText;
+        el.classList.remove("is-counting");
+        el.classList.add("count-finished");
+        return;
+    }
+
+    const diff = Math.abs(targetVal - startVal);
+    let duration = options.duration;
+    if (!duration) {
+        if (diff <= 10) duration = 650;
+        else if (diff <= 35) duration = 900;
+        else if (diff <= 150) duration = 1150;
+        else if (diff <= 1000) duration = 1350;
+        else duration = 1550;
+    }
+
+    const startTime = performance.now();
+    el.classList.add("is-counting");
+    el.classList.remove("count-finished");
+
+    function frame(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        // Ease-out cubic: cepat di awal dan melambat halus di akhir
+        const ease = 1 - Math.pow(1 - progress, 3);
+        const currentVal = startVal + (targetVal - startVal) * ease;
+
+        let displayValStr = "";
+        if (isDecimal) {
+            displayValStr = currentVal.toFixed(1);
+        } else {
+            const rounded = Math.round(currentVal);
+            displayValStr = hasCommas ? rounded.toLocaleString("en-US") : String(rounded);
+        }
+
+        el.textContent = `${prefix}${displayValStr}${suffix}`;
+
+        if (progress < 1) {
+            el.__countUpAnimId = requestAnimationFrame(frame);
+        } else {
+            el.textContent = sourceText;
+            el.__countUpAnimId = null;
+            el.classList.remove("is-counting");
+            el.classList.add("count-finished");
+
+            if (typeof options.onComplete === "function") {
+                options.onComplete();
+            }
+        }
+    }
+
+    el.__countUpAnimId = requestAnimationFrame(frame);
+}
+window.animateCountUp = animateCountUp;
+
+/**
+ * Inisialisasi IntersectionObserver otomatis untuk elemen angka statistik
+ */
+function initGlobalCountUpObservers() {
+    const selector = ".prestasi-stat-num, [data-counter], [data-countup], .kwu-stat-box strong";
+    const elements = document.querySelectorAll(selector);
+    if (!elements.length) return;
+
+    if (!("IntersectionObserver" in window)) {
+        elements.forEach((el) => animateCountUp(el));
+        return;
+    }
+
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                animateCountUp(el);
+                obs.unobserve(el);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: "0px 0px -20px 0px"
+    });
+
+    elements.forEach((el) => {
+        if (!el.dataset.countTarget) {
+            el.dataset.countTarget = el.textContent.trim();
+        }
+        observer.observe(el);
+    });
+}
+window.initGlobalCountUpObservers = initGlobalCountUpObservers;
+
+
 function setupGlobalSoundClicks() {
     // Unlock Web Audio context pada sentuhan atau interaksi pertama pengguna
-    ["pointerdown", "touchstart", "keydown"].forEach((evt) => {
+    ["pointerdown", "touchstart", "click", "keydown"].forEach((evt) => {
         window.addEventListener(evt, () => {
-            window.MiraiSound?.unlock();
+            if (window.MiraiSound) {
+                window.MiraiSound.unlock();
+                const ctx = window.MiraiSound.getContext();
+                if (ctx && ctx.state === "suspended") {
+                    ctx.resume().catch(() => {});
+                }
+            }
         }, { passive: true, capture: true });
     });
 
     const INTERACTIVE_SELECTOR = [
         "button",
-        "a[href]",
+        "a",
         "summary",
         '[role="button"]',
         '[role="tab"]',
@@ -208,17 +414,33 @@ function setupGlobalSoundClicks() {
         'input[type="reset"]',
         'input[type="radio"]',
         'input[type="checkbox"]',
+        "[data-expand-card]",
+        "[data-expand-cta]",
+        "[data-clickable]",
+        "[data-action]",
+        "[onclick]",
+        ".card",
+        "[class*='-card']",
+        "[class*='card-']",
+        ".btn",
+        "[class*='-btn']",
+        "[class*='btn-']",
+        ".nav-card",
+        ".activity-start-card",
+        ".start-card",
+        ".division-card",
+        ".program-card",
+        ".competition-card",
+        ".product-card",
+        ".lesson-card",
+        ".material-card",
         ".mode-card",
+        ".level-card",
         ".course-card",
         ".choice-card",
-        ".nav-card",
-        ".practice-card",
-        ".kanji-card",
-        ".kanji-cell",
-        ".dict-tab-btn",
-        ".quiz-chip",
-        ".bunpou-chip",
-        ".match-button",
+        ".memory-card",
+        ".flashcard",
+        ".card-toggle",
         ".tab-btn",
         ".filter-btn",
         ".accordion-header",
@@ -230,10 +452,16 @@ function setupGlobalSoundClicks() {
         ".to-top",
         ".menu-toggle",
         ".hero-btn",
-        ".btn",
-        ".memory-card",
-        ".flashcard",
-        "[data-clickable]"
+        ".script-tabs button",
+        ".quick-pill-btn",
+        ".custom-type-card",
+        ".memory-diff-btn",
+        ".palette-num-btn",
+        ".kanji-cell",
+        ".dict-tab-btn",
+        ".quiz-chip",
+        ".bunpou-chip",
+        ".match-button"
     ].join(", ");
 
     // Global click listener pada capture phase untuk tanggapan instan
@@ -265,6 +493,22 @@ function setupGlobalSoundClicks() {
 // Inisialisasi listener klik audio secepat mungkin
 setupGlobalSoundClicks();
 
+// Cek status terkunci secepat mungkin untuk mencegah kedipan konten
+(function checkComingSoonEarly() {
+    try {
+        localStorage.removeItem("mnh_access_unlocked");
+        const isUnlocked = sessionStorage.getItem("mnh_access_unlocked") === "true";
+        const rawPath = (window.location.pathname || "").toLowerCase();
+        const lockedDirs = ["/toko/", "/peringkat/", "/rekomendasi/", "/lomba/", "/tentang/", "/kegiatan/", "/divisi/"];
+        if (!isUnlocked && lockedDirs.some((dir) => rawPath.includes(dir))) {
+            document.documentElement.classList.add("is-page-locked-early");
+            if (document.body) {
+                document.body.classList.add("is-page-locked");
+            }
+        }
+    } catch (e) {}
+})();
+
 document.addEventListener("DOMContentLoaded", () => {
     normalizeNavigation();
     setupThemeToggle();
@@ -277,9 +521,11 @@ document.addEventListener("DOMContentLoaded", () => {
     setupLearningPanel();
     setupManagementSlider();
     setupImageLightbox();
-    setupFooterQuoteSlider();
+    setupUniversalFeedbackAndQuote();
     setupExpandableCards();
     initMiraiProgress();
+    initGlobalCountUpObservers();
+    initComingSoonSystem();
     window.initKanjiDictionary?.();
     window.initSora?.();
 });
@@ -920,21 +1166,196 @@ function setupImageLightbox() {
 }
 
 /* ==========================================================================
-   FOOTER QUOTE SLIDER (KATA MOTIVASI DI ATAS DISCLAIMER)
+   UNIVERSAL SECTIONS: KRITIK & SARAN & FOOTER QUOTE SLIDER
+   - Kritik & Saran selalu hadir di seluruh halaman di atas Kutipan Inspiratif
+   - Sistem Warna Selang-Seling:
+     * Seksi Sebelumnya PUTIH -> Feedback HITAM -> Quote PUTIH
+     * Seksi Sebelumnya HITAM -> Feedback PUTIH -> Quote HITAM
+   - Proteksi kontras 100%: teks, kartu, badge, tombol selalu tajam dan terbaca
    ========================================================================== */
-function setupFooterQuoteSlider() {
-    // Jangan pasang slider jika berada di halaman arsip motivasi itu sendiri
-    if (document.body.classList.contains("page-motivasi")) return;
 
+function detectIfPrecedingSectionIsDark(masukanEl) {
+    const path = (window.location.pathname || "").toLowerCase();
+
+    // 1. Halaman yang seksi konten terakhirnya sudah pasti berlatar HITAM
+    if (document.body.classList.contains("page-peringkat") ||
+        document.body.classList.contains("page-motivasi") ||
+        document.body.classList.contains("page-404") ||
+        path.includes("/peringkat/") ||
+        path.includes("/rekomendasi/") ||
+        path.includes("404")) {
+        return true;
+    }
+
+    // 2. Halaman yang seksi konten terakhirnya sudah pasti berlatar PUTIH
+    if (document.body.classList.contains("page-tentang") ||
+        document.body.classList.contains("page-toko") ||
+        document.body.classList.contains("page-kamus") ||
+        document.body.classList.contains("page-lomba") ||
+        document.body.classList.contains("page-latihan") ||
+        document.body.classList.contains("page-kelas") ||
+        document.body.classList.contains("page-kegiatan") ||
+        path.includes("/tentang/") ||
+        path.includes("/toko/") ||
+        path.includes("/kamus/") ||
+        path.includes("/lomba/") ||
+        path.includes("/kegiatan/") ||
+        path.includes("/divisi/")) {
+        return false;
+    }
+
+    // 3. Inspeksi elemen sebelum #masukan di dalam DOM
+    let prev = masukanEl ? masukanEl.previousElementSibling : null;
+    while (prev && (prev.tagName === "SCRIPT" || prev.tagName === "STYLE" || prev.getAttribute?.("aria-hidden") === "true")) {
+        prev = prev.previousElementSibling;
+    }
+
+    // Jika elemen sebelumnya adalah <main> atau tidak ada (misal #masukan disisipkan langsung di <body>)
+    if (!prev || prev.tagName === "MAIN") {
+        const main = (prev && prev.tagName === "MAIN") ? prev : document.querySelector("main");
+        if (main && main.lastElementChild && main.lastElementChild !== masukanEl) {
+            let innerPrev = main.lastElementChild;
+            while (innerPrev && (innerPrev.tagName === "SCRIPT" || innerPrev.tagName === "STYLE" || innerPrev.getAttribute?.("aria-hidden") === "true" || innerPrev === masukanEl)) {
+                innerPrev = innerPrev.previousElementSibling;
+            }
+            if (innerPrev) {
+                prev = innerPrev;
+            }
+        }
+    }
+
+    if (prev) {
+        // Selektor seksi Gelap (Hitam / Obsidian)
+        if (prev.matches(".home-activities-dark-section, .material-library, .media-rekomendasi-page, .peringkat-section, .motivasi-section, .error-404-container, .error-404-card")) {
+            return true;
+        }
+        // Selektor seksi Terang (Putih Bersih)
+        if (prev.matches(".management-section, .toko-faq-white-section, .translator-studio-section, .dictionary-section, .lomba-catalog-section, .buuku-lesson, .lesson-article, .documentation-section, #minigames, .quest-section, #kurikulum, .division-section, .proker-section")) {
+            return false;
+        }
+    }
+
+    // Beranda memiliki aktivitas gelap tepat di atas masukan
+    if (document.querySelector(".home-activities-dark-section")) {
+        return true;
+    }
+
+    // Seksi dokumentasi proker & buuku lesson selalu putih bersih
+    if (document.querySelector(".documentation-section, .buuku-lesson, .lesson-article, #minigames")) {
+        return false;
+    }
+
+    // 4. Deteksi dinamis fallback via getComputedStyle & luminansi
+    if (prev) {
+        let el = prev;
+        while (el && el !== document.body && el !== document.documentElement) {
+            const style = window.getComputedStyle(el);
+            const bg = style.backgroundColor;
+            if (bg && bg !== "transparent" && !bg.startsWith("rgba(0, 0, 0, 0)")) {
+                const rgb = bg.match(/\d+/g);
+                if (rgb && rgb.length >= 3) {
+                    const r = parseInt(rgb[0], 10);
+                    const g = parseInt(rgb[1], 10);
+                    const b = parseInt(rgb[2], 10);
+                    const luminance = 0.299 * r + 0.587 * g + 0.114 * b;
+                    return luminance < 128;
+                }
+            }
+            el = el.parentElement;
+        }
+    }
+
+    return false;
+}
+
+function setupUniversalFeedbackAndQuote() {
     const footer = document.querySelector(".global-footer");
     if (!footer) return;
 
-    // Hindari duplikasi
-    if (document.getElementById("footerQuoteSliderSection")) return;
-
-    // Deteksi base relative path
     const basePath = getAppBasePath();
 
+    // 1. Dapatkan atau buat elemen #masukan (Kritik & Saran)
+    let masukanEl = document.getElementById("masukan");
+
+    if (!masukanEl) {
+        masukanEl = document.createElement("section");
+        masukanEl.className = "section feedback-preview";
+        masukanEl.id = "masukan";
+        masukanEl.setAttribute("aria-label", "Kritik dan Saran Klub Mirai no Hana");
+        masukanEl.innerHTML = `
+            <div class="feedback-feature-card" data-expand-card>
+                <div class="feedback-feature-header">
+                    <span class="feedback-feature-tag">
+                        <span class="badge-dot"></span>
+                        SUARA MIRAI NO HANA
+                    </span>
+                </div>
+                <div class="feedback-feature-body stacked-layout">
+                    <span class="card-sub-jp">ご意見・ご要望</span>
+                    <h2 class="feedback-card-title">Kritik &amp;<br><span class="highlight">Saran.</span></h2>
+                    <div class="card-collapsible-content">
+                        <div class="card-collapsible-inner">
+                            <p class="feedback-card-desc">Punya ide, saran kegiatan, atau kendala di website? Sampaikan lewat formulir ini agar Mirai no Hana terus berkembang!</p>
+                        </div>
+                    </div>
+                    <div class="feedback-feature-action">
+                        <a class="btn primary feedback-cta-btn" data-expand-cta href="https://forms.gle/dFPRM842xxKq5YMt9" target="_blank" rel="noopener noreferrer">
+                            <span>GFORM KRITIK DAN SARAN</span>
+                            <span class="btn-arrow">↗</span>
+                        </a>
+                    </div>
+                </div>
+                <button type="button" class="card-toggle" aria-expanded="false" aria-label="Buka tutup detail"></button>
+                <img class="card-corner-chibi" src="${basePath}images/mirai/icon/Fa.png" alt="Mascot Feedback Mirai No Hana" aria-hidden="true">
+            </div>
+        `;
+        footer.parentNode.insertBefore(masukanEl, footer);
+    }
+
+    masukanEl.classList.add("is-visible");
+
+    // 2. Deteksi warna seksi sebelumnya (Preceding Section)
+    const isPrecedingDark = detectIfPrecedingSectionIsDark(masukanEl);
+
+    // 3. Terapkan kelas tema selang-seling pada #masukan:
+    // Jika preceding gelap -> masukan PUTIH
+    // Jika preceding terang -> masukan HITAM
+    if (isPrecedingDark) {
+        masukanEl.classList.remove("feedback-theme-dark");
+        masukanEl.classList.add("feedback-theme-white");
+    } else {
+        masukanEl.classList.remove("feedback-theme-white");
+        masukanEl.classList.add("feedback-theme-dark");
+    }
+
+    // 4. Setup Kutipan Motivasi Slider (Kecuali halaman arsip motivasi itu sendiri)
+    if (!document.body.classList.contains("page-motivasi")) {
+        let quoteSection = document.getElementById("footerQuoteSliderSection");
+        if (!quoteSection) {
+            quoteSection = initFooterQuoteSlider(footer, basePath);
+        }
+
+        // Terapkan tema selang-seling pada slider kutipan:
+        // Jika preceding gelap -> masukan putih -> quote slider HITAM
+        // Jika preceding terang -> masukan hitam -> quote slider PUTIH
+        if (isPrecedingDark) {
+            quoteSection.classList.remove("quote-theme-white");
+            quoteSection.classList.add("quote-theme-dark");
+        } else {
+            quoteSection.classList.remove("quote-theme-dark");
+            quoteSection.classList.add("quote-theme-white");
+        }
+    }
+
+    // 5. Inisialisasi kartu expandable jika belum terpasang
+    setupExpandableCards();
+}
+
+function setupFooterQuoteSlider() {
+    setupUniversalFeedbackAndQuote();
+}
+
+function initFooterQuoteSlider(footer, basePath) {
     const quotes = [
         {
             id: 1,
@@ -1056,7 +1477,6 @@ function setupFooterQuoteSlider() {
     let currentIndex = 0;
     let autoTimer = null;
 
-    // Buat elemen section slider independen (halaman/blok hitam mandiri, terpisah dari disclaimer)
     const section = document.createElement("section");
     section.className = "section-quote-slider";
     section.id = "footerQuoteSliderSection";
@@ -1084,7 +1504,6 @@ function setupFooterQuoteSlider() {
         </div>
     `;
 
-    // Pasang sebelum .global-footer sehingga menjadi section tersendiri di atas disclaimer
     footer.parentNode.insertBefore(section, footer);
 
     const cardContainer = section.querySelector("#footerQuoteCardContainer");
@@ -1110,7 +1529,6 @@ function setupFooterQuoteSlider() {
                     </span>
                 </div>
                 <div class="quote-card-body">
-                    <!-- BARIS ATAS: 2 BOX (KIRI FOTO & IDENTITAS, KANAN KUTIPAN) -->
                     <div class="quote-top-row">
                         <div class="quote-author-profile">
                             <div class="quote-avatar-wrap">
@@ -1126,8 +1544,6 @@ function setupFooterQuoteSlider() {
                             </div>
                         </div>
                     </div>
-
-                    <!-- BARIS BAWAH: 1 BOX MEMANJANG (MAKNA KUTIPAN) -->
                     <div class="quote-meaning-card">
                         <div class="quote-meaning-head">
                             <span class="quote-meaning-badge">🌟 Makna Kutipan</span>
@@ -1180,11 +1596,9 @@ function setupFooterQuoteSlider() {
         });
     });
 
-    // Jeda otomatis jika kursor berada di atas kartu kutipan
     section.addEventListener("mouseenter", stopAutoTimer);
     section.addEventListener("mouseleave", startAutoTimer);
 
-    // Gestur geser layar sentuh (touch swipe) untuk perangkat mobile
     let touchStartX = 0;
     section.addEventListener("touchstart", (e) => {
         touchStartX = e.touches[0].clientX;
@@ -1204,9 +1618,10 @@ function setupFooterQuoteSlider() {
         startAutoTimer();
     }, { passive: true });
 
-    // Render kartu pertama dan jalankan timer otomatis
     renderSlide(0);
     startAutoTimer();
+
+    return section;
 }
 
 
@@ -1215,6 +1630,9 @@ function setupExpandableCards() {
     if (!cards.length) return;
 
     cards.forEach((card) => {
+        if (card.dataset.expandBound === "true") return;
+        card.dataset.expandBound = "true";
+
         const toggleBtn = card.querySelector(".card-toggle");
         const isAboutDrawerCard = card.classList.contains("about-drawer-card") || card.id === "mnhAboutDrawerCard";
 
@@ -1225,6 +1643,16 @@ function setupExpandableCards() {
 
         // Standard 2-step card logic for all other cards
         card.addEventListener("click", (e) => {
+            if (card.classList.contains("card-coming-soon-locked") || !isAccessUnlocked()) {
+                if (card.classList.contains("card-coming-soon-locked")) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    window.MiraiSound?.playClickIfIdle();
+                    openPasswordModal();
+                    return;
+                }
+            }
+
             const ctaBtn = e.target.closest("[data-expand-cta]");
             if (ctaBtn) {
                 // Biarkan kombinasi Ctrl / Cmd / Shift / Alt klik membuka tab baru secara normal
@@ -1266,6 +1694,8 @@ function setupExpandableCards() {
     });
 
     function toggleCard(card, shouldOpen) {
+        // Multi-expand universal: kartu yang terbuka bisa lebih dari satu secara bersamaan,
+        // kartu lain tidak tertutup otomatis dan hanya tertutup jika kartu bersangkutan diklik kembali.
         card.classList.toggle("is-expanded", shouldOpen);
 
         const toggleBtn = card.querySelector(".card-toggle");
@@ -1273,6 +1703,7 @@ function setupExpandableCards() {
             toggleBtn.setAttribute("aria-expanded", shouldOpen ? "true" : "false");
             toggleBtn.setAttribute("aria-label", shouldOpen ? "Tutup detail kartu" : "Buka detail kartu");
         }
+        window.MiraiSound?.play("toggle");
     }
 
     /**
@@ -1293,6 +1724,14 @@ function setupExpandableCards() {
         }
 
         card.addEventListener("click", (e) => {
+            if (card.classList.contains("card-coming-soon-locked") || !isAccessUnlocked()) {
+                e.preventDefault();
+                e.stopPropagation();
+                window.MiraiSound?.playClickIfIdle();
+                openPasswordModal();
+                return;
+            }
+
             const ctaBtn = e.target.closest("[data-expand-cta]");
 
             // 1. Aksi Klik pada Tombol CTA ("TENTANG MIRAI NO HANA ->")
@@ -1754,5 +2193,745 @@ function initMiraiProgress() {
     MiraiProgress.setupLessonPage();
     MiraiProgress.setupResumeBanner();
 }
+
+/* ==========================================================================
+   COMING SOON (SEGERA HADIR) & ACCESS CONTROL SYSTEM
+   - Kunci akses & efek blur untuk halaman/seksi berstatus "Segera Hadir"
+   - Tombol gembok di sebelah kata "MENU" pada sidebar (Merah: Terkunci, Hijau: Terbuka)
+   - Keamanan tingkat tinggi: Sandi di-hash dengan Salted SHA-256 (Anti-Bocor/Hack)
+   - Seksi terkunci: #kurikulum (kelas) & #studio-terjemahan (kamus)
+   - Halaman terkunci: Selain Beranda, Kelas, Kamus (Saran & Kritik BEBAS dari kunci)
+   ========================================================================== */
+
+const CS_SESSION_KEY = "mnh_access_unlocked";
+const CS_SALT = "mirainohana_smawh2_salt_2026:";
+const CS_TARGET_HASH = "619bb918bff1fddc0674c02a5513af80c8365b3fbaed0736f5e12b1d093f6733";
+
+// Fungsi murni SHA-256 (Berjalan mandiri di semua peramban, offline & file://)
+function sha256Sync(ascii) {
+    function rightRotate(value, amount) {
+        return (value >>> amount) | (value << (32 - amount));
+    }
+    const words = [];
+    const asciiBitLength = ascii.length * 8;
+    let hash = [
+        0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
+        0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19
+    ];
+    const k = [
+        0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+        0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+        0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+        0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+        0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+        0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+        0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+        0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
+    ];
+    let i, j;
+    for (i = 0; i < ascii.length; i++) {
+        const jIdx = i >> 2;
+        words[jIdx] = (words[jIdx] || 0) | (ascii.charCodeAt(i) << (24 - (i % 4) * 8));
+    }
+    const endIdx = asciiBitLength >> 5;
+    words[endIdx] = (words[endIdx] || 0) | (0x80 << (24 - (asciiBitLength % 32)));
+    words[(((asciiBitLength + 64) >> 9) << 4) + 15] = asciiBitLength;
+
+    const w = new Array(64);
+    for (i = 0; i < words.length; i += 16) {
+        const oldHash = hash.slice(0);
+        for (j = 0; j < 64; j++) {
+            if (j < 16) {
+                w[j] = words[i + j] | 0;
+            } else {
+                const s0 = rightRotate(w[j - 15], 7) ^ rightRotate(w[j - 15], 18) ^ (w[j - 15] >>> 3);
+                const s1 = rightRotate(w[j - 2], 17) ^ rightRotate(w[j - 2], 19) ^ (w[j - 2] >>> 10);
+                w[j] = (w[j - 16] + s0 + w[j - 7] + s1) | 0;
+            }
+            const s1_ = rightRotate(hash[4], 6) ^ rightRotate(hash[4], 11) ^ rightRotate(hash[4], 25);
+            const ch = (hash[4] & hash[5]) ^ (~hash[4] & hash[6]);
+            const temp1 = (hash[7] + s1_ + ch + k[j] + w[j]) | 0;
+            const s0_ = rightRotate(hash[0], 2) ^ rightRotate(hash[0], 13) ^ rightRotate(hash[0], 22);
+            const maj = (hash[0] & hash[1]) ^ (hash[0] & hash[2]) ^ (hash[1] & hash[2]);
+            const temp2 = (s0_ + maj) | 0;
+
+            hash[7] = hash[6];
+            hash[6] = hash[5];
+            hash[5] = hash[4];
+            hash[4] = (hash[3] + temp1) | 0;
+            hash[3] = hash[2];
+            hash[2] = hash[1];
+            hash[1] = hash[0];
+            hash[0] = (temp1 + temp2) | 0;
+        }
+        for (j = 0; j < 8; j++) {
+            hash[j] = (hash[j] + oldHash[j]) | 0;
+        }
+    }
+    let result = "";
+    for (i = 0; i < 8; i++) {
+        for (j = 3; j >= 0; j--) {
+            const b = (hash[i] >> (j * 8)) & 255;
+            result += (b < 16 ? "0" : "") + b.toString(16);
+        }
+    }
+    return result;
+}
+
+async function verifyAccessPassword(inputPassword) {
+    const salted = CS_SALT + (inputPassword || "").trim().toLowerCase();
+    try {
+        if (window.crypto && window.crypto.subtle) {
+            const msgUint8 = new TextEncoder().encode(salted);
+            const hashBuffer = await window.crypto.subtle.digest("SHA-256", msgUint8);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hex = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+            return hex === CS_TARGET_HASH;
+        }
+    } catch (e) {}
+    return sha256Sync(salted) === CS_TARGET_HASH;
+}
+
+function isAccessUnlocked() {
+    try {
+        return sessionStorage.getItem(CS_SESSION_KEY) === "true";
+    } catch (e) {
+        return window.__mnhAccessUnlocked === true;
+    }
+}
+
+function setAccessUnlocked(val) {
+    try {
+        if (val) {
+            sessionStorage.setItem(CS_SESSION_KEY, "true");
+        } else {
+            sessionStorage.removeItem(CS_SESSION_KEY);
+        }
+    } catch (e) {}
+    window.__mnhAccessUnlocked = Boolean(val);
+}
+
+function isCurrentPageComingSoon() {
+    const rawPath = (window.location.pathname || "").toLowerCase();
+    const lockedDirs = [
+        "/toko/",
+        "/peringkat/",
+        "/rekomendasi/",
+        "/lomba/",
+        "/tentang/",
+        "/kegiatan/",
+        "/divisi/"
+    ];
+    return lockedDirs.some((dir) => rawPath.includes(dir));
+}
+
+function getComingSoonPageInfo() {
+    const rawPath = (window.location.pathname || "").toLowerCase();
+    if (rawPath.includes("/toko/")) {
+        return {
+            title: "Toko Resmi Klub",
+            kanji: "公式ショップ",
+            icon: "🛍️",
+            desc: "Katalog merchandise eksklusif klub Mirai No Hana sedang dipersiapkan dan akan segera dirilis resmi."
+        };
+    }
+    if (rawPath.includes("/peringkat/")) {
+        return {
+            title: "Papan Peringkat Prestasi",
+            kanji: "リーダーボード",
+            icon: "🏆",
+            desc: "Sistem papan peringkat dan leaderboard pencapaian belajar anggota klub sedang dalam tahap finalisasi data."
+        };
+    }
+    if (rawPath.includes("/rekomendasi/")) {
+        return {
+            title: "Rekomendasi Karya & Media",
+            kanji: "おすすめ作品",
+            icon: "⭐",
+            desc: "Kurasi rekomendasi anime, manga, novel, dan media budaya Jepang pilihan sedang disiapkan."
+        };
+    }
+    if (rawPath.includes("/lomba/")) {
+        return {
+            title: "Informasi Lomba & Acara",
+            kanji: "大会＆イベント",
+            icon: "🎪",
+            desc: "Jadwal kompetisi, lomba internal/eksternal, serta festival kebudayaan Jepang akan segera diumumkan."
+        };
+    }
+    if (rawPath.includes("/tentang/")) {
+        return {
+            title: "Profil Klub & Struktur",
+            kanji: "クラブ概要",
+            icon: "👥",
+            desc: "Halaman informasi sejarah, visi misi, serta struktur kepengurusan resmi klub sedang disempurnakan."
+        };
+    }
+    if (rawPath.includes("/kegiatan/")) {
+        return {
+            title: "Program Kerja & Kegiatan",
+            kanji: "活動＆プログラム",
+            icon: "📅",
+            desc: "Dokumentasi dan jadwal program kerja tahunan klub sedang dalam proses kurasi konten interaktif."
+        };
+    }
+    if (rawPath.includes("/divisi/")) {
+        return {
+            title: "Divisi & Kepengurusan Klub",
+            kanji: "クラブ部門",
+            icon: "🎨",
+            desc: "Detail informasi mengenai pembagian divisi minat dan bakat klub sedang dalam tahap penyempurnaan."
+        };
+    }
+    const pageTitle = (document.title || "").split("-")[0].trim() || "Segera Hadir";
+    return {
+        title: pageTitle,
+        kanji: "近日公開",
+        icon: "🌸",
+        desc: "Halaman ini sedang dalam tahap pengembangan dan persiapan konten resmi."
+    };
+}
+
+function ensurePasswordModal() {
+    if (document.getElementById("mnhPasswordModal")) return;
+
+    const modal = document.createElement("div");
+    modal.className = "password-modal-backdrop";
+    modal.id = "mnhPasswordModal";
+    modal.setAttribute("aria-hidden", "true");
+
+    modal.innerHTML = `
+        <div class="password-modal-card" role="dialog" aria-modal="true" aria-labelledby="csModalTitle">
+            <button type="button" class="password-modal-close" id="csModalCloseBtn" aria-label="Tutup Dialog">✕</button>
+            <div class="password-modal-icon">🔐</div>
+            <h3 class="password-modal-title" id="csModalTitle">Akses Khusus Pengurus</h3>
+            <span class="password-modal-kanji">管理者アクセス制限</span>
+            <p class="password-modal-desc">Halaman atau seksi ini berstatus <strong>Segera Hadir</strong>. Masukkan kata sandi pengurus untuk membuka seluruh akses fitur secara instan.</p>
+            <form id="csPasswordForm" autocomplete="off" onsubmit="return false;">
+                <div class="password-input-wrap">
+                    <input type="password" class="password-modal-input" id="csPasswordInput" placeholder="Masukkan kata sandi..." autocomplete="current-password" spellcheck="false">
+                    <button type="button" class="password-toggle-visibility" id="csPasswordToggleBtn" aria-label="Lihat kata sandi">👁️</button>
+                </div>
+                <div class="password-modal-msg" id="csPasswordMsg" style="display: none;"></div>
+                <div class="password-modal-actions">
+                    <button type="button" class="password-btn-cancel" id="csModalCancelBtn">Batal</button>
+                    <button type="submit" class="password-btn-submit" id="csModalSubmitBtn">Buka Akses 🔓</button>
+                </div>
+            </form>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    const closeBtn = modal.querySelector("#csModalCloseBtn");
+    const cancelBtn = modal.querySelector("#csModalCancelBtn");
+    const toggleBtn = modal.querySelector("#csPasswordToggleBtn");
+    const form = modal.querySelector("#csPasswordForm");
+    const input = modal.querySelector("#csPasswordInput");
+
+    closeBtn?.addEventListener("click", closePasswordModal);
+    cancelBtn?.addEventListener("click", closePasswordModal);
+
+    modal.addEventListener("click", (e) => {
+        if (e.target === modal) closePasswordModal();
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal.classList.contains("is-active")) {
+            closePasswordModal();
+        }
+    });
+
+    toggleBtn?.addEventListener("click", () => {
+        if (input.type === "password") {
+            input.type = "text";
+            toggleBtn.textContent = "🙈";
+            toggleBtn.setAttribute("aria-label", "Sembunyikan kata sandi");
+        } else {
+            input.type = "password";
+            toggleBtn.textContent = "👁️";
+            toggleBtn.setAttribute("aria-label", "Lihat kata sandi");
+        }
+    });
+
+    form?.addEventListener("submit", handlePasswordSubmit);
+}
+
+function openPasswordModal() {
+    ensurePasswordModal();
+    const modal = document.getElementById("mnhPasswordModal");
+    if (!modal) return;
+
+    const input = document.getElementById("csPasswordInput");
+    const msg = document.getElementById("csPasswordMsg");
+    if (input) {
+        input.value = "";
+        input.classList.remove("is-invalid");
+    }
+    if (msg) {
+        msg.textContent = "";
+        msg.style.display = "none";
+        msg.className = "password-modal-msg";
+    }
+
+    modal.classList.add("is-active");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+
+    setTimeout(() => {
+        input?.focus();
+    }, 120);
+}
+
+function closePasswordModal() {
+    const modal = document.getElementById("mnhPasswordModal");
+    if (!modal) return;
+    modal.classList.remove("is-active");
+    modal.setAttribute("aria-hidden", "true");
+
+    if (!document.body.classList.contains("is-page-locked")) {
+        document.body.style.overflow = "";
+    }
+}
+
+let csFailedAttempts = 0;
+
+async function handlePasswordSubmit(e) {
+    if (e) e.preventDefault();
+    const input = document.getElementById("csPasswordInput");
+    const msg = document.getElementById("csPasswordMsg");
+    const submitBtn = document.getElementById("csModalSubmitBtn");
+    if (!input || input.disabled) return;
+
+    const val = (input.value || "").trim().toLowerCase();
+
+    if (submitBtn) submitBtn.disabled = true;
+    const isCorrect = await verifyAccessPassword(val);
+    if (submitBtn) submitBtn.disabled = false;
+
+    if (isCorrect) {
+        csFailedAttempts = 0;
+        if (msg) {
+            msg.className = "password-modal-msg is-success";
+            msg.textContent = "✓ Kata sandi benar! Membuka seluruh akses...";
+            msg.style.display = "block";
+        }
+        input.classList.remove("is-invalid");
+        window.MiraiSound?.playClickIfIdle();
+
+        setTimeout(() => {
+            setAccessUnlocked(true);
+            applyComingSoonState();
+            closePasswordModal();
+        }, 400);
+    } else {
+        csFailedAttempts++;
+        input.classList.remove("is-invalid");
+        void input.offsetWidth;
+        input.classList.add("is-invalid");
+
+        if (msg) {
+            msg.className = "password-modal-msg is-error";
+            if (csFailedAttempts >= 3) {
+                msg.textContent = "✕ Terlalu banyak percobaan gagal. Mohon tunggu 3 detik...";
+                input.disabled = true;
+                if (submitBtn) submitBtn.disabled = true;
+                setTimeout(() => {
+                    input.disabled = false;
+                    if (submitBtn) submitBtn.disabled = false;
+                    msg.textContent = "✕ Kata sandi salah. Silakan coba lagi!";
+                    input.focus();
+                }, 3000);
+            } else {
+                msg.textContent = "✕ Kata sandi salah. Akses ditolak!";
+            }
+            msg.style.display = "block";
+        }
+
+        setTimeout(() => {
+            input.classList.remove("is-invalid");
+        }, 450);
+
+        input.focus();
+        input.select();
+    }
+}
+
+function setupSidebarLockBtn(isUnlocked) {
+    const sidebarLabel = document.querySelector(".sidebar-header .sidebar-label");
+    if (!sidebarLabel) return;
+
+    let lockBtn = document.getElementById("sidebarLockBtn");
+    if (!lockBtn) {
+        lockBtn = document.createElement("button");
+        lockBtn.type = "button";
+        lockBtn.id = "sidebarLockBtn";
+        lockBtn.className = "sidebar-lock-btn";
+        sidebarLabel.appendChild(lockBtn);
+
+        lockBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            window.MiraiSound?.playClickIfIdle();
+            if (isAccessUnlocked()) {
+                const relock = confirm("Kunci kembali seluruh halaman dan seksi 'Segera Hadir'?");
+                if (relock) {
+                    setAccessUnlocked(false);
+                    applyComingSoonState();
+                }
+            } else {
+                openPasswordModal();
+            }
+        });
+    }
+
+    if (isUnlocked) {
+        lockBtn.innerHTML = "🔓";
+        lockBtn.classList.add("is-unlocked");
+        lockBtn.setAttribute("title", "Akses Pengurus Terbuka - Klik untuk mengunci kembali");
+        lockBtn.setAttribute("aria-label", "Akses Pengurus Terbuka");
+    } else {
+        lockBtn.innerHTML = "🔒";
+        lockBtn.classList.remove("is-unlocked");
+        lockBtn.setAttribute("title", "Akses Terkunci (Segera Hadir) - Klik untuk memasukkan kata sandi");
+        lockBtn.setAttribute("aria-label", "Akses Terkunci Segera Hadir");
+    }
+}
+
+function updateMenuComingSoonBadges(isUnlocked) {
+    const lockedWords = ["toko", "peringkat", "rekomendasi", "lomba", "tentang", "kegiatan", "divisi"];
+    const navLinks = document.querySelectorAll(".sidebar-links a");
+
+    navLinks.forEach((link) => {
+        const href = (link.getAttribute("href") || "").toLowerCase();
+        const isLockedLink = lockedWords.some((word) => href.includes(word));
+
+        const existingBadge = link.querySelector(".menu-coming-soon-badge");
+
+        if (isLockedLink && !isUnlocked) {
+            if (!existingBadge) {
+                const badge = document.createElement("span");
+                badge.className = "menu-coming-soon-badge";
+                badge.textContent = "🔒 Segera Hadir";
+                link.appendChild(badge);
+            }
+            if (!link.dataset.lockBound) {
+                link.dataset.lockBound = "true";
+                link.addEventListener("click", (e) => {
+                    if (!isAccessUnlocked()) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        window.MiraiSound?.playClickIfIdle();
+                        openPasswordModal();
+                    }
+                });
+            }
+        } else {
+            if (existingBadge) {
+                existingBadge.remove();
+            }
+        }
+    });
+}
+
+function updatePageComingSoonOverlay(isUnlocked) {
+    const isLocked = !isUnlocked && isCurrentPageComingSoon();
+
+    if (isLocked) {
+        document.body.classList.add("is-page-locked");
+
+        let pageOverlay = document.getElementById("comingSoonPageOverlay");
+        if (!pageOverlay) {
+            const info = getComingSoonPageInfo();
+            const homeUrl = getAppBasePath() + "index.html";
+            pageOverlay = document.createElement("div");
+            pageOverlay.id = "comingSoonPageOverlay";
+            pageOverlay.className = "coming-soon-page-overlay";
+            pageOverlay.innerHTML = `
+                <div class="coming-soon-card">
+                    <div class="coming-soon-pill">🔒 PREVIEW TERBATAS</div>
+                    <div class="coming-soon-icon">${info.icon}</div>
+                    <h2 class="coming-soon-title">${info.title}</h2>
+                    <span class="coming-soon-kanji">${info.kanji} (近日公開)</span>
+                    <p class="coming-soon-desc">${info.desc}</p>
+                    <div class="coming-soon-actions">
+                        <button type="button" class="coming-soon-btn-unlock" id="csPageUnlockBtn">
+                            <span>🔑 Buka dengan Kata Sandi</span>
+                        </button>
+                        <a href="${homeUrl}" class="coming-soon-btn-home">
+                            <span>← Kembali ke Beranda</span>
+                        </a>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(pageOverlay);
+
+            pageOverlay.querySelector("#csPageUnlockBtn")?.addEventListener("click", () => {
+                window.MiraiSound?.playClickIfIdle();
+                openPasswordModal();
+            });
+        }
+    } else {
+        document.documentElement.classList.remove("is-page-locked-early");
+        document.body.classList.remove("is-page-locked");
+        document.getElementById("comingSoonPageOverlay")?.remove();
+    }
+}
+
+function updateSectionComingSoonOverlay(isUnlocked) {
+    // 1. Seksi Kurikulum & Tata Cara di kelas/index.html
+    const kurikulumEl = document.getElementById("kurikulum");
+    if (kurikulumEl) {
+        if (!isUnlocked) {
+            kurikulumEl.classList.add("is-section-locked");
+            let overlay = kurikulumEl.querySelector(".coming-soon-section-overlay");
+            if (!overlay) {
+                overlay = document.createElement("div");
+                overlay.className = "coming-soon-section-overlay";
+                overlay.innerHTML = `
+                    <div class="coming-soon-card">
+                        <div class="coming-soon-pill">🔒 SEGERA HADIR</div>
+                        <div class="coming-soon-icon">📜</div>
+                        <h3 class="coming-soon-title">Kurikulum &amp; Tata Cara Pengajaran</h3>
+                        <span class="coming-soon-kanji">カリキュラムと指導法 (近日公開)</span>
+                        <p class="coming-soon-desc">Pedoman resmi standar alur kurikulum pembelajaran dan pedoman teknis pengajaran sedang dalam tahap peninjauan akhir oleh pembina klub.</p>
+                        <div class="coming-soon-actions">
+                            <button type="button" class="coming-soon-btn-unlock cs-section-unlock-btn">
+                                <span>🔑 Masukkan Sandi Pengurus</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                kurikulumEl.appendChild(overlay);
+                overlay.querySelector(".cs-section-unlock-btn")?.addEventListener("click", () => {
+                    window.MiraiSound?.playClickIfIdle();
+                    openPasswordModal();
+                });
+            }
+        } else {
+            kurikulumEl.classList.remove("is-section-locked");
+            kurikulumEl.querySelector(".coming-soon-section-overlay")?.remove();
+        }
+    }
+
+    // 2. Seksi Studio Ketik & Terjemahan di kamus/index.html
+    const studioEl = document.getElementById("studio-terjemahan");
+    if (studioEl) {
+        if (!isUnlocked) {
+            studioEl.classList.add("is-section-locked");
+            let overlay = studioEl.querySelector(".coming-soon-section-overlay");
+            if (!overlay) {
+                overlay = document.createElement("div");
+                overlay.className = "coming-soon-section-overlay";
+                overlay.innerHTML = `
+                    <div class="coming-soon-card">
+                        <div class="coming-soon-pill">🔒 SEGERA HADIR</div>
+                        <div class="coming-soon-icon">⌨️</div>
+                        <h3 class="coming-soon-title">Studio Ketik &amp; Terjemahan Jepang</h3>
+                        <span class="coming-soon-kanji">翻訳＆キーボードスタジオ (近日公開)</span>
+                        <p class="coming-soon-desc">Fitur Virtual Keyboard pintar (Kana &amp; QWERTY IME) serta Penerjemah 2 Arah Jepang ⇄ Indonesia sedang dalam pengujian performa sistem.</p>
+                        <div class="coming-soon-actions">
+                            <button type="button" class="coming-soon-btn-unlock cs-section-unlock-btn">
+                                <span>🔑 Masukkan Sandi Pengurus</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                studioEl.appendChild(overlay);
+                overlay.querySelector(".cs-section-unlock-btn")?.addEventListener("click", () => {
+                    window.MiraiSound?.playClickIfIdle();
+                    openPasswordModal();
+                });
+            }
+        } else {
+            studioEl.classList.remove("is-section-locked");
+            studioEl.querySelector(".coming-soon-section-overlay")?.remove();
+        }
+    }
+
+    // Indikator pada tombol jump di kamus/index.html jika ada
+    const translatorTabJump = document.querySelector(".tab-translator-jump");
+    if (translatorTabJump) {
+        if (!isUnlocked) {
+            if (!translatorTabJump.querySelector(".tab-lock-icon")) {
+                const lockIcon = document.createElement("span");
+                lockIcon.className = "tab-lock-icon";
+                lockIcon.textContent = " 🔒";
+                translatorTabJump.appendChild(lockIcon);
+            }
+        } else {
+            translatorTabJump.querySelector(".tab-lock-icon")?.remove();
+        }
+    }
+}
+
+function updateCardsAndButtonsComingSoon(isUnlocked) {
+    const lockedWords = [
+        "toko",
+        "peringkat",
+        "rekomendasi",
+        "lomba",
+        "tentang",
+        "kegiatan",
+        "divisi",
+        "proker",
+        "fasilitas"
+    ];
+
+    const isLockedHref = (href) => {
+        if (!href) return false;
+        const h = href.toLowerCase();
+        if (lockedWords.some((w) => h.includes(w))) return true;
+        if (h.includes("kurikulum") || h.includes("#kurikulum")) return true;
+        return false;
+    };
+
+    const actionLinks = document.querySelectorAll("a[href]");
+
+    actionLinks.forEach((link) => {
+        // PERATURAN: Lepaskan dan jangan pernah kunci seksi Saran & Kritik (#masukan / .feedback-preview) atau tautan navigasi
+        if (link.closest("#masukan") || link.closest(".feedback-preview") || link.closest(".sidebar-links")) return;
+
+        const href = (link.getAttribute("href") || "").toLowerCase();
+        const isLockedLink = isLockedHref(href);
+
+        if (!isLockedLink) return;
+
+        // Kunci tombol aksi spesifik yang menuju fitur segera hadir
+        if (link.matches(".card-go-btn, .drawer-action-btn, .tab-translator-jump, .quick-translator-pill, .doc-btn-download, .doc-btn-view")) {
+            if (!isUnlocked) {
+                link.classList.add("btn-coming-soon-locked");
+                link.setAttribute("tabindex", "-1");
+                link.setAttribute("aria-disabled", "true");
+                if (!link.dataset.lockClickBound) {
+                    link.dataset.lockClickBound = "true";
+                    link.addEventListener("click", (e) => {
+                        if (!isAccessUnlocked()) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            window.MiraiSound?.playClickIfIdle();
+                            openPasswordModal();
+                        }
+                    });
+                }
+            } else {
+                link.classList.remove("btn-coming-soon-locked");
+                link.removeAttribute("tabindex");
+                link.removeAttribute("aria-disabled");
+            }
+        }
+
+        // Kunci kartu pembungkus (misal di beranda: .start-card, .activity-start-card, .about-drawer-card, atau .doc-big-card)
+        const parentCard = link.closest(".start-card, .activity-start-card, .about-drawer-card, .doc-big-card");
+        if (parentCard && !parentCard.closest("#masukan") && !parentCard.closest(".feedback-preview")) {
+            // Pengecualian: jika parentCard adalah .start-card tapi BUKAN menuju kurikulum, jangan kunci (misal Kelas Dasar, Kelas Lanjutan, Kamus tetap terbuka!)
+            if (parentCard.classList.contains("start-card") && !href.includes("kurikulum")) {
+                return;
+            }
+
+            if (!isUnlocked) {
+                parentCard.classList.add("card-coming-soon-locked");
+                if (parentCard.classList.contains("is-expanded") || parentCard.classList.contains("is-pulled")) {
+                    parentCard.classList.remove("is-expanded", "is-pulled");
+                    const toggle = parentCard.querySelector(".card-toggle");
+                    if (toggle) {
+                        toggle.setAttribute("aria-expanded", "false");
+                        toggle.setAttribute("aria-label", "Buka detail kartu");
+                    }
+                }
+                let cardOverlay = parentCard.querySelector(".card-coming-soon-overlay");
+                if (!cardOverlay) {
+                    cardOverlay = document.createElement("div");
+                    cardOverlay.className = "card-coming-soon-overlay";
+                    cardOverlay.setAttribute("aria-hidden", "true");
+                    cardOverlay.innerHTML = `
+                        <div class="card-coming-soon-center">
+                            <span class="card-coming-soon-badge">🔒 Segera Hadir</span>
+                            <span class="card-coming-soon-sub">Fitur ini masih dalam tahap pengembangan</span>
+                        </div>
+                    `;
+                    parentCard.appendChild(cardOverlay);
+
+                    cardOverlay.addEventListener("click", (e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        window.MiraiSound?.playClickIfIdle();
+                        openPasswordModal();
+                    });
+                }
+            } else {
+                parentCard.classList.remove("card-coming-soon-locked");
+                parentCard.querySelectorAll(".card-coming-soon-overlay").forEach((el) => el.remove());
+            }
+        }
+    });
+
+    // Seksi khusus kurikulum & tata cara di kelas/index.html
+    const docCards = document.querySelectorAll("#kurikulum .doc-big-card");
+    docCards.forEach((card) => {
+        if (!isUnlocked) {
+            card.classList.add("card-coming-soon-locked");
+            card.querySelectorAll(".doc-btn-download, .doc-btn-view").forEach((btn) => {
+                btn.classList.add("btn-coming-soon-locked");
+                btn.setAttribute("tabindex", "-1");
+                btn.setAttribute("aria-disabled", "true");
+                if (!btn.dataset.lockClickBound) {
+                    btn.dataset.lockClickBound = "true";
+                    btn.addEventListener("click", (e) => {
+                        if (!isAccessUnlocked()) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            window.MiraiSound?.playClickIfIdle();
+                            openPasswordModal();
+                        }
+                    });
+                }
+            });
+            if (!card.querySelector(".card-coming-soon-overlay")) {
+                const overlay = document.createElement("div");
+                overlay.className = "card-coming-soon-overlay";
+                overlay.setAttribute("aria-hidden", "true");
+                overlay.innerHTML = `
+                    <div class="card-coming-soon-center">
+                        <span class="card-coming-soon-badge">🔒 Segera Hadir</span>
+                        <span class="card-coming-soon-sub">Fitur ini masih dalam tahap pengembangan</span>
+                    </div>
+                `;
+                card.appendChild(overlay);
+
+                overlay.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    window.MiraiSound?.playClickIfIdle();
+                    openPasswordModal();
+                });
+            }
+        } else {
+            card.classList.remove("card-coming-soon-locked");
+            card.querySelectorAll(".card-coming-soon-overlay").forEach((el) => el.remove());
+            card.querySelectorAll(".doc-btn-download, .doc-btn-view").forEach((btn) => {
+                btn.classList.remove("btn-coming-soon-locked");
+                btn.removeAttribute("tabindex");
+                btn.removeAttribute("aria-disabled");
+            });
+        }
+    });
+}
+
+function applyComingSoonState() {
+    const isUnlocked = isAccessUnlocked();
+    setupSidebarLockBtn(isUnlocked);
+    updateMenuComingSoonBadges(isUnlocked);
+    updateCardsAndButtonsComingSoon(isUnlocked);
+    updatePageComingSoonOverlay(isUnlocked);
+    updateSectionComingSoonOverlay(isUnlocked);
+}
+
+function initComingSoonSystem() {
+    applyComingSoonState();
+}
+
+window.initComingSoonSystem = initComingSoonSystem;
+window.openPasswordModal = openPasswordModal;
+
 
 

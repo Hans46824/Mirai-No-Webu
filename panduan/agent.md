@@ -90,7 +90,7 @@ Seluruh berkas website Mirai no Webu dikelompokkan secara terstruktur ke dalam f
   - Dilarang meniru mentah-mentah (*copy-paste*) struktur kalimat dari website eksternal (seperti web Tengoku).
   - Teks deskripsi, legalitas, narasi kegiatan, dan penamaan wajib disusun ulang secara orisinal dengan gaya bahasa yang santun, profesional, bangga, dan mencerminkan prestise **Klub Bahasa & Kebudayaan Jepang MIRAI NO HANA SMA Wachid Hasyim 2 Taman Sidoarjo**.
 - **Standar Narasi Independensi & Hak Cipta**:
-  - **Klarifikasi Independensi Klub (Sidebar Footer)**: Menghindari kata-kata kaku/defensif (seperti "tidak ada campur tangan pihak sekolah"), digantikan dengan narasi berwibawa: *Portal ini dirancang dan dikembangkan secara independen oleh kepengurusan siswa Klub Jepang MIRAI NO HANA sebagai ruang kreatif dan media belajar mandiri.*
+  - **Klarifikasi Independensi Klub (Sidebar Footer)**: Menghindari kata-kata kaku/defensif (seperti "tidak ada campur tangan pihak sekolah"), digantikan dengan narasi berwibawa: *Situs web ini dirancang dan dikembangkan secara independen oleh kepengurusan siswa Klub Jepang MIRAI NO HANA sebagai sarana belajar bahasa Jepang, informasi kegiatan klub, dan fasilitas digital anggota.*
   - **Disclaimer & Atribusi (Global Footer)**: Menggunakan standar *educational fair-use*: *Seluruh karya seni visual, materi budaya, dan karakter dalam situs ini merupakan hak cipta dari masing-masing kreator aslinya. Website ini dihadirkan murni sebagai media pembelajaran kreatif non-komersial bagi anggota dan sahabat pecinta bahasa Jepang.*
   - **Copyright Bottom Bar**: Diseragamkan menjadi: *© 2026 MIRAI NO HANA — SMA Wachid Hasyim 2 Taman | Kabinet Sora | Ditenagai oleh GitHub Pages*.
 

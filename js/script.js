@@ -1062,23 +1062,43 @@ function initKanaQuest() {
 
         const userLevel = Math.floor(saved.xp / 1000) + 1;
         const userLevelEl = $("[data-user-level]");
-        if (userLevelEl) userLevelEl.textContent = userLevel;
+        if (userLevelEl) {
+            userLevelEl.textContent = userLevel;
+            if (window.animateCountUp) window.animateCountUp(userLevelEl, userLevel);
+        }
         const totalXpEl = $("[data-total-xp]");
-        if (totalXpEl) totalXpEl.textContent = saved.xp;
+        if (totalXpEl) {
+            totalXpEl.textContent = saved.xp;
+            if (window.animateCountUp) window.animateCountUp(totalXpEl, saved.xp);
+        }
         const levelXpEl = $("[data-level-xp]");
-        if (levelXpEl) levelXpEl.textContent = saved.xp % 1000;
+        if (levelXpEl) {
+            levelXpEl.textContent = saved.xp % 1000;
+            if (window.animateCountUp) window.animateCountUp(levelXpEl, saved.xp % 1000);
+        }
         const xpBarEl = $("[data-xp-bar]");
         if (xpBarEl) xpBarEl.style.width = `${(saved.xp % 1000) / 10}%`;
         const streakEl = $("[data-streak]");
-        if (streakEl) streakEl.textContent = saved.streak;
+        if (streakEl) {
+            streakEl.textContent = saved.streak;
+            if (window.animateCountUp) window.animateCountUp(streakEl, saved.streak);
+        }
         const reviewCountEl = $("[data-review-count]");
-        if (reviewCountEl) reviewCountEl.textContent = saved.review.length;
+        if (reviewCountEl) {
+            reviewCountEl.textContent = saved.review.length;
+            if (saved.review.length > 0 && window.animateCountUp) {
+                window.animateCountUp(reviewCountEl, saved.review.length);
+            }
+        }
         const scriptTitleEl = $("[data-script-title]");
         if (scriptTitleEl) scriptTitleEl.innerHTML = `${script[0].toUpperCase() + script.slice(1)} <span>${script === "hiragana" ? "ひらがな" : "カタカナ"}</span>`;
 
         const progress = Math.round((saved[script].unlocked - 1) / (totalLevels - 1) * 100);
         const scriptProgEl = $("[data-script-progress]");
-        if (scriptProgEl) scriptProgEl.textContent = `${progress}%`;
+        if (scriptProgEl) {
+            scriptProgEl.textContent = `${progress}%`;
+            if (window.animateCountUp) window.animateCountUp(scriptProgEl, `${progress}%`);
+        }
         const scriptProgBarEl = $("[data-script-progress-bar]");
         if (scriptProgBarEl) scriptProgBarEl.style.width = `${progress}%`;
 
@@ -1463,12 +1483,28 @@ function initKanaQuest() {
             accEl.textContent = `${finalScore} PTS`;
             const accLabel = accEl.nextElementSibling;
             if (accLabel) accLabel.textContent = "Total Poin";
+            if (window.animateCountUp) window.animateCountUp(accEl, `${finalScore} PTS`);
         }
 
-        $("[data-result-correct]").textContent = correctCount;
-        $("[data-result-wrong]").textContent = wrongCount;
+        const corrEl = $("[data-result-correct]");
+        if (corrEl) {
+            corrEl.textContent = correctCount;
+            if (window.animateCountUp) window.animateCountUp(corrEl, correctCount);
+        }
+
+        const wrongEl = $("[data-result-wrong]");
+        if (wrongEl) {
+            wrongEl.textContent = wrongCount;
+            if (wrongCount > 0 && window.animateCountUp) {
+                window.animateCountUp(wrongEl, wrongCount);
+            }
+        }
+
         $("[data-result-time]").textContent = "60s+";
-        $("[data-result-streak]").textContent = `Combo Tertinggi: x${currentSession.maxCombo || 1} • Rekor Dojo: ${Math.max(finalScore, prevBest)} PTS`;
+        const streakEl = $("[data-result-streak]");
+        if (streakEl) {
+            streakEl.textContent = `Combo Tertinggi: x${currentSession.maxCombo || 1} • Rekor Dojo: ${Math.max(finalScore, prevBest)} PTS`;
+        }
 
         const reviewBtn = $("[data-review-result]");
         if (reviewBtn) reviewBtn.style.display = "none";
@@ -1584,11 +1620,25 @@ function initKanaQuest() {
         renderQuestion();
     }
 
-    function startMemoryGame() {
-        const pool = data[script].length ? data[script] : makeKana(script);
-        const selectedChars = shuffle([...pool]).slice(0, 6);
+    function startMemoryGame(cardCount) {
+        let pairs = 6;
+        let totalCards = 12;
 
-        // Buat 12 kartu: 6 Aksara Kana + 6 Romaji
+        if (cardCount === 6 || cardCount === 3 || cardCount === "6" || cardCount === "mudah") {
+            pairs = 3;
+            totalCards = 6;
+        } else if (cardCount === 24 || cardCount === "24" || cardCount === "hard") {
+            pairs = 12;
+            totalCards = 24;
+        } else {
+            pairs = 6;
+            totalCards = 12;
+        }
+
+        const pool = data[script].length ? data[script] : makeKana(script);
+        const selectedChars = shuffle([...pool]).slice(0, pairs);
+
+        // Buat kartu: pairs Aksara Kana + pairs Romaji
         const cards = [];
         selectedChars.forEach((item) => {
             cards.push({
@@ -1610,11 +1660,12 @@ function initKanaQuest() {
         currentSession = {
             mode: "memory",
             isMemory: true,
-            modeKey: "mirai_memory_best",
+            modeKey: `mirai_memory_best_${totalCards}`,
+            totalCards: totalCards,
             levels: allLevelIds,
             pool,
             cards: shuffledCards,
-            totalPairs: 6,
+            totalPairs: pairs,
             matchedPairs: 0,
             attempts: 0,
             questions: [{ type: "memory" }],
@@ -2510,18 +2561,18 @@ function initKanaQuest() {
 
             if (defaultSub) {
                 defaultSub.hidden = false;
-                defaultSub.textContent = "Buka 2 kartu untuk menemukan pasangan Aksara & Bacaan yang cocok:";
+                defaultSub.textContent = `Buka 2 kartu untuk menemukan pasangan Aksara & Bacaan yang cocok (${currentSession.totalCards || 12} Kartu):`;
             }
 
             $("[data-question-prompt]").innerHTML = `
                 <div class="memory-status-wrap">
-                    <span class="memory-pair-count">Pasangan Cocok: <b data-memory-matched>${currentSession.matchedPairs}</b>/6</span>
+                    <span class="memory-pair-count">Pasangan Cocok: <b data-memory-matched>${currentSession.matchedPairs}</b>/${currentSession.totalPairs || 6}</span>
                     <span class="memory-flip-count">Percobaan: <b data-memory-flips>${currentSession.attempts}</b></span>
                 </div>
             `;
 
             $("[data-answer-grid]").innerHTML = `
-                <div class="memory-board-grid">
+                <div class="memory-board-grid cards-${currentSession.totalCards || 12}">
                     ${currentSession.cards.map((card, i) => `
                         <div class="memory-card" data-card-idx="${i}" data-pair="${card.pairId}">
                             <div class="memory-card-inner">
@@ -2586,8 +2637,9 @@ function initKanaQuest() {
                             flipped = [];
 
                             if (currentSession.matchedPairs >= currentSession.totalPairs) {
-                                // SEMUA 6 PASANG BERHASIL DITEMUKAN!
+                                // SEMUA PASANG BERHASIL DITEMUKAN!
                                 try {
+                                    localStorage.setItem(`mirai_memory_best_flips_${currentSession.totalCards || 12}`, String(currentSession.attempts));
                                     localStorage.setItem("mirai_memory_best_flips", String(currentSession.attempts));
                                 } catch (e) {}
 
@@ -2600,12 +2652,24 @@ function initKanaQuest() {
                                         resultView.scrollTop = 0;
                                     }
                                     const heading = resultView ? resultView.querySelector("h2") : null;
-                                    if (heading) heading.innerHTML = "🃏 Memory Flip Selesai! 🎉";
-                                    $("[data-result-accuracy]").textContent = "100%";
-                                    $("[data-result-correct]").textContent = "6 Pasang";
-                                    $("[data-result-wrong]").textContent = `${currentSession.attempts}x Balik`;
+                                    if (heading) heading.innerHTML = "🃏 Balik Kartu Selesai! 🎉";
+                                    const accEl = $("[data-result-accuracy]");
+                                    if (accEl) {
+                                        accEl.textContent = "100%";
+                                        if (window.animateCountUp) window.animateCountUp(accEl, "100%");
+                                    }
+                                    const corrEl = $("[data-result-correct]");
+                                    if (corrEl) {
+                                        corrEl.textContent = `${currentSession.totalPairs} Pasang`;
+                                        if (window.animateCountUp) window.animateCountUp(corrEl, `${currentSession.totalPairs} Pasang`);
+                                    }
+                                    const wrongEl = $("[data-result-wrong]");
+                                    if (wrongEl) {
+                                        wrongEl.textContent = `${currentSession.attempts}x Balik`;
+                                        if (window.animateCountUp) window.animateCountUp(wrongEl, `${currentSession.attempts}x Balik`);
+                                    }
                                     $("[data-result-time]").textContent = formatTime(Date.now() - currentSession.started);
-                                    $("[data-result-streak]").textContent = `Percobaan total: ${currentSession.attempts} kali balik kartu`;
+                                    $("[data-result-streak]").textContent = `Mode ${currentSession.totalCards || 12} Kartu • Percobaan: ${currentSession.attempts} kali balik kartu`;
                                     const reviewBtn = $("[data-review-result]");
                                     if (reviewBtn) reviewBtn.style.display = "none";
                                     renderDashboard();
@@ -2980,7 +3044,7 @@ function initKanaQuest() {
             if (existingResult.state === "is-correct") {
                 feedback.hidden = false;
                 feedback.className = "feedback is-good";
-                feedback.innerHTML = `<strong>Benar! 🎉</strong><span>${question.answer?.character || ""} = ${question.answer?.romaji || ""} (Sudah Dijawab Benar)</span>`;
+                feedback.innerHTML = `<strong>Benar! 🎉</strong><span><b>${question.answer?.character || ""}</b> = <b>${question.answer?.romaji || ""}</b> <span class="feedback-sub-tag">Sudah Dijawab Benar</span></span>`;
                 $("[data-answer-grid]").querySelectorAll("button").forEach((button) => {
                     button.disabled = true;
                     if (button.dataset.answer === question.answer?.character) {
@@ -2990,7 +3054,7 @@ function initKanaQuest() {
             } else if (existingResult.state === "is-wrong") {
                 feedback.hidden = false;
                 feedback.className = "feedback is-bad";
-                feedback.innerHTML = `<strong>Jawaban Kurang Tepat</strong><span>Jawaban benar: <b>${question.answer?.character || ""}</b> = <b>${question.answer?.romaji || ""}</b> (Sudah Dijawab Salah)</span>`;
+                feedback.innerHTML = `<strong>Jawaban Kurang Tepat</strong><span>Jawaban benar: <b>${question.answer?.character || ""}</b> = <b>${question.answer?.romaji || ""}</b> <span class="feedback-sub-tag">Sudah Dijawab Salah</span></span>`;
                 $("[data-answer-grid]").querySelectorAll("button").forEach((button) => {
                     button.disabled = true;
                     if (button.dataset.answer === question.answer?.character) {
@@ -3301,9 +3365,10 @@ function initKanaQuest() {
         feedback.className = `feedback ${correct ? "is-good" : state === "skipped" ? "is-skip" : "is-bad"}`;
 
         const meaningText = question.type === "word" ? ` (${question.answer.meaning})` : "";
+        const streakBadge = currentSession.streak > 2 ? `<span class="feedback-streak-badge">🔥 ${currentSession.streak} runtunan</span>` : "";
 
         if (correct) {
-            feedback.innerHTML = `<strong>Benar! 🎉</strong><span>${question.answer.character} = ${question.answer.romaji}${meaningText}${currentSession.streak > 2 ? ` • 🔥 ${currentSession.streak} runtunan` : ""}</span>`;
+            feedback.innerHTML = `<strong>Benar! 🎉</strong><span><b>${question.answer.character}</b> = <b>${question.answer.romaji}</b>${meaningText}${streakBadge}</span>`;
         } else if (state === "skipped") {
             feedback.innerHTML = `<strong>Soal Dilewati</strong><span>Jawaban benar: <b>${question.answer.character}</b> = <b>${question.answer.romaji}</b>${meaningText}</span>`;
         } else {
@@ -3361,7 +3426,7 @@ function initKanaQuest() {
             return;
         }
 
-        const transitionDelay = correct ? 350 : 850;
+        const transitionDelay = correct ? 600 : 1100;
 
         setTimeout(() => {
             currentSession.index += 1;
@@ -3420,7 +3485,7 @@ function initKanaQuest() {
         } else if (currentSession && currentSession.isChoukai) {
             startChoukaiGame();
         } else if (currentSession && currentSession.isMemory) {
-            startMemoryGame();
+            startMemoryGame(currentSession.totalCards || 12);
         } else if (currentSession && currentSession.isCustom) {
             startCustomPractice(currentSession.customOptions);
         } else {
@@ -3658,11 +3723,32 @@ function initKanaQuest() {
         const xpEl = $("[data-result-xp]");
         if (xpEl) xpEl.style.display = "none";
 
-        $("[data-result-accuracy]").textContent = `${accuracy}%`;
-        $("[data-result-correct]").textContent = correct;
-        $("[data-result-wrong]").textContent = wrong.length;
+        const accEl = $("[data-result-accuracy]");
+        if (accEl) {
+            accEl.textContent = `${accuracy}%`;
+            if (window.animateCountUp) window.animateCountUp(accEl, `${accuracy}%`);
+        }
+
+        const corrEl = $("[data-result-correct]");
+        if (corrEl) {
+            corrEl.textContent = correct;
+            if (window.animateCountUp) window.animateCountUp(corrEl, correct);
+        }
+
+        const wrongEl = $("[data-result-wrong]");
+        if (wrongEl) {
+            wrongEl.textContent = wrong.length;
+            if (wrong.length > 0 && window.animateCountUp) {
+                window.animateCountUp(wrongEl, wrong.length);
+            }
+        }
+
         $("[data-result-time]").textContent = formatTime(Date.now() - currentSession.started);
-        $("[data-result-streak]").textContent = `Runtunan terbaik: ${currentSession.best}`;
+        const streakEl = $("[data-result-streak]");
+        if (streakEl) {
+            streakEl.textContent = `Runtunan terbaik: ${currentSession.best}`;
+            if (window.animateCountUp) window.animateCountUp(streakEl, `Runtutan terbaik: ${currentSession.best}`);
+        }
 
         // Helper render pratinjau SVG urutan goresan baku KanjiVG (viewBox 0 0 109 109)
         function renderStrokeSvgPreview(character) {
@@ -3908,29 +3994,74 @@ function initKanaQuest() {
 
     answerObserver.observe($("[data-answer-grid]"), { childList: true });
 
+    function openMemoryDifficultyModal() {
+        const modal = document.querySelector("[data-memory-difficulty-modal]");
+        if (modal) {
+            modal.hidden = false;
+            document.body.style.overflow = "hidden";
+            if (window.MiraiSound) window.MiraiSound.play("modalOpen");
+        }
+    }
+
+    function closeMemoryDifficultyModal() {
+        const modal = document.querySelector("[data-memory-difficulty-modal]");
+        if (modal) {
+            modal.hidden = true;
+            document.body.style.overflow = "";
+            if (window.MiraiSound) window.MiraiSound.play("modalClose");
+        }
+    }
+
+    function initMemoryDifficultyModalEvents() {
+        document.querySelectorAll("[data-close-memory-modal]").forEach((el) => {
+            el.addEventListener("click", closeMemoryDifficultyModal);
+        });
+
+        document.querySelectorAll("[data-memory-cards]").forEach((btn) => {
+            btn.addEventListener("click", () => {
+                const cards = parseInt(btn.dataset.memoryCards, 10) || 12;
+                closeMemoryDifficultyModal();
+                if (window.MiraiSound) window.MiraiSound.play("start");
+                setTimeout(() => {
+                    startMemoryGame(cards);
+                }, 120);
+            });
+        });
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                const modal = document.querySelector("[data-memory-difficulty-modal]");
+                if (modal && !modal.hidden) {
+                    closeMemoryDifficultyModal();
+                }
+            }
+        });
+    }
+
     // Deteksi parameter URL (?game=choukai atau ?game=memory) untuk auto-launch
     const urlParams = new URLSearchParams(window.location.search);
     const gameParam = urlParams.get("game");
     if (gameParam === "choukai") {
         setTimeout(startChoukaiGame, 80);
     } else if (gameParam === "memory") {
-        setTimeout(startMemoryGame, 80);
+        setTimeout(openMemoryDifficultyModal, 80);
     }
 
-    // Pasang listener untuk tombol pintas mini-game (.mini-game-shortcut-btn)
+    // Pasang listener untuk tombol pintas mini-game (.mini-game-shortcut-btn atau .mini-game-card)
     document.querySelectorAll("[data-game-shortcut]").forEach((btn) => {
         btn.addEventListener("click", () => {
             const gameType = btn.dataset.gameShortcut || btn.dataset.mode;
             if (gameType === "choukai") {
                 startChoukaiGame();
             } else if (gameType === "memory") {
-                startMemoryGame();
+                openMemoryDifficultyModal();
             }
         });
     });
 
-    // Inisialisasi event modal latihan kustom
+    // Inisialisasi event modal latihan kustom & balik kartu
     initCustomQuizModalEvents();
+    initMemoryDifficultyModalEvents();
 
     if (urlParams.get("custom") === "1" || urlParams.get("mode") === "custom") {
         setTimeout(openCustomQuizModal, 100);

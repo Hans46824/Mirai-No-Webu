@@ -3014,6 +3014,629 @@ body.dark-mode .memory-card.is-matched .memory-card-front {
     border-color: #10b981 !important;
 }
 
+
+/* Mini Game Section & Cards */
+.mini-game-section {
+    margin: 28px auto 0 auto;
+    max-width: 900px;
+    width: 100%;
+}
+
+.mini-game-label-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    border: 1px solid #ebccd8;
+    border-radius: 14px;
+    padding: 12px 24px;
+    margin-bottom: 14px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+    text-align: center;
+}
+
+.mini-game-label-card .mini-game-title {
+    font-size: 15px;
+    font-weight: 800;
+    color: #db2777;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+body.theme-dark .mini-game-label-card,
+body.dark-mode .mini-game-label-card {
+    background: #1f1b24;
+    border-color: #4b3648;
+}
+
+body.theme-dark .mini-game-label-card .mini-game-title,
+body.dark-mode .mini-game-label-card .mini-game-title {
+    color: #f472b6;
+}
+
+.mini-game-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+@media (max-width: 600px) {
+    .mini-game-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.mini-game-card.btn-choukai {
+    border-color: #bfdbfe;
+}
+.mini-game-card.btn-choukai b {
+    color: #2563eb;
+    background: #eff6ff;
+}
+.mini-game-card.btn-choukai:hover {
+    border-color: #3b82f6;
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.12);
+}
+.mini-game-card.btn-choukai .mode-kana-preview {
+    background: #eff6ff;
+    color: #1d4ed8;
+    border-color: #bfdbfe;
+}
+
+.mini-game-card.btn-memory {
+    border-color: #e9d5ff;
+}
+.mini-game-card.btn-memory b {
+    color: #9333ea;
+    background: #faf5ff;
+}
+.mini-game-card.btn-memory:hover {
+    border-color: #a855f7;
+    box-shadow: 0 8px 24px rgba(147, 51, 234, 0.12);
+}
+.mini-game-card.btn-memory .mode-kana-preview {
+    background: #faf5ff;
+    color: #7e22ce;
+    border-color: #e9d5ff;
+}
+
+/* Dark mode for mini game cards */
+body.theme-dark .mini-game-card.btn-choukai,
+body.dark-mode .mini-game-card.btn-choukai {
+    background: #172554;
+    border-color: #1e40af;
+    color: #e2e8f0;
+}
+body.theme-dark .mini-game-card.btn-choukai b,
+body.dark-mode .mini-game-card.btn-choukai b {
+    background: #1e3a8a;
+    color: #93c5fd;
+}
+body.theme-dark .mini-game-card.btn-choukai .mode-kana-preview,
+body.dark-mode .mini-game-card.btn-choukai .mode-kana-preview {
+    background: #1e3a8a;
+    color: #bfdbfe;
+    border-color: #2563eb;
+}
+
+body.theme-dark .mini-game-card.btn-memory,
+body.dark-mode .mini-game-card.btn-memory {
+    background: #2e1065;
+    border-color: #581c87;
+    color: #e2e8f0;
+}
+body.theme-dark .mini-game-card.btn-memory b,
+body.dark-mode .mini-game-card.btn-memory b {
+    background: #3b0764;
+    color: #d8b4fe;
+}
+body.theme-dark .mini-game-card.btn-memory .mode-kana-preview,
+body.dark-mode .mini-game-card.btn-memory .mode-kana-preview {
+    background: #3b0764;
+    color: #e9d5ff;
+    border-color: #7e22ce;
+}
+
+/* Memory Board Layouts */
+.memory-board-grid.cards-6 {
+    grid-template-columns: repeat(3, 1fr) !important;
+    grid-template-rows: repeat(2, 125px) !important;
+    max-width: 480px !important;
+}
+@media (max-width: 600px) {
+    .memory-board-grid.cards-6 {
+        grid-template-columns: repeat(3, 1fr) !important;
+        grid-template-rows: repeat(2, 105px) !important;
+    }
+}
+
+.memory-board-grid.cards-12 {
+    grid-template-columns: repeat(4, 1fr) !important;
+    grid-template-rows: repeat(3, 110px) !important;
+    max-width: 620px !important;
+}
+@media (max-width: 600px) {
+    .memory-board-grid.cards-12 {
+        grid-template-columns: repeat(3, 1fr) !important;
+        grid-template-rows: repeat(4, 96px) !important;
+    }
+}
+
+.memory-board-grid.cards-24 {
+    grid-template-columns: repeat(6, 1fr) !important;
+    grid-template-rows: repeat(4, 88px) !important;
+    max-width: 760px !important;
+    gap: 8px !important;
+}
+.memory-board-grid.cards-24 .memory-card-text {
+    font-size: clamp(18px, 3vw, 24px) !important;
+}
+.memory-board-grid.cards-24 .card-logo-sym {
+    font-size: 18px !important;
+}
+@media (max-width: 680px) {
+    .memory-board-grid.cards-24 {
+        grid-template-columns: repeat(4, 1fr) !important;
+        grid-template-rows: repeat(6, 74px) !important;
+        gap: 6px !important;
+        max-width: 100% !important;
+    }
+    .memory-board-grid.cards-24 .memory-card-text {
+        font-size: 19px !important;
+    }
+    .memory-board-grid.cards-24 .memory-card-type {
+        font-size: 9px !important;
+        margin-top: 2px !important;
+    }
+}
+
+/* Modal Pilihan Kesulitan Balik Kartu */
+.memory-diff-btn {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    border-radius: 16px;
+    border: 1.5px solid #ebccd8;
+    background: #ffffff;
+    cursor: pointer;
+    text-align: left;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    box-sizing: border-box;
+    width: 100%;
+}
+.memory-diff-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+.memory-diff-btn:active {
+    transform: translateY(0);
+}
+
+.memory-diff-easy {
+    border-color: #a7f3d0;
+}
+.memory-diff-easy:hover {
+    border-color: #10b981;
+    background: #f0fdf4;
+}
+.memory-diff-easy .memory-diff-tag {
+    color: #059669;
+    background: #d1fae5;
+}
+
+.memory-diff-medium {
+    border-color: #fde68a;
+}
+.memory-diff-medium:hover {
+    border-color: #f59e0b;
+    background: #fffbeb;
+}
+.memory-diff-medium .memory-diff-tag {
+    color: #d97706;
+    background: #fef3c7;
+}
+
+.memory-diff-hard {
+    border-color: #fbcfe8;
+}
+.memory-diff-hard:hover {
+    border-color: #db2777;
+    background: #fdf2f8;
+}
+.memory-diff-hard .memory-diff-tag {
+    color: #be185d;
+    background: #fce7f3;
+}
+
+.memory-diff-icon {
+    font-size: 28px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background: #f8fafc;
+    flex-shrink: 0;
+}
+
+.memory-diff-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex: 1;
+    min-width: 0;
+}
+
+.memory-diff-tag {
+    align-self: flex-start;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 999px;
+    letter-spacing: 0.03em;
+}
+
+.memory-diff-name {
+    font-size: 16px;
+    font-weight: 800;
+    color: #1e293b;
+}
+
+.memory-diff-name small {
+    font-size: 13px;
+    font-weight: 600;
+    color: #64748b;
+}
+
+.memory-diff-desc {
+    font-size: 12.5px;
+    color: #64748b;
+    line-height: 1.4;
+}
+
+.memory-diff-arrow {
+    font-size: 14px;
+    font-weight: 800;
+    color: #94a3b8;
+    margin-left: auto;
+    transition: transform 0.18s ease, color 0.18s ease;
+}
+
+.memory-diff-btn:hover .memory-diff-arrow {
+    transform: translateX(3px);
+    color: #0f172a;
+}
+
+/* Dark mode for memory difficulty buttons */
+body.theme-dark .memory-diff-btn,
+body.dark-mode .memory-diff-btn {
+    background: #1e1b24;
+    border-color: #3b2d39;
+}
+body.theme-dark .memory-diff-icon,
+body.dark-mode .memory-diff-icon {
+    background: #28212e;
+}
+body.theme-dark .memory-diff-name,
+body.dark-mode .memory-diff-name {
+    color: #f1f5f9;
+}
+body.theme-dark .memory-diff-name small,
+body.dark-mode .memory-diff-name small,
+body.theme-dark .memory-diff-desc,
+body.dark-mode .memory-diff-desc {
+    color: #94a3b8;
+}
+body.theme-dark .memory-diff-easy:hover,
+body.dark-mode .memory-diff-easy:hover {
+    background: rgba(16, 185, 129, 0.1);
+    border-color: #10b981;
+}
+body.theme-dark .memory-diff-medium:hover,
+body.dark-mode .memory-diff-medium:hover {
+    background: rgba(245, 158, 11, 0.1);
+    border-color: #f59e0b;
+}
+body.theme-dark .memory-diff-hard:hover,
+body.dark-mode .memory-diff-hard:hover {
+    background: rgba(219, 39, 119, 0.1);
+    border-color: #db2777;
+}
+
+
+/* ==========================================================================
+   FEEDBACK JAWABAN (BENAR, SALAH, LEWATI) - MODERN HERO CAPSULE CARD
+   ========================================================================== */
+.feedback {
+    display: grid !important;
+    grid-template-columns: auto 1fr !important;
+    grid-template-rows: auto auto !important;
+    column-gap: 16px !important;
+    row-gap: 4px !important;
+    align-items: center !important;
+    width: 100% !important;
+    max-width: 580px !important;
+    margin: 22px auto 0 auto !important;
+    padding: 16px 22px !important;
+    border-radius: 20px !important;
+    text-align: left !important;
+    box-sizing: border-box !important;
+    animation: feedbackPop 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+@keyframes feedbackPop {
+    0% {
+        opacity: 0;
+        transform: translateY(12px) scale(0.96);
+    }
+    60% {
+        transform: translateY(-2px) scale(1.01);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Icon Bulat di Sisi Kiri */
+.feedback::before {
+    content: "ℹ";
+    grid-row: 1 / span 2 !important;
+    grid-column: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 46px !important;
+    height: 46px !important;
+    border-radius: 50% !important;
+    font-size: 22px !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+    flex-shrink: 0 !important;
+    box-sizing: border-box !important;
+    transition: transform 0.2s ease !important;
+}
+
+/* Judul Feedback (Baris 1 Kolom 2) */
+.feedback strong {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    font-size: 16.5px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.01em !important;
+    line-height: 1.25 !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+}
+
+/* Keterangan & Jawaban (Baris 2 Kolom 2) */
+.feedback span {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.45 !important;
+    letter-spacing: 0.01em !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+}
+
+/* Chip / Highlight Aksara */
+.feedback span b {
+    font-family: 'Noto Serif JP', 'Plus Jakarta Sans', serif !important;
+    font-weight: 800 !important;
+    padding: 1px 7px !important;
+    border-radius: 6px !important;
+    display: inline-block !important;
+    background: rgba(255, 255, 255, 0.7) !important;
+    border: 1px solid rgba(0, 0, 0, 0.06) !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* 1. STATE BENAR (is-good) */
+.feedback.is-good {
+    background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%) !important;
+    border: 2px solid #34d399 !important;
+    color: #065f46 !important;
+    box-shadow: 0 10px 25px -4px rgba(16, 185, 129, 0.25), 0 2px 8px rgba(16, 185, 129, 0.1) !important;
+}
+
+.feedback.is-good::before {
+    content: "✓" !important;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.45) !important;
+}
+
+.feedback.is-good strong {
+    color: #047857 !important;
+}
+
+.feedback.is-good span {
+    color: #065f46 !important;
+}
+
+/* 2. STATE SALAH (is-bad) */
+.feedback.is-bad {
+    background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%) !important;
+    border: 2px solid #fb7185 !important;
+    color: #9f1239 !important;
+    box-shadow: 0 10px 25px -4px rgba(244, 63, 94, 0.25), 0 2px 8px rgba(244, 63, 94, 0.1) !important;
+}
+
+.feedback.is-bad::before {
+    content: "✕" !important;
+    background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 14px rgba(244, 63, 94, 0.45) !important;
+}
+
+.feedback.is-bad strong {
+    color: #be123c !important;
+}
+
+.feedback.is-bad span {
+    color: #9f1239 !important;
+}
+
+/* 3. STATE DILEWATI (is-skip) */
+.feedback.is-skip {
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%) !important;
+    border: 2px solid #fcd34d !important;
+    color: #92400e !important;
+    box-shadow: 0 10px 25px -4px rgba(245, 158, 11, 0.25), 0 2px 8px rgba(245, 158, 11, 0.1) !important;
+}
+
+.feedback.is-skip::before {
+    content: "↷" !important;
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 14px rgba(245, 158, 11, 0.45) !important;
+}
+
+.feedback.is-skip strong {
+    color: #b45309 !important;
+}
+
+.feedback.is-skip span {
+    color: #92400e !important;
+}
+
+/* Streak Flame Badge */
+.feedback-streak-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    padding: 2px 9px !important;
+    border-radius: 999px !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    background: #ffedd5 !important;
+    color: #c2410c !important;
+    border: 1px solid #fdba74 !important;
+    box-shadow: 0 2px 6px rgba(234, 88, 12, 0.15) !important;
+    animation: streakFlamePulse 1.2s ease-in-out infinite alternate !important;
+}
+
+@keyframes streakFlamePulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); }
+}
+
+/* Sub-Tag Keterangan */
+.feedback-sub-tag {
+    display: inline-block !important;
+    padding: 2px 8px !important;
+    border-radius: 999px !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    background: rgba(0, 0, 0, 0.08) !important;
+    color: inherit !important;
+    opacity: 0.9 !important;
+}
+
+/* DARK MODE */
+body.theme-dark .feedback.is-good,
+body.dark-mode .feedback.is-good {
+    background: linear-gradient(135deg, #06281c 0%, #0d3826 100%) !important;
+    border-color: #10b981 !important;
+    color: #6ee7b7 !important;
+    box-shadow: 0 10px 25px -4px rgba(16, 185, 129, 0.35) !important;
+}
+body.theme-dark .feedback.is-good strong,
+body.dark-mode .feedback.is-good strong {
+    color: #a7f3d0 !important;
+}
+body.theme-dark .feedback.is-good span,
+body.dark-mode .feedback.is-good span {
+    color: #6ee7b7 !important;
+}
+
+body.theme-dark .feedback.is-bad,
+body.dark-mode .feedback.is-bad {
+    background: linear-gradient(135deg, #350d15 0%, #4c111e 100%) !important;
+    border-color: #f43f5e !important;
+    color: #fda4af !important;
+    box-shadow: 0 10px 25px -4px rgba(244, 63, 94, 0.35) !important;
+}
+body.theme-dark .feedback.is-bad strong,
+body.dark-mode .feedback.is-bad strong {
+    color: #fecdd3 !important;
+}
+body.theme-dark .feedback.is-bad span,
+body.dark-mode .feedback.is-bad span {
+    color: #fda4af !important;
+}
+
+body.theme-dark .feedback.is-skip,
+body.dark-mode .feedback.is-skip {
+    background: linear-gradient(135deg, #2b1f06 0%, #3e2d09 100%) !important;
+    border-color: #f59e0b !important;
+    color: #fde68a !important;
+    box-shadow: 0 10px 25px -4px rgba(245, 158, 11, 0.35) !important;
+}
+body.theme-dark .feedback.is-skip strong,
+body.dark-mode .feedback.is-skip strong {
+    color: #fef3c7 !important;
+}
+body.theme-dark .feedback.is-skip span,
+body.dark-mode .feedback.is-skip span {
+    color: #fde68a !important;
+}
+
+body.theme-dark .feedback span b,
+body.dark-mode .feedback span b {
+    background: rgba(0, 0, 0, 0.4) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+}
+
+body.theme-dark .feedback-streak-badge,
+body.dark-mode .feedback-streak-badge {
+    background: #431407 !important;
+    color: #fdba74 !important;
+    border-color: #9a3412 !important;
+}
+
+body.theme-dark .feedback-sub-tag,
+body.dark-mode .feedback-sub-tag {
+    background: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* RESPONSIVE: HP / MOBILE (<= 600px) */
+@media (max-width: 600px) {
+    .feedback {
+        margin: 16px 0 0 0 !important;
+        padding: 12px 14px !important;
+        column-gap: 12px !important;
+        row-gap: 2px !important;
+        border-radius: 16px !important;
+        max-width: 100% !important;
+    }
+    .feedback::before {
+        width: 38px !important;
+        height: 38px !important;
+        font-size: 18px !important;
+    }
+    .feedback strong {
+        font-size: 15px !important;
+    }
+    .feedback span {
+        font-size: 12.5px !important;
+    }
+}
+
 </style>
 </head>
 <body class="learning-app page-latihan">
@@ -3044,7 +3667,7 @@ body.dark-mode .memory-card.is-matched .memory-card-front {
         </nav>
         <div class="sidebar-footer">
             <img class="sidebar-footer-logo" src="../images/mirai/logo/MNH1-nav.png" alt="MIRAI NO HANA">
-            <p class="sidebar-footer-desc">Website Resmi Klub Bahasa &amp; Kebudayaan Jepang MIRAI NO HANA SMA Wachid Hasyim 2 Taman Sidoarjo.<br><br><span class="sidebar-footer-sub">Portal ini dirancang dan dikembangkan secara independen oleh kepengurusan siswa Klub Jepang MIRAI NO HANA sebagai ruang kreatif dan media belajar mandiri.</span></p>
+            <p class="sidebar-footer-desc">Website Resmi Klub Bahasa &amp; Kebudayaan Jepang MIRAI NO HANA SMA Wachid Hasyim 2 Taman Sidoarjo.<br><br><span class="sidebar-footer-sub">Situs web ini dirancang dan dikembangkan secara independen oleh kepengurusan siswa Klub Jepang MIRAI NO HANA sebagai sarana belajar bahasa Jepang, informasi kegiatan klub, dan fasilitas digital anggota.</span></p>
             <div class="sidebar-footer-social">
                 <a class="sidebar-social-link" href="https://www.instagram.com/mirainohana_smawh2?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" aria-label="Instagram Mirai No Hana">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
@@ -3071,16 +3694,27 @@ body.dark-mode .memory-card.is-matched .memory-card-front {
 </section>
 <section class="quest-section quest-overview"><div class="script-tabs" role="tablist"><button class="is-active" data-script="hiragana" role="tab">ひらがな <small>Hiragana</small></button><button data-script="katakana" role="tab">カタカナ <small>Katakana</small></button></div><div class="progress-heading"><div><p class="section-eyebrow"><span class="jp-kanji">教材選択</span></p><h2 data-script-title>Hiragana <span>ひらがな</span></h2><div class="level-badges script-overview-badges" data-script-badges><span class="level-badge">20 Soal</span><span class="level-badge">Hiragana → Romaji</span><span class="level-badge">Romaji → Hiragana</span><span class="level-badge">Goresan</span><span class="level-badge">Kosakata</span><span class="level-badge">Pasangkan Kata</span></div></div><div class="path-meter"><strong data-script-progress>0%</strong><div class="progress-track"><i data-script-progress-bar></i></div></div></div><div class="level-grid" data-level-grid></div></section>
 <section class="quest-section mix-section" data-script="hiragana"><div class="section-heading"><div><p class="section-eyebrow"><span class="jp-kanji">総合練習</span></p><h2>Latihan <span>Gabungan</span></h2></div></div><div class="mode-grid" data-mode-grid data-script="hiragana"></div>
-<div class="mini-game-shortcut-bar">
-    <span class="shortcut-bar-label">⚡ Mini-Game Khusus:</span>
-    <button type="button" class="mini-game-shortcut-btn btn-choukai" data-game-shortcut="choukai" data-mode="choukai">
-        <span class="shortcut-icon">🎧</span>
-        <span>Main Tebak Suara (Choukai)</span>
-    </button>
-    <button type="button" class="mini-game-shortcut-btn btn-memory" data-game-shortcut="memory" data-mode="memory">
-        <span class="shortcut-icon">🃏</span>
-        <span>Main Memory Flip (12 Kartu)</span>
-    </button>
+<div class="mini-game-section">
+    <div class="mini-game-label-card">
+        <span class="card-sub-jp">ミニゲーム</span>
+        <span class="mini-game-title">⚡ Mini Game</span>
+    </div>
+    <div class="mini-game-grid">
+        <button type="button" class="mode-card mini-game-card btn-choukai" data-game-shortcut="choukai" data-mode="choukai">
+            <span class="card-sub-jp">聴解 • ちょうかい</span>
+            <b>🎧</b>
+            <span>Tebak Suara</span>
+            <span class="mode-kana-preview">Audio • 15 Soal</span>
+            <small>Dengarkan audio pelafalan asli dan tebak karakter kana yang tepat</small>
+        </button>
+        <button type="button" class="mode-card mini-game-card btn-memory" data-game-shortcut="memory" data-mode="memory">
+            <span class="card-sub-jp">神経衰弱 • しんけいすいじゃく</span>
+            <b>🃏</b>
+            <span>Balik Kartu</span>
+            <span class="mode-kana-preview">Memory Flip • Pilih Mode</span>
+            <small>Pilih kesulitan (6, 12, atau 24 kartu) &amp; cocokkan pasangan kana</small>
+        </button>
+    </div>
     <button type="button" class="mini-game-shortcut-btn btn-retry-wrong" data-home-retry-wrong hidden>
         <span class="shortcut-icon">🔁</span>
         <span>Ulangi Soal yang Salah (<b data-wrong-count>0</b>)</span>
@@ -3340,6 +3974,53 @@ body.dark-mode .memory-card.is-matched .memory-card-front {
             <button type="button" class="btn-custom-cancel" data-close-custom-modal>Batal</button>
             <button type="button" class="btn-custom-start" data-start-custom-quiz>
                 <span>Mulai Latihan Kustom 🚀</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Pilihan Tingkat Kesulitan Balik Kartu -->
+<div class="custom-quiz-modal memory-difficulty-modal" data-memory-difficulty-modal hidden>
+    <div class="custom-modal-backdrop" data-close-memory-modal></div>
+    <div class="custom-modal-dialog" style="max-width: 520px;" role="dialog" aria-modal="true" aria-labelledby="memory-modal-title">
+        <div class="custom-modal-header">
+            <div class="custom-modal-title-group">
+                <span class="card-sub-jp">難易度選択 • なんいどせんたく</span>
+                <h3 id="memory-modal-title">🃏 Balik Kartu (Memory Flip)</h3>
+                <p>Pilih tingkat kesulitan jumlah kartu sebelum mulai bermain:</p>
+            </div>
+            <button type="button" class="custom-modal-close" data-close-memory-modal aria-label="Tutup pilihan kesulitan">✕</button>
+        </div>
+
+        <div class="custom-modal-body" style="gap: 12px; padding: 22px;">
+            <button type="button" class="memory-diff-btn memory-diff-easy" data-memory-cards="6">
+                <div class="memory-diff-icon">🌱</div>
+                <div class="memory-diff-info">
+                    <span class="memory-diff-tag">Mudah</span>
+                    <strong class="memory-diff-name">6 Kartu <small>(3 Pasang)</small></strong>
+                    <span class="memory-diff-desc">Sangat santai dan cepat, cocok untuk pemanasan daya ingat kana.</span>
+                </div>
+                <span class="memory-diff-arrow">▶</span>
+            </button>
+
+            <button type="button" class="memory-diff-btn memory-diff-medium" data-memory-cards="12">
+                <div class="memory-diff-icon">⚡</div>
+                <div class="memory-diff-info">
+                    <span class="memory-diff-tag">Sedang (Standar)</span>
+                    <strong class="memory-diff-name">12 Kartu <small>(6 Pasang)</small></strong>
+                    <span class="memory-diff-desc">Tantangan ideal dan seimbang untuk mengasah daya ingat kana &amp; romaji.</span>
+                </div>
+                <span class="memory-diff-arrow">▶</span>
+            </button>
+
+            <button type="button" class="memory-diff-btn memory-diff-hard" data-memory-cards="24">
+                <div class="memory-diff-icon">🔥</div>
+                <div class="memory-diff-info">
+                    <span class="memory-diff-tag">Hard (Sulit)</span>
+                    <strong class="memory-diff-name">24 Kartu <small>(12 Pasang)</small></strong>
+                    <span class="memory-diff-desc">Konsentrasi penuh! Papan luas 24 kartu untuk sang master kana.</span>
+                </div>
+                <span class="memory-diff-arrow">▶</span>
             </button>
         </div>
     </div>

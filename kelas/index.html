@@ -37,7 +37,7 @@
         </nav>
         <div class="sidebar-footer">
             <img class="sidebar-footer-logo" src="../images/mirai/logo/MNH1-nav.png" alt="MIRAI NO HANA">
-            <p class="sidebar-footer-desc">Website Resmi Klub Bahasa &amp; Kebudayaan Jepang MIRAI NO HANA SMA Wachid Hasyim 2 Taman Sidoarjo.<br><br><span class="sidebar-footer-sub">Portal ini dirancang dan dikembangkan secara independen oleh kepengurusan siswa Klub Jepang MIRAI NO HANA sebagai ruang kreatif dan media belajar mandiri.</span></p>
+            <p class="sidebar-footer-desc">Website Resmi Klub Bahasa &amp; Kebudayaan Jepang MIRAI NO HANA SMA Wachid Hasyim 2 Taman Sidoarjo.<br><br><span class="sidebar-footer-sub">Situs web ini dirancang dan dikembangkan secara independen oleh kepengurusan siswa Klub Jepang MIRAI NO HANA sebagai sarana belajar bahasa Jepang, informasi kegiatan klub, dan fasilitas digital anggota.</span></p>
             <div class="sidebar-footer-social">
                 <a class="sidebar-social-link" href="https://www.instagram.com/mirainohana_smawh2?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" aria-label="Instagram Mirai No Hana">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
@@ -76,66 +76,102 @@
                 <p class="section-desc">Pondasi belajar bahasa Jepang terstruktur mulai dari pengenalan aksara Kana, kosakata esensial, hingga buku modul dasar klub.</p>
             </div>
             <div class="course-cards course-cards--two">
-                <a class="course-card practice-course-card" href="latihan.html">
+                <div class="course-card practice-course-card" data-expand-card>
+                    <button type="button" class="card-toggle" aria-expanded="false" aria-label="Buka tutup detail"></button>
                     <span class="course-kana">練習</span>
                     <div class="course-content">
                         <p class="card-number">Kelas Dasar · Latihan</p>
+                        <span class="card-sub-jp">仮名練習</span>
                         <h3>Latihan Kana</h3>
-                        <p>Uji Hiragana dan Katakana dengan soal singkat yang acak.</p>
-                        <span class="btn primary">MULAI LATIHAN</span>
+                        <div class="card-collapsible-content">
+                            <div class="card-collapsible-inner">
+                                <p>Uji Hiragana dan Katakana dengan soal singkat yang acak.</p>
+                            </div>
+                        </div>
+                        <a class="btn primary" href="latihan.html" data-expand-cta>MULAI LATIHAN →</a>
                     </div>
                     <img class="card-corner-chibi" src="../images/mirai/icon/Hu.png" alt="" aria-hidden="true">
-                </a>
-                <a class="course-card" href="../kamus/index.html?tab=hiragana">
+                </div>
+                <div class="course-card" data-expand-card>
+                    <button type="button" class="card-toggle" aria-expanded="false" aria-label="Buka tutup detail"></button>
                     <span class="course-kana">ひらがな</span>
                     <div class="course-content">
                         <p class="card-number">Kelas Dasar · Modul 1</p>
+                        <span class="card-sub-jp">平仮名辞書</span>
                         <h3>Kamus Hiragana</h3>
-                        <p>Kenali huruf pertama dalam bahasa Jepang.</p>
-                        <span class="btn primary">BUKA HIRAGANA</span>
+                        <div class="card-collapsible-content">
+                            <div class="card-collapsible-inner">
+                                <p>Kenali huruf pertama dalam bahasa Jepang.</p>
+                            </div>
+                        </div>
+                        <a class="btn primary" href="../kamus/index.html?tab=hiragana" data-expand-cta>BUKA HIRAGANA →</a>
                     </div>
                     <img class="card-corner-chibi" src="../images/mirai/icon/Ka.png" alt="" aria-hidden="true">
-                </a>
-                <a class="course-card" href="../kamus/index.html?tab=katakana">
+                </div>
+                <div class="course-card" data-expand-card>
+                    <button type="button" class="card-toggle" aria-expanded="false" aria-label="Buka tutup detail"></button>
                     <span class="course-kana">カタカナ</span>
                     <div class="course-content">
                         <p class="card-number">Kelas Dasar · Modul 2</p>
+                        <span class="card-sub-jp">片仮名辞書</span>
                         <h3>Kamus Katakana</h3>
-                        <p>Huruf untuk kata serapan dan istilah modern.</p>
-                        <span class="btn primary">BUKA KATAKANA</span>
+                        <div class="card-collapsible-content">
+                            <div class="card-collapsible-inner">
+                                <p>Huruf untuk kata serapan dan istilah modern.</p>
+                            </div>
+                        </div>
+                        <a class="btn primary" href="../kamus/index.html?tab=katakana" data-expand-cta>BUKA KATAKANA →</a>
                     </div>
                     <img class="card-corner-chibi" src="../images/mirai/icon/Fa.png" alt="" aria-hidden="true">
-                </a>
-                <a class="course-card buuku-course-card" href="../materi/dasar/index.html">
+                </div>
+                <div class="course-card buuku-course-card" data-expand-card>
+                    <button type="button" class="card-toggle" aria-expanded="false" aria-label="Buka tutup detail"></button>
                     <span class="course-kana">本</span>
                     <div class="course-content">
                         <p class="card-number">Mirai no Buuku · Dasar</p>
+                        <span class="card-sub-jp">未来の本・基礎</span>
                         <h3>Mirai no Buuku</h3>
-                        <p>Kumpulan materi dasar untuk menemani langkah pertamamu belajar bahasa Jepang.</p>
-                        <span class="btn primary">BUKA BUUKU</span>
+                        <div class="card-collapsible-content">
+                            <div class="card-collapsible-inner">
+                                <p>Kumpulan materi dasar untuk menemani langkah pertamamu belajar bahasa Jepang.</p>
+                            </div>
+                        </div>
+                        <a class="btn primary" href="../materi/dasar/index.html" data-expand-cta>BUKA BUUKU →</a>
                     </div>
                     <img class="card-corner-chibi" src="../images/mirai/icon/Fli.png" alt="" aria-hidden="true">
-                </a>
-                <a class="course-card choukai-course-card" href="latihan.html?game=choukai">
+                </div>
+                <div class="course-card choukai-course-card" data-expand-card>
+                    <button type="button" class="card-toggle" aria-expanded="false" aria-label="Buka tutup detail"></button>
                     <span class="course-kana">聴解</span>
                     <div class="course-content">
                         <p class="card-number">聴解 • CHOUKAI</p>
+                        <span class="card-sub-jp">聴解クイズ</span>
                         <h3>Tebak Suara Kilat</h3>
-                        <p>Latih ketajaman pendengaran (Choukai) dengan menebak aksara &amp; kosakata Jepang dari audio pelafalan asli.</p>
-                        <span class="btn primary">MAINKAN CHOUKAI →</span>
+                        <div class="card-collapsible-content">
+                            <div class="card-collapsible-inner">
+                                <p>Latih ketajaman pendengaran (Choukai) dengan menebak aksara &amp; kosakata Jepang dari audio pelafalan asli.</p>
+                            </div>
+                        </div>
+                        <a class="btn primary" href="latihan.html?game=choukai" data-expand-cta>MAINKAN CHOUKAI →</a>
                     </div>
                     <img class="card-corner-chibi" src="../images/mirai/icon/Ki.png" alt="" aria-hidden="true">
-                </a>
-                <a class="course-card memory-course-card" href="latihan.html?game=memory">
+                </div>
+                <div class="course-card memory-course-card" data-expand-card>
+                    <button type="button" class="card-toggle" aria-expanded="false" aria-label="Buka tutup detail"></button>
                     <span class="course-kana">記憶</span>
                     <div class="course-content">
                         <p class="card-number">記憶 • MEMORY FLIP</p>
+                        <span class="card-sub-jp">記憶フリップ</span>
                         <h3>Pasangan Kartu Memori</h3>
-                        <p>Latih daya ingat visual dengan mencocokkan 12 kartu tertutup berisi aksara Jepang dan cara bacanya.</p>
-                        <span class="btn primary">MAINKAN MEMORY →</span>
+                        <div class="card-collapsible-content">
+                            <div class="card-collapsible-inner">
+                                <p>Latih daya ingat visual dengan mencocokkan 12 kartu tertutup berisi aksara Jepang dan cara bacanya.</p>
+                            </div>
+                        </div>
+                        <a class="btn primary" href="latihan.html?game=memory" data-expand-cta>MAINKAN MEMORY →</a>
                     </div>
                     <img class="card-corner-chibi" src="../images/mirai/icon/Lo.png" alt="" aria-hidden="true">
-                </a>
+                </div>
             </div>
         </section>
         
@@ -146,26 +182,38 @@
                 <p class="section-desc">Pendalaman aksara Kanji, tata bahasa lanjutan, dan modul ekspresi percakapan yang lebih variatif.</p>
             </div>
             <div class="course-cards course-cards--two">
-                <a class="course-card" href="../kamus/index.html?tab=kanji">
+                <div class="course-card" data-expand-card>
+                    <button type="button" class="card-toggle" aria-expanded="false" aria-label="Buka tutup detail"></button>
                     <span class="course-kana">漢字</span>
                     <div class="course-content">
                         <p class="card-number">Kelas Lanjutan · Modul 1</p>
+                        <span class="card-sub-jp">漢字辞書</span>
                         <h3>Kamus Kanji</h3>
-                        <p>Memahami karakter, arti, bacaan, serta penggunaannya.</p>
-                        <span class="btn primary">BUKA KANJI</span>
+                        <div class="card-collapsible-content">
+                            <div class="card-collapsible-inner">
+                                <p>Memahami karakter, arti, bacaan, serta penggunaannya.</p>
+                            </div>
+                        </div>
+                        <a class="btn primary" href="../kamus/index.html?tab=kanji" data-expand-cta>BUKA KANJI →</a>
                     </div>
                     <img class="card-corner-chibi" src="../images/mirai/icon/Chi.png" alt="" aria-hidden="true">
-                </a>
-                <a class="course-card buuku-course-card" href="../materi/lanjutan/index.html">
+                </div>
+                <div class="course-card buuku-course-card" data-expand-card>
+                    <button type="button" class="card-toggle" aria-expanded="false" aria-label="Buka tutup detail"></button>
                     <span class="course-kana">本</span>
                     <div class="course-content">
                         <p class="card-number">Mirai no Buuku · Lanjutan</p>
+                        <span class="card-sub-jp">未来の本・上級</span>
                         <h3>Mirai No Buuku</h3>
-                        <p>Kumpulan materi lanjutan untuk memperdalam kemampuan bahasa Jepangmu.</p>
-                        <span class="btn primary">BUKA BUUKU</span>
+                        <div class="card-collapsible-content">
+                            <div class="card-collapsible-inner">
+                                <p>Kumpulan materi lanjutan untuk memperdalam kemampuan bahasa Jepangmu.</p>
+                            </div>
+                        </div>
+                        <a class="btn primary" href="../materi/lanjutan/index.html" data-expand-cta>BUKA BUUKU →</a>
                     </div>
                     <img class="card-corner-chibi" src="../images/mirai/icon/Wa.png" alt="" aria-hidden="true">
-                </a>
+                </div>
             </div>
         </section>
 
@@ -178,14 +226,11 @@
             </div>
             <div class="doc-cards-grid">
                 <!-- Dokumen 1: Kurikulum Pembelajaran -->
-                <article class="doc-big-card" id="kurikulum-doc">
+                <article class="doc-big-card" id="kurikulum-doc" data-expand-card>
+                    <button type="button" class="card-toggle" aria-expanded="false" aria-label="Buka tutup detail"></button>
                     <div class="doc-card-header">
                         <div class="doc-header-left">
                             <span class="doc-kana">教本</span>
-                            <span class="doc-index-badge">
-                                <span class="badge-dot" aria-hidden="true"></span>
-                                <span>DOKUMEN 1</span>
-                            </span>
                         </div>
                         <span class="doc-format-badge">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
@@ -199,17 +244,22 @@
                             </div>
                             <div class="doc-headings">
                                 <p class="card-number">Silabus Resmi Klub</p>
+                                <span class="card-sub-jp">教育カリキュラム</span>
                                 <h3 class="doc-title">Kurikulum Pembelajaran</h3>
                             </div>
                         </div>
-                        <p class="doc-desc">Memuat panduan alur materi berjenjang mulai dari Hiragana, Katakana, Kanji, tata bahasa dasar hingga lanjutan, serta acuan capaian belajar anggota.</p>
+                        <div class="card-collapsible-content">
+                            <div class="card-collapsible-inner">
+                                <p class="doc-desc">Memuat panduan alur materi berjenjang mulai dari Hiragana, Katakana, Kanji, tata bahasa dasar hingga lanjutan, serta acuan capaian belajar anggota.</p>
+                            </div>
+                        </div>
                     </div>
                     <div class="doc-card-footer">
-                        <a class="doc-btn-download btn-doc-download" href="kurikulum/kurikulum-pembelajaran.pdf" target="_blank" rel="noopener noreferrer" download>
+                        <a class="doc-btn-download btn-doc-download" href="kurikulum/kurikulum-pembelajaran.pdf" target="_blank" rel="noopener noreferrer" download data-expand-cta>
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                             <span>Unduh PDF</span>
                         </a>
-                        <a class="doc-btn-view btn-doc-view" href="kurikulum/kurikulum-pembelajaran.pdf" target="_blank" rel="noopener noreferrer">
+                        <a class="doc-btn-view btn-doc-view" href="kurikulum/kurikulum-pembelajaran.pdf" target="_blank" rel="noopener noreferrer" data-expand-cta>
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                             <span class="doc-btn-label-full">Buka Dokumen</span>
                             <span class="doc-btn-label-short">Buka</span>
@@ -219,14 +269,11 @@
                 </article>
 
                 <!-- Dokumen 2: Tata Cara Mengajar -->
-                <article class="doc-big-card" id="tatacara">
+                <article class="doc-big-card" id="tatacara" data-expand-card>
+                    <button type="button" class="card-toggle" aria-expanded="false" aria-label="Buka tutup detail"></button>
                     <div class="doc-card-header">
                         <div class="doc-header-left">
                             <span class="doc-kana">指導</span>
-                            <span class="doc-index-badge">
-                                <span class="badge-dot" aria-hidden="true"></span>
-                                <span>DOKUMEN 2</span>
-                            </span>
                         </div>
                         <span class="doc-format-badge">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
@@ -240,17 +287,22 @@
                             </div>
                             <div class="doc-headings">
                                 <p class="card-number">Panduan Pengajaran Tutor</p>
+                                <span class="card-sub-jp">指導方法</span>
                                 <h3 class="doc-title">Tata Cara Mengajar</h3>
                             </div>
                         </div>
-                        <p class="doc-desc">Pedoman teknis bagi tutor dan pengurus dalam menyampaikan materi bahasa Jepang secara interaktif, menyenangkan, terstruktur, serta panduan evaluasi belajar.</p>
+                        <div class="card-collapsible-content">
+                            <div class="card-collapsible-inner">
+                                <p class="doc-desc">Pedoman teknis bagi tutor dan pengurus dalam menyampaikan materi bahasa Jepang secara interaktif, menyenangkan, terstruktur, serta panduan evaluasi belajar.</p>
+                            </div>
+                        </div>
                     </div>
                     <div class="doc-card-footer">
-                        <a class="doc-btn-download btn-doc-download" href="kurikulum/tata-cara-mengajar.pdf" target="_blank" rel="noopener noreferrer" download>
+                        <a class="doc-btn-download btn-doc-download" href="kurikulum/tata-cara-mengajar.pdf" target="_blank" rel="noopener noreferrer" download data-expand-cta>
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                             <span>Unduh PDF</span>
                         </a>
-                        <a class="doc-btn-view btn-doc-view" href="kurikulum/tata-cara-mengajar.pdf" target="_blank" rel="noopener noreferrer">
+                        <a class="doc-btn-view btn-doc-view" href="kurikulum/tata-cara-mengajar.pdf" target="_blank" rel="noopener noreferrer" data-expand-cta>
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                             <span class="doc-btn-label-full">Buka Dokumen</span>
                             <span class="doc-btn-label-short">Buka</span>

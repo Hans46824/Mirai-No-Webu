@@ -277,21 +277,21 @@ main > section:nth-of-type(odd):not(.hero):not(.page-hero):not(.proker-hero):not
    2. SECTION KONTEN GENAP PADA HALAMAN STANDAR (Section 2, 4, 6, 8...) = HITAM PEKAT
    (Kecuali Hero & Kamus)
    ---------------------------------------------------- */
-main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section):not(.learning-path):not(#dasar):not(#lanjutan):not(#kurikulum) {
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section):not(.learning-path):not(#dasar):not(#lanjutan):not(#kurikulum):not(.feedback-preview):not(.section-quote-slider) {
     background-color: #111111 !important;
     color: #f5edf4 !important;
 }
 
 /* Tipografi di Section Hitam Halaman Standar (Kontras Tinggi Terang) */
-main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section):not(.learning-path):not(#dasar):not(#lanjutan):not(#kurikulum) h1,
-main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section):not(.learning-path):not(#dasar):not(#lanjutan):not(#kurikulum) h2,
-main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section):not(.learning-path):not(#dasar):not(#lanjutan):not(#kurikulum) h3,
-main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section):not(.learning-path):not(#dasar):not(#lanjutan):not(#kurikulum) h4,
-main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section):not(.learning-path):not(#dasar):not(#lanjutan):not(#kurikulum) .heading,
-main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section):not(.learning-path):not(#dasar):not(#lanjutan):not(#kurikulum) .section-title,
-main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section):not(.learning-path):not(#dasar):not(#lanjutan):not(#kurikulum) .page-title,
-main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section):not(.learning-path):not(#dasar):not(#lanjutan):not(#kurikulum) .quest-section h2,
-main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section):not(.learning-path):not(#dasar):not(#lanjutan):not(#kurikulum) .section-heading h2 {
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section):not(.learning-path):not(#dasar):not(#lanjutan):not(#kurikulum):not(.feedback-preview):not(.section-quote-slider) h1,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section):not(.learning-path):not(#dasar):not(#lanjutan):not(#kurikulum):not(.feedback-preview):not(.section-quote-slider) h2,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section):not(.learning-path):not(#dasar):not(#lanjutan):not(#kurikulum):not(.feedback-preview):not(.section-quote-slider) h3,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section):not(.learning-path):not(#dasar):not(#lanjutan):not(#kurikulum):not(.feedback-preview):not(.section-quote-slider) h4,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section):not(.learning-path):not(#dasar):not(#lanjutan):not(#kurikulum):not(.feedback-preview):not(.section-quote-slider) .heading,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section):not(.learning-path):not(#dasar):not(#lanjutan):not(#kurikulum):not(.feedback-preview):not(.section-quote-slider) .section-title,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section):not(.learning-path):not(#dasar):not(#lanjutan):not(#kurikulum):not(.feedback-preview):not(.section-quote-slider) .page-title,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section):not(.learning-path):not(#dasar):not(#lanjutan):not(#kurikulum):not(.feedback-preview):not(.section-quote-slider) .quest-section h2,
+main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):not(.quest-hero):not(.dictionary-section):not(.proker-hero ~ section):not(.lesson-article):not(.buuku-lesson):not(.kurikulum-page-section):not(.learning-path):not(#dasar):not(#lanjutan):not(#kurikulum):not(.feedback-preview):not(.section-quote-slider) .section-heading h2 {
     color: #ffffff !important;
 }
 
@@ -461,8 +461,8 @@ main > section:nth-of-type(even):not(.hero):not(.page-hero):not(.proker-hero):no
    Section 2, 4, 6 (Genap): HITAM PEKAT
    Section 3, 5, 7 (Ganjil): PUTIH BERSIH
    ---------------------------------------------------- */
-.proker-hero ~ section:nth-of-type(even),
-main:has(.proker-hero) > section:nth-of-type(even) {
+.proker-hero ~ section:nth-of-type(even):not(.feedback-preview):not(.section-quote-slider),
+main:has(.proker-hero) > section:nth-of-type(even):not(.feedback-preview):not(.section-quote-slider) {
     background-color: #111111 !important;
     color: #f5edf4 !important;
 }
@@ -561,8 +561,8 @@ main:has(.proker-hero) > section:nth-of-type(even) .proker-detail-card p {
 }
 
 /* Section Ganjil Proker (Section 3, 5, 7) = PUTIH BERSIH */
-.proker-hero ~ section:nth-of-type(odd),
-main:has(.proker-hero) > section:nth-of-type(odd):not(.proker-hero) {
+.proker-hero ~ section:nth-of-type(odd):not(.feedback-preview):not(.section-quote-slider),
+main:has(.proker-hero) > section:nth-of-type(odd):not(.proker-hero):not(.feedback-preview):not(.section-quote-slider) {
     background-color: #ffffff !important;
     color: var(--text-color, #333333) !important;
 }
@@ -2831,4 +2831,932 @@ body.dark-mode .card-sub-jp {
     color: #ff85b3 !important;
 }
 
+
+
+
+/* ==========================================================================
+   HAPUS KOTAKAN BIRU SAAT SENTUH DI MODE HP (TAP HIGHLIGHT)
+   ========================================================================== */
+*, *::before, *::after {
+    -webkit-tap-highlight-color: transparent !important;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+}
+
+a, button, [role="button"], input, select, textarea,
+.card, [class*="-card"], [class*="card"], .btn, [class*="btn"],
+[data-expand-card], .nav-card, .activity-start-card, .start-card {
+    -webkit-tap-highlight-color: transparent !important;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+    -webkit-touch-callout: none;
+    outline: none !important;
+}
+
+*:focus:not(:focus-visible) {
+    outline: none !important;
+}
+
+.card-sub-jp,
+.start-card .card-sub-jp,
+.activity-start-card .card-sub-jp,
+.start-card:hover .card-sub-jp,
+.activity-start-card:hover .card-sub-jp,
+.start-card:active .card-sub-jp,
+.activity-start-card:active .card-sub-jp,
+.activity-card-active:hover .card-sub-jp,
+.activity-card-active:active .card-sub-jp {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    transform: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    color: var(--pink, #ff659b) !important;
+}
+
+/* ==========================================================================
+   ANIMASI HITUNG ANGKA HASIL (COUNT-UP LOADING NUMBERS)
+   ========================================================================== */
+.is-counting {
+    will-change: transform, opacity;
+    display: inline-block;
+    transition: color 0.15s ease;
+}
+
+.count-finished {
+    animation: countFinishPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes countFinishPop {
+    0% {
+        transform: scale(0.95);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* ==========================================================================
+   MASTER UNIVERSAL SECTIONS: KRITIK & SARAN & KUTIPAN INSPIRATIF
+   Sistem warna selang-seling universal dengan proteksi kontras tinggi
+   ========================================================================== */
+
+/* --- KRITIK & SARAN TEMA PUTIH (.feedback-theme-white) --- */
+section.feedback-preview.feedback-theme-white {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    color: #374151 !important;
+}
+
+section.feedback-preview.feedback-theme-white .feedback-feature-card {
+    background: linear-gradient(165deg, #ffffff 0%, #fffbfc 100%) !important;
+    border: 1.5px solid #f4bfd3 !important;
+    box-shadow: 0 16px 45px rgba(233, 30, 99, 0.08), 0 4px 18px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+section.feedback-preview.feedback-theme-white .feedback-feature-card:hover {
+    border-color: var(--pink, #e91e63) !important;
+    box-shadow: 0 24px 50px rgba(233, 30, 99, 0.18), 0 8px 22px rgba(0, 0, 0, 0.06) !important;
+}
+
+section.feedback-preview.feedback-theme-white .card-sub-jp {
+    color: #d81b60 !important;
+}
+
+section.feedback-preview.feedback-theme-white .feedback-card-title,
+section.feedback-preview.feedback-theme-white .feedback-feature-card h2,
+section.feedback-preview.feedback-theme-white .feedback-feature-card .heading {
+    color: #18151b !important;
+}
+
+section.feedback-preview.feedback-theme-white .feedback-card-title span.highlight,
+section.feedback-preview.feedback-theme-white .feedback-card-title span {
+    color: var(--pink, #e91e63) !important;
+}
+
+section.feedback-preview.feedback-theme-white .feedback-card-desc,
+section.feedback-preview.feedback-theme-white .feedback-feature-card p {
+    color: #374151 !important;
+}
+
+section.feedback-preview.feedback-theme-white .feedback-feature-tag {
+    background: rgba(233, 30, 99, 0.08) !important;
+    border: 1.5px solid rgba(233, 30, 99, 0.28) !important;
+    color: #d81b60 !important;
+}
+
+section.feedback-preview.feedback-theme-white .feedback-feature-tag .badge-dot {
+    background: var(--pink, #e91e63) !important;
+    box-shadow: 0 0 6px rgba(233, 30, 99, 0.45) !important;
+}
+
+section.feedback-preview.feedback-theme-white .card-toggle {
+    background: rgba(233, 30, 99, 0.06) !important;
+    border: 1px solid rgba(233, 30, 99, 0.28) !important;
+}
+
+section.feedback-preview.feedback-theme-white .card-toggle::after {
+    border-right: 2px solid #e91e63 !important;
+    border-bottom: 2px solid #e91e63 !important;
+}
+
+/* --- KRITIK & SARAN TEMA HITAM (.feedback-theme-dark) --- */
+section.feedback-preview.feedback-theme-dark {
+    background-color: #0e0b12 !important;
+    background: #0e0b12 !important;
+    color: #f5edf4 !important;
+}
+
+section.feedback-preview.feedback-theme-dark .feedback-feature-card {
+    background: linear-gradient(165deg, #1c1523 0%, #130f18 100%) !important;
+    border: 1.5px solid rgba(255, 101, 155, 0.28) !important;
+    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+}
+
+section.feedback-preview.feedback-theme-dark .feedback-feature-card:hover {
+    border-color: var(--pink, #e91e63) !important;
+    box-shadow: 0 24px 50px rgba(233, 30, 99, 0.22), 0 6px 18px rgba(0, 0, 0, 0.6) !important;
+}
+
+section.feedback-preview.feedback-theme-dark .card-sub-jp {
+    color: #ff659b !important;
+}
+
+section.feedback-preview.feedback-theme-dark .feedback-card-title,
+section.feedback-preview.feedback-theme-dark .feedback-feature-card h2,
+section.feedback-preview.feedback-theme-dark .feedback-feature-card .heading {
+    color: #ffffff !important;
+}
+
+section.feedback-preview.feedback-theme-dark .feedback-card-title span.highlight,
+section.feedback-preview.feedback-theme-dark .feedback-card-title span {
+    color: var(--pink, #e91e63) !important;
+}
+
+section.feedback-preview.feedback-theme-dark .feedback-card-desc,
+section.feedback-preview.feedback-theme-dark .feedback-feature-card p {
+    color: #ece4ec !important;
+}
+
+section.feedback-preview.feedback-theme-dark .feedback-feature-tag {
+    background: rgba(233, 30, 99, 0.16) !important;
+    border: 1.5px solid rgba(233, 30, 99, 0.4) !important;
+    color: #ff659b !important;
+}
+
+section.feedback-preview.feedback-theme-dark .card-toggle {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 101, 155, 0.4) !important;
+}
+
+section.feedback-preview.feedback-theme-dark .card-toggle::after {
+    border-right: 2px solid #ff659b !important;
+    border-bottom: 2px solid #ff659b !important;
+}
+
+/* --- KUTIPAN INSPIRATIF TEMA PUTIH (.quote-theme-white) (PATTERN w1w.jpeg PADA KARTU BUKAN HALAMAN) --- */
+.section-quote-slider.quote-theme-white {
+    background: #ffffff !important;
+    background-image: none !important;
+    border-top: 1px solid #f4bfd3 !important;
+    border-bottom: 1px solid #f4bfd3 !important;
+    position: relative !important;
+}
+
+.section-quote-slider.quote-theme-white::before {
+    display: none !important;
+    content: none !important;
+}
+
+.section-quote-slider.quote-theme-white > * {
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+.section-quote-slider.quote-theme-white .footer-quote-heading {
+    color: #18151b !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-card {
+    background-color: #ffffff !important;
+    background-image:
+        linear-gradient(165deg, rgba(255, 255, 255, 0.88) 0%, rgba(253, 246, 250, 0.88) 100%),
+        url("../../images/mirai/background/w1w.jpeg") !important;
+    background-size: auto, 260px auto !important;
+    background-repeat: repeat, repeat !important;
+    background-position: top left, top left !important;
+    border: 1.5px solid var(--quote-border, #f4bfd3) !important;
+    box-shadow: 0 14px 38px rgba(233, 30, 99, 0.08), 0 2px 10px rgba(0, 0, 0, 0.04) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-card::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background-image: url("../../images/mirai/background/w1w.jpeg") !important;
+    background-size: 260px auto !important;
+    background-repeat: repeat !important;
+    background-position: top left !important;
+    opacity: 0.16 !important;
+    mix-blend-mode: multiply !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+    border-radius: inherit !important;
+    display: block !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-card > * {
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-author-profile {
+    background: rgba(255, 255, 255, 0.88) !important;
+    border: 1px solid #fce4ec !important;
+    backdrop-filter: blur(4px) !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-author-name {
+    color: #18151b !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-box {
+    background: rgba(255, 255, 255, 0.88) !important;
+    border: 1px solid #fce4ec !important;
+    backdrop-filter: blur(4px) !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-kanji {
+    color: #18151b !important;
+    text-shadow: none !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-romaji {
+    color: #d81b60 !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-literal {
+    background: rgba(233, 30, 99, 0.06) !important;
+    border: 1px solid rgba(233, 30, 99, 0.18) !important;
+    color: #374151 !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-literal span {
+    color: #374151 !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-meaning-card {
+    background: rgba(255, 255, 255, 0.88) !important;
+    border: 1.5px dashed var(--quote-badge-border, rgba(233, 30, 99, 0.35)) !important;
+    backdrop-filter: blur(4px) !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-meaning-title {
+    color: #18151b !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-meaning-body {
+    color: #374151 !important;
+}
+
+/* --- KUTIPAN INSPIRATIF TEMA HITAM (.quote-theme-dark) --- */
+.section-quote-slider.quote-theme-dark {
+    background: #09070d !important;
+    background-image: none !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.section-quote-slider.quote-theme-dark .footer-quote-heading {
+    color: #ffffff !important;
+}
+
+.section-quote-slider.quote-theme-dark .quote-card {
+    background: linear-gradient(165deg, #16121d 0%, #0d0a13 100%) !important;
+    border: 1.5px solid var(--quote-border, rgba(255, 101, 155, 0.28)) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+.section-quote-slider.quote-theme-dark .quote-author-name {
+    color: #ffffff !important;
+}
+
+.section-quote-slider.quote-theme-dark .quote-kanji {
+    color: #ffffff !important;
+}
+
+.section-quote-slider.quote-theme-dark .quote-meaning-title {
+    color: #ffffff !important;
+}
+
+.section-quote-slider.quote-theme-dark .quote-meaning-body {
+    color: #dcd2df !important;
+}
+
+/* ==========================================================================
+   SISTEM SEGERA HADIR (COMING SOON) & SISTEM KATA SANDI PENGURUS
+   - Efek blur & tidak dapat diakses pada halaman/seksi yang berstatus Segera Hadir
+   - Tombol gembok (🔒 / 🔓) di menu samping kata "MENU"
+   - Modal interaktif input sandi pengurus (Terverifikasi secara Kriptografi SHA-256)
+   - Seksi terkunci: #kurikulum (di kelas) & #studio-terjemahan (di kamus)
+   - Halaman terkunci: Selain Beranda, Kelas, Kamus (Toko, Peringkat, Rekomendasi, Lomba, Tentang, Kegiatan, Divisi)
+   ========================================================================== */
+
+/* 1. Tombol Gembok di Samping "MENU" pada Sidebar */
+.sidebar-header .sidebar-label {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+.sidebar-lock-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 28px !important;
+    height: 28px !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 101, 155, 0.35) !important;
+    border-radius: 8px !important;
+    color: #ffffff !important;
+    font-size: 13px !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+}
+
+.sidebar-lock-btn:hover {
+    background: rgba(255, 79, 145, 0.25) !important;
+    border-color: #ff659b !important;
+    transform: scale(1.12) !important;
+    box-shadow: 0 0 12px rgba(255, 79, 145, 0.45) !important;
+}
+
+.sidebar-lock-btn.is-unlocked {
+    background: rgba(34, 197, 94, 0.16) !important;
+    border-color: rgba(34, 197, 94, 0.45) !important;
+}
+
+.sidebar-lock-btn.is-unlocked:hover {
+    background: rgba(34, 197, 94, 0.28) !important;
+    border-color: #22c55e !important;
+    box-shadow: 0 0 12px rgba(34, 197, 94, 0.45) !important;
+}
+
+/* Badge "Segera Hadir" pada Tautan Menu Navigasi */
+.menu-coming-soon-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    margin-left: 8px !important;
+    padding: 2px 7px !important;
+    font-size: 9.5px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.6px !important;
+    text-transform: uppercase !important;
+    border-radius: 6px !important;
+    background: rgba(255, 79, 145, 0.15) !important;
+    border: 1px solid rgba(255, 101, 155, 0.35) !important;
+    color: #ff8fb7 !important;
+    vertical-align: middle !important;
+}
+
+/* 2. Efek Halaman Terkunci (Page-Level Lock & Blur) */
+html.is-page-locked-early main,
+body.is-page-locked main {
+    filter: blur(8px) saturate(0.65) !important;
+    pointer-events: none !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    transition: filter 0.3s ease !important;
+}
+
+.coming-soon-page-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 990 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 24px !important;
+    background: rgba(9, 6, 13, 0.76) !important;
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+    animation: csFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+
+/* 3. Efek Seksi Terkunci (Section-Level Lock & Blur) */
+.is-section-locked {
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.is-section-locked > *:not(.coming-soon-section-overlay) {
+    filter: blur(8px) saturate(0.6) !important;
+    pointer-events: none !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    transition: filter 0.3s ease !important;
+}
+
+.coming-soon-section-overlay {
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 35 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 36px 20px !important;
+    background: rgba(14, 11, 18, 0.74) !important;
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+    animation: csFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+
+/* Kartu Tampilan Segera Hadir (Universal) */
+.coming-soon-card {
+    max-width: 520px !important;
+    width: 100% !important;
+    background: linear-gradient(165deg, #1d1525 0%, #110d18 100%) !important;
+    border: 1.5px solid rgba(255, 101, 155, 0.38) !important;
+    border-radius: 24px !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65), 0 0 30px rgba(233, 30, 99, 0.22) !important;
+    padding: 36px 30px !important;
+    text-align: center !important;
+    color: #ffffff !important;
+    position: relative !important;
+    overflow: hidden !important;
+    pointer-events: auto !important;
+}
+
+.coming-soon-card::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 3.5px !important;
+    background: linear-gradient(90deg, #ff4f91, #e91e63, #ff8fb7) !important;
+}
+
+.coming-soon-pill {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding: 5px 14px !important;
+    border-radius: 999px !important;
+    background: rgba(255, 79, 145, 0.14) !important;
+    border: 1px solid rgba(255, 101, 155, 0.35) !important;
+    color: #ff8fb7 !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1.2px !important;
+    text-transform: uppercase !important;
+    margin-bottom: 14px !important;
+}
+
+.coming-soon-icon {
+    font-size: 42px !important;
+    line-height: 1 !important;
+    margin: 6px auto 14px auto !important;
+    filter: drop-shadow(0 0 14px rgba(255, 79, 145, 0.5)) !important;
+}
+
+.coming-soon-title {
+    font-size: clamp(1.3rem, 3.2vw, 1.7rem) !important;
+    font-weight: 900 !important;
+    color: #ffffff !important;
+    margin: 0 0 6px 0 !important;
+    line-height: 1.25 !important;
+}
+
+.coming-soon-kanji {
+    font-family: var(--font-jp, "Noto Sans JP", sans-serif) !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    letter-spacing: 2px !important;
+    color: #ff659b !important;
+    margin-bottom: 14px !important;
+    display: block !important;
+}
+
+.coming-soon-desc {
+    color: #d5ccd3 !important;
+    font-size: 14px !important;
+    line-height: 1.65 !important;
+    margin: 0 auto 24px auto !important;
+    max-width: 440px !important;
+}
+
+.coming-soon-actions {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    flex-wrap: wrap !important;
+}
+
+.coming-soon-btn-unlock {
+    background: linear-gradient(135deg, #ff4f91, #e91e63) !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 14px !important;
+    padding: 12px 22px !important;
+    font-size: 13.5px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease !important;
+    box-shadow: 0 6px 20px rgba(233, 30, 99, 0.35) !important;
+}
+
+.coming-soon-btn-unlock:hover {
+    transform: translateY(-2px) scale(1.03) !important;
+    box-shadow: 0 10px 28px rgba(233, 30, 99, 0.55) !important;
+    background: linear-gradient(135deg, #ff3380, #d81557) !important;
+}
+
+.coming-soon-btn-home {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 14px !important;
+    padding: 12px 20px !important;
+    font-size: 13.5px !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    transition: background 0.2s ease, transform 0.2s ease !important;
+}
+
+.coming-soon-btn-home:hover {
+    background: rgba(255, 255, 255, 0.16) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* 3.1. Efek Kartu Terkunci & Blur dengan Timpa Teks Segera Hadir di Tengah */
+.card-coming-soon-locked {
+    position: relative !important;
+    overflow: hidden !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+}
+
+.card-coming-soon-locked > *:not(.card-coming-soon-overlay) {
+    filter: blur(2px) grayscale(10%) !important;
+    opacity: 0.78 !important;
+    pointer-events: none !important;
+    transition: filter 0.3s ease, opacity 0.3s ease !important;
+}
+
+.card-coming-soon-overlay,
+.about-feature-card > .card-coming-soon-overlay,
+.about-drawer-card > .card-coming-soon-overlay,
+.start-card > .card-coming-soon-overlay,
+.activity-start-card > .card-coming-soon-overlay,
+.facility-card > .card-coming-soon-overlay,
+.doc-big-card > .card-coming-soon-overlay {
+    position: absolute !important;
+    inset: 0 !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 99 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 20px !important;
+    margin: 0 !important;
+    background: rgba(14, 11, 18, 0.42) !important;
+    backdrop-filter: blur(3px) saturate(120%) !important;
+    -webkit-backdrop-filter: blur(3px) saturate(120%) !important;
+    border-radius: inherit !important;
+    cursor: pointer !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    animation: csFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+    transition: background 0.25s ease !important;
+}
+
+.card-coming-soon-overlay:hover {
+    background: rgba(233, 30, 99, 0.25) !important;
+}
+
+.card-coming-soon-center {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    pointer-events: none !important;
+    transition: transform 0.25s ease !important;
+}
+
+.card-coming-soon-overlay:hover .card-coming-soon-center {
+    transform: scale(1.05);
+}
+
+.card-coming-soon-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    padding: 10px 22px !important;
+    max-width: 90% !important;
+    border-radius: 999px !important;
+    background: linear-gradient(135deg, #e91e63 0%, #a855f7 100%) !important;
+    color: #ffffff !important;
+    font-size: 0.95rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.04em !important;
+    box-shadow: 0 6px 20px rgba(233, 30, 99, 0.5), 0 0 12px rgba(168, 85, 247, 0.35) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35) !important;
+    animation: pulseLockBadge 2.4s infinite ease-in-out !important;
+}
+
+.card-coming-soon-sub {
+    display: block !important;
+    font-size: 0.74rem !important;
+    font-weight: 600 !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    letter-spacing: 0.02em !important;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* 3.2. Efek Tombol Terkunci & Blur dengan Timpa Teks Segera Hadir di Tengah */
+.btn-coming-soon-locked {
+    position: relative !important;
+    overflow: hidden !important;
+    cursor: not-allowed !important;
+    pointer-events: auto !important;
+}
+
+.btn-coming-soon-locked::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background: rgba(15, 11, 20, 0.45) !important;
+    backdrop-filter: blur(2px) !important;
+    -webkit-backdrop-filter: blur(2px) !important;
+    z-index: 4 !important;
+    border-radius: inherit !important;
+}
+
+.btn-coming-soon-locked::after {
+    content: "🔒 Segera Hadir" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 5 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 0.82rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.03em !important;
+    color: #ffffff !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7) !important;
+    background: linear-gradient(135deg, rgba(233, 30, 99, 0.82), rgba(168, 85, 247, 0.82)) !important;
+    border-radius: inherit !important;
+    border: 1px solid rgba(255, 255, 255, 0.35) !important;
+    box-shadow: 0 4px 14px rgba(233, 30, 99, 0.45) !important;
+}
+
+@keyframes pulseLockBadge {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 6px 20px rgba(233, 30, 99, 0.5), 0 0 12px rgba(168, 85, 247, 0.35);
+    }
+    50% {
+        transform: scale(1.04);
+        box-shadow: 0 8px 24px rgba(233, 30, 99, 0.75), 0 0 18px rgba(168, 85, 247, 0.55);
+    }
+}
+
+/* 4. Modal Dialog Kata Sandi Pengurus (#mnhPasswordModal) */
+.password-modal-backdrop {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 10000 !important;
+    display: none !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 20px !important;
+    background: rgba(8, 5, 12, 0.82) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+}
+
+.password-modal-backdrop.is-active {
+    display: flex !important;
+    animation: csFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.password-modal-card {
+    max-width: 440px !important;
+    width: 100% !important;
+    background: linear-gradient(165deg, #1f1728 0%, #120e18 100%) !important;
+    border: 1.5px solid rgba(255, 101, 155, 0.4) !important;
+    border-radius: 22px !important;
+    padding: 32px 28px !important;
+    text-align: center !important;
+    color: #ffffff !important;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7), 0 0 35px rgba(233, 30, 99, 0.25) !important;
+    position: relative !important;
+    animation: csCardScale 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.password-modal-close {
+    position: absolute !important;
+    top: 14px !important;
+    right: 14px !important;
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    color: #cbd5e1 !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 14px !important;
+    transition: all 0.2s ease !important;
+}
+
+.password-modal-close:hover {
+    background: rgba(255, 79, 145, 0.25) !important;
+    color: #ffffff !important;
+    border-color: #ff659b !important;
+    transform: rotate(90deg) !important;
+}
+
+.password-modal-icon {
+    font-size: 38px !important;
+    line-height: 1 !important;
+    margin: 4px auto 12px auto !important;
+}
+
+.password-modal-title {
+    font-size: 1.3rem !important;
+    font-weight: 800 !important;
+    color: #ffffff !important;
+    margin: 0 0 4px 0 !important;
+}
+
+.password-modal-kanji {
+    font-family: var(--font-jp, "Noto Sans JP", sans-serif) !important;
+    font-size: 11.5px !important;
+    font-weight: 700 !important;
+    letter-spacing: 1.5px !important;
+    color: #ff659b !important;
+    margin-bottom: 12px !important;
+    display: block !important;
+}
+
+.password-modal-desc {
+    color: #d5ccd3 !important;
+    font-size: 13.5px !important;
+    line-height: 1.6 !important;
+    margin: 0 0 20px 0 !important;
+}
+
+.password-input-wrap {
+    position: relative !important;
+    margin-bottom: 14px !important;
+}
+
+.password-modal-input {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 13px 44px 13px 16px !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1.5px solid rgba(255, 101, 155, 0.35) !important;
+    border-radius: 12px !important;
+    color: #ffffff !important;
+    font-size: 15px !important;
+    text-align: center !important;
+    letter-spacing: 1px !important;
+    outline: none !important;
+    transition: all 0.2s ease !important;
+}
+
+.password-modal-input:focus {
+    border-color: #ff659b !important;
+    box-shadow: 0 0 16px rgba(233, 30, 99, 0.35) !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.password-modal-input.is-invalid {
+    animation: csShake 0.4s ease !important;
+    border-color: #ff3366 !important;
+    box-shadow: 0 0 14px rgba(255, 51, 102, 0.45) !important;
+}
+
+.password-toggle-visibility {
+    position: absolute !important;
+    top: 50% !important;
+    right: 12px !important;
+    transform: translateY(-50%) !important;
+    background: none !important;
+    border: none !important;
+    color: #a19ba6 !important;
+    cursor: pointer !important;
+    font-size: 16px !important;
+    padding: 4px !important;
+}
+
+.password-modal-msg {
+    margin: 0 0 16px 0 !important;
+    padding: 10px 14px !important;
+    border-radius: 10px !important;
+    font-size: 13px !important;
+    line-height: 1.45 !important;
+    text-align: left !important;
+}
+
+.password-modal-msg.is-error {
+    background: rgba(239, 68, 68, 0.15) !important;
+    border: 1px solid rgba(239, 68, 68, 0.35) !important;
+    color: #fca5a5 !important;
+}
+
+.password-modal-msg.is-success {
+    background: rgba(34, 197, 94, 0.15) !important;
+    border: 1px solid rgba(34, 197, 94, 0.35) !important;
+    color: #86efac !important;
+}
+
+.password-modal-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+
+.password-btn-submit {
+    flex: 1 !important;
+    background: linear-gradient(135deg, #ff4f91, #e91e63) !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 12px !important;
+    padding: 13px 18px !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    box-shadow: 0 4px 16px rgba(233, 30, 99, 0.35) !important;
+}
+
+.password-btn-submit:hover {
+    background: linear-gradient(135deg, #ff3380, #d81557) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 20px rgba(233, 30, 99, 0.5) !important;
+}
+
+.password-btn-cancel {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: #cbd5e1 !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    border-radius: 12px !important;
+    padding: 13px 18px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+}
+
+.password-btn-cancel:hover {
+    background: rgba(255, 255, 255, 0.16) !important;
+    color: #ffffff !important;
+}
+
+@keyframes csFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes csCardScale {
+    from { opacity: 0; transform: scale(0.94); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes csShake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-7px); }
+    40%, 80% { transform: translateX(7px); }
+}
 

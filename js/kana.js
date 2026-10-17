@@ -335,14 +335,31 @@
             detail.innerHTML = `
                 <p class="card-number">${type.toUpperCase()} / ${item.reading} • ${item.strokes} Goresan</p>
                 <div class="selected-kana">${character}</div>
+                <div class="kana-detail-audio-actions">
+                    <button type="button" class="btn-kana-audio" data-speak-char="${character}" title="Lafalkan huruf ${character}">
+                        <span>🔊 Lafalkan Huruf (${character})</span>
+                    </button>
+                    <button type="button" class="btn-kana-audio btn-kana-audio-example" data-speak-word="${item.example[0]}" title="Lafalkan contoh kata ${item.example[0]}">
+                        <span>🔊 Lafalkan Contoh Kata (${item.example[0]})</span>
+                    </button>
+                </div>
                 <h3>Urutan Menulis (${item.strokes} Goresan)</h3>
                 <p>Ikuti arah setiap goresan, lalu ulangi perlahan dengan tanganmu.</p>
                 <div data-stroke-player></div>
                 <h4>Contoh kata</h4>
                 <div class="word-examples">
-                    <p><b>${item.example[0]}</b><span>${item.example[1]}</span>${item.example[2]}</p>
+                    <p><b>${item.example[0]}</b><span>${item.example[1]}</span>${item.example[2]} <button type="button" class="mini-audio-btn" data-speak-word="${item.example[0]}" title="Dengarkan pelafalan ${item.example[0]}">🔊</button></p>
                 </div>
             `;
+            detail.querySelector("[data-speak-char]")?.addEventListener("click", () => {
+                window.speakText ? window.speakText(character, "ja-JP") : speakJapanese(character);
+            });
+            detail.querySelectorAll("[data-speak-word]").forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    const word = btn.dataset.speakWord;
+                    window.speakText ? window.speakText(word, "ja-JP") : speakJapanese(word);
+                });
+            });
             player = window.createStrokePlayer(detail.querySelector("[data-stroke-player]"), character, item.strokes, {
                 showClear: true
             });
@@ -392,11 +409,12 @@
                     const button = document.createElement("button");
                     button.type = "button";
                     button.className = "kana-card";
-                    button.innerHTML = `<strong>${character}</strong><span>${item.reading}</span>`;
+                    button.innerHTML = `<strong>${character}</strong><span>${item.reading}</span><span class="kana-card-speaker" title="Dengarkan suara ${character}">🔊</span>`;
                     button.addEventListener("click", () => {
                         grid.querySelectorAll(".is-selected").forEach((card) => card.classList.remove("is-selected"));
                         button.classList.add("is-selected");
                         show(character);
+                        window.speakText ? window.speakText(character, "ja-JP") : speakJapanese(character);
                     });
 
                     sectionGrid.append(button);

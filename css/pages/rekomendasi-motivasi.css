@@ -1449,6 +1449,27 @@ body.page-rekomendasi,
     position: relative;
     z-index: 2;
     width: 100%;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.section-quote-slider.quote-theme-dark {
+    background: #09070d !important;
+    background-image: none !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.section-quote-slider.quote-theme-white {
+    background: #ffffff !important;
+    background-image: none !important;
+    border-top: 1px solid #f4bfd3 !important;
+    border-bottom: 1px solid #f4bfd3 !important;
+    position: relative !important;
+}
+
+.section-quote-slider.quote-theme-white::before {
+    display: none !important;
+    content: none !important;
 }
 
 .footer-quote-slider-section {
@@ -1580,4 +1601,244 @@ body.page-rekomendasi,
         transform: translateY(0) scale(1);
     }
 }
+
+/* ==========================================================================
+   UNIVERSAL THEMES: KUTIPAN INSPIRATIF (.quote-theme-white & .quote-theme-dark)
+   Memastikan kontras tinggi, keterbacaan 100%, dan bebas benturan warna
+   ========================================================================== */
+
+/* --- 1. TEMA PUTIH / BERSIH CERAH (.quote-theme-white) --- */
+.section-quote-slider.quote-theme-white .footer-quote-pill {
+    background: rgba(233, 30, 99, 0.08) !important;
+    border: 1px solid rgba(233, 30, 99, 0.3) !important;
+    color: #d81b60 !important;
+}
+
+.section-quote-slider.quote-theme-white .footer-quote-heading {
+    color: #18151b !important;
+}
+
+.section-quote-slider.quote-theme-white .footer-quote-controls {
+    background: rgba(233, 30, 99, 0.05) !important;
+    border: 1px solid rgba(233, 30, 99, 0.2) !important;
+}
+
+.section-quote-slider.quote-theme-white .footer-quote-btn {
+    background: #ffffff !important;
+    border: 1px solid #f4bfd3 !important;
+    color: #18151b !important;
+}
+
+.section-quote-slider.quote-theme-white .footer-quote-btn:hover {
+    background: var(--pink, #e91e63) !important;
+    border-color: transparent !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 12px rgba(233, 30, 99, 0.45) !important;
+}
+
+.section-quote-slider.quote-theme-white .footer-quote-counter {
+    color: #475569 !important;
+}
+
+.section-quote-slider.quote-theme-white .footer-quote-dot {
+    background: rgba(0, 0, 0, 0.16) !important;
+}
+
+.section-quote-slider.quote-theme-white .footer-quote-dot.active {
+    background: var(--quote-accent, var(--pink, #e91e63)) !important;
+    box-shadow: 0 0 10px var(--quote-accent, rgba(233, 30, 99, 0.45)) !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-card {
+    background-color: #ffffff !important;
+    background-image:
+        linear-gradient(165deg, rgba(255, 255, 255, 0.88) 0%, rgba(253, 246, 250, 0.88) 100%),
+        url("../../images/mirai/background/w1w.jpeg") !important;
+    background-size: auto, 260px auto !important;
+    background-repeat: repeat, repeat !important;
+    background-position: top left, top left !important;
+    border: 1.5px solid var(--quote-border, #f4bfd3) !important;
+    box-shadow: 0 14px 38px rgba(233, 30, 99, 0.08), 0 2px 10px rgba(0, 0, 0, 0.04) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-card::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background-image: url("../../images/mirai/background/w1w.jpeg") !important;
+    background-size: 260px auto !important;
+    background-repeat: repeat !important;
+    background-position: top left !important;
+    opacity: 0.16 !important;
+    mix-blend-mode: multiply !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+    border-radius: inherit !important;
+    display: block !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-card > * {
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-card:hover {
+    border-color: var(--quote-accent, var(--pink, #e91e63)) !important;
+    box-shadow: 0 18px 45px rgba(233, 30, 99, 0.16), 0 4px 14px rgba(0, 0, 0, 0.06) !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-card-badge {
+    background: rgba(233, 30, 99, 0.07) !important;
+    border: 1px solid rgba(233, 30, 99, 0.28) !important;
+    color: var(--quote-accent, #d81b60) !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-card-tag {
+    background: rgba(233, 30, 99, 0.07) !important;
+    border: 1px solid rgba(233, 30, 99, 0.28) !important;
+    color: var(--quote-accent, #d81b60) !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-author-profile {
+    background: rgba(255, 255, 255, 0.88) !important;
+    border: 1px solid #fce4ec !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+    backdrop-filter: blur(4px) !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-author-name {
+    color: #18151b !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-box {
+    background: rgba(255, 255, 255, 0.88) !important;
+    border: 1px solid #fce4ec !important;
+    border-left: 3.5px solid var(--quote-accent, var(--pink, #e91e63)) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
+    backdrop-filter: blur(4px) !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-kanji {
+    color: #18151b !important;
+    text-shadow: none !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-romaji {
+    color: #d81b60 !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-literal {
+    background: rgba(233, 30, 99, 0.06) !important;
+    border: 1px solid rgba(233, 30, 99, 0.18) !important;
+    color: #374151 !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-literal span {
+    color: #374151 !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-meaning-card {
+    background: rgba(255, 255, 255, 0.88) !important;
+    border: 1.5px dashed var(--quote-badge-border, rgba(233, 30, 99, 0.35)) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
+    backdrop-filter: blur(4px) !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-meaning-badge {
+    color: var(--quote-accent, #d81b60) !important;
+    background: rgba(233, 30, 99, 0.08) !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-meaning-title {
+    color: #18151b !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-meaning-body {
+    color: #374151 !important;
+}
+
+/* --- 2. TEMA HITAM / OBSIDIAN GELAP (.quote-theme-dark) --- */
+.section-quote-slider.quote-theme-dark .footer-quote-pill {
+    background: rgba(255, 79, 145, 0.14) !important;
+    border: 1px solid rgba(255, 79, 145, 0.35) !important;
+    color: #ff659b !important;
+}
+
+.section-quote-slider.quote-theme-dark .footer-quote-heading {
+    color: #ffffff !important;
+}
+
+.section-quote-slider.quote-theme-dark .footer-quote-controls {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.section-quote-slider.quote-theme-dark .footer-quote-btn {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    color: #ffffff !important;
+}
+
+.section-quote-slider.quote-theme-dark .footer-quote-counter {
+    color: #cbd5e1 !important;
+}
+
+.section-quote-slider.quote-theme-dark .footer-quote-dot {
+    background: rgba(255, 255, 255, 0.2) !important;
+}
+
+.section-quote-slider.quote-theme-dark .quote-card {
+    background: linear-gradient(165deg, #16121d 0%, #0d0a13 100%) !important;
+    border: 1.5px solid var(--quote-border, rgba(255, 101, 155, 0.28)) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+.section-quote-slider.quote-theme-dark .quote-author-profile {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.section-quote-slider.quote-theme-dark .quote-author-name {
+    color: #ffffff !important;
+}
+
+.section-quote-slider.quote-theme-dark .quote-box {
+    background: rgba(14, 11, 18, 0.65) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-left: 3.5px solid var(--quote-accent, var(--pink, #e91e63)) !important;
+}
+
+.section-quote-slider.quote-theme-dark .quote-kanji {
+    color: #ffffff !important;
+}
+
+.section-quote-slider.quote-theme-dark .quote-romaji {
+    color: var(--quote-accent, #ff8fb7) !important;
+}
+
+.section-quote-slider.quote-theme-dark .quote-literal {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    color: #f1f5f9 !important;
+}
+
+.section-quote-slider.quote-theme-dark .quote-literal span {
+    color: #f1f5f9 !important;
+}
+
+.section-quote-slider.quote-theme-dark .quote-meaning-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.035) 0%, rgba(255, 255, 255, 0.01) 100%) !important;
+    border: 1.5px dashed var(--quote-badge-border, rgba(255, 101, 155, 0.35)) !important;
+}
+
+.section-quote-slider.quote-theme-dark .quote-meaning-title {
+    color: #ffffff !important;
+}
+
+.section-quote-slider.quote-theme-dark .quote-meaning-body {
+    color: #dcd2df !important;
+}
+
 

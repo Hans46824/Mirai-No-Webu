@@ -425,7 +425,7 @@ body.theme-dark .program-section .copy {
     overflow-x: auto !important;
     overflow-y: hidden !important;
     scroll-snap-type: x mandatory !important;
-    align-items: stretch !important;
+    align-items: flex-start !important;
     gap: 20px !important;
     margin-top: 24px !important;
     padding: 14px 6px 28px 6px !important;
@@ -504,6 +504,19 @@ body.theme-dark .program-section .copy {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+}
+
+.division-card .card-sub-jp,
+.program-card .card-sub-jp {
+    display: block !important;
+    text-align: center !important;
+    font-family: 'Noto Serif JP', 'Plus Jakarta Sans', serif !important;
+    font-size: 11.5px !important;
+    font-weight: 700 !important;
+    color: var(--pink, #ff659b) !important;
+    letter-spacing: 0.8px !important;
+    margin: 8px auto 4px auto !important;
+    line-height: 1.35 !important;
 }
 
 /* Keterangan nomor dihilangkan */
@@ -1332,7 +1345,7 @@ body.theme-dark .independent-slider img:hover {
     transform: scale(1.02) !important;
 }
 
-.facility-card > * {
+.facility-card > *:not(.card-coming-soon-overlay) {
     position: relative !important;
     z-index: 2 !important;
 }
@@ -1383,6 +1396,18 @@ body.theme-dark .independent-slider img:hover {
 }
 
 /* Judul & Deskripsi */
+.facility-card-body .card-sub-jp {
+    display: block !important;
+    text-align: left !important;
+    font-family: 'Noto Serif JP', 'Plus Jakarta Sans', serif !important;
+    font-size: 11.5px !important;
+    font-weight: 700 !important;
+    color: var(--pink, #ff659b) !important;
+    letter-spacing: 0.8px !important;
+    margin: 4px 0 6px 0 !important;
+    line-height: 1.35 !important;
+}
+
 .facility-card-body h3 {
     margin: 0 0 10px 0 !important;
     font-size: clamp(22px, 2.4vw, 28px) !important;

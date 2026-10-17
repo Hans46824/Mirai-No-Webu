@@ -37,7 +37,7 @@
         </nav>
         <div class="sidebar-footer">
             <img class="sidebar-footer-logo" src="../images/mirai/logo/MNH1-nav.png" alt="MIRAI NO HANA">
-            <p class="sidebar-footer-desc">Website Resmi Klub Bahasa &amp; Kebudayaan Jepang MIRAI NO HANA SMA Wachid Hasyim 2 Taman Sidoarjo.<br><br><span class="sidebar-footer-sub">Portal ini dirancang dan dikembangkan secara independen oleh kepengurusan siswa Klub Jepang MIRAI NO HANA sebagai ruang kreatif dan media belajar mandiri.</span></p>
+            <p class="sidebar-footer-desc">Website Resmi Klub Bahasa &amp; Kebudayaan Jepang MIRAI NO HANA SMA Wachid Hasyim 2 Taman Sidoarjo.<br><br><span class="sidebar-footer-sub">Situs web ini dirancang dan dikembangkan secara independen oleh kepengurusan siswa Klub Jepang MIRAI NO HANA sebagai sarana belajar bahasa Jepang, informasi kegiatan klub, dan fasilitas digital anggota.</span></p>
             <div class="sidebar-footer-social">
                 <a class="sidebar-social-link" href="https://www.instagram.com/mirainohana_smawh2?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" aria-label="Instagram Mirai No Hana">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
@@ -543,7 +543,7 @@
             <script src="../js/leaderboard-data.js"></script>
             <script>
                 (function() {
-                    function syncPrestasiStats() {
+                    function syncPrestasiStats(triggerCountAnim = true) {
                         const stats = (typeof window.getLeaderboardPrestasiStats === 'function')
                             ? window.getLeaderboardPrestasiStats()
                             : { prestasi: 21, partisipasi: 27 };
@@ -551,17 +551,41 @@
                         const statPrestasiEl = document.getElementById('statTotalPrestasi');
                         const statPartisipasiEl = document.getElementById('statTotalPartisipasi');
 
-                        if (statPrestasiEl) statPrestasiEl.textContent = stats.prestasi;
-                        if (statPartisipasiEl) statPartisipasiEl.textContent = stats.partisipasi;
+                        if (statPrestasiEl) {
+                            statPrestasiEl.dataset.countTarget = stats.prestasi;
+                            if (triggerCountAnim && window.animateCountUp) {
+                                window.animateCountUp(statPrestasiEl, stats.prestasi);
+                            } else {
+                                statPrestasiEl.textContent = stats.prestasi;
+                            }
+                        }
+                        if (statPartisipasiEl) {
+                            statPartisipasiEl.dataset.countTarget = stats.partisipasi;
+                            if (triggerCountAnim && window.animateCountUp) {
+                                window.animateCountUp(statPartisipasiEl, stats.partisipasi);
+                            } else {
+                                statPartisipasiEl.textContent = stats.partisipasi;
+                            }
+                        }
                     }
 
                     if (document.readyState === 'loading') {
-                        document.addEventListener('DOMContentLoaded', syncPrestasiStats);
+                        document.addEventListener('DOMContentLoaded', () => syncPrestasiStats(true));
                     } else {
-                        syncPrestasiStats();
+                        syncPrestasiStats(true);
                     }
 
-                    window.addEventListener('leaderboardDataUpdated', syncPrestasiStats);
+                    window.addEventListener('leaderboardDataUpdated', () => syncPrestasiStats(true));
+
+                    // Interaksi klik kartu prestasi untuk memutar ulang animasi hitung angka
+                    document.querySelectorAll('.prestasi-stat-box').forEach(box => {
+                        box.style.cursor = 'pointer';
+                        box.setAttribute('title', 'Klik untuk memutar ulang animasi hitung angka');
+                        box.addEventListener('click', () => {
+                            syncPrestasiStats(true);
+                            window.MiraiSound?.playClickIfIdle();
+                        });
+                    });
                 })();
             </script>
         </section>
@@ -860,6 +884,7 @@
                     </span>
                 </div>
                 <div class="feedback-feature-body stacked-layout">
+                    <span class="card-sub-jp">ご意見・ご要望</span>
                     <h2 class="feedback-card-title">Kritik &amp;<br><span class="highlight">Saran.</span></h2>
                     <div class="card-collapsible-content">
                         <div class="card-collapsible-inner">
