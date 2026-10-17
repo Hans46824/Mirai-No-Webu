@@ -140,42 +140,41 @@
             </div>
         </div>
 
-        <!-- AREA UTAMA: INPUT & OUTPUT GRID -->
+        <!-- AREA UTAMA: INPUT & OUTPUT GRID (LAPTOP BERSEBELAHAN, HP MENEMPEL) -->
         <div class="studio-box-grid">
             <!-- KOTAK INPUT KETIK -->
             <div class="studio-card studio-input-card">
                 <div class="studio-card-head">
                     <div class="card-head-left">
                         <span class="card-badge">INPUT</span>
-                        <span class="card-hint-text" id="inputHint">Ketik dalam aksara Jepang atau Romaji</span>
+                        <button type="button" class="ime-toggle-pill is-active" id="autoRomajiImeBtn" title="Klik untuk menyalakan/mematikan konversi Romaji otomatis">
+                            <span class="ime-dot"></span>
+                            <span id="imeStatusText">Auto-Romaji: ON ✨</span>
+                        </button>
+                        <button type="button" class="icon-audio-btn" id="listenInputBtn" title="Dengarkan teks yang diketik" aria-label="Dengarkan teks ketikan">
+                            🔊
+                        </button>
                     </div>
                     <div class="card-head-right">
                         <span class="char-count" id="inputCharCount">0 karakter</span>
+                        <button type="button" class="mini-clear-btn" id="clearInputBtn" title="Hapus ketikan" aria-label="Hapus teks">
+                            🗑️
+                        </button>
                     </div>
                 </div>
 
                 <div class="textarea-wrapper">
-                    <textarea id="translatorInput" class="studio-textarea" rows="4" placeholder="Ketik atau paste teks Jepang / Romaji di sini... (Contoh: こんにちは, arigatou, 日本)"></textarea>
+                    <textarea id="translatorInput" class="studio-textarea" rows="3" placeholder='Ketik "watashi" di keyboard fisik langsung berubah jadi "わたし"...'></textarea>
                 </div>
 
                 <!-- BARIS TOMBOL AKSI INPUT -->
-                <div class="studio-action-row">
+                <div class="studio-action-row studio-action-input">
                     <div class="action-left">
-                        <button type="button" class="studio-btn action-listen" id="listenInputBtn" title="Dengarkan teks yang diketik">
-                            <span class="btn-icon">🔊</span>
-                            <span>Dengarkan Ketikan</span>
-                        </button>
-                        <button type="button" class="studio-btn action-keyboard-toggle" id="toggleKeyboardBtn" aria-expanded="true" title="Tampilkan atau sembunyikan virtual keyboard">
-                            <span class="btn-icon">⌨️</span>
-                            <span id="keyboardToggleText">Sembunyikan Keyboard</span>
-                        </button>
+                        <span class="card-hint-text" id="inputHint">Ketik dalam aksara Jepang atau Romaji</span>
                     </div>
                     <div class="action-right">
                         <button type="button" class="studio-btn studio-btn-icon" id="copyInputBtn" title="Salin teks input">
                             <span>📋 Salin</span>
-                        </button>
-                        <button type="button" class="studio-btn studio-btn-icon studio-btn-danger" id="clearInputBtn" title="Hapus ketikan">
-                            <span>🗑️ Hapus</span>
                         </button>
                     </div>
                 </div>
@@ -186,10 +185,12 @@
                 <div class="studio-card-head">
                     <div class="card-head-left">
                         <span class="card-badge output-badge">HASIL TERJEMAHAN</span>
-                        <span class="status-indicator" id="translationStatus">Siap menerjemahkan</span>
+                        <button type="button" class="icon-audio-btn primary" id="listenOutputBtn" title="Dengarkan hasil terjemahan" aria-label="Dengarkan hasil terjemahan">
+                            🔊
+                        </button>
                     </div>
                     <div class="card-head-right">
-                        <span class="trans-engine-badge">⚡ Live Sync + AI</span>
+                        <span class="status-indicator" id="translationStatus">Siap menerjemahkan</span>
                     </div>
                 </div>
 
@@ -199,15 +200,12 @@
                 </div>
 
                 <!-- BARIS TOMBOL AKSI OUTPUT -->
-                <div class="studio-action-row">
+                <div class="studio-action-row studio-action-output">
                     <div class="action-left">
-                        <button type="button" class="studio-btn action-listen primary" id="listenOutputBtn" title="Dengarkan hasil terjemahan">
-                            <span class="btn-icon">🔊</span>
-                            <span>Dengarkan Hasil</span>
-                        </button>
+                        <span class="trans-engine-badge">⚡ Live Sync + AI</span>
                     </div>
                     <div class="action-right">
-                        <button type="button" class="studio-btn studio-btn-icon" id="copyOutputBtn" title="Salin hasil terjemahan">
+                        <button type="button" class="studio-btn studio-btn-icon primary" id="copyOutputBtn" title="Salin hasil terjemahan">
                             <span>📋 Salin Hasil</span>
                         </button>
                     </div>
@@ -215,65 +213,67 @@
             </div>
         </div>
 
-        <!-- PANEL VIRTUAL KEYBOARD 2 MODE -->
-        <div class="virtual-keyboard-panel" id="virtualKeyboardPanel">
+        <!-- BARIS KONTROL PINTAR & CONTOH CEPAT (DESKTOP & MOBILE) -->
+        <div class="studio-smart-bar">
+            <div class="smart-bar-left">
+                <button type="button" class="studio-btn action-keyboard-toggle" id="toggleKeyboardBtn" aria-expanded="false" title="Buka atau tutup virtual keyboard layar">
+                    <span class="btn-icon">⌨️</span>
+                    <span id="keyboardToggleText">Buka Virtual Keyboard Layar ▾</span>
+                </button>
+            </div>
+            <div class="smart-bar-right">
+                <div class="quick-examples-wrap">
+                    <span class="quick-examples-label">Contoh Cepat:</span>
+                    <div class="quick-chips-scroll" id="quickChipsScroll">
+                        <button type="button" class="quick-chip" data-text="おはよう">おはよう</button>
+                        <button type="button" class="quick-chip" data-text="ありがとう">ありがとう</button>
+                        <button type="button" class="quick-chip" data-text="こんにちは">こんにちは</button>
+                        <button type="button" class="quick-chip" data-text="すみません">すみません</button>
+                        <button type="button" class="quick-chip" data-text="わたしは学生です">わたしは学生です</button>
+                        <button type="button" class="quick-chip" data-text="はじめまして">はじめまして</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANEL VIRTUAL KEYBOARD SISTEM GESER / TAB PER BARIS (KOMPAK DI HP & LAPTOP) -->
+        <div class="virtual-keyboard-panel is-collapsed" id="virtualKeyboardPanel">
             <div class="keyboard-header">
-                <!-- SAKELAR 2 MODE KEYBOARD -->
-                <div class="keyboard-mode-tabs" role="tablist">
-                    <button type="button" class="kb-tab is-active" id="kbModeKanaBtn" data-kb-mode="kana">
-                        <span>🇯🇵 Keyboard Jepang</span>
-                    </button>
-                    <button type="button" class="kb-tab" id="kbModeQwertyBtn" data-kb-mode="qwerty">
-                        <span>🔤 Keyboard QWERTY</span>
-                    </button>
+                <!-- PILIHAN MODE SCRIPT / QWERTY -->
+                <div class="kb-mode-pill-group" role="tablist">
+                    <button type="button" class="kb-pill-btn is-active" id="kbScriptHiraganaBtn" data-script="hiragana">あ Hiragana</button>
+                    <button type="button" class="kb-pill-btn" id="kbScriptKatakanaBtn" data-script="katakana">ア Katakana</button>
+                    <button type="button" class="kb-pill-btn" id="kbModeQwertyBtn" data-script="qwerty">🔤 QWERTY</button>
                 </div>
 
-                <!-- KONTROL KHUSUS TIAP MODE -->
-                <div class="keyboard-subcontrols">
-                    <!-- SUB-TOGGLE MODE KANA -->
-                    <div class="kana-subtoggles" id="kanaSubtoggles">
-                        <button type="button" class="sub-tab is-active" data-kana-sub="hiragana">Hiragana (あ)</button>
-                        <button type="button" class="sub-tab" data-kana-sub="katakana">Katakana (ア)</button>
-                        <button type="button" class="sub-tab" data-kana-sub="dakuten">Dakuten (゛/゜)</button>
-                        <button type="button" class="sub-tab" data-kana-sub="yoon">Yōon (ゃ/ゅ/ょ)</button>
-                    </div>
-
-                    <!-- KONTROL SMART ROMAJI IME (MODE QWERTY) -->
-                    <div class="qwerty-ime-control" id="qwertyImeControl" hidden>
-                        <label class="ime-checkbox-label">
-                            <input type="checkbox" id="autoRomajiImeCheckbox" checked>
-                            <span class="custom-checkbox"></span>
-                            <span>✨ Auto-ubah ketikan Romaji ke Hiragana (IME)</span>
-                        </label>
-                    </div>
+                <div class="kb-header-right">
+                    <button type="button" class="kb-close-btn" id="kbCloseBtn" title="Tutup virtual keyboard">✕ Sembunyikan</button>
                 </div>
+            </div>
+
+            <!-- TAB BARIS GESER (HORIZONTAL ROW TABS: [あ-お], [か-こ], [さ-そ]...) -->
+            <div class="kana-row-tabs-wrapper" id="kanaRowTabsWrapper">
+                <span class="row-tabs-label">Baris:</span>
+                <div class="kana-row-tabs" id="kanaRowTabs"></div>
             </div>
 
             <!-- CONTAINER TOMBOL KEYBOARD -->
             <div class="keyboard-body">
-                <!-- GRID TOMBOL KANA -->
-                <div class="keyboard-grid kb-kana-grid" id="kbKanaGrid"></div>
+                <!-- BARIS TOMBOL UTAMA (Hanya 1 baris 5 tombol besar aktif untuk baris terpilih) -->
+                <div class="kb-active-row-keys" id="kbActiveRowKeys"></div>
 
-                <!-- GRID TOMBOL QWERTY -->
-                <div class="keyboard-grid kb-qwerty-grid" id="kbQwertyGrid" hidden></div>
-
-                <!-- BARIS TOMBOL UNIVERSAL / PENGENDALI KURSOR -->
-                <div class="keyboard-utility-row">
-                    <div class="util-keys-punctuation" id="kbPunctuation">
-                        <button type="button" class="kb-key punct-key" data-insert="。">。</button>
-                        <button type="button" class="kb-key punct-key" data-insert="、">、</button>
-                        <button type="button" class="kb-key punct-key" data-insert="？">？</button>
-                        <button type="button" class="kb-key punct-key" data-insert="！">！</button>
-                        <button type="button" class="kb-key punct-key" data-insert="ー">ー</button>
-                        <button type="button" class="kb-key punct-key" data-insert="「">「</button>
-                        <button type="button" class="kb-key punct-key" data-insert="」">」</button>
-                    </div>
-                    <div class="util-keys-main">
-                        <button type="button" class="kb-key space-key" id="kbSpaceBtn">␣ Spasi</button>
-                        <button type="button" class="kb-key backspace-key" id="kbBackspaceBtn">⌫ Hapus</button>
-                        <button type="button" class="kb-key enter-key" id="kbEnterBtn">↵ Baris Baru</button>
-                    </div>
+                <!-- BARIS TOMBOL UTILITAS / DAKUTEN / MODIFIER (Empuk & Ramah Jempol) -->
+                <div class="kb-thumb-utility-row" id="kbThumbUtilityRow">
+                    <button type="button" class="kb-key util-key dakuten-toggle-key" id="kbDakutenBtn" title="Beri tanda Dakuten / Handakuten pada huruf sebelumnya">゛Dakuten</button>
+                    <button type="button" class="kb-key util-key small-tsu-key" id="kbSmallTsuBtn" title="Sisipkan konsonan ganda っ">っ Kecil</button>
+                    <button type="button" class="kb-key util-key punct-quick-key" data-insert="。">。</button>
+                    <button type="button" class="kb-key util-key punct-quick-key" data-insert="、">、</button>
+                    <button type="button" class="kb-key util-key space-thumb-key" id="kbSpaceBtn">␣ Spasi</button>
+                    <button type="button" class="kb-key util-key backspace-thumb-key" id="kbBackspaceBtn">⌫ Hapus</button>
                 </div>
+
+                <!-- GRID QWERTY (Jika mode QWERTY dipilih) -->
+                <div class="keyboard-grid kb-qwerty-grid" id="kbQwertyGrid" hidden></div>
             </div>
         </div>
     </div>
@@ -304,6 +304,6 @@
     <div class="global-footer-bottom">
             <p>© 2026 MIRAI NO HANA — SMA Wachid Hasyim 2 Taman | Kabinet Sora | Ditenagai oleh GitHub Pages</p>
         </div>
-</footer><button class="to-top" type="button">↑</button><a class="quick-translator-pill" href="#studio-terjemahan" aria-label="Studio Ketik & Terjemahan" title="Lompat ke Studio Ketik & Terjemahan"><span>⌨️ Studio Terjemahan</span></a><script src="../js/sora.js"></script><script src="../js/main.js"></script><script src="../js/translator.js"></script><script src="../js/stroke-data.js?v=20261011p"></script><script src="../js/stroke.js?v=20261011p"></script><script src="../js/kana.js"></script><script src="../js/api.js"></script><script src="https://cdn.jsdelivr.net/npm/wanakana/wanakana.min.js"></script><script src="../js/kanji.js"></script>
+</footer><button class="to-top" type="button">↑</button><a class="quick-translator-pill" href="#studio-terjemahan" aria-label="Studio Ketik & Terjemahan" title="Lompat ke Studio Ketik & Terjemahan"><span>⌨️ Studio Terjemahan</span></a><script src="../js/sora.js"></script><script src="../js/main.js"></script><script src="../js/translator.js"></script><script src="../js/stroke-data.js?v=20261011p"></script><script src="../js/stroke.js?v=20261011p"></script><script src="../js/kana.js"></script><script src="../js/api.js"></script><script src="https://cdn.jsdelivr.net/npm/wanakana/wanakana.min.js"></script><script src="../js/kanji-data.js"></script><script src="../js/kanji.js"></script>
 </body>
 </html>

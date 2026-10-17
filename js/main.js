@@ -2,188 +2,188 @@
  * File: js/main.js
  * Fungsi: Pengendali UI global (navbar, sidebar drawer, hero sticky curtain, back-to-top, scroll reveal, dan tema).
  * Penggunaan: Universal di seluruh 30 halaman HTML website (index.html, tentang, kelas, kegiatan, divisi, lomba, toko, dll.).
- */
+*/
 
 /* ==========================================================================
-   MIRAI AUDIO / SFX ENGINE (Web Audio API Synthesizer)
-   Menghadirkan sound effect UI yang jernih, responsif, dan terdengar jelas
-   di desktop & mobile tanpa ketergantungan aset eksternal.
-   ========================================================================== */
+MIRAI AUDIO / SFX ENGINE (Web Audio API Synthesizer)
+Menghadirkan sound effect UI yang jernih, responsif, dan terdengar jelas
+di desktop & mobile tanpa ketergantungan aset eksternal.
+========================================================================== */
 
 const MiraiSound = {
-    audioCtx: null,
-    enabled: true,
-    lastPlayTime: 0,
-    lastClickTime: 0,
+audioCtx: null,
+enabled: true,
+lastPlayTime: 0,
+lastClickTime: 0,
 
-    getContext() {
-        if (!this.enabled) return null;
-        const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
-        if (!AudioCtxClass) return null;
-        if (!this.audioCtx) {
-            this.audioCtx = new AudioCtxClass();
-        }
-        if (this.audioCtx.state === "suspended") {
-            this.audioCtx.resume().catch(() => {});
-        }
-        return this.audioCtx;
-    },
+getContext() {
+  if (!this.enabled) return null;
+  const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+  if (!AudioCtxClass) return null;
+  if (!this.audioCtx) {
+    this.audioCtx = new AudioCtxClass();
+  }
+  if (this.audioCtx.state === "suspended") {
+    this.audioCtx.resume().catch(() => {});
+  }
+  return this.audioCtx;
+},
 
-    unlock() {
-        if (!this.enabled) return;
-        const ctx = this.getContext();
-        if (ctx && ctx.state === "suspended") {
-            ctx.resume().catch(() => {});
-        }
-    },
+unlock() {
+  if (!this.enabled) return;
+  const ctx = this.getContext();
+  if (ctx && ctx.state === "suspended") {
+    ctx.resume().catch(() => {});
+  }
+},
 
-    play(name) {
-        if (!this.enabled) return;
-        try {
-            const ctx = this.getContext();
-            if (!ctx) return;
+play(name) {
+  if (!this.enabled) return;
+  try {
+    const ctx = this.getContext();
+    if (!ctx) return;
 
-            const now = ctx.currentTime;
+    const now = ctx.currentTime;
 
-            switch (name) {
-                case "click":
-                case "tap": {
-                    // Hindari duplikasi klik beruntun dalam rentang 50ms
-                    if (Date.now() - this.lastClickTime < 50) return;
-                    this.lastClickTime = Date.now();
-                    this.lastPlayTime = Date.now();
+    switch (name) {
+    case "click":
+    case "tap": {
+    // Hindari duplikasi klik beruntun dalam rentang 50ms
+    if (Date.now() - this.lastClickTime < 50) return;
+    this.lastClickTime = Date.now();
+    this.lastPlayTime = Date.now();
 
-                    // 1. Transient attack (nada tinggi yang turun cepat: sensasi klik renyah)
-                    const osc = ctx.createOscillator();
-                    const gain = ctx.createGain();
-                    osc.type = "sine";
-                    osc.frequency.setValueAtTime(1250, now);
-                    osc.frequency.exponentialRampToValueAtTime(420, now + 0.038);
+    // 1. Transient attack (nada tinggi yang turun cepat: sensasi klik renyah)
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(1250, now);
+    osc.frequency.exponentialRampToValueAtTime(420, now + 0.038);
 
-                    gain.gain.setValueAtTime(0.35, now);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.045);
+    gain.gain.setValueAtTime(0.35, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.045);
 
-                    osc.connect(gain);
-                    gain.connect(ctx.destination);
-                    osc.start(now);
-                    osc.stop(now + 0.05);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.05);
 
-                    // 2. Body resonance (ketukan hangat)
-                    const osc2 = ctx.createOscillator();
-                    const gain2 = ctx.createGain();
-                    osc2.type = "triangle";
-                    osc2.frequency.setValueAtTime(320, now);
-                    gain2.gain.setValueAtTime(0.20, now);
-                    gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.035);
+    // 2. Body resonance (ketukan hangat)
+    const osc2 = ctx.createOscillator();
+    const gain2 = ctx.createGain();
+    osc2.type = "triangle";
+    osc2.frequency.setValueAtTime(320, now);
+    gain2.gain.setValueAtTime(0.20, now);
+    gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.035);
 
-                    osc2.connect(gain2);
-                    gain2.connect(ctx.destination);
-                    osc2.start(now);
-                    osc2.stop(now + 0.04);
-                    break;
-                }
-
-                case "pop": {
-                    this.lastPlayTime = Date.now();
-                    const osc = ctx.createOscillator();
-                    const gain = ctx.createGain();
-                    osc.type = "sine";
-                    osc.frequency.setValueAtTime(460, now);
-                    osc.frequency.exponentialRampToValueAtTime(980, now + 0.05);
-
-                    gain.gain.setValueAtTime(0.32, now);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
-
-                    osc.connect(gain);
-                    gain.connect(ctx.destination);
-                    osc.start(now);
-                    osc.stop(now + 0.065);
-                    break;
-                }
-
-                case "success": {
-                    this.lastPlayTime = Date.now();
-                    // Nada perayaan 4 tingkat: C5 -> E5 -> G5 -> C6
-                    const notes = [523.25, 659.25, 783.99, 1046.5];
-                    notes.forEach((freq, idx) => {
-                        const noteStart = now + idx * 0.07;
-                        const osc = ctx.createOscillator();
-                        const gain = ctx.createGain();
-                        osc.type = "sine";
-                        osc.frequency.setValueAtTime(freq, noteStart);
-
-                        gain.gain.setValueAtTime(0.001, noteStart);
-                        gain.gain.linearRampToValueAtTime(0.30, noteStart + 0.012);
-                        gain.gain.exponentialRampToValueAtTime(0.001, noteStart + 0.28);
-
-                        osc.connect(gain);
-                        gain.connect(ctx.destination);
-                        osc.start(noteStart);
-                        osc.stop(noteStart + 0.32);
-                    });
-                    break;
-                }
-
-                case "wrong": {
-                    this.lastPlayTime = Date.now();
-                    // Nada ganda penolakan/salah: 220Hz -> 160Hz
-                    const freqs = [220, 160];
-                    freqs.forEach((freq, idx) => {
-                        const noteStart = now + idx * 0.09;
-                        const osc = ctx.createOscillator();
-                        const gain = ctx.createGain();
-                        const filter = ctx.createBiquadFilter();
-
-                        filter.type = "lowpass";
-                        filter.frequency.setValueAtTime(680, noteStart);
-
-                        osc.type = "sawtooth";
-                        osc.frequency.setValueAtTime(freq, noteStart);
-
-                        gain.gain.setValueAtTime(0.001, noteStart);
-                        gain.gain.linearRampToValueAtTime(0.30, noteStart + 0.012);
-                        gain.gain.exponentialRampToValueAtTime(0.001, noteStart + 0.13);
-
-                        osc.connect(filter);
-                        filter.connect(gain);
-                        gain.connect(ctx.destination);
-                        osc.start(noteStart);
-                        osc.stop(noteStart + 0.15);
-                    });
-                    break;
-                }
-
-                case "toggle": {
-                    this.lastPlayTime = Date.now();
-                    const osc = ctx.createOscillator();
-                    const gain = ctx.createGain();
-                    osc.type = "sine";
-                    osc.frequency.setValueAtTime(620, now);
-                    osc.frequency.setValueAtTime(880, now + 0.03);
-
-                    gain.gain.setValueAtTime(0.24, now);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
-
-                    osc.connect(gain);
-                    gain.connect(ctx.destination);
-                    osc.start(now);
-                    osc.stop(now + 0.065);
-                    break;
-                }
-
-                default:
-                    this.play("click");
-                    break;
-            }
-        } catch (e) {
-            // Audio safe fallback
-        }
-    },
-
-    playClickIfIdle() {
-        if (Date.now() - this.lastClickTime < 35) return;
-        this.play("click");
+    osc2.connect(gain2);
+    gain2.connect(ctx.destination);
+    osc2.start(now);
+    osc2.stop(now + 0.04);
+    break;
     }
+
+    case "pop": {
+    this.lastPlayTime = Date.now();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(460, now);
+    osc.frequency.exponentialRampToValueAtTime(980, now + 0.05);
+
+    gain.gain.setValueAtTime(0.32, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.065);
+    break;
+    }
+
+    case "success": {
+    this.lastPlayTime = Date.now();
+    // Nada perayaan 4 tingkat: C5 -> E5 -> G5 -> C6
+    const notes = [523.25, 659.25, 783.99, 1046.5];
+    notes.forEach((freq, idx) => {
+      const noteStart = now + idx * 0.07;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(freq, noteStart);
+
+      gain.gain.setValueAtTime(0.001, noteStart);
+      gain.gain.linearRampToValueAtTime(0.30, noteStart + 0.012);
+      gain.gain.exponentialRampToValueAtTime(0.001, noteStart + 0.28);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(noteStart);
+      osc.stop(noteStart + 0.32);
+    });
+    break;
+    }
+
+    case "wrong": {
+    this.lastPlayTime = Date.now();
+    // Nada ganda penolakan/salah: 220Hz -> 160Hz
+    const freqs = [220, 160];
+    freqs.forEach((freq, idx) => {
+      const noteStart = now + idx * 0.09;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      const filter = ctx.createBiquadFilter();
+
+      filter.type = "lowpass";
+      filter.frequency.setValueAtTime(680, noteStart);
+
+      osc.type = "sawtooth";
+      osc.frequency.setValueAtTime(freq, noteStart);
+
+      gain.gain.setValueAtTime(0.001, noteStart);
+      gain.gain.linearRampToValueAtTime(0.30, noteStart + 0.012);
+      gain.gain.exponentialRampToValueAtTime(0.001, noteStart + 0.13);
+
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(noteStart);
+      osc.stop(noteStart + 0.15);
+    });
+    break;
+    }
+
+    case "toggle": {
+    this.lastPlayTime = Date.now();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(620, now);
+    osc.frequency.setValueAtTime(880, now + 0.03);
+
+    gain.gain.setValueAtTime(0.24, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.065);
+    break;
+    }
+
+    default:
+    this.play("click");
+    break;
+    }
+  } catch (e) {
+    // Audio safe fallback
+  }
+},
+
+playClickIfIdle() {
+  if (Date.now() - this.lastClickTime < 35) return;
+  this.play("click");
+}
 };
 
 window.MiraiSound = MiraiSound;
@@ -193,45 +193,45 @@ window.MiraiSound = MiraiSound;
  * Mendukung pelafalan bahasa Jepang (ja-JP) dan bahasa Indonesia (id-ID)
  * @param {string} text - Teks yang akan dibacakan
  * @param {string} [lang='ja-JP'] - Kode bahasa ('ja-JP' atau 'id-ID')
- */
+*/
 function speakText(text, lang = "ja-JP") {
-    if (!text || typeof text !== "string") return;
-    const cleanText = text
-        .replace(/<[^>]*>/g, " ")
-        .replace(/[（()）「」『』]/g, " ")
-        .replace(/\s+/g, " ")
-        .trim();
-    if (!cleanText || !("speechSynthesis" in window)) return;
+if (!text || typeof text !== "string") return;
+const cleanText = text
+  .replace(/<[^>]*>/g, " ")
+  .replace(/[（()）「」『』]/g, " ")
+  .replace(/\s+/g, " ")
+  .trim();
+if (!cleanText || !("speechSynthesis" in window)) return;
 
-    try {
-        window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(cleanText);
-        utterance.lang = lang;
-        utterance.rate = lang === "ja-JP" ? 0.9 : 1.0;
-        utterance.pitch = 1.0;
+try {
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(cleanText);
+  utterance.lang = lang;
+  utterance.rate = lang === "ja-JP" ? 0.9 : 1.0;
+  utterance.pitch = 1.0;
 
-        const voices = window.speechSynthesis.getVoices();
-        if (voices && voices.length) {
-            const prefix = lang.split("-")[0].toLowerCase();
-            const matchingVoice =
-                voices.find((v) => v.lang && v.lang.toLowerCase().replace("_", "-").startsWith(prefix)) ||
-                voices.find((v) => v.lang && v.lang.toLowerCase().includes(prefix));
-            if (matchingVoice) {
-                utterance.voice = matchingVoice;
-            }
-        }
-        window.speechSynthesis.speak(utterance);
-    } catch (err) {
-        console.warn("TTS SpeechSynthesis warning:", err);
+  const voices = window.speechSynthesis.getVoices();
+  if (voices && voices.length) {
+    const prefix = lang.split("-")[0].toLowerCase();
+    const matchingVoice =
+    voices.find((v) => v.lang && v.lang.toLowerCase().replace("_", "-").startsWith(prefix)) ||
+    voices.find((v) => v.lang && v.lang.toLowerCase().includes(prefix));
+    if (matchingVoice) {
+    utterance.voice = matchingVoice;
     }
+  }
+  window.speechSynthesis.speak(utterance);
+} catch (err) {
+  console.warn("TTS SpeechSynthesis warning:", err);
+}
 }
 window.speakText = speakText;
 
 // Listener suara siap jika voice dimuat asinkron
 if ("speechSynthesis" in window && window.speechSynthesis.onvoiceschanged !== undefined) {
-    window.speechSynthesis.onvoiceschanged = () => {
-        window.__speechVoicesReady = true;
-    };
+window.speechSynthesis.onvoiceschanged = () => {
+  window.__speechVoicesReady = true;
+};
 }
 
 /**
@@ -242,252 +242,252 @@ if ("speechSynthesis" in window && window.speechSynthesis.onvoiceschanged !== un
  * @param {HTMLElement|string} target - Elemen target atau selector CSS
  * @param {number|string} [customEndVal] - Nilai hasil akhir opsional
  * @param {object} [options] - Pengaturan opsional: { startVal, duration, onComplete }
- */
+*/
 function animateCountUp(target, customEndVal, options = {}) {
-    const el = typeof target === "string" ? document.querySelector(target) : target;
-    if (!el) return;
+const el = typeof target === "string" ? document.querySelector(target) : target;
+if (!el) return;
 
-    if (el.__countUpAnimId) {
-        cancelAnimationFrame(el.__countUpAnimId);
-        el.__countUpAnimId = null;
-    }
+if (el.__countUpAnimId) {
+  cancelAnimationFrame(el.__countUpAnimId);
+  el.__countUpAnimId = null;
+}
 
-    let sourceText = "";
-    if (customEndVal !== undefined && customEndVal !== null) {
-        sourceText = String(customEndVal).trim();
-    } else if (el.dataset.countTarget !== undefined) {
-        sourceText = String(el.dataset.countTarget).trim();
-    } else {
-        sourceText = (el.textContent || "").trim();
-    }
+let sourceText = "";
+if (customEndVal !== undefined && customEndVal !== null) {
+  sourceText = String(customEndVal).trim();
+} else if (el.dataset.countTarget !== undefined) {
+  sourceText = String(el.dataset.countTarget).trim();
+} else {
+  sourceText = (el.textContent || "").trim();
+}
 
-    if (!sourceText) return;
-    el.dataset.countTarget = sourceText;
+if (!sourceText) return;
+el.dataset.countTarget = sourceText;
 
-    const match = sourceText.match(/^(.*?)(\d+[\d,.]*)(.*?)$/);
-    if (!match) {
-        el.textContent = sourceText;
-        return;
-    }
+const match = sourceText.match(/^(.*?)(\d+[\d,.]*)(.*?)$/);
+if (!match) {
+  el.textContent = sourceText;
+  return;
+}
 
-    const prefix = match[1];
-    const rawNumStr = match[2];
-    const suffix = match[3];
+const prefix = match[1];
+const rawNumStr = match[2];
+const suffix = match[3];
 
-    const hasCommas = rawNumStr.includes(",");
-    const hasDots = rawNumStr.includes(".");
-    const isDecimal = hasDots && !hasCommas && /^\d+\.\d{1,2}$/.test(rawNumStr);
+const hasCommas = rawNumStr.includes(",");
+const hasDots = rawNumStr.includes(".");
+const isDecimal = hasDots && !hasCommas && /^\d+\.\d{1,2}$/.test(rawNumStr);
 
-    let targetVal = 0;
-    if (isDecimal) {
-        targetVal = parseFloat(rawNumStr);
-    } else {
-        targetVal = parseInt(rawNumStr.replace(/[.,]/g, ""), 10);
-    }
+let targetVal = 0;
+if (isDecimal) {
+  targetVal = parseFloat(rawNumStr);
+} else {
+  targetVal = parseInt(rawNumStr.replace(/[.,]/g, ""), 10);
+}
 
-    if (isNaN(targetVal)) {
-        el.textContent = sourceText;
-        return;
-    }
+if (isNaN(targetVal)) {
+  el.textContent = sourceText;
+  return;
+}
 
-    // Menghitung dari 1 ke angka hasil (atau dari 0 jika targetnya 0)
-    let startVal = options.startVal !== undefined
-        ? Number(options.startVal)
-        : (targetVal >= 1 ? 1 : 0);
+// Menghitung dari 1 ke angka hasil (atau dari 0 jika targetnya 0)
+let startVal = options.startVal !== undefined
+  ? Number(options.startVal)
+  : (targetVal >= 1 ? 1 : 0);
 
-    if (startVal === targetVal) {
-        el.textContent = sourceText;
-        el.classList.remove("is-counting");
-        el.classList.add("count-finished");
-        return;
-    }
+if (startVal === targetVal) {
+  el.textContent = sourceText;
+  el.classList.remove("is-counting");
+  el.classList.add("count-finished");
+  return;
+}
 
-    const diff = Math.abs(targetVal - startVal);
-    let duration = options.duration;
-    if (!duration) {
-        if (diff <= 10) duration = 650;
-        else if (diff <= 35) duration = 900;
-        else if (diff <= 150) duration = 1150;
-        else if (diff <= 1000) duration = 1350;
-        else duration = 1550;
-    }
+const diff = Math.abs(targetVal - startVal);
+let duration = options.duration;
+if (!duration) {
+  if (diff <= 10) duration = 650;
+  else if (diff <= 35) duration = 900;
+  else if (diff <= 150) duration = 1150;
+  else if (diff <= 1000) duration = 1350;
+  else duration = 1550;
+}
 
-    const startTime = performance.now();
-    el.classList.add("is-counting");
-    el.classList.remove("count-finished");
+const startTime = performance.now();
+el.classList.add("is-counting");
+el.classList.remove("count-finished");
 
-    function frame(now) {
-        const elapsed = now - startTime;
-        const progress = Math.min(elapsed / duration, 1);
+function frame(now) {
+  const elapsed = now - startTime;
+  const progress = Math.min(elapsed / duration, 1);
 
-        // Ease-out cubic: cepat di awal dan melambat halus di akhir
-        const ease = 1 - Math.pow(1 - progress, 3);
-        const currentVal = startVal + (targetVal - startVal) * ease;
+  // Ease-out cubic: cepat di awal dan melambat halus di akhir
+  const ease = 1 - Math.pow(1 - progress, 3);
+  const currentVal = startVal + (targetVal - startVal) * ease;
 
-        let displayValStr = "";
-        if (isDecimal) {
-            displayValStr = currentVal.toFixed(1);
-        } else {
-            const rounded = Math.round(currentVal);
-            displayValStr = hasCommas ? rounded.toLocaleString("en-US") : String(rounded);
-        }
+  let displayValStr = "";
+  if (isDecimal) {
+    displayValStr = currentVal.toFixed(1);
+  } else {
+    const rounded = Math.round(currentVal);
+    displayValStr = hasCommas ? rounded.toLocaleString("en-US") : String(rounded);
+  }
 
-        el.textContent = `${prefix}${displayValStr}${suffix}`;
+  el.textContent = `${prefix}${displayValStr}${suffix}`;
 
-        if (progress < 1) {
-            el.__countUpAnimId = requestAnimationFrame(frame);
-        } else {
-            el.textContent = sourceText;
-            el.__countUpAnimId = null;
-            el.classList.remove("is-counting");
-            el.classList.add("count-finished");
-
-            if (typeof options.onComplete === "function") {
-                options.onComplete();
-            }
-        }
-    }
-
+  if (progress < 1) {
     el.__countUpAnimId = requestAnimationFrame(frame);
+  } else {
+    el.textContent = sourceText;
+    el.__countUpAnimId = null;
+    el.classList.remove("is-counting");
+    el.classList.add("count-finished");
+
+    if (typeof options.onComplete === "function") {
+    options.onComplete();
+    }
+  }
+}
+
+el.__countUpAnimId = requestAnimationFrame(frame);
 }
 window.animateCountUp = animateCountUp;
 
 /**
  * Inisialisasi IntersectionObserver otomatis untuk elemen angka statistik
- */
+*/
 function initGlobalCountUpObservers() {
-    const selector = ".prestasi-stat-num, [data-counter], [data-countup], .kwu-stat-box strong";
-    const elements = document.querySelectorAll(selector);
-    if (!elements.length) return;
+const selector = ".prestasi-stat-num, [data-counter], [data-countup], .kwu-stat-box strong";
+const elements = document.querySelectorAll(selector);
+if (!elements.length) return;
 
-    if (!("IntersectionObserver" in window)) {
-        elements.forEach((el) => animateCountUp(el));
-        return;
+if (!("IntersectionObserver" in window)) {
+  elements.forEach((el) => animateCountUp(el));
+  return;
+}
+
+const observer = new IntersectionObserver((entries, obs) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+    const el = entry.target;
+    animateCountUp(el);
+    obs.unobserve(el);
     }
+  });
+}, {
+  threshold: 0.1,
+  rootMargin: "0px 0px -20px 0px"
+});
 
-    const observer = new IntersectionObserver((entries, obs) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                const el = entry.target;
-                animateCountUp(el);
-                obs.unobserve(el);
-            }
-        });
-    }, {
-        threshold: 0.1,
-        rootMargin: "0px 0px -20px 0px"
-    });
-
-    elements.forEach((el) => {
-        if (!el.dataset.countTarget) {
-            el.dataset.countTarget = el.textContent.trim();
-        }
-        observer.observe(el);
-    });
+elements.forEach((el) => {
+  if (!el.dataset.countTarget) {
+    el.dataset.countTarget = el.textContent.trim();
+  }
+  observer.observe(el);
+});
 }
 window.initGlobalCountUpObservers = initGlobalCountUpObservers;
 
 
 function setupGlobalSoundClicks() {
-    // Unlock Web Audio context pada sentuhan atau interaksi pertama pengguna
-    ["pointerdown", "touchstart", "click", "keydown"].forEach((evt) => {
-        window.addEventListener(evt, () => {
-            if (window.MiraiSound) {
-                window.MiraiSound.unlock();
-                const ctx = window.MiraiSound.getContext();
-                if (ctx && ctx.state === "suspended") {
-                    ctx.resume().catch(() => {});
-                }
-            }
-        }, { passive: true, capture: true });
-    });
+// Unlock Web Audio context pada sentuhan atau interaksi pertama pengguna
+["pointerdown", "touchstart", "click", "keydown"].forEach((evt) => {
+  window.addEventListener(evt, () => {
+    if (window.MiraiSound) {
+    window.MiraiSound.unlock();
+    const ctx = window.MiraiSound.getContext();
+    if (ctx && ctx.state === "suspended") {
+    ctx.resume().catch(() => {});
+    }
+    }
+  }, { passive: true, capture: true });
+});
 
-    const INTERACTIVE_SELECTOR = [
-        "button",
-        "a",
-        "summary",
-        '[role="button"]',
-        '[role="tab"]',
-        '[role="switch"]',
-        'input[type="button"]',
-        'input[type="submit"]',
-        'input[type="reset"]',
-        'input[type="radio"]',
-        'input[type="checkbox"]',
-        "[data-expand-card]",
-        "[data-expand-cta]",
-        "[data-clickable]",
-        "[data-action]",
-        "[onclick]",
-        ".card",
-        "[class*='-card']",
-        "[class*='card-']",
-        ".btn",
-        "[class*='-btn']",
-        "[class*='btn-']",
-        ".nav-card",
-        ".activity-start-card",
-        ".start-card",
-        ".division-card",
-        ".program-card",
-        ".competition-card",
-        ".product-card",
-        ".lesson-card",
-        ".material-card",
-        ".mode-card",
-        ".level-card",
-        ".course-card",
-        ".choice-card",
-        ".memory-card",
-        ".flashcard",
-        ".card-toggle",
-        ".tab-btn",
-        ".filter-btn",
-        ".accordion-header",
-        ".accordion-btn",
-        ".lightbox-close",
-        ".lightbox-prev",
-        ".lightbox-next",
-        ".slider-btn",
-        ".to-top",
-        ".menu-toggle",
-        ".hero-btn",
-        ".script-tabs button",
-        ".quick-pill-btn",
-        ".custom-type-card",
-        ".memory-diff-btn",
-        ".palette-num-btn",
-        ".kanji-cell",
-        ".dict-tab-btn",
-        ".quiz-chip",
-        ".bunpou-chip",
-        ".match-button"
-    ].join(", ");
+const INTERACTIVE_SELECTOR = [
+  "button",
+  "a",
+  "summary",
+  '[role="button"]',
+  '[role="tab"]',
+  '[role="switch"]',
+  'input[type="button"]',
+  'input[type="submit"]',
+  'input[type="reset"]',
+  'input[type="radio"]',
+  'input[type="checkbox"]',
+  "[data-expand-card]",
+  "[data-expand-cta]",
+  "[data-clickable]",
+  "[data-action]",
+  "[onclick]",
+  ".card",
+  "[class*='-card']",
+  "[class*='card-']",
+  ".btn",
+  "[class*='-btn']",
+  "[class*='btn-']",
+  ".nav-card",
+  ".activity-start-card",
+  ".start-card",
+  ".division-card",
+  ".program-card",
+  ".competition-card",
+  ".product-card",
+  ".lesson-card",
+  ".material-card",
+  ".mode-card",
+  ".level-card",
+  ".course-card",
+  ".choice-card",
+  ".memory-card",
+  ".flashcard",
+  ".card-toggle",
+  ".tab-btn",
+  ".filter-btn",
+  ".accordion-header",
+  ".accordion-btn",
+  ".lightbox-close",
+  ".lightbox-prev",
+  ".lightbox-next",
+  ".slider-btn",
+  ".to-top",
+  ".menu-toggle",
+  ".hero-btn",
+  ".script-tabs button",
+  ".quick-pill-btn",
+  ".custom-type-card",
+  ".memory-diff-btn",
+  ".palette-num-btn",
+  ".kanji-cell",
+  ".dict-tab-btn",
+  ".quiz-chip",
+  ".bunpou-chip",
+  ".match-button"
+].join(", ");
 
-    // Global click listener pada capture phase untuk tanggapan instan
-    document.addEventListener("click", (e) => {
-        window.MiraiSound?.unlock();
-        const target = e.target;
-        if (!target) return;
+// Global click listener pada capture phase untuk tanggapan instan
+document.addEventListener("click", (e) => {
+  window.MiraiSound?.unlock();
+  const target = e.target;
+  if (!target) return;
 
-        const el = target.closest(INTERACTIVE_SELECTOR);
-        if (!el) return;
+  const el = target.closest(INTERACTIVE_SELECTOR);
+  if (!el) return;
 
-        // Jangan bersuara jika elemen disabled
-        if (
-            el.disabled ||
-            el.getAttribute("aria-disabled") === "true" ||
-            el.classList?.contains("disabled") ||
-            el.classList?.contains("is-disabled")
-        ) {
-            return;
-        }
+  // Jangan bersuara jika elemen disabled
+  if (
+    el.disabled ||
+    el.getAttribute("aria-disabled") === "true" ||
+    el.classList?.contains("disabled") ||
+    el.classList?.contains("is-disabled")
+  ) {
+    return;
+  }
 
-        // Jangan bunyikan jika data-sound="none"
-        if (el.dataset?.sound === "none") return;
+  // Jangan bunyikan jika data-sound="none"
+  if (el.dataset?.sound === "none") return;
 
-        window.MiraiSound?.playClickIfIdle();
-    }, true);
+  window.MiraiSound?.playClickIfIdle();
+}, true);
 }
 
 // Inisialisasi listener klik audio secepat mungkin
@@ -495,395 +495,395 @@ setupGlobalSoundClicks();
 
 // Cek status terkunci secepat mungkin untuk mencegah kedipan konten
 (function checkComingSoonEarly() {
-    try {
-        localStorage.removeItem("mnh_access_unlocked");
-        const isUnlocked = sessionStorage.getItem("mnh_access_unlocked") === "true";
-        const rawPath = (window.location.pathname || "").toLowerCase();
-        const lockedDirs = ["/toko/", "/peringkat/", "/rekomendasi/", "/lomba/", "/tentang/", "/kegiatan/", "/divisi/"];
-        if (!isUnlocked && lockedDirs.some((dir) => rawPath.includes(dir))) {
-            document.documentElement.classList.add("is-page-locked-early");
-            if (document.body) {
-                document.body.classList.add("is-page-locked");
-            }
-        }
-    } catch (e) {}
+try {
+  localStorage.removeItem("mnh_access_unlocked");
+  const isUnlocked = sessionStorage.getItem("mnh_access_unlocked") === "true";
+  const rawPath = (window.location.pathname || "").toLowerCase();
+  const lockedDirs = ["/toko/", "/peringkat/", "/rekomendasi/", "/lomba/", "/tentang/", "/kegiatan/", "/divisi/"];
+  if (!isUnlocked && lockedDirs.some((dir) => rawPath.includes(dir))) {
+    document.documentElement.classList.add("is-page-locked-early");
+    if (document.body) {
+    document.body.classList.add("is-page-locked");
+    }
+  }
+} catch (e) {}
 })();
 
 document.addEventListener("DOMContentLoaded", () => {
-    normalizeNavigation();
-    setupThemeToggle();
-    setupMenu();
-    setupSidebarNav();
-    setupBackToTop();
-    setupReveal();
-    setupHeroContentScroll();
-    setupInstagramFeedback();
-    setupLearningPanel();
-    setupManagementSlider();
-    setupImageLightbox();
-    setupUniversalFeedbackAndQuote();
-    setupExpandableCards();
-    initMiraiProgress();
-    initGlobalCountUpObservers();
-    initComingSoonSystem();
-    window.initKanjiDictionary?.();
-    window.initSora?.();
+normalizeNavigation();
+setupThemeToggle();
+setupMenu();
+setupSidebarNav();
+setupBackToTop();
+setupReveal();
+setupHeroContentScroll();
+setupInstagramFeedback();
+setupLearningPanel();
+setupManagementSlider();
+setupImageLightbox();
+setupUniversalFeedbackAndQuote();
+setupExpandableCards();
+initMiraiProgress();
+initGlobalCountUpObservers();
+initComingSoonSystem();
+window.initKanjiDictionary?.();
+window.initSora?.();
 });
 
 function setupHeroContentScroll() {
-    // Efek sticky curtain dan ascending text (solid 100% tanpa transparansi) untuk seluruh hero
-    const hero = document.querySelector(".hero, .page-hero, .proker-hero, .quest-hero, .toko-hero, .class-hero, .about-hero, .activities-hero, .rekomendasi-hero, .peringkat-hero, .lomba-hero, .motivasi-hero");
-    if (!hero) return;
+// Efek sticky curtain dan ascending text (solid 100% tanpa transparansi) untuk seluruh hero
+const hero = document.querySelector(".hero, .page-hero, .proker-hero, .quest-hero, .toko-hero, .class-hero, .about-hero, .activities-hero, .rekomendasi-hero, .peringkat-hero, .lomba-hero, .motivasi-hero");
+if (!hero) return;
 
-    const heroContent = hero.querySelector(".hero-text-box, .hero-content, .proker-hero-inner, .page-hero > div:not(.hero-social-sidebar), .quest-hero > div:not(.hero-social-sidebar), .toko-hero > div:not(.hero-social-sidebar), div:not(.hero-social-sidebar):not(.proker-back-wrap)");
-    const heroSocial = hero.querySelector(".hero-social-sidebar");
+const heroContent = hero.querySelector(".hero-text-box, .hero-content, .proker-hero-inner, .page-hero > div:not(.hero-social-sidebar), .quest-hero > div:not(.hero-social-sidebar), .toko-hero > div:not(.hero-social-sidebar), div:not(.hero-social-sidebar):not(.proker-back-wrap)");
+const heroSocial = hero.querySelector(".hero-social-sidebar");
 
-    let ticking = false;
+let ticking = false;
 
-    function update() {
-        const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-        const heroHeight = hero.offsetHeight || window.innerHeight;
+function update() {
+  const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+  const heroHeight = hero.offsetHeight || window.innerHeight;
 
-        if (scrollY <= heroHeight) {
-            // Hero aktif di viewport
-            hero.style.visibility = "visible";
-            const translateY = scrollY * 1.0;
+  if (scrollY <= heroHeight) {
+    // Hero aktif di viewport
+    hero.style.visibility = "visible";
+    const translateY = scrollY * 1.0;
 
-            if (heroContent) {
-                heroContent.style.transform = `translate3d(0, -${translateY}px, 0)`;
-            }
-            if (heroSocial) {
-                heroSocial.style.transform = `translate3d(0, -${translateY}px, 0)`;
-            }
-        } else {
-            // Begitu seksi berikutnya sudah menutupi hero secara penuh,
-            // sembunyikan hero agar background Sora tidak pernah tembus di seksi bawah!
-            hero.style.visibility = "hidden";
-            if (heroContent) {
-                heroContent.style.transform = `translate3d(0, -${heroHeight}px, 0)`;
-            }
-            if (heroSocial) {
-                heroSocial.style.transform = `translate3d(0, -${heroHeight}px, 0)`;
-            }
-        }
-
-        ticking = false;
+    if (heroContent) {
+    heroContent.style.transform = `translate3d(0, -${translateY}px, 0)`;
     }
+    if (heroSocial) {
+    heroSocial.style.transform = `translate3d(0, -${translateY}px, 0)`;
+    }
+  } else {
+    // Begitu seksi berikutnya sudah menutupi hero secara penuh,
+    // sembunyikan hero agar background Sora tidak pernah tembus di seksi bawah!
+    hero.style.visibility = "hidden";
+    if (heroContent) {
+    heroContent.style.transform = `translate3d(0, -${heroHeight}px, 0)`;
+    }
+    if (heroSocial) {
+    heroSocial.style.transform = `translate3d(0, -${heroHeight}px, 0)`;
+    }
+  }
 
-    window.addEventListener("scroll", () => {
-        if (!ticking) {
-            window.requestAnimationFrame(update);
-            ticking = true;
-        }
-    }, { passive: true });
+  ticking = false;
+}
 
-    update();
+window.addEventListener("scroll", () => {
+  if (!ticking) {
+    window.requestAnimationFrame(update);
+    ticking = true;
+  }
+}, { passive: true });
+
+update();
 }
 
 function setupThemeToggle() {
-    // Website dikunci 100% pada Light Mode
-    try {
-        localStorage.removeItem("mirai-no-hana-theme");
-    } catch (e) {}
-    document.body.classList.remove("theme-dark", "dark-mode");
-    const toggle = document.querySelector(".theme-toggle, .dark-mode-toggle");
-    if (toggle) toggle.remove();
+// Website dikunci 100% pada Light Mode
+try {
+  localStorage.removeItem("mirai-no-hana-theme");
+} catch (e) {}
+document.body.classList.remove("theme-dark", "dark-mode");
+const toggle = document.querySelector(".theme-toggle, .dark-mode-toggle");
+if (toggle) toggle.remove();
 }
 
 function setupLearningPanel() {
 }
 
 function setupInstagramFeedback() {
-    const form = document.querySelector("[data-instagram-feedback]");
-    if (!form) return;
+const form = document.querySelector("[data-instagram-feedback]");
+if (!form) return;
 
-    // Ganti nilai ini saat username Instagram resmi MIRAI NO HANA sudah tersedia.
-    const INSTAGRAM_USERNAME = "mirainohana.id";
+// Ganti nilai ini saat username Instagram resmi MIRAI NO HANA sudah tersedia.
+const INSTAGRAM_USERNAME = "mirainohana.id";
 
-    form.addEventListener("submit", (event) => {
-        event.preventDefault();
-        const formData = new FormData(form);
-        const message = [
-            "Halo MIRAI NO HANA, saya ingin menyampaikan masukan.",
-            "",
-            `Nama: ${formData.get("name")}`,
-            `Kelas: ${formData.get("class")}`,
-            `Pesan: ${formData.get("message")}`
-        ].join("\n");
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const formData = new FormData(form);
+  const message = [
+    "Halo MIRAI NO HANA, saya ingin menyampaikan masukan.",
+    "",
+    `Nama: ${formData.get("name")}`,
+    `Kelas: ${formData.get("class")}`,
+    `Pesan: ${formData.get("message")}`
+  ].join("\n");
 
-        navigator.clipboard?.writeText(message).catch(() => {});
-        window.open(`https://ig.me/m/${INSTAGRAM_USERNAME}`, "_blank", "noopener,noreferrer");
-    });
+  navigator.clipboard?.writeText(message).catch(() => {});
+  window.open(`https://ig.me/m/${INSTAGRAM_USERNAME}`, "_blank", "noopener,noreferrer");
+});
 }
 
 function getAppBasePath() {
-    const logo = document.querySelector(".brand img, .sidebar-footer-logo");
-    if (logo) {
-        const src = logo.getAttribute("src") || "";
-        if (src.startsWith("../../")) return "../../";
-        if (src.startsWith("../")) return "../";
-    }
-    const style = document.querySelector('link[rel="stylesheet"][href*="style.css"]');
-    if (style) {
-        const href = style.getAttribute("href") || "";
-        if (href.startsWith("../../")) return "../../";
-        if (href.startsWith("../")) return "../";
-    }
-    return "";
+const logo = document.querySelector(".brand img, .sidebar-footer-logo");
+if (logo) {
+  const src = logo.getAttribute("src") || "";
+  if (src.startsWith("../../")) return "../../";
+  if (src.startsWith("../")) return "../";
+}
+const style = document.querySelector('link[rel="stylesheet"][href*="style.css"]');
+if (style) {
+  const href = style.getAttribute("href") || "";
+  if (href.startsWith("../../")) return "../../";
+  if (href.startsWith("../")) return "../";
+}
+return "";
 }
 
 function normalizeNavigation() {
-    const basePath = getAppBasePath();
-    document.querySelectorAll('[data-nav-menu] a[href$="kanji.html"]').forEach((link) => {
-        link.href = basePath + "kamus/index.html";
-        link.textContent = "KAMUS";
-    });
-    document.querySelectorAll('[data-nav-menu] a[href$="about.html"]').forEach((link) => {
-        link.href = basePath + "tentang/index.html";
-    });
+const basePath = getAppBasePath();
+document.querySelectorAll('[data-nav-menu] a[href$="kanji.html"]').forEach((link) => {
+  link.href = basePath + "kamus/index.html";
+  link.textContent = "KAMUS";
+});
+document.querySelectorAll('[data-nav-menu] a[href$="about.html"]').forEach((link) => {
+  link.href = basePath + "tentang/index.html";
+});
 
-    // Aktifkan kembali seluruh tautan navigasi (lapisan Coming Soon telah dihapus).
-    document.querySelectorAll('[data-nav-menu] a.nav-coming-soon, .nav .links a.nav-coming-soon').forEach((link) => {
-        const navText = link.querySelector('.nav-text');
-        const label = navText ? navText.textContent.trim().toUpperCase() : link.textContent.replace('COMING SOON', '').trim().toUpperCase();
-        const href = (label === 'HOME' || label === 'BERANDA') ? basePath + 'index.html' : label === 'KEGIATAN' ? basePath + 'kegiatan/index.html' : label === 'TENTANG' ? basePath + 'tentang/index.html' : link.getAttribute('href');
-        link.setAttribute('href', href);
-        link.removeAttribute('aria-disabled');
-        link.removeAttribute('tabindex');
-        link.removeAttribute('title');
-        link.classList.remove('nav-coming-soon');
-        link.textContent = label;
-    });
+// Aktifkan kembali seluruh tautan navigasi (lapisan Coming Soon telah dihapus).
+document.querySelectorAll('[data-nav-menu] a.nav-coming-soon, .nav .links a.nav-coming-soon').forEach((link) => {
+  const navText = link.querySelector('.nav-text');
+  const label = navText ? navText.textContent.trim().toUpperCase() : link.textContent.replace('COMING SOON', '').trim().toUpperCase();
+  const href = (label === 'HOME' || label === 'BERANDA') ? basePath + 'index.html' : label === 'KEGIATAN' ? basePath + 'kegiatan/index.html' : label === 'TENTANG' ? basePath + 'tentang/index.html' : link.getAttribute('href');
+  link.setAttribute('href', href);
+  link.removeAttribute('aria-disabled');
+  link.removeAttribute('tabindex');
+  link.removeAttribute('title');
+  link.classList.remove('nav-coming-soon');
+  link.textContent = label;
+});
 
-    // Aktifkan kembali tautan brand yang sebelumnya dinonaktifkan.
-    document.querySelectorAll('.brand.brand-disabled').forEach((brand) => {
-        brand.classList.remove('brand-disabled');
-        brand.setAttribute('href', basePath + 'index.html');
-        brand.removeAttribute('aria-disabled');
-        brand.removeAttribute('tabindex');
-        brand.removeAttribute('title');
-    });
+// Aktifkan kembali tautan brand yang sebelumnya dinonaktifkan.
+document.querySelectorAll('.brand.brand-disabled').forEach((brand) => {
+  brand.classList.remove('brand-disabled');
+  brand.setAttribute('href', basePath + 'index.html');
+  brand.removeAttribute('aria-disabled');
+  brand.removeAttribute('tabindex');
+  brand.removeAttribute('title');
+});
 }
 
 function setupMenu() {
-    const toggle = document.querySelector("[data-menu-toggle]");
-    const menu = document.querySelector("[data-nav-menu]");
-    if (!toggle || !menu) return;
+const toggle = document.querySelector("[data-menu-toggle]");
+const menu = document.querySelector("[data-nav-menu]");
+if (!toggle || !menu) return;
 
-    toggle.addEventListener("click", () => {
-        const isOpen = menu.classList.toggle("is-open");
-        toggle.setAttribute("aria-expanded", String(isOpen));
-    });
+toggle.addEventListener("click", () => {
+  const isOpen = menu.classList.toggle("is-open");
+  toggle.setAttribute("aria-expanded", String(isOpen));
+});
 }
 
 function setupSidebarNav() {
-    const menuBtn = document.querySelector(".menu-btn");
-    const closeBtn = document.querySelector(".close-btn");
-    const sidebarNav = document.querySelector(".sidebar-nav");
-    const sidebarOverlay = document.querySelector(".sidebar-overlay");
+const menuBtn = document.querySelector(".menu-btn");
+const closeBtn = document.querySelector(".close-btn");
+const sidebarNav = document.querySelector(".sidebar-nav");
+const sidebarOverlay = document.querySelector(".sidebar-overlay");
 
-    const openSidebar = () => {
-        sidebarNav.classList.add("active");
-        if (sidebarOverlay) sidebarOverlay.classList.add("active");
-        document.body.classList.add("sidebar-open");
-        if (menuBtn) {
-            menuBtn.setAttribute("aria-expanded", "true");
-            menuBtn.style.opacity = "0";
-            menuBtn.style.visibility = "hidden";
-            menuBtn.style.pointerEvents = "none";
-        }
-    };
+const openSidebar = () => {
+  sidebarNav.classList.add("active");
+  if (sidebarOverlay) sidebarOverlay.classList.add("active");
+  document.body.classList.add("sidebar-open");
+  if (menuBtn) {
+    menuBtn.setAttribute("aria-expanded", "true");
+    menuBtn.style.opacity = "0";
+    menuBtn.style.visibility = "hidden";
+    menuBtn.style.pointerEvents = "none";
+  }
+};
 
-    const closeSidebar = () => {
-        sidebarNav.classList.remove("active");
-        if (sidebarOverlay) sidebarOverlay.classList.remove("active");
-        document.body.classList.remove("sidebar-open");
-        if (menuBtn) {
-            menuBtn.setAttribute("aria-expanded", "false");
-            menuBtn.style.opacity = "";
-            menuBtn.style.visibility = "";
-            menuBtn.style.pointerEvents = "";
-        }
-    };
+const closeSidebar = () => {
+  sidebarNav.classList.remove("active");
+  if (sidebarOverlay) sidebarOverlay.classList.remove("active");
+  document.body.classList.remove("sidebar-open");
+  if (menuBtn) {
+    menuBtn.setAttribute("aria-expanded", "false");
+    menuBtn.style.opacity = "";
+    menuBtn.style.visibility = "";
+    menuBtn.style.pointerEvents = "";
+  }
+};
 
-    if (menuBtn && sidebarNav && !menuBtn.dataset.sidebarInit) {
-        menuBtn.dataset.sidebarInit = "true";
-        menuBtn.addEventListener("click", openSidebar);
-    }
+if (menuBtn && sidebarNav && !menuBtn.dataset.sidebarInit) {
+  menuBtn.dataset.sidebarInit = "true";
+  menuBtn.addEventListener("click", openSidebar);
+}
 
-    if (closeBtn && sidebarNav) {
-        closeBtn.addEventListener("click", closeSidebar);
-    }
+if (closeBtn && sidebarNav) {
+  closeBtn.addEventListener("click", closeSidebar);
+}
 
-    if (sidebarOverlay && sidebarNav) {
-        sidebarOverlay.addEventListener("click", closeSidebar);
-    }
+if (sidebarOverlay && sidebarNav) {
+  sidebarOverlay.addEventListener("click", closeSidebar);
+}
 
-    // Tutup saat tombol Escape ditekan
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && sidebarNav && sidebarNav.classList.contains("active")) {
-            closeSidebar();
-        }
-    });
+// Tutup saat tombol Escape ditekan
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && sidebarNav && sidebarNav.classList.contains("active")) {
+    closeSidebar();
+  }
+});
 }
 
 function setupBackToTop() {
-    const button = document.querySelector(".to-top");
-    if (!button) return;
+const button = document.querySelector(".to-top");
+if (!button) return;
 
-    const update = () => button.classList.toggle("is-visible", window.scrollY > 480);
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    button.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+const update = () => button.classList.toggle("is-visible", window.scrollY > 480);
+update();
+window.addEventListener("scroll", update, { passive: true });
+button.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 }
 
 function setupReveal() {
-    // 1. Daftarkan seluruh seksi halaman
-    // PENTING: Seksi pertama tepat di bawah hero (.hero + section, .page-hero + section, .toko-catalog-section)
-    // TIDAK BOLEH disembunyikan dengan opacity 0 karena berfungsi sebagai tirai penutup solid yang langsung terlihat di viewport awal (above the fold)
-    const heroExclusions = ":not(.hero):not(.page-hero):not(.about-hero):not(.lomba-hero):not(.activities-hero):not(.class-hero):not(.peringkat-hero):not(.rekomendasi-hero):not(.toko-hero):not(.motivasi-hero):not(.buuku-hero):not(.quest-hero)";
-    
-    const sectionSelectors = [
-        `main > section${heroExclusions}:not(.toko-catalog-section)`,
-        ".proker-section",
-        ".kegiatan-section",
-        ".content-section",
-        ".facility-section",
-        ".division-section",
-        ".learning-path",
-        ".feedback-preview",
-        ".home-activities-dark-section",
-        ".journey-section",
-        ".about-preview"
-    ];
+// 1. Daftarkan seluruh seksi halaman
+// PENTING: Seksi pertama tepat di bawah hero (.hero + section, .page-hero + section, .toko-catalog-section)
+// TIDAK BOLEH disembunyikan dengan opacity 0 karena berfungsi sebagai tirai penutup solid yang langsung terlihat di viewport awal (above the fold)
+const heroExclusions = ":not(.hero):not(.page-hero):not(.about-hero):not(.lomba-hero):not(.activities-hero):not(.class-hero):not(.peringkat-hero):not(.rekomendasi-hero):not(.toko-hero):not(.motivasi-hero):not(.buuku-hero):not(.quest-hero)";
 
-    document.querySelectorAll(sectionSelectors.join(",")).forEach((sec) => {
-        // Jangan beri section-reveal ke seksi pertama tepat di bawah hero
-        if (sec.matches(".hero + section, .page-hero + section, .proker-hero + section, .quest-hero + section, .toko-catalog-section")) {
-            sec.classList.remove("section-reveal");
-            sec.classList.add("is-visible");
-            return;
-        }
+const sectionSelectors = [
+  `main > section${heroExclusions}:not(.toko-catalog-section)`,
+  ".proker-section",
+  ".kegiatan-section",
+  ".content-section",
+  ".facility-section",
+  ".division-section",
+  ".learning-path",
+  ".feedback-preview",
+  ".home-activities-dark-section",
+  ".journey-section",
+  ".about-preview"
+];
 
-        if (!sec.classList.contains("section-reveal")) {
-            sec.classList.add("section-reveal");
-        }
-    });
+document.querySelectorAll(sectionSelectors.join(",")).forEach((sec) => {
+  // Jangan beri section-reveal ke seksi pertama tepat di bawah hero
+  if (sec.matches(".hero + section, .page-hero + section, .proker-hero + section, .quest-hero + section, .toko-catalog-section")) {
+    sec.classList.remove("section-reveal");
+    sec.classList.add("is-visible");
+    return;
+  }
 
-    // 2. Daftarkan seluruh kartu komponen dan elemen kartu di dalam seksi
-    const cardSelectors = [
-        "article",
-        "[class*='-card']",
-        ".journey-step",
-        ".activity-item",
-        ".mission-box",
-        ".history-origin-card",
-        ".pembina-card",
-        ".feedback-card",
-        ".home-about-banner",
-        ".facility-card",
-        ".podium-card",
-        ".rek-card",
-        ".event-card",
-        ".course-card",
-        ".class-card",
-        ".division-card",
-        ".program-card",
-        ".management-card",
-        ".haori-card",
-        ".accessory-card"
-    ];
+  if (!sec.classList.contains("section-reveal")) {
+    sec.classList.add("section-reveal");
+  }
+});
 
-    document.querySelectorAll(cardSelectors.join(",")).forEach((card) => {
-        // Jangan beri animasi scroll pada elemen di dalam hero, header, floating drawer chat, atau modal/latihan
-        if (card.closest(".hero, .page-hero, .about-hero, .lomba-hero, .activities-hero, .class-hero, #drawer, #launcher, .sidebar-nav, .home-header, .lightbox, .modal, .practice-view, .result-view, [data-practice-view], [data-result-view]")) return;
+// 2. Daftarkan seluruh kartu komponen dan elemen kartu di dalam seksi
+const cardSelectors = [
+  "article",
+  "[class*='-card']",
+  ".journey-step",
+  ".activity-item",
+  ".mission-box",
+  ".history-origin-card",
+  ".pembina-card",
+  ".feedback-card",
+  ".home-about-banner",
+  ".facility-card",
+  ".podium-card",
+  ".rek-card",
+  ".event-card",
+  ".course-card",
+  ".class-card",
+  ".division-card",
+  ".program-card",
+  ".management-card",
+  ".haori-card",
+  ".accessory-card"
+];
 
-        if (!card.classList.contains("motion-reveal") && !card.classList.contains("reveal")) {
-            card.classList.add("motion-reveal");
-            const parent = card.parentElement;
-            if (parent) {
-                const siblings = Array.from(parent.children).filter(c => c.matches(cardSelectors.join(",")));
-                const index = siblings.indexOf(card);
-                const stagger = ((index >= 0 ? index : 0) % 6) + 1;
-                card.classList.add(`motion-delay-${stagger}`);
-            }
-        }
-    });
+document.querySelectorAll(cardSelectors.join(",")).forEach((card) => {
+  // Jangan beri animasi scroll pada elemen di dalam hero, header, floating drawer chat, atau modal/latihan
+  if (card.closest(".hero, .page-hero, .about-hero, .lomba-hero, .activities-hero, .class-hero, #drawer, #launcher, .sidebar-nav, .home-header, .lightbox, .modal, .practice-view, .result-view, [data-practice-view], [data-result-view]")) return;
 
-    const targets = document.querySelectorAll(".section-reveal, .motion-reveal, .reveal");
-    if (!targets.length) return;
-
-    // Langsung aktifkan elemen yang sudah berada di dalam atau di atas viewport saat render awal (above the fold)
-    // agar konten tidak pernah tertahan sembunyi (blank/black void) saat pengguna pertama kali membuka halaman
-    targets.forEach((target) => {
-        const rect = target.getBoundingClientRect();
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
-            target.classList.add("is-visible");
-        }
-    });
-
-    if (!("IntersectionObserver" in window)) {
-        targets.forEach((target) => target.classList.add("is-visible"));
-        return;
+  if (!card.classList.contains("motion-reveal") && !card.classList.contains("reveal")) {
+    card.classList.add("motion-reveal");
+    const parent = card.parentElement;
+    if (parent) {
+    const siblings = Array.from(parent.children).filter(c => c.matches(cardSelectors.join(",")));
+    const index = siblings.indexOf(card);
+    const stagger = ((index >= 0 ? index : 0) % 6) + 1;
+    card.classList.add(`motion-delay-${stagger}`);
     }
+  }
+});
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting || entry.intersectionRatio > 0) {
-                entry.target.classList.add("is-visible");
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { 
-        threshold: 0.01, 
-        rootMargin: "0px 0px -10px 0px" 
-    });
+const targets = document.querySelectorAll(".section-reveal, .motion-reveal, .reveal");
+if (!targets.length) return;
 
-    targets.forEach((target) => {
-        if (!target.classList.contains("is-visible")) {
-            observer.observe(target);
-        }
-    });
+// Langsung aktifkan elemen yang sudah berada di dalam atau di atas viewport saat render awal (above the fold)
+// agar konten tidak pernah tertahan sembunyi (blank/black void) saat pengguna pertama kali membuka halaman
+targets.forEach((target) => {
+  const rect = target.getBoundingClientRect();
+  if (rect.top < window.innerHeight && rect.bottom > 0) {
+    target.classList.add("is-visible");
+  }
+});
+
+if (!("IntersectionObserver" in window)) {
+  targets.forEach((target) => target.classList.add("is-visible"));
+  return;
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting || entry.intersectionRatio > 0) {
+    entry.target.classList.add("is-visible");
+    observer.unobserve(entry.target);
+    }
+  });
+}, {
+  threshold: 0.01,
+  rootMargin: "0px 0px -10px 0px"
+});
+
+targets.forEach((target) => {
+  if (!target.classList.contains("is-visible")) {
+    observer.observe(target);
+  }
+});
 }
 
 async function setupKanjiDictionary() {
-    const dictionary = document.querySelector("[data-kanji-dictionary]");
-    if (!dictionary) return;
+const dictionary = document.querySelector("[data-kanji-dictionary]");
+if (!dictionary) return;
 
-    const grid = dictionary.querySelector("[data-kanji-grid]");
-    const count = dictionary.querySelector("[data-kanji-count]");
-    const empty = dictionary.querySelector("[data-kanji-empty]");
-    const detail = dictionary.querySelector("[data-kanji-detail]");
-    const search = dictionary.querySelector("[data-kanji-search]");
-    const jlpt = dictionary.querySelector("[data-kanji-jlpt]");
-    const level = dictionary.querySelector("[data-kanji-level]");
-    let kanjiData = [];
+const grid = dictionary.querySelector("[data-kanji-grid]");
+const count = dictionary.querySelector("[data-kanji-count]");
+const empty = dictionary.querySelector("[data-kanji-empty]");
+const detail = dictionary.querySelector("[data-kanji-detail]");
+const search = dictionary.querySelector("[data-kanji-search]");
+const jlpt = dictionary.querySelector("[data-kanji-jlpt]");
+const level = dictionary.querySelector("[data-kanji-level]");
+let kanjiData = [];
 
-    try {
-        const response = await fetch(getAppBasePath() + "data/kanji.json");
-        if (!response.ok) throw new Error("Data Kamus Kanji tidak dapat dimuat.");
-        kanjiData = await response.json();
-    } catch (error) {
-        count.textContent = "Data kamus belum dapat dimuat.";
-        return;
-    }
+try {
+  const response = await fetch(getAppBasePath() + "data/kanji.json");
+  if (!response.ok) throw new Error("Data Kamus Kanji tidak dapat dimuat.");
+  kanjiData = await response.json();
+} catch (error) {
+  count.textContent = "Data kamus belum dapat dimuat.";
+  return;
+}
 
-    function matches(item) {
-        const query = search.value.toLowerCase().trim();
-        const searchable = [
-            item.kanji,
-            item.meaning,
-            ...item.onyomi,
-            ...item.kunyomi,
-            ...item.words.flatMap((word) => [word.word, word.reading, word.meaning])
-        ].join(" ").toLowerCase();
-        return (!query || searchable.includes(query)) &&
-            (!jlpt.value || item.jlpt === jlpt.value) &&
-            (!level.value || item.level === level.value);
-    }
+function matches(item) {
+  const query = search.value.toLowerCase().trim();
+  const searchable = [
+    item.kanji,
+    item.meaning,
+    ...item.onyomi,
+    ...item.kunyomi,
+    ...item.words.flatMap((word) => [word.word, word.reading, word.meaning])
+  ].join(" ").toLowerCase();
+  return (!query || searchable.includes(query)) &&
+    (!jlpt.value || item.jlpt === jlpt.value) &&
+    (!level.value || item.level === level.value);
+}
 
-    function renderDetail(item) {
-        detail.innerHTML = `
+function renderDetail(item) {
+  detail.innerHTML = `
             <div class="kanji-detail-head">
                 <strong>${item.kanji}</strong>
                 <div><p class="card-number">${item.jlpt} / ${item.level}</p><h3>${item.meaning}</h3><p><b>Onyomi:</b> ${item.onyomi.join(", ") || "—"}<br><b>Kunyomi:</b> ${item.kunyomi.join(", ") || "—"}</p></div>
@@ -892,397 +892,397 @@ async function setupKanjiDictionary() {
             <ul>${item.words.map((word) => `<li><b>${word.word}</b> <span>${word.reading}</span> — ${word.meaning}</li>`).join("")}</ul>
             <h4>Contoh kalimat</h4>
             <p class="sentence"><b>${item.sentence.japanese}</b><br><span>${item.sentence.reading}</span><br>${item.sentence.meaning}</p>`;
-    }
+}
 
-    function render() {
-        const visible = kanjiData.filter(matches);
-        grid.innerHTML = "";
-        count.textContent = `Menampilkan ${visible.length} kanji`;
-        empty.hidden = visible.length > 0;
-        visible.forEach((item) => {
-            const button = document.createElement("button");
-            button.className = "kanji-card";
-            button.type = "button";
-            button.innerHTML = `<strong>${item.kanji}</strong><span>${item.meaning}</span><em>${item.jlpt}</em>`;
-            button.addEventListener("click", () => renderDetail(item));
-            grid.appendChild(button);
-        });
-        if (visible.length) renderDetail(visible[0]);
-    }
+function render() {
+  const visible = kanjiData.filter(matches);
+  grid.innerHTML = "";
+  count.textContent = `Menampilkan ${visible.length} kanji`;
+  empty.hidden = visible.length > 0;
+  visible.forEach((item) => {
+    const button = document.createElement("button");
+    button.className = "kanji-card";
+    button.type = "button";
+    button.innerHTML = `<strong>${item.kanji}</strong><span>${item.meaning}</span><em>${item.jlpt}</em>`;
+    button.addEventListener("click", () => renderDetail(item));
+    grid.appendChild(button);
+  });
+  if (visible.length) renderDetail(visible[0]);
+}
 
-    [search, jlpt, level].forEach((control) => {
-        control.addEventListener("input", render);
-        control.addEventListener("change", render);
-    });
-    render();
+[search, jlpt, level].forEach((control) => {
+  control.addEventListener("input", render);
+  control.addEventListener("change", render);
+});
+render();
 }
 
 function setupSora() {
-    let widget = document.querySelector("[data-sora]");
-    if (!widget && window.SoraService) {
-        const basePath = getAppBasePath();
-        widget = document.createElement("aside");
-        widget.className = "sora-widget";
-        widget.dataset.sora = "";
-        widget.setAttribute("aria-label", "Asisten Sora");
-        widget.innerHTML = [
-            `<button class="sora-toggle" type="button" data-sora-toggle aria-expanded="false"><img src="${basePath}images/mirai/icon/Ay.png" alt=""><span>SORA</span></button>`,
-            '<div class="sora-panel" data-sora-panel hidden><header><strong>Sora ✨</strong><span>Teman belajar bahasa Jepangmu.</span><button class="sora-close" type="button" data-sora-close aria-label="Tutup Sora">×</button></header>',
-            '<div class="sora-messages" data-sora-messages><p class="chat-message sora">Yatta! Aku Sora ✨ Ada yang bisa kubantu?</p></div>',
-            '<form class="sora-form" data-sora-form><input data-sora-input aria-label="Tanya Sora" placeholder="Tanya Sora sesuatu..." required><button type="submit">Kirim</button></form></div>'
-        ].join("");
-        document.body.appendChild(widget);
-    }
-    if (!widget || !window.SoraService) return;
+let widget = document.querySelector("[data-sora]");
+if (!widget && window.SoraService) {
+  const basePath = getAppBasePath();
+  widget = document.createElement("aside");
+  widget.className = "sora-widget";
+  widget.dataset.sora = "";
+  widget.setAttribute("aria-label", "Asisten Sora");
+  widget.innerHTML = [
+    `<button class="sora-toggle" type="button" data-sora-toggle aria-expanded="false"><img src="${basePath}images/mirai/icon/Ay.png" alt=""><span>SORA</span></button>`,
+    '<div class="sora-panel" data-sora-panel hidden><header><strong>Sora ✨</strong><span>Teman belajar bahasa Jepangmu.</span><button class="sora-close" type="button" data-sora-close aria-label="Tutup Sora">×</button></header>',
+    '<div class="sora-messages" data-sora-messages><p class="chat-message sora">Yatta! Aku Sora ✨ Ada yang bisa kubantu?</p></div>',
+    '<form class="sora-form" data-sora-form><input data-sora-input aria-label="Tanya Sora" placeholder="Tanya Sora sesuatu..." required><button type="submit">Kirim</button></form></div>'
+  ].join("");
+  document.body.appendChild(widget);
+}
+if (!widget || !window.SoraService) return;
 
-    const toggle = widget.querySelector("[data-sora-toggle]");
-    const panel = widget.querySelector("[data-sora-panel]");
-    const form = widget.querySelector("[data-sora-form]");
-    const input = widget.querySelector("[data-sora-input]");
-    const messages = widget.querySelector("[data-sora-messages]");
-    const close = widget.querySelector("[data-sora-close]");
+const toggle = widget.querySelector("[data-sora-toggle]");
+const panel = widget.querySelector("[data-sora-panel]");
+const form = widget.querySelector("[data-sora-form]");
+const input = widget.querySelector("[data-sora-input]");
+const messages = widget.querySelector("[data-sora-messages]");
+const close = widget.querySelector("[data-sora-close]");
 
-    toggle.addEventListener("click", () => {
-        const isOpen = panel.hidden;
-        panel.hidden = !isOpen;
-        toggle.setAttribute("aria-expanded", String(isOpen));
-        document.body.classList.toggle("sora-widget-open", isOpen);
-        if (isOpen) input.focus();
-    });
+toggle.addEventListener("click", () => {
+  const isOpen = panel.hidden;
+  panel.hidden = !isOpen;
+  toggle.setAttribute("aria-expanded", String(isOpen));
+  document.body.classList.toggle("sora-widget-open", isOpen);
+  if (isOpen) input.focus();
+});
 
-    close?.addEventListener("click", () => {
-        panel.hidden = true;
-        toggle.setAttribute("aria-expanded", "false");
-        document.body.classList.remove("sora-widget-open");
-        toggle.focus();
-    });
+close?.addEventListener("click", () => {
+  panel.hidden = true;
+  toggle.setAttribute("aria-expanded", "false");
+  document.body.classList.remove("sora-widget-open");
+  toggle.focus();
+});
 
-    form.addEventListener("submit", async (event) => {
-        event.preventDefault();
-        const message = input.value.trim();
-        if (!message) return;
-        appendMessage(messages, message, "user");
-        input.value = "";
-        const pending = appendMessage(messages, "Sora sedang mengetik…", "sora is-loading");
-        try {
-            const reply = await window.SoraService.sendMessage(message);
-            pending.remove();
-            appendMessage(messages, reply, "sora");
-        } catch (error) {
-            pending.remove();
-            appendMessage(messages, error.message || "Maaf, Sora sedang mengalami gangguan. Coba lagi ya.", "sora is-error");
-        }
-    });
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const message = input.value.trim();
+  if (!message) return;
+  appendMessage(messages, message, "user");
+  input.value = "";
+  const pending = appendMessage(messages, "Sora sedang mengetik…", "sora is-loading");
+  try {
+    const reply = await window.SoraService.sendMessage(message);
+    pending.remove();
+    appendMessage(messages, reply, "sora");
+  } catch (error) {
+    pending.remove();
+    appendMessage(messages, error.message || "Maaf, Sora sedang mengalami gangguan. Coba lagi ya.", "sora is-error");
+  }
+});
 }
 
 function appendMessage(container, text, author) {
-    const message = document.createElement("p");
-    message.className = "chat-message " + author;
-    message.textContent = text;
-    container.appendChild(message);
-    container.scrollTop = container.scrollHeight;
-    return message;
+const message = document.createElement("p");
+message.className = "chat-message " + author;
+message.textContent = text;
+container.appendChild(message);
+container.scrollTop = container.scrollHeight;
+return message;
 }
 
 function setupManagementSlider() {
-    const track = document.getElementById("mgmtSliderTrack");
-    if (!track) return;
+const track = document.getElementById("mgmtSliderTrack");
+if (!track) return;
 
-    const slides = track.querySelectorAll(".mgmt-slide");
-    const tabs = document.querySelectorAll(".mgmt-tab-btn");
-    const prevBtn = document.getElementById("mgmtPrevBtn");
-    const nextBtn = document.getElementById("mgmtNextBtn");
-    const indicator = document.getElementById("mgmtPageIndicator");
-    const totalSlides = slides.length;
-    let currentIndex = 0;
+const slides = track.querySelectorAll(".mgmt-slide");
+const tabs = document.querySelectorAll(".mgmt-tab-btn");
+const prevBtn = document.getElementById("mgmtPrevBtn");
+const nextBtn = document.getElementById("mgmtNextBtn");
+const indicator = document.getElementById("mgmtPageIndicator");
+const totalSlides = slides.length;
+let currentIndex = 0;
 
-    function updateState(index) {
-        currentIndex = Math.max(0, Math.min(index, totalSlides - 1));
-        tabs.forEach((tab, i) => {
-            tab.classList.toggle("active", i === currentIndex);
-            tab.setAttribute("aria-selected", String(i === currentIndex));
-        });
-        if (indicator) {
-            indicator.textContent = `${currentIndex + 1} dari ${totalSlides}`;
-        }
-        if (prevBtn) prevBtn.style.opacity = currentIndex === 0 ? "0.45" : "1";
-        if (nextBtn) nextBtn.style.opacity = currentIndex === totalSlides - 1 ? "0.45" : "1";
+function updateState(index) {
+  currentIndex = Math.max(0, Math.min(index, totalSlides - 1));
+  tabs.forEach((tab, i) => {
+    tab.classList.toggle("active", i === currentIndex);
+    tab.setAttribute("aria-selected", String(i === currentIndex));
+  });
+  if (indicator) {
+    indicator.textContent = `${currentIndex + 1} dari ${totalSlides}`;
+  }
+  if (prevBtn) prevBtn.style.opacity = currentIndex === 0 ? "0.45" : "1";
+  if (nextBtn) nextBtn.style.opacity = currentIndex === totalSlides - 1 ? "0.45" : "1";
+}
+
+function scrollToSlide(index) {
+  currentIndex = Math.max(0, Math.min(index, totalSlides - 1));
+  const slideWidth = track.clientWidth;
+  track.scrollTo({
+    left: currentIndex * slideWidth,
+    behavior: "smooth"
+  });
+  updateState(currentIndex);
+}
+
+tabs.forEach((tab) => {
+  tab.addEventListener("click", () => {
+    const targetIndex = parseInt(tab.dataset.mgmtTarget, 10) || 0;
+    scrollToSlide(targetIndex);
+  });
+});
+
+prevBtn?.addEventListener("click", () => {
+  scrollToSlide(currentIndex - 1);
+});
+
+nextBtn?.addEventListener("click", () => {
+  scrollToSlide(currentIndex + 1);
+});
+
+let scrollTimeout;
+track.addEventListener("scroll", () => {
+  clearTimeout(scrollTimeout);
+  scrollTimeout = setTimeout(() => {
+    const slideWidth = track.clientWidth || 1;
+    const newIndex = Math.round(track.scrollLeft / slideWidth);
+    if (newIndex !== currentIndex) {
+    updateState(newIndex);
     }
+  }, 60);
+}, { passive: true });
 
-    function scrollToSlide(index) {
-        currentIndex = Math.max(0, Math.min(index, totalSlides - 1));
-        const slideWidth = track.clientWidth;
-        track.scrollTo({
-            left: currentIndex * slideWidth,
-            behavior: "smooth"
-        });
-        updateState(currentIndex);
+function syncManagementGridHeight() {
+  const soraSlide = track.querySelector('.mgmt-slide[data-slide-index="0"]');
+  const cloverGrid = track.querySelector('.mgmt-slide[data-slide-index="1"] .management-grid--11');
+  if (soraSlide && cloverGrid) {
+    const soraGrid = soraSlide.querySelector('.management-grid');
+    if (soraGrid) {
+    const soraHeight = soraGrid.getBoundingClientRect().height || soraGrid.offsetHeight;
+    if (soraHeight > 100) {
+    cloverGrid.style.maxHeight = `${Math.round(soraHeight)}px`;
     }
-
-    tabs.forEach((tab) => {
-        tab.addEventListener("click", () => {
-            const targetIndex = parseInt(tab.dataset.mgmtTarget, 10) || 0;
-            scrollToSlide(targetIndex);
-        });
-    });
-
-    prevBtn?.addEventListener("click", () => {
-        scrollToSlide(currentIndex - 1);
-    });
-
-    nextBtn?.addEventListener("click", () => {
-        scrollToSlide(currentIndex + 1);
-    });
-
-    let scrollTimeout;
-    track.addEventListener("scroll", () => {
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-            const slideWidth = track.clientWidth || 1;
-            const newIndex = Math.round(track.scrollLeft / slideWidth);
-            if (newIndex !== currentIndex) {
-                updateState(newIndex);
-            }
-        }, 60);
-    }, { passive: true });
-
-    function syncManagementGridHeight() {
-        const soraSlide = track.querySelector('.mgmt-slide[data-slide-index="0"]');
-        const cloverGrid = track.querySelector('.mgmt-slide[data-slide-index="1"] .management-grid--11');
-        if (soraSlide && cloverGrid) {
-            const soraGrid = soraSlide.querySelector('.management-grid');
-            if (soraGrid) {
-                const soraHeight = soraGrid.getBoundingClientRect().height || soraGrid.offsetHeight;
-                if (soraHeight > 100) {
-                    cloverGrid.style.maxHeight = `${Math.round(soraHeight)}px`;
-                }
-            }
-        }
     }
+  }
+}
 
-    updateState(0);
-    syncManagementGridHeight();
-    window.addEventListener("resize", syncManagementGridHeight, { passive: true });
-    window.addEventListener("load", syncManagementGridHeight, { passive: true });
+updateState(0);
+syncManagementGridHeight();
+window.addEventListener("resize", syncManagementGridHeight, { passive: true });
+window.addEventListener("load", syncManagementGridHeight, { passive: true });
 }
 
 function setupImageLightbox() {
-    let lightbox = null;
-    let imgEl = null;
-    let captionEl = null;
+let lightbox = null;
+let imgEl = null;
+let captionEl = null;
 
-    function createLightbox() {
-        if (lightbox) return;
-        lightbox = document.createElement("div");
-        lightbox.id = "imgLightboxModal";
-        lightbox.className = "img-lightbox";
-        lightbox.setAttribute("role", "dialog");
-        lightbox.setAttribute("aria-label", "Pratinjau Foto");
-        lightbox.setAttribute("aria-modal", "true");
-        lightbox.innerHTML = [
-            '<button class="img-lightbox-close" type="button" aria-label="Tutup Pratinjau">✕</button>',
-            '<div class="img-lightbox-container">',
-            '    <img class="img-lightbox-img" src="" alt="Pratinjau Foto">',
-            '    <div class="img-lightbox-caption"></div>',
-            '    <div class="img-lightbox-hint">Klik di mana saja atau tekan ESC untuk menutup</div>',
-            '</div>'
-        ].join("");
-        document.body.appendChild(lightbox);
+function createLightbox() {
+  if (lightbox) return;
+  lightbox = document.createElement("div");
+  lightbox.id = "imgLightboxModal";
+  lightbox.className = "img-lightbox";
+  lightbox.setAttribute("role", "dialog");
+  lightbox.setAttribute("aria-label", "Pratinjau Foto");
+  lightbox.setAttribute("aria-modal", "true");
+  lightbox.innerHTML = [
+    '<button class="img-lightbox-close" type="button" aria-label="Tutup Pratinjau">✕</button>',
+    '<div class="img-lightbox-container">',
+    '    <img class="img-lightbox-img" src="" alt="Pratinjau Foto">',
+    '    <div class="img-lightbox-caption"></div>',
+    '    <div class="img-lightbox-hint">Klik di mana saja atau tekan ESC untuk menutup</div>',
+    '</div>'
+  ].join("");
+  document.body.appendChild(lightbox);
 
-        imgEl = lightbox.querySelector(".img-lightbox-img");
-        captionEl = lightbox.querySelector(".img-lightbox-caption");
-        const closeBtn = lightbox.querySelector(".img-lightbox-close");
+  imgEl = lightbox.querySelector(".img-lightbox-img");
+  captionEl = lightbox.querySelector(".img-lightbox-caption");
+  const closeBtn = lightbox.querySelector(".img-lightbox-close");
 
-        closeBtn.addEventListener("click", closeLightbox);
-        lightbox.addEventListener("click", (e) => {
-            if (e.target !== captionEl) {
-                closeLightbox();
-            }
-        });
-
-        document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape" && lightbox.classList.contains("is-open")) {
-                closeLightbox();
-            }
-        });
+  closeBtn.addEventListener("click", closeLightbox);
+  lightbox.addEventListener("click", (e) => {
+    if (e.target !== captionEl) {
+    closeLightbox();
     }
+  });
 
-    function openLightbox(sourceImg) {
-        if (!sourceImg || !sourceImg.src) return;
-        createLightbox();
-
-        imgEl.src = sourceImg.currentSrc || sourceImg.src;
-        const caption = sourceImg.alt || sourceImg.title || "";
-        captionEl.textContent = caption;
-
-        lightbox.classList.add("is-open");
-        document.body.classList.add("lightbox-open");
-        document.body.style.overflow = "hidden";
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && lightbox.classList.contains("is-open")) {
+    closeLightbox();
     }
+  });
+}
 
-    function closeLightbox() {
-        if (!lightbox) return;
-        lightbox.classList.remove("is-open");
-        document.body.classList.remove("lightbox-open");
-        document.body.style.overflow = "";
-        setTimeout(() => {
-            if (imgEl && !lightbox.classList.contains("is-open")) {
-                imgEl.src = "";
-            }
-        }, 260);
+function openLightbox(sourceImg) {
+  if (!sourceImg || !sourceImg.src) return;
+  createLightbox();
+
+  imgEl.src = sourceImg.currentSrc || sourceImg.src;
+  const caption = sourceImg.alt || sourceImg.title || "";
+  captionEl.textContent = caption;
+
+  lightbox.classList.add("is-open");
+  document.body.classList.add("lightbox-open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeLightbox() {
+  if (!lightbox) return;
+  lightbox.classList.remove("is-open");
+  document.body.classList.remove("lightbox-open");
+  document.body.style.overflow = "";
+  setTimeout(() => {
+    if (imgEl && !lightbox.classList.contains("is-open")) {
+    imgEl.src = "";
     }
+  }, 260);
+}
 
-    // Deteksi klik ganda (double-click) untuk Desktop
-    document.addEventListener("dblclick", (e) => {
-        const img = e.target.closest("img");
-        if (!img) return;
-        if (img.closest(".img-lightbox") || img.closest("#launcher") || img.closest(".to-top")) return;
-        if (!img.src) return;
-        e.preventDefault();
-        openLightbox(img);
-    });
+// Deteksi klik ganda (double-click) untuk Desktop
+document.addEventListener("dblclick", (e) => {
+  const img = e.target.closest("img");
+  if (!img) return;
+  if (img.closest(".img-lightbox") || img.closest("#launcher") || img.closest(".to-top")) return;
+  if (!img.src) return;
+  e.preventDefault();
+  openLightbox(img);
+});
 
-    // Deteksi ketukan ganda (double-tap) untuk Mobile (ketuk dua kali dalam 320ms)
-    let lastTapTime = 0;
-    let lastTapTarget = null;
-    document.addEventListener("touchend", (e) => {
-        const img = e.target.closest("img");
-        if (!img) return;
-        if (img.closest(".img-lightbox") || img.closest("#launcher") || img.closest(".to-top")) return;
-        if (!img.src) return;
+// Deteksi ketukan ganda (double-tap) untuk Mobile (ketuk dua kali dalam 320ms)
+let lastTapTime = 0;
+let lastTapTarget = null;
+document.addEventListener("touchend", (e) => {
+  const img = e.target.closest("img");
+  if (!img) return;
+  if (img.closest(".img-lightbox") || img.closest("#launcher") || img.closest(".to-top")) return;
+  if (!img.src) return;
 
-        const now = Date.now();
-        const diff = now - lastTapTime;
-        if (diff < 320 && diff > 40 && lastTapTarget === img) {
-            e.preventDefault();
-            openLightbox(img);
-            lastTapTime = 0;
-            lastTapTarget = null;
-        } else {
-            lastTapTime = now;
-            lastTapTarget = img;
-        }
-    }, { passive: false });
+  const now = Date.now();
+  const diff = now - lastTapTime;
+  if (diff < 320 && diff > 40 && lastTapTarget === img) {
+    e.preventDefault();
+    openLightbox(img);
+    lastTapTime = 0;
+    lastTapTarget = null;
+  } else {
+    lastTapTime = now;
+    lastTapTarget = img;
+  }
+}, { passive: false });
 }
 
 /* ==========================================================================
-   UNIVERSAL SECTIONS: KRITIK & SARAN & FOOTER QUOTE SLIDER
-   - Kritik & Saran selalu hadir di seluruh halaman di atas Kutipan Inspiratif
-   - Sistem Warna Selang-Seling:
-     * Seksi Sebelumnya PUTIH -> Feedback HITAM -> Quote PUTIH
-     * Seksi Sebelumnya HITAM -> Feedback PUTIH -> Quote HITAM
-   - Proteksi kontras 100%: teks, kartu, badge, tombol selalu tajam dan terbaca
-   ========================================================================== */
+UNIVERSAL SECTIONS: KRITIK & SARAN & FOOTER QUOTE SLIDER
+- Kritik & Saran selalu hadir di seluruh halaman di atas Kutipan Inspiratif
+- Sistem Warna Selang-Seling:
+   * Seksi Sebelumnya PUTIH -> Feedback HITAM -> Quote PUTIH
+   * Seksi Sebelumnya HITAM -> Feedback PUTIH -> Quote HITAM
+- Proteksi kontras 100%: teks, kartu, badge, tombol selalu tajam dan terbaca
+========================================================================== */
 
 function detectIfPrecedingSectionIsDark(masukanEl) {
-    const path = (window.location.pathname || "").toLowerCase();
+const path = (window.location.pathname || "").toLowerCase();
 
-    // 1. Halaman yang seksi konten terakhirnya sudah pasti berlatar HITAM
-    if (document.body.classList.contains("page-peringkat") ||
-        document.body.classList.contains("page-motivasi") ||
-        document.body.classList.contains("page-404") ||
-        path.includes("/peringkat/") ||
-        path.includes("/rekomendasi/") ||
-        path.includes("404")) {
-        return true;
+// 1. Halaman yang seksi konten terakhirnya sudah pasti berlatar HITAM
+if (document.body.classList.contains("page-peringkat") ||
+  document.body.classList.contains("page-motivasi") ||
+  document.body.classList.contains("page-404") ||
+  path.includes("/peringkat/") ||
+  path.includes("/rekomendasi/") ||
+  path.includes("404")) {
+  return true;
+}
+
+// 2. Halaman yang seksi konten terakhirnya sudah pasti berlatar PUTIH
+if (document.body.classList.contains("page-tentang") ||
+  document.body.classList.contains("page-toko") ||
+  document.body.classList.contains("page-kamus") ||
+  document.body.classList.contains("page-lomba") ||
+  document.body.classList.contains("page-latihan") ||
+  document.body.classList.contains("page-kelas") ||
+  document.body.classList.contains("page-kegiatan") ||
+  path.includes("/tentang/") ||
+  path.includes("/toko/") ||
+  path.includes("/kamus/") ||
+  path.includes("/lomba/") ||
+  path.includes("/kegiatan/") ||
+  path.includes("/divisi/")) {
+  return false;
+}
+
+// 3. Inspeksi elemen sebelum #masukan di dalam DOM
+let prev = masukanEl ? masukanEl.previousElementSibling : null;
+while (prev && (prev.tagName === "SCRIPT" || prev.tagName === "STYLE" || prev.getAttribute?.("aria-hidden") === "true")) {
+  prev = prev.previousElementSibling;
+}
+
+// Jika elemen sebelumnya adalah <main> atau tidak ada (misal #masukan disisipkan langsung di <body>)
+if (!prev || prev.tagName === "MAIN") {
+  const main = (prev && prev.tagName === "MAIN") ? prev : document.querySelector("main");
+  if (main && main.lastElementChild && main.lastElementChild !== masukanEl) {
+    let innerPrev = main.lastElementChild;
+    while (innerPrev && (innerPrev.tagName === "SCRIPT" || innerPrev.tagName === "STYLE" || innerPrev.getAttribute?.("aria-hidden") === "true" || innerPrev === masukanEl)) {
+    innerPrev = innerPrev.previousElementSibling;
     }
-
-    // 2. Halaman yang seksi konten terakhirnya sudah pasti berlatar PUTIH
-    if (document.body.classList.contains("page-tentang") ||
-        document.body.classList.contains("page-toko") ||
-        document.body.classList.contains("page-kamus") ||
-        document.body.classList.contains("page-lomba") ||
-        document.body.classList.contains("page-latihan") ||
-        document.body.classList.contains("page-kelas") ||
-        document.body.classList.contains("page-kegiatan") ||
-        path.includes("/tentang/") ||
-        path.includes("/toko/") ||
-        path.includes("/kamus/") ||
-        path.includes("/lomba/") ||
-        path.includes("/kegiatan/") ||
-        path.includes("/divisi/")) {
-        return false;
+    if (innerPrev) {
+    prev = innerPrev;
     }
+  }
+}
 
-    // 3. Inspeksi elemen sebelum #masukan di dalam DOM
-    let prev = masukanEl ? masukanEl.previousElementSibling : null;
-    while (prev && (prev.tagName === "SCRIPT" || prev.tagName === "STYLE" || prev.getAttribute?.("aria-hidden") === "true")) {
-        prev = prev.previousElementSibling;
-    }
-
-    // Jika elemen sebelumnya adalah <main> atau tidak ada (misal #masukan disisipkan langsung di <body>)
-    if (!prev || prev.tagName === "MAIN") {
-        const main = (prev && prev.tagName === "MAIN") ? prev : document.querySelector("main");
-        if (main && main.lastElementChild && main.lastElementChild !== masukanEl) {
-            let innerPrev = main.lastElementChild;
-            while (innerPrev && (innerPrev.tagName === "SCRIPT" || innerPrev.tagName === "STYLE" || innerPrev.getAttribute?.("aria-hidden") === "true" || innerPrev === masukanEl)) {
-                innerPrev = innerPrev.previousElementSibling;
-            }
-            if (innerPrev) {
-                prev = innerPrev;
-            }
-        }
-    }
-
-    if (prev) {
-        // Selektor seksi Gelap (Hitam / Obsidian)
-        if (prev.matches(".home-activities-dark-section, .material-library, .media-rekomendasi-page, .peringkat-section, .motivasi-section, .error-404-container, .error-404-card")) {
-            return true;
-        }
-        // Selektor seksi Terang (Putih Bersih)
-        if (prev.matches(".management-section, .toko-faq-white-section, .translator-studio-section, .dictionary-section, .lomba-catalog-section, .buuku-lesson, .lesson-article, .documentation-section, #minigames, .quest-section, #kurikulum, .division-section, .proker-section")) {
-            return false;
-        }
-    }
-
-    // Beranda memiliki aktivitas gelap tepat di atas masukan
-    if (document.querySelector(".home-activities-dark-section")) {
-        return true;
-    }
-
-    // Seksi dokumentasi proker & buuku lesson selalu putih bersih
-    if (document.querySelector(".documentation-section, .buuku-lesson, .lesson-article, #minigames")) {
-        return false;
-    }
-
-    // 4. Deteksi dinamis fallback via getComputedStyle & luminansi
-    if (prev) {
-        let el = prev;
-        while (el && el !== document.body && el !== document.documentElement) {
-            const style = window.getComputedStyle(el);
-            const bg = style.backgroundColor;
-            if (bg && bg !== "transparent" && !bg.startsWith("rgba(0, 0, 0, 0)")) {
-                const rgb = bg.match(/\d+/g);
-                if (rgb && rgb.length >= 3) {
-                    const r = parseInt(rgb[0], 10);
-                    const g = parseInt(rgb[1], 10);
-                    const b = parseInt(rgb[2], 10);
-                    const luminance = 0.299 * r + 0.587 * g + 0.114 * b;
-                    return luminance < 128;
-                }
-            }
-            el = el.parentElement;
-        }
-    }
-
+if (prev) {
+  // Selektor seksi Gelap (Hitam / Obsidian)
+  if (prev.matches(".home-activities-dark-section, .material-library, .media-rekomendasi-page, .peringkat-section, .motivasi-section, .error-404-container, .error-404-card")) {
+    return true;
+  }
+  // Selektor seksi Terang (Putih Bersih)
+  if (prev.matches(".management-section, .toko-faq-white-section, .translator-studio-section, .dictionary-section, .lomba-catalog-section, .buuku-lesson, .lesson-article, .documentation-section, #minigames, .quest-section, #kurikulum, .division-section, .proker-section")) {
     return false;
+  }
+}
+
+// Beranda memiliki aktivitas gelap tepat di atas masukan
+if (document.querySelector(".home-activities-dark-section")) {
+  return true;
+}
+
+// Seksi dokumentasi proker & buuku lesson selalu putih bersih
+if (document.querySelector(".documentation-section, .buuku-lesson, .lesson-article, #minigames")) {
+  return false;
+}
+
+// 4. Deteksi dinamis fallback via getComputedStyle & luminansi
+if (prev) {
+  let el = prev;
+  while (el && el !== document.body && el !== document.documentElement) {
+    const style = window.getComputedStyle(el);
+    const bg = style.backgroundColor;
+    if (bg && bg !== "transparent" && !bg.startsWith("rgba(0, 0, 0, 0)")) {
+    const rgb = bg.match(/\d+/g);
+    if (rgb && rgb.length >= 3) {
+    const r = parseInt(rgb[0], 10);
+    const g = parseInt(rgb[1], 10);
+    const b = parseInt(rgb[2], 10);
+    const luminance = 0.299 * r + 0.587 * g + 0.114 * b;
+    return luminance < 128;
+    }
+    }
+    el = el.parentElement;
+  }
+}
+
+return false;
 }
 
 function setupUniversalFeedbackAndQuote() {
-    const footer = document.querySelector(".global-footer");
-    if (!footer) return;
+const footer = document.querySelector(".global-footer");
+if (!footer) return;
 
-    const basePath = getAppBasePath();
+const basePath = getAppBasePath();
 
-    // 1. Dapatkan atau buat elemen #masukan (Kritik & Saran)
-    let masukanEl = document.getElementById("masukan");
+// 1. Dapatkan atau buat elemen #masukan (Kritik & Saran)
+let masukanEl = document.getElementById("masukan");
 
-    if (!masukanEl) {
-        masukanEl = document.createElement("section");
-        masukanEl.className = "section feedback-preview";
-        masukanEl.id = "masukan";
-        masukanEl.setAttribute("aria-label", "Kritik dan Saran Klub Mirai no Hana");
-        masukanEl.innerHTML = `
+if (!masukanEl) {
+  masukanEl = document.createElement("section");
+  masukanEl.className = "section feedback-preview";
+  masukanEl.id = "masukan";
+  masukanEl.setAttribute("aria-label", "Kritik dan Saran Klub Mirai no Hana");
+  masukanEl.innerHTML = `
             <div class="feedback-feature-card" data-expand-card>
                 <div class="feedback-feature-header">
                     <span class="feedback-feature-tag">
@@ -1309,179 +1309,179 @@ function setupUniversalFeedbackAndQuote() {
                 <img class="card-corner-chibi" src="${basePath}images/mirai/icon/Fa.png" alt="Mascot Feedback Mirai No Hana" aria-hidden="true">
             </div>
         `;
-        footer.parentNode.insertBefore(masukanEl, footer);
-    }
+  footer.parentNode.insertBefore(masukanEl, footer);
+}
 
-    masukanEl.classList.add("is-visible");
+masukanEl.classList.add("is-visible");
 
-    // 2. Deteksi warna seksi sebelumnya (Preceding Section)
-    const isPrecedingDark = detectIfPrecedingSectionIsDark(masukanEl);
+// 2. Deteksi warna seksi sebelumnya (Preceding Section)
+const isPrecedingDark = detectIfPrecedingSectionIsDark(masukanEl);
 
-    // 3. Terapkan kelas tema selang-seling pada #masukan:
-    // Jika preceding gelap -> masukan PUTIH
-    // Jika preceding terang -> masukan HITAM
-    if (isPrecedingDark) {
-        masukanEl.classList.remove("feedback-theme-dark");
-        masukanEl.classList.add("feedback-theme-white");
-    } else {
-        masukanEl.classList.remove("feedback-theme-white");
-        masukanEl.classList.add("feedback-theme-dark");
-    }
+// 3. Terapkan kelas tema selang-seling pada #masukan:
+// Jika preceding gelap -> masukan PUTIH
+// Jika preceding terang -> masukan HITAM
+if (isPrecedingDark) {
+  masukanEl.classList.remove("feedback-theme-dark");
+  masukanEl.classList.add("feedback-theme-white");
+} else {
+  masukanEl.classList.remove("feedback-theme-white");
+  masukanEl.classList.add("feedback-theme-dark");
+}
 
-    // 4. Setup Kutipan Motivasi Slider (Kecuali halaman arsip motivasi itu sendiri)
-    if (!document.body.classList.contains("page-motivasi")) {
-        let quoteSection = document.getElementById("footerQuoteSliderSection");
-        if (!quoteSection) {
-            quoteSection = initFooterQuoteSlider(footer, basePath);
-        }
+// 4. Setup Kutipan Motivasi Slider (Kecuali halaman arsip motivasi itu sendiri)
+if (!document.body.classList.contains("page-motivasi")) {
+  let quoteSection = document.getElementById("footerQuoteSliderSection");
+  if (!quoteSection) {
+    quoteSection = initFooterQuoteSlider(footer, basePath);
+  }
 
-        // Terapkan tema selang-seling pada slider kutipan:
-        // Jika preceding gelap -> masukan putih -> quote slider HITAM
-        // Jika preceding terang -> masukan hitam -> quote slider PUTIH
-        if (isPrecedingDark) {
-            quoteSection.classList.remove("quote-theme-white");
-            quoteSection.classList.add("quote-theme-dark");
-        } else {
-            quoteSection.classList.remove("quote-theme-dark");
-            quoteSection.classList.add("quote-theme-white");
-        }
-    }
+  // Terapkan tema selang-seling pada slider kutipan:
+  // Jika preceding gelap -> masukan putih -> quote slider HITAM
+  // Jika preceding terang -> masukan hitam -> quote slider PUTIH
+  if (isPrecedingDark) {
+    quoteSection.classList.remove("quote-theme-white");
+    quoteSection.classList.add("quote-theme-dark");
+  } else {
+    quoteSection.classList.remove("quote-theme-dark");
+    quoteSection.classList.add("quote-theme-white");
+  }
+}
 
-    // 5. Inisialisasi kartu expandable jika belum terpasang
-    setupExpandableCards();
+// 5. Inisialisasi kartu expandable jika belum terpasang
+setupExpandableCards();
 }
 
 function setupFooterQuoteSlider() {
-    setupUniversalFeedbackAndQuote();
+setupUniversalFeedbackAndQuote();
 }
 
 function initFooterQuoteSlider(footer, basePath) {
-    const quotes = [
-        {
-            id: 1,
-            animeId: "one-piece",
-            tokohBadge: "Tokoh 1 · 麦わらのルフィ",
-            tag: "ONE PIECE · ワンピース · EIICHIRO ODA",
-            name: "Monkey D. Luffy",
-            anime: "One Piece",
-            animeJP: "ワンピース",
-            author: "Eiichiro Oda",
-            image: "luf.jpeg",
-            chibi: "Ay.png",
-            kanji: "海賊王に、おれはなる！",
-            romaji: "Kaizoku-ou ni, ore wa naru!",
-            literal: 'Arti Harfiah: "Aku akan menjadi Raja Bajak Laut!"',
-            meaningTitle: "Berani Bermimpi Besar Tanpa Ragu",
-            meaningText: "Deklarasi tanpa kompromi untuk menancapkan tujuan hidup setinggi-tingginya. Jangan takut memimpikan hal yang dianggap mustahil oleh orang lain; ucapkan dengan yakin dan kejarlah dengan seluruh tenaga.",
-            accent: "#ff5252",
-            glow: "rgba(255, 82, 82, 0.4)",
-            line: "linear-gradient(90deg, #ff5252, #ffb142)",
-            border: "rgba(255, 82, 82, 0.35)",
-            badgeBg: "rgba(255, 82, 82, 0.16)",
-            badgeBorder: "rgba(255, 82, 82, 0.45)"
-        },
-        {
-            id: 2,
-            animeId: "attack-on-titan",
-            tokohBadge: "Tokoh 2 · 調査兵団",
-            tag: "ATTACK ON TITAN · 進撃の巨人 · HAJIME ISAYAMA",
-            name: "Eren Yeager & Pasukan Penyelidik",
-            anime: "Attack on Titan",
-            animeJP: "進撃の巨人",
-            author: "Hajime Isayama",
-            image: "ere.jpeg",
-            chibi: "Ka.png",
-            kanji: "心臓を捧げよ！",
-            romaji: "Shinzou o sasageyo!",
-            literal: 'Arti Harfiah: "Persembahkan hatimu!"',
-            meaningTitle: "Dedikasi Total & Berikan yang Terbaik",
-            meaningText: 'Memberikan "hati" bukan berarti mengorbankan nyawa secara sia-sia, melainkan mencurahkan 100% komitmen, energi, dan ketulusan pada apa yang sedang diperjuangkan (seperti belajar, berkarya, atau memajukan komunitas).',
-            accent: "#10b981",
-            glow: "rgba(16, 185, 129, 0.4)",
-            line: "linear-gradient(90deg, #10b981, #34d399)",
-            border: "rgba(16, 185, 129, 0.35)",
-            badgeBg: "rgba(16, 185, 129, 0.16)",
-            badgeBorder: "rgba(16, 185, 129, 0.45)"
-        },
-        {
-            id: 3,
-            animeId: "naruto",
-            tokohBadge: "Tokoh 3 · うずまきナルト",
-            tag: "NARUTO · ナルト · MASASHI KISHIMOTO",
-            name: "Uzumaki Naruto",
-            anime: "Naruto",
-            animeJP: "NARUTO -ナルト-",
-            author: "Masashi Kishimoto",
-            image: "nar.jpeg",
-            chibi: "Lo.png",
-            kanji: "まっすぐ自分の言葉は曲げねぇ。それが俺の忍道だ！",
-            romaji: "Massugu jibun no kotoba wa magenee. Sore ga ore no nindou da!",
-            literal: 'Arti Harfiah: "Aku tidak akan menarik kembali kata-kataku. Itulah jalan ninjaku!"',
-            meaningTitle: "Integritas & Memegang Teguh Prinsip",
-            meaningText: "Komitmen sejati terhadap janji dan tujuan diri sendiri. Apabila sudah menetapkan target untuk berkembang, jangan goyah oleh godaan rasa malas atau omongan orang lain.",
-            accent: "#f97316",
-            glow: "rgba(249, 115, 22, 0.4)",
-            line: "linear-gradient(90deg, #f97316, #fbbf24)",
-            border: "rgba(249, 115, 22, 0.35)",
-            badgeBg: "rgba(249, 115, 22, 0.16)",
-            badgeBorder: "rgba(249, 115, 22, 0.45)"
-        },
-        {
-            id: 4,
-            animeId: "my-hero-academia",
-            tokohBadge: "Tokoh 4 · デク · PLUS ULTRA",
-            tag: "MY HERO ACADEMIA · 僕のヒーローアカデミア · KOHEI HORIKOSHI",
-            name: "Midoriya Izuku (Deku)",
-            anime: "My Hero Academia",
-            animeJP: "僕のヒーローアカデミア",
-            author: "Kohei Horikoshi",
-            image: "dek.jpeg",
-            chibi: "Al.png",
-            kanji: "限界を超えて、さらに向こうへ！プルス・ウルトラ！",
-            romaji: "Genkai o koete, sara ni mukou e! Purusu Urutora! (Plus Ultra)",
-            literal: 'Arti Harfiah: "Lampaui batas, melangkah lebih jauh lagi! Plus Ultra!"',
-            meaningTitle: "Terus Mengembangkan Diri Tanpa Batas",
-            meaningText: "Saat merasa sudah berada di ujung kemampuan, itu adalah tanda bahwa potensi diri sedang siap naik ke tingkat berikutnya. Selalu ada ruang untuk melangkah satu langkah lebih jauh dari kemarin.",
-            accent: "#06b6d4",
-            glow: "rgba(6, 182, 212, 0.4)",
-            line: "linear-gradient(90deg, #06b6d4, #10b981)",
-            border: "rgba(6, 182, 212, 0.35)",
-            badgeBg: "rgba(6, 182, 212, 0.16)",
-            badgeBorder: "rgba(6, 182, 212, 0.45)"
-        },
-        {
-            id: 5,
-            animeId: "demon-slayer",
-            tokohBadge: "Tokoh 5 · 竈門炭治郎",
-            tag: "DEMON SLAYER · 鬼滅の刃 · KOYOHARU GOTOUGE",
-            name: "Tanjiro Kamado",
-            anime: "Demon Slayer",
-            animeJP: "鬼滅の刃",
-            author: "Koyoharu Gotouge",
-            image: "tan.jpeg",
-            chibi: "Fu.png",
-            kanji: "頑張れ炭治郎、頑張れ！俺は今までよくやってきた！",
-            romaji: "Ganbare Tanjiro, ganbare! Ore wa ima made yoku yatte kita!",
-            literal: 'Arti Harfiah: "Semangat Tanjiro, semangat! Selama ini aku sudah berjuang dengan baik!"',
-            meaningTitle: "Apresiasi Diri Sendiri (Self-Compassion)",
-            meaningText: "Saat menghadapi rintangan berat, jangan terburu-buru mengkritik diri sendiri. Beri semangat pada diri, hargai proses perjuangan yang telah dilewati, lalu bangkit lagi dengan kepala tegak.",
-            accent: "#38bdf8",
-            glow: "rgba(56, 189, 248, 0.4)",
-            line: "linear-gradient(90deg, #38bdf8, #ef4444)",
-            border: "rgba(56, 189, 248, 0.35)",
-            badgeBg: "rgba(56, 189, 248, 0.16)",
-            badgeBorder: "rgba(56, 189, 248, 0.45)"
-        }
-    ];
+const quotes = [
+  {
+    id: 1,
+    animeId: "one-piece",
+    tokohBadge: "Tokoh 1 · 麦わらのルフィ",
+    tag: "ONE PIECE · ワンピース · EIICHIRO ODA",
+    name: "Monkey D. Luffy",
+    anime: "One Piece",
+    animeJP: "ワンピース",
+    author: "Eiichiro Oda",
+    image: "luf.jpeg",
+    chibi: "Ay.png",
+    kanji: "海賊王に、おれはなる！",
+    romaji: "Kaizoku-ou ni, ore wa naru!",
+    literal: 'Arti Harfiah: "Aku akan menjadi Raja Bajak Laut!"',
+    meaningTitle: "Berani Bermimpi Besar Tanpa Ragu",
+    meaningText: "Deklarasi tanpa kompromi untuk menancapkan tujuan hidup setinggi-tingginya. Jangan takut memimpikan hal yang dianggap mustahil oleh orang lain; ucapkan dengan yakin dan kejarlah dengan seluruh tenaga.",
+    accent: "#ff5252",
+    glow: "rgba(255, 82, 82, 0.4)",
+    line: "linear-gradient(90deg, #ff5252, #ffb142)",
+    border: "rgba(255, 82, 82, 0.35)",
+    badgeBg: "rgba(255, 82, 82, 0.16)",
+    badgeBorder: "rgba(255, 82, 82, 0.45)"
+  },
+  {
+    id: 2,
+    animeId: "attack-on-titan",
+    tokohBadge: "Tokoh 2 · 調査兵団",
+    tag: "ATTACK ON TITAN · 進撃の巨人 · HAJIME ISAYAMA",
+    name: "Eren Yeager & Pasukan Penyelidik",
+    anime: "Attack on Titan",
+    animeJP: "進撃の巨人",
+    author: "Hajime Isayama",
+    image: "ere.jpeg",
+    chibi: "Ka.png",
+    kanji: "心臓を捧げよ！",
+    romaji: "Shinzou o sasageyo!",
+    literal: 'Arti Harfiah: "Persembahkan hatimu!"',
+    meaningTitle: "Dedikasi Total & Berikan yang Terbaik",
+    meaningText: 'Memberikan "hati" bukan berarti mengorbankan nyawa secara sia-sia, melainkan mencurahkan 100% komitmen, energi, dan ketulusan pada apa yang sedang diperjuangkan (seperti belajar, berkarya, atau memajukan komunitas).',
+    accent: "#10b981",
+    glow: "rgba(16, 185, 129, 0.4)",
+    line: "linear-gradient(90deg, #10b981, #34d399)",
+    border: "rgba(16, 185, 129, 0.35)",
+    badgeBg: "rgba(16, 185, 129, 0.16)",
+    badgeBorder: "rgba(16, 185, 129, 0.45)"
+  },
+  {
+    id: 3,
+    animeId: "naruto",
+    tokohBadge: "Tokoh 3 · うずまきナルト",
+    tag: "NARUTO · ナルト · MASASHI KISHIMOTO",
+    name: "Uzumaki Naruto",
+    anime: "Naruto",
+    animeJP: "NARUTO -ナルト-",
+    author: "Masashi Kishimoto",
+    image: "nar.jpeg",
+    chibi: "Lo.png",
+    kanji: "まっすぐ自分の言葉は曲げねぇ。それが俺の忍道だ！",
+    romaji: "Massugu jibun no kotoba wa magenee. Sore ga ore no nindou da!",
+    literal: 'Arti Harfiah: "Aku tidak akan menarik kembali kata-kataku. Itulah jalan ninjaku!"',
+    meaningTitle: "Integritas & Memegang Teguh Prinsip",
+    meaningText: "Komitmen sejati terhadap janji dan tujuan diri sendiri. Apabila sudah menetapkan target untuk berkembang, jangan goyah oleh godaan rasa malas atau omongan orang lain.",
+    accent: "#f97316",
+    glow: "rgba(249, 115, 22, 0.4)",
+    line: "linear-gradient(90deg, #f97316, #fbbf24)",
+    border: "rgba(249, 115, 22, 0.35)",
+    badgeBg: "rgba(249, 115, 22, 0.16)",
+    badgeBorder: "rgba(249, 115, 22, 0.45)"
+  },
+  {
+    id: 4,
+    animeId: "my-hero-academia",
+    tokohBadge: "Tokoh 4 · デク · PLUS ULTRA",
+    tag: "MY HERO ACADEMIA · 僕のヒーローアカデミア · KOHEI HORIKOSHI",
+    name: "Midoriya Izuku (Deku)",
+    anime: "My Hero Academia",
+    animeJP: "僕のヒーローアカデミア",
+    author: "Kohei Horikoshi",
+    image: "dek.jpeg",
+    chibi: "Al.png",
+    kanji: "限界を超えて、さらに向こうへ！プルス・ウルトラ！",
+    romaji: "Genkai o koete, sara ni mukou e! Purusu Urutora! (Plus Ultra)",
+    literal: 'Arti Harfiah: "Lampaui batas, melangkah lebih jauh lagi! Plus Ultra!"',
+    meaningTitle: "Terus Mengembangkan Diri Tanpa Batas",
+    meaningText: "Saat merasa sudah berada di ujung kemampuan, itu adalah tanda bahwa potensi diri sedang siap naik ke tingkat berikutnya. Selalu ada ruang untuk melangkah satu langkah lebih jauh dari kemarin.",
+    accent: "#06b6d4",
+    glow: "rgba(6, 182, 212, 0.4)",
+    line: "linear-gradient(90deg, #06b6d4, #10b981)",
+    border: "rgba(6, 182, 212, 0.35)",
+    badgeBg: "rgba(6, 182, 212, 0.16)",
+    badgeBorder: "rgba(6, 182, 212, 0.45)"
+  },
+  {
+    id: 5,
+    animeId: "demon-slayer",
+    tokohBadge: "Tokoh 5 · 竈門炭治郎",
+    tag: "DEMON SLAYER · 鬼滅の刃 · KOYOHARU GOTOUGE",
+    name: "Tanjiro Kamado",
+    anime: "Demon Slayer",
+    animeJP: "鬼滅の刃",
+    author: "Koyoharu Gotouge",
+    image: "tan.jpeg",
+    chibi: "Fu.png",
+    kanji: "頑張れ炭治郎、頑張れ！俺は今までよくやってきた！",
+    romaji: "Ganbare Tanjiro, ganbare! Ore wa ima made yoku yatte kita!",
+    literal: 'Arti Harfiah: "Semangat Tanjiro, semangat! Selama ini aku sudah berjuang dengan baik!"',
+    meaningTitle: "Apresiasi Diri Sendiri (Self-Compassion)",
+    meaningText: "Saat menghadapi rintangan berat, jangan terburu-buru mengkritik diri sendiri. Beri semangat pada diri, hargai proses perjuangan yang telah dilewati, lalu bangkit lagi dengan kepala tegak.",
+    accent: "#38bdf8",
+    glow: "rgba(56, 189, 248, 0.4)",
+    line: "linear-gradient(90deg, #38bdf8, #ef4444)",
+    border: "rgba(56, 189, 248, 0.35)",
+    badgeBg: "rgba(56, 189, 248, 0.16)",
+    badgeBorder: "rgba(56, 189, 248, 0.45)"
+  }
+];
 
-    let currentIndex = 0;
-    let autoTimer = null;
+let currentIndex = 0;
+let autoTimer = null;
 
-    const section = document.createElement("section");
-    section.className = "section-quote-slider";
-    section.id = "footerQuoteSliderSection";
-    section.setAttribute("aria-label", "Kata-Kata Motivasi Karakter Anime");
-    section.innerHTML = `
+const section = document.createElement("section");
+section.className = "section-quote-slider";
+section.id = "footerQuoteSliderSection";
+section.setAttribute("aria-label", "Kata-Kata Motivasi Karakter Anime");
+section.innerHTML = `
         <div class="footer-quote-slider-section">
             <div class="footer-quote-slider-header">
                 <div class="footer-quote-header-left">
@@ -1504,19 +1504,19 @@ function initFooterQuoteSlider(footer, basePath) {
         </div>
     `;
 
-    footer.parentNode.insertBefore(section, footer);
+footer.parentNode.insertBefore(section, footer);
 
-    const cardContainer = section.querySelector("#footerQuoteCardContainer");
-    const counterEl = section.querySelector("#footerQuoteCounter");
-    const prevBtn = section.querySelector("#footerQuotePrevBtn");
-    const nextBtn = section.querySelector("#footerQuoteNextBtn");
-    const dots = section.querySelectorAll(".footer-quote-dot");
+const cardContainer = section.querySelector("#footerQuoteCardContainer");
+const counterEl = section.querySelector("#footerQuoteCounter");
+const prevBtn = section.querySelector("#footerQuotePrevBtn");
+const nextBtn = section.querySelector("#footerQuoteNextBtn");
+const dots = section.querySelectorAll(".footer-quote-dot");
 
-    function renderSlide(index) {
-        currentIndex = (index + quotes.length) % quotes.length;
-        const q = quotes[currentIndex];
+function renderSlide(index) {
+  currentIndex = (index + quotes.length) % quotes.length;
+  const q = quotes[currentIndex];
 
-        cardContainer.innerHTML = `
+  cardContainer.innerHTML = `
             <article class="quote-card quote-slide-enter" data-anime="${q.animeId}" style="--quote-accent: ${q.accent}; --quote-glow: ${q.glow}; --quote-line: ${q.line}; --quote-border: ${q.border}; --quote-badge-bg: ${q.badgeBg}; --quote-badge-border: ${q.badgeBorder};">
                 <div class="quote-card-header">
                     <span class="quote-card-badge">
@@ -1555,653 +1555,653 @@ function initFooterQuoteSlider(footer, basePath) {
             </article>
         `;
 
-        if (counterEl) counterEl.textContent = `${currentIndex + 1} / ${quotes.length}`;
+  if (counterEl) counterEl.textContent = `${currentIndex + 1} / ${quotes.length}`;
 
-        dots.forEach((dot, i) => {
-            dot.classList.toggle("active", i === currentIndex);
-            if (i === currentIndex) {
-                dot.style.setProperty("--quote-accent", q.accent);
-            }
-        });
+  dots.forEach((dot, i) => {
+    dot.classList.toggle("active", i === currentIndex);
+    if (i === currentIndex) {
+    dot.style.setProperty("--quote-accent", q.accent);
     }
+  });
+}
 
-    function startAutoTimer() {
-        stopAutoTimer();
-        autoTimer = setInterval(() => {
-            renderSlide(currentIndex + 1);
-        }, 6500);
-    }
+function startAutoTimer() {
+  stopAutoTimer();
+  autoTimer = setInterval(() => {
+    renderSlide(currentIndex + 1);
+  }, 6500);
+}
 
-    function stopAutoTimer() {
-        if (autoTimer) {
-            clearInterval(autoTimer);
-            autoTimer = null;
-        }
-    }
+function stopAutoTimer() {
+  if (autoTimer) {
+    clearInterval(autoTimer);
+    autoTimer = null;
+  }
+}
 
-    prevBtn?.addEventListener("click", () => {
-        renderSlide(currentIndex - 1);
-        startAutoTimer();
-    });
+prevBtn?.addEventListener("click", () => {
+  renderSlide(currentIndex - 1);
+  startAutoTimer();
+});
 
-    nextBtn?.addEventListener("click", () => {
-        renderSlide(currentIndex + 1);
-        startAutoTimer();
-    });
+nextBtn?.addEventListener("click", () => {
+  renderSlide(currentIndex + 1);
+  startAutoTimer();
+});
 
-    dots.forEach((dot, i) => {
-        dot.addEventListener("click", () => {
-            renderSlide(i);
-            startAutoTimer();
-        });
-    });
-
-    section.addEventListener("mouseenter", stopAutoTimer);
-    section.addEventListener("mouseleave", startAutoTimer);
-
-    let touchStartX = 0;
-    section.addEventListener("touchstart", (e) => {
-        touchStartX = e.touches[0].clientX;
-        stopAutoTimer();
-    }, { passive: true });
-
-    section.addEventListener("touchend", (e) => {
-        const touchEndX = e.changedTouches[0].clientX;
-        const diffX = touchEndX - touchStartX;
-        if (Math.abs(diffX) > 45) {
-            if (diffX < 0) {
-                renderSlide(currentIndex + 1);
-            } else {
-                renderSlide(currentIndex - 1);
-            }
-        }
-        startAutoTimer();
-    }, { passive: true });
-
-    renderSlide(0);
+dots.forEach((dot, i) => {
+  dot.addEventListener("click", () => {
+    renderSlide(i);
     startAutoTimer();
+  });
+});
 
-    return section;
+section.addEventListener("mouseenter", stopAutoTimer);
+section.addEventListener("mouseleave", startAutoTimer);
+
+let touchStartX = 0;
+section.addEventListener("touchstart", (e) => {
+  touchStartX = e.touches[0].clientX;
+  stopAutoTimer();
+}, { passive: true });
+
+section.addEventListener("touchend", (e) => {
+  const touchEndX = e.changedTouches[0].clientX;
+  const diffX = touchEndX - touchStartX;
+  if (Math.abs(diffX) > 45) {
+    if (diffX < 0) {
+    renderSlide(currentIndex + 1);
+    } else {
+    renderSlide(currentIndex - 1);
+    }
+  }
+  startAutoTimer();
+}, { passive: true });
+
+renderSlide(0);
+startAutoTimer();
+
+return section;
 }
 
 
 function setupExpandableCards() {
-    const cards = document.querySelectorAll("[data-expand-card]");
-    if (!cards.length) return;
+const cards = document.querySelectorAll("[data-expand-card]");
+if (!cards.length) return;
 
-    cards.forEach((card) => {
-        if (card.dataset.expandBound === "true") return;
-        card.dataset.expandBound = "true";
+cards.forEach((card) => {
+  if (card.dataset.expandBound === "true") return;
+  card.dataset.expandBound = "true";
 
-        const toggleBtn = card.querySelector(".card-toggle");
-        const isAboutDrawerCard = card.classList.contains("about-drawer-card") || card.id === "mnhAboutDrawerCard";
+  const toggleBtn = card.querySelector(".card-toggle");
+  const isAboutDrawerCard = card.classList.contains("about-drawer-card") || card.id === "mnhAboutDrawerCard";
 
-        if (isAboutDrawerCard) {
-            setupAboutDrawerCard(card, toggleBtn);
-            return;
-        }
+  if (isAboutDrawerCard) {
+    setupAboutDrawerCard(card, toggleBtn);
+    return;
+  }
 
-        // Standard 2-step card logic for all other cards
-        card.addEventListener("click", (e) => {
-            if (card.classList.contains("card-coming-soon-locked") || !isAccessUnlocked()) {
-                if (card.classList.contains("card-coming-soon-locked")) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    window.MiraiSound?.playClickIfIdle();
-                    openPasswordModal();
-                    return;
-                }
-            }
+  // Standard 2-step card logic for all other cards
+  card.addEventListener("click", (e) => {
+    if (card.classList.contains("card-coming-soon-locked") || !isAccessUnlocked()) {
+    if (card.classList.contains("card-coming-soon-locked")) {
+    e.preventDefault();
+    e.stopPropagation();
+    window.MiraiSound?.playClickIfIdle();
+    openPasswordModal();
+    return;
+    }
+    }
 
-            const ctaBtn = e.target.closest("[data-expand-cta]");
-            if (ctaBtn) {
-                // Biarkan kombinasi Ctrl / Cmd / Shift / Alt klik membuka tab baru secara normal
-                if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) {
-                    return;
-                }
+    const ctaBtn = e.target.closest("[data-expand-cta]");
+    if (ctaBtn) {
+    // Biarkan kombinasi Ctrl / Cmd / Shift / Alt klik membuka tab baru secara normal
+    if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) {
+    return;
+    }
 
-                // Jika kartu masih tertutup: buka kartu dulu dan batalkan navigasi
-                if (!card.classList.contains("is-expanded")) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    toggleCard(card, true);
-                    return;
-                }
-                // Jika kartu sudah terbuka: navigasi berjalan normal, stop bubbling agar kartu tidak tertutup
-                e.stopPropagation();
-                return;
-            }
+    // Jika kartu masih tertutup: buka kartu dulu dan batalkan navigasi
+    if (!card.classList.contains("is-expanded")) {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleCard(card, true);
+    return;
+    }
+    // Jika kartu sudah terbuka: navigasi berjalan normal, stop bubbling agar kartu tidak tertutup
+    e.stopPropagation();
+    return;
+    }
 
-            // Jika klik pada link atau tombol interaktif lain selain toggle
-            const otherInteractive = e.target.closest("a, button:not(.card-toggle), input, textarea, select");
-            if (otherInteractive) {
-                return;
-            }
+    // Jika klik pada link atau tombol interaktif lain selain toggle
+    const otherInteractive = e.target.closest("a, button:not(.card-toggle), input, textarea, select");
+    if (otherInteractive) {
+    return;
+    }
 
-            // Toggle buka / tutup kartu
-            const nextState = !card.classList.contains("is-expanded");
-            toggleCard(card, nextState);
-        });
+    // Toggle buka / tutup kartu
+    const nextState = !card.classList.contains("is-expanded");
+    toggleCard(card, nextState);
+  });
 
-        // Handler khusus toggle button (keyboard accessible & click)
-        if (toggleBtn) {
-            toggleBtn.addEventListener("click", (e) => {
-                e.stopPropagation();
-                const nextState = !card.classList.contains("is-expanded");
-                toggleCard(card, nextState);
-            });
-        }
+  // Handler khusus toggle button (keyboard accessible & click)
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const nextState = !card.classList.contains("is-expanded");
+    toggleCard(card, nextState);
     });
+  }
+});
 
-    function toggleCard(card, shouldOpen) {
-        // Multi-expand universal: kartu yang terbuka bisa lebih dari satu secara bersamaan,
-        // kartu lain tidak tertutup otomatis dan hanya tertutup jika kartu bersangkutan diklik kembali.
-        card.classList.toggle("is-expanded", shouldOpen);
+function toggleCard(card, shouldOpen) {
+  // Multi-expand universal: kartu yang terbuka bisa lebih dari satu secara bersamaan,
+  // kartu lain tidak tertutup otomatis dan hanya tertutup jika kartu bersangkutan diklik kembali.
+  card.classList.toggle("is-expanded", shouldOpen);
 
-        const toggleBtn = card.querySelector(".card-toggle");
-        if (toggleBtn) {
-            toggleBtn.setAttribute("aria-expanded", shouldOpen ? "true" : "false");
-            toggleBtn.setAttribute("aria-label", shouldOpen ? "Tutup detail kartu" : "Buka detail kartu");
-        }
-        window.MiraiSound?.play("toggle");
+  const toggleBtn = card.querySelector(".card-toggle");
+  if (toggleBtn) {
+    toggleBtn.setAttribute("aria-expanded", shouldOpen ? "true" : "false");
+    toggleBtn.setAttribute("aria-label", shouldOpen ? "Tutup detail kartu" : "Buka detail kartu");
+  }
+  window.MiraiSound?.play("toggle");
+}
+
+/**
+   * Khusus Card Tentang Mirai no Hana:
+   * Alur 3x Klik & Penutupan Bertahap:
+   * - Klik 1 (card / tombol saat tertutup): buka deskripsi kartu (is-expanded: true, is-pulled: false)
+   * - Klik 2 (card / tombol saat deskripsi buka): buka animasi laci logo NK (is-pulled: true)
+   * - Klik 3 (tombol saat animasi logo NK buka): navigasi menuju halaman tujuan (tentang/index.html)
+   * - Klik mundur 1 (card saat animasi logo NK buka): tutup animasi logo NK (is-pulled: false, deskripsi tetap buka)
+   * - Klik mundur 2 (card saat deskripsi buka setelah animasi tutup): tutup deskripsi kartu (is-expanded: false)
+*/
+function setupAboutDrawerCard(card, toggleBtn) {
+  function updateToggle(shouldOpen) {
+    if (toggleBtn) {
+    toggleBtn.setAttribute("aria-expanded", shouldOpen ? "true" : "false");
+    toggleBtn.setAttribute("aria-label", shouldOpen ? "Tutup detail kartu" : "Buka detail kartu");
+    }
+  }
+
+  card.addEventListener("click", (e) => {
+    if (card.classList.contains("card-coming-soon-locked") || !isAccessUnlocked()) {
+    e.preventDefault();
+    e.stopPropagation();
+    window.MiraiSound?.playClickIfIdle();
+    openPasswordModal();
+    return;
     }
 
-    /**
-     * Khusus Card Tentang Mirai no Hana:
-     * Alur 3x Klik & Penutupan Bertahap:
-     * - Klik 1 (card / tombol saat tertutup): buka deskripsi kartu (is-expanded: true, is-pulled: false)
-     * - Klik 2 (card / tombol saat deskripsi buka): buka animasi laci logo NK (is-pulled: true)
-     * - Klik 3 (tombol saat animasi logo NK buka): navigasi menuju halaman tujuan (tentang/index.html)
-     * - Klik mundur 1 (card saat animasi logo NK buka): tutup animasi logo NK (is-pulled: false, deskripsi tetap buka)
-     * - Klik mundur 2 (card saat deskripsi buka setelah animasi tutup): tutup deskripsi kartu (is-expanded: false)
-     */
-    function setupAboutDrawerCard(card, toggleBtn) {
-        function updateToggle(shouldOpen) {
-            if (toggleBtn) {
-                toggleBtn.setAttribute("aria-expanded", shouldOpen ? "true" : "false");
-                toggleBtn.setAttribute("aria-label", shouldOpen ? "Tutup detail kartu" : "Buka detail kartu");
-            }
-        }
+    const ctaBtn = e.target.closest("[data-expand-cta]");
 
-        card.addEventListener("click", (e) => {
-            if (card.classList.contains("card-coming-soon-locked") || !isAccessUnlocked()) {
-                e.preventDefault();
-                e.stopPropagation();
-                window.MiraiSound?.playClickIfIdle();
-                openPasswordModal();
-                return;
-            }
-
-            const ctaBtn = e.target.closest("[data-expand-cta]");
-
-            // 1. Aksi Klik pada Tombol CTA ("TENTANG MIRAI NO HANA ->")
-            if (ctaBtn) {
-                if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) {
-                    return;
-                }
-
-                // Klik 1: Jika kartu masih tertutup -> buka deskripsi
-                if (!card.classList.contains("is-expanded")) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    card.classList.add("is-expanded");
-                    card.classList.remove("is-pulled");
-                    card.dataset.drawerPhase = "desc";
-                    updateToggle(true);
-                    return;
-                }
-
-                // Klik 2: Jika deskripsi sudah buka, tapi animasi logo NK belum buka -> buka animasi logo NK
-                if (!card.classList.contains("is-pulled")) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    card.classList.add("is-pulled");
-                    card.dataset.drawerPhase = "logo";
-                    return;
-                }
-
-                // Klik 3: Jika animasi logo NK sudah buka -> pindah ke page yang dituju
-                e.stopPropagation();
-                return;
-            }
-
-            // Abaikan jika klik elemen interaktif lain selain toggle
-            const otherInteractive = e.target.closest("a, input, textarea, select");
-            if (otherInteractive) {
-                return;
-            }
-
-            // 2. Aksi Klik pada Area Card atau Tombol Toggle
-            // Klik 1: Jika kartu masih tertutup -> buka deskripsi
-            if (!card.classList.contains("is-expanded")) {
-                card.classList.add("is-expanded");
-                card.classList.remove("is-pulled");
-                card.dataset.drawerPhase = "desc";
-                updateToggle(true);
-                return;
-            }
-
-            // Klik mundur 1: Jika animasi logo NK sedang buka -> tutup animasi logo NK
-            if (card.classList.contains("is-pulled")) {
-                card.classList.remove("is-pulled");
-                card.dataset.drawerPhase = "closing"; // Tandai fase penutupan mundur
-                return;
-            }
-
-            // Klik mundur 2: Jika deskripsi buka dan animasi baru ditutup -> tutup deskripsi
-            if (card.dataset.drawerPhase === "closing") {
-                card.classList.remove("is-expanded");
-                card.classList.remove("is-pulled");
-                card.dataset.drawerPhase = "0";
-                updateToggle(false);
-                return;
-            }
-
-            // Klik 2 (fase maju): Jika deskripsi buka -> buka animasi logo NK
-            card.classList.add("is-pulled");
-            card.dataset.drawerPhase = "logo";
-        });
+    // 1. Aksi Klik pada Tombol CTA ("TENTANG MIRAI NO HANA ->")
+    if (ctaBtn) {
+    if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) {
+    return;
     }
+
+    // Klik 1: Jika kartu masih tertutup -> buka deskripsi
+    if (!card.classList.contains("is-expanded")) {
+    e.preventDefault();
+    e.stopPropagation();
+    card.classList.add("is-expanded");
+    card.classList.remove("is-pulled");
+    card.dataset.drawerPhase = "desc";
+    updateToggle(true);
+    return;
+    }
+
+    // Klik 2: Jika deskripsi sudah buka, tapi animasi logo NK belum buka -> buka animasi logo NK
+    if (!card.classList.contains("is-pulled")) {
+    e.preventDefault();
+    e.stopPropagation();
+    card.classList.add("is-pulled");
+    card.dataset.drawerPhase = "logo";
+    return;
+    }
+
+    // Klik 3: Jika animasi logo NK sudah buka -> pindah ke page yang dituju
+    e.stopPropagation();
+    return;
+    }
+
+    // Abaikan jika klik elemen interaktif lain selain toggle
+    const otherInteractive = e.target.closest("a, input, textarea, select");
+    if (otherInteractive) {
+    return;
+    }
+
+    // 2. Aksi Klik pada Area Card atau Tombol Toggle
+    // Klik 1: Jika kartu masih tertutup -> buka deskripsi
+    if (!card.classList.contains("is-expanded")) {
+    card.classList.add("is-expanded");
+    card.classList.remove("is-pulled");
+    card.dataset.drawerPhase = "desc";
+    updateToggle(true);
+    return;
+    }
+
+    // Klik mundur 1: Jika animasi logo NK sedang buka -> tutup animasi logo NK
+    if (card.classList.contains("is-pulled")) {
+    card.classList.remove("is-pulled");
+    card.dataset.drawerPhase = "closing"; // Tandai fase penutupan mundur
+    return;
+    }
+
+    // Klik mundur 2: Jika deskripsi buka dan animasi baru ditutup -> tutup deskripsi
+    if (card.dataset.drawerPhase === "closing") {
+    card.classList.remove("is-expanded");
+    card.classList.remove("is-pulled");
+    card.dataset.drawerPhase = "0";
+    updateToggle(false);
+    return;
+    }
+
+    // Klik 2 (fase maju): Jika deskripsi buka -> buka animasi logo NK
+    card.classList.add("is-pulled");
+    card.dataset.drawerPhase = "logo";
+  });
+}
 }
 
 /* ==========================================================================
-   5 EFEK MIKRO-INTERAKSI MODERN (GPU-Accelerated & 60fps)
-   ========================================================================== */
+5 EFEK MIKRO-INTERAKSI MODERN (GPU-Accelerated & 60fps)
+========================================================================== */
 
 /**
  * 1. Top Scroll Progress Bar
  * Membuat elemen progress bar di bagian paling atas viewport yang lebarnya
  * di-update menggunakan requestAnimationFrame saat user scroll.
- */
+*/
 function setupScrollProgressBar() {
-    let bar = document.querySelector(".scroll-progress-bar");
-    if (!bar) {
-        bar = document.createElement("div");
-        bar.className = "scroll-progress-bar";
-        document.body.prepend(bar);
-    }
+let bar = document.querySelector(".scroll-progress-bar");
+if (!bar) {
+  bar = document.createElement("div");
+  bar.className = "scroll-progress-bar";
+  document.body.prepend(bar);
+}
 
-    let ticking = false;
-    function updateProgress() {
-        const scrollTop = window.scrollY || document.documentElement.scrollTop;
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
-        bar.style.width = `${progress}%`;
-        ticking = false;
-    }
+let ticking = false;
+function updateProgress() {
+  const scrollTop = window.scrollY || document.documentElement.scrollTop;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
+  bar.style.width = `${progress}%`;
+  ticking = false;
+}
 
-    window.addEventListener("scroll", () => {
-        if (!ticking) {
-            window.requestAnimationFrame(updateProgress);
-            ticking = true;
-        }
-    }, { passive: true });
+window.addEventListener("scroll", () => {
+  if (!ticking) {
+    window.requestAnimationFrame(updateProgress);
+    ticking = true;
+  }
+}, { passive: true });
 
-    window.addEventListener("resize", () => {
-        if (!ticking) {
-            window.requestAnimationFrame(updateProgress);
-            ticking = true;
-        }
-    }, { passive: true });
+window.addEventListener("resize", () => {
+  if (!ticking) {
+    window.requestAnimationFrame(updateProgress);
+    ticking = true;
+  }
+}, { passive: true });
 
-    updateProgress();
+updateProgress();
 }
 
 /**
  * 2. Ambient Sakura Petals pada Hero Banner
  * Menyuntikkan kontainer .hero-sakura-layer dan 10 partikel kelopak sakura
  * CSS murni (.hero-petal) ke dalam seluruh hero banner.
- */
+*/
 function setupHeroSakuraPetals() {
-    const heroElements = document.querySelectorAll(".hero, .page-hero, .proker-hero, .quest-hero, .toko-hero");
-    if (!heroElements.length) return;
+const heroElements = document.querySelectorAll(".hero, .page-hero, .proker-hero, .quest-hero, .toko-hero");
+if (!heroElements.length) return;
 
-    heroElements.forEach((hero) => {
-        if (hero.querySelector(".hero-sakura-layer")) return;
+heroElements.forEach((hero) => {
+  if (hero.querySelector(".hero-sakura-layer")) return;
 
-        const layer = document.createElement("div");
-        layer.className = "hero-sakura-layer";
-        layer.setAttribute("aria-hidden", "true");
+  const layer = document.createElement("div");
+  layer.className = "hero-sakura-layer";
+  layer.setAttribute("aria-hidden", "true");
 
-        // 10 partikel kelopak sakura dengan parameter acak
-        for (let i = 0; i < 10; i++) {
-            const petal = document.createElement("div");
-            petal.className = "hero-petal";
+  // 10 partikel kelopak sakura dengan parameter acak
+  for (let i = 0; i < 10; i++) {
+    const petal = document.createElement("div");
+    petal.className = "hero-petal";
 
-            const left = Math.random() * 92 + 2; // 2% - 94%
-            const width = 10 + Math.random() * 6; // 10px - 16px
-            const height = width * 1.35;
-            const duration = 8 + Math.random() * 6; // 8s - 14s
-            const delay = -(Math.random() * duration); // Tersebar merata sejak awal
-            const opacity = 0.5 + Math.random() * 0.35;
+    const left = Math.random() * 92 + 2; // 2% - 94%
+    const width = 10 + Math.random() * 6; // 10px - 16px
+    const height = width * 1.35;
+    const duration = 8 + Math.random() * 6; // 8s - 14s
+    const delay = -(Math.random() * duration); // Tersebar merata sejak awal
+    const opacity = 0.5 + Math.random() * 0.35;
 
-            petal.style.left = `${left.toFixed(1)}%`;
-            petal.style.width = `${width.toFixed(1)}px`;
-            petal.style.height = `${height.toFixed(1)}px`;
-            petal.style.animationDuration = `${duration.toFixed(2)}s`;
-            petal.style.animationDelay = `${delay.toFixed(2)}s`;
-            petal.style.opacity = `${opacity.toFixed(2)}`;
+    petal.style.left = `${left.toFixed(1)}%`;
+    petal.style.width = `${width.toFixed(1)}px`;
+    petal.style.height = `${height.toFixed(1)}px`;
+    petal.style.animationDuration = `${duration.toFixed(2)}s`;
+    petal.style.animationDelay = `${delay.toFixed(2)}s`;
+    petal.style.opacity = `${opacity.toFixed(2)}`;
 
-            layer.appendChild(petal);
-        }
+    layer.appendChild(petal);
+  }
 
-        hero.appendChild(layer);
-    });
+  hero.appendChild(layer);
+});
 }
 
 /**
  * 3. Interactive Spotlight Glow & 3D Tilt Halus pada Kartu
  * Pada perangkat hover: hover, menambahkan efek spotlight kursor (--mouse-x, --mouse-y)
  * dan kemiringan perspektif 3D halus (maksimal 3.5 derajat).
- */
+*/
 function setupCardTiltAndSpotlight() {
-    const isHoverDevice = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    if (!isHoverDevice) return;
+const isHoverDevice = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+if (!isHoverDevice) return;
 
-    const cardSelectors = [
-        ".start-card",
-        ".activity-start-card",
-        ".class-card",
-        ".course-card",
-        ".division-card",
-        ".program-card",
-        ".podium-card",
-        ".toko-card"
-    ];
-    const cards = document.querySelectorAll(cardSelectors.join(","));
-    if (!cards.length) return;
+const cardSelectors = [
+  ".start-card",
+  ".activity-start-card",
+  ".class-card",
+  ".course-card",
+  ".division-card",
+  ".program-card",
+  ".podium-card",
+  ".toko-card"
+];
+const cards = document.querySelectorAll(cardSelectors.join(","));
+if (!cards.length) return;
 
-    cards.forEach((card) => {
-        if (!card.querySelector(".card-spotlight-glow")) {
-            const glow = document.createElement("div");
-            glow.className = "card-spotlight-glow";
-            glow.setAttribute("aria-hidden", "true");
-            card.appendChild(glow);
-        }
+cards.forEach((card) => {
+  if (!card.querySelector(".card-spotlight-glow")) {
+    const glow = document.createElement("div");
+    glow.className = "card-spotlight-glow";
+    glow.setAttribute("aria-hidden", "true");
+    card.appendChild(glow);
+  }
 
-        let rafId = null;
+  let rafId = null;
 
-        card.addEventListener("mousemove", (e) => {
-            if (rafId) cancelAnimationFrame(rafId);
-            rafId = requestAnimationFrame(() => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
+  card.addEventListener("mousemove", (e) => {
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(() => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
 
-                card.style.setProperty("--mouse-x", `${x}px`);
-                card.style.setProperty("--mouse-y", `${y}px`);
+    card.style.setProperty("--mouse-x", `${x}px`);
+    card.style.setProperty("--mouse-y", `${y}px`);
 
-                // 3D Tilt: maksimal 3.5 derajat
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                const rotateX = (((y - centerY) / centerY) * -3.5).toFixed(2);
-                const rotateY = (((x - centerX) / centerX) * 3.5).toFixed(2);
+    // 3D Tilt: maksimal 3.5 derajat
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = (((y - centerY) / centerY) * -3.5).toFixed(2);
+    const rotateY = (((x - centerX) / centerX) * 3.5).toFixed(2);
 
-                card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-3px)`;
-            });
-        });
-
-        card.addEventListener("mouseleave", () => {
-            if (rafId) cancelAnimationFrame(rafId);
-            card.style.transform = "none";
-        });
+    card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-3px)`;
     });
+  });
+
+  card.addEventListener("mouseleave", () => {
+    if (rafId) cancelAnimationFrame(rafId);
+    card.style.transform = "none";
+  });
+});
 }
 
 /**
  * 4. Sakura Ripple Effect saat Klik / Tap
  * Memunculkan riak lingkaran sakura di titik koordinat klik yang membesar
  * dan memudar dalam 0.55 detik lalu otomatis dihapus.
- */
+*/
 function setupSakuraRipple() {
-    const targetSelector = ".btn, button, .start-card, .class-card, .rek-cat-btn, .lb-tab-btn, .toko-cat-btn";
+const targetSelector = ".btn, button, .start-card, .class-card, .rek-cat-btn, .lb-tab-btn, .toko-cat-btn";
 
-    document.addEventListener("pointerdown", (e) => {
-        const target = e.target.closest(targetSelector);
-        if (!target) return;
+document.addEventListener("pointerdown", (e) => {
+  const target = e.target.closest(targetSelector);
+  if (!target) return;
 
-        // Jangan picu ripple pada tombol yang dinonaktifkan
-        if (target.disabled || target.getAttribute("aria-disabled") === "true") return;
+  // Jangan picu ripple pada tombol yang dinonaktifkan
+  if (target.disabled || target.getAttribute("aria-disabled") === "true") return;
 
-        const rect = target.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height) * 0.9;
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+  const rect = target.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height) * 0.9;
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
 
-        // Pastikan kontainer memiliki posisi non-static dan overflow hidden
-        const comp = window.getComputedStyle(target);
-        if (comp.position === "static") {
-            target.style.position = "relative";
-        }
-        if (comp.overflow !== "hidden") {
-            target.style.overflow = "hidden";
-        }
+  // Pastikan kontainer memiliki posisi non-static dan overflow hidden
+  const comp = window.getComputedStyle(target);
+  if (comp.position === "static") {
+    target.style.position = "relative";
+  }
+  if (comp.overflow !== "hidden") {
+    target.style.overflow = "hidden";
+  }
 
-        const ripple = document.createElement("span");
-        ripple.className = "sakura-ripple";
-        ripple.style.width = `${size}px`;
-        ripple.style.height = `${size}px`;
-        ripple.style.left = `${x}px`;
-        ripple.style.top = `${y}px`;
+  const ripple = document.createElement("span");
+  ripple.className = "sakura-ripple";
+  ripple.style.width = `${size}px`;
+  ripple.style.height = `${size}px`;
+  ripple.style.left = `${x}px`;
+  ripple.style.top = `${y}px`;
 
-        target.appendChild(ripple);
+  target.appendChild(ripple);
 
-        setTimeout(() => {
-            ripple.remove();
-        }, 550);
-    }, { passive: true });
+  setTimeout(() => {
+    ripple.remove();
+  }, 550);
+}, { passive: true });
 }
 
 /**
  * 5. Tab Cascade Transition
  * Memberikan animasi masuk fadeSlideUp setiap kali konten tab di Kamus,
  * Peringkat, Rekomendasi, Lomba, atau Toko berganti.
- */
+*/
 function setupTabCascadeTransition() {
-    document.addEventListener("click", (e) => {
-        const tabBtn = e.target.closest(".lb-tab-btn, .rek-cat-btn, .lomba-filter-chip, .toko-cat-btn, .mgmt-tab-btn, [role='tab'], .tab-btn");
-        if (!tabBtn) return;
+document.addEventListener("click", (e) => {
+  const tabBtn = e.target.closest(".lb-tab-btn, .rek-cat-btn, .lomba-filter-chip, .toko-cat-btn, .mgmt-tab-btn, [role='tab'], .tab-btn");
+  if (!tabBtn) return;
 
-        requestAnimationFrame(() => {
-            const targetContainers = document.querySelectorAll(
-                "#rekomendasiGrid, #eventsGrid, #tokoProductGrid, .lb-points-grid, .lb-podium-grid, .leaderboard-table-wrapper, .tab-pane.active, .tab-content.active, [data-tab-content].active, .kanji-grid, .mgmt-slider-container"
-            );
-            targetContainers.forEach((container) => {
-                container.classList.remove("tab-cascade-animate");
-                void container.offsetWidth; // Reflow trigger
-                container.classList.add("tab-cascade-animate");
-            });
-        });
-    }, { passive: true });
+  requestAnimationFrame(() => {
+    const targetContainers = document.querySelectorAll(
+    "#rekomendasiGrid, #eventsGrid, #tokoProductGrid, .lb-points-grid, .lb-podium-grid, .leaderboard-table-wrapper, .tab-pane.active, .tab-content.active, [data-tab-content].active, .kanji-grid, .mgmt-slider-container"
+    );
+    targetContainers.forEach((container) => {
+    container.classList.remove("tab-cascade-animate");
+    void container.offsetWidth; // Reflow trigger
+    container.classList.add("tab-cascade-animate");
+    });
+  });
+}, { passive: true });
 }
 
 /* ==========================================================================
-   MIRAI PROGRESS ENGINE (localStorage-based learning progress)
-   ========================================================================== */
+MIRAI PROGRESS ENGINE (localStorage-based learning progress)
+========================================================================== */
 
 const MiraiProgress = {
-    STORAGE_KEY_COMPLETED: "mirai_completed_materi",
-    STORAGE_KEY_LAST: "mirai_last_materi",
-    STORAGE_KEY_WRONG: "mirai_wrong_questions",
+STORAGE_KEY_COMPLETED: "mirai_completed_materi",
+STORAGE_KEY_LAST: "mirai_last_materi",
+STORAGE_KEY_WRONG: "mirai_wrong_questions",
 
-    TOTAL_MATERI: 8,
+TOTAL_MATERI: 8,
 
-    getCompleted() {
-        try {
-            const raw = localStorage.getItem(this.STORAGE_KEY_COMPLETED);
-            if (!raw) return [];
-            const parsed = JSON.parse(raw);
-            return Array.isArray(parsed) ? parsed : [];
-        } catch (e) {
-            return [];
-        }
-    },
+getCompleted() {
+  try {
+    const raw = localStorage.getItem(this.STORAGE_KEY_COMPLETED);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (e) {
+    return [];
+  }
+},
 
-    isCompleted(materiId) {
-        if (!materiId) return false;
-        return this.getCompleted().includes(materiId);
-    },
+isCompleted(materiId) {
+  if (!materiId) return false;
+  return this.getCompleted().includes(materiId);
+},
 
-    toggleCompleted(materiId) {
-        if (!materiId) return false;
-        let list = this.getCompleted();
-        let newState = false;
-        if (list.includes(materiId)) {
-            list = list.filter((id) => id !== materiId);
-            newState = false;
-        } else {
-            list.push(materiId);
-            newState = true;
-        }
-        try {
-            localStorage.setItem(this.STORAGE_KEY_COMPLETED, JSON.stringify(list));
-        } catch (e) {
-            console.warn("Gagal menyimpan progress materi:", e);
-        }
-        return newState;
-    },
+toggleCompleted(materiId) {
+  if (!materiId) return false;
+  let list = this.getCompleted();
+  let newState = false;
+  if (list.includes(materiId)) {
+    list = list.filter((id) => id !== materiId);
+    newState = false;
+  } else {
+    list.push(materiId);
+    newState = true;
+  }
+  try {
+    localStorage.setItem(this.STORAGE_KEY_COMPLETED, JSON.stringify(list));
+  } catch (e) {
+    console.warn("Gagal menyimpan progress materi:", e);
+  }
+  return newState;
+},
 
-    getLastMateri() {
-        try {
-            const raw = localStorage.getItem(this.STORAGE_KEY_LAST);
-            if (!raw) return null;
-            const parsed = JSON.parse(raw);
-            return typeof parsed === "object" && parsed !== null ? parsed : null;
-        } catch (e) {
-            return null;
-        }
-    },
+getLastMateri() {
+  try {
+    const raw = localStorage.getItem(this.STORAGE_KEY_LAST);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    return typeof parsed === "object" && parsed !== null ? parsed : null;
+  } catch (e) {
+    return null;
+  }
+},
 
-    setLastMateri(id, title, step, url) {
-        if (!id || !url) return;
-        try {
-            const item = {
-                id,
-                title: title || id,
-                step: step || "",
-                url,
-                timestamp: Date.now()
-            };
-            localStorage.setItem(this.STORAGE_KEY_LAST, JSON.stringify(item));
-        } catch (e) {}
-    },
+setLastMateri(id, title, step, url) {
+  if (!id || !url) return;
+  try {
+    const item = {
+    id,
+    title: title || id,
+    step: step || "",
+    url,
+    timestamp: Date.now()
+    };
+    localStorage.setItem(this.STORAGE_KEY_LAST, JSON.stringify(item));
+  } catch (e) {}
+},
 
-    setupLessonPage() {
-        const container = document.querySelector("[data-materi-id]");
-        if (!container) return;
+setupLessonPage() {
+  const container = document.querySelector("[data-materi-id]");
+  if (!container) return;
 
-        const materiId = container.dataset.materiId;
-        const materiTitle = container.dataset.materiTitle || document.title.split("—")[0].trim();
-        const materiStep = container.dataset.materiStep || "Modul";
+  const materiId = container.dataset.materiId;
+  const materiTitle = container.dataset.materiTitle || document.title.split("—")[0].trim();
+  const materiStep = container.dataset.materiStep || "Modul";
 
-        // Otomatis simpan sebagai materi terakhir dibuka
-        this.setLastMateri(materiId, materiTitle, materiStep, window.location.href);
+  // Otomatis simpan sebagai materi terakhir dibuka
+  this.setLastMateri(materiId, materiTitle, materiStep, window.location.href);
 
-        // Pengendali tombol "Tandai Materi Selesai"
-        const toggleBtn = document.querySelector(".materi-complete-toggle");
-        if (toggleBtn) {
-            const updateBtnUI = (isDone) => {
-                if (isDone) {
-                    toggleBtn.classList.add("is-active");
-                    toggleBtn.innerHTML = `<span>✓</span><span>Materi Selesai</span>`;
-                    toggleBtn.setAttribute("aria-pressed", "true");
-                } else {
-                    toggleBtn.classList.remove("is-active");
-                    toggleBtn.innerHTML = `<span>○</span><span>Tandai Selesai</span>`;
-                    toggleBtn.setAttribute("aria-pressed", "false");
-                }
-            };
-
-            updateBtnUI(this.isCompleted(materiId));
-
-            toggleBtn.addEventListener("click", () => {
-                const isNowDone = this.toggleCompleted(materiId);
-                updateBtnUI(isNowDone);
-            });
-        }
-
-        // Pengendali Kuis Cepat Pemahaman
-        const quizCards = document.querySelectorAll(".buuku-quiz-card");
-        quizCards.forEach((card) => {
-            const optButtons = card.querySelectorAll(".buuku-quiz-opt-btn");
-            const feedbackEl = card.querySelector(".buuku-quiz-feedback");
-
-            optButtons.forEach((btn) => {
-                btn.addEventListener("click", () => {
-                    const isCorrect = btn.dataset.correct === "true";
-                    optButtons.forEach((b) => {
-                        b.disabled = true;
-                        if (b.dataset.correct === "true") {
-                            b.classList.add("is-correct");
-                        }
-                    });
-
-                    if (!isCorrect) {
-                        btn.classList.add("is-wrong");
-                    }
-
-                    if (feedbackEl) {
-                        feedbackEl.classList.add("is-visible");
-                        feedbackEl.classList.add(isCorrect ? "correct" : "wrong");
-                    }
-                });
-            });
-        });
-    },
-
-    setupResumeBanner() {
-        const isClassIndex = window.location.pathname.endsWith("/kelas/index.html") || window.location.pathname.endsWith("/kelas/");
-        const isMateriDasarIndex = window.location.pathname.includes("/materi/dasar/index.html") || window.location.pathname.endsWith("/materi/dasar/");
-        const isMateriLanjutanIndex = window.location.pathname.includes("/materi/lanjutan/index.html") || window.location.pathname.endsWith("/materi/lanjutan/");
-
-        if (!isClassIndex && !isMateriDasarIndex && !isMateriLanjutanIndex) return;
-
-        const completed = this.getCompleted();
-        const lastMateri = this.getLastMateri();
-
-        // 1. Beri badge "✓ Selesai" pada kartu modul yang link-nya cocok
-        const cards = document.querySelectorAll(".material-card, .course-card");
-        cards.forEach((card) => {
-            const href = card.getAttribute("href") || "";
-            const matchedId = completed.find((id) => {
-                const shortName = id.replace("materi-dasar-", "").replace("materi-lanjutan-", "");
-                return href.includes(shortName);
-            });
-
-            if (matchedId && !card.querySelector(".materi-status-badge")) {
-                const badge = document.createElement("span");
-                badge.className = "materi-status-badge is-completed";
-                badge.innerHTML = "✓ Selesai";
-                badge.style.marginLeft = "8px";
-                const heading = card.querySelector("h3");
-                if (heading) {
-                    heading.appendChild(badge);
-                }
-            }
-        });
-
-        // Hapus elemen banner jika sempat ter-render atau tersisa
-        document.querySelectorAll(".progress-resume-banner").forEach((banner) => {
-            banner.remove();
-        });
+  // Pengendali tombol "Tandai Materi Selesai"
+  const toggleBtn = document.querySelector(".materi-complete-toggle");
+  if (toggleBtn) {
+    const updateBtnUI = (isDone) => {
+    if (isDone) {
+    toggleBtn.classList.add("is-active");
+    toggleBtn.innerHTML = `<span>✓</span><span>Materi Selesai</span>`;
+    toggleBtn.setAttribute("aria-pressed", "true");
+    } else {
+    toggleBtn.classList.remove("is-active");
+    toggleBtn.innerHTML = `<span>○</span><span>Tandai Selesai</span>`;
+    toggleBtn.setAttribute("aria-pressed", "false");
     }
+    };
+
+    updateBtnUI(this.isCompleted(materiId));
+
+    toggleBtn.addEventListener("click", () => {
+    const isNowDone = this.toggleCompleted(materiId);
+    updateBtnUI(isNowDone);
+    });
+  }
+
+  // Pengendali Kuis Cepat Pemahaman
+  const quizCards = document.querySelectorAll(".buuku-quiz-card");
+  quizCards.forEach((card) => {
+    const optButtons = card.querySelectorAll(".buuku-quiz-opt-btn");
+    const feedbackEl = card.querySelector(".buuku-quiz-feedback");
+
+    optButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+    const isCorrect = btn.dataset.correct === "true";
+    optButtons.forEach((b) => {
+      b.disabled = true;
+      if (b.dataset.correct === "true") {
+        b.classList.add("is-correct");
+      }
+    });
+
+    if (!isCorrect) {
+      btn.classList.add("is-wrong");
+    }
+
+    if (feedbackEl) {
+      feedbackEl.classList.add("is-visible");
+      feedbackEl.classList.add(isCorrect ? "correct" : "wrong");
+    }
+    });
+    });
+  });
+},
+
+setupResumeBanner() {
+  const isClassIndex = window.location.pathname.endsWith("/kelas/index.html") || window.location.pathname.endsWith("/kelas/");
+  const isMateriDasarIndex = window.location.pathname.includes("/materi/dasar/index.html") || window.location.pathname.endsWith("/materi/dasar/");
+  const isMateriLanjutanIndex = window.location.pathname.includes("/materi/lanjutan/index.html") || window.location.pathname.endsWith("/materi/lanjutan/");
+
+  if (!isClassIndex && !isMateriDasarIndex && !isMateriLanjutanIndex) return;
+
+  const completed = this.getCompleted();
+  const lastMateri = this.getLastMateri();
+
+  // 1. Beri badge "✓ Selesai" pada kartu modul yang link-nya cocok
+  const cards = document.querySelectorAll(".material-card, .course-card");
+  cards.forEach((card) => {
+    const href = card.getAttribute("href") || "";
+    const matchedId = completed.find((id) => {
+    const shortName = id.replace("materi-dasar-", "").replace("materi-lanjutan-", "");
+    return href.includes(shortName);
+    });
+
+    if (matchedId && !card.querySelector(".materi-status-badge")) {
+    const badge = document.createElement("span");
+    badge.className = "materi-status-badge is-completed";
+    badge.innerHTML = "✓ Selesai";
+    badge.style.marginLeft = "8px";
+    const heading = card.querySelector("h3");
+    if (heading) {
+    heading.appendChild(badge);
+    }
+    }
+  });
+
+  // Hapus elemen banner jika sempat ter-render atau tersisa
+  document.querySelectorAll(".progress-resume-banner").forEach((banner) => {
+    banner.remove();
+  });
+}
 };
 
 window.MiraiProgress = MiraiProgress;
 
 function initMiraiProgress() {
-    MiraiProgress.setupLessonPage();
-    MiraiProgress.setupResumeBanner();
+MiraiProgress.setupLessonPage();
+MiraiProgress.setupResumeBanner();
 }
 
 /* ==========================================================================
-   COMING SOON (SEGERA HADIR) & ACCESS CONTROL SYSTEM
-   - Kunci akses & efek blur untuk halaman/seksi berstatus "Segera Hadir"
-   - Tombol gembok di sebelah kata "MENU" pada sidebar (Merah: Terkunci, Hijau: Terbuka)
-   - Keamanan tingkat tinggi: Sandi di-hash dengan Salted SHA-256 (Anti-Bocor/Hack)
-   - Seksi terkunci: #kurikulum (kelas) & #studio-terjemahan (kamus)
-   - Halaman terkunci: Selain Beranda, Kelas, Kamus (Saran & Kritik BEBAS dari kunci)
-   ========================================================================== */
+COMING SOON (SEGERA HADIR) & ACCESS CONTROL SYSTEM
+- Kunci akses & efek blur untuk halaman/seksi berstatus "Segera Hadir"
+- Tombol gembok di sebelah kata "MENU" pada sidebar (Merah: Terkunci, Hijau: Terbuka)
+- Keamanan tingkat tinggi: Sandi di-hash dengan Salted SHA-256 (Anti-Bocor/Hack)
+- Seksi terkunci: #kurikulum (kelas) & #studio-terjemahan (kamus)
+- Halaman terkunci: Selain Beranda, Kelas, Kamus (Saran & Kritik BEBAS dari kunci)
+========================================================================== */
 
 const CS_SESSION_KEY = "mnh_access_unlocked";
 const CS_SALT = "mirainohana_smawh2_salt_2026:";
@@ -2209,198 +2209,198 @@ const CS_TARGET_HASH = "619bb918bff1fddc0674c02a5513af80c8365b3fbaed0736f5e12b1d
 
 // Fungsi murni SHA-256 (Berjalan mandiri di semua peramban, offline & file://)
 function sha256Sync(ascii) {
-    function rightRotate(value, amount) {
-        return (value >>> amount) | (value << (32 - amount));
-    }
-    const words = [];
-    const asciiBitLength = ascii.length * 8;
-    let hash = [
-        0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
-        0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19
-    ];
-    const k = [
-        0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
-        0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
-        0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
-        0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
-        0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
-        0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
-        0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
-        0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
-    ];
-    let i, j;
-    for (i = 0; i < ascii.length; i++) {
-        const jIdx = i >> 2;
-        words[jIdx] = (words[jIdx] || 0) | (ascii.charCodeAt(i) << (24 - (i % 4) * 8));
-    }
-    const endIdx = asciiBitLength >> 5;
-    words[endIdx] = (words[endIdx] || 0) | (0x80 << (24 - (asciiBitLength % 32)));
-    words[(((asciiBitLength + 64) >> 9) << 4) + 15] = asciiBitLength;
+function rightRotate(value, amount) {
+  return (value >>> amount) | (value << (32 - amount));
+}
+const words = [];
+const asciiBitLength = ascii.length * 8;
+let hash = [
+  0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
+  0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19
+];
+const k = [
+  0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+  0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+  0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+  0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+  0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+  0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+  0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+  0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
+];
+let i, j;
+for (i = 0; i < ascii.length; i++) {
+  const jIdx = i >> 2;
+  words[jIdx] = (words[jIdx] || 0) | (ascii.charCodeAt(i) << (24 - (i % 4) * 8));
+}
+const endIdx = asciiBitLength >> 5;
+words[endIdx] = (words[endIdx] || 0) | (0x80 << (24 - (asciiBitLength % 32)));
+words[(((asciiBitLength + 64) >> 9) << 4) + 15] = asciiBitLength;
 
-    const w = new Array(64);
-    for (i = 0; i < words.length; i += 16) {
-        const oldHash = hash.slice(0);
-        for (j = 0; j < 64; j++) {
-            if (j < 16) {
-                w[j] = words[i + j] | 0;
-            } else {
-                const s0 = rightRotate(w[j - 15], 7) ^ rightRotate(w[j - 15], 18) ^ (w[j - 15] >>> 3);
-                const s1 = rightRotate(w[j - 2], 17) ^ rightRotate(w[j - 2], 19) ^ (w[j - 2] >>> 10);
-                w[j] = (w[j - 16] + s0 + w[j - 7] + s1) | 0;
-            }
-            const s1_ = rightRotate(hash[4], 6) ^ rightRotate(hash[4], 11) ^ rightRotate(hash[4], 25);
-            const ch = (hash[4] & hash[5]) ^ (~hash[4] & hash[6]);
-            const temp1 = (hash[7] + s1_ + ch + k[j] + w[j]) | 0;
-            const s0_ = rightRotate(hash[0], 2) ^ rightRotate(hash[0], 13) ^ rightRotate(hash[0], 22);
-            const maj = (hash[0] & hash[1]) ^ (hash[0] & hash[2]) ^ (hash[1] & hash[2]);
-            const temp2 = (s0_ + maj) | 0;
+const w = new Array(64);
+for (i = 0; i < words.length; i += 16) {
+  const oldHash = hash.slice(0);
+  for (j = 0; j < 64; j++) {
+    if (j < 16) {
+    w[j] = words[i + j] | 0;
+    } else {
+    const s0 = rightRotate(w[j - 15], 7) ^ rightRotate(w[j - 15], 18) ^ (w[j - 15] >>> 3);
+    const s1 = rightRotate(w[j - 2], 17) ^ rightRotate(w[j - 2], 19) ^ (w[j - 2] >>> 10);
+    w[j] = (w[j - 16] + s0 + w[j - 7] + s1) | 0;
+    }
+    const s1_ = rightRotate(hash[4], 6) ^ rightRotate(hash[4], 11) ^ rightRotate(hash[4], 25);
+    const ch = (hash[4] & hash[5]) ^ (~hash[4] & hash[6]);
+    const temp1 = (hash[7] + s1_ + ch + k[j] + w[j]) | 0;
+    const s0_ = rightRotate(hash[0], 2) ^ rightRotate(hash[0], 13) ^ rightRotate(hash[0], 22);
+    const maj = (hash[0] & hash[1]) ^ (hash[0] & hash[2]) ^ (hash[1] & hash[2]);
+    const temp2 = (s0_ + maj) | 0;
 
-            hash[7] = hash[6];
-            hash[6] = hash[5];
-            hash[5] = hash[4];
-            hash[4] = (hash[3] + temp1) | 0;
-            hash[3] = hash[2];
-            hash[2] = hash[1];
-            hash[1] = hash[0];
-            hash[0] = (temp1 + temp2) | 0;
-        }
-        for (j = 0; j < 8; j++) {
-            hash[j] = (hash[j] + oldHash[j]) | 0;
-        }
-    }
-    let result = "";
-    for (i = 0; i < 8; i++) {
-        for (j = 3; j >= 0; j--) {
-            const b = (hash[i] >> (j * 8)) & 255;
-            result += (b < 16 ? "0" : "") + b.toString(16);
-        }
-    }
-    return result;
+    hash[7] = hash[6];
+    hash[6] = hash[5];
+    hash[5] = hash[4];
+    hash[4] = (hash[3] + temp1) | 0;
+    hash[3] = hash[2];
+    hash[2] = hash[1];
+    hash[1] = hash[0];
+    hash[0] = (temp1 + temp2) | 0;
+  }
+  for (j = 0; j < 8; j++) {
+    hash[j] = (hash[j] + oldHash[j]) | 0;
+  }
+}
+let result = "";
+for (i = 0; i < 8; i++) {
+  for (j = 3; j >= 0; j--) {
+    const b = (hash[i] >> (j * 8)) & 255;
+    result += (b < 16 ? "0" : "") + b.toString(16);
+  }
+}
+return result;
 }
 
 async function verifyAccessPassword(inputPassword) {
-    const salted = CS_SALT + (inputPassword || "").trim().toLowerCase();
-    try {
-        if (window.crypto && window.crypto.subtle) {
-            const msgUint8 = new TextEncoder().encode(salted);
-            const hashBuffer = await window.crypto.subtle.digest("SHA-256", msgUint8);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            const hex = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
-            return hex === CS_TARGET_HASH;
-        }
-    } catch (e) {}
-    return sha256Sync(salted) === CS_TARGET_HASH;
+const salted = CS_SALT + (inputPassword || "").trim().toLowerCase();
+try {
+  if (window.crypto && window.crypto.subtle) {
+    const msgUint8 = new TextEncoder().encode(salted);
+    const hashBuffer = await window.crypto.subtle.digest("SHA-256", msgUint8);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hex = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+    return hex === CS_TARGET_HASH;
+  }
+} catch (e) {}
+return sha256Sync(salted) === CS_TARGET_HASH;
 }
 
 function isAccessUnlocked() {
-    try {
-        return sessionStorage.getItem(CS_SESSION_KEY) === "true";
-    } catch (e) {
-        return window.__mnhAccessUnlocked === true;
-    }
+try {
+  return sessionStorage.getItem(CS_SESSION_KEY) === "true";
+} catch (e) {
+  return window.__mnhAccessUnlocked === true;
+}
 }
 
 function setAccessUnlocked(val) {
-    try {
-        if (val) {
-            sessionStorage.setItem(CS_SESSION_KEY, "true");
-        } else {
-            sessionStorage.removeItem(CS_SESSION_KEY);
-        }
-    } catch (e) {}
-    window.__mnhAccessUnlocked = Boolean(val);
+try {
+  if (val) {
+    sessionStorage.setItem(CS_SESSION_KEY, "true");
+  } else {
+    sessionStorage.removeItem(CS_SESSION_KEY);
+  }
+} catch (e) {}
+window.__mnhAccessUnlocked = Boolean(val);
 }
 
 function isCurrentPageComingSoon() {
-    const rawPath = (window.location.pathname || "").toLowerCase();
-    const lockedDirs = [
-        "/toko/",
-        "/peringkat/",
-        "/rekomendasi/",
-        "/lomba/",
-        "/tentang/",
-        "/kegiatan/",
-        "/divisi/"
-    ];
-    return lockedDirs.some((dir) => rawPath.includes(dir));
+const rawPath = (window.location.pathname || "").toLowerCase();
+const lockedDirs = [
+  "/toko/",
+  "/peringkat/",
+  "/rekomendasi/",
+  "/lomba/",
+  "/tentang/",
+  "/kegiatan/",
+  "/divisi/"
+];
+return lockedDirs.some((dir) => rawPath.includes(dir));
 }
 
 function getComingSoonPageInfo() {
-    const rawPath = (window.location.pathname || "").toLowerCase();
-    if (rawPath.includes("/toko/")) {
-        return {
-            title: "Toko Resmi Klub",
-            kanji: "公式ショップ",
-            icon: "🛍️",
-            desc: "Katalog merchandise eksklusif klub Mirai No Hana sedang dipersiapkan dan akan segera dirilis resmi."
-        };
-    }
-    if (rawPath.includes("/peringkat/")) {
-        return {
-            title: "Papan Peringkat Prestasi",
-            kanji: "リーダーボード",
-            icon: "🏆",
-            desc: "Sistem papan peringkat dan leaderboard pencapaian belajar anggota klub sedang dalam tahap finalisasi data."
-        };
-    }
-    if (rawPath.includes("/rekomendasi/")) {
-        return {
-            title: "Rekomendasi Karya & Media",
-            kanji: "おすすめ作品",
-            icon: "⭐",
-            desc: "Kurasi rekomendasi anime, manga, novel, dan media budaya Jepang pilihan sedang disiapkan."
-        };
-    }
-    if (rawPath.includes("/lomba/")) {
-        return {
-            title: "Informasi Lomba & Acara",
-            kanji: "大会＆イベント",
-            icon: "🎪",
-            desc: "Jadwal kompetisi, lomba internal/eksternal, serta festival kebudayaan Jepang akan segera diumumkan."
-        };
-    }
-    if (rawPath.includes("/tentang/")) {
-        return {
-            title: "Profil Klub & Struktur",
-            kanji: "クラブ概要",
-            icon: "👥",
-            desc: "Halaman informasi sejarah, visi misi, serta struktur kepengurusan resmi klub sedang disempurnakan."
-        };
-    }
-    if (rawPath.includes("/kegiatan/")) {
-        return {
-            title: "Program Kerja & Kegiatan",
-            kanji: "活動＆プログラム",
-            icon: "📅",
-            desc: "Dokumentasi dan jadwal program kerja tahunan klub sedang dalam proses kurasi konten interaktif."
-        };
-    }
-    if (rawPath.includes("/divisi/")) {
-        return {
-            title: "Divisi & Kepengurusan Klub",
-            kanji: "クラブ部門",
-            icon: "🎨",
-            desc: "Detail informasi mengenai pembagian divisi minat dan bakat klub sedang dalam tahap penyempurnaan."
-        };
-    }
-    const pageTitle = (document.title || "").split("-")[0].trim() || "Segera Hadir";
-    return {
-        title: pageTitle,
-        kanji: "近日公開",
-        icon: "🌸",
-        desc: "Halaman ini sedang dalam tahap pengembangan dan persiapan konten resmi."
-    };
+const rawPath = (window.location.pathname || "").toLowerCase();
+if (rawPath.includes("/toko/")) {
+  return {
+    title: "Toko Resmi Klub",
+    kanji: "公式ショップ",
+    icon: "🛍️",
+    desc: "Katalog merchandise eksklusif klub Mirai No Hana sedang dipersiapkan dan akan segera dirilis resmi."
+  };
+}
+if (rawPath.includes("/peringkat/")) {
+  return {
+    title: "Papan Peringkat Prestasi",
+    kanji: "リーダーボード",
+    icon: "🏆",
+    desc: "Sistem papan peringkat dan leaderboard pencapaian belajar anggota klub sedang dalam tahap finalisasi data."
+  };
+}
+if (rawPath.includes("/rekomendasi/")) {
+  return {
+    title: "Rekomendasi Karya & Media",
+    kanji: "おすすめ作品",
+    icon: "⭐",
+    desc: "Kurasi rekomendasi anime, manga, novel, dan media budaya Jepang pilihan sedang disiapkan."
+  };
+}
+if (rawPath.includes("/lomba/")) {
+  return {
+    title: "Informasi Lomba & Acara",
+    kanji: "大会＆イベント",
+    icon: "🎪",
+    desc: "Jadwal kompetisi, lomba internal/eksternal, serta festival kebudayaan Jepang akan segera diumumkan."
+  };
+}
+if (rawPath.includes("/tentang/")) {
+  return {
+    title: "Profil Klub & Struktur",
+    kanji: "クラブ概要",
+    icon: "👥",
+    desc: "Halaman informasi sejarah, visi misi, serta struktur kepengurusan resmi klub sedang disempurnakan."
+  };
+}
+if (rawPath.includes("/kegiatan/")) {
+  return {
+    title: "Program Kerja & Kegiatan",
+    kanji: "活動＆プログラム",
+    icon: "📅",
+    desc: "Dokumentasi dan jadwal program kerja tahunan klub sedang dalam proses kurasi konten interaktif."
+  };
+}
+if (rawPath.includes("/divisi/")) {
+  return {
+    title: "Divisi & Kepengurusan Klub",
+    kanji: "クラブ部門",
+    icon: "🎨",
+    desc: "Detail informasi mengenai pembagian divisi minat dan bakat klub sedang dalam tahap penyempurnaan."
+  };
+}
+const pageTitle = (document.title || "").split("-")[0].trim() || "Segera Hadir";
+return {
+  title: pageTitle,
+  kanji: "近日公開",
+  icon: "🌸",
+  desc: "Halaman ini sedang dalam tahap pengembangan dan persiapan konten resmi."
+};
 }
 
 function ensurePasswordModal() {
-    if (document.getElementById("mnhPasswordModal")) return;
+if (document.getElementById("mnhPasswordModal")) return;
 
-    const modal = document.createElement("div");
-    modal.className = "password-modal-backdrop";
-    modal.id = "mnhPasswordModal";
-    modal.setAttribute("aria-hidden", "true");
+const modal = document.createElement("div");
+modal.className = "password-modal-backdrop";
+modal.id = "mnhPasswordModal";
+modal.setAttribute("aria-hidden", "true");
 
-    modal.innerHTML = `
+modal.innerHTML = `
         <div class="password-modal-card" role="dialog" aria-modal="true" aria-labelledby="csModalTitle">
             <button type="button" class="password-modal-close" id="csModalCloseBtn" aria-label="Tutup Dialog">✕</button>
             <div class="password-modal-icon">🔐</div>
@@ -2421,232 +2421,232 @@ function ensurePasswordModal() {
         </div>
     `;
 
-    document.body.appendChild(modal);
+document.body.appendChild(modal);
 
-    const closeBtn = modal.querySelector("#csModalCloseBtn");
-    const cancelBtn = modal.querySelector("#csModalCancelBtn");
-    const toggleBtn = modal.querySelector("#csPasswordToggleBtn");
-    const form = modal.querySelector("#csPasswordForm");
-    const input = modal.querySelector("#csPasswordInput");
+const closeBtn = modal.querySelector("#csModalCloseBtn");
+const cancelBtn = modal.querySelector("#csModalCancelBtn");
+const toggleBtn = modal.querySelector("#csPasswordToggleBtn");
+const form = modal.querySelector("#csPasswordForm");
+const input = modal.querySelector("#csPasswordInput");
 
-    closeBtn?.addEventListener("click", closePasswordModal);
-    cancelBtn?.addEventListener("click", closePasswordModal);
+closeBtn?.addEventListener("click", closePasswordModal);
+cancelBtn?.addEventListener("click", closePasswordModal);
 
-    modal.addEventListener("click", (e) => {
-        if (e.target === modal) closePasswordModal();
-    });
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) closePasswordModal();
+});
 
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && modal.classList.contains("is-active")) {
-            closePasswordModal();
-        }
-    });
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && modal.classList.contains("is-active")) {
+    closePasswordModal();
+  }
+});
 
-    toggleBtn?.addEventListener("click", () => {
-        if (input.type === "password") {
-            input.type = "text";
-            toggleBtn.textContent = "🙈";
-            toggleBtn.setAttribute("aria-label", "Sembunyikan kata sandi");
-        } else {
-            input.type = "password";
-            toggleBtn.textContent = "👁️";
-            toggleBtn.setAttribute("aria-label", "Lihat kata sandi");
-        }
-    });
+toggleBtn?.addEventListener("click", () => {
+  if (input.type === "password") {
+    input.type = "text";
+    toggleBtn.textContent = "🙈";
+    toggleBtn.setAttribute("aria-label", "Sembunyikan kata sandi");
+  } else {
+    input.type = "password";
+    toggleBtn.textContent = "👁️";
+    toggleBtn.setAttribute("aria-label", "Lihat kata sandi");
+  }
+});
 
-    form?.addEventListener("submit", handlePasswordSubmit);
+form?.addEventListener("submit", handlePasswordSubmit);
 }
 
 function openPasswordModal() {
-    ensurePasswordModal();
-    const modal = document.getElementById("mnhPasswordModal");
-    if (!modal) return;
+ensurePasswordModal();
+const modal = document.getElementById("mnhPasswordModal");
+if (!modal) return;
 
-    const input = document.getElementById("csPasswordInput");
-    const msg = document.getElementById("csPasswordMsg");
-    if (input) {
-        input.value = "";
-        input.classList.remove("is-invalid");
-    }
-    if (msg) {
-        msg.textContent = "";
-        msg.style.display = "none";
-        msg.className = "password-modal-msg";
-    }
+const input = document.getElementById("csPasswordInput");
+const msg = document.getElementById("csPasswordMsg");
+if (input) {
+  input.value = "";
+  input.classList.remove("is-invalid");
+}
+if (msg) {
+  msg.textContent = "";
+  msg.style.display = "none";
+  msg.className = "password-modal-msg";
+}
 
-    modal.classList.add("is-active");
-    modal.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
+modal.classList.add("is-active");
+modal.setAttribute("aria-hidden", "false");
+document.body.style.overflow = "hidden";
 
-    setTimeout(() => {
-        input?.focus();
-    }, 120);
+setTimeout(() => {
+  input?.focus();
+}, 120);
 }
 
 function closePasswordModal() {
-    const modal = document.getElementById("mnhPasswordModal");
-    if (!modal) return;
-    modal.classList.remove("is-active");
-    modal.setAttribute("aria-hidden", "true");
+const modal = document.getElementById("mnhPasswordModal");
+if (!modal) return;
+modal.classList.remove("is-active");
+modal.setAttribute("aria-hidden", "true");
 
-    if (!document.body.classList.contains("is-page-locked")) {
-        document.body.style.overflow = "";
-    }
+if (!document.body.classList.contains("is-page-locked")) {
+  document.body.style.overflow = "";
+}
 }
 
 let csFailedAttempts = 0;
 
 async function handlePasswordSubmit(e) {
-    if (e) e.preventDefault();
-    const input = document.getElementById("csPasswordInput");
-    const msg = document.getElementById("csPasswordMsg");
-    const submitBtn = document.getElementById("csModalSubmitBtn");
-    if (!input || input.disabled) return;
+if (e) e.preventDefault();
+const input = document.getElementById("csPasswordInput");
+const msg = document.getElementById("csPasswordMsg");
+const submitBtn = document.getElementById("csModalSubmitBtn");
+if (!input || input.disabled) return;
 
-    const val = (input.value || "").trim().toLowerCase();
+const val = (input.value || "").trim().toLowerCase();
 
+if (submitBtn) submitBtn.disabled = true;
+const isCorrect = await verifyAccessPassword(val);
+if (submitBtn) submitBtn.disabled = false;
+
+if (isCorrect) {
+  csFailedAttempts = 0;
+  if (msg) {
+    msg.className = "password-modal-msg is-success";
+    msg.textContent = "✓ Kata sandi benar! Membuka seluruh akses...";
+    msg.style.display = "block";
+  }
+  input.classList.remove("is-invalid");
+  window.MiraiSound?.playClickIfIdle();
+
+  setTimeout(() => {
+    setAccessUnlocked(true);
+    applyComingSoonState();
+    closePasswordModal();
+  }, 400);
+} else {
+  csFailedAttempts++;
+  input.classList.remove("is-invalid");
+  void input.offsetWidth;
+  input.classList.add("is-invalid");
+
+  if (msg) {
+    msg.className = "password-modal-msg is-error";
+    if (csFailedAttempts >= 3) {
+    msg.textContent = "✕ Terlalu banyak percobaan gagal. Mohon tunggu 3 detik...";
+    input.disabled = true;
     if (submitBtn) submitBtn.disabled = true;
-    const isCorrect = await verifyAccessPassword(val);
+    setTimeout(() => {
+    input.disabled = false;
     if (submitBtn) submitBtn.disabled = false;
-
-    if (isCorrect) {
-        csFailedAttempts = 0;
-        if (msg) {
-            msg.className = "password-modal-msg is-success";
-            msg.textContent = "✓ Kata sandi benar! Membuka seluruh akses...";
-            msg.style.display = "block";
-        }
-        input.classList.remove("is-invalid");
-        window.MiraiSound?.playClickIfIdle();
-
-        setTimeout(() => {
-            setAccessUnlocked(true);
-            applyComingSoonState();
-            closePasswordModal();
-        }, 400);
+    msg.textContent = "✕ Kata sandi salah. Silakan coba lagi!";
+    input.focus();
+    }, 3000);
     } else {
-        csFailedAttempts++;
-        input.classList.remove("is-invalid");
-        void input.offsetWidth;
-        input.classList.add("is-invalid");
-
-        if (msg) {
-            msg.className = "password-modal-msg is-error";
-            if (csFailedAttempts >= 3) {
-                msg.textContent = "✕ Terlalu banyak percobaan gagal. Mohon tunggu 3 detik...";
-                input.disabled = true;
-                if (submitBtn) submitBtn.disabled = true;
-                setTimeout(() => {
-                    input.disabled = false;
-                    if (submitBtn) submitBtn.disabled = false;
-                    msg.textContent = "✕ Kata sandi salah. Silakan coba lagi!";
-                    input.focus();
-                }, 3000);
-            } else {
-                msg.textContent = "✕ Kata sandi salah. Akses ditolak!";
-            }
-            msg.style.display = "block";
-        }
-
-        setTimeout(() => {
-            input.classList.remove("is-invalid");
-        }, 450);
-
-        input.focus();
-        input.select();
+    msg.textContent = "✕ Kata sandi salah. Akses ditolak!";
     }
+    msg.style.display = "block";
+  }
+
+  setTimeout(() => {
+    input.classList.remove("is-invalid");
+  }, 450);
+
+  input.focus();
+  input.select();
+}
 }
 
 function setupSidebarLockBtn(isUnlocked) {
-    const sidebarLabel = document.querySelector(".sidebar-header .sidebar-label");
-    if (!sidebarLabel) return;
+const sidebarLabel = document.querySelector(".sidebar-header .sidebar-label");
+if (!sidebarLabel) return;
 
-    let lockBtn = document.getElementById("sidebarLockBtn");
-    if (!lockBtn) {
-        lockBtn = document.createElement("button");
-        lockBtn.type = "button";
-        lockBtn.id = "sidebarLockBtn";
-        lockBtn.className = "sidebar-lock-btn";
-        sidebarLabel.appendChild(lockBtn);
+let lockBtn = document.getElementById("sidebarLockBtn");
+if (!lockBtn) {
+  lockBtn = document.createElement("button");
+  lockBtn.type = "button";
+  lockBtn.id = "sidebarLockBtn";
+  lockBtn.className = "sidebar-lock-btn";
+  sidebarLabel.appendChild(lockBtn);
 
-        lockBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            window.MiraiSound?.playClickIfIdle();
-            if (isAccessUnlocked()) {
-                const relock = confirm("Kunci kembali seluruh halaman dan seksi 'Segera Hadir'?");
-                if (relock) {
-                    setAccessUnlocked(false);
-                    applyComingSoonState();
-                }
-            } else {
-                openPasswordModal();
-            }
-        });
+  lockBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    window.MiraiSound?.playClickIfIdle();
+    if (isAccessUnlocked()) {
+    const relock = confirm("Kunci kembali seluruh halaman dan seksi 'Segera Hadir'?");
+    if (relock) {
+    setAccessUnlocked(false);
+    applyComingSoonState();
     }
-
-    if (isUnlocked) {
-        lockBtn.innerHTML = "🔓";
-        lockBtn.classList.add("is-unlocked");
-        lockBtn.setAttribute("title", "Akses Pengurus Terbuka - Klik untuk mengunci kembali");
-        lockBtn.setAttribute("aria-label", "Akses Pengurus Terbuka");
     } else {
-        lockBtn.innerHTML = "🔒";
-        lockBtn.classList.remove("is-unlocked");
-        lockBtn.setAttribute("title", "Akses Terkunci (Segera Hadir) - Klik untuk memasukkan kata sandi");
-        lockBtn.setAttribute("aria-label", "Akses Terkunci Segera Hadir");
+    openPasswordModal();
     }
+  });
+}
+
+if (isUnlocked) {
+  lockBtn.innerHTML = "🔓";
+  lockBtn.classList.add("is-unlocked");
+  lockBtn.setAttribute("title", "Akses Pengurus Terbuka - Klik untuk mengunci kembali");
+  lockBtn.setAttribute("aria-label", "Akses Pengurus Terbuka");
+} else {
+  lockBtn.innerHTML = "🔒";
+  lockBtn.classList.remove("is-unlocked");
+  lockBtn.setAttribute("title", "Akses Terkunci (Segera Hadir) - Klik untuk memasukkan kata sandi");
+  lockBtn.setAttribute("aria-label", "Akses Terkunci Segera Hadir");
+}
 }
 
 function updateMenuComingSoonBadges(isUnlocked) {
-    const lockedWords = ["toko", "peringkat", "rekomendasi", "lomba", "tentang", "kegiatan", "divisi"];
-    const navLinks = document.querySelectorAll(".sidebar-links a");
+const lockedWords = ["toko", "peringkat", "rekomendasi", "lomba", "tentang", "kegiatan", "divisi"];
+const navLinks = document.querySelectorAll(".sidebar-links a");
 
-    navLinks.forEach((link) => {
-        const href = (link.getAttribute("href") || "").toLowerCase();
-        const isLockedLink = lockedWords.some((word) => href.includes(word));
+navLinks.forEach((link) => {
+  const href = (link.getAttribute("href") || "").toLowerCase();
+  const isLockedLink = lockedWords.some((word) => href.includes(word));
 
-        const existingBadge = link.querySelector(".menu-coming-soon-badge");
+  const existingBadge = link.querySelector(".menu-coming-soon-badge");
 
-        if (isLockedLink && !isUnlocked) {
-            if (!existingBadge) {
-                const badge = document.createElement("span");
-                badge.className = "menu-coming-soon-badge";
-                badge.textContent = "🔒 Segera Hadir";
-                link.appendChild(badge);
-            }
-            if (!link.dataset.lockBound) {
-                link.dataset.lockBound = "true";
-                link.addEventListener("click", (e) => {
-                    if (!isAccessUnlocked()) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        window.MiraiSound?.playClickIfIdle();
-                        openPasswordModal();
-                    }
-                });
-            }
-        } else {
-            if (existingBadge) {
-                existingBadge.remove();
-            }
-        }
+  if (isLockedLink && !isUnlocked) {
+    if (!existingBadge) {
+    const badge = document.createElement("span");
+    badge.className = "menu-coming-soon-badge";
+    badge.textContent = "🔒 Segera Hadir";
+    link.appendChild(badge);
+    }
+    if (!link.dataset.lockBound) {
+    link.dataset.lockBound = "true";
+    link.addEventListener("click", (e) => {
+    if (!isAccessUnlocked()) {
+      e.preventDefault();
+      e.stopPropagation();
+      window.MiraiSound?.playClickIfIdle();
+      openPasswordModal();
+    }
     });
+    }
+  } else {
+    if (existingBadge) {
+    existingBadge.remove();
+    }
+  }
+});
 }
 
 function updatePageComingSoonOverlay(isUnlocked) {
-    const isLocked = !isUnlocked && isCurrentPageComingSoon();
+const isLocked = !isUnlocked && isCurrentPageComingSoon();
 
-    if (isLocked) {
-        document.body.classList.add("is-page-locked");
+if (isLocked) {
+  document.body.classList.add("is-page-locked");
 
-        let pageOverlay = document.getElementById("comingSoonPageOverlay");
-        if (!pageOverlay) {
-            const info = getComingSoonPageInfo();
-            const homeUrl = getAppBasePath() + "index.html";
-            pageOverlay = document.createElement("div");
-            pageOverlay.id = "comingSoonPageOverlay";
-            pageOverlay.className = "coming-soon-page-overlay";
-            pageOverlay.innerHTML = `
+  let pageOverlay = document.getElementById("comingSoonPageOverlay");
+  if (!pageOverlay) {
+    const info = getComingSoonPageInfo();
+    const homeUrl = getAppBasePath() + "index.html";
+    pageOverlay = document.createElement("div");
+    pageOverlay.id = "comingSoonPageOverlay";
+    pageOverlay.className = "coming-soon-page-overlay";
+    pageOverlay.innerHTML = `
                 <div class="coming-soon-card">
                     <div class="coming-soon-pill">🔒 PREVIEW TERBATAS</div>
                     <div class="coming-soon-icon">${info.icon}</div>
@@ -2663,31 +2663,31 @@ function updatePageComingSoonOverlay(isUnlocked) {
                     </div>
                 </div>
             `;
-            document.body.appendChild(pageOverlay);
+    document.body.appendChild(pageOverlay);
 
-            pageOverlay.querySelector("#csPageUnlockBtn")?.addEventListener("click", () => {
-                window.MiraiSound?.playClickIfIdle();
-                openPasswordModal();
-            });
-        }
-    } else {
-        document.documentElement.classList.remove("is-page-locked-early");
-        document.body.classList.remove("is-page-locked");
-        document.getElementById("comingSoonPageOverlay")?.remove();
-    }
+    pageOverlay.querySelector("#csPageUnlockBtn")?.addEventListener("click", () => {
+    window.MiraiSound?.playClickIfIdle();
+    openPasswordModal();
+    });
+  }
+} else {
+  document.documentElement.classList.remove("is-page-locked-early");
+  document.body.classList.remove("is-page-locked");
+  document.getElementById("comingSoonPageOverlay")?.remove();
+}
 }
 
 function updateSectionComingSoonOverlay(isUnlocked) {
-    // 1. Seksi Kurikulum & Tata Cara di kelas/index.html
-    const kurikulumEl = document.getElementById("kurikulum");
-    if (kurikulumEl) {
-        if (!isUnlocked) {
-            kurikulumEl.classList.add("is-section-locked");
-            let overlay = kurikulumEl.querySelector(".coming-soon-section-overlay");
-            if (!overlay) {
-                overlay = document.createElement("div");
-                overlay.className = "coming-soon-section-overlay";
-                overlay.innerHTML = `
+// 1. Seksi Kurikulum & Tata Cara di kelas/index.html
+const kurikulumEl = document.getElementById("kurikulum");
+if (kurikulumEl) {
+  if (!isUnlocked) {
+    kurikulumEl.classList.add("is-section-locked");
+    let overlay = kurikulumEl.querySelector(".coming-soon-section-overlay");
+    if (!overlay) {
+    overlay = document.createElement("div");
+    overlay.className = "coming-soon-section-overlay";
+    overlay.innerHTML = `
                     <div class="coming-soon-card">
                         <div class="coming-soon-pill">🔒 SEGERA HADIR</div>
                         <div class="coming-soon-icon">📜</div>
@@ -2701,28 +2701,28 @@ function updateSectionComingSoonOverlay(isUnlocked) {
                         </div>
                     </div>
                 `;
-                kurikulumEl.appendChild(overlay);
-                overlay.querySelector(".cs-section-unlock-btn")?.addEventListener("click", () => {
-                    window.MiraiSound?.playClickIfIdle();
-                    openPasswordModal();
-                });
-            }
-        } else {
-            kurikulumEl.classList.remove("is-section-locked");
-            kurikulumEl.querySelector(".coming-soon-section-overlay")?.remove();
-        }
+    kurikulumEl.appendChild(overlay);
+    overlay.querySelector(".cs-section-unlock-btn")?.addEventListener("click", () => {
+    window.MiraiSound?.playClickIfIdle();
+    openPasswordModal();
+    });
     }
+  } else {
+    kurikulumEl.classList.remove("is-section-locked");
+    kurikulumEl.querySelector(".coming-soon-section-overlay")?.remove();
+  }
+}
 
-    // 2. Seksi Studio Ketik & Terjemahan di kamus/index.html
-    const studioEl = document.getElementById("studio-terjemahan");
-    if (studioEl) {
-        if (!isUnlocked) {
-            studioEl.classList.add("is-section-locked");
-            let overlay = studioEl.querySelector(".coming-soon-section-overlay");
-            if (!overlay) {
-                overlay = document.createElement("div");
-                overlay.className = "coming-soon-section-overlay";
-                overlay.innerHTML = `
+// 2. Seksi Studio Ketik & Terjemahan di kamus/index.html
+const studioEl = document.getElementById("studio-terjemahan");
+if (studioEl) {
+  if (!isUnlocked) {
+    studioEl.classList.add("is-section-locked");
+    let overlay = studioEl.querySelector(".coming-soon-section-overlay");
+    if (!overlay) {
+    overlay = document.createElement("div");
+    overlay.className = "coming-soon-section-overlay";
+    overlay.innerHTML = `
                     <div class="coming-soon-card">
                         <div class="coming-soon-pill">🔒 SEGERA HADIR</div>
                         <div class="coming-soon-icon">⌨️</div>
@@ -2736,198 +2736,198 @@ function updateSectionComingSoonOverlay(isUnlocked) {
                         </div>
                     </div>
                 `;
-                studioEl.appendChild(overlay);
-                overlay.querySelector(".cs-section-unlock-btn")?.addEventListener("click", () => {
-                    window.MiraiSound?.playClickIfIdle();
-                    openPasswordModal();
-                });
-            }
-        } else {
-            studioEl.classList.remove("is-section-locked");
-            studioEl.querySelector(".coming-soon-section-overlay")?.remove();
-        }
+    studioEl.appendChild(overlay);
+    overlay.querySelector(".cs-section-unlock-btn")?.addEventListener("click", () => {
+    window.MiraiSound?.playClickIfIdle();
+    openPasswordModal();
+    });
     }
+  } else {
+    studioEl.classList.remove("is-section-locked");
+    studioEl.querySelector(".coming-soon-section-overlay")?.remove();
+  }
+}
 
-    // Indikator pada tombol jump di kamus/index.html jika ada
-    const translatorTabJump = document.querySelector(".tab-translator-jump");
-    if (translatorTabJump) {
-        if (!isUnlocked) {
-            if (!translatorTabJump.querySelector(".tab-lock-icon")) {
-                const lockIcon = document.createElement("span");
-                lockIcon.className = "tab-lock-icon";
-                lockIcon.textContent = " 🔒";
-                translatorTabJump.appendChild(lockIcon);
-            }
-        } else {
-            translatorTabJump.querySelector(".tab-lock-icon")?.remove();
-        }
+// Indikator pada tombol jump di kamus/index.html jika ada
+const translatorTabJump = document.querySelector(".tab-translator-jump");
+if (translatorTabJump) {
+  if (!isUnlocked) {
+    if (!translatorTabJump.querySelector(".tab-lock-icon")) {
+    const lockIcon = document.createElement("span");
+    lockIcon.className = "tab-lock-icon";
+    lockIcon.textContent = " 🔒";
+    translatorTabJump.appendChild(lockIcon);
     }
+  } else {
+    translatorTabJump.querySelector(".tab-lock-icon")?.remove();
+  }
+}
 }
 
 function updateCardsAndButtonsComingSoon(isUnlocked) {
-    const lockedWords = [
-        "toko",
-        "peringkat",
-        "rekomendasi",
-        "lomba",
-        "tentang",
-        "kegiatan",
-        "divisi",
-        "proker",
-        "fasilitas"
-    ];
+const lockedWords = [
+  "toko",
+  "peringkat",
+  "rekomendasi",
+  "lomba",
+  "tentang",
+  "kegiatan",
+  "divisi",
+  "proker",
+  "fasilitas"
+];
 
-    const isLockedHref = (href) => {
-        if (!href) return false;
-        const h = href.toLowerCase();
-        if (lockedWords.some((w) => h.includes(w))) return true;
-        if (h.includes("kurikulum") || h.includes("#kurikulum")) return true;
-        return false;
-    };
+const isLockedHref = (href) => {
+  if (!href) return false;
+  const h = href.toLowerCase();
+  if (lockedWords.some((w) => h.includes(w))) return true;
+  if (h.includes("kurikulum") || h.includes("#kurikulum")) return true;
+  return false;
+};
 
-    const actionLinks = document.querySelectorAll("a[href]");
+const actionLinks = document.querySelectorAll("a[href]");
 
-    actionLinks.forEach((link) => {
-        // PERATURAN: Lepaskan dan jangan pernah kunci seksi Saran & Kritik (#masukan / .feedback-preview) atau tautan navigasi
-        if (link.closest("#masukan") || link.closest(".feedback-preview") || link.closest(".sidebar-links")) return;
+actionLinks.forEach((link) => {
+  // PERATURAN: Lepaskan dan jangan pernah kunci seksi Saran & Kritik (#masukan / .feedback-preview) atau tautan navigasi
+  if (link.closest("#masukan") || link.closest(".feedback-preview") || link.closest(".sidebar-links")) return;
 
-        const href = (link.getAttribute("href") || "").toLowerCase();
-        const isLockedLink = isLockedHref(href);
+  const href = (link.getAttribute("href") || "").toLowerCase();
+  const isLockedLink = isLockedHref(href);
 
-        if (!isLockedLink) return;
+  if (!isLockedLink) return;
 
-        // Kunci tombol aksi spesifik yang menuju fitur segera hadir
-        if (link.matches(".card-go-btn, .drawer-action-btn, .tab-translator-jump, .quick-translator-pill, .doc-btn-download, .doc-btn-view")) {
-            if (!isUnlocked) {
-                link.classList.add("btn-coming-soon-locked");
-                link.setAttribute("tabindex", "-1");
-                link.setAttribute("aria-disabled", "true");
-                if (!link.dataset.lockClickBound) {
-                    link.dataset.lockClickBound = "true";
-                    link.addEventListener("click", (e) => {
-                        if (!isAccessUnlocked()) {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            window.MiraiSound?.playClickIfIdle();
-                            openPasswordModal();
-                        }
-                    });
-                }
-            } else {
-                link.classList.remove("btn-coming-soon-locked");
-                link.removeAttribute("tabindex");
-                link.removeAttribute("aria-disabled");
-            }
-        }
+  // Kunci tombol aksi spesifik yang menuju fitur segera hadir
+  if (link.matches(".card-go-btn, .drawer-action-btn, .tab-translator-jump, .quick-translator-pill, .doc-btn-download, .doc-btn-view")) {
+    if (!isUnlocked) {
+    link.classList.add("btn-coming-soon-locked");
+    link.setAttribute("tabindex", "-1");
+    link.setAttribute("aria-disabled", "true");
+    if (!link.dataset.lockClickBound) {
+    link.dataset.lockClickBound = "true";
+    link.addEventListener("click", (e) => {
+      if (!isAccessUnlocked()) {
+        e.preventDefault();
+        e.stopPropagation();
+        window.MiraiSound?.playClickIfIdle();
+        openPasswordModal();
+      }
+    });
+    }
+    } else {
+    link.classList.remove("btn-coming-soon-locked");
+    link.removeAttribute("tabindex");
+    link.removeAttribute("aria-disabled");
+    }
+  }
 
-        // Kunci kartu pembungkus (misal di beranda: .start-card, .activity-start-card, .about-drawer-card, atau .doc-big-card)
-        const parentCard = link.closest(".start-card, .activity-start-card, .about-drawer-card, .doc-big-card");
-        if (parentCard && !parentCard.closest("#masukan") && !parentCard.closest(".feedback-preview")) {
-            // Pengecualian: jika parentCard adalah .start-card tapi BUKAN menuju kurikulum, jangan kunci (misal Kelas Dasar, Kelas Lanjutan, Kamus tetap terbuka!)
-            if (parentCard.classList.contains("start-card") && !href.includes("kurikulum")) {
-                return;
-            }
+  // Kunci kartu pembungkus (misal di beranda: .start-card, .activity-start-card, .about-drawer-card, atau .doc-big-card)
+  const parentCard = link.closest(".start-card, .activity-start-card, .about-drawer-card, .doc-big-card");
+  if (parentCard && !parentCard.closest("#masukan") && !parentCard.closest(".feedback-preview")) {
+    // Pengecualian: jika parentCard adalah .start-card tapi BUKAN menuju kurikulum, jangan kunci (misal Kelas Dasar, Kelas Lanjutan, Kamus tetap terbuka!)
+    if (parentCard.classList.contains("start-card") && !href.includes("kurikulum")) {
+    return;
+    }
 
-            if (!isUnlocked) {
-                parentCard.classList.add("card-coming-soon-locked");
-                if (parentCard.classList.contains("is-expanded") || parentCard.classList.contains("is-pulled")) {
-                    parentCard.classList.remove("is-expanded", "is-pulled");
-                    const toggle = parentCard.querySelector(".card-toggle");
-                    if (toggle) {
-                        toggle.setAttribute("aria-expanded", "false");
-                        toggle.setAttribute("aria-label", "Buka detail kartu");
-                    }
-                }
-                let cardOverlay = parentCard.querySelector(".card-coming-soon-overlay");
-                if (!cardOverlay) {
-                    cardOverlay = document.createElement("div");
-                    cardOverlay.className = "card-coming-soon-overlay";
-                    cardOverlay.setAttribute("aria-hidden", "true");
-                    cardOverlay.innerHTML = `
+    if (!isUnlocked) {
+    parentCard.classList.add("card-coming-soon-locked");
+    if (parentCard.classList.contains("is-expanded") || parentCard.classList.contains("is-pulled")) {
+    parentCard.classList.remove("is-expanded", "is-pulled");
+    const toggle = parentCard.querySelector(".card-toggle");
+    if (toggle) {
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Buka detail kartu");
+    }
+    }
+    let cardOverlay = parentCard.querySelector(".card-coming-soon-overlay");
+    if (!cardOverlay) {
+    cardOverlay = document.createElement("div");
+    cardOverlay.className = "card-coming-soon-overlay";
+    cardOverlay.setAttribute("aria-hidden", "true");
+    cardOverlay.innerHTML = `
                         <div class="card-coming-soon-center">
                             <span class="card-coming-soon-badge">🔒 Segera Hadir</span>
                             <span class="card-coming-soon-sub">Fitur ini masih dalam tahap pengembangan</span>
                         </div>
                     `;
-                    parentCard.appendChild(cardOverlay);
+    parentCard.appendChild(cardOverlay);
 
-                    cardOverlay.addEventListener("click", (e) => {
-                        e.stopPropagation();
-                        e.preventDefault();
-                        window.MiraiSound?.playClickIfIdle();
-                        openPasswordModal();
-                    });
-                }
-            } else {
-                parentCard.classList.remove("card-coming-soon-locked");
-                parentCard.querySelectorAll(".card-coming-soon-overlay").forEach((el) => el.remove());
-            }
-        }
+    cardOverlay.addEventListener("click", (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      window.MiraiSound?.playClickIfIdle();
+      openPasswordModal();
     });
+    }
+    } else {
+    parentCard.classList.remove("card-coming-soon-locked");
+    parentCard.querySelectorAll(".card-coming-soon-overlay").forEach((el) => el.remove());
+    }
+  }
+});
 
-    // Seksi khusus kurikulum & tata cara di kelas/index.html
-    const docCards = document.querySelectorAll("#kurikulum .doc-big-card");
-    docCards.forEach((card) => {
-        if (!isUnlocked) {
-            card.classList.add("card-coming-soon-locked");
-            card.querySelectorAll(".doc-btn-download, .doc-btn-view").forEach((btn) => {
-                btn.classList.add("btn-coming-soon-locked");
-                btn.setAttribute("tabindex", "-1");
-                btn.setAttribute("aria-disabled", "true");
-                if (!btn.dataset.lockClickBound) {
-                    btn.dataset.lockClickBound = "true";
-                    btn.addEventListener("click", (e) => {
-                        if (!isAccessUnlocked()) {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            window.MiraiSound?.playClickIfIdle();
-                            openPasswordModal();
-                        }
-                    });
-                }
-            });
-            if (!card.querySelector(".card-coming-soon-overlay")) {
-                const overlay = document.createElement("div");
-                overlay.className = "card-coming-soon-overlay";
-                overlay.setAttribute("aria-hidden", "true");
-                overlay.innerHTML = `
+// Seksi khusus kurikulum & tata cara di kelas/index.html
+const docCards = document.querySelectorAll("#kurikulum .doc-big-card");
+docCards.forEach((card) => {
+  if (!isUnlocked) {
+    card.classList.add("card-coming-soon-locked");
+    card.querySelectorAll(".doc-btn-download, .doc-btn-view").forEach((btn) => {
+    btn.classList.add("btn-coming-soon-locked");
+    btn.setAttribute("tabindex", "-1");
+    btn.setAttribute("aria-disabled", "true");
+    if (!btn.dataset.lockClickBound) {
+    btn.dataset.lockClickBound = "true";
+    btn.addEventListener("click", (e) => {
+      if (!isAccessUnlocked()) {
+        e.preventDefault();
+        e.stopPropagation();
+        window.MiraiSound?.playClickIfIdle();
+        openPasswordModal();
+      }
+    });
+    }
+    });
+    if (!card.querySelector(".card-coming-soon-overlay")) {
+    const overlay = document.createElement("div");
+    overlay.className = "card-coming-soon-overlay";
+    overlay.setAttribute("aria-hidden", "true");
+    overlay.innerHTML = `
                     <div class="card-coming-soon-center">
                         <span class="card-coming-soon-badge">🔒 Segera Hadir</span>
                         <span class="card-coming-soon-sub">Fitur ini masih dalam tahap pengembangan</span>
                     </div>
                 `;
-                card.appendChild(overlay);
+    card.appendChild(overlay);
 
-                overlay.addEventListener("click", (e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    window.MiraiSound?.playClickIfIdle();
-                    openPasswordModal();
-                });
-            }
-        } else {
-            card.classList.remove("card-coming-soon-locked");
-            card.querySelectorAll(".card-coming-soon-overlay").forEach((el) => el.remove());
-            card.querySelectorAll(".doc-btn-download, .doc-btn-view").forEach((btn) => {
-                btn.classList.remove("btn-coming-soon-locked");
-                btn.removeAttribute("tabindex");
-                btn.removeAttribute("aria-disabled");
-            });
-        }
+    overlay.addEventListener("click", (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    window.MiraiSound?.playClickIfIdle();
+    openPasswordModal();
     });
+    }
+  } else {
+    card.classList.remove("card-coming-soon-locked");
+    card.querySelectorAll(".card-coming-soon-overlay").forEach((el) => el.remove());
+    card.querySelectorAll(".doc-btn-download, .doc-btn-view").forEach((btn) => {
+    btn.classList.remove("btn-coming-soon-locked");
+    btn.removeAttribute("tabindex");
+    btn.removeAttribute("aria-disabled");
+    });
+  }
+});
 }
 
 function applyComingSoonState() {
-    const isUnlocked = isAccessUnlocked();
-    setupSidebarLockBtn(isUnlocked);
-    updateMenuComingSoonBadges(isUnlocked);
-    updateCardsAndButtonsComingSoon(isUnlocked);
-    updatePageComingSoonOverlay(isUnlocked);
-    updateSectionComingSoonOverlay(isUnlocked);
+const isUnlocked = isAccessUnlocked();
+setupSidebarLockBtn(isUnlocked);
+updateMenuComingSoonBadges(isUnlocked);
+updateCardsAndButtonsComingSoon(isUnlocked);
+updatePageComingSoonOverlay(isUnlocked);
+updateSectionComingSoonOverlay(isUnlocked);
 }
 
 function initComingSoonSystem() {
-    applyComingSoonState();
+applyComingSoonState();
 }
 
 window.initComingSoonSystem = initComingSoonSystem;

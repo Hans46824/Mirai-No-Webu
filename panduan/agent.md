@@ -31,7 +31,7 @@ Setiap AI asisten atau pengembang yang bekerja pada repositori ini **WAJIB memat
 Akses logika interaktif langsung ke berkas terkait tanpa membaca seluruh folder:
 - **Logika UI global & navigasi**: `js/main.js` (header scroll, hero motion, launcher) dan `js/script.js` (master interaksi kuis, kartu, & efek global).
 - **Chatbot Sora**: `js/sora.js` (logika chatbot offline & UI), `js/api.js` (endpoint data), dan `js/translator.js` (mesin bantu terjemahan).
-- **Kamus, Kana, Kanji & Goresan**: `js/kana.js` (kartu & audio pelafalan), `js/kanji.js` (ensiklopedia & filter kanji), dan `js/stroke.js` (animasi kanvas goresan). Catatan: `js/stroke-data.js` berisi vektor koordinat garis besar dan dikecualikan dari pemindaian.
+- **Kamus, Kana, Kanji & Goresan**: `js/kana.js` (kartu & audio pelafalan), `js/kanji.js` (ensiklopedia & filter kanji), `js/kanji-data.js` (dataset 2.211 Joyo Kanji), dan `js/stroke.js` (animasi kanvas goresan). Catatan: `js/stroke-data.js` berisi vektor koordinat garis besar dan dikecualikan dari pemindaian.
 - **Slider & Carousel**: `js/carousel.js` (carousel umum & produk) dan `js/proker-slider.js` (slider khusus proker kegiatan).
 
 ### 3. Larangan Menyalakan Server & Screenshot Otomatis

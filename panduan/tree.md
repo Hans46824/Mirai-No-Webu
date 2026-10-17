@@ -32,6 +32,7 @@ Mirai-No-Webu/
 │   ├── script.js                   # Master interaksi kuis, kartu, & efek interaktif global
 │   ├── leaderboard-data.js         # Master data profil peringkat & prestasi
 │   ├── sora.js                     # Logika bot obrolan & fallback jawaban cerdas Sora
+│   ├── kanji-data.js               # Basis data embedded 2.211 Kanji Joyo & JLPT
 │   ├── kanji.js                    # Mesin pencari & filter ensiklopedia Kanji
 │   ├── kana.js                     # Logika audio pelafalan & kartu Kana
 │   ├── stroke.js                   # Animasi kanvas urutan goresan Yoon & kanji

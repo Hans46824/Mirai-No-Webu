@@ -8,12 +8,14 @@
         "**/data/*.json": true,
         "**/js/stroke-data.js": true,
         "**/skrip/arsip/**": true,
-        "**/*.bak": true
+        "**/*.bak": true,
+        "**/js/kanji-data.js": true
     },
     "files.watcherExclude": {
         "**/data/*.json": true,
         "**/js/stroke-data.js": true,
         "**/skrip/arsip/**": true,
-        "**/*.bak": true
+        "**/*.bak": true,
+        "**/js/kanji-data.js": true
     }
 }
