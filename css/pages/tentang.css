@@ -2124,6 +2124,78 @@ PROFIL MASKOT (Sora Character Card - RPG Style)
   position: relative;
 }
 
+.sora-full-carousel {
+  width: 100%;
+  max-width: 1200px;
+  margin: 28px auto 0 auto;
+}
+
+.sora-carousel-card {
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 12px 35px rgba(233, 30, 99, 0.15);
+  border: 2px solid var(--pink-border, #ff4f91);
+  background: #ffffff;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  line-height: 0;
+  display: block;
+}
+
+.sora-carousel-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px rgba(233, 30, 99, 0.22);
+  border-color: var(--pink, #ff4f91);
+}
+
+.sora-carousel-card img {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: inherit;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+}
+
+.sora-zoom-hint {
+  color: var(--pink, #ff4f91) !important;
+  font-weight: 700;
+  font-size: 13.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 79, 145, 0.08);
+  border: 1px solid rgba(255, 79, 145, 0.25);
+  padding: 6px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sora-zoom-hint:hover {
+  background: rgba(255, 79, 145, 0.16);
+  border-color: rgba(255, 79, 145, 0.45);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  body.page-tentang main > section.sora-profile-section {
+    padding: 44px 16px !important;
+  }
+  .sora-full-carousel {
+    margin-top: 18px;
+  }
+  .sora-carousel-card {
+    border-radius: 16px;
+  }
+}
+
 .sora-grid {
   display: grid;
   grid-template-columns: 1fr 1.3fr;
@@ -2570,11 +2642,12 @@ MODEL JUMLAH PRESTASI MIRAI NO HANA & STATISTIK KOMPETISI
   color: #ffffff !important;
   margin-bottom: 10px;
   letter-spacing: -1.5px;
-  background: linear-gradient(135deg, #ffffff 35%, #ff8db7 100%) !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  filter: drop-shadow(0 4px 18px rgba(255, 79, 145, 0.45));
+  background: none !important;
+  -webkit-background-clip: border-box !important;
+  background-clip: border-box !important;
+  -webkit-text-fill-color: #ffffff !important;
+  filter: none !important;
+  text-shadow: none !important;
   transition: transform 0.25s ease;
 }
 
@@ -2781,12 +2854,16 @@ body:not(.theme-dark):not(.dark-mode) .prestasi-stat-box {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
 }
 
-body:not(.theme-dark):not(.dark-mode) .prestasi-stat-num {
-  background: linear-gradient(135deg, #ffffff 35%, #ff8db7 100%) !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
+body:not(.theme-dark):not(.dark-mode) .prestasi-stat-num,
+body.theme-dark .prestasi-stat-num,
+body.dark-mode .prestasi-stat-num {
+  background: none !important;
+  -webkit-background-clip: border-box !important;
+  background-clip: border-box !important;
+  -webkit-text-fill-color: #ffffff !important;
   color: #ffffff !important;
+  filter: none !important;
+  text-shadow: none !important;
 }
 
 body:not(.theme-dark):not(.dark-mode) .prestasi-stat-label {

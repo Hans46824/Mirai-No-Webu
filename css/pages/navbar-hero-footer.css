@@ -92,6 +92,12 @@ body.is-practicing .hero-social-sidebar, body:has(.practice-view:not([hidden])) 
   pointer-events: none !important;
   transform: translateY(12px) scale(0.88) !important;
 }
+/* 5. Sembunyikan tombol scroll cepat (.quick-scroll-thumb) */
+body.is-practicing .quick-scroll-thumb, body:has(.practice-view:not([hidden])) .quick-scroll-thumb, body:has(.result-view:not([hidden])) .quick-scroll-thumb, body.sora-drawer-open .quick-scroll-thumb, body.sora-fullscreen-active .quick-scroll-thumb, body.sora-widget-open .quick-scroll-thumb, body:has(#drawer.open) .quick-scroll-thumb, body:has(.sora-panel:not([hidden])) .quick-scroll-thumb, body.sidebar-open .quick-scroll-thumb, body:has(.sidebar-nav.active) .quick-scroll-thumb, body.lightbox-open .quick-scroll-thumb, body:has(.img-lightbox.is-open) .quick-scroll-thumb, body.modal-open .quick-scroll-thumb, body:has(.modal.is-open) .quick-scroll-thumb, body:has(.modal.active) .quick-scroll-thumb, body:has(dialog[open]) .quick-scroll-thumb {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
 
 .menu-btn:hover {
   background: var(--pink, #e91e63);
@@ -2350,5 +2356,122 @@ MOBILE BOTTOM NAVIGATION BAR (Dinonaktifkan — Navigasi Melalui Tombol Menu Kan
 
   .mobile-bottom-nav-item {
     display: none !important;
+  }
+}
+
+/* ==========================================================================
+PENGGESER CEPAT POJOK KANAN (QUICK DRAG-SCROLL THUMB)
+- Warna Pink Mirai No Hana
+- Transparan (opacity rendah 0.22) saat tidak disentuh / idle
+- Terang, solid, dan jelas (opacity 1) saat disentuh, di-hover, atau di-drag
+- Bekerja mulus pada Laptop (Mouse Drag) dan Ponsel (Touch Drag)
+========================================================================== */
+.quick-scroll-thumb {
+  position: fixed;
+  top: 0;
+  right: 4px;
+  z-index: 997;
+  width: 14px;
+  height: 52px;
+  border-radius: 14px 0 0 14px;
+  background: rgba(255, 79, 145, 0.28);
+  border: 1px solid rgba(255, 79, 145, 0.45);
+  border-right: none;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  opacity: 0.22;
+  transition: opacity 0.3s ease, width 0.22s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, border-radius 0.22s ease, right 0.22s ease;
+  will-change: transform, opacity;
+}
+
+/* State ketika aktif, disentuh, di-hover, atau sedang digeser */
+.quick-scroll-thumb:hover,
+.quick-scroll-thumb:active,
+.quick-scroll-thumb.is-touching,
+.quick-scroll-thumb.is-dragging {
+  opacity: 1 !important;
+  width: 32px;
+  height: 58px;
+  right: 6px;
+  border-radius: 16px;
+  border: 1.5px solid rgba(255, 255, 255, 0.88);
+  background: linear-gradient(135deg, #ff4f91 0%, #e91e63 100%) !important;
+  box-shadow: 0 0 20px rgba(255, 79, 145, 0.8), 0 4px 14px rgba(0, 0, 0, 0.35) !important;
+  cursor: grabbing;
+}
+
+/* State semi-terang saat halaman sedang di-scroll secara alami (mouse wheel / fling) */
+.quick-scroll-thumb.is-scrolling:not(:hover):not(.is-dragging):not(.is-touching) {
+  opacity: 0.65;
+  background: rgba(255, 79, 145, 0.65);
+  box-shadow: 0 0 10px rgba(255, 79, 145, 0.4);
+}
+
+/* Ikon grip & panah navigasi di dalam pill */
+.quick-scroll-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  color: #ffffff;
+  pointer-events: none;
+  transition: transform 0.2s ease, opacity 0.25s ease;
+}
+
+.quick-scroll-icon svg {
+  width: 10px;
+  height: 10px;
+  stroke: #ffffff;
+  opacity: 0.65;
+  transition: opacity 0.2s ease;
+}
+
+.quick-scroll-bar {
+  width: 6px;
+  height: 2px;
+  border-radius: 2px;
+  background: #ffffff;
+  opacity: 0.7;
+  transition: width 0.2s ease, opacity 0.2s ease;
+}
+
+.quick-scroll-thumb:hover .quick-scroll-icon svg,
+.quick-scroll-thumb:active .quick-scroll-icon svg,
+.quick-scroll-thumb.is-touching .quick-scroll-icon svg,
+.quick-scroll-thumb.is-dragging .quick-scroll-icon svg {
+  opacity: 1;
+}
+
+.quick-scroll-thumb:hover .quick-scroll-bar,
+.quick-scroll-thumb:active .quick-scroll-bar,
+.quick-scroll-thumb.is-touching .quick-scroll-bar,
+.quick-scroll-thumb.is-dragging .quick-scroll-bar {
+  width: 14px;
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .quick-scroll-thumb {
+    width: 16px;
+    height: 54px;
+    right: 2px;
+  }
+  
+  .quick-scroll-thumb:hover,
+  .quick-scroll-thumb:active,
+  .quick-scroll-thumb.is-touching,
+  .quick-scroll-thumb.is-dragging {
+    width: 34px;
+    height: 62px;
+    right: 6px;
   }
 }

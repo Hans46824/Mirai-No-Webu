@@ -34,7 +34,7 @@
     <link rel=preconnect href="https://fonts.googleapis.com">
     <link rel=preconnect href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Noto+Serif+JP:wght@600;700;800;900&family=Noto+Sans+JP:wght@500;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css?v=cdce96da">
+    <link rel="stylesheet" href="../css/style.css?v=65608fe2">
 </head>
 <body class="page-tentang">
     <a class="skip-link" href="#main-content">Lewati ke konten utama</a>
@@ -481,46 +481,55 @@
         <section class="section sora-profile-section">
             <div class="section-intro">
                 <h2 class="heading">Profil Maskot <span>Asora Aokita (Sora)</span></h2>
-                <p class="copy" style="margin-top: 10px;"><span style="color: var(--pink, #ff4f91) !important; font-weight: 700; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; background: rgba(255, 79, 145, 0.08); border: 1px solid rgba(255, 79, 145, 0.25); padding: 5px 14px; border-radius: 20px;">← Geser ke samping untuk melihat profil lengkap →</span></p>
+                <p class="copy" style="margin-top: 10px;">
+                    <span class="sora-zoom-hint" id="soraZoomHint" title="Klik untuk melihat pratinjau penuh & zoom">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                        Klik 2x / Ketuk 2x untuk melihat gambar lengkap &amp; perbesar
+                    </span>
+                </p>
             </div>
 
             <div class="sora-full-carousel">
-                <style>.no-scroll-bar::-webkit-scrollbar { display: none; } .no-scroll-bar { -ms-overflow-style: none; scrollbar-width: none; }</style>
-                <div id="sora-scroll-box" class="no-scroll-bar" style="width: 100%; border-radius: 22px; overflow-x: auto; overflow-y: hidden; display: block; white-space: nowrap; font-size: 0; box-shadow: 0 12px 35px rgba(233, 30, 99, 0.15); border: 2px solid var(--pink-border); cursor: grab; -webkit-overflow-scrolling: touch; touch-action: pan-x;">
-                    <img src="../sora/images/soracarousel.png" alt="Profil Lengkap Asora Aokita" style="width: max(100%, 1500px); height: auto; display: inline-block; pointer-events: none;" loading="lazy" decoding="async" width="3110" height="1350">
+                <div id="sora-scroll-box" class="sora-carousel-card" title="Klik 2x untuk melihat gambar lengkap &amp; perbesar">
+                    <img id="soraCarouselImg" src="../sora/images/soracarousel.png" alt="Profil Lengkap Asora Aokita (Sora) - Maskot Resmi Mirai No Hana" loading="lazy" decoding="async" width="1280" height="555" draggable="false">
                 </div>
             </div>
             
             <script>
                 (function() {
-                    const slider = document.getElementById('sora-scroll-box');
-                    if (!slider) return;
-                    let isDown = false;
-                    let startX;
-                    let scrollLeft;
+                    const card = document.getElementById('sora-scroll-box');
+                    const img = document.getElementById('soraCarouselImg');
+                    const hint = document.getElementById('soraZoomHint');
+                    if (!card || !img) return;
 
-                    slider.addEventListener('mousedown', (e) => {
-                        isDown = true;
-                        slider.style.cursor = 'grabbing';
-                        startX = e.pageX - slider.offsetLeft;
-                        scrollLeft = slider.scrollLeft;
-                    });
-                    slider.addEventListener('mouseleave', () => {
-                        if (!isDown) slider.style.cursor = 'grab';
-                    });
-                    window.addEventListener('mouseup', () => {
-                        if (isDown) {
-                            isDown = false;
-                            slider.style.cursor = 'grab';
+                    const triggerLightbox = (e) => {
+                        if (e) {
+                            e.preventDefault();
+                            e.stopPropagation();
                         }
-                    });
-                    slider.addEventListener('mousemove', (e) => {
-                        if (!isDown) return;
-                        e.preventDefault();
-                        const x = e.pageX - slider.offsetLeft;
-                        const walk = (x - startX) * 2; // Scroll-fast
-                        slider.scrollLeft = scrollLeft - walk;
-                    });
+                        if (window.openImageLightbox) {
+                            window.openImageLightbox(img);
+                        } else {
+                            img.dispatchEvent(new MouseEvent('dblclick', { bubbles: true, cancelable: true }));
+                        }
+                    };
+
+                    card.addEventListener('dblclick', triggerLightbox);
+                    if (hint) {
+                        hint.addEventListener('click', triggerLightbox);
+                    }
+
+                    // Mobile double-tap pada kartu Sora (dalam 350ms)
+                    let lastTap = 0;
+                    card.addEventListener('touchend', (e) => {
+                        const now = Date.now();
+                        if (now - lastTap < 350 && now - lastTap > 40) {
+                            triggerLightbox(e);
+                            lastTap = 0;
+                        } else {
+                            lastTap = now;
+                        }
+                    }, { passive: false });
                 })();
             </script>
         </section>
@@ -568,7 +577,7 @@
             </div>
 
             <!-- SKRIP DATA & MODEL JUMLAH PRESTASI (MENGIKUTI PAPAN PERINGKAT PRESTASI SECARA DINAMIS) -->
-            <script defer src="../js/leaderboard-data.js?v=f1f581dc"></script>
+            <script src="../js/leaderboard-data.js?v=f1f581dc"></script>
             <script>
                 (function() {
                     function syncPrestasiStats(triggerCountAnim = true) {
@@ -961,6 +970,6 @@
 </footer>
 
     <button class="to-top" type="button">↑</button>
-    <script defer src="../js/main.js?v=2aab0204"></script>
+    <script defer src="../js/main.js?v=059553b2"></script>
 </body>
 </html>

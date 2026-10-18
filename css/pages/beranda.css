@@ -767,6 +767,7 @@ body:not(.dark-mode):not(.theme-dark) main > section:nth-of-type(odd):not(.home-
   gap: 16px !important;
   align-items: flex-start !important;
   max-width: calc(100% - 130px) !important;
+  transition: max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .about-feature-body.stacked-layout .about-card-title {
@@ -1853,9 +1854,11 @@ body.theme-dark .card-collapsible-content > .card-collapsible-inner p, body.them
   border-color: rgba(255, 101, 155, 0.5) !important;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5) !important;
 }
-/* Responsif Layar Tablet (601px - 900px) untuk Laci Logo NK */
-@media (min-width: 601px) and (max-width: 900px) {
-  .drawer-tray {
+/* Responsif Layar Tablet (769px - 991px) untuk Laci Logo NK */
+@media (min-width: 769px) and (max-width: 991px) {
+  .drawer-tray,
+  .about-feature-card > .drawer-tray,
+  .about-drawer-card > .drawer-tray {
     width: clamp(175px, 28vw, 240px) !important;
     padding: 16px !important;
   }
@@ -1864,15 +1867,94 @@ body.theme-dark .card-collapsible-content > .card-collapsible-inner p, body.them
     width: clamp(100px, 16vw, 130px) !important;
   }
 }
-/* Responsif Layar HP (<= 600px) untuk Laci Logo NK (Melahap Sisi Kanan 40-45%) */
-@media (max-width: 600px) {
-  .drawer-tray {
-    width: clamp(140px, 42vw, 175px) !important;
-    padding: 12px !important;
+
+/* ==========================================================================
+RESPONSIF MODE HP (<= 768px):
+1. Animasi Laci Logo NK Dibatasi Maksimal 44% - 46% (TIDAK BOLEH LEBIH DARI 50% CARD)
+2. Tombol "TENTANG MIRAI NO HANA" Tidak Tertutup / Kemakan & Sangat Mudah Ditekan
+3. Konten Teks Tetap Rapi di Sisi Kiri (54%) Saat Laci Terbuka
+========================================================================== */
+@media (max-width: 768px) {
+  /* Laci geser logo NK di mode HP: maksimal 44-46% dari lebar card (tepat di bawah batas 50%) */
+  .drawer-tray,
+  .about-feature-card > .drawer-tray,
+  .about-drawer-card > .drawer-tray {
+    width: 44% !important;
+    max-width: 46% !important;
+    min-width: 0 !important;
+    padding: 10px 8px !important;
+    box-sizing: border-box !important;
   }
 
+  /* Logo NK proporsional di dalam laci 44% */
   .drawer-nk-logo {
-    width: clamp(85px, 24vw, 108px) !important;
+    width: clamp(56px, 18vw, 84px) !important;
+    max-width: 82% !important;
+    height: auto !important;
+  }
+
+  /* Ketika laci animasi NK aktif (is-pulled): batasi area teks di 54% agar tidak tertutup laci */
+  .about-drawer-card.is-pulled .about-feature-body.stacked-layout {
+    max-width: 54% !important;
+    padding-right: 0 !important;
+  }
+
+  .about-drawer-card.is-pulled .about-card-title {
+    font-size: clamp(20px, 5.2vw, 25px) !important;
+    line-height: 1.25 !important;
+    max-width: 100% !important;
+  }
+
+  .about-drawer-card.is-pulled .about-card-desc {
+    font-size: 13px !important;
+    line-height: 1.6 !important;
+    max-width: 100% !important;
+  }
+
+  /* Tombol Aksi "TENTANG MIRAI NO HANA" di mode HP:
+     - Berada di atas layer laci (z-index: 25)
+     - Ukuran proporsional & rapi di sisi kiri tanpa kemakan laci
+     - Area sentuh nyaman dan mudah ditekan (min-height: 38px, touch-action: manipulation) */
+  .about-drawer-action {
+    margin-top: 12px !important;
+    width: fit-content !important;
+    max-width: 100% !important;
+    position: relative !important;
+    z-index: 25 !important;
+    pointer-events: auto !important;
+  }
+
+  .about-drawer-action .drawer-action-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    width: fit-content !important;
+    max-width: 100% !important;
+    min-height: 38px !important;
+    padding: 8px 14px !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.25px !important;
+    border-radius: 999px !important;
+    line-height: 1.25 !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+    z-index: 25 !important;
+    pointer-events: auto !important;
+    touch-action: manipulation !important;
+    user-select: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  .about-drawer-action .drawer-btn-text {
+    white-space: normal !important;
+    word-break: keep-all !important;
+  }
+
+  .about-drawer-action .btn-arrow {
+    flex-shrink: 0 !important;
+    font-size: 13px !important;
   }
 }
 /* 7. Responsif Layar HP (<= 600px) untuk Kartu Navigasi */
@@ -1979,7 +2061,9 @@ body.theme-dark .card-collapsible-content > .card-collapsible-inner p, body.them
     right: 12px !important;
   }
 
-  .about-feature-body.stacked-layout, .about-card-desc, .feedback-card-desc {
+  .about-feature-card:not(.is-pulled) .about-feature-body.stacked-layout,
+  .about-feature-card:not(.is-pulled) .about-card-desc,
+  .feedback-card-desc {
     max-width: 100% !important;
     padding-right: 0 !important;
   }

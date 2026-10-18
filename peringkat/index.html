@@ -31,7 +31,7 @@
     <!-- Open Graph (Facebook / WhatsApp / Discord) -->
 
     <!-- Twitter Cards -->
-    <link rel="stylesheet" href="../css/style.css?v=cdce96da">
+    <link rel="stylesheet" href="../css/style.css?v=65608fe2">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Noto+Serif+JP:wght@600;700;800;900&family=Noto+Sans+JP:wght@500;700;800;900&display=swap" rel="stylesheet">
@@ -310,11 +310,13 @@
     </div>
 
     <!-- SCRIPT DATA & INTERAKTIVITAS LEADERBOARD -->
-    <script defer src="../js/leaderboard-data.js?v=f1f581dc"></script>
+    <script src="../js/leaderboard-data.js?v=f1f581dc"></script>
     <script>
         let currentActiveCategory = 'rajio';
 
-        const leaderboardData = window.leaderboardData;
+        function getLeaderboardData() {
+            return window.leaderboardData || {};
+        }
 
         function getValidAvatarSrc(path) {
             if (!path) return '../images/mirai/logo/MNH1-nav.png';
@@ -325,7 +327,7 @@
         }
 
         function openLeaderboardDetail(rankNum) {
-            const catData = leaderboardData[currentActiveCategory];
+            const catData = getLeaderboardData()[currentActiveCategory];
             if (!catData) return;
 
             let member = null;
@@ -459,7 +461,8 @@
 
         function renderLeaderboard(key) {
             currentActiveCategory = key;
-            const data = leaderboardData[key];
+            const dataObj = getLeaderboardData();
+            const data = dataObj[key];
             if (!data) return;
 
             // Update info
@@ -574,7 +577,12 @@
             });
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
+        function initLeaderboard() {
+            if (!window.leaderboardData) {
+                setTimeout(initLeaderboard, 30);
+                return;
+            }
+
             const tabs = document.querySelectorAll('.lb-tab-btn');
             tabs.forEach(tab => {
                 tab.addEventListener('click', () => {
@@ -644,11 +652,17 @@
                     }
                 }, 200);
             }
-        });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initLeaderboard);
+        } else {
+            initLeaderboard();
+        }
     </script>
 
     <script defer src="../js/sora.js?v=547da8dc"></script>
-    <script defer src="../js/main.js?v=2aab0204"></script>
+    <script defer src="../js/main.js?v=059553b2"></script>
     <script defer src="../js/script.js?v=4464530f"></script>
 </body>
 </html>

@@ -548,6 +548,7 @@ setupThemeToggle();
 setupMenu();
 setupSidebarNav();
 setupBackToTop();
+setupQuickScrollThumb();
 setupReveal();
 setupHeroContentScroll();
 setupInstagramFeedback();
@@ -773,6 +774,189 @@ const update = () => button.classList.toggle("is-visible", window.scrollY > 480)
 update();
 window.addEventListener("scroll", update, { passive: true });
 button.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+}
+
+/**
+ * Tombol Geser Cepat Pojok Kanan (Quick Drag-Scroll Thumb)
+ * - Warna Pink Mirai No Hana
+ * - Transparan (opacity 0.22) saat tidak disentuh / idle
+ * - Terang & terlihat jelas (opacity 1) saat disentuh, di-hover, atau di-drag
+ * - Berfungsi mulus di Mobile (Touch Drag) & Laptop (Mouse Drag)
+ */
+function setupQuickScrollThumb() {
+  if (document.getElementById("quickScrollThumb")) return;
+
+  const thumb = document.createElement("div");
+  thumb.id = "quickScrollThumb";
+  thumb.className = "quick-scroll-thumb";
+  thumb.setAttribute("aria-label", "Geser Cepat Halaman");
+  thumb.setAttribute("role", "scrollbar");
+  thumb.setAttribute("aria-orientation", "vertical");
+  thumb.setAttribute("title", "Tekan & geser untuk scroll cepat");
+  thumb.innerHTML = `
+    <div class="quick-scroll-icon">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"></polyline></svg>
+      <span class="quick-scroll-bar"></span>
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+  `;
+  document.body.appendChild(thumb);
+
+  let isDragging = false;
+  let scrollTimeout = null;
+  let ticking = false;
+
+  // Ukuran batas aman agar tidak menabrak tombol menu di atas atau floating button di bawah
+  function getTrackBounds() {
+    const isMobile = window.innerWidth <= 768;
+    const topOffset = isMobile ? 80 : 86;
+    const bottomOffset = isMobile ? 138 : 115;
+    const thumbHeight = thumb.offsetHeight || (isMobile ? 54 : 52);
+    const winHeight = window.innerHeight;
+    const maxTop = Math.max(topOffset, winHeight - bottomOffset - thumbHeight);
+    const trackHeight = Math.max(1, maxTop - topOffset);
+    return { topOffset, maxTop, trackHeight, thumbHeight };
+  }
+
+  // Perbarui posisi vertikal tombol secara real-time
+  function updateThumbPosition() {
+    const docHeight = Math.max(
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight,
+      document.body.offsetHeight,
+      document.documentElement.offsetHeight
+    );
+    const winHeight = window.innerHeight;
+    const maxScroll = docHeight - winHeight;
+
+    if (maxScroll <= 40) {
+      thumb.style.display = "none";
+      return;
+    } else {
+      thumb.style.display = "flex";
+    }
+
+    const { topOffset, trackHeight } = getTrackBounds();
+    const currentScroll = window.pageYOffset || document.documentElement.scrollTop || 0;
+    const progress = Math.min(Math.max(0, currentScroll / maxScroll), 1);
+    const thumbY = topOffset + progress * trackHeight;
+
+    thumb.style.transform = `translate3d(0, ${Math.round(thumbY)}px, 0)`;
+    thumb.setAttribute("aria-valuenow", Math.round(progress * 100));
+  }
+
+  // Menghitung & menggulir halaman berdasarkan posisi sentuh/kursor
+  function scrollFromPointer(clientY, startThumbOffset = 0) {
+    const docHeight = Math.max(
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight
+    );
+    const winHeight = window.innerHeight;
+    const maxScroll = Math.max(0, docHeight - winHeight);
+    if (maxScroll <= 0) return;
+
+    const { topOffset, trackHeight } = getTrackBounds();
+    const targetY = clientY - startThumbOffset;
+    const progress = Math.min(Math.max(0, (targetY - topOffset) / trackHeight), 1);
+    const targetScroll = Math.round(progress * maxScroll);
+
+    window.scrollTo({
+      top: targetScroll,
+      behavior: "auto"
+    });
+    updateThumbPosition();
+  }
+
+  // Deteksi scroll alami (mouse wheel / swipe konten)
+  function handleWindowScroll() {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        updateThumbPosition();
+        ticking = false;
+      });
+      ticking = true;
+    }
+
+    if (!isDragging) {
+      thumb.classList.add("is-scrolling");
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        thumb.classList.remove("is-scrolling");
+      }, 1200);
+    }
+  }
+
+  window.addEventListener("scroll", handleWindowScroll, { passive: true });
+  window.addEventListener("resize", () => {
+    updateThumbPosition();
+  }, { passive: true });
+
+  updateThumbPosition();
+
+  // 1. INTERAKSI TOUCH (MOBILE / HP)
+  let touchStartOffset = 0;
+
+  thumb.addEventListener("touchstart", (e) => {
+    if (e.touches.length !== 1) return;
+    isDragging = true;
+    thumb.classList.add("is-touching", "is-dragging");
+    clearTimeout(scrollTimeout);
+
+    const touch = e.touches[0];
+    const rect = thumb.getBoundingClientRect();
+    touchStartOffset = touch.clientY - rect.top;
+  }, { passive: true });
+
+  window.addEventListener("touchmove", (e) => {
+    if (!isDragging || e.touches.length !== 1) return;
+    e.preventDefault();
+    scrollFromPointer(e.touches[0].clientY, touchStartOffset);
+  }, { passive: false });
+
+  function endTouch() {
+    if (!isDragging) return;
+    isDragging = false;
+    thumb.classList.remove("is-dragging", "is-touching");
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      thumb.classList.remove("is-scrolling");
+    }, 1000);
+  }
+
+  window.addEventListener("touchend", endTouch, { passive: true });
+  window.addEventListener("touchcancel", endTouch, { passive: true });
+
+  // 2. INTERAKSI MOUSE (LAPTOP / DESKTOP)
+  let mouseStartOffset = 0;
+
+  thumb.addEventListener("mousedown", (e) => {
+    if (e.button !== 0) return;
+    isDragging = true;
+    thumb.classList.add("is-dragging");
+    clearTimeout(scrollTimeout);
+
+    const rect = thumb.getBoundingClientRect();
+    mouseStartOffset = e.clientY - rect.top;
+    document.body.style.userSelect = "none";
+    e.preventDefault();
+  });
+
+  window.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    scrollFromPointer(e.clientY, mouseStartOffset);
+  });
+
+  window.addEventListener("mouseup", () => {
+    if (!isDragging) return;
+    isDragging = false;
+    thumb.classList.remove("is-dragging");
+    document.body.style.userSelect = "";
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      thumb.classList.remove("is-scrolling");
+    }, 1000);
+  });
 }
 
 function registerServiceWorker() {
@@ -1139,102 +1323,251 @@ window.addEventListener("load", syncManagementGridHeight, { passive: true });
 }
 
 function setupImageLightbox() {
-let lightbox = null;
-let imgEl = null;
-let captionEl = null;
+  let lightbox = null;
+  let imgEl = null;
+  let captionEl = null;
 
-function createLightbox() {
-  if (lightbox) return;
-  lightbox = document.createElement("div");
-  lightbox.id = "imgLightboxModal";
-  lightbox.className = "img-lightbox";
-  lightbox.setAttribute("role", "dialog");
-  lightbox.setAttribute("aria-label", "Pratinjau Foto");
-  lightbox.setAttribute("aria-modal", "true");
-  lightbox.innerHTML = [
-    '<button class="img-lightbox-close" type="button" aria-label="Tutup Pratinjau">✕</button>',
-    '<div class="img-lightbox-container">',
-    '    <img class="img-lightbox-img" src="" alt="Pratinjau Foto">',
-    '    <div class="img-lightbox-caption"></div>',
-    '    <div class="img-lightbox-hint">Klik di mana saja atau tekan ESC untuk menutup</div>',
-    '</div>'
-  ].join("");
-  document.body.appendChild(lightbox);
+  // State zoom dan pan interaktif
+  let currentScale = 1;
+  let panX = 0;
+  let panY = 0;
+  let isPanning = false;
+  let startPanX = 0;
+  let startPanY = 0;
+  let initialPinchDist = 0;
+  let initialPinchScale = 1;
 
-  imgEl = lightbox.querySelector(".img-lightbox-img");
-  captionEl = lightbox.querySelector(".img-lightbox-caption");
-  const closeBtn = lightbox.querySelector(".img-lightbox-close");
-
-  closeBtn.addEventListener("click", closeLightbox);
-  lightbox.addEventListener("click", (e) => {
-    if (e.target !== captionEl) {
-    closeLightbox();
+  function updateTransform(animate = true) {
+    if (!imgEl) return;
+    if (currentScale <= 1) {
+      currentScale = 1;
+      panX = 0;
+      panY = 0;
+      imgEl.style.transition = animate ? "transform 0.22s ease-out" : "none";
+      imgEl.style.transform = "none";
+      imgEl.style.cursor = "zoom-in";
+      imgEl.classList.remove("is-zoomed");
+    } else {
+      imgEl.style.transition = animate ? "transform 0.22s ease-out" : "none";
+      imgEl.style.transform = `scale(${currentScale}) translate(${panX / currentScale}px, ${panY / currentScale}px)`;
+      imgEl.style.cursor = isPanning ? "grabbing" : "grab";
+      imgEl.classList.add("is-zoomed");
     }
-  });
+  }
 
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && lightbox.classList.contains("is-open")) {
-    closeLightbox();
+  function resetZoom() {
+    currentScale = 1;
+    panX = 0;
+    panY = 0;
+    isPanning = false;
+    updateTransform(false);
+  }
+
+  function createLightbox() {
+    if (lightbox) return;
+    lightbox = document.createElement("div");
+    lightbox.id = "imgLightboxModal";
+    lightbox.className = "img-lightbox";
+    lightbox.setAttribute("role", "dialog");
+    lightbox.setAttribute("aria-label", "Pratinjau Foto");
+    lightbox.setAttribute("aria-modal", "true");
+    lightbox.innerHTML = [
+      '<button class="img-lightbox-close" type="button" aria-label="Tutup Pratinjau">✕</button>',
+      '<div class="img-lightbox-container">',
+      '    <img class="img-lightbox-img" src="" alt="Pratinjau Foto" draggable="false">',
+      '    <div class="img-lightbox-caption"></div>',
+      '    <div class="img-lightbox-hint">Klik/Ketuk foto untuk perbesar/zoom • Geser untuk menggeser • Klik di luar atau ESC untuk menutup</div>',
+      '</div>'
+    ].join("");
+    document.body.appendChild(lightbox);
+
+    imgEl = lightbox.querySelector(".img-lightbox-img");
+    captionEl = lightbox.querySelector(".img-lightbox-caption");
+    const closeBtn = lightbox.querySelector(".img-lightbox-close");
+
+    closeBtn.addEventListener("click", closeLightbox);
+
+    // Klik di latar belakang gelap (luar gambar) menutup lightbox
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox || e.target.classList.contains("img-lightbox-container")) {
+        closeLightbox();
+      }
+    });
+
+    // Klik foto di dalam lightbox: toggle zoom (1x <-> 2.4x)
+    imgEl.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (currentScale === 1) {
+        currentScale = 2.4;
+        updateTransform(true);
+      } else {
+        resetZoom();
+      }
+    });
+
+    // Desktop Mouse Drag untuk Pan saat Zoomed In
+    imgEl.addEventListener("mousedown", (e) => {
+      if (currentScale <= 1) return;
+      isPanning = true;
+      startPanX = e.clientX - panX;
+      startPanY = e.clientY - panY;
+      updateTransform(false);
+      e.preventDefault();
+    });
+
+    window.addEventListener("mousemove", (e) => {
+      if (!isPanning || currentScale <= 1) return;
+      panX = e.clientX - startPanX;
+      panY = e.clientY - startPanY;
+      updateTransform(false);
+    });
+
+    window.addEventListener("mouseup", () => {
+      if (isPanning) {
+        isPanning = false;
+        updateTransform(false);
+      }
+    });
+
+    // Desktop Mouse Wheel Zoom
+    imgEl.addEventListener("wheel", (e) => {
+      e.preventDefault();
+      const delta = e.deltaY < 0 ? 0.35 : -0.35;
+      const newScale = Math.min(Math.max(1, currentScale + delta), 4.5);
+      if (newScale !== currentScale) {
+        currentScale = newScale;
+        if (currentScale === 1) {
+          panX = 0;
+          panY = 0;
+        }
+        updateTransform(true);
+      }
+    }, { passive: false });
+
+    // Mobile Touch Gestures (Pinch-to-zoom & Touch Pan)
+    imgEl.addEventListener("touchstart", (e) => {
+      if (e.touches.length === 2) {
+        const dx = e.touches[0].clientX - e.touches[1].clientX;
+        const dy = e.touches[0].clientY - e.touches[1].clientY;
+        initialPinchDist = Math.hypot(dx, dy);
+        initialPinchScale = currentScale;
+      } else if (e.touches.length === 1 && currentScale > 1) {
+        isPanning = true;
+        startPanX = e.touches[0].clientX - panX;
+        startPanY = e.touches[0].clientY - panY;
+      }
+    }, { passive: true });
+
+    imgEl.addEventListener("touchmove", (e) => {
+      if (e.touches.length === 2 && initialPinchDist > 0) {
+        e.preventDefault();
+        const dx = e.touches[0].clientX - e.touches[1].clientX;
+        const dy = e.touches[0].clientY - e.touches[1].clientY;
+        const dist = Math.hypot(dx, dy);
+        const factor = dist / initialPinchDist;
+        currentScale = Math.min(Math.max(1, initialPinchScale * factor), 4.5);
+        updateTransform(false);
+      } else if (e.touches.length === 1 && isPanning && currentScale > 1) {
+        e.preventDefault();
+        panX = e.touches[0].clientX - startPanX;
+        panY = e.touches[0].clientY - startPanY;
+        updateTransform(false);
+      }
+    }, { passive: false });
+
+    imgEl.addEventListener("touchend", (e) => {
+      if (e.touches.length < 2) {
+        initialPinchDist = 0;
+      }
+      if (e.touches.length === 0) {
+        isPanning = false;
+        if (currentScale < 1.08) {
+          resetZoom();
+        } else {
+          updateTransform(false);
+        }
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && lightbox.classList.contains("is-open")) {
+        closeLightbox();
+      }
+    });
+  }
+
+  function openLightbox(sourceImg) {
+    if (!sourceImg || !sourceImg.src) return;
+    createLightbox();
+    resetZoom();
+
+    imgEl.src = sourceImg.currentSrc || sourceImg.src;
+    const caption = sourceImg.alt || sourceImg.title || "";
+    captionEl.textContent = caption;
+
+    lightbox.classList.add("is-open");
+    document.body.classList.add("lightbox-open");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeLightbox() {
+    if (!lightbox) return;
+    lightbox.classList.remove("is-open");
+    document.body.classList.remove("lightbox-open");
+    document.body.style.overflow = "";
+    resetZoom();
+    setTimeout(() => {
+      if (imgEl && !lightbox.classList.contains("is-open")) {
+        imgEl.src = "";
+      }
+    }, 260);
+  }
+
+  // Ekspos global agar bisa dipanggil langsung dari modul/komponen
+  window.openImageLightbox = openLightbox;
+
+  // Resolusi elemen gambar dari target event (mendukung wrapper/kartu)
+  function resolveTargetImage(target) {
+    if (!target) return null;
+    let img = target.closest("img");
+    if (!img) {
+      const card = target.closest(".sora-carousel-card, #sora-scroll-box, .sora-full-carousel");
+      if (card) img = card.querySelector("img");
     }
-  });
-}
+    return img;
+  }
 
-function openLightbox(sourceImg) {
-  if (!sourceImg || !sourceImg.src) return;
-  createLightbox();
-
-  imgEl.src = sourceImg.currentSrc || sourceImg.src;
-  const caption = sourceImg.alt || sourceImg.title || "";
-  captionEl.textContent = caption;
-
-  lightbox.classList.add("is-open");
-  document.body.classList.add("lightbox-open");
-  document.body.style.overflow = "hidden";
-}
-
-function closeLightbox() {
-  if (!lightbox) return;
-  lightbox.classList.remove("is-open");
-  document.body.classList.remove("lightbox-open");
-  document.body.style.overflow = "";
-  setTimeout(() => {
-    if (imgEl && !lightbox.classList.contains("is-open")) {
-    imgEl.src = "";
-    }
-  }, 260);
-}
-
-// Deteksi klik ganda (double-click) untuk Desktop
-document.addEventListener("dblclick", (e) => {
-  const img = e.target.closest("img");
-  if (!img) return;
-  if (img.closest(".img-lightbox") || img.closest("#launcher") || img.closest(".to-top")) return;
-  if (!img.src) return;
-  e.preventDefault();
-  openLightbox(img);
-});
-
-// Deteksi ketukan ganda (double-tap) untuk Mobile (ketuk dua kali dalam 320ms)
-let lastTapTime = 0;
-let lastTapTarget = null;
-document.addEventListener("touchend", (e) => {
-  const img = e.target.closest("img");
-  if (!img) return;
-  if (img.closest(".img-lightbox") || img.closest("#launcher") || img.closest(".to-top")) return;
-  if (!img.src) return;
-
-  const now = Date.now();
-  const diff = now - lastTapTime;
-  if (diff < 320 && diff > 40 && lastTapTarget === img) {
+  // Deteksi klik ganda (double-click) untuk Desktop
+  document.addEventListener("dblclick", (e) => {
+    const img = resolveTargetImage(e.target);
+    if (!img) return;
+    if (img.closest(".img-lightbox") || img.closest("#launcher") || img.closest(".to-top")) return;
+    if (!img.src) return;
     e.preventDefault();
     openLightbox(img);
-    lastTapTime = 0;
-    lastTapTarget = null;
-  } else {
-    lastTapTime = now;
-    lastTapTarget = img;
-  }
-}, { passive: false });
+  });
+
+  // Deteksi ketukan ganda (double-tap) untuk Mobile (ketuk dua kali dalam 350ms)
+  let lastTapTime = 0;
+  let lastTapTarget = null;
+  document.addEventListener("touchend", (e) => {
+    const img = resolveTargetImage(e.target);
+    if (!img) return;
+    if (img.closest(".img-lightbox") || img.closest("#launcher") || img.closest(".to-top")) return;
+    if (!img.src) return;
+
+    const now = Date.now();
+    const diff = now - lastTapTime;
+    if (diff < 350 && diff > 40 && (lastTapTarget === img || lastTapTarget === e.target)) {
+      e.preventDefault();
+      openLightbox(img);
+      lastTapTime = 0;
+      lastTapTarget = null;
+    } else {
+      lastTapTime = now;
+      lastTapTarget = img || e.target;
+    }
+  }, { passive: false });
 }
 
 /* ==========================================================================

@@ -1421,7 +1421,15 @@ img:not(.img-lightbox-img) {
   border-radius: 12px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.12);
   background: transparent;
-  cursor: zoom-out;
+  cursor: zoom-in;
+  transition: transform 0.22s ease-out;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.img-lightbox-img.is-zoomed {
+  box-shadow: 0 24px 75px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 
 .img-lightbox-caption {
