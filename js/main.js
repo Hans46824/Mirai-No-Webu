@@ -1680,10 +1680,15 @@ function renderSlide(index) {
 
   if (counterEl) counterEl.textContent = `${currentIndex + 1} / ${quotes.length}`;
 
+  section.style.setProperty("--quote-accent", q.accent);
+  section.style.setProperty("--quote-glow", q.glow);
+  section.style.setProperty("--quote-border", q.border);
+
   dots.forEach((dot, i) => {
     dot.classList.toggle("active", i === currentIndex);
     if (i === currentIndex) {
-    dot.style.setProperty("--quote-accent", q.accent);
+      dot.style.setProperty("--quote-accent", q.accent);
+      dot.style.setProperty("--quote-glow", q.glow);
     }
   });
 }

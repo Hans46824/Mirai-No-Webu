@@ -2461,8 +2461,9 @@ section.feedback-preview.feedback-theme-dark .card-toggle::after {
 }
 
 .section-quote-slider.quote-theme-white .quote-box {
-  background: rgba(255, 255, 255, 0.88) !important;
-  border: 1px solid #fce4ec !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid #e2e8f0 !important;
+  border-left: 3.5px solid var(--quote-accent, #94a3b8) !important;
   backdrop-filter: blur(4px) !important;
 }
 
@@ -2472,31 +2473,47 @@ section.feedback-preview.feedback-theme-dark .card-toggle::after {
 }
 
 .section-quote-slider.quote-theme-white .quote-romaji {
-  color: #d81b60 !important;
+  color: var(--quote-accent, #4b5563) !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+  text-shadow: none !important;
 }
 
 .section-quote-slider.quote-theme-white .quote-literal {
-  background: rgba(233, 30, 99, 0.06) !important;
-  border: 1px solid rgba(233, 30, 99, 0.18) !important;
-  color: #374151 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  padding: 0 !important;
+  color: #4b5563 !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  margin-top: 6px !important;
 }
 
 .section-quote-slider.quote-theme-white .quote-literal span {
-  color: #374151 !important;
+  color: #4b5563 !important;
+  font-style: normal !important;
+  text-shadow: none !important;
 }
 
 .section-quote-slider.quote-theme-white .quote-meaning-card {
-  background: rgba(255, 255, 255, 0.88) !important;
-  border: 1.5px dashed var(--quote-badge-border, rgba(233, 30, 99, 0.35)) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid var(--quote-border, #e2e8f0) !important;
   backdrop-filter: blur(4px) !important;
 }
 
 .section-quote-slider.quote-theme-white .quote-meaning-title {
   color: #18151b !important;
+  font-weight: 700 !important;
+  text-shadow: none !important;
 }
 
 .section-quote-slider.quote-theme-white .quote-meaning-body {
-  color: #374151 !important;
+  color: #475569 !important;
+  font-weight: 400 !important;
+  line-height: 1.6 !important;
+  text-shadow: none !important;
 }
 /* --- KUTIPAN INSPIRATIF TEMA HITAM (.quote-theme-dark) --- */
 .section-quote-slider.quote-theme-dark {
@@ -2512,24 +2529,29 @@ section.feedback-preview.feedback-theme-dark .card-toggle::after {
 
 .section-quote-slider.quote-theme-dark .quote-card {
   background: linear-gradient(165deg, #16121d 0%, #0d0a13 100%) !important;
-  border: 1.5px solid var(--quote-border, rgba(255, 101, 155, 0.28)) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.12) !important;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
 }
 
 .section-quote-slider.quote-theme-dark .quote-author-name {
   color: #ffffff !important;
+  font-weight: 700 !important;
 }
 
 .section-quote-slider.quote-theme-dark .quote-kanji {
   color: #ffffff !important;
+  text-shadow: none !important;
 }
 
 .section-quote-slider.quote-theme-dark .quote-meaning-title {
   color: #ffffff !important;
+  font-weight: 700 !important;
 }
 
 .section-quote-slider.quote-theme-dark .quote-meaning-body {
-  color: #dcd2df !important;
+  color: #cbd5e1 !important;
+  font-weight: 400 !important;
+  line-height: 1.6 !important;
 }
 /* ==========================================================================
 SISTEM SEGERA HADIR (COMING SOON) & SISTEM KATA SANDI PENGURUS
@@ -3144,8 +3166,8 @@ html.is-page-locked-early main, body.is-page-locked main {
   background-color: #ffffff !important;
   background: #ffffff !important;
   background-image: none !important;
-  border: 1.5px solid var(--quote-border, #f4bfd3) !important;
-  box-shadow: 0 14px 38px rgba(233, 30, 99, 0.08), 0 2px 10px rgba(0, 0, 0, 0.04) !important;
+  border: 1.5px solid var(--quote-border, #e2e8f0) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05), 0 0 16px var(--quote-glow, transparent) !important;
   position: relative !important;
   overflow: hidden !important;
 }
@@ -3178,8 +3200,20 @@ html.is-page-locked-early main, body.is-page-locked main {
   background-image: none !important;
   position: relative !important;
   z-index: 2 !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04) !important;
-  border: 1px solid rgba(233, 30, 99, 0.12) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-author-profile {
+  border: 1px solid #e2e8f0 !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-box {
+  border: 1px solid #e2e8f0 !important;
+  border-left: 3.5px solid var(--quote-accent, #94a3b8) !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-meaning-card {
+  border: 1px solid var(--quote-border, #e2e8f0) !important;
 }
 
 .quote-author-profile::before, .quote-author-profile::after,
@@ -3367,7 +3401,6 @@ body.is-fullscreen-practice {
 .mirai-card-dark,
 .mirai-card-dark h1, .mirai-card-dark h2, .mirai-card-dark h3, .mirai-card-dark h4, .mirai-card-dark h5, .mirai-card-dark h6,
 .mirai-card-dark p, .mirai-card-dark span, .mirai-card-dark a,
-.quote-card:not(.quote-theme-white),
 .timeline-content, .about-intro-card, .about-name-card, .history-origin-card,
 .slogan-hero-card, .slogan-card, .achievement-card, .accessory-card,
 .accessory-banner-card, .prestasi-stat-box, .podium-card, .lb-category-desc-card,
@@ -3379,4 +3412,11 @@ body.dark-mode .start-card, body.theme-dark .start-card,
 body.dark-mode .lomba-detail-card, body.theme-dark .lomba-detail-card,
 body.dark-mode .dictionary-practice-link, body.theme-dark .dictionary-practice-link {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
+}
+
+.section-quote-slider,
+.section-quote-slider *,
+.quote-card,
+.quote-card * {
+  text-shadow: none !important;
 }

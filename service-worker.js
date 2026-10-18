@@ -2,10 +2,10 @@
  * Service Worker: service-worker.js
  * Website: MIRAI NO HANA (Mirai no Webu)
  * Dihasilkan otomatis oleh: skrip/arsip/build_precache_list.py
- * Versi Cache: mirai-app-shell-26a7c4b987a8
+ * Versi Cache: mirai-app-shell-ce6bad63ddfc
  */
 
-const CACHE_NAME = "mirai-app-shell-26a7c4b987a8";
+const CACHE_NAME = "mirai-app-shell-ce6bad63ddfc";
 const DATA_CACHE_NAME = "mirai-data-cache-v1";
 const OFFLINE_URL = "offline.html";
 

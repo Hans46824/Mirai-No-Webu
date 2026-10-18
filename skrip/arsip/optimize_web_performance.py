@@ -103,11 +103,21 @@ def optimize_single_image(path, target_type):
             mirai_sora_png.write_bytes(buf.getvalue())
 
     elif is_png:
+        # Periksa apakah gambar memiliki channel alpha/transparansi
+        has_transparency = False
         if im.mode == "RGBA":
-            im_p = im.quantize(colors=256, method=Image.Quantize.FASTOCTREE)
+            alpha_data = im.split()[3].get_flattened_data()
+            if any(a < 250 for a in alpha_data):
+                has_transparency = True
+
+        if has_transparency:
+            # Pertahankan mode RGBA murni agar transparansi 100% terjaga sempurna tanpa kotak hitam
+            im.save(buf, format="PNG", optimize=True)
         else:
+            if im.mode == "RGBA":
+                im = im.convert("RGB")
             im_p = im.quantize(colors=256)
-        im_p.save(buf, format="PNG", optimize=True)
+            im_p.save(buf, format="PNG", optimize=True)
 
     elif is_jpg:
         if im.mode != "RGB":

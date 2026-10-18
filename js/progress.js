@@ -159,7 +159,7 @@
       } else {
         // Pastikan field penting selalu ada meskipun data lama
         data.lessonsDone = data.lessonsDone || {};
-        LESSSON_MODULES.forEach((mod) => {
+        LESSON_MODULES.forEach((mod) => {
           if (typeof data.lessonsDone[mod.id] === "undefined") {
             data.lessonsDone[mod.id] = false;
           }
@@ -562,10 +562,10 @@
       const container = document.querySelector("[data-materi-id]");
       if (!container) return;
 
-      const rawId = container.dataset.materiId;
-      const cleanId = rawId.replace("materi-dasar-", "").replace("materi-lanjutan-", "");
-      const title = container.dataset.materiTitle || document.title.split("—")[0].trim();
-      const step = container.dataset.materiStep || "Modul";
+      const rawId = (container.dataset && container.dataset.materiId) || container.getAttribute("data-materi-id") || "";
+      const cleanId = rawId ? rawId.replace("materi-dasar-", "").replace("materi-lanjutan-", "") : "materi";
+      const title = (container.dataset && container.dataset.materiTitle) || container.getAttribute("data-materi-title") || (document.title ? document.title.split("—")[0].trim() : "Materi");
+      const step = (container.dataset && container.dataset.materiStep) || container.getAttribute("data-materi-step") || "Modul";
 
       // Catat sebagai modul terakhir yang dipelajari
       this.setLastLesson(cleanId, title, step, window.location.pathname);
