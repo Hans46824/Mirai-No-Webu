@@ -2332,88 +2332,23 @@ dan tombol sosial diposisikan secara konsisten dan proporsional.
 }
 
 /* ==========================================================================
-MOBILE BOTTOM NAVIGATION BAR (Beranda, Kelas, Kamus, Latihan, Menu)
+/* ==========================================================================
+MOBILE BOTTOM NAVIGATION BAR (Dinonaktifkan — Navigasi Melalui Tombol Menu Kanan Atas)
 ========================================================================== */
 .mobile-bottom-nav {
-  display: none;
+  display: none !important;
 }
 
 @media (max-width: 768px) {
   body.has-bottom-nav {
-    padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
+    padding-bottom: 0 !important;
   }
 
   .mobile-bottom-nav {
-    display: flex;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: calc(60px + env(safe-area-inset-bottom, 0px));
-    padding-bottom: env(safe-area-inset-bottom, 0px);
-    background: rgba(20, 16, 24, 0.94);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    z-index: 998;
-    align-items: center;
-    justify-content: space-around;
-    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.45);
-  }
-
-  body.theme-light .mobile-bottom-nav {
-    background: rgba(255, 255, 255, 0.95);
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
-    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06);
+    display: none !important;
   }
 
   .mobile-bottom-nav-item {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 48px;
-    color: #a39ca8;
-    text-decoration: none;
-    font-size: 11px;
-    font-weight: 600;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    transition: color 0.2s ease, transform 0.15s ease;
-    gap: 2px;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  body.theme-light .mobile-bottom-nav-item {
-    color: #6b626e;
-  }
-
-  .mobile-bottom-nav-item .nav-icon {
-    font-size: 18px;
-    line-height: 1;
-    transition: transform 0.2s ease;
-  }
-
-  .mobile-bottom-nav-item.is-active,
-  .mobile-bottom-nav-item:hover {
-    color: var(--pink, #e91e63);
-  }
-
-  .mobile-bottom-nav-item.is-active .nav-icon {
-    transform: scale(1.15);
-  }
-
-  /* Sembunyikan bottom nav saat modal, drawer, lightbox, latihan, atau sora fullscreen aktif */
-  body.is-practicing .mobile-bottom-nav,
-  body.sidebar-open .mobile-bottom-nav,
-  body.lightbox-open .mobile-bottom-nav,
-  body.modal-open .mobile-bottom-nav,
-  body.sora-drawer-open .mobile-bottom-nav,
-  body.sora-fullscreen-active .mobile-bottom-nav,
-  body:has(#drawer.open) .mobile-bottom-nav,
-  body:has(dialog[open]) .mobile-bottom-nav {
     display: none !important;
   }
 }

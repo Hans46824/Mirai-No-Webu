@@ -803,61 +803,10 @@ function registerServiceWorker() {
 }
 
 function renderMobileBottomNav() {
-  if (window.MIRAI_ENABLE_BOTTOM_NAV === false) return;
-  if (document.body.classList.contains("is-practicing") || document.querySelector(".quest-main")) return;
-  if (document.querySelector(".mobile-bottom-nav")) return;
-
-  const basePath = getAppBasePath();
-  const currentPath = (window.location.pathname || "").toLowerCase();
-
-  const nav = document.createElement("nav");
-  nav.className = "mobile-bottom-nav";
-  nav.setAttribute("aria-label", "Navigasi Bawah Seluler");
-
-  const items = [
-    { label: "Beranda", icon: "🏠", href: basePath + "index.html", match: (p) => p.endsWith("/index.html") || p.endsWith("/mirai-no-webu/") || p.endsWith("/") },
-    { label: "Kelas", icon: "📚", href: basePath + "kelas/index.html", match: (p) => p.includes("/kelas/") && !p.includes("latihan.html") },
-    { label: "Kamus", icon: "📖", href: basePath + "kamus/index.html", match: (p) => p.includes("/kamus/") },
-    { label: "Latihan", icon: "⚡", href: basePath + "kelas/latihan.html", match: (p) => p.includes("latihan.html") },
-    { label: "Menu", icon: "☰", href: "#menu", isMenu: true }
-  ];
-
-  items.forEach((item) => {
-    if (item.isMenu) {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "mobile-bottom-nav-item";
-      btn.setAttribute("aria-label", "Buka Menu Utama");
-      btn.innerHTML = `<span class="nav-icon" aria-hidden="true">${item.icon}</span><span>${item.label}</span>`;
-      btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        window.MiraiSound?.playClickIfIdle();
-        const sidebarNav = document.querySelector(".sidebar-nav");
-        const sidebarOverlay = document.querySelector(".sidebar-overlay");
-        if (sidebarNav) {
-          sidebarNav.classList.add("active");
-          sidebarOverlay?.classList.add("active");
-          document.body.classList.add("sidebar-open");
-        } else {
-          document.querySelector("[data-menu-toggle]")?.click();
-        }
-      });
-      nav.appendChild(btn);
-    } else {
-      const a = document.createElement("a");
-      a.className = "mobile-bottom-nav-item";
-      a.href = item.href;
-      if (item.match && item.match(currentPath)) {
-        a.classList.add("is-active");
-        a.setAttribute("aria-current", "page");
-      }
-      a.innerHTML = `<span class="nav-icon" aria-hidden="true">${item.icon}</span><span>${item.label}</span>`;
-      nav.appendChild(a);
-    }
-  });
-
-  document.body.appendChild(nav);
-  document.body.classList.add("has-bottom-nav");
+  // Dinonaktifkan sesuai permintaan pengguna: Navigasi utama menggunakan tombol MENU melayang di pojok kanan atas
+  const existingNav = document.querySelector(".mobile-bottom-nav");
+  if (existingNav) existingNav.remove();
+  document.body.classList.remove("has-bottom-nav");
 }
 
 function setupReveal() {
