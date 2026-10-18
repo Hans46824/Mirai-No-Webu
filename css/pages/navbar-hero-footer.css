@@ -416,7 +416,9 @@ Fullscreen Hero Section (Tengoku Style)
   color: var(--white);
   box-sizing: border-box;
   z-index: 1;
-  background-image: url("../../images/mirai/background/Sora.png");
+  background-image: url("../../images/mirai/background/Sora.webp");
+  background-image: -webkit-image-set(url("../../images/mirai/background/Sora.webp") 1x, url("../../images/mirai/background/Sora.png") 1x);
+  background-image: image-set(url("../../images/mirai/background/Sora.webp") type("image/webp"), url("../../images/mirai/background/Sora.png") type("image/png"));
   background-size: cover;
   background-position: center 25%;
   background-repeat: no-repeat;
@@ -588,7 +590,7 @@ Global Footer / Disclaimer Section (Tengoku Style)
   background-size: cover, 200px auto !important;
   background-repeat: no-repeat, repeat !important;
   background-position: center, center;
-  opacity: 0.045 !important;
+  opacity: var(--opacity-c1b)!important;
   mix-blend-mode: screen;
   pointer-events: none;
   z-index: 0;
@@ -769,7 +771,9 @@ Global Footer / Disclaimer Section (Tengoku Style)
   top: 0 !important;
   overflow: hidden !important;
   color: var(--white);
-  background-image: url("../../images/mirai/background/Sora.png") !important;
+  background-image: url("../../images/mirai/background/Sora.webp") !important;
+  background-image: -webkit-image-set(url("../../images/mirai/background/Sora.webp") 1x, url("../../images/mirai/background/Sora.png") 1x) !important;
+  background-image: image-set(url("../../images/mirai/background/Sora.webp") type("image/webp"), url("../../images/mirai/background/Sora.png") type("image/png")) !important;
   background-position: center !important;
   background-size: cover !important;
   background-repeat: no-repeat !important;

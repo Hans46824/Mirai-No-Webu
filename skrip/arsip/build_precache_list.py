@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
 File: skrip/arsip/build_precache_list.py
-Fungsi: Menghasilkan daftar precache otomatis dan membuat service-worker.js berbasis hash konten.
-Aturan: Tidak ditulis tangan (otomatis dari pohon berkas proyek).
+Fungsi: Menghasilkan service-worker.js dengan precache minimal (5 file inti)
+        dan strategi Cache-First (0ms) untuk seluruh gambar dan font.
 """
 
 import hashlib
@@ -12,80 +12,13 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).resolve().parents[2]
 SW_PATH = ROOT_DIR / "service-worker.js"
 
-# Daftar pola berkas yang masuk ke precache app shell
-CORE_HTML_FILES = [
-    "index.html",
-    "404.html",
+# 5 Berkas Inti Ringan Precache (Mencegah rebutan bandwidth saat awal loading)
+MINIMAL_PRECACHE_FILES = [
     "offline.html",
-    "divisi/index.html",
-    "divisi/bahasa.html",
-    "divisi/cosplay.html",
-    "divisi/desain.html",
-    "divisi/kewirausahaan.html",
-    "kamus/index.html",
-    "kamus/kanji.html",
-    "kegiatan/index.html",
-    "kegiatan/kimi-to-nippon.html",
-    "kegiatan/konbini.html",
-    "kegiatan/nihon-go-rajio.html",
-    "kegiatan/ramadhan.html",
-    "kegiatan/tomodachi.html",
-    "kelas/index.html",
-    "kelas/latihan.html",
-    "kelas/motivasi.html",
-    "lomba/index.html",
-    "materi/dasar/index.html",
-    "materi/dasar/hiragana.html",
-    "materi/dasar/katakana.html",
-    "materi/dasar/kosakata.html",
-    "materi/dasar/jikoshokai.html",
-    "materi/lanjutan/index.html",
-    "materi/lanjutan/grammar.html",
-    "materi/lanjutan/kanji.html",
-    "materi/lanjutan/kalimat.html",
-    "peringkat/index.html",
-    "rekomendasi/index.html",
-    "sora/index.html",
-    "tentang/index.html",
-    "toko/index.html",
-]
-
-CORE_CSS_FILES = [
-    "css/style.css",
     "css/pages/global.css",
     "css/pages/navbar-hero-footer.css",
-    "css/pages/beranda.css",
-    "css/pages/kelas-materi.css",
-    "css/pages/kamus.css",
-    "css/pages/kegiatan-divisi.css",
-    "css/pages/tentang.css",
-    "css/pages/rekomendasi-motivasi.css",
-    "css/pages/peringkat.css",
-    "css/pages/lomba.css",
-    "css/pages/toko.css",
-]
-
-CORE_JS_FILES = [
     "js/main.js",
-    "js/script.js",
-    "js/progress.js",
-    "js/kana.js",
-    "js/kanji.js",
-    "js/stroke.js",
-    "js/sora.js",
-    "js/api.js",
-    "js/translator.js",
-    "js/quiz-divisi.js",
-    "js/carousel.js",
-    "js/proker-slider.js",
-]
-
-CORE_ASSET_FILES = [
-    "manifest.webmanifest",
     "images/mirai/logo/MNH1-nav.png",
-    "images/mirai/logo/MNH1.png",
-    "images/mirai/logo/icon-192.png",
-    "images/mirai/logo/icon-512.png",
 ]
 
 def compute_files_hash(file_list):
@@ -98,15 +31,12 @@ def compute_files_hash(file_list):
 
 def build_service_worker():
     all_precache_files = []
-    
-    # Kumpulkan semua file yang valid
-    for group in [CORE_HTML_FILES, CORE_CSS_FILES, CORE_JS_FILES, CORE_ASSET_FILES]:
-        for rel_path in group:
-            p = ROOT_DIR / rel_path
-            if p.exists():
-                all_precache_files.append(rel_path)
-            else:
-                print(f"⚠️ Berkas precache tidak ditemukan: {rel_path}")
+    for rel_path in MINIMAL_PRECACHE_FILES:
+        p = ROOT_DIR / rel_path
+        if p.exists():
+            all_precache_files.append(rel_path)
+        else:
+            print(f"⚠️ Berkas precache tidak ditemukan: {rel_path}")
 
     version_hash = compute_files_hash(all_precache_files)
     cache_name = f"mirai-app-shell-{version_hash}"
@@ -114,7 +44,6 @@ def build_service_worker():
 
     precache_json = json.dumps(all_precache_files, indent=2)
 
-    # Hasilkan template JavaScript service worker
     sw_code = f"""/**
  * Service Worker: service-worker.js
  * Website: MIRAI NO HANA (Mirai no Webu)
@@ -126,18 +55,19 @@ const CACHE_NAME = "{cache_name}";
 const DATA_CACHE_NAME = "{data_cache_name}";
 const OFFLINE_URL = "offline.html";
 
-// Berkas precache app shell (dihasilkan otomatis dari pohon berkas)
-const PRECACHE_ASSETS = {precache_json};
+// Berkas precache app shell minimal (hanya 5 file inti paling ringan)
+const PRECACHE_URLS = {precache_json};
+const PRECACHE_ASSETS = PRECACHE_URLS;
 
-// 1. Install: Simpan seluruh app shell ke dalam cache
+// 1. Install: Simpan hanya 5 berkas inti ke dalam cache
 self.addEventListener("install", (event) => {{
   event.waitUntil(
     caches.open(CACHE_NAME).then(async (cache) => {{
       try {{
-        await cache.addAll(PRECACHE_ASSETS);
+        await cache.addAll(PRECACHE_URLS);
       }} catch (err) {{
         console.warn("[SW] Bulk cache.addAll gagal, melakukan caching modular per-berkas:", err);
-        await Promise.allSettled(PRECACHE_ASSETS.map((asset) => cache.add(asset)));
+        await Promise.allSettled(PRECACHE_URLS.map((asset) => cache.add(asset)));
       }}
     }}).then(() => self.skipWaiting())
   );
@@ -158,7 +88,7 @@ self.addEventListener("activate", (event) => {{
   );
 }});
 
-// 3. Fetch: Strategi Cache-First untuk data/fonts dan Stale-While-Revalidate untuk halaman/aset
+// 3. Fetch: Strategi Cache-First (0ms) untuk Gambar, Font, dan Data JSON lokal
 self.addEventListener("fetch", (event) => {{
   const req = event.request;
   const url = new URL(req.url);
@@ -166,14 +96,16 @@ self.addEventListener("fetch", (event) => {{
   // Abaikan non-GET requests
   if (req.method !== "GET") return;
 
-  // STRATEGI A: Cache-First untuk data JSON lokal, goresan kanji, & Google Fonts
+  // STRATEGI A: Cache-First untuk seluruh file gambar (.png, .jpg, .jpeg, .webp, .svg, .ico), font, dan data JSON
+  const isImageRequest = /\\.(png|jpe?g|webp|svg|ico)$/i.test(url.pathname);
+  const isFontRequest = url.hostname.includes("fonts.gstatic.com") || url.hostname.includes("fonts.googleapis.com") || /\\.(woff2?|ttf|otf|eot)$/i.test(url.pathname);
   const isDataRequest = url.pathname.includes("/data/") && url.pathname.endsWith(".json");
-  const isFontRequest = url.hostname.includes("fonts.gstatic.com") || url.hostname.includes("fonts.googleapis.com");
 
-  if (isDataRequest || isFontRequest) {{
+  if (isImageRequest || isFontRequest || isDataRequest) {{
     event.respondWith(
       caches.open(DATA_CACHE_NAME).then((cache) => {{
         return cache.match(req).then((cachedResponse) => {{
+          // Jika ada di cache, kembalikan instan dalam 0ms tanpa jaringan!
           if (cachedResponse) {{
             return cachedResponse;
           }}
@@ -182,7 +114,7 @@ self.addEventListener("fetch", (event) => {{
               cache.put(req, networkResponse.clone());
             }}
             return networkResponse;
-          }});
+          }}).catch(() => null);
         }});
       }})
     );
@@ -217,7 +149,7 @@ self.addEventListener("fetch", (event) => {{
 """
 
     SW_PATH.write_text(sw_code, encoding="utf-8")
-    print(f"✔ service-worker.js berhasil dibuat ({len(all_precache_files)} berkas precache, hash: {version_hash})")
+    print(f"✔ service-worker.js berhasil dibuat ({len(all_precache_files)} berkas precache inti, hash: {version_hash})")
 
 if __name__ == "__main__":
     build_service_worker()

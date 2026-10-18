@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preload" as="image" href="./images/mirai/background/Sora.webp" type="image/webp" fetchpriority="high">
     <title>Mode Offline — MIRAI NO HANA</title>
     <meta name="description" content="Kamu sedang dalam mode offline. Seluruh kamus kanji, aksara kana, dan progres belajar tetap aman dan dapat diakses tanpa koneksi internet.">
     <meta name="theme-color" content="#141018">
@@ -164,7 +165,7 @@
 <body class="offline-page">
     <a class="skip-link" href="#main-content">Lewati ke konten utama</a>
     <main id="main-content" class="offline-card">
-        <img class="offline-logo" src="images/mirai/logo/MNH1-nav.png" alt="MIRAI NO HANA" width="407" height="123">
+        <img loading="eager" fetchpriority="high" decoding="async" class="offline-logo" src="images/mirai/logo/MNH1-nav.png" alt="MIRAI NO HANA" width="407" height="123">
         <div>
             <span class="offline-badge"><span lang="ja">オフライン</span> • MODE OFFLINE</span>
             <h1 class="offline-title">Kamu Sedang <span>Offline</span></h1>

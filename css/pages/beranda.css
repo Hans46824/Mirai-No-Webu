@@ -232,7 +232,7 @@ Wagara Patterns pada Seluruh Tombol Besar (Tanpa Kotak Informatif Tentang)
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.015 !important;
+  opacity: var(--opacity-c1w)!important;
   mix-blend-mode: multiply;
   pointer-events: none;
   z-index: 1;
@@ -240,7 +240,7 @@ Wagara Patterns pada Seluruh Tombol Besar (Tanpa Kotak Informatif Tentang)
 }
 
 .start-card:hover::after, .curriculum-cards a:hover::after {
-  opacity: 0.03 !important;
+  opacity: var(--opacity-c1w-hover)!important;
   transform: scale(1.02);
 }
 /* Dukungan Dark Mode / Section Genap untuk Tombol Besar Halaman Putih Beranda */
@@ -249,7 +249,7 @@ body.dark-mode .start-card::after, body.theme-dark .start-card::after, main > se
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.045 !important;
+  opacity: var(--opacity-c1b)!important;
   mix-blend-mode: screen;
 }
 
@@ -293,7 +293,7 @@ body.dark-mode .start-card:hover::after, body.theme-dark .start-card:hover::afte
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.045 !important;
+  opacity: var(--opacity-c1b)!important;
   mix-blend-mode: screen;
   pointer-events: none;
   z-index: 1;
@@ -323,7 +323,7 @@ body.dark-mode .start-card:hover::after, body.theme-dark .start-card:hover::afte
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.045 !important;
+  opacity: var(--opacity-w1b)!important;
   mix-blend-mode: screen;
   pointer-events: none;
   z-index: 1;
@@ -353,7 +353,7 @@ body.dark-mode .start-card:hover::after, body.theme-dark .start-card:hover::afte
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.045 !important;
+  opacity: var(--opacity-w1b)!important;
   mix-blend-mode: screen;
   pointer-events: none;
   z-index: 1;
@@ -361,7 +361,7 @@ body.dark-mode .start-card:hover::after, body.theme-dark .start-card:hover::afte
 }
 
 .division-card:hover::after, .division-card-link:hover .division-card::after {
-  opacity: 0.07 !important;
+  opacity: var(--opacity-w1b)!important;
   transform: scale(1.02);
 }
 
@@ -383,7 +383,7 @@ body.dark-mode .start-card:hover::after, body.theme-dark .start-card:hover::afte
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.045 !important;
+  opacity: var(--opacity-w1w)!important;
   mix-blend-mode: multiply;
   pointer-events: none;
   z-index: 1;
@@ -391,18 +391,18 @@ body.dark-mode .start-card:hover::after, body.theme-dark .start-card:hover::afte
 }
 
 .program-card:hover::after, .program-card-link:hover .program-card::after {
-  opacity: 0.07 !important;
+  opacity: var(--opacity-w1w-hover)!important;
   transform: scale(1.02);
 }
 
 body.dark-mode .program-card::after, body.theme-dark .program-card::after {
   background-image: url("../../images/mirai/background/w1b.jpeg");
-  opacity: 0.045 !important;
+  opacity: var(--opacity-w1b)!important;
   mix-blend-mode: screen;
 }
 
 body.dark-mode .program-card:hover::after, body.theme-dark .program-card:hover::after {
-  opacity: 0.07 !important;
+  opacity: var(--opacity-w1b-hover)!important;
 }
 /* Jika .activity-start-card berada di section terang/putih */
 body:not(.dark-mode):not(.theme-dark) main > section:nth-of-type(odd):not(.home-activities-dark-section) .activity-start-card::after {
@@ -410,7 +410,7 @@ body:not(.dark-mode):not(.theme-dark) main > section:nth-of-type(odd):not(.home-
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.015 !important;
+  opacity: var(--opacity-c1w)!important;
   mix-blend-mode: multiply;
 }
 /* Nomor & Arrow Lingkaran Kartu Beranda */
@@ -1309,12 +1309,12 @@ section.feedback-preview.feedback-theme-white, body.page-beranda section.feedbac
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.015 !important;
+  opacity: var(--opacity-c1w)!important;
   mix-blend-mode: multiply !important;
 }
 
 .feedback-theme-white .feedback-feature-card:hover::after, body.page-beranda .feedback-feature-card:hover::after {
-  opacity: 0.03 !important;
+  opacity: var(--opacity-c1w-hover)!important;
 }
 
 .feedback-theme-white .feedback-feature-badge, .feedback-theme-white .feedback-feature-tag, body.page-beranda .feedback-feature-badge, body.page-beranda .feedback-feature-tag {
@@ -1397,12 +1397,12 @@ section.feedback-preview.feedback-theme-dark, body.page-tentang main > section.f
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.045 !important;
+  opacity: var(--opacity-c1b)!important;
   mix-blend-mode: screen !important;
 }
 
 .feedback-theme-dark .feedback-feature-card:hover::after, body.page-tentang .feedback-feature-card:hover::after {
-  opacity: 0.07 !important;
+  opacity: var(--opacity-c1b-hover)!important;
 }
 
 .feedback-theme-dark .feedback-feature-badge, .feedback-theme-dark .feedback-feature-tag, body.page-tentang .feedback-feature-badge, body.page-tentang .feedback-feature-tag {

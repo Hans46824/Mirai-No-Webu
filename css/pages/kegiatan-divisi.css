@@ -40,7 +40,9 @@ PROKER PAGE – SHARED LAYOUT
   flex-direction: column;
   justify-content: flex-end;
   padding: 0 !important;
-  background-image: url("../../images/mirai/background/Sora.png") !important;
+  background-image: url("../../images/mirai/background/Sora.webp") !important;
+  background-image: -webkit-image-set(url("../../images/mirai/background/Sora.webp") 1x, url("../../images/mirai/background/Sora.png") 1x) !important;
+  background-image: image-set(url("../../images/mirai/background/Sora.webp") type("image/webp"), url("../../images/mirai/background/Sora.png") type("image/png")) !important;
   background-size: cover !important;
   background-position: center right !important;
   background-repeat: no-repeat !important;
@@ -226,7 +228,9 @@ PROKER PAGE – SHARED LAYOUT
 }
 
 body.dark-mode .proker-hero, body.theme-dark .proker-hero {
-  background-image: url("../../images/mirai/background/Sora.png") !important;
+  background-image: url("../../images/mirai/background/Sora.webp") !important;
+  background-image: -webkit-image-set(url("../../images/mirai/background/Sora.webp") 1x, url("../../images/mirai/background/Sora.png") 1x) !important;
+  background-image: image-set(url("../../images/mirai/background/Sora.webp") type("image/webp"), url("../../images/mirai/background/Sora.png") type("image/png")) !important;
   color: #ffffff !important;
 }
 
@@ -1401,7 +1405,7 @@ SEKSI FASILITAS MIRAI NO HANA (KEGIATAN.HTML)
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.045 !important;
+  opacity: var(--opacity-w1b)!important;
   mix-blend-mode: screen !important;
   pointer-events: none !important;
   z-index: 1 !important;
@@ -1410,7 +1414,7 @@ SEKSI FASILITAS MIRAI NO HANA (KEGIATAN.HTML)
 }
 
 .facility-card:hover::after {
-  opacity: 0.07 !important;
+  opacity: var(--opacity-w1b-hover)!important;
   transform: scale(1.02) !important;
 }
 

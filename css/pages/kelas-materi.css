@@ -31,7 +31,9 @@ level-card, dan mode-card latihan kana.
   min-height: 550px !important;
   padding: 0 !important;
   color: var(--white);
-  background-image: url("../../images/mirai/background/Sora.png");
+  background-image: url("../../images/mirai/background/Sora.webp");
+  background-image: -webkit-image-set(url("../../images/mirai/background/Sora.webp") 1x, url("../../images/mirai/background/Sora.png") 1x);
+  background-image: image-set(url("../../images/mirai/background/Sora.webp") type("image/webp"), url("../../images/mirai/background/Sora.png") type("image/png"));
   background-position: center 30%;
   background-size: cover;
   background-repeat: no-repeat;
@@ -4729,7 +4731,7 @@ GUARDRAIL KONTRAS KELAS & KURIKULUM (ANTI-NABRAK WCAG AAA)
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.045 !important;
+  opacity: var(--opacity-c1b)!important;
   mix-blend-mode: screen !important;
   pointer-events: none !important;
   z-index: 0 !important;
@@ -4738,7 +4740,7 @@ GUARDRAIL KONTRAS KELAS & KURIKULUM (ANTI-NABRAK WCAG AAA)
 }
 
 .kurikulum-page-section .doc-big-card:hover::after, .doc-big-card:hover::after {
-  opacity: 0.07 !important;
+  opacity: var(--opacity-c1b-hover)!important;
 }
 
 .kurikulum-page-section .doc-big-card > *:not(.card-toggle):not(.card-corner-chibi), .doc-big-card > *:not(.card-toggle):not(.card-corner-chibi) {
@@ -5127,7 +5129,7 @@ REVAMP KELAS.HTML: SECTION BERSIH, CARD & TOMBOL SEPERTI GAMBAR 1 + CHIBI
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.045 !important;
+  opacity: var(--opacity-w1b)!important;
   mix-blend-mode: screen !important;
   pointer-events: none !important;
   z-index: 1 !important;
@@ -5136,7 +5138,7 @@ REVAMP KELAS.HTML: SECTION BERSIH, CARD & TOMBOL SEPERTI GAMBAR 1 + CHIBI
 }
 
 #lanjutan .course-card:hover::after {
-  opacity: 0.07 !important;
+  opacity: var(--opacity-w1b-hover)!important;
   transform: scale(1.02) !important;
 }
 
@@ -5357,7 +5359,7 @@ SEKSI KURIKULUM & TATA CARA PENGAJARAN DI HALAMAN KELAS (.page-kelas #kurikulum)
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.015 !important;
+  opacity: var(--opacity-w1w)!important;
   mix-blend-mode: multiply !important;
   pointer-events: none !important;
   z-index: 1 !important;
@@ -5366,7 +5368,7 @@ SEKSI KURIKULUM & TATA CARA PENGAJARAN DI HALAMAN KELAS (.page-kelas #kurikulum)
 }
 
 .page-kelas #kurikulum .doc-big-card:hover::after {
-  opacity: 0.03 !important;
+  opacity: var(--opacity-w1w-hover)!important;
   transform: scale(1.02) !important;
 }
 
@@ -5772,7 +5774,7 @@ body.dark-mode .page-kelas #kurikulum .doc-big-card, body.theme-dark .page-kelas
 
 body.dark-mode .page-kelas #kurikulum .doc-big-card::after, body.theme-dark .page-kelas #kurikulum .doc-big-card::after {
   background-image: url("../../images/mirai/background/w1b.jpeg") !important;
-  opacity: 0.015 !important;
+  opacity: var(--opacity-w1b)!important;
   mix-blend-mode: screen !important;
 }
 
@@ -5903,7 +5905,7 @@ body.dark-mode .page-kelas #kurikulum .doc-card-footer a.doc-btn-view:hover svg,
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.045 !important;
+  opacity: var(--opacity-w1b)!important;
   mix-blend-mode: screen !important;
   pointer-events: none !important;
   z-index: 1 !important;
@@ -5912,7 +5914,7 @@ body.dark-mode .page-kelas #kurikulum .doc-card-footer a.doc-btn-view:hover svg,
 }
 
 .class-card:hover::after {
-  opacity: 0.07 !important;
+  opacity: var(--opacity-w1b-hover)!important;
   transform: scale(1.02) !important;
 }
 
@@ -6063,7 +6065,7 @@ body.dark-mode .page-kelas #kurikulum .doc-card-footer a.doc-btn-view:hover svg,
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.015 !important;
+  opacity: var(--opacity-w1w)!important;
   mix-blend-mode: multiply !important;
   pointer-events: none !important;
   z-index: 1 !important;
@@ -6072,7 +6074,7 @@ body.dark-mode .page-kelas #kurikulum .doc-card-footer a.doc-btn-view:hover svg,
 }
 
 #dasar .course-card:hover::after {
-  opacity: 0.03 !important;
+  opacity: var(--opacity-w1w-hover)!important;
   transform: scale(1.02) !important;
 }
 
@@ -6215,7 +6217,7 @@ body.dark-mode .page-kelas #kurikulum .doc-card-footer a.doc-btn-view:hover svg,
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.015 !important;
+  opacity: var(--opacity-w1w)!important;
   mix-blend-mode: multiply !important;
   pointer-events: none !important;
   z-index: 1 !important;
@@ -6996,53 +6998,53 @@ Dinamis berganti saat tab Hiragana / Katakana aktif.
 /* 3. Hiragana Latihan Gabungan: Pola Awan Kumo Terang (c1w.jpeg) */
 .learning-app .mode-card--hiragana::after, .learning-app [data-script="hiragana"] .mode-card::after, .learning-app .mix-section[data-script="hiragana"] .mode-card::after, .learning-app .mode-grid[data-script="hiragana"] .mode-card::after, body[data-active-kana="hiragana"] .mode-card::after {
   background-image: url("../../images/mirai/background/c1w.jpeg") !important;
-  opacity: 0.015 !important;
+  opacity: var(--opacity-c1w)!important;
   mix-blend-mode: multiply !important;
 }
 
 .learning-app .mode-card--hiragana:hover::after, .learning-app [data-script="hiragana"] .mode-card:hover::after, .learning-app .mix-section[data-script="hiragana"] .mode-card:hover::after, .learning-app .mode-grid[data-script="hiragana"] .mode-card:hover::after, body[data-active-kana="hiragana"] .mode-card:hover::after {
-  opacity: 0.03 !important;
+  opacity: var(--opacity-c1w-hover)!important;
 }
 /* Hiragana Latihan Gabungan pada Dark Mode (c1w.jpeg multiply) */
 body.theme-dark .learning-app .mode-card--hiragana::after, body.theme-dark .learning-app [data-script="hiragana"] .mode-card::after, body.theme-dark .learning-app .mix-section[data-script="hiragana"] .mode-card::after, body.theme-dark .learning-app .mode-grid[data-script="hiragana"] .mode-card::after, body.theme-dark[data-active-kana="hiragana"] .mode-card::after {
   background-image: url("../../images/mirai/background/c1w.jpeg") !important;
-  opacity: 0.015 !important;
+  opacity: var(--opacity-c1b)!important;
   mix-blend-mode: multiply !important;
 }
 
 body.theme-dark .learning-app .mode-card--hiragana:hover::after, body.theme-dark .learning-app [data-script="hiragana"] .mode-card:hover::after, body.theme-dark .learning-app .mix-section[data-script="hiragana"] .mode-card:hover::after, body.theme-dark .learning-app .mode-grid[data-script="hiragana"] .mode-card:hover::after, body.theme-dark[data-active-kana="hiragana"] .mode-card:hover::after {
-  opacity: 0.14 !important;
+  opacity: var(--opacity-c1b-hover)!important;
 }
 /* 4. Katakana Latihan Gabungan: Pola Ombak Wagara Gelap (w1b.jpeg) */
 .learning-app .mode-card--katakana::after, .learning-app [data-script="katakana"] .mode-card::after, .learning-app .mix-section[data-script="katakana"] .mode-card::after, .learning-app .mode-grid[data-script="katakana"] .mode-card::after, body[data-active-kana="katakana"] .mode-card::after {
   background-image: url("../../images/mirai/background/w1b.jpeg") !important;
-  opacity: 0.045 !important;
+  opacity: var(--opacity-w1b)!important;
   mix-blend-mode: screen !important;
 }
 
 .learning-app .mode-card--katakana:hover::after, .learning-app [data-script="katakana"] .mode-card:hover::after, .learning-app .mix-section[data-script="katakana"] .mode-card:hover::after, .learning-app .mode-grid[data-script="katakana"] .mode-card:hover::after, body[data-active-kana="katakana"] .mode-card:hover::after {
-  opacity: 0.03 !important;
+  opacity: var(--opacity-w1b-hover)!important;
 }
 /* Katakana Latihan Gabungan pada Dark Mode (w1b.jpeg) */
 body.theme-dark .learning-app .mode-card--katakana::after, body.theme-dark .learning-app [data-script="katakana"] .mode-card::after, body.theme-dark .learning-app .mix-section[data-script="katakana"] .mode-card::after, body.theme-dark .learning-app .mode-grid[data-script="katakana"] .mode-card::after, body.theme-dark[data-active-kana="katakana"] .mode-card::after {
   background-image: url("../../images/mirai/background/w1b.jpeg") !important;
-  opacity: 0.045 !important;
+  opacity: var(--opacity-w1b)!important;
   mix-blend-mode: screen !important;
 }
 
 body.theme-dark .learning-app .mode-card--katakana:hover::after, body.theme-dark .learning-app [data-script="katakana"] .mode-card:hover::after, body.theme-dark .learning-app .mix-section[data-script="katakana"] .mode-card:hover::after, body.theme-dark .learning-app .mode-grid[data-script="katakana"] .mode-card:hover::after, body.theme-dark[data-active-kana="katakana"] .mode-card:hover::after {
-  opacity: 0.07 !important;
+  opacity: var(--opacity-w1b-hover)!important;
 }
 /* Katakana Latihan Gabungan pada Light Mode (invert w1b) */
 body:not(.theme-dark):not(.dark-mode) .learning-app .mode-card--katakana::after, body:not(.theme-dark):not(.dark-mode) .learning-app [data-script="katakana"] .mode-card::after, body:not(.theme-dark):not(.dark-mode) .learning-app .mix-section[data-script="katakana"] .mode-card::after, body:not(.theme-dark):not(.dark-mode) .learning-app .mode-grid[data-script="katakana"] .mode-card::after, body:not(.theme-dark):not(.dark-mode)[data-active-kana="katakana"] .mode-card::after {
   background-image: url("../../images/mirai/background/w1b.jpeg") !important;
   filter: invert(1) !important;
-  opacity: 0.045 !important;
+  opacity: var(--opacity-w1b)!important;
   mix-blend-mode: multiply !important;
 }
 
 body:not(.theme-dark):not(.dark-mode) .learning-app .mode-card--katakana:hover::after, body:not(.theme-dark):not(.dark-mode) .learning-app [data-script="katakana"] .mode-card:hover::after, body:not(.theme-dark):not(.dark-mode) .learning-app .mix-section[data-script="katakana"] .mode-card:hover::after, body:not(.theme-dark):not(.dark-mode) .learning-app .mode-grid[data-script="katakana"] .mode-card:hover::after, body:not(.theme-dark):not(.dark-mode)[data-active-kana="katakana"] .mode-card:hover::after {
-  opacity: 0.07 !important;
+  opacity: var(--opacity-w1b-hover)!important;
 }
 /* =====================================================
 LATIHAN GABUNGAN: PREVIEW HURUF, SKOR TERBAIK & KETIK CEPAT

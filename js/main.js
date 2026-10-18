@@ -559,6 +559,7 @@ setupExpandableCards();
 initMiraiProgress();
 initGlobalCountUpObservers();
 initComingSoonSystem();
+initSmartLinkPrefetcher();
 window.initKanjiDictionary?.();
 window.initSora?.();
 });
@@ -3085,6 +3086,48 @@ updateMenuComingSoonBadges(isUnlocked);
 updateCardsAndButtonsComingSoon(isUnlocked);
 updatePageComingSoonOverlay(isUnlocked);
 updateSectionComingSoonOverlay(isUnlocked);
+}
+
+
+/* ==========================================================================
+   SMART LINK PREFETCHER (Instant Page Navigation)
+   Secara otomatis mem-prefetch HTML tujuan saat user hover atau touch link internal,
+   sehingga perpindahan halaman terasa instan (0ms) seperti native app.
+   ========================================================================== */
+function initSmartLinkPrefetcher() {
+  const prefetchedUrls = new Set();
+
+  function prefetchUrl(rawHref) {
+    if (!rawHref) return;
+    if (rawHref.startsWith("#") || rawHref.startsWith("javascript:") || rawHref.startsWith("mailto:") || rawHref.startsWith("tel:")) return;
+
+    try {
+      const url = new URL(rawHref, window.location.href);
+      if (url.origin !== window.location.origin) return;
+
+      const cleanUrl = url.href.split("#")[0];
+      if (prefetchedUrls.has(cleanUrl)) return;
+      if (cleanUrl === window.location.href.split("#")[0]) return;
+
+      prefetchedUrls.add(cleanUrl);
+
+      const link = document.createElement("link");
+      link.rel = "prefetch";
+      link.href = cleanUrl;
+      link.as = "document";
+      document.head.appendChild(link);
+    } catch (e) {}
+  }
+
+  const handleInteraction = (e) => {
+    const anchor = e.target.closest("a[href]");
+    if (anchor && anchor.href) {
+      prefetchUrl(anchor.getAttribute("href"));
+    }
+  };
+
+  document.addEventListener("mouseover", handleInteraction, { passive: true });
+  document.addEventListener("touchstart", handleInteraction, { passive: true });
 }
 
 function initComingSoonSystem() {

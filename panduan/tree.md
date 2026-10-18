@@ -178,7 +178,9 @@ Mirai-No-Webu/
 │       ├── update_stroke_studio.py # Studio Goresan Interaktif 3 kotak, kanvas mandiri, auto-play, & lapor goresan pill
 │       ├── fix_kegiatan_photos.py  # Pemulihan bentuk slider foto kegiatan & pembersihan banner kuis divisi
 │       ├── reduce_lomba_pages.py   # Penyesuaian jumlah kartu kegiatan lomba & acara menjadi 3 halaman
-│       ├── update_light_pattern_opacity.py # Penyesuaian transparansi pola motif cerah (0.015) agar ultra-halus
+│       ├── optimize_web_performance.py # Kompresi fisik gambar, WebP hero, preload, prefetch & SW cache-first
+│       ├── apply_pattern_sweet_spot.py # Kunci Titik Emas 4 pattern (c1w 15%, c1b 11%, w1w 10%, w1b 13%)
+│       ├── update_light_pattern_opacity.py # Penyesuaian visibilitas pola motif cerah (0.085) agar lebih jelas & anggun
 │       ├── stamp_asset_versions.py # Cache-busting otomatis berbasis hash SHA-256 pada seluruh HTML
 │       ├── report_page_weight.py   # Skrip analisis & pembuat laporan bobot halaman
 │       ├── sync_datasets.py        # Sinkronisasi dataset kanji & perbaikan metadata

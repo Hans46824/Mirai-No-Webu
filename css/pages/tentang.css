@@ -2016,7 +2016,7 @@ TIMELINE SEJARAH KLUB (Horizontal Sequential Stream - Redesign Modern)
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.045 !important;
+  opacity: var(--opacity-w1b)!important;
   mix-blend-mode: screen !important;
   pointer-events: none !important;
   z-index: 1 !important;
@@ -2025,7 +2025,7 @@ TIMELINE SEJARAH KLUB (Horizontal Sequential Stream - Redesign Modern)
 }
 
 .timeline-node:hover .timeline-content::after, .timeline-content:hover::after {
-  opacity: 0.07 !important;
+  opacity: var(--opacity-w1b-hover)!important;
   transform: scale(1.02) !important;
 }
 
@@ -3244,7 +3244,7 @@ RESPACING MINIMAL UNTUK HALAMAN TENTANG (.page-tentang)
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.045 !important;
+  opacity: var(--opacity-w1b)!important;
   mix-blend-mode: screen !important;
   pointer-events: none !important;
   z-index: 1 !important;
@@ -3253,7 +3253,7 @@ RESPACING MINIMAL UNTUK HALAMAN TENTANG (.page-tentang)
 }
 
 .about-intro-card:hover::after, .about-name-card:hover::after, .history-origin-card:hover::after, .slogan-hero-card:hover::after, .slogan-card:hover::after, .achievement-card:hover::after, .accessory-card:hover::after, .accessory-banner-card:hover::after, .timeline-node:hover .timeline-content::after, .prestasi-stat-box:hover::after, .podium-card:hover::after, .lb-category-desc-card:hover::after, .lb-table-card:hover::after, .lb-system-info-card:hover::after, .quote-card:hover::after {
-  opacity: 0.07 !important;
+  opacity: var(--opacity-w1b-hover)!important;
   transform: scale(1.02) !important;
 }
 
@@ -3278,7 +3278,7 @@ RESPACING MINIMAL UNTUK HALAMAN TENTANG (.page-tentang)
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.045 !important;
+  opacity: var(--opacity-c1b)!important;
   mix-blend-mode: screen !important;
   pointer-events: none !important;
   z-index: 1 !important;
@@ -3287,7 +3287,7 @@ RESPACING MINIMAL UNTUK HALAMAN TENTANG (.page-tentang)
 }
 
 .event-card:hover::after, .rek-cat-explain-card:hover::after, .media-tips-card:hover::after, .media-col-card:hover::after {
-  opacity: 0.07 !important;
+  opacity: var(--opacity-c1b-hover)!important;
   transform: scale(1.02) !important;
 }
 
@@ -3354,7 +3354,7 @@ RESPACING MINIMAL UNTUK HALAMAN TENTANG (.page-tentang)
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.015 !important;
+  opacity: var(--opacity-w1w)!important;
   mix-blend-mode: multiply !important;
   pointer-events: none !important;
   z-index: 1 !important;
@@ -3365,7 +3365,7 @@ RESPACING MINIMAL UNTUK HALAMAN TENTANG (.page-tentang)
 
 .flag-feature-card:hover .flag-mockup-frame::after,
 .flag-mockup-frame:hover::after {
-  opacity: 0.03 !important;
+  opacity: var(--opacity-w1w-hover)!important;
   transform: scale(1.02) !important;
 }
 
@@ -3377,13 +3377,13 @@ RESPACING MINIMAL UNTUK HALAMAN TENTANG (.page-tentang)
 body.theme-dark .flag-mockup-frame::after,
 body.dark-mode .flag-mockup-frame::after {
   background-image: url("../../images/mirai/background/w1b.jpeg") !important;
-  opacity: 0.045 !important;
+  opacity: var(--opacity-w1b)!important;
   mix-blend-mode: screen !important;
 }
 
 body.theme-dark .flag-mockup-frame:hover::after,
 body.dark-mode .flag-mockup-frame:hover::after {
-  opacity: 0.07 !important;
+  opacity: var(--opacity-w1b-hover)!important;
 }
 
 /* (B) BAGIAN PUTIH: .flag-feature-card, .logo-meaning-badge-col, .logo-meaning-card, .haori-card, .haori-photo-card, .pembina-card, .management-card, .vision-card, .mission-box, .proker-benefit-card, .proker-detail-card, .ketentuan-card */
@@ -3403,7 +3403,7 @@ body.dark-mode .flag-mockup-frame:hover::after {
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.015 !important;
+  opacity: var(--opacity-w1w)!important;
   mix-blend-mode: multiply !important;
   pointer-events: none !important;
   z-index: 1 !important;
@@ -3412,7 +3412,7 @@ body.dark-mode .flag-mockup-frame:hover::after {
 }
 
 .flag-feature-card:hover::after, .logo-meaning-badge-col:hover::after, .logo-meaning-card:hover::after, .haori-card:hover::after, .haori-photo-card:hover::after, .pembina-card:hover::after, .management-card:hover::after, .vision-card:hover::after, .mission-box:hover::after, .proker-benefit-card:hover::after, .proker-detail-card:hover::after, .ketentuan-card:hover::after {
-  opacity: 0.03 !important;
+  opacity: var(--opacity-w1w-hover)!important;
   transform: scale(1.02) !important;
 }
 
@@ -3805,22 +3805,22 @@ Urutan Menu Navigasi:
 
 .page-kegiatan .program-card::after {
   background-image: url("../../images/mirai/background/w1w.jpeg") !important;
-  opacity: 0.015 !important;
+  opacity: var(--opacity-w1w)!important;
   mix-blend-mode: multiply !important;
 }
 
 .page-kegiatan .program-card:hover::after, .page-kegiatan .program-card-link:hover .program-card::after {
-  opacity: 0.03 !important;
+  opacity: var(--opacity-w1w-hover)!important;
 }
 
 body.dark-mode .page-kegiatan .program-card::after, body.theme-dark .page-kegiatan .program-card::after {
   background-image: url("../../images/mirai/background/w1b.jpeg") !important;
-  opacity: 0.015 !important;
+  opacity: var(--opacity-w1b)!important;
   mix-blend-mode: screen !important;
 }
 
 body.dark-mode .page-kegiatan .program-card:hover::after, body.theme-dark .page-kegiatan .program-card:hover::after {
-  opacity: 0.03 !important;
+  opacity: var(--opacity-w1b-hover)!important;
 }
 /* --------------------------------------------------------------------------
 5. REKOMENDASI (.page-rekomendasi) - Pola Awan (c1b & c1w)
@@ -3849,20 +3849,20 @@ body.dark-mode .page-kegiatan .program-card:hover::after, body.theme-dark .page-
 
 .page-lomba .lomba-detail-card::after {
   background-image: url("../../images/mirai/background/c1w.jpeg") !important;
-  opacity: 0.015 !important;
+  opacity: var(--opacity-c1w)!important;
   mix-blend-mode: multiply !important;
 }
 
 .page-lomba .lomba-detail-card:hover::after {
-  opacity: 0.03 !important;
+  opacity: var(--opacity-c1w-hover)!important;
 }
 
 body.dark-mode .page-lomba .lomba-detail-card::after, body.theme-dark .page-lomba .lomba-detail-card::after {
   background-image: url("../../images/mirai/background/c1b.jpeg") !important;
-  opacity: 0.015 !important;
+  opacity: var(--opacity-c1b)!important;
   mix-blend-mode: screen !important;
 }
 
 body.dark-mode .page-lomba .lomba-detail-card:hover::after, body.theme-dark .page-lomba .lomba-detail-card:hover::after {
-  opacity: 0.03 !important;
+  opacity: var(--opacity-c1b-hover)!important;
 }

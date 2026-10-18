@@ -25,13 +25,30 @@ Daftar Isi:
   --pattern-w1w: url("../../images/mirai/background/w1w.jpeg");
   --pattern-w1b: url("../../images/mirai/background/w1b.jpeg");
   --pattern-size: 200px auto;
-  --pattern-opacity-light: 0.015;
-  --pattern-opacity-light-hover: 0.03;
-  --pattern-opacity-dark: 0.045;
-  --pattern-opacity-dark-hover: 0.07;
-  --overlay-card-light: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(255, 252, 254, 0.96));
-  --overlay-card-dark: linear-gradient(155deg, rgba(16, 12, 22, 0.96), rgba(10, 8, 14, 0.97));
-  --overlay-section-dark: linear-gradient(180deg, rgba(14, 11, 18, 0.95), rgba(14, 11, 18, 0.96));
+  /* 4 Variabel Transparansi Spesifik Titik Emas (Sweet Spot) */
+  --opacity-c1w: 0.15;
+  --overlay-card-light: linear-gradient(135deg, rgba(255, 250, 252, 0.85), rgba(255, 245, 249, 0.85));
+
+  --opacity-c1b: 0.11;
+  --overlay-card-dark: linear-gradient(155deg, rgba(16, 12, 24, 0.89), rgba(11, 9, 17, 0.89));
+
+  --opacity-w1w: 0.10;
+  --overlay-section-light: linear-gradient(180deg, rgba(255, 255, 255, 0.90), rgba(255, 250, 252, 0.90));
+
+  --opacity-w1b: 0.13;
+  --overlay-section-dark: linear-gradient(180deg, rgba(14, 11, 18, 0.87), rgba(14, 11, 18, 0.87));
+
+  /* Proportional Hover Opacities */
+  --opacity-c1w-hover: 0.22;
+  --opacity-c1b-hover: 0.16;
+  --opacity-w1w-hover: 0.15;
+  --opacity-w1b-hover: 0.18;
+
+  /* Backward Compatibility */
+  --pattern-opacity-light: var(--opacity-c1w);
+  --pattern-opacity-light-hover: var(--opacity-c1w-hover);
+  --pattern-opacity-dark: var(--opacity-c1b);
+  --pattern-opacity-dark-hover: var(--opacity-c1b-hover);
 
   --font-jp: 'Noto Serif JP', serif;
   --font-jp-sans: 'Noto Sans JP', sans-serif;
@@ -309,7 +326,7 @@ Section 3, 5, 7 (Ganjil): PUTIH BERSIH
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.045 !important;
+  opacity: var(--opacity-w1b)!important;
   mix-blend-mode: screen !important;
 }
 
@@ -2410,7 +2427,7 @@ section.feedback-preview.feedback-theme-dark .card-toggle::after {
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.045 !important;
+  opacity: var(--opacity-c1b)!important;
   mix-blend-mode: screen !important;
   pointer-events: none !important;
   z-index: 1 !important;
@@ -3141,7 +3158,7 @@ html.is-page-locked-early main, body.is-page-locked main {
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.015 !important;
+  opacity: var(--opacity-w1w)!important;
   mix-blend-mode: multiply !important;
   pointer-events: none !important;
   z-index: 1 !important;
@@ -3209,7 +3226,7 @@ html.is-page-locked-early main, body.is-page-locked main {
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.015 !important;
+  opacity: var(--opacity-c1w)!important;
   mix-blend-mode: multiply !important;
   pointer-events: none !important;
   z-index: 1 !important;
@@ -3241,7 +3258,7 @@ html.is-page-locked-early main, body.is-page-locked main {
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.045 !important;
+  opacity: var(--opacity-c1b)!important;
   mix-blend-mode: screen !important;
   pointer-events: none !important;
   z-index: 1 !important;
@@ -3342,4 +3359,24 @@ body.is-fullscreen-practice {
   max-width: 880px !important;
   margin: auto !important;
   box-sizing: border-box !important;
+}
+
+/* ==========================================================================
+   TEXT-SHADOW HALUS TEKS KARTU GELAP (100% KETASTISAN & KETERBACAAN TEKS)
+   ========================================================================== */
+.mirai-card-dark,
+.mirai-card-dark h1, .mirai-card-dark h2, .mirai-card-dark h3, .mirai-card-dark h4, .mirai-card-dark h5, .mirai-card-dark h6,
+.mirai-card-dark p, .mirai-card-dark span, .mirai-card-dark a,
+.quote-card:not(.quote-theme-white),
+.timeline-content, .about-intro-card, .about-name-card, .history-origin-card,
+.slogan-hero-card, .slogan-card, .achievement-card, .accessory-card,
+.accessory-banner-card, .prestasi-stat-box, .podium-card, .lb-category-desc-card,
+.lb-table-card, .lb-system-info-card, .event-card, .rek-card, .toko-card,
+.doc-big-card, .kurikulum-page-section .doc-big-card,
+#lanjutan .course-card, .facility-card,
+body.dark-mode .program-card, body.theme-dark .program-card,
+body.dark-mode .start-card, body.theme-dark .start-card,
+body.dark-mode .lomba-detail-card, body.theme-dark .lomba-detail-card,
+body.dark-mode .dictionary-practice-link, body.theme-dark .dictionary-practice-link {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
 }

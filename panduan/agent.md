@@ -16,13 +16,21 @@ Seluruh pengembang dan AI asisten **WAJIB mematuhi 7 Aturan Visual Universal** i
    - `--pattern-c1b: url("../../images/mirai/background/c1b.jpeg");` (Kumo/Awan Gelap)
    - `--pattern-w1w: url("../../images/mirai/background/w1w.jpeg");` (Wagara/Ombak Terang)
    - `--pattern-w1b: url("../../images/mirai/background/w1b.jpeg");` (Wagara/Ombak Gelap)
-   - `--overlay-card-light: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(255, 252, 254, 0.96));` (Gradien penutup terang untuk watermark 4.5% kartu)
-   - `--overlay-card-dark: linear-gradient(155deg, rgba(16, 12, 22, 0.96), rgba(10, 8, 14, 0.97));` (Gradien penutup gelap untuk watermark 4.5% kartu)
-   - `--overlay-section-dark: linear-gradient(180deg, rgba(14, 11, 18, 0.95), rgba(14, 11, 18, 0.96));`
+   - `--opacity-c1w: 0.15;` (Kartu Terang: Kelihatan 15%, Overlay Putih 85%)
+   - `--overlay-card-light: linear-gradient(135deg, rgba(255, 250, 252, 0.85), rgba(255, 245, 249, 0.85));`
+   - `--opacity-c1b: 0.11;` (Kartu Gelap: Kelihatan 11%, Overlay Obsidian 89%)
+   - `--overlay-card-dark: linear-gradient(155deg, rgba(16, 12, 24, 0.89), rgba(11, 9, 17, 0.89));`
+   - `--opacity-w1w: 0.10;` (Section Terang: Kelihatan 10%, Overlay Putih 90%)
+   - `--overlay-section-light: linear-gradient(180deg, rgba(255, 255, 255, 0.90), rgba(255, 250, 252, 0.90));`
+   - `--opacity-w1b: 0.13;` (Section Gelap & Footer: Kelihatan 13%, Overlay Obsidian 87%)
+   - `--overlay-section-dark: linear-gradient(180deg, rgba(14, 11, 18, 0.87), rgba(14, 11, 18, 0.87));`
 
-2. **Kunci Transparansi Watermark Sangat Lembut (Maksimal Keterbacaan Teks)**:
-   - Pola Terang (Light Pattern): Dikunci ekstra lembut pada **`opacity: 0.015 !important`** (hover: `0.03 !important`) agar latar putih bersih tetap jernih dan teks berkontras tajam tanpa gangguan garis motif.
-   - Pola Gelap (Dark Pattern): Tetap pada **`opacity: 0.045 !important`** (hover: `0.07 !important`) dengan `mix-blend-mode: screen` pada kartu gelap.
+2. **Kunci Transparansi "Titik Emas (Sweet Spot)" & Keterbacaan Teks Mutlak**:
+   - **Kartu Terang (c1w.jpeg)**: Dikunci pada **`opacity: var(--opacity-c1w) !important;`** (`0.15`, hover `0.22`) dengan gradien penutup 85% agar tekstur awan Kumo tampil anggun dan nyata.
+   - **Kartu Gelap (c1b.jpeg)**: Dikunci pada **`opacity: var(--opacity-c1b) !important;`** (`0.11`, hover `0.16`) dengan `mix-blend-mode: screen` dan gradien penutup 89%.
+   - **Section/Kartu Terang (w1w.jpeg)**: Dikunci pada **`opacity: var(--opacity-w1w) !important;`** (`0.10`, hover `0.15`) dengan gradien penutup 90% untuk motif gelombang ombak Seigaiha.
+   - **Section Gelap & Footer (w1b.jpeg)**: Dikunci pada **`opacity: var(--opacity-w1b) !important;`** (`0.13`, hover `0.18`) dengan gradien penutup 87%.
+   - **Perlindungan Ketajaman Huruf**: Seluruh teks pada kartu gelap dibekali `text-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);` agar huruf putih tetap tajam 100% saat melintasi garis motif.
 
 3. **Seksi Selang-Seling Bersih & Polos (Pattern HANYA pada Kartu, DILARANG pada Halaman/Seksi)**:
    - Semua `<section>` konten setelah Hero wajib memiliki latar belakang solid yang 100% bersih, polos, dan bebas dari pattern gambar latar (`background-image: none !important;`):
@@ -839,6 +847,22 @@ Mirai no Webu mengusung arsitektur **Local-First PWA**, memungkinkan seluruh kam
 - **Laptop & Desktop (>= 992px)**: Tampilan 3 kolom berdampingan (*3-box grid* sejajar) memberikan ruang lapang untuk referensi, latihan, dan perbandingan sekaligus.
 - **Tablet (768px - 991px)**: Tampilan 2 kolom adaptif yang nyaman.
 - **Mobile (< 768px)**: Dilengkapi tab navigasi cepat (*Semua Kotak*, *Acuan*, *Tulis*, *Bandingkan*) sehingga pengguna di ponsel berlayar kecil dapat berpindah kotak tanpa perlu scrolling berlebihan.
+
+
+### E. Optimasi Performa Loading & Transisi Halaman (High-Performance Web Standard)
+1. **Kompresi Gambar Fisik & WebP Hero**:
+   - `Sora.webp` (111 KB, quality=82) dan `Sora.png` (< 280 KB, kuantisasi) digunakan dengan `image-set` di seluruh hero section CSS.
+   - Ikon chibi (`images/mirai/icon/*.png`) dan logo dikompresi dengan `quantize(colors=256, FASTOCTREE)` (< 35 KB per berkas).
+   - Seluruh foto dokumentasi, latar wagara, dan carousel dikompresi secara fisik dengan batas lebar maksimal 1280px.
+2. **Preload Aset Kritis & Prioritas Rendering**:
+   - Seluruh berkas HTML memiliki `<link rel="preload" as="image" href="...Sora.webp" type="image/webp">` di bagian atas `<head>`.
+   - Logo navbar dan chibi pertama di kartu atas diberi `loading="eager" fetchpriority="high" decoding="async"`.
+   - Gambar di bawah viewport mempertahankan `loading="lazy" decoding="async"`.
+3. **Service Worker Minimal & Cache-First (0ms)**:
+   - Precache awal diperkecil dari 74 file menjadi 5 berkas inti (`offline.html`, `global.css`, `navbar-hero-footer.css`, `main.js`, `MNH1-nav.png`) agar bandwidth tidak tercekik saat awal buka.
+   - Strategi *Cache-First* dengan background revalidasi (*Stale-While-Revalidate*) diterapkan untuk seluruh gambar, font, dan data JSON sehingga saat berpindah halaman gambar tampil instan dalam 0ms.
+4. **Instant Page Prefetching (Smart Link Prefetcher)**:
+   - `initSmartLinkPrefetcher()` di `js/main.js` secara otomatis mem-prefetch berkas HTML halaman tujuan saat pengguna mengarahkan kursor (`mouseover`) atau menyentuh (`touchstart`) tautan internal, menjadikan transisi halaman secepat aplikasi native.
 
 ### C. Checklist Rilis & Validasi Pra-Commit (Release Checklist)
 Sebelum melakukan `git commit` dan `git push` ke cabang utama (main), AI asisten dan pengembang **WAJIB menjalankan checklist rilis** berikut:

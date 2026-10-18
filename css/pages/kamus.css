@@ -734,7 +734,7 @@ KARTU UJI KEMAMPUAN / LATIHAN KANA (DICTIONARY PRACTICE BANNER)
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.015 !important;
+  opacity: var(--opacity-c1w)!important;
   mix-blend-mode: multiply !important;
   pointer-events: none !important;
   z-index: 1 !important;
@@ -905,7 +905,7 @@ body.theme-dark .dictionary-practice-link::after, body.dark-mode .dictionary-pra
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.015 !important;
+  opacity: var(--opacity-c1b)!important;
   mix-blend-mode: screen !important;
 }
 
