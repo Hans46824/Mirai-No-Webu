@@ -191,47 +191,78 @@ window.MiraiSound = MiraiSound;
 /**
  * Text-to-Speech (TTS) Global Mirai no Webu
  * Mendukung pelafalan bahasa Jepang (ja-JP) dan bahasa Indonesia (id-ID)
+ * serta mode Normal (0.92x) dan Slow-Mo (0.48x) untuk latihan pelafalan.
  * @param {string} text - Teks yang akan dibacakan
  * @param {string} [lang='ja-JP'] - Kode bahasa ('ja-JP' atau 'id-ID')
+ * @param {boolean} [slow=false] - Jika true, gunakan kecepatan lambat (0.48x)
 */
-function speakText(text, lang = "ja-JP") {
-if (!text || typeof text !== "string") return;
-const cleanText = text
-  .replace(/<[^>]*>/g, " ")
-  .replace(/[（()）「」『』]/g, " ")
-  .replace(/\s+/g, " ")
-  .trim();
-if (!cleanText || !("speechSynthesis" in window)) return;
+function playGoogleTtsFallback(text, lang = "ja-JP", slow = false) {
+  try {
+    if (window._miraiTtsAudio) {
+      window._miraiTtsAudio.pause();
+      window._miraiTtsAudio = null;
+    }
+    const speed = slow ? "0.24" : "1";
+    const ttsUrl = `https://translate.googleapis.com/translate_tts?ie=UTF-8&client=tw-ob&tl=${encodeURIComponent(lang)}&ttsspeed=${speed}&q=${encodeURIComponent(text)}`;
+    const audio = new Audio(ttsUrl);
+    window._miraiTtsAudio = audio;
+    audio.play().catch(() => {});
+  } catch (e) {}
+}
+window.playGoogleTtsFallback = playGoogleTtsFallback;
 
-try {
-  window.speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(cleanText);
-  utterance.lang = lang;
-  utterance.rate = lang === "ja-JP" ? 0.9 : 1.0;
-  utterance.pitch = 1.0;
+function speakText(text, lang = "ja-JP", slow = false) {
+  if (!text || typeof text !== "string") return;
+  const cleanText = text
+    .replace(/<[^>]*>/g, " ")
+    .replace(/[（()）「」『』]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (!cleanText) return;
 
-  const voices = window.speechSynthesis.getVoices();
-  if (voices && voices.length) {
-    const prefix = lang.split("-")[0].toLowerCase();
-    const matchingVoice =
-    voices.find((v) => v.lang && v.lang.toLowerCase().replace("_", "-").startsWith(prefix)) ||
-    voices.find((v) => v.lang && v.lang.toLowerCase().includes(prefix));
-    if (matchingVoice) {
-    utterance.voice = matchingVoice;
+  // 1. Coba browser Web Speech API (SpeechSynthesis)
+  if ("speechSynthesis" in window) {
+    try {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(cleanText);
+      utterance.lang = lang;
+      utterance.rate = slow ? 0.48 : (lang === "ja-JP" ? 0.92 : 1.0);
+      utterance.pitch = 1.0;
+
+      const voices = window.speechSynthesis.getVoices();
+      let hasMatchingVoice = false;
+      if (voices && voices.length) {
+        const prefix = lang.split("-")[0].toLowerCase();
+        const matchingVoice =
+          voices.find((v) => v.lang && v.lang.toLowerCase().replace("_", "-").startsWith(prefix)) ||
+          voices.find((v) => v.lang && v.lang.toLowerCase().includes(prefix));
+        if (matchingVoice) {
+          utterance.voice = matchingVoice;
+          hasMatchingVoice = true;
+        }
+      }
+
+      utterance.onerror = () => {
+        playGoogleTtsFallback(cleanText, lang, slow);
+      };
+
+      window.speechSynthesis.speak(utterance);
+      return;
+    } catch (err) {
+      console.warn("TTS SpeechSynthesis warning:", err);
     }
   }
-  window.speechSynthesis.speak(utterance);
-} catch (err) {
-  console.warn("TTS SpeechSynthesis warning:", err);
-}
+
+  // 2. Fallback Audio API jika SpeechSynthesis tidak tersedia
+  playGoogleTtsFallback(cleanText, lang, slow);
 }
 window.speakText = speakText;
 
 // Listener suara siap jika voice dimuat asinkron
 if ("speechSynthesis" in window && window.speechSynthesis.onvoiceschanged !== undefined) {
-window.speechSynthesis.onvoiceschanged = () => {
-  window.__speechVoicesReady = true;
-};
+  window.speechSynthesis.onvoiceschanged = () => {
+    window.__speechVoicesReady = true;
+  };
 }
 
 /**
@@ -499,7 +530,7 @@ try {
   localStorage.removeItem("mnh_access_unlocked");
   const isUnlocked = sessionStorage.getItem("mnh_access_unlocked") === "true";
   const rawPath = (window.location.pathname || "").toLowerCase();
-  const lockedDirs = ["/toko/", "/peringkat/", "/rekomendasi/", "/lomba/", "/tentang/", "/kegiatan/", "/divisi/"];
+  const lockedDirs = ["/toko/", "/peringkat/", "/rekomendasi/", "/lomba/", "/kegiatan/", "/divisi/"];
   if (!isUnlocked && lockedDirs.some((dir) => rawPath.includes(dir))) {
     document.documentElement.classList.add("is-page-locked-early");
     if (document.body) {
@@ -1724,7 +1755,7 @@ function setupAboutDrawerCard(card, toggleBtn) {
   }
 
   card.addEventListener("click", (e) => {
-    if (card.classList.contains("card-coming-soon-locked") || !isAccessUnlocked()) {
+    if (card.classList.contains("card-coming-soon-locked")) {
     e.preventDefault();
     e.stopPropagation();
     window.MiraiSound?.playClickIfIdle();
@@ -2318,8 +2349,7 @@ const lockedDirs = [
   "/peringkat/",
   "/rekomendasi/",
   "/lomba/",
-  "/tentang/",
-  "/kegiatan/",
+    "/kegiatan/",
   "/divisi/"
 ];
 return lockedDirs.some((dir) => rawPath.includes(dir));
@@ -2598,7 +2628,7 @@ if (isUnlocked) {
 }
 
 function updateMenuComingSoonBadges(isUnlocked) {
-const lockedWords = ["toko", "peringkat", "rekomendasi", "lomba", "tentang", "kegiatan", "divisi"];
+const lockedWords = ["toko", "peringkat", "rekomendasi", "lomba", "kegiatan", "divisi"];
 const navLinks = document.querySelectorAll(".sidebar-links a");
 
 navLinks.forEach((link) => {
@@ -2748,6 +2778,41 @@ if (studioEl) {
   }
 }
 
+// 3. Seksi Prestasi & Penghargaan di tentang/index.html
+const prestasiEl = document.getElementById("prestasi");
+if (prestasiEl) {
+  if (!isUnlocked) {
+    prestasiEl.classList.add("is-section-locked");
+    let overlay = prestasiEl.querySelector(".coming-soon-section-overlay");
+    if (!overlay) {
+      overlay = document.createElement("div");
+      overlay.className = "coming-soon-section-overlay";
+      overlay.innerHTML = `
+        <div class="coming-soon-card">
+          <div class="coming-soon-pill">🔒 SEGERA HADIR</div>
+          <div class="coming-soon-icon">🏆</div>
+          <h3 class="coming-soon-title">Prestasi &amp; Penghargaan</h3>
+          <span class="coming-soon-kanji">実績と表彰 (近日公開)</span>
+          <p class="coming-soon-desc">Rekapitulasi resmi daftar kejuaraan, medali, dan piagam apresiasi prestasi anggota klub sedang dalam tahap verifikasi data dokumentasi.</p>
+          <div class="coming-soon-actions">
+            <button type="button" class="coming-soon-btn-unlock cs-section-unlock-btn">
+              <span>🔑 Masukkan Sandi Pengurus</span>
+            </button>
+          </div>
+        </div>
+      `;
+      prestasiEl.appendChild(overlay);
+      overlay.querySelector(".cs-section-unlock-btn")?.addEventListener("click", () => {
+        window.MiraiSound?.playClickIfIdle();
+        openPasswordModal();
+      });
+    }
+  } else {
+    prestasiEl.classList.remove("is-section-locked");
+    prestasiEl.querySelector(".coming-soon-section-overlay")?.remove();
+  }
+}
+
 // Indikator pada tombol jump di kamus/index.html jika ada
 const translatorTabJump = document.querySelector(".tab-translator-jump");
 if (translatorTabJump) {
@@ -2770,8 +2835,7 @@ const lockedWords = [
   "peringkat",
   "rekomendasi",
   "lomba",
-  "tentang",
-  "kegiatan",
+    "kegiatan",
   "divisi",
   "proker",
   "fasilitas"

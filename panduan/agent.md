@@ -7,6 +7,45 @@ Gunakan bahasa yang sederhana, manusiawi, dan langsung ke intinya. Hindari penul
 
 ---
 
+## 🎨 7 Sistem Visual & Transparansi Pattern Universal (Master Design Standard)
+
+Seluruh pengembang dan AI asisten **WAJIB mematuhi 7 Aturan Visual Universal** ini untuk menjaga konsistensi, estetika, dan keterbacaan (WCAG AAA) di seluruh halaman Mirai no Webu:
+
+1. **Master Variabel Pattern & Gradien Terpusat di `:root` (`css/pages/global.css`)**:
+   - `--pattern-c1w: url("../../images/mirai/background/c1w.jpeg");` (Kumo/Awan Terang)
+   - `--pattern-c1b: url("../../images/mirai/background/c1b.jpeg");` (Kumo/Awan Gelap)
+   - `--pattern-w1w: url("../../images/mirai/background/w1w.jpeg");` (Wagara/Ombak Terang)
+   - `--pattern-w1b: url("../../images/mirai/background/w1b.jpeg");` (Wagara/Ombak Gelap)
+   - `--overlay-card-light: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(255, 252, 254, 0.96));` (Gradien penutup terang untuk watermark 4.5% kartu)
+   - `--overlay-card-dark: linear-gradient(155deg, rgba(16, 12, 22, 0.96), rgba(10, 8, 14, 0.97));` (Gradien penutup gelap untuk watermark 4.5% kartu)
+   - `--overlay-section-dark: linear-gradient(180deg, rgba(14, 11, 18, 0.95), rgba(14, 11, 18, 0.96));`
+
+2. **Kunci Transparansi Watermark Sangat Lembut (Maksimal Keterbacaan Teks)**:
+   - Pola Terang & Gelap: Dikunci pada **`opacity: 0.045 !important`** (hover: `0.07 !important`) dan gradien penutup master di `:root` sebesar `0.95`–`0.97` agar teks kartu sangat jernih, tajam, dan tidak terganggu oleh garis gelombang latar.
+
+3. **Seksi Selang-Seling Bersih & Polos (Pattern HANYA pada Kartu, DILARANG pada Halaman/Seksi)**:
+   - Semua `<section>` konten setelah Hero wajib memiliki latar belakang solid yang 100% bersih, polos, dan bebas dari pattern gambar latar (`background-image: none !important;`):
+     - Seksi Ganjil (`nth-of-type(odd)`): Putih Bersih (`#ffffff`) polos dengan teks kontras tinggi (`#18151b` / `#554e57`).
+     - Seksi Genap (`nth-of-type(even)`): Hitam Obsidian (`#111111`) polos dengan teks kontras terang (`#ffffff` / `#d5ccd3`).
+   - Gunakan utility class `.mirai-section-light` dan `.mirai-section-dark` saat membuat seksi baru.
+
+4. **Sistem Whitelist & Utility Class Kartu Resmi (Anti-Wildcard Rusak)**:
+   - **DILARANG KERAS** memakai selector wildcard agresif seperti `[class*="-card"]` atau `[class*="-box"]` yang memaksa sub-elemen mewarisi border/background.
+   - Gunakan utility class resmi `.mirai-card-light` dan `.mirai-card-dark` yang sudah dibekali guard `:not()` otomatis untuk seluruh elemen anak (`*-head`, `*-header`, `*-point-card`, `*-badge`, dll.).
+
+5. **Aturan Anti-Double-Pattern pada Sub-Kartu (Inner Boxes)**:
+   - Semua kotak/panel anak di dalam kartu utama (seperti `.quote-char-box`, `.quote-speech-box`, `.quote-meaning-box`, profile box, badge box, dll.) WAJIB menggunakan latar solid/glass (`background: rgba(255, 255, 255, 0.94) !important;` di kartu terang, `background: rgba(24, 19, 34, 0.90) !important;` di kartu gelap) TANPA pattern gambar (`background-image: none !important`), memastikan teks 100% bersih, jernih, dan tidak bertabrakan dengan background.
+
+6. **Harmoni Motif Berbasis Karakter Halaman**:
+   - Halaman Interaktif & Dinamis (Beranda, Kamus, Rekomendasi, Lomba, Toko): Menggunakan motif Kumo Awan (`--pattern-c1w` / `--pattern-c1b`).
+   - Halaman Kurikulum & Prestasi (Kelas, Kegiatan, Peringkat, Tentang): Menggunakan motif Ombak Seigaiha (`--pattern-w1w` / `--pattern-w1b`).
+
+7. **Standar Kontras & Aksesibilitas WCAG AAA**:
+   - Di seksi terang: Heading berwarna `#18151b`, paragraf `#554e57`, aksen pink `#e91e63`.
+   - Di seksi gelap: Heading berwarna `#ffffff`, paragraf `#d5ccd3`, aksen pink `#ff4f91` atau `#ff659b`.
+
+---
+
 ## 1. Protokol Eksekusi Cepat (Fast-Execution Protocol)
 
 Setiap AI asisten atau pengembang yang bekerja pada repositori ini **WAJIB mematuhi 4 aturan inti eksekusi cepat** berikut tanpa kecuali:
@@ -30,7 +69,7 @@ Setiap AI asisten atau pengembang yang bekerja pada repositori ini **WAJIB memat
 ### 2. Peta JavaScript (`js/`)
 Akses logika interaktif langsung ke berkas terkait tanpa membaca seluruh folder:
 - **Logika UI global & navigasi**: `js/main.js` (header scroll, hero motion, launcher) dan `js/script.js` (master interaksi kuis, kartu, & efek global).
-- **Chatbot Sora**: `js/sora.js` (logika chatbot offline & UI), `js/api.js` (endpoint data), dan `js/translator.js` (mesin bantu terjemahan).
+- **Chatbot Sora & Studio Bahasa**: `js/sora.js` (logika chatbot offline & UI), `js/api.js` (endpoint data), `js/translator.js` (mesin bantu terjemahan & generator nama/KTA), dan `js/quiz-divisi.js` (kuis kepribadian tes kecocokan divisi).
 - **Kamus, Kana, Kanji & Goresan**: `js/kana.js` (kartu & audio pelafalan), `js/kanji.js` (ensiklopedia & filter kanji), `js/kanji-data.js` (dataset 2.211 Joyo Kanji), dan `js/stroke.js` (animasi kanvas goresan). Catatan: `js/stroke-data.js` berisi vektor koordinat garis besar dan dikecualikan dari pemindaian.
 - **Slider & Carousel**: `js/carousel.js` (carousel umum & produk) dan `js/proker-slider.js` (slider khusus proker kegiatan).
 
@@ -50,7 +89,7 @@ Akses logika interaktif langsung ke berkas terkait tanpa membaca seluruh folder:
 
 ### A. Arsitektur Folder Modular (Clean Root Standard)
 Seluruh berkas website Mirai no Webu dikelompokkan secara terstruktur ke dalam folder tematik:
-- **Root (`/`)**: Berisi **index.html** (gerbang utama Beranda), **404.html** (halaman penanganan error ramah pengunjung bertema Mirai no Hana), **README.md** (etalase profil repositori GitHub dan dokumentasi kredit), **cspell.json** (konfigurasi spell checker bilingual), dan folder **`.vscode/`** (`settings.json` konfigurasi workspace).
+- **Root (`/`)**: Berisi **index.html** (gerbang utama Beranda), **404.html** (halaman penanganan error ramah pengunjung bertema Mirai no Hana), **README.md** (etalase profil repositori GitHub dan dokumentasi kredit), **cspell.json** (konfigurasi spell checker bilingual), dan folder **`.vscode/`** (`settings.json` konfigurasi workspace, `extensions.json` rekomendasi ekstensi resmi).
 - **`css/`**: Berisi master stylesheet antarmuka (`css/style.css`) yang memanggil 11 berkas CSS berbasis halaman di sub-folder `css/pages/` (`global.css`, `navbar-hero-footer.css`, `beranda.css`, `kelas-materi.css`, `kamus.css`, `kegiatan-divisi.css`, `tentang.css`, `rekomendasi-motivasi.css`, `peringkat.css`, `lomba.css`, `toko.css`).
 - **`js/`**: Berisi seluruh logika JavaScript modular (`main.js`, `script.js`, `kanji.js`, `kana.js`, `stroke.js`, `stroke-data.js`, `sora.js`, dll.).
 - **`panduan/`**: Berisi dokumentasi arsitektur proyek (`panduan/tree.md`, `panduan/agent.md`, `panduan/CONTEKAN-TAG.md`, `panduan/PANDUAN-DEVELOPER.md`, dan folder konfigurasi AI `panduan/ai-configs/`).

@@ -1,21 +1,27 @@
 {
-    "files.saveConflictResolution": "overwriteFileOnDisk",
-    "cSpell.enabled": false,
-    "cSpell.ignorePaths": [
-        "**/*"
-    ],
-    "search.exclude": {
-        "**/data/*.json": true,
-        "**/js/stroke-data.js": true,
-        "**/skrip/arsip/**": true,
-        "**/*.bak": true,
-        "**/js/kanji-data.js": true
-    },
-    "files.watcherExclude": {
-        "**/data/*.json": true,
-        "**/js/stroke-data.js": true,
-        "**/skrip/arsip/**": true,
-        "**/*.bak": true,
-        "**/js/kanji-data.js": true
-    }
+  "files.saveConflictResolution": "overwriteFileOnDisk",
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "cSpell.enabled": false,
+  "cSpell.ignorePaths": [
+    "**/*"
+  ],
+  "search.exclude": {
+    "**/.git": true,
+    "**/__pycache__": true,
+    "**/data/*.json": true,
+    "**/js/stroke-data.js": true,
+    "**/skrip/arsip/**": true,
+    "**/*.bak": true,
+    "**/js/kanji-data.js": true
+  },
+  "files.watcherExclude": {
+    "**/.git": true,
+    "**/__pycache__": true,
+    "**/data/*.json": true,
+    "**/js/stroke-data.js": true,
+    "**/skrip/arsip/**": true,
+    "**/*.bak": true,
+    "**/js/kanji-data.js": true
+  }
 }

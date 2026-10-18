@@ -205,10 +205,10 @@ BAGIAN 2: KATEGORI PERLOMBAAN (PAGE PUTIH BERSIH, HEMAT SPACE & RAPI)
   position: absolute !important;
   inset: 0 !important;
   background-image: url("../../images/mirai/background/c1w.jpeg") !important;
-  background-size: 260px auto !important;
+  background-size: 200px auto !important;
   background-repeat: repeat !important;
-  background-position: top left !important;
-  opacity: 0.10 !important;
+  background-position: center top !important;
+  opacity: 0.045 !important;
   mix-blend-mode: multiply !important;
   pointer-events: none !important;
   z-index: 1 !important;
@@ -217,7 +217,7 @@ BAGIAN 2: KATEGORI PERLOMBAAN (PAGE PUTIH BERSIH, HEMAT SPACE & RAPI)
 }
 
 .lomba-detail-card:hover::after {
-  opacity: 0.16 !important;
+  opacity: 0.07 !important;
   transform: scale(1.02) !important;
 }
 
@@ -228,7 +228,7 @@ body.dark-mode .lomba-detail-card::after, body.theme-dark .lomba-detail-card::af
 }
 
 body.dark-mode .lomba-detail-card:hover::after, body.theme-dark .lomba-detail-card:hover::after {
-  opacity: 0.08 !important;
+  opacity: 0.07 !important;
 }
 
 .lomba-detail-card > * {
@@ -1438,4 +1438,48 @@ body.dark-mode .lomba-detail-card:hover::after, body.theme-dark .lomba-detail-ca
     font-size: 13.5px !important;
     line-height: 1.55 !important;
   }
+}
+
+/* ==========================================================================
+   PROTEKSI KOMPONEN LOMBA & SUB-JUDUL POIN (ANTI-BORDER GANDA & BERSIH)
+   ========================================================================== */
+.lomba-card,
+.lomba-detail-card,
+.lomba-point-card {
+  position: relative !important;
+}
+
+.lomba-card-top,
+.lomba-card-head,
+.lomba-card-header-compact,
+.lomba-point-card-head,
+.badge-card-item,
+.badge-card-label {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.badge-card-item .badge-card-label {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.lomba-card-top::before,
+.lomba-card-top::after,
+.lomba-card-head::before,
+.lomba-card-head::after,
+.lomba-card-header-compact::before,
+.lomba-card-header-compact::after,
+.lomba-point-card-head::before,
+.lomba-point-card-head::after,
+.badge-card-item::before,
+.badge-card-item::after,
+.badge-card-label::before,
+.badge-card-label::after {
+  content: none !important;
+  display: none !important;
+  background-image: none !important;
 }

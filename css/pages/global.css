@@ -19,6 +19,16 @@ Daftar Isi:
 9. Kueri Media & Responsivitas Seluler
 ========================================================================== */
 :root {
+  /* Variabel Master Sistem Visual Pattern & Transparansi Universal */
+  --pattern-c1w: url("../../images/mirai/background/c1w.jpeg");
+  --pattern-c1b: url("../../images/mirai/background/c1b.jpeg");
+  --pattern-w1w: url("../../images/mirai/background/w1w.jpeg");
+  --pattern-w1b: url("../../images/mirai/background/w1b.jpeg");
+  --pattern-size: 200px auto;
+  --overlay-card-light: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(255, 252, 254, 0.96));
+  --overlay-card-dark: linear-gradient(155deg, rgba(16, 12, 22, 0.96), rgba(10, 8, 14, 0.97));
+  --overlay-section-dark: linear-gradient(180deg, rgba(14, 11, 18, 0.95), rgba(14, 11, 18, 0.96));
+
   --font-jp: 'Noto Serif JP', serif;
   --font-jp-sans: 'Noto Sans JP', sans-serif;
   --font-main: 'Plus Jakarta Sans', Arial, sans-serif;
@@ -292,9 +302,9 @@ Section 3, 5, 7 (Ganjil): PUTIH BERSIH
 
 .proker-hero ~ section:nth-of-type(even) .proker-benefit-card::after, .proker-hero ~ section:nth-of-type(even) .proker-detail-card::after, main:has(.proker-hero) > section:nth-of-type(even) .proker-benefit-card::after, main:has(.proker-hero) > section:nth-of-type(even) .proker-detail-card::after {
   background-image: url("../../images/mirai/background/w1b.jpeg") !important;
-  background-size: 260px auto !important;
+  background-size: 200px auto !important;
   background-repeat: repeat !important;
-  background-position: top left !important;
+  background-position: center top !important;
   opacity: 0.045 !important;
   mix-blend-mode: screen !important;
 }
@@ -2111,7 +2121,7 @@ HAPUS KOTAKAN BIRU SAAT SENTUH DI MODE HP (TAP HIGHLIGHT)
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
 }
 
-a, button, [role="button"], input, select, textarea, .card, [class*="-card"], [class*="card"], .btn, [class*="btn"], [data-expand-card], .nav-card, .activity-start-card, .start-card {
+a, button, [role="button"], input, select, textarea, .card, .btn, [data-expand-card], .nav-card, .activity-start-card, .start-card {
   -webkit-tap-highlight-color: transparent !important;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
   -webkit-touch-callout: none;
@@ -2170,7 +2180,7 @@ section.feedback-preview.feedback-theme-white {
 }
 
 section.feedback-preview.feedback-theme-white .feedback-feature-card {
-  background: linear-gradient(165deg, #ffffff 0%, #fffbfc 100%) !important;
+  background: #ffffff !important;
   border: 1.5px solid #f4bfd3 !important;
   box-shadow: 0 16px 45px rgba(233, 30, 99, 0.08), 0 4px 18px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
 }
@@ -2288,34 +2298,9 @@ section.feedback-preview.feedback-theme-dark .card-toggle::after {
   color: #18151b !important;
 }
 
-.section-quote-slider.quote-theme-white .quote-card {
-  background-color: #ffffff !important;
-  background-image: linear-gradient(165deg, rgba(255, 255, 255, 0.88) 0%, rgba(253, 246, 250, 0.88) 100%),
-        url("../../images/mirai/background/w1w.jpeg") !important;
-  background-size: auto, 260px auto !important;
-  background-repeat: repeat, repeat !important;
-  background-position: top left, top left !important;
-  border: 1.5px solid var(--quote-border, #f4bfd3) !important;
-  box-shadow: 0 14px 38px rgba(233, 30, 99, 0.08), 0 2px 10px rgba(0, 0, 0, 0.04) !important;
-  position: relative !important;
-  overflow: hidden !important;
-}
 
-.section-quote-slider.quote-theme-white .quote-card::after {
-  content: "" !important;
-  position: absolute !important;
-  inset: 0 !important;
-  background-image: url("../../images/mirai/background/w1w.jpeg") !important;
-  background-size: 260px auto !important;
-  background-repeat: repeat !important;
-  background-position: top left !important;
-  opacity: 0.16 !important;
-  mix-blend-mode: multiply !important;
-  pointer-events: none !important;
-  z-index: 1 !important;
-  border-radius: inherit !important;
-  display: block !important;
-}
+
+
 
 .section-quote-slider.quote-theme-white .quote-card > * {
   position: relative !important;
@@ -3009,4 +2994,226 @@ html.is-page-locked-early main, body.is-page-locked main {
   40%, 80% {
     transform: translateX(7px);
   }
+}
+
+/* Proteksi Anti-Double Pattern & Keterbacaan Teks Quote Card */
+.section-quote-slider.quote-theme-white .quote-card {
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  background-image: none !important;
+  border: 1.5px solid var(--quote-border, #f4bfd3) !important;
+  box-shadow: 0 14px 38px rgba(233, 30, 99, 0.08), 0 2px 10px rgba(0, 0, 0, 0.04) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-card::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background-image: url("../../images/mirai/background/w1w.jpeg") !important;
+  background-size: 200px auto !important;
+  background-repeat: repeat !important;
+  background-position: center top !important;
+  opacity: 0.045 !important;
+  mix-blend-mode: multiply !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+  border-radius: inherit !important;
+  display: block !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-card > * {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-author-profile,
+.section-quote-slider.quote-theme-white .quote-box,
+.section-quote-slider.quote-theme-white .quote-meaning-card {
+  background: #ffffff !important;
+  background-image: none !important;
+  position: relative !important;
+  z-index: 2 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04) !important;
+  border: 1px solid rgba(233, 30, 99, 0.12) !important;
+}
+
+.quote-author-profile::before, .quote-author-profile::after,
+.quote-box::before, .quote-box::after,
+.quote-meaning-card::before, .quote-meaning-card::after {
+  content: none !important;
+  display: none !important;
+  background-image: none !important;
+}
+
+/* ==========================================================================
+   UTILITY CLASSES SISTEM VISUAL UNIVERSAL MIRAI (WHITELIST & ANTI-BREAK)
+   Gunakan class resmi ini saat menambah seksi / kartu baru agar aman & konsisten:
+   - .mirai-section-light / .mirai-section-dark
+   - .mirai-card-light / .mirai-card-dark
+   ========================================================================== */
+.mirai-section-light {
+  background-color: #ffffff !important;
+  background-image: none !important;
+  color: #18151b !important;
+}
+
+.mirai-section-dark {
+  background-color: #111111 !important;
+  background-image: none !important;
+  color: #ffffff !important;
+}
+
+.mirai-card-light {
+  background-color: #ffffff !important;
+  border: 1.5px solid var(--pink-border, #f4bfd3) !important;
+  border-radius: 18px !important;
+  position: relative !important;
+  overflow: hidden !important;
+  color: #18151b !important;
+  box-shadow: 0 4px 16px rgba(233, 30, 99, 0.05), 0 1px 3px rgba(0, 0, 0, 0.03) !important;
+}
+
+.mirai-card-light::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background-image: var(--pattern-c1w, url("../../images/mirai/background/c1w.jpeg")) !important;
+  background-size: 200px auto !important;
+  background-repeat: repeat !important;
+  background-position: center top !important;
+  opacity: 0.045 !important;
+  mix-blend-mode: multiply !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+  border-radius: inherit !important;
+  display: block !important;
+}
+
+.mirai-card-light > * {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.mirai-card-dark {
+  background-color: #16121d !important;
+  background: linear-gradient(155deg, #181322 0%, #0e0b14 100%) !important;
+  border: 1.5px solid rgba(255, 101, 155, 0.22) !important;
+  border-radius: 18px !important;
+  position: relative !important;
+  overflow: hidden !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+.mirai-card-dark::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background-image: var(--pattern-c1b, url("../../images/mirai/background/c1b.jpeg")) !important;
+  background-size: 200px auto !important;
+  background-repeat: repeat !important;
+  background-position: center top !important;
+  opacity: 0.045 !important;
+  mix-blend-mode: screen !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+  border-radius: inherit !important;
+  display: block !important;
+}
+
+.mirai-card-dark > * {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* Guard Proteksi Sub-Elemen Kartu: Mencegah Duplikasi Border / Background Inner */
+.mirai-card-light [class*="-head"]:not(.mirai-card-light):not(.mirai-card-dark),
+.mirai-card-light [class*="-header"]:not(.mirai-card-light):not(.mirai-card-dark),
+.mirai-card-light [class*="-body"]:not(.mirai-card-light):not(.mirai-card-dark),
+.mirai-card-light [class*="-inner"]:not(.mirai-card-light):not(.mirai-card-dark),
+.mirai-card-light [class*="-point-card"]:not(.mirai-card-light):not(.mirai-card-dark),
+.mirai-card-light [class*="-badge"]:not(.mirai-card-light):not(.mirai-card-dark),
+.mirai-card-light [class*="-title"]:not(.mirai-card-light):not(.mirai-card-dark),
+.mirai-card-dark [class*="-head"]:not(.mirai-card-light):not(.mirai-card-dark),
+.mirai-card-dark [class*="-header"]:not(.mirai-card-light):not(.mirai-card-dark),
+.mirai-card-dark [class*="-body"]:not(.mirai-card-light):not(.mirai-card-dark),
+.mirai-card-dark [class*="-inner"]:not(.mirai-card-light):not(.mirai-card-dark),
+.mirai-card-dark [class*="-point-card"]:not(.mirai-card-light):not(.mirai-card-dark),
+.mirai-card-dark [class*="-badge"]:not(.mirai-card-light):not(.mirai-card-dark),
+.mirai-card-dark [class*="-title"]:not(.mirai-card-light):not(.mirai-card-dark) {
+  background-image: none !important;
+}
+
+.mirai-card-light [class*="-head"]::before,
+.mirai-card-light [class*="-head"]::after,
+.mirai-card-light [class*="-header"]::before,
+.mirai-card-light [class*="-header"]::after,
+.mirai-card-light [class*="-body"]::before,
+.mirai-card-light [class*="-body"]::after,
+.mirai-card-light [class*="-inner"]::before,
+.mirai-card-light [class*="-inner"]::after,
+.mirai-card-light [class*="-point-card"]::before,
+.mirai-card-light [class*="-point-card"]::after,
+.mirai-card-light [class*="-badge"]::before,
+.mirai-card-light [class*="-badge"]::after,
+.mirai-card-light [class*="-title"]::before,
+.mirai-card-light [class*="-title"]::after,
+.mirai-card-dark [class*="-head"]::before,
+.mirai-card-dark [class*="-head"]::after,
+.mirai-card-dark [class*="-header"]::before,
+.mirai-card-dark [class*="-header"]::after,
+.mirai-card-dark [class*="-body"]::before,
+.mirai-card-dark [class*="-body"]::after,
+.mirai-card-dark [class*="-inner"]::before,
+.mirai-card-dark [class*="-inner"]::after,
+.mirai-card-dark [class*="-point-card"]::before,
+.mirai-card-dark [class*="-point-card"]::after,
+.mirai-card-dark [class*="-badge"]::before,
+.mirai-card-dark [class*="-badge"]::after,
+.mirai-card-dark [class*="-title"]::before,
+.mirai-card-dark [class*="-title"]::after {
+  content: none !important;
+  display: none !important;
+  background-image: none !important;
+}
+
+/* ==========================================================================
+   SISTEM VISUAL UNIVERSAL: LAYAR LATIHAN FULLSCREEN (IMMERSIVE FULLSCREEN)
+   ========================================================================== */
+.practice-view,
+.result-view,
+.mirai-fullscreen-view,
+.mirai-practice-fullscreen,
+.custom-quiz-modal.is-fullscreen,
+.custom-quiz-modal.memory-difficulty-modal {
+  position: fixed !important;
+  inset: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  width: 100% !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  z-index: 99999 !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+}
+
+body.is-practicing,
+body.is-fullscreen-practice {
+  overflow: hidden !important;
+}
+
+.practice-view .practice-shell,
+.result-view .result-card,
+.mirai-practice-fullscreen .practice-shell {
+  width: min(880px, 94vw) !important;
+  max-width: 880px !important;
+  margin: auto !important;
+  box-sizing: border-box !important;
 }

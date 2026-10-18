@@ -585,10 +585,10 @@ Global Footer / Disclaimer Section (Tengoku Style)
   inset: 0;
   background-image: radial-gradient(ellipse at 50% 0%, rgba(233, 30, 99, 0.09) 0%, transparent 70%),
         url("../../images/mirai/background/c1b.jpeg");
-  background-size: cover, 280px auto;
-  background-repeat: no-repeat, repeat;
+  background-size: cover, 200px auto !important;
+  background-repeat: no-repeat, repeat !important;
   background-position: center, center;
-  opacity: 0.10;
+  opacity: 0.045 !important;
   mix-blend-mode: screen;
   pointer-events: none;
   z-index: 0;
@@ -954,12 +954,12 @@ Lapisan 3: Deskripsi Singkat Elegan di bawah judul (.page-hero-desc / .section-d
   text-shadow: none !important;
 }
 /* 3. SUB JUDUL & TEKS SEKSI PADA LATAR BELAKANG GELAP / HITAM (#0e0b12 / #111115 / .soft-section dll) */
-.section.bg-dark .section-eyebrow, .soft-section .section-eyebrow, #lanjutan .section-eyebrow, .page-kelas #lanjutan .section-eyebrow, .slogan-section .section-eyebrow, .about-intro-section .section-eyebrow, .vision-mission-section .section-eyebrow, .home-activities-dark-section .section-eyebrow, .toko-catalog-section .section-eyebrow, .timeline-section .section-eyebrow, .sora-profile-section .section-eyebrow, .wall-of-fame-section .section-eyebrow, body.theme-dark .section-eyebrow {
+.section.bg-dark .section-eyebrow, .soft-section .section-eyebrow, #lanjutan .section-eyebrow, .page-kelas #lanjutan .section-eyebrow, .slogan-section .section-eyebrow, .about-intro-section .section-eyebrow, .home-activities-dark-section .section-eyebrow, .toko-catalog-section .section-eyebrow, .timeline-section .section-eyebrow, .wall-of-fame-section .section-eyebrow, body.theme-dark .section-eyebrow {
   color: #ff85b3 !important;
   /* Pink cerah bersinar di atas latar gelap */
 }
 
-.section.bg-dark .section-eyebrow .jp-kanji, .soft-section .section-eyebrow .jp-kanji, #lanjutan .section-eyebrow .jp-kanji, .page-kelas #lanjutan .section-eyebrow .jp-kanji, .slogan-section .section-eyebrow .jp-kanji, .about-intro-section .section-eyebrow .jp-kanji, .vision-mission-section .section-eyebrow .jp-kanji, .home-activities-dark-section .section-eyebrow .jp-kanji, .toko-catalog-section .section-eyebrow .jp-kanji, .timeline-section .section-eyebrow .jp-kanji, .sora-profile-section .section-eyebrow .jp-kanji, .wall-of-fame-section .section-eyebrow .jp-kanji, body.theme-dark .section-eyebrow .jp-kanji {
+.section.bg-dark .section-eyebrow .jp-kanji, .soft-section .section-eyebrow .jp-kanji, #lanjutan .section-eyebrow .jp-kanji, .page-kelas #lanjutan .section-eyebrow .jp-kanji, .slogan-section .section-eyebrow .jp-kanji, .about-intro-section .section-eyebrow .jp-kanji, .home-activities-dark-section .section-eyebrow .jp-kanji, .toko-catalog-section .section-eyebrow .jp-kanji, .timeline-section .section-eyebrow .jp-kanji, .wall-of-fame-section .section-eyebrow .jp-kanji, body.theme-dark .section-eyebrow .jp-kanji {
   font-family: 'Noto Serif JP', serif !important;
   font-weight: 700 !important;
   font-size: clamp(17px, 1.8vw, 21px) !important;
@@ -975,7 +975,7 @@ Lapisan 3: Deskripsi Singkat Elegan di bawah judul (.page-hero-desc / .section-d
   display: inline-block !important;
 }
 
-.section.bg-dark .section-desc, .soft-section .section-desc, #lanjutan .section-desc, .page-kelas #lanjutan .section-desc, .slogan-section .section-desc, .about-intro-section .section-desc, .vision-mission-section .section-desc, .home-activities-dark-section .section-desc, .toko-catalog-section .section-desc, .timeline-section .section-desc, .sora-profile-section .section-desc, .wall-of-fame-section .section-desc, body.theme-dark .section-desc {
+.section.bg-dark .section-desc, .soft-section .section-desc, #lanjutan .section-desc, .page-kelas #lanjutan .section-desc, .slogan-section .section-desc, .about-intro-section .section-desc, .home-activities-dark-section .section-desc, .toko-catalog-section .section-desc, .timeline-section .section-desc, .wall-of-fame-section .section-desc, body.theme-dark .section-desc {
   color: #cbd5e1 !important;
   /* Abu-abu terang nyaman di mata */
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5) !important;

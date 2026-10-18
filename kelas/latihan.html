@@ -2829,6 +2829,50 @@ body.dark-mode .bunpou-ctrl-btn.reset-btn {
     transform: scale(0.97);
 }
 
+.choukai-btn-group {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+}
+
+.choukai-replay-btn.btn-audio-slow {
+    background: linear-gradient(135deg, #7c3aed, #6d28d9) !important;
+    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.35) !important;
+}
+
+.choukai-replay-btn.btn-audio-slow:hover {
+    box-shadow: 0 8px 24px rgba(124, 58, 237, 0.45) !important;
+}
+
+.btn-audio-slow,
+.mistake-audio-btn.btn-audio-slow,
+.bunpou-audio-btn.btn-audio-slow {
+    background: #f3e8ff !important;
+    color: #7e22ce !important;
+    border: 1.5px solid #d8b4fe !important;
+}
+
+.btn-audio-slow:hover,
+.mistake-audio-btn.btn-audio-slow:hover,
+.bunpou-audio-btn.btn-audio-slow:hover {
+    background: #7e22ce !important;
+    color: #ffffff !important;
+    border-color: #7e22ce !important;
+}
+
+body.theme-dark .btn-audio-slow,
+body.theme-dark .mistake-audio-btn.btn-audio-slow,
+body.theme-dark .bunpou-audio-btn.btn-audio-slow,
+body.dark-mode .btn-audio-slow,
+body.dark-mode .mistake-audio-btn.btn-audio-slow,
+body.dark-mode .bunpou-audio-btn.btn-audio-slow {
+    background: #271a36 !important;
+    border-color: rgba(192, 132, 252, 0.45) !important;
+    color: #d8b4fe !important;
+}
+
 .choukai-speaker-icon {
     font-size: 26px;
     line-height: 1;
@@ -3979,10 +4023,10 @@ body.dark-mode .feedback-sub-tag {
     </div>
 </div>
 
-<!-- Modal Pilihan Tingkat Kesulitan Balik Kartu -->
-<div class="custom-quiz-modal memory-difficulty-modal" data-memory-difficulty-modal hidden>
+<!-- Modal Pilihan Tingkat Kesulitan Balik Kartu (Fullscreen Immersive View) -->
+<div class="custom-quiz-modal memory-difficulty-modal is-fullscreen" data-memory-difficulty-modal hidden>
     <div class="custom-modal-backdrop" data-close-memory-modal></div>
-    <div class="custom-modal-dialog" style="max-width: 520px;" role="dialog" aria-modal="true" aria-labelledby="memory-modal-title">
+    <div class="custom-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="memory-modal-title">
         <div class="custom-modal-header">
             <div class="custom-modal-title-group">
                 <span class="card-sub-jp">難易度選択 • なんいどせんたく</span>
@@ -3992,7 +4036,7 @@ body.dark-mode .feedback-sub-tag {
             <button type="button" class="custom-modal-close" data-close-memory-modal aria-label="Tutup pilihan kesulitan">✕</button>
         </div>
 
-        <div class="custom-modal-body" style="gap: 12px; padding: 22px;">
+        <div class="custom-modal-body">
             <button type="button" class="memory-diff-btn memory-diff-easy" data-memory-cards="6">
                 <div class="memory-diff-icon">🌱</div>
                 <div class="memory-diff-info">

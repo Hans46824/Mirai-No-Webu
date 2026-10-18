@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "ritwickdey.LiveServer",
+    "streetsidesoftware.code-spell-checker",
+    "ms-python.python",
+    "formulahendry.auto-rename-tag",
+    "ecmel.vscode-html-css",
+    "christian-kohler.path-intellisense",
+    "naumovs.color-highlight",
+    "tonybaloney.vscode-pets"
+  ]
+}

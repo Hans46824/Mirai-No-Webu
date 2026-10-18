@@ -335,12 +335,18 @@ function initLesson() {
     detail.innerHTML = `
                 <p class="card-number">${type.toUpperCase()} / ${item.reading} • ${item.strokes} Goresan</p>
                 <div class="selected-kana">${character}</div>
-                <div class="kana-detail-audio-actions">
-                    <button type="button" class="btn-kana-audio" data-speak-char="${character}" title="Lafalkan huruf ${character}">
-                        <span>🔊 Lafalkan Huruf (${character})</span>
+                <div class="kana-detail-audio-actions" style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                    <button type="button" class="btn-kana-audio" data-speak-char="${character}" title="Lafalkan huruf ${character} (Normal)">
+                        <span>🔊 Lafalkan (${character})</span>
+                    </button>
+                    <button type="button" class="btn-kana-audio btn-audio-slow" data-speak-char-slow="${character}" title="Lafalkan huruf ${character} perlahan (Slow-Mo)">
+                        <span>🐢 Pelan</span>
                     </button>
                     <button type="button" class="btn-kana-audio btn-kana-audio-example" data-speak-word="${item.example[0]}" title="Lafalkan contoh kata ${item.example[0]}">
-                        <span>🔊 Lafalkan Contoh Kata (${item.example[0]})</span>
+                        <span>🔊 Kata (${item.example[0]})</span>
+                    </button>
+                    <button type="button" class="btn-kana-audio btn-audio-slow" data-speak-word-slow="${item.example[0]}" title="Lafalkan contoh kata perlahan">
+                        <span>🐢 Pelan</span>
                     </button>
                 </div>
                 <h3>Urutan Menulis (${item.strokes} Goresan)</h3>
@@ -348,20 +354,29 @@ function initLesson() {
                 <div data-stroke-player></div>
                 <h4>Contoh kata</h4>
                 <div class="word-examples">
-                    <p><b>${item.example[0]}</b><span>${item.example[1]}</span>${item.example[2]} <button type="button" class="mini-audio-btn" data-speak-word="${item.example[0]}" title="Dengarkan pelafalan ${item.example[0]}">🔊</button></p>
+                    <p><b>${item.example[0]}</b><span>${item.example[1]}</span>${item.example[2]} <button type="button" class="mini-audio-btn" data-speak-word="${item.example[0]}" title="Dengarkan pelafalan ${item.example[0]}">🔊</button> <button type="button" class="mini-audio-btn btn-audio-slow" data-speak-word-slow="${item.example[0]}" title="Dengarkan pelan ${item.example[0]}">🐢</button></p>
                 </div>
             `;
     detail.querySelector("[data-speak-char]")?.addEventListener("click", () => {
-    window.speakText ? window.speakText(character, "ja-JP") : speakJapanese(character);
+      window.speakText ? window.speakText(character, "ja-JP", false) : speakJapanese(character);
+    });
+    detail.querySelector("[data-speak-char-slow]")?.addEventListener("click", () => {
+      window.speakText ? window.speakText(character, "ja-JP", true) : speakJapanese(character);
     });
     detail.querySelectorAll("[data-speak-word]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-    const word = btn.dataset.speakWord;
-    window.speakText ? window.speakText(word, "ja-JP") : speakJapanese(word);
+      btn.addEventListener("click", () => {
+        const word = btn.dataset.speakWord;
+        window.speakText ? window.speakText(word, "ja-JP", false) : speakJapanese(word);
+      });
     });
+    detail.querySelectorAll("[data-speak-word-slow]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const word = btn.dataset.speakWordSlow;
+        window.speakText ? window.speakText(word, "ja-JP", true) : speakJapanese(word);
+      });
     });
     player = window.createStrokePlayer(detail.querySelector("[data-stroke-player]"), character, item.strokes, {
-    showClear: true
+      showClear: true
     });
   }
 
@@ -409,7 +424,7 @@ function initLesson() {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "kana-card";
-    button.innerHTML = `<strong>${character}</strong><span>${item.reading}</span><span class="kana-card-speaker" title="Dengarkan suara ${character}">🔊</span>`;
+    button.innerHTML = `<strong>${character}</strong><span>${item.reading}</span>`;
     button.addEventListener("click", () => {
       grid.querySelectorAll(".is-selected").forEach((card) => card.classList.remove("is-selected"));
       button.classList.add("is-selected");

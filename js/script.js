@@ -670,19 +670,23 @@ const bunpouFallbackBank = [
 ];
 
 
-function speakJapanese(text) {
-if (!text || !("speechSynthesis" in window)) return;
-try {
-  window.speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = "ja-JP";
-  utterance.rate = 0.88;
-  window.speechSynthesis.speak(utterance);
-} catch (e) {
-  console.warn("Speech synthesis error:", e);
+function speakJapanese(text, slow = false) {
+  if (window.speakText) {
+    window.speakText(text, "ja-JP", slow);
+    return;
+  }
+  if (!text || !("speechSynthesis" in window)) return;
+  try {
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "ja-JP";
+    utterance.rate = slow ? 0.48 : 0.88;
+    window.speechSynthesis.speak(utterance);
+  } catch (e) {
+    console.warn("Speech synthesis error:", e);
+  }
 }
-}
-window.speakJapanese = window.speakJapanese || speakJapanese;
+window.speakJapanese = speakJapanese;
 
 function isRomajiMatch(typed, targetRomaji) {
 typed = (typed || "").trim().toLowerCase().replace(/\s+/g, "");
@@ -2488,7 +2492,7 @@ function renderQuestion() {
   const defaultSub = document.querySelector(".question-card > p");
 
     if (question.type === "choukai") {
-    $("[data-practice-label]").textContent = "CHOUKAI • TEBAK SUARA KILAT";
+    $("[data-practice-label]").textContent = "CHOUKAI • TEBAK SUARA";
     $("[data-question-kind]").textContent = "TEBAK SUARA AKSARA JEPANG";
     $("[data-answer-grid]").classList.remove("is-match-grid");
     $("[data-answer-grid]").style.cssText = "display: grid !important; grid-template-columns: repeat(2, 1fr) !important; gap: 14px !important; width: 100% !important; max-width: 520px !important; margin: 0 auto !important;";
@@ -2507,23 +2511,40 @@ function renderQuestion() {
 
     $("[data-question-prompt]").innerHTML = `
                 <div class="choukai-audio-center">
-                    <button type="button" class="choukai-replay-btn" data-choukai-replay aria-label="Putar ulang suara">
-                        <span class="choukai-speaker-icon">🔊</span>
-                        <span class="choukai-btn-text">Putar Ulang Suara</span>
-                    </button>
-                    <span class="choukai-hint-text">Ketuk tombol jika suara belum terdengar</span>
+                    <div class="choukai-btn-group">
+                        <button type="button" class="choukai-replay-btn" data-choukai-replay aria-label="Putar ulang suara normal">
+                            <span class="choukai-speaker-icon">🔊</span>
+                            <span class="choukai-btn-text">Suara Normal</span>
+                        </button>
+                        <button type="button" class="choukai-replay-btn btn-audio-slow" data-choukai-replay-slow aria-label="Putar ulang suara pelan (Slow-Mo)">
+                            <span class="choukai-speaker-icon">🐢</span>
+                            <span class="choukai-btn-text">Suara Pelan</span>
+                        </button>
+                    </div>
+                    <span class="choukai-hint-text">Dengarkan pelafalan normal atau pelan per suku kata</span>
                 </div>
             `;
 
     const replayBtn = $("[data-choukai-replay]");
     if (replayBtn) {
-    replayBtn.addEventListener("click", () => {
-    if (window.speakJapanese) {
-      window.speakJapanese(question.answer.character);
+      replayBtn.addEventListener("click", () => {
+        if (window.speakJapanese) {
+          window.speakJapanese(question.answer.character, false);
+        }
+        replayBtn.classList.add("is-playing");
+        setTimeout(() => replayBtn.classList.remove("is-playing"), 400);
+      });
     }
-    replayBtn.classList.add("is-playing");
-    setTimeout(() => replayBtn.classList.remove("is-playing"), 400);
-    });
+
+    const replaySlowBtn = $("[data-choukai-replay-slow]");
+    if (replaySlowBtn) {
+      replaySlowBtn.addEventListener("click", () => {
+        if (window.speakJapanese) {
+          window.speakJapanese(question.answer.character, true);
+        }
+        replaySlowBtn.classList.add("is-playing");
+        setTimeout(() => replaySlowBtn.classList.remove("is-playing"), 400);
+      });
     }
 
     // Tampilkan 4 pilihan aksara Jepang MURNI tanpa bocoran Romaji
@@ -2712,21 +2733,26 @@ function renderQuestion() {
                 <div class="bunpou-prompt-wrap">
                     <div class="bunpou-meaning-text">
                         <span>${question.mainPrompt}</span>
-                        <button type="button" class="bunpou-audio-btn" aria-label="Dengarkan pelafalan" title="Dengarkan pelafalan">🔊</button>
+                        <div style="display:inline-flex;gap:6px;align-items:center;">
+                            <button type="button" class="bunpou-audio-btn" data-bunpou-speak aria-label="Dengarkan pelafalan normal" title="Dengarkan pelafalan normal">🔊</button>
+                            <button type="button" class="bunpou-audio-btn btn-audio-slow" data-bunpou-speak-slow aria-label="Dengarkan pelafalan pelan" title="Dengarkan pelafalan pelan">🐢</button>
+                        </div>
                     </div>
                     <div class="bunpou-meaning-sub">(${question.meaning})</div>
                     <span class="bunpou-prompt-hint">${hintText}</span>
                 </div>
             `;
 
-    const audioBtn = $("[data-question-prompt] .bunpou-audio-btn");
-    if (audioBtn) {
-    audioBtn.addEventListener("click", () => {
-    if (window.speakJapanese) {
-      window.speakJapanese(question.kanaText || question.kana);
-    }
+    $("[data-bunpou-speak]")?.addEventListener("click", () => {
+      if (window.speakJapanese) {
+        window.speakJapanese(question.kanaText || question.kana, false);
+      }
     });
-    }
+    $("[data-bunpou-speak-slow]")?.addEventListener("click", () => {
+      if (window.speakJapanese) {
+        window.speakJapanese(question.kanaText || question.kana, true);
+      }
+    });
 
     $("[data-answer-grid]").innerHTML = `
                 <div class="bunpou-puzzle-board">
@@ -3878,7 +3904,11 @@ function finishPractice() {
         <div class="mistake-card-top">
         <span class="mistake-badge">${item.badge}</span>
         <div style="display:inline-flex;align-items:center;gap:8px;">
-        ${item.speakText ? `<button type="button" class="mistake-audio-btn" data-mistake-speak="${item.speakText}" aria-label="Dengarkan pengucapan ${item.speakText}">🔊 Dengarkan</button>` : ""}
+        ${item.speakText ? `
+        <div style="display:inline-flex;gap:4px;align-items:center;">
+          <button type="button" class="mistake-audio-btn" data-mistake-speak="${item.speakText}" aria-label="Dengarkan pengucapan normal">🔊 Dengarkan</button>
+          <button type="button" class="mistake-audio-btn btn-audio-slow" data-mistake-speak-slow="${item.speakText}" aria-label="Dengarkan pengucapan pelan">🐢 Pelan</button>
+        </div>` : ""}
         <span class="mistake-num">#${idx + 1}</span>
         </div>
         </div>
@@ -3914,16 +3944,31 @@ function finishPractice() {
             `;
 
     mistakeContainer.querySelectorAll("[data-mistake-speak]").forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    const txt = btn.getAttribute("data-mistake-speak");
-    if (txt && "speechSynthesis" in window) {
-      speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(txt);
-      utterance.lang = "ja-JP";
-      speechSynthesis.speak(utterance);
-    }
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const txt = btn.getAttribute("data-mistake-speak");
+        if (txt) {
+          if (window.speakText) {
+            window.speakText(txt, "ja-JP", false);
+          } else if (window.speakJapanese) {
+            window.speakJapanese(txt, false);
+          }
+        }
+      });
     });
+
+    mistakeContainer.querySelectorAll("[data-mistake-speak-slow]").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const txt = btn.getAttribute("data-mistake-speak-slow");
+        if (txt) {
+          if (window.speakText) {
+            window.speakText(txt, "ja-JP", true);
+          } else if (window.speakJapanese) {
+            window.speakJapanese(txt, true);
+          }
+        }
+      });
     });
   } else {
     mistakeContainer.innerHTML = `

@@ -10,7 +10,8 @@ Mirai-No-Webu/
 ├── README.md                       # Profil utama repositori & dokumentasi Sources & Credits
 ├── cspell.json                     # Konfigurasi Code Spell Checker (kamus & ignorasi kata bilingual)
 ├── .vscode/                        # Konfigurasi workspace editor VS Code / Antigravity
-│   └── settings.json               # Pengaturan workspace, search.exclude, & files.watcherExclude
+│   ├── settings.json               # Pengaturan workspace, formatOnSave, search.exclude, & watcherExclude
+│   └── extensions.json             # Rekomendasi 9 ekstensi resmi VS Code untuk developer proyek
 │
 ├── css/                            # Master & Arsitektur Stylesheet Berbasis Halaman
 │   ├── style.css                   # Master CSS Index (Memanggil @import Google Fonts & 11 file css/pages/)
@@ -39,7 +40,8 @@ Mirai-No-Webu/
 │   ├── stroke-data.js              # Vektor koordinat garis KanjiVG terkurasi (dikecualikan dari watcher)
 │   ├── carousel.js                 # Logika slider / carousel umum
 │   ├── proker-slider.js            # Slider khusus halaman kegiatan & proker
-│   ├── translator.js               # Mesin bantu terjemahan
+│   ├── translator.js               # Mesin terjemahan & generator nama Jepang/KTA
+│   ├── quiz-divisi.js              # Kuis kepribadian & tes kecocokan 4 divisi
 │   └── api.js                      # Koneksi endpoint data
 │
 ├── panduan/                        # Dokumentasi & Panduan Proyek
@@ -132,6 +134,9 @@ Mirai-No-Webu/
 │   ├── README.md                   # Panduan skrip pengembang
 │   └── arsip/                      # Arsip skrip perbaikan sekali-pakai (dikecualikan dari watcher)
 │       ├── apply_card_expand.py
+│       ├── apply_5_main_fixes.py
+│       ├── apply_portrait_pattern_zoom_out.py
+│       └── apply_transparency_and_tentang_fixes.py
 │
 └── images/mirai/                   # Aset Bersama (Shared Global Assets)
     ├── background/                 # Pola Wagara master CSS (w1b, w1w, c1b, c1w, w2w, chat, Sora)

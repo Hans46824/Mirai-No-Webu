@@ -40,36 +40,48 @@ for (let i = localStorage.length - 1; i >= 0; i--) {
 }
 } catch (e) {}
 
+if (!window.MIRAI_STROKE_DATA) window.MIRAI_STROKE_DATA = window.STROKE_DATA || {};
+window.STROKE_DATA = window.MIRAI_STROKE_DATA;
+
 /**
  * Mengambil data goresan secara asinkron dengan hierarki aman:
- * 1. Pustaka lokal tervalidasi (window.MIRAI_STROKE_DATA) - prioritas tertinggi
- * 2. Cache lokal terverifikasi skema (mirai_stroke_v4_*)
+ * 1. Pustaka lokal tervalidasi (window.STROKE_DATA / window.MIRAI_STROKE_DATA) - prioritas tertinggi
+ * 2. Cache lokal terverifikasi skema (kanjivg_cache_* / mirai_stroke_v4_*)
  * 3. Jaringan resmi KanjiVG via CDN dengan parsing DOMParser & validasi ketat
 */
 window.getStrokeDataAsync = async function getStrokeDataAsync(character) {
 if (!character) return null;
 
-// 1. Data lokal kurasi (window.MIRAI_STROKE_DATA) prioritas mutlak
-if (window.MIRAI_STROKE_DATA?.[character]) {
-  const localRec = window.MIRAI_STROKE_DATA[character];
-  if (isValidStrokeRecord(localRec)) {
-    return localRec;
-  }
+// 1. Data lokal kurasi (window.STROKE_DATA / window.MIRAI_STROKE_DATA) prioritas mutlak
+const localRec = window.STROKE_DATA?.[character] || window.MIRAI_STROKE_DATA?.[character];
+if (localRec && isValidStrokeRecord(localRec)) {
+  window.STROKE_DATA[character] = localRec;
+  window.MIRAI_STROKE_DATA[character] = localRec;
+  return localRec;
 }
 
 const cacheKey = "mirai_stroke_v4_" + character;
+const legacyCacheKey = "kanjivg_cache_" + character;
 
-// 2. Periksa cache localStorage (skema v4)
+// 2. Periksa cache localStorage (skema v4 & kanjivg_cache)
 try {
-  const cachedRaw = localStorage.getItem(cacheKey);
+  const cachedRaw = localStorage.getItem(cacheKey) || localStorage.getItem(legacyCacheKey);
   if (cachedRaw) {
-    const parsedEnvelope = JSON.parse(cachedRaw);
-    if (parsedEnvelope?.v === 4 && isValidStrokeRecord(parsedEnvelope?.record)) {
-    if (!window.MIRAI_STROKE_DATA) window.MIRAI_STROKE_DATA = {};
-    window.MIRAI_STROKE_DATA[character] = parsedEnvelope.record;
-    return parsedEnvelope.record;
+    let recCandidate = null;
+    const parsed = JSON.parse(cachedRaw);
+    if (parsed?.v === 4 && isValidStrokeRecord(parsed?.record)) {
+      recCandidate = parsed.record;
+    } else if (isValidStrokeRecord(parsed)) {
+      recCandidate = parsed;
+    }
+    if (recCandidate) {
+      if (!window.MIRAI_STROKE_DATA) window.MIRAI_STROKE_DATA = {};
+      window.MIRAI_STROKE_DATA[character] = recCandidate;
+      window.STROKE_DATA = window.MIRAI_STROKE_DATA;
+      return recCandidate;
     } else {
-    localStorage.removeItem(cacheKey);
+      localStorage.removeItem(cacheKey);
+      localStorage.removeItem(legacyCacheKey);
     }
   }
 } catch (e) {}
@@ -137,13 +149,15 @@ try {
 
     const record = { viewBox: "0 0 109 109", paths, numbers, source: "KanjiVG-CDN" };
     if (isValidStrokeRecord(record)) {
-    if (!window.MIRAI_STROKE_DATA) window.MIRAI_STROKE_DATA = {};
-    window.MIRAI_STROKE_DATA[character] = record;
-    try {
-    const envelope = { v: 4, char: character, time: Date.now(), record };
-    localStorage.setItem(cacheKey, JSON.stringify(envelope));
-    } catch (e) {}
-    return record;
+      if (!window.MIRAI_STROKE_DATA) window.MIRAI_STROKE_DATA = {};
+      window.MIRAI_STROKE_DATA[character] = record;
+      window.STROKE_DATA = window.MIRAI_STROKE_DATA;
+      try {
+        const envelope = { v: 4, char: character, time: Date.now(), record };
+        localStorage.setItem(cacheKey, JSON.stringify(envelope));
+        localStorage.setItem(legacyCacheKey, JSON.stringify(record));
+      } catch (e) {}
+      return record;
     }
   }
 } catch (err) {

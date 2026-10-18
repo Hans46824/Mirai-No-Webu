@@ -133,6 +133,79 @@
       <a class="btn" href="../kegiatan/index.html">← Kembali ke Program &amp; Fasilitas</a>
     </div>
   </section>
+
+  <!-- =====================================================================
+       SEKSI KUIS KEPRIBADIAN: TES KECOCOKAN DIVISI MIRAI NO HANA
+       ===================================================================== -->
+  <section class="section mirai-section-dark division-quiz-section" id="kuis-divisi">
+    <div class="section-intro">
+      <p class="section-eyebrow"><span class="jp-kanji">部活適性診断テスト</span></p>
+      <h2 class="heading">🍱 Kuis Kepribadian: <span>Tes Kecocokan Divisi</span></h2>
+      <p class="section-desc">Bingung ingin bergabung ke divisi mana? Jawab 5 pertanyaan santai berikut untuk menemukan divisi Mirai no Hana yang paling pas dengan minat, bakat, dan karaktermu!</p>
+    </div>
+
+    <div class="quiz-container">
+      <div class="mirai-card-dark quiz-card" id="quizCard">
+        <!-- PROGRESS BAR -->
+        <div class="quiz-progress-wrap">
+          <div class="quiz-progress-header">
+            <span class="quiz-step-count" id="quizStepCount">Pertanyaan 1 dari 5</span>
+            <span class="quiz-step-percent" id="quizStepPercent">20% Selesai</span>
+          </div>
+          <div class="quiz-progress-bar">
+            <div class="quiz-progress-fill" id="quizProgressFill" style="width: 20%;"></div>
+          </div>
+        </div>
+
+        <!-- STAGE PERTANYAAN -->
+        <div class="quiz-stage" id="quizStage">
+          <h3 class="quiz-question-title" id="quizQuestionText">1. Apa hal pertama yang paling menarik perhatianmu di acara festival budaya Jepang (Matsuri)?</h3>
+          <div class="quiz-options-list" id="quizOptionsList">
+            <!-- Pilihan jawaban diinjeksi via JS -->
+          </div>
+        </div>
+
+        <!-- STAGE HASIL (MUNCUL SETELAH 5 SOAL SELESAI) -->
+        <div class="quiz-result-stage" id="quizResultStage" hidden>
+          <div class="quiz-result-hero">
+            <div class="result-badge-icon" id="quizResultIcon">📚</div>
+            <span class="result-kicker">HASIL DIAGNOSIS DIVISI KAMU</span>
+            <h3 class="result-title" id="quizResultTitle">Divisi Bahasa &amp; Budaya</h3>
+            <span class="result-kanji" id="quizResultKanji">言語・文化部門</span>
+          </div>
+
+          <div class="quiz-meter-wrap">
+            <div class="meter-text-row">
+              <span>Tingkat Kecocokan Karakter:</span>
+              <strong class="meter-score-highlight" id="quizScoreHighlight">88% Cocok!</strong>
+            </div>
+            <div class="meter-bar-track">
+              <div class="meter-bar-fill" id="quizMeterFill" style="width: 88%;"></div>
+            </div>
+          </div>
+
+          <p class="quiz-explanation" id="quizExplanation">
+            Kamu memiliki rasa ingin tahu yang mendalam terhadap percakapan, makna aksara Kanji, dan filosofi kebudayaan Jepang. Kamu adalah tipe pembelajar tekun yang senang berdiskusi dan memahami cara berpikir masyarakat Jepang dari akarnya.
+          </p>
+
+          <div class="quiz-breakdown-box">
+            <h4 class="breakdown-title">📊 Rincian Skor Seluruh Divisi:</h4>
+            <div class="breakdown-bars" id="quizBreakdownBars"></div>
+          </div>
+
+          <div class="quiz-actions-group">
+            <a href="bahasa.html" class="btn primary quiz-cta-link" id="quizCtaLink">
+              <span>🚀 Jelajahi Profil Divisi Bahasa →</span>
+            </a>
+            <button type="button" class="btn quiz-restart-btn" id="quizRestartBtn">
+              <span>🔄 Ulangi Tes</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <footer class="global-footer">
@@ -146,6 +219,7 @@
 
 <script src="../js/sora.js"></script>
 <script src="../js/main.js"></script>
+<script src="../js/quiz-divisi.js"></script>
 </body>
 </html>
 

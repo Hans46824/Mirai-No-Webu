@@ -323,7 +323,7 @@ const reading = escapeHtml(w.reading);
 const meaning = escapeHtml(w.meaning);
 const romaji = kanaToRomaji(w.reading);
 const readingText = romaji ? `${reading} (${escapeHtml(romaji)})` : reading;
-return `<li><b>${word}</b> <span>${readingText}</span> — ${meaning} <button type="button" class="mini-audio-btn" onclick="window.speakText && window.speakText('${word}', 'ja-JP')" title="Dengarkan pelafalan ${word}">🔊</button></li>`;
+return `<li><b>${word}</b> <span>${readingText}</span> — ${meaning} <button type="button" class="mini-audio-btn" onclick="window.speakText && window.speakText('${word}', 'ja-JP')" title="Dengarkan pelafalan ${word}">🔊</button> <button type="button" class="mini-audio-btn btn-audio-slow" onclick="window.speakText && window.speakText('${word}', 'ja-JP', true)" title="Dengarkan pelafalan pelan ${word}">🐢</button></li>`;
 }
 window.formatWordItem = formatWordItem;
 
@@ -666,8 +666,11 @@ async function renderDetail(item, options = {}) {
                         <b>Kunyomi (Cara baca Jepang):</b> <span data-detail-kunyomi>${formatKanaReadings(item.kunyomi)}</span>
                     </p>
                     <div class="kanji-detail-audio-actions">
-                        <button type="button" class="btn-kanji-audio" id="speakKanjiBtn" title="Dengarkan pelafalan Kanji dan cara bacanya">
-                            <span>🔊 Dengarkan Kanji &amp; Cara Baca</span>
+                        <button type="button" class="btn-kanji-audio" id="speakKanjiBtn" title="Dengarkan pelafalan Kanji dan cara bacanya (Normal)">
+                            <span>🔊 Dengarkan</span>
+                        </button>
+                        <button type="button" class="btn-kanji-audio btn-audio-slow" id="speakKanjiSlowBtn" title="Dengarkan pelafalan Kanji dan cara bacanya perlahan (Slow-Mo)">
+                            <span>🐢 Suara Pelan</span>
                         </button>
                     </div>
                 </div>
@@ -684,7 +687,7 @@ async function renderDetail(item, options = {}) {
             </p>
         `;
 
-  detail.querySelector("#speakKanjiBtn")?.addEventListener("click", () => {
+  const speakKanjiInfo = (slowMode = false) => {
     const onyomi = (item.onyomi || []).join(", ");
     const kunyomi = (item.kunyomi || []).join(", ");
     const topWord = item.words?.[0]?.word || "";
@@ -692,8 +695,11 @@ async function renderDetail(item, options = {}) {
     if (kunyomi) toSpeak += `Kunyomi: ${kunyomi}。 `;
     if (onyomi) toSpeak += `Onyomi: ${onyomi}。 `;
     if (topWord) toSpeak += `Contoh kata: ${topWord}。`;
-    window.speakText ? window.speakText(toSpeak, "ja-JP") : window.speakJapanese?.(toSpeak);
-  });
+    window.speakText ? window.speakText(toSpeak, "ja-JP", slowMode) : window.speakJapanese?.(toSpeak);
+  };
+
+  detail.querySelector("#speakKanjiBtn")?.addEventListener("click", () => speakKanjiInfo(false));
+  detail.querySelector("#speakKanjiSlowBtn")?.addEventListener("click", () => speakKanjiInfo(true));
 
   // Pasang aksi tombol tutup detail (khusus tampilan mobile)
   detail.querySelector("[data-close-detail]")?.addEventListener("click", () => {
@@ -816,38 +822,125 @@ async function renderDetail(item, options = {}) {
 }
 
 /**
-   * Memfilter daftar kanji berdasarkan kata kunci pencarian, level JLPT, kelompok level,
-   * serta jumlah goresan, lalu mengembalikan entri yang TERURUT ASCENDING berdasarkan goresan & grade.
-   *
-   * @returns {Array<Object>} - Daftar entri kanji yang lolos filter dan sudah terurut
+ * Menghitung skor relevansi pencarian Kanji:
+ * - Skor 100: Kanji tepat atau arti utama persis sama
+ * - Skor 85: Kata utuh di dalam arti bahasa Indonesia
+ * - Skor 65: Arti diawali atau mengandung kata kunci
+ * - Skor 45: Cocok dengan bacaan Onyomi atau Kunyomi (kana / romaji)
+ * - Skor 15: Cocok di dalam contoh kosakata (examples)
+*/
+function getKanjiSearchScore(item, query) {
+  if (!query) return 0;
+  const q = query.trim().toLowerCase();
+  if (!q) return 0;
+
+  // 1. Skor 100: Kanji tepat atau arti sama persis
+  if (item.kanji === q) return 100;
+  const mainMeaning = (item.meaning || "").trim().toLowerCase();
+  if (mainMeaning === q) return 100;
+
+  // Cek apakah salah satu sinonim arti sama persis (misal: "orang, manusia" -> "orang")
+  const meaningParts = mainMeaning.split(/[,;/•\(\)]/).map((s) => s.trim().toLowerCase()).filter(Boolean);
+  if (meaningParts.includes(q)) return 100;
+
+  // 2. Skor 85: Kata utuh ditemukan di dalam meaning
+  try {
+    const escaped = q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const wordRegex = new RegExp(`\\b${escaped}\\b`, "i");
+    if (wordRegex.test(mainMeaning)) return 85;
+  } catch (e) {}
+
+  // 3. Skor 65: Meaning diawali atau mengandung query
+  if (mainMeaning.startsWith(q)) return 75;
+  if (mainMeaning.includes(q)) return 65;
+
+  const enMeaning = (item.meaningEn || "").toLowerCase();
+  if (enMeaning === q) return 70;
+  if (enMeaning.includes(q)) return 55;
+
+  // 4. Skor 45: Cocok dengan bacaan Onyomi / Kunyomi (kana maupun romaji)
+  const onyomiList = item.onyomi || [];
+  const kunyomiList = item.kunyomi || [];
+  for (const o of onyomiList) {
+    const oLower = o.toLowerCase();
+    const oRomaji = kanaToRomaji(o).toLowerCase();
+    if (oLower === q || oRomaji === q) return 50;
+    if (oLower.includes(q) || oRomaji.includes(q)) return 45;
+  }
+  for (const k of kunyomiList) {
+    const kLower = k.toLowerCase();
+    const kRomaji = kanaToRomaji(k).toLowerCase();
+    if (kLower === q || kRomaji === q) return 50;
+    if (kLower.includes(q) || kRomaji.includes(q)) return 45;
+  }
+
+  // 5. Skor 15: Cocok di dalam contoh kosakata (examples / words)
+  const words = item.words || item.examples || [];
+  for (const w of words) {
+    const wWord = (w.word || "").toLowerCase();
+    const wReading = (w.reading || "").toLowerCase();
+    const wRomaji = kanaToRomaji(w.reading || "").toLowerCase();
+    const wMeaning = (w.meaning || "").toLowerCase();
+    if (wWord === q || wReading === q || wRomaji === q || wMeaning === q) return 20;
+    if (wWord.includes(q) || wReading.includes(q) || wRomaji.includes(q) || wMeaning.includes(q)) return 15;
+  }
+
+  return 0;
+}
+
+/**
+ * Memfilter daftar kanji berdasarkan kata kunci pencarian dengan Sistem Skor Relevansi (Ranked Search),
+ * level JLPT, kelompok level, serta jumlah goresan.
+ *
+ * @returns {Array<Object>} - Daftar entri kanji yang lolos filter dan sudah terurut berdasarkan relevansi
 */
 function visibleEntries() {
   const query = search.value.trim().toLowerCase();
-  const filtered = entries.filter((item) => {
-    const onyomiRomaji = item.onyomi.map(kanaToRomaji).join(" ");
-    const kunyomiRomaji = item.kunyomi.map(kanaToRomaji).join(" ");
-    const searchable = [
-    item.kanji,
-    item.meaning,
-    item.meaningEn || "",
-    ...item.onyomi,
-    onyomiRomaji,
-    ...item.kunyomi,
-    kunyomiRomaji,
-    ...(item.words || item.examples || []).flatMap((word) => [word.word, word.reading, kanaToRomaji(word.reading), word.meaning])
-    ].join(" ").toLowerCase();
+  const rawMatches = [];
 
+  for (const item of entries) {
     const strokeCount = item.strokes || window.MIRAI_STROKE_DATA?.[item.kanji]?.paths?.length || 0;
-    const matchesQuery = !query || searchable.includes(query) || item.kanji === query;
     const matchesJlpt = !jlpt.value || item.jlpt === jlpt.value;
     const matchesLevel = !level.value || item.level === level.value;
     const matchesStrokes = !strokes?.value || strokeCount === Number(strokes.value);
 
-    return matchesQuery && matchesJlpt && matchesLevel && matchesStrokes;
+    if (!matchesJlpt || !matchesLevel || !matchesStrokes) continue;
+
+    if (!query) {
+      rawMatches.push({ item, score: 0 });
+    } else {
+      const score = getKanjiSearchScore(item, query);
+      if (score > 0) {
+        rawMatches.push({ item, score });
+      }
+    }
+  }
+
+  if (!query) {
+    return sortKanjiEntries(rawMatches.map((m) => m.item));
+  }
+
+  // Jika ada kanji yang cocok langsung pada kanji, arti, atau bacaan (skor >= 45),
+  // abaikan kecocokan yang HANYA berasal dari contoh kata (examples, skor <= 20) agar hasil tidak tercemar
+  const hasStrongMatch = rawMatches.some((m) => m.score >= 45);
+  const eligibleMatches = hasStrongMatch
+    ? rawMatches.filter((m) => m.score >= 45)
+    : rawMatches;
+
+  // Urutkan berdasarkan Skor Relevansi Descending (100 -> 85 -> 65 -> 45 -> 15).
+  // Jika skor sama, urutkan: Goresan Ascending -> Grade Ascending -> Huruf.
+  eligibleMatches.sort((a, b) => {
+    if (b.score !== a.score) return b.score - a.score;
+    const strokesA = Number(a.item.strokes || 0);
+    const strokesB = Number(b.item.strokes || 0);
+    if (strokesA !== strokesB) return strokesA - strokesB;
+    const gradeA = Number(a.item.grade !== undefined ? a.item.grade : 99);
+    const gradeB = Number(b.item.grade !== undefined ? b.item.grade : 99);
+    if (gradeA !== gradeB) return gradeA - gradeB;
+    return a.item.kanji.localeCompare(b.item.kanji);
   });
 
-  // Wajib diurutkan: Goresan (strokes) Ascending -> Grade Ascending -> Karakter
-  return sortKanjiEntries(filtered);
+  return eligibleMatches.map((m) => m.item);
 }
 
 /**
@@ -1035,27 +1128,42 @@ const show = (character, options = {}) => {
   detail.innerHTML = `
             <p class="card-number">${mode.toUpperCase()} / ${item.reading}</p>
             <div class="selected-kana">${character}</div>
-            <div class="kana-detail-audio-actions">
-                <button type="button" class="btn-kana-audio" data-speak-char="${character}" title="Lafalkan huruf ${character}">
-                    <span>🔊 Lafalkan Huruf (${character})</span>
+            <div class="kana-detail-audio-actions" style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                <button type="button" class="btn-kana-audio" data-speak-char="${character}" title="Lafalkan huruf ${character} (Normal)">
+                    <span>🔊 Lafalkan (${character})</span>
+                </button>
+                <button type="button" class="btn-kana-audio btn-audio-slow" data-speak-char-slow="${character}" title="Lafalkan huruf ${character} perlahan (Slow-Mo)">
+                    <span>🐢 Pelan</span>
                 </button>
                 <button type="button" class="btn-kana-audio btn-kana-audio-example" data-speak-word="${item.example[0]}" title="Lafalkan contoh kata ${item.example[0]}">
-                    <span>🔊 Lafalkan Contoh Kata (${item.example[0]})</span>
+                    <span>🔊 Kata (${item.example[0]})</span>
+                </button>
+                <button type="button" class="btn-kana-audio btn-audio-slow" data-speak-word-slow="${item.example[0]}" title="Lafalkan contoh kata perlahan">
+                    <span>🐢 Pelan</span>
                 </button>
             </div>
             <p><b>Romaji:</b> ${item.reading}</p>
-            <p><b>Contoh:</b> <b>${item.example[0]}</b> (<em>${item.example[1]}</em>) — ${item.example[2]} <button type="button" class="mini-audio-btn" data-speak-word="${item.example[0]}" title="Dengarkan ${item.example[0]}">🔊</button></p>
+            <p><b>Contoh:</b> <b>${item.example[0]}</b> (<em>${item.example[1]}</em>) — ${item.example[2]} <button type="button" class="mini-audio-btn" data-speak-word="${item.example[0]}" title="Dengarkan ${item.example[0]}">🔊</button> <button type="button" class="mini-audio-btn btn-audio-slow" data-speak-word-slow="${item.example[0]}" title="Dengarkan pelan ${item.example[0]}">🐢</button></p>
             <h4>Urutan Menulis</h4>
             <div data-stroke-player></div>
         `;
 
   detail.querySelector("[data-speak-char]")?.addEventListener("click", () => {
-    window.speakText ? window.speakText(character, "ja-JP") : window.speakJapanese?.(character);
+    window.speakText ? window.speakText(character, "ja-JP", false) : window.speakJapanese?.(character);
+  });
+  detail.querySelector("[data-speak-char-slow]")?.addEventListener("click", () => {
+    window.speakText ? window.speakText(character, "ja-JP", true) : window.speakJapanese?.(character);
   });
   detail.querySelectorAll("[data-speak-word]").forEach((btn) => {
     btn.addEventListener("click", () => {
-    const word = btn.dataset.speakWord;
-    window.speakText ? window.speakText(word, "ja-JP") : window.speakJapanese?.(word);
+      const word = btn.dataset.speakWord;
+      window.speakText ? window.speakText(word, "ja-JP", false) : window.speakJapanese?.(word);
+    });
+  });
+  detail.querySelectorAll("[data-speak-word-slow]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const word = btn.dataset.speakWordSlow;
+      window.speakText ? window.speakText(word, "ja-JP", true) : window.speakJapanese?.(word);
     });
   });
 
@@ -1145,7 +1253,7 @@ const render = () => {
     if (character === selectedChar) {
     button.classList.add("is-selected");
     }
-    button.innerHTML = `<strong>${character}</strong><span>${item.reading}</span><span class="kana-card-speaker" title="Dengarkan suara ${character}">🔊</span>`;
+    button.innerHTML = `<strong>${character}</strong><span>${item.reading}</span>`;
     button.addEventListener("click", () => {
     show(character, { userInitiated: true });
     window.speakText ? window.speakText(character, "ja-JP") : window.speakJapanese?.(character);
@@ -1233,24 +1341,9 @@ const arrowEl = btn.querySelector(".quick-stroke-arrow");
 const updateArrow = () => {
   if (!arrowEl || !btn) return;
 
-  // Pada layar tablet & laptop (>= 768px), detail dan animasi stroke sudah tampil berdampingan (sticky)
-  if (window.innerWidth >= 768) {
-    btn.style.display = "none";
-    return;
-  }
-
-  const activePanel = document.querySelector('[data-script-panel]:not([hidden])');
-  const detailEl = activePanel
-    ? activePanel.querySelector('.kana-detail, .kanji-detail')
-    : document.querySelector('.kanji-detail, .kana-detail');
-
-  // Jika panel detail ditutup pengguna di mobile, sembunyikan tombol mengambang agar tidak menutupi grid
-  if (!detailEl || detailEl.classList.contains("is-collapsed")) {
-    btn.style.display = "none";
-    return;
-  }
-
+  // Tombol melayang tetap tampil di pojok kanan bawah di semua resolusi
   btn.style.display = "inline-flex";
+
   const target = getActiveLiveStrokeElement();
   if (!target) return;
   const rect = target.getBoundingClientRect();
@@ -1267,19 +1360,35 @@ const updateArrow = () => {
 
 if (!btn.dataset.initialized) {
   btn.dataset.initialized = "true";
-  btn.addEventListener("click", () => {
-    const target = getActiveLiveStrokeElement();
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.MiraiSound?.playClickIfIdle();
+
+    let target = getActiveLiveStrokeElement();
+
+    // Jika belum ada kartu yang dipilih atau animasi belum muncul, auto-select kartu pertama pada panel aktif
+    const activePanel = document.querySelector('[data-script-panel]:not([hidden])') || document;
+    const strokePlayer = activePanel.querySelector('[data-stroke-player], [data-kanji-stroke-player], #stroke-stage');
+    
+    if (!strokePlayer || !strokePlayer.hasChildNodes()) {
+      const firstCard = activePanel.querySelector('.kana-card.is-selected') || activePanel.querySelector('.kana-card') || activePanel.querySelector('.kanji-card');
+      if (firstCard) {
+        firstCard.click();
+      }
+    }
+
+    target = getActiveLiveStrokeElement() || activePanel.querySelector('.kana-detail, .kanji-detail, #stroke-stage, .stroke-stage');
     if (!target) return;
 
     target.scrollIntoView({
-    behavior: "smooth",
-    block: "center"
+      behavior: "smooth",
+      block: "center"
     });
 
     const pulseEl = target.closest(".stroke-stage")
-    || target.querySelector(".stroke-stage")
-    || target.closest(".kana-detail, .kanji-detail")
-    || target;
+      || target.querySelector(".stroke-stage")
+      || target.closest(".kana-detail, .kanji-detail")
+      || target;
 
     pulseEl.classList.remove("stroke-target-pulse");
     void pulseEl.offsetWidth;
