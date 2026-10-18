@@ -1,0 +1,28 @@
+{
+  "name": "MIRAI NO HANA — SMA Wachid Hasyim 2 Taman",
+  "short_name": "Mirai no Webu",
+  "description": "Website Resmi Klub Bahasa & Kebudayaan Jepang MIRAI NO HANA SMA Wachid Hasyim 2 Taman Sidoarjo. Media pembelajaran mandiri bahasa Jepang, kamus kanji & kana, modul kurikulum, dan sarana anggota.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#141018",
+  "theme_color": "#e91e63",
+  "orientation": "portrait-primary",
+  "categories": ["education", "books", "utilities"],
+  "lang": "id",
+  "icons": [
+    {
+      "src": "images/mirai/logo/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "images/mirai/logo/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
+

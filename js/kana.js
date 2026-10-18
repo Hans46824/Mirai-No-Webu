@@ -349,7 +349,7 @@ function initLesson() {
                         <span>🐢 Pelan</span>
                     </button>
                 </div>
-                <h3>Urutan Menulis (${item.strokes} Goresan)</h3>
+                <h3>Goresan Karakter (${item.strokes} Goresan)</h3>
                 <p>Ikuti arah setiap goresan, lalu ulangi perlahan dengan tanganmu.</p>
                 <div data-stroke-player></div>
                 <h4>Contoh kata</h4>

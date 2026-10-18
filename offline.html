@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mode Offline — MIRAI NO HANA</title>
+    <meta name="description" content="Kamu sedang dalam mode offline. Seluruh kamus kanji, aksara kana, dan progres belajar tetap aman dan dapat diakses tanpa koneksi internet.">
+    <meta name="theme-color" content="#141018">
+    <link rel="canonical" href="https://hans46824.github.io/Mirai-No-Webu/offline.html">
+    <link rel="manifest" href="./manifest.webmanifest">
+
+    <!-- Open Graph (Facebook / WhatsApp / Discord) -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="MIRAI NO HANA">
+    <meta property="og:title" content="Mode Offline — MIRAI NO HANA">
+    <meta property="og:description" content="Kamu sedang dalam mode offline. Seluruh kamus kanji, aksara kana, dan progres belajar tetap aman dan dapat diakses tanpa koneksi internet.">
+    <meta property="og:url" content="https://hans46824.github.io/Mirai-No-Webu/offline.html">
+    <meta property="og:image" content="https://hans46824.github.io/Mirai-No-Webu/images/mirai/logo/bendera.jpeg">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mode Offline — MIRAI NO HANA">
+    <meta name="twitter:description" content="Kamu sedang dalam mode offline. Seluruh kamus kanji, aksara kana, dan progres belajar tetap aman dan dapat diakses tanpa koneksi internet.">
+    <meta name="twitter:image" content="https://hans46824.github.io/Mirai-No-Webu/images/mirai/logo/bendera.jpeg">
+
+    <!-- Open Graph (Facebook / WhatsApp / Discord) -->
+
+    <!-- Twitter Cards -->
+
+    <!-- Open Graph (Facebook / WhatsApp / Discord) -->
+
+    <!-- Twitter Cards -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Noto+Sans+JP:wght@500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=cdce96da">
+    <style>
+        .offline-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background: #141018;
+            color: #ffffff;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .offline-page::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(233, 30, 99, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .offline-card {
+            position: relative;
+            z-index: 2;
+            max-width: 560px;
+            width: 100%;
+            background: rgba(28, 24, 34, 0.88);
+            border: 1px solid rgba(233, 30, 99, 0.35);
+            border-radius: 24px;
+            padding: 42px 32px;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        .offline-logo {
+            max-width: 220px;
+            height: auto;
+            margin-bottom: 24px;
+        }
+        .offline-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(233, 30, 99, 0.18);
+            color: #ff4f91;
+            border: 1px solid rgba(233, 30, 99, 0.4);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            padding: 4px 14px;
+            border-radius: 99px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .offline-title {
+            font-size: clamp(26px, 5vw, 36px);
+            font-weight: 900;
+            line-height: 1.15;
+            margin: 0 0 12px;
+            color: #ffffff;
+        }
+        .offline-title span {
+            color: var(--pink, #e91e63);
+        }
+        .offline-desc {
+            font-size: 15px;
+            color: #d1d5db;
+            line-height: 1.65;
+            margin: 0 0 28px;
+        }
+        .offline-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .offline-btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--pink, #e91e63);
+            color: #ffffff;
+            font-size: 14.5px;
+            font-weight: 800;
+            padding: 13px 24px;
+            border-radius: 99px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+        .offline-btn-primary:hover {
+            background: #d81b60;
+            transform: translateY(-2px);
+        }
+        .offline-quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            margin-top: 14px;
+        }
+        .offline-sub-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            color: #f3f4f6;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .offline-sub-btn:hover {
+            background: rgba(233, 30, 99, 0.15);
+            border-color: var(--pink, #e91e63);
+            color: #ff4f91;
+        }
+        .offline-tip {
+            margin-top: 24px;
+            font-size: 12px;
+            color: #9ca3af;
+        }
+    </style>
+</head>
+<body class="offline-page">
+    <a class="skip-link" href="#main-content">Lewati ke konten utama</a>
+    <main id="main-content" class="offline-card">
+        <img class="offline-logo" src="images/mirai/logo/MNH1-nav.png" alt="MIRAI NO HANA" width="407" height="123">
+        <div>
+            <span class="offline-badge"><span lang="ja">オフライン</span> • MODE OFFLINE</span>
+            <h1 class="offline-title">Kamu Sedang <span>Offline</span></h1>
+            <p class="offline-desc">
+                Perangkatmu belum terhubung ke internet. Namun jangan khawatir, seluruh Kamus Kanji &amp; Aksara Kana lokal, halaman yang pernah kamu buka, dan catatan progres belajarmu tetap dapat diakses sepenuhnya!
+            </p>
+        </div>
+
+        <div class="offline-actions">
+            <button type="button" class="offline-btn-primary" onclick="window.location.reload()">
+                <span>🔄</span> Coba Muat Ulang
+            </button>
+            <div class="offline-quick-links">
+                <a class="offline-sub-btn" href="index.html">🏠 Beranda</a>
+                <a class="offline-sub-btn" href="kamus/index.html">📖 Kamus</a>
+                <a class="offline-sub-btn" href="kelas/latihan.html">⚡ Latihan</a>
+            </div>
+        </div>
+
+        <p class="offline-tip">
+            💡 <em>Tip: Mirai no Webu bekerja 100% lokal (Local-First). Kamus dan latihan tetap aktif tanpa sambungan internet.</em>
+        </p>
+    </main>
+</body>
+</html>

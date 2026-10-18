@@ -21,7 +21,8 @@ Seluruh pengembang dan AI asisten **WAJIB mematuhi 7 Aturan Visual Universal** i
    - `--overlay-section-dark: linear-gradient(180deg, rgba(14, 11, 18, 0.95), rgba(14, 11, 18, 0.96));`
 
 2. **Kunci Transparansi Watermark Sangat Lembut (Maksimal Keterbacaan Teks)**:
-   - Pola Terang & Gelap: Dikunci pada **`opacity: 0.045 !important`** (hover: `0.07 !important`) dan gradien penutup master di `:root` sebesar `0.95`–`0.97` agar teks kartu sangat jernih, tajam, dan tidak terganggu oleh garis gelombang latar.
+   - Pola Terang (Light Pattern): Dikunci ekstra lembut pada **`opacity: 0.015 !important`** (hover: `0.03 !important`) agar latar putih bersih tetap jernih dan teks berkontras tajam tanpa gangguan garis motif.
+   - Pola Gelap (Dark Pattern): Tetap pada **`opacity: 0.045 !important`** (hover: `0.07 !important`) dengan `mix-blend-mode: screen` pada kartu gelap.
 
 3. **Seksi Selang-Seling Bersih & Polos (Pattern HANYA pada Kartu, DILARANG pada Halaman/Seksi)**:
    - Semua `<section>` konten setelah Hero wajib memiliki latar belakang solid yang 100% bersih, polos, dan bebas dari pattern gambar latar (`background-image: none !important;`):
@@ -95,7 +96,7 @@ Seluruh berkas website Mirai no Webu dikelompokkan secara terstruktur ke dalam f
 - **`panduan/`**: Berisi dokumentasi arsitektur proyek (`panduan/tree.md`, `panduan/agent.md`, `panduan/CONTEKAN-TAG.md`, `panduan/PANDUAN-DEVELOPER.md`, dan folder konfigurasi AI `panduan/ai-configs/`).
 - **`data/`**: Berisi basis data lokal JSON (`kana.json`, `kanji.json`, `kanji-meta.json`) yang menyuplai data untuk Kamus dan Latihan Kana/Kanji.
 - **`tentang/`**: Profil lengkap klub Mirai No Hana (`index.html`).
-- **`lomba/`**: Informasi 18 lomba & festival jejepangan (`index.html`).
+- **`lomba/`**: Informasi 9 agenda lomba & festival jejepangan (3 halaman) (`index.html`).
 - **`peringkat/`**: Papan peringkat keaktifan, presensi, & galeri prestasi (`index.html`).
 - **`rekomendasi/`**: Rekomendasi media belajar anime, film, dan musik (`index.html`).
 - **`kelas/`**: Hub pembelajaran mandiri (`index.html`, `latihan.html`, `motivasi.html`, dan folder PDF `kurikulum/`). Modul materi kelas dasar, kelas lanjutan, serta dokumen kurikulum & tata cara pengajaran kini terpadu langsung di `index.html`.
@@ -437,7 +438,8 @@ Aset visual dikelompokkan berdasarkan halaman yang menggunakannya:
 - **Galeri Kumpulan-Kumpulan Foto & Dokumentasi**:
   - Judul seksi galeri foto ("Kumpulan-Kumpulan Foto") wajib berformat **rata kiri** (`.heading`) seragam dengan seksi lainnya, bukan rata tengah.
   - Tampilan slider galeri murni berfokus visual: dilarang menampilkan teks subjudul berulang seperti "Potret Keseruan" maupun "Momen Bersama".
-  - Foto dokumentasi disusun dalam 2 baris slider independen (baris 1 portrait, baris 2 landscape) dengan wadah luas 1100px, efek elevasi hover lembut (`translateY(-8px)`), border-radius 18px, dan bayangan berpendar pink khas Mirai no Hana.
+  - Foto dokumentasi disusun dalam 2 baris slider independen (baris 1 portrait `aspect-ratio: 3/4`, baris 2 landscape `aspect-ratio: 16/9`) dengan wadah luas 1100px, efek elevasi hover lembut (`translateY(-8px)`), border-radius 18px, dan bayangan berpendar pink khas Mirai no Hana.
+  - **Proteksi Aspek Rasio & Anti-Stretching**: Gambar slider `.indep-portrait` dan `.indep-landscape` wajib memiliki aturan `height: auto !important` di CSS dan dilarang disematkan atribut HTML `width` / `height` mentah beresolusi piksel asli, agar tidak merusak perhitungan rasio responsif browser dan tidak meregangkan foto menjadi pilar vertikal.
 - **Format Bersih Badge Podium Papan Peringkat**:
   - Pada 3 kartu podium teratas di halaman `peringkat.html`, label badge medali hanya mencantumkan nomor peringkat ringkas: **"PERINGKAT 1"**, **"PERINGKAT 2"**, dan **"PERINGKAT 3"**.
   - Dilarang menambahkan embel-embel teks predikat logam (seperti "· JUARA EMAS", "· PERAK", atau "· PERUNGGU") agar lencana tetap bersih, minimalis, dan proporsional.
@@ -677,13 +679,29 @@ Website Mirai no Webu mengadopsi arsitektur *Zero-Framework* yang mengelompokkan
   - `ACHIEVEMENT_DATA`: Riwayat medali dan kejuaraan perlombaan eksternal.
 - **Dampak Visual**: Otomatis memperbarui podium Rank 1–3, tabel peringkat di `peringkat/index.html`, serta galeri prestasi di `tentang/index.html`.
 
-### 2. Data Kamus, Karakter & Goresan (`data/kana.json`, `data/kanji.json`, `js/stroke-data.js`)
-- **Tujuan**: Menambah kosakata baru, melengkapi arti kanji bahasa Indonesia, atau memperbarui koordinat animasi goresan kuas.
-- **Berkas Terkait**:
-  - `data/kana.json`: Inventaris aksara Hiragana & Katakana beserta audio pelafalan.
-  - `data/kanji.json` & `data/kanji-meta.json`: Basis data lengkap 2.136 Joyo Kanji (N5–N1), level JLPT, jumlah goresan, arti Bahasa Indonesia, On'yomi, Kun'yomi, dan contoh kosakata.
-  - `js/stroke-data.js`: Koordinat vektor goresan KanjiVG terkurasi untuk kanvas interaktif.
-- **Catatan Penting**: Pastikan struktur JSON valid (tanpa koma berlebih di elemen terakhir). Jika menambah kanji baru, pastikan koordinat goresannya terdaftar di `js/stroke-data.js` agar animasi goresan tidak kosong.
+### 2. Data Kamus, Karakter, Goresan & Chunking Modular (`data/`, `js/stroke*`, `js/kanji*`)
+- **Tujuan**: Menambah kosakata baru, melengkapi arti kanji bahasa Indonesia, memperbarui koordinat animasi goresan kuas, memvalidasi perbedaan goresan, dan mengelola varian gaya tulisan tangan (kyōkasho) dengan performa loading ultra-ringan.
+- **Arsitektur Modular & Single Source of Truth**:
+  - `data/kanji.json` (Single Source of Truth): Basis data lengkap 2.211 Joyo Kanji (N5–N1), level JLPT, jumlah goresan, arti Bahasa Indonesia, On'yomi, Kun'yomi, contoh kosakata, dan kalimat.
+  - `data/kanji-index.json`: Indeks ramping (~316 KB, gzip ~48 KB) berisi atribut dasar kanji untuk daftar, filter cepat, dan pencarian instan berbobot (Ranked Search).
+  - `data/kanji/<jlpt>.json` (`n5.json` s/d `n1.json`): Detail lengkap (words, examples, sentence) yang dimuat secara on-demand saat kanji dibuka dan di-cache di memori.
+  - `js/stroke-data.js`: Hanya memuat karakter Kana inline (~71 KB) untuk memastikan beban awal kamus tetap ringan.
+  - `data/strokes/<jlpt>.json` (`n5.json` s/d `n1.json`): Vektor kurva goresan resmi KanjiVG per level JLPT (~59 KB - 450 KB) yang dimuat on-demand saat kanji dibuka atau di-prefetch saat idle.
+  - `data/stroke-overrides.json` & `js/stroke-overrides.js`: Lapisan override kurasi resmi (varian gaya buku teks kyōkasho & label angka terkalibrasi).
+  - `js/kanji-data.js`: Artefak build turunan otomatis dari `data/kanji.json`. Tidak dimuat di HTML agar tidak membebani transfer jaringan.
+- **Alat Uji & Pipeline Build**:
+  - `skrip/arsip/build_data_chunks.py`: Pipeline ekstraksi modular data kanji dan goresan dari single source of truth (`data/kanji.json` & `data/stroke-master.json`).
+  - `skrip/arsip/stamp_asset_versions.py`: Penyemat hash konten otomatis (SHA-256 8 karakter, `?v=<hash>`) pada seluruh tag CSS dan JS di semua HTML.
+  - `skrip/arsip/optimize_assets.py`: Pengoptimal aset statik (non-blocking font preconnect, script `defer`, dan penambahan `loading="lazy" decoding="async"` serta `width`/`height` untuk mencegah CLS).
+  - `skrip/arsip/report_page_weight.py`: Generator laporan audit bobot statik halaman ke `skrip/laporan/page-weight.md`.
+  - `skrip/arsip/validate_stroke_data.py`: Validator integritas struktur SVG, koordinat, dan kewajiban 0 selisih jumlah goresan (0 discrepancy).
+  - `skrip/arsip/test_stroke_engine.py`: Unit test logika engine goresan, kontrol player, dan pembatalan race-condition.
+  - `skrip/arsip/test_kanji_engine.py`: Unit test simulasi offline membuka kanji N5 & N1, validasi Ranked Search ("orang" -> Kanji 人 #1), dan verifikasi budget beban.
+- **Standar & Target Kinerja Terverifikasi**:
+  - Beban Data Awal Kamus: **388.5 KB** (Target $\le 700$ KB) — Pemangkasan 95,4% dari beban lama 8,4 MB.
+  - Beban Detail Kanji N5 Pertama: **+58.3 KB** (Target $\le +60$ KB).
+  - Panggilan Jaringan Eksternal: **0 panggilan** (100% Local-First & Bebas dari kanjiapi.dev / mymemory).
+  - Seluruh jumlah goresan kanji di `kanji.json`, `kanji-meta.json`, dan chunk data terbukti sinkron 100% dengan KanjiVG (termasuk kanji `衷` tepat 9 goresan).
 
 ### 3. Katalog Lomba & Acara (`lomba/index.html`)
 - **Tujuan**: Menambah informasi lomba jejepangan tingkat kota/provinsi/nasional atau pengumuman festival matsuri terbaru.
@@ -707,4 +725,147 @@ Website Mirai no Webu mengadopsi arsitektur *Zero-Framework* yang mengelompokkan
   - Slider Kepengurusan: Tambahkan slide kabinet baru atau perbarui kartu pengurus di `tentang/index.html` (foto potret anggota di `tentang/images/anggota/`, nama lengkap, jabatan tunggal di `.member-label`, dan kutipan moto).
   - Garis Waktu Angkatan (Timeline): Tambahkan balok angkatan baru di seksi sejarah klub (`#sejarah`).
   - Dinding Prestasi (Wall of Fame): Tambahkan kartu piala dan piagam penghargaan anggota di seksi `#prestasi`.
+
+---
+
+## 📱 8. Standar Progressive Web App (PWA), Akses Offline & Checklist Rilis
+
+Mirai no Webu mengusung arsitektur **Local-First PWA**, memungkinkan seluruh kamus 2.211 kanji, latihan kana, kuis interaktif, materi buuku, dan riwayat belajar tetap aktif berjalan 100% tanpa koneksi internet saat dipasang di HP atau laptop siswa.
+
+### A. Arsitektur & Komponen PWA
+1. **`manifest.webmanifest`**:
+   - Didaftarkan melalui `<link rel="manifest" href="...">` di seluruh 34 berkas HTML.
+   - Menggunakan mode tampilan `standalone` (tampilan aplikasi layar penuh tanpa bilah URL peramban).
+   - Ikon aplikasi resmi klub beresolusi tajam: `images/mirai/logo/icon-192.png` (192×192) dan `images/mirai/logo/icon-512.png` (512×512) dengan `purpose: "any maskable"`.
+   - Warna tema selaras dengan identitas obsidian dan aksen pink: `theme_color: "#e91e63"` dan `background_color: "#141018"`.
+
+2. **`service-worker.js` & Strategi Caching**:
+   - **Precache App Shell**: Menyimpan 63 berkas inti (seluruh halaman HTML utama, CSS modular, skrip JavaScript logika, manifest, dan logo klub) saat Service Worker pertama kali terpasang (`install`).
+   - **Cache-First (Data & Font)**: Berlaku untuk seluruh basis data lokal (`data/*.json`, `data/strokes/*.json`) dan web font Google. Respon diambil langsung dari cache memori super cepat, hanya memanggil jaringan jika belum tersimpan.
+   - **Stale-While-Revalidate (Halaman & Aset)**: Menyajikan konten cache seketika, sambil memperbarui berkas di latar belakang jika jaringan aktif.
+   - **Fallback Offline (`offline.html`)**: Jika pengguna mengakses halaman yang belum pernah dikunjungi saat koneksi internet terputus, Service Worker otomatis mengalihkan navigasi ke halaman `offline.html` yang ramah pengunjung.
+   - **Pembersihan Otomatis Cache Lama**: Saat versi baru aktif (`activate`), cache dengan hash versi sebelumnya langsung dihapus otomatis agar tidak memakan ruang penyimpanan perangkat.
+
+3. **Registrasi Service Worker (`js/main.js`)**:
+   - Didaftarkan secara otomatis dan aman menggunakan scope relatif `getAppBasePath()` sehingga berjalan sempurna di lingkungan hosting GitHub Pages (`/Mirai-No-Webu/`) maupun custom domain.
+
+### B. Protokol Pembaruan Cache (Cache Versioning Protocol)
+> [!IMPORTANT]
+> **DILARANG KERAS** mengubah konstanta nama cache di `service-worker.js` secara manual! Seluruh versi cache wajib dihitung dari ringkasan hash SHA-256 berkas statik agar integritasnya terjamin.
+
+1. Setiap kali ada perubahan pada file HTML, CSS, atau JavaScript, jalankan skrip berikut secara berurutan:
+   ```bash
+   # 1. Sematkan hash konten (?v=<hash>) ke semua tag <link> dan <script> di seluruh HTML
+   python3 skrip/arsip/stamp_asset_versions.py
+
+   # 2. Hasilkan daftar berkas precache baru dan perbarui Service Worker otomatis
+   python3 skrip/arsip/build_precache_list.py
+   ```
+2. Skrip `build_precache_list.py` akan menghitung hash SHA-256 dari seluruh berkas precache dan menyematkan identifier unik `mirai-app-shell-<hash>`.
+3. Saat pengguna membuka website, Service Worker akan mendeteksi perbedaan hash byte-per-byte pada `service-worker.js`, mengunduh versi baru di latar belakang, dan menampilkan log `[PWA] Versi baru Mirai no Webu siap digunakan offline.`.
+
+
+---
+
+## 8. Sistem Studio Penerjemah Adaptif & Virtual Keyboard Melayang
+
+### A. Penerjemah Adaptif & Deteksi Bahasa Otomatis
+1. **Zero-Toggle Translation (Tanpa Tombol Tukar Manual)**:
+   - Pengguna tidak perlu lagi menekan tombol tukar bahasa (`Jepang ⇄ Indonesia`). Sistem secara dinamis memindai aksara teks input pada setiap ketikan:
+     - Jika terdeteksi karakter Kanji (`[\u4E00-\u9FAF]`), Hiragana (`[\u3040-\u309F]`), Katakana (`[\u30A0-\u30FF]`), atau kata partikel/Romaji khas Jepang (seperti `watashi`, `arigatou`, `konnichiwa`), sistem otomatis mengunci arah **Jepang ➔ Indonesia**.
+     - Jika terdeteksi kata umum bahasa Indonesia (seperti `dan`, `yang`, `ini`, `saya`, `apa`, `tidak`, `ke`, `di`, dll.), sistem otomatis mengunci arah **Indonesia ➔ Jepang**.
+   - Indikator badge adaptif (`#adaptiveDirectionBadge`) menampilkan arah terjemahan saat ini secara dinamis dan real-time.
+   - Tombol audio pelafalan (`🔊` Normal & `🐢` Slow-Mo) otomatis beradaptasi memainkan suara bahasa target yang tepat (`ja-JP` atau `id-ID`).
+
+2. **Penghapusan Contoh Cepat di Penerjemah**:
+   - Seksi "Contoh Cepat" yang sebelumnya memakan ruang vertikal telah dihapus sepenuhnya dari panel penerjemah agar antarmuka fokus, bersih, dan langsung ke fungsi utama.
+
+### B. Tata Letak Laptop & Desktop (2 Kolom Seimbang)
+- Antarmuka Studio Terjemahan dirancang ulang menggunakan CSS Grid 2 kolom seimbang (`.studio-box-grid { grid-template-columns: 1fr 1fr; gap: 24px; }`).
+- Kotak Input (kiri) dan Kotak Hasil Terjemahan (kanan) memiliki tinggi yang setara, lega, dengan sudut melengkung 20px, bayangan halus, dan tipografi yang jelas.
+- Di perangkat mobile (< 850px), tata letak otomatis bertransisi menjadi format bertumpuk vertikal responsif tanpa horizontal scroll.
+
+### C. Virtual Keyboard Melayang: Draggable & Resizable
+1. **Bebas Digeser (Draggable)**:
+   - Panel Virtual Keyboard (`#virtualKeyboardPanel`) dapat digeser ke posisi mana pun di layar melalui gagang atas (`#kbDragHandle`) atau header keyboard.
+   - Dilengkapi fungsi pembatas layar (`clampPosition`) dengan margin aman 8px dari tepi layar agar keyboard tidak pernah hilang atau keluar dari viewport browser.
+
+2. **Bebas Diubah Ukurannya (Resizable)**:
+   - Sudut kanan bawah keyboard dilengkapi resize handle interaktif (`#kbResizeHandle`).
+   - Ukuran dibatasi secara aman oleh fungsi `clampSize`:
+     - **Lebar minimum**: 310px, **Lebar maksimum**: min(760px, 96vw).
+     - **Tinggi minimum**: 210px, **Tinggi maksimum**: min(680px, 85vh).
+   - Tombol grid aksara 12-key keitai otomatis menyesuaikan proporsi ukuran panel secara proporsional.
+
+
+### D. Redesain Generator Nama Jepang & Kartu Anggota (KTA Osatsu)
+1. **Tata Letak 2 Kolom Seimbang (Laptop/Desktop) & Stacked (Mobile)**:
+   - Panel Generator Nama (`#panelNameGen`) menggunakan CSS Grid 2 kolom (`grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr)` dengan `min-width: 0`).
+   - Breakpoint responsif pada lebar <= 960px memastikan di layar tablet atau laptop dengan split screen, formulir input dan kartu hasil tertumpuk rapi tanpa saling mendesak atau meluap ke luar layar.
+2. **Penghapusan Contoh Nama Cepat**:
+   - Seksi "Contoh Nama Cepat" telah dihapus sepenuhnya dari formulir identitas, kode skrip event listener (`js/translator.js`), dan CSS. Pengguna dapat langsung mengetik nama apa pun di kotak input.
+3. **Kartu Tanda Anggota (KTA) Digital Responsif**:
+   - Tampilan KTA digital (`.member-card-wrap`) menggunakan tipografi dan padding adaptif dengan fungsi `clamp()` sehingga tetap proporsional dan tidak terpotong dari layar HP terkecil (360px) hingga monitor desktop besar.
+   - Ateji Kanji ditampilkan dalam grid horizontal kompak 3 kolom dengan detail bacaan dan makna filosofis yang rapi.
+4. **Ruang Bebas Tombol Melayang**:
+   - Seksi studio memiliki `padding-bottom: 90px !important;` sehingga tombol aksi utama tidak akan tertutup oleh tombol melayang (Sora, goresan, to-top).
+
+
+## 14. Studio Goresan Interaktif 3 Kotak (Goresan)
+
+### A. Penamaan Universal: "Goresan"
+- Seluruh istilah "Urutan Goresan" disederhanakan secara konsisten menjadi **"Goresan"** (pada tombol mengambang `#quickStrokeBtn`, modal header kamus kanji, dan kartu detail kana).
+
+### B. Arsitektur Studio 3 Kotak Interaktif (Multi-Panel Calligraphy Studio)
+1. **Kotak 1: Acuan Resmi Goresan**:
+   - Menampilkan animasi vektor standar KanjiVG atau Kana langkah demi langkah.
+   - Kontrol navigasi presisi: Putar/Jeda (`data-stroke-play`), Putar Ulang (`data-stroke-replay`), Mundur 1 Langkah (`data-stroke-prev`), Maju 1 Langkah (`data-stroke-next`), dan Pengatur Kecepatan (`data-stroke-speed`).
+2. **Kotak 2: Kanvas Tulis Mandiri (Interaktif)**:
+   - Kanvas lukis responsif (`<canvas class="user-draw-canvas">`) yang mendukung sentuhan (*touch*) dan *mouse* secara mulus.
+   - Dilengkapi garis kisi panduan (*grid lines* 4 kuadran tradisional kaligrafi Jepang).
+   - Tombol kontrol kanvas:
+     - **Bantuan Bayangan** (*Ghost Outline* toggle) untuk memandu pemula.
+     - **Batalkan** (*Undo* goresan terakhir).
+     - **Hapus** (*Clear* kanvas untuk memulai dari awal).
+3. **Kotak 3: Hasil & Putar Otomatis (Dual Replay Stage)**:
+   - Begitu pengguna selesai menorehkan goresan di Kotak 2, cuplikan karya pengguna langsung muncul di Kotak 3 berdampingan dengan animasi acuan resmi.
+   - **Putar Otomatis Langsung**: Animasi acuan di Kotak 3 langsung berputar secara otomatis tanpa perlu menekan tombol putar terlebih dahulu.
+   - Dilengkapi tombol **Putar Ulang** khusus untuk mengulangi perbandingan visual sewaktu-waktu.
+
+### C. Redesain Tombol "Lapor Goresan Salah"
+- Link teks polos lama digantikan oleh tombol kapsul modern (`.stroke-report-pill.stroke-report-link`) dengan ikon bendera 🚩, border glassmorphism pink halus, dan posisi yang rapi di footer modal (`.stroke-footer-bar`).
+
+### D. Tata Letak Responsif Multi-Device
+- **Laptop & Desktop (>= 992px)**: Tampilan 3 kolom berdampingan (*3-box grid* sejajar) memberikan ruang lapang untuk referensi, latihan, dan perbandingan sekaligus.
+- **Tablet (768px - 991px)**: Tampilan 2 kolom adaptif yang nyaman.
+- **Mobile (< 768px)**: Dilengkapi tab navigasi cepat (*Semua Kotak*, *Acuan*, *Tulis*, *Bandingkan*) sehingga pengguna di ponsel berlayar kecil dapat berpindah kotak tanpa perlu scrolling berlebihan.
+
+### C. Checklist Rilis & Validasi Pra-Commit (Release Checklist)
+Sebelum melakukan `git commit` dan `git push` ke cabang utama (main), AI asisten dan pengembang **WAJIB menjalankan checklist rilis** berikut:
+
+- [ ] **1. Sinkronisasi Data Kamus**: Jika ada perbaikan pada `kanji.json` atau goresan:
+  ```bash
+  python3 skrip/arsip/clean_kanji_data.py
+  python3 skrip/arsip/sync_datasets.py
+  python3 skrip/arsip/build_data_chunks.py
+  ```
+- [ ] **2. Metadata SEO & Aksesibilitas**: Jika ada penambahan halaman HTML baru:
+  ```bash
+  python3 skrip/arsip/add_meta_tags.py
+  ```
+- [ ] **3. Cache Stamping & PWA Sync**:
+  ```bash
+  python3 skrip/arsip/stamp_asset_versions.py
+  python3 skrip/arsip/build_precache_list.py
+  ```
+- [ ] **4. Eksekusi Seluruh Suite Pengujian (WAJIB Lolos 100%)**:
+  ```bash
+  python3 skrip/arsip/test_mobile_responsiveness.py
+  python3 skrip/arsip/test_progress_engine.py
+  python3 skrip/arsip/test_kanji_engine.py
+  python3 skrip/arsip/validate_stroke_data.py
+  python3 skrip/arsip/test_stroke_engine.py
+  ```
+- [ ] **5. Verifikasi Git Status**: Pastikan berkas temporer atau log uji tidak tercecer di root repositori.
+
 

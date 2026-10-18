@@ -4,10 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sora - Mirai No Hana</title>
+    <meta name="description" content="Asora Aokita (Sora) — Asisten AI Cerdas Pendamping Belajar Bahasa & Kebudayaan Jepang Klub MIRAI NO HANA.">
+    <meta name="theme-color" content="#141018">
+    <link rel="canonical" href="https://hans46824.github.io/Mirai-No-Webu/sora/index.html">
+    <link rel="manifest" href="../manifest.webmanifest">
+
+    <!-- Open Graph (Facebook / WhatsApp / Discord) -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="MIRAI NO HANA">
+    <meta property="og:title" content="Chat Asora Aokita (Sora AI) — MIRAI NO HANA">
+    <meta property="og:description" content="Asora Aokita (Sora) — Asisten AI Cerdas Pendamping Belajar Bahasa & Kebudayaan Jepang Klub MIRAI NO HANA.">
+    <meta property="og:url" content="https://hans46824.github.io/Mirai-No-Webu/sora/index.html">
+    <meta property="og:image" content="https://hans46824.github.io/Mirai-No-Webu/images/mirai/logo/bendera.jpeg">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Chat Asora Aokita (Sora AI) — MIRAI NO HANA">
+    <meta name="twitter:description" content="Asora Aokita (Sora) — Asisten AI Cerdas Pendamping Belajar Bahasa & Kebudayaan Jepang Klub MIRAI NO HANA.">
+    <meta name="twitter:image" content="https://hans46824.github.io/Mirai-No-Webu/images/mirai/logo/bendera.jpeg">
+
+    <!-- Open Graph (Facebook / WhatsApp / Discord) -->
+
+    <!-- Twitter Cards -->
+
+    <!-- Open Graph (Facebook / WhatsApp / Discord) -->
+
+    <!-- Twitter Cards -->
     
     <!-- Library Markdown & Sanitizer -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
 
     <style>
         :root {
@@ -836,29 +862,30 @@
     </style>
     <link rel=preconnect href="https://fonts.googleapis.com">
     <link rel=preconnect href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Noto+Serif+JP:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Noto+Serif+JP:wght@600;700;800;900&family=Noto+Sans+JP:wght@500;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body class="page-sora">
+    <a class="skip-link" href="#main-content">Lewati ke konten utama</a>
 
-    <div class="demo-canvas">
+    <main id="main-content" class="demo-canvas">
         <div class="demo-card">
-            <img class="avatar" src="images/sorachat.jpeg" alt="Asora Aokita">
+            <img class="avatar" src="images/sorachat.jpeg" alt="Asora Aokita" loading="lazy" decoding="async" width="516" height="529">
             <h1>Asora Aokita ☁️</h1>
             <p>Official Character Mirai No Hana - SMA Wachid Hasyim 2 Taman.<br>Widget chat minimalis ala WhatsApp.</p>
             <button class="btn-open" onclick="openDrawer()">Chat Sora 💬</button>
         </div>
-    </div>
+    </main>
 
     <!-- Launcher Floating Button -->
     <button id="launcher" aria-label="Buka Chat Asora Aokita" title="Chat Sora">
-        <img class="launcher-chat-img" src="../images/mirai/icon/chat.jpeg" alt="Chat Sora">
+        <img class="launcher-chat-img" src="../images/mirai/icon/chat.jpeg" alt="Chat Sora" loading="lazy" decoding="async" width="640" height="640">
     </button>
 
     <!-- Drawer Chat Widget (WhatsApp Style Minimal) -->
     <div id="drawer" role="dialog" aria-label="Chat Asora Aokita">
         <div class="chat-header">
             <div class="header-user">
-                <img class="header-avatar" src="images/sorachat.jpeg" alt="Sora">
+                <img class="header-avatar" src="images/sorachat.jpeg" alt="Sora" loading="lazy" decoding="async" width="516" height="529">
                 <div class="header-details">
                     <span class="header-name">Asora Aokita ☁️</span>
                     <span class="header-status"><span class="status-dot"></span>Online</span>
@@ -873,7 +900,7 @@
         <div id="chat"></div>
 
         <div id="typing">
-            <img class="msg-avatar" src="images/sorachat.jpeg" alt="Sora">
+            <img class="msg-avatar" src="images/sorachat.jpeg" alt="Sora" loading="lazy" decoding="async" width="516" height="529">
             <div class="typing-dots">
                 <span></span><span></span><span></span>
             </div>
@@ -1077,7 +1104,7 @@
                 if (m.role === 'assistant') {
                     return `
                         <div class="msg bot">
-                            <img class="msg-avatar" src="images/sorachat.jpeg" alt="Sora">
+                            <img class="msg-avatar" src="images/sorachat.jpeg" alt="Sora" loading="lazy" decoding="async" width="516" height="529">
                             <div class="bubble">
                                 <div class="md">${renderMarkdown(m.content)}</div>
                             </div>

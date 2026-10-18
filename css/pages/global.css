@@ -25,6 +25,10 @@ Daftar Isi:
   --pattern-w1w: url("../../images/mirai/background/w1w.jpeg");
   --pattern-w1b: url("../../images/mirai/background/w1b.jpeg");
   --pattern-size: 200px auto;
+  --pattern-opacity-light: 0.015;
+  --pattern-opacity-light-hover: 0.03;
+  --pattern-opacity-dark: 0.045;
+  --pattern-opacity-dark-hover: 0.07;
   --overlay-card-light: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(255, 252, 254, 0.96));
   --overlay-card-dark: linear-gradient(155deg, rgba(16, 12, 22, 0.96), rgba(10, 8, 14, 0.97));
   --overlay-section-dark: linear-gradient(180deg, rgba(14, 11, 18, 0.95), rgba(14, 11, 18, 0.96));
@@ -1949,33 +1953,45 @@ body, body.learning-app, body.page-latihan {
 }
 /* =====================================================
 RESPONSIF MOBILE / HP — FLOATING BUTTONS
-Ukuran kompak .to-top (38x38) dan #launcher (bottom: 64px)
+Satu kolom vertikal rapi di kanan bawah (gap 12px)
+dan target sentuh minimal 44x44px.
 ===================================================== */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .to-top {
-    width: 38px !important;
-    height: 38px !important;
-    right: 14px !important;
-    bottom: 16px !important;
+    width: 44px !important;
+    height: 44px !important;
+    right: calc(16px + env(safe-area-inset-right, 0px)) !important;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px)) !important;
     border-radius: 50% !important;
-    font-size: 16px !important;
+    font-size: 18px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    z-index: 990 !important;
   }
 
   #launcher, .sora-widget {
-    width: 38px !important;
-    height: 38px !important;
-    right: 14px !important;
-    bottom: 64px !important;
+    width: 44px !important;
+    height: 44px !important;
+    right: calc(16px + env(safe-area-inset-right, 0px)) !important;
+    bottom: calc(16px + 44px + 12px + env(safe-area-inset-bottom, 0px)) !important;
     border-radius: 50% !important;
     padding: 0 !important;
+    z-index: 991 !important;
   }
 
   #launcher .launcher-chat-img, .sora-widget img {
-    width: 22px !important;
-    height: 22px !important;
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  body.has-bottom-nav .to-top {
+    bottom: calc(64px + 12px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  body.has-bottom-nav #launcher,
+  body.has-bottom-nav .sora-widget {
+    bottom: calc(64px + 12px + 44px + 12px + env(safe-area-inset-bottom, 0px)) !important;
   }
 }
 /* ==========================================================================
@@ -2123,13 +2139,84 @@ HAPUS KOTAKAN BIRU SAAT SENTUH DI MODE HP (TAP HIGHLIGHT)
 
 a, button, [role="button"], input, select, textarea, .card, .btn, [data-expand-card], .nav-card, .activity-start-card, .start-card {
   -webkit-tap-highlight-color: transparent !important;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
   -webkit-touch-callout: none;
-  outline: none !important;
 }
 
 *:focus:not(:focus-visible) {
   outline: none !important;
+}
+
+/* ==========================================================================
+AKSESIBILITAS: FOCUS-VISIBLE UNIVERSAL, SKIP-LINK, & TARGET SENTUH
+========================================================================== */
+/* 1. Indikator Fokus Aksesibel Universal (:focus-visible) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible,
+[role="button"]:focus-visible,
+.card:focus-visible,
+.btn:focus-visible,
+.menu-btn:focus-visible,
+#launcher:focus-visible,
+.to-top:focus-visible,
+.mode-card:focus-visible,
+.filter-btn:focus-visible,
+.kanji-filter-btn:focus-visible,
+.tag-btn:focus-visible,
+.proker-card:focus-visible,
+.kanji-card:focus-visible {
+  outline: 2px solid var(--pink, #e91e63) !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 0 4px rgba(233, 30, 99, 0.22) !important;
+}
+
+/* 2. Skip-Link Aksesibilitas (Lompat ke Konten Utama) */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  z-index: 100000;
+  padding: 12px 20px;
+  background: var(--pink, #e91e63);
+  color: #ffffff !important;
+  font-family: var(--font-main, sans-serif);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+  transition: top 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 16px;
+  outline: 3px solid #ffffff !important;
+  outline-offset: 2px !important;
+}
+
+/* 3. Target Sentuh Minimal 44x44px pada Tombol Ikon & Mobile */
+@media (max-width: 768px) {
+  button,
+  .btn,
+  .menu-btn,
+  .to-top,
+  #launcher,
+  .sora-widget,
+  .theme-toggle-btn,
+  .drawer-close,
+  .sora-close,
+  .audio-button,
+  .mini-clear-btn,
+  .script-tabs button,
+  .quick-stroke-btn {
+    min-width: 44px;
+    min-height: 44px;
+  }
 }
 
 .card-sub-jp, .start-card .card-sub-jp, .activity-start-card .card-sub-jp, .start-card:hover .card-sub-jp, .activity-start-card:hover .card-sub-jp, .start-card:active .card-sub-jp, .activity-start-card:active .card-sub-jp, .activity-card-active:hover .card-sub-jp, .activity-card-active:active .card-sub-jp {
@@ -2306,6 +2393,45 @@ section.feedback-preview.feedback-theme-dark .card-toggle::after {
   position: relative !important;
   z-index: 2 !important;
 }
+
+/* Proteksi & Tampilan Pattern Quote Card Seksi Gelap (Beranda & Universal) */
+.section-quote-slider.quote-theme-dark .quote-card,
+.quote-card:not(.quote-theme-white) {
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.section-quote-slider.quote-theme-dark .quote-card::after,
+.quote-card:not(.quote-theme-white)::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background-image: var(--pattern-c1b, url("../../images/mirai/background/c1b.jpeg")) !important;
+  background-size: 200px auto !important;
+  background-repeat: repeat !important;
+  background-position: center top !important;
+  opacity: 0.045 !important;
+  mix-blend-mode: screen !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+  border-radius: inherit !important;
+  display: block !important;
+  transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+
+.section-quote-slider.quote-theme-dark .quote-card:hover::after,
+.quote-card:not(.quote-theme-white):hover::after {
+  opacity: 0.07 !important;
+  transform: scale(1.02) !important;
+}
+
+.section-quote-slider.quote-theme-dark .quote-card > *,
+.quote-card:not(.quote-theme-white) > * {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+
 
 .section-quote-slider.quote-theme-white .quote-author-profile {
   background: rgba(255, 255, 255, 0.88) !important;
@@ -3015,7 +3141,7 @@ html.is-page-locked-early main, body.is-page-locked main {
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.045 !important;
+  opacity: 0.015 !important;
   mix-blend-mode: multiply !important;
   pointer-events: none !important;
   z-index: 1 !important;
@@ -3083,7 +3209,7 @@ html.is-page-locked-early main, body.is-page-locked main {
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.045 !important;
+  opacity: 0.015 !important;
   mix-blend-mode: multiply !important;
   pointer-events: none !important;
   z-index: 1 !important;

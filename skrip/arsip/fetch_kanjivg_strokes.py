@@ -28,11 +28,11 @@ import xml.etree.ElementTree as ET
 
 # Impor modul validator lokal jika tersedia di path
 try:
-    from validate_stroke_data import validate_dataset, load_app_requirements, generate_coverage_manifest
+    from validate_stroke_data import validate_dataset, load_app_requirements, generate_coverage_manifest, validate_overrides_integrity
 except ImportError:
     script_dir = os.path.dirname(os.path.abspath(__file__))
     sys.path.insert(0, script_dir)
-    from validate_stroke_data import validate_dataset, load_app_requirements, generate_coverage_manifest
+    from validate_stroke_data import validate_dataset, load_app_requirements, generate_coverage_manifest, validate_overrides_integrity
 
 KANJIVG_RELEASE_ZIP_URL = "https://github.com/KanjiVG/kanjivg/releases/download/r20260714/kanjivg-20260714-main.zip"
 CACHE_DIR = ".cache/kanjivg"
@@ -40,6 +40,7 @@ CACHE_ZIP_PATH = os.path.join(CACHE_DIR, "kanjivg-20260714-main.zip")
 STAGING_FILE = "js/stroke-data.tmp.js"
 PROD_FILE = "js/stroke-data.js"
 MANIFEST_FILE = "data/stroke-coverage-manifest.json"
+OVERRIDES_FILE = "data/stroke-overrides.json"
 
 HEADER_TEMPLATE = """/**
  * File: js/stroke-data.js
@@ -72,6 +73,20 @@ def load_existing_stroke_data(filepath=PROD_FILE):
     except Exception as e:
         print(f"Peringatan: Gagal membaca {filepath}: {e}")
     return {}
+
+def load_stroke_overrides(filepath=OVERRIDES_FILE):
+    """
+    Membaca berkas data/stroke-overrides.json untuk melindungi perbaikan manual
+    dan memastikan pipeline tidak pernah menimpa penyesuaian yang disengaja.
+    """
+    if not os.path.isfile(filepath):
+        return {}
+    try:
+        with open(filepath, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except Exception as e:
+        print(f"Peringatan: Gagal membaca file override {filepath}: {e}")
+        return {}
 
 def ensure_kanjivg_archive():
     """
@@ -205,6 +220,10 @@ def main():
     existing_data = load_existing_stroke_data(PROD_FILE)
     print(f"✔ Dataset lama dimuat: {len(existing_data)} entri sudah ada.")
 
+    # 2b. Muat lapisan override manual
+    overrides = load_stroke_overrides(OVERRIDES_FILE)
+    print(f"✔ Lapisan override dimuat: {len(overrides)} entri terdeteksi dari {OVERRIDES_FILE}.")
+
     # 3. Pastikan arsip rilis KanjiVG tersedia
     try:
         zip_path = ensure_kanjivg_archive()
@@ -254,6 +273,33 @@ def main():
         if len(failed_chars) > 5:
             print(f"  ... dan {len(failed_chars) - 5} lainnya.")
 
+    # 4b. Terapkan lapisan override (override selalu menang atas data mentah KanjiVG)
+    applied_overrides_count = 0
+    for char, ov in overrides.items():
+        if char in data_map:
+            if "paths" in ov and ov["paths"]:
+                data_map[char]["paths"] = list(ov["paths"])
+            if "numbers" in ov and ov["numbers"]:
+                data_map[char]["numbers"] = list(ov["numbers"])
+            if "variant" in ov:
+                data_map[char]["variant"] = ov["variant"]
+            if "note" in ov:
+                data_map[char]["note"] = ov["note"]
+            data_map[char]["overridden"] = True
+            applied_overrides_count += 1
+        elif "paths" in ov and ov["paths"]:
+            data_map[char] = {
+                'viewBox': '0 0 109 109',
+                'paths': list(ov['paths']),
+                'numbers': list(ov.get('numbers', [])),
+                'variant': ov.get('variant'),
+                'note': ov.get('note'),
+                'overridden': True,
+                'source': 'Override'
+            }
+            applied_overrides_count += 1
+
+    print(f"✔ Lapisan override diterapkan: {applied_overrides_count} karakter diproteksi/disesuaikan.")
     print(f"✔ Total karakter dalam dataset baru yang disiapkan: {len(data_map)} entri.")
 
     if args.dry_run:
@@ -268,6 +314,16 @@ def main():
     print(f"\n🔍 Menjalankan validator terhadap berkas staging ({STAGING_FILE})...")
     val_results = validate_dataset(data_map, kana_map, kanji_map)
     manifest = generate_coverage_manifest(data_map, val_results, kana_map, kanji_map, MANIFEST_FILE)
+
+    # Periksa integritas lapisan override di data_map
+    ov_ok, ov_count, ov_errors = validate_overrides_integrity(data_map, OVERRIDES_FILE)
+    if not ov_ok:
+        print(f"\n❌ VALIDASI INTEGRITAS OVERRIDE GAGAL ({len(ov_errors)} kesalahan):")
+        for err in ov_errors[:10]:
+            print(f"  - {err}")
+        val_results['invalid_entries'] += len(ov_errors)
+    else:
+        print(f"✔ Integritas seluruh {ov_count} override terverifikasi dan terlindungi.")
 
     val_summary = manifest['summary']
     print(f"  - Total entri staging : {val_summary['dataset_total_entries']}")

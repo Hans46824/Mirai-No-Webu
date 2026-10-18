@@ -1625,6 +1625,41 @@ Memastikan kontras tinggi, keterbacaan 100%, dan bebas benturan warna
   z-index: 2 !important;
 }
 
+/* Pattern Gelap untuk Slider Kutipan */
+.section-quote-slider.quote-theme-dark .quote-card {
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.section-quote-slider.quote-theme-dark .quote-card::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background-image: url("../../images/mirai/background/c1b.jpeg") !important;
+  background-size: 200px auto !important;
+  background-repeat: repeat !important;
+  background-position: center top !important;
+  opacity: 0.045 !important;
+  mix-blend-mode: screen !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+  border-radius: inherit !important;
+  display: block !important;
+  transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+
+.section-quote-slider.quote-theme-dark .quote-card:hover::after {
+  opacity: 0.07 !important;
+  transform: scale(1.02) !important;
+}
+
+.section-quote-slider.quote-theme-dark .quote-card > * {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+
+
 .section-quote-slider.quote-theme-white .quote-card:hover {
   border-color: var(--quote-accent, var(--pink, #e91e63)) !important;
   box-shadow: 0 18px 45px rgba(233, 30, 99, 0.16), 0 4px 14px rgba(0, 0, 0, 0.06) !important;
@@ -1800,7 +1835,7 @@ Memastikan kontras tinggi, keterbacaan 100%, dan bebas benturan warna
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.045 !important;
+  opacity: 0.015 !important;
   mix-blend-mode: multiply !important;
   pointer-events: none !important;
   z-index: 1 !important;

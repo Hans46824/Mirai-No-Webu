@@ -727,7 +727,7 @@ body.page-toko, .page-toko {
   inset: 0 !important;
   background-image: url("../../images/mirai/background/c1w.jpeg") !important;
   background-size: 200px auto !important;
-  opacity: 0.045 !important;
+  opacity: 0.015 !important;
   mix-blend-mode: multiply !important;
   pointer-events: none !important;
   transition: opacity 0.25s ease !important;
@@ -917,7 +917,7 @@ body.page-toko, .page-toko {
   inset: 0 !important;
   background-image: url("../../images/mirai/background/c1w.jpeg") !important;
   background-size: 200px auto !important;
-  opacity: 0.045 !important;
+  opacity: 0.015 !important;
   mix-blend-mode: multiply !important;
   pointer-events: none !important;
 }

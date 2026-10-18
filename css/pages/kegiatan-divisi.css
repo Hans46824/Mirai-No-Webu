@@ -1221,6 +1221,7 @@ body:not(.theme-dark) .njr-dot {
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
   user-select: none;
   -webkit-user-drag: none;
+  height: auto !important;
 }
 
 .independent-slider img:hover {
@@ -1243,12 +1244,14 @@ body.theme-dark .independent-slider img:hover {
   width: 45%;
   aspect-ratio: 3 / 4;
   max-width: 210px;
+  height: auto !important;
 }
 
 .indep-landscape {
   width: 85%;
   aspect-ratio: 16 / 9;
   max-width: 380px;
+  height: auto !important;
 }
 
 @media (max-width: 600px) {
@@ -1263,10 +1266,12 @@ body.theme-dark .independent-slider img:hover {
 
   .indep-portrait {
     max-width: 165px;
+    height: auto !important;
   }
 
   .indep-landscape {
     max-width: 290px;
+    height: auto !important;
   }
 }
 /* Respacing Kegiatan */

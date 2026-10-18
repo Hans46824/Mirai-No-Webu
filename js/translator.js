@@ -462,72 +462,6 @@ async function fetchMyMemoryTranslation(text, sourceLang, targetLang) {
   return null;
 }
 
-/**
-   * Menerjemahkan teks dari Jepang -> Indonesia atau Indonesia -> Jepang
-*/
-async function translateStudioText(text, direction = "ja-id") {
-  const raw = text.trim();
-  if (!raw) return { text: "", romaji: "", from: direction };
-
-  const isJaToId = direction === "ja-id";
-  const srcLang = isJaToId ? "ja" : "id";
-  const tgtLang = isJaToId ? "id" : "ja";
-
-  // 1. Cek kamus lokal instan
-  const localDict = isJaToId ? jaToIdDictionary : idToJaDictionary;
-  const lowerRaw = raw.toLowerCase();
-
-  if (localDict[raw]) {
-    const res = localDict[raw];
-    return {
-    text: res,
-    romaji: !isJaToId ? getRomajiReading(res) : getRomajiReading(raw),
-    isLocal: true
-    };
-  }
-  if (localDict[lowerRaw]) {
-    const res = localDict[lowerRaw];
-    return {
-    text: res,
-    romaji: !isJaToId ? getRomajiReading(res) : getRomajiReading(raw),
-    isLocal: true
-    };
-  }
-
-  // 2. Cek API online MyMemory
-  const online = await fetchMyMemoryTranslation(raw, srcLang, tgtLang);
-  if (online) {
-    return {
-    text: online,
-    romaji: isJaToId ? getRomajiReading(raw) : getRomajiReading(online),
-    isOnline: true
-    };
-  }
-
-  // 3. Fallback kamus leksikal per kata jika online gagal
-  if (isJaToId) {
-    let fallbackResult = raw;
-    for (const [k, v] of Object.entries(jaToIdDictionary)) {
-    if (fallbackResult.includes(k)) {
-    fallbackResult = fallbackResult.split(k).join(` ${v} `);
-    }
-    }
-    if (fallbackResult !== raw) {
-    return {
-    text: fallbackResult.replace(/\s+/g, " ").trim(),
-    romaji: getRomajiReading(raw),
-    isFallback: true
-    };
-    }
-  }
-
-  return {
-    text: `(Terjemahan belum tersedia offline untuk: "${raw}")`,
-    romaji: isJaToId ? getRomajiReading(raw) : "",
-    isNone: true
-  };
-}
-
 // =========================================================================
 // 5. KEITAI 12-KEY KEYBOARD DATA & CYCLING CONFIG
 // =========================================================================
@@ -717,17 +651,13 @@ function initStudioTranslator() {
   const studio = document.getElementById('studio-terjemahan');
   if (!studio) return;
 
+  const adaptiveDirectionBadge = document.getElementById('adaptiveDirectionBadge');
+  const adaptiveDirectionText = document.getElementById('adaptiveDirectionText');
+
   const sourceFlag = document.getElementById('sourceFlag');
   const sourceName = document.getElementById('sourceName');
   const targetFlag = document.getElementById('targetFlag');
   const targetName = document.getElementById('targetName');
-  const sourceFlagMobile = document.getElementById('sourceFlagMobile');
-  const sourceNameMobile = document.getElementById('sourceNameMobile');
-  const targetFlagMobile = document.getElementById('targetFlagMobile');
-  const targetNameMobile = document.getElementById('targetNameMobile');
-
-  const swapBtn = document.getElementById('swapLangBtn');
-  const swapBtnMobile = document.getElementById('swapLangBtnMobile');
 
   const textarea = document.getElementById('translatorInput');
   const outputEl = document.getElementById('translatorOutput');
@@ -761,7 +691,6 @@ function initStudioTranslator() {
   const kbSpaceBtn = document.getElementById('kbSpaceBtn');
   const kbBackspaceBtn = document.getElementById('kbBackspaceBtn');
   const kbEnterBtn = document.getElementById('kbEnterBtn');
-  const quickChipsScroll = document.getElementById('quickChipsScroll');
 
   let activeDirection = 'ja-id';
   let activeScript = 'hiragana';
@@ -880,7 +809,6 @@ function initStudioTranslator() {
     const bubbleEl = wrapperEl ? wrapperEl.querySelector('.keitai-popup-bubble') : null;
 
     if (lastTapGroup === groupKey) {
-      // Cycle to next char in group
       lastTapIndex = (lastTapIndex + 1) % chars.length;
       const currentChar = chars[lastTapIndex];
       replaceTextAtCursor(currentChar);
@@ -892,7 +820,6 @@ function initStudioTranslator() {
       insertTextAtCursor(currentChar);
     }
 
-    // Render Popup Bubble
     if (bubbleEl) {
       removeAllKeitaiPopups();
       currentActiveBubble = bubbleEl;
@@ -924,7 +851,6 @@ function initStudioTranslator() {
     }, 1400);
   }
 
-  // Update UI Labels for Keitai Keys according to Hiragana / Katakana
   function updateKeitaiKeyLabels() {
     const script = activeScript === 'katakana' ? 'katakana' : 'hiragana';
     const groups = KEITAI_GROUPS[script];
@@ -939,7 +865,6 @@ function initStudioTranslator() {
     });
   }
 
-  // Attach Keitai Key Events
   studio.querySelectorAll('.keitai-key-wrapper[data-key-group]').forEach((wrap) => {
     const groupKey = wrap.dataset.keyGroup;
     const btn = wrap.querySelector('.keitai-btn');
@@ -951,7 +876,6 @@ function initStudioTranslator() {
     }
   });
 
-  // Tombol Dakuten / Handakuten / Huruf Kecil
   if (kbDakutenBtn) {
     kbDakutenBtn.addEventListener('click', () => {
       applyMobileKeyboardGuard();
@@ -975,7 +899,6 @@ function initStudioTranslator() {
     });
   }
 
-  // Tombol Spasi & Backspace & Enter
   if (kbSpaceBtn) {
     kbSpaceBtn.addEventListener('click', () => {
       commitPendingTap();
@@ -994,7 +917,7 @@ function initStudioTranslator() {
     });
   }
 
-  // Toggle Virtual Keyboard Panel (Floating Bottom Dock)
+  // Toggle Virtual Keyboard Panel (Floating Window)
   function setKeyboardCollapsed(collapsed) {
     if (!keyboardPanel) return;
     removeAllKeitaiPopups();
@@ -1005,12 +928,15 @@ function initStudioTranslator() {
     }
     if (keyboardToggleText) {
       keyboardToggleText.textContent = collapsed
-        ? 'Buka Virtual Keyboard Layar ▾'
-        : 'Sembunyikan Virtual Keyboard ▴';
+        ? 'Virtual Keyboard'
+        : 'Tutup Keyboard ▴';
     }
     applyMobileKeyboardGuard();
     if (!collapsed) {
       updateKeitaiKeyLabels();
+      if (typeof window.ensureKeyboardInView === 'function') {
+        window.ensureKeyboardInView();
+      }
     }
   }
 
@@ -1031,14 +957,12 @@ function initStudioTranslator() {
     });
   }
 
-  // Klik di luar keyboard / popup menutup popup mengambang
   document.addEventListener('click', (e) => {
     if (!e.target.closest('.keitai-key-wrapper') && !e.target.closest('.keitai-popup') && !e.target.closest('.keitai-popup-bubble')) {
       removeAllKeitaiPopups();
     }
   });
 
-  // Switch Script Mode (Hiragana vs Katakana)
   function setScriptMode(mode) {
     activeScript = mode === 'katakana' ? 'katakana' : 'hiragana';
     if (kbScriptHiraganaBtn) kbScriptHiraganaBtn.classList.toggle('is-active', activeScript === 'hiragana');
@@ -1060,7 +984,6 @@ function initStudioTranslator() {
     });
   }
 
-  // Sinkronisasi status Auto-Romaji IME
   function updateRomajiToggleState() {
     if (autoRomajiImeBtn) {
       autoRomajiImeBtn.classList.toggle('is-active', isAutoRomajiOn);
@@ -1093,27 +1016,92 @@ function initStudioTranslator() {
     });
   }
 
-  // Perbarui UI arah bahasa tanpa menghapus teks yang sedang diketik
+  // =========================================================================
+  // SISTEM PENDETEKSI BAHASA ADAPTIF OTOMATIS (JEPANG vs INDONESIA)
+  // =========================================================================
+  const COMMON_JA_ROMAJI = new Set([
+    'watashi', 'boku', 'ore', 'anata', 'kore', 'sore', 'are', 'dore',
+    'koko', 'soko', 'asoko', 'doko', 'nani', 'nan', 'dare', 'itsu',
+    'doushite', 'naze', 'arigatou', 'arigato', 'ohayou', 'ohayo',
+    'konnichiwa', 'konbanwa', 'sayounara', 'sayonara', 'oyasumi',
+    'sumimasen', 'gomen', 'gomenasai', 'itadakimasu', 'gochisousama',
+    'hajimemashite', 'yoroshiku', 'desu', 'masu', 'da', 'ne', 'yo',
+    'suki', 'kirai', 'kawaii', 'sugoi', 'kakkoii', 'oishii', 'samui',
+    'atsui', 'hayai', 'osoi', 'ii', 'warui', 'chotto', 'motto',
+    'nihon', 'nihongo', 'tokyo', 'sensei', 'gakusei', 'tomodachi'
+  ]);
+
+  const COMMON_INDONESIAN_WORDS = new Set([
+    'saya', 'aku', 'kamu', 'anda', 'dia', 'mereka', 'kita', 'kami',
+    'apa', 'siapa', 'kapan', 'dimana', 'bagaimana', 'kenapa', 'mengapa',
+    'ini', 'itu', 'di', 'ke', 'dari', 'yang', 'dan', 'atau', 'tapi', 'tetapi',
+    'karena', 'untuk', 'dengan', 'pada', 'adalah', 'bisa', 'dapat', 'mau',
+    'ingin', 'akan', 'sudah', 'telah', 'sedang', 'belum', 'tidak', 'bukan', 'jangan',
+    'halo', 'selamat', 'pagi', 'siang', 'sore', 'malam', 'terima', 'kasih',
+    'sama', 'tolong', 'maaf', 'permisi', 'senang', 'bertemu', 'belajar',
+    'makan', 'minum', 'pergi', 'datang', 'pulang', 'buku', 'rumah', 'sekolah', 'teman'
+  ]);
+
+  function detectLanguage(text) {
+    if (!text || !text.trim()) return null;
+
+    // 1. Cek aksara Jepang asli: Kanji, Hiragana, Katakana, dan Tanda Baca Jepang
+    const JAPANESE_CHAR_REGEX = /[\u4E00-\u9FAF\u3040-\u309F\u30A0-\u30FF\u31F0-\u31FF\uFF65-\uFF9F]/;
+    if (JAPANESE_CHAR_REGEX.test(text)) {
+      return 'ja';
+    }
+
+    // 2. Cek kamus lokal langsung
+    const clean = text.toLowerCase().trim();
+    if (jaToIdDictionary[clean]) return 'ja';
+    if (idToJaDictionary[clean]) return 'id';
+
+    // 3. Pencocokan token kata Romaji Jepang vs Bahasa Indonesia
+    const words = clean.split(/[\s,.\-!?;:"'()]+/).filter(Boolean);
+    let jaHits = 0;
+    let idHits = 0;
+
+    for (const w of words) {
+      if (COMMON_JA_ROMAJI.has(w) || jaToIdDictionary[w]) jaHits++;
+      if (COMMON_INDONESIAN_WORDS.has(w) || idToJaDictionary[w]) idHits++;
+    }
+
+    if (jaHits > idHits) return 'ja';
+    if (idHits > jaHits) return 'id';
+
+    // Default jika huruf latin tanpa kata kunci khusus: anggap bahasa Indonesia
+    return 'id';
+  }
+
   function setDirectionUI(direction) {
     activeDirection = direction;
     const isJa = activeDirection === 'ja-id';
 
     if (sourceFlag) sourceFlag.textContent = isJa ? '🇯🇵' : '🇮🇩';
-    if (sourceName) sourceName.textContent = isJa ? 'Jepang' : 'Indonesia';
+    if (sourceName) sourceName.textContent = isJa ? 'Jepang (Input)' : 'Indonesia (Input)';
     if (targetFlag) targetFlag.textContent = isJa ? '🇮🇩' : '🇯🇵';
-    if (targetName) targetName.textContent = isJa ? 'Indonesia' : 'Jepang';
+    if (targetName) targetName.textContent = isJa ? 'Indonesia (Hasil)' : 'Jepang (Hasil)';
 
-    if (sourceFlagMobile) sourceFlagMobile.textContent = isJa ? '🇯🇵' : '🇮🇩';
-    if (sourceNameMobile) sourceNameMobile.textContent = isJa ? 'Jepang' : 'Indonesia';
-    if (targetFlagMobile) targetFlagMobile.textContent = isJa ? '🇮🇩' : '🇯🇵';
-    if (targetNameMobile) targetNameMobile.textContent = isJa ? 'Indonesia' : 'Jepang';
+    if (adaptiveDirectionText) {
+      if (!textarea.value.trim()) {
+        adaptiveDirectionText.textContent = 'Deteksi Otomatis (Jepang ⇄ Indonesia)';
+      } else {
+        adaptiveDirectionText.textContent = isJa
+          ? '🇯🇵 Jepang ➔ 🇮🇩 Indonesia (Otomatis)'
+          : '🇮🇩 Indonesia ➔ 🇯🇵 Jepang (Otomatis)';
+      }
+    }
 
     if (inputHint) {
-      inputHint.textContent = isJa ? 'Aksara Jepang terdeteksi 🇯🇵' : 'Bahasa Indonesia terdeteksi 🇮🇩';
+      if (!textarea.value.trim()) {
+        inputHint.textContent = 'Sistem otomatis mendeteksi bahasa teks input';
+      } else {
+        inputHint.textContent = isJa ? '✓ Aksara Jepang terdeteksi' : '✓ Bahasa Indonesia terdeteksi';
+      }
     }
   }
 
-  // Real-time Input Update dengan Smart Auto-Detect Bahasa & Debounce 250ms
+  // Real-time Input Update dengan Auto-Detect Bahasa & Debounce 220ms
   function triggerInputUpdate() {
     const text = textarea.value;
     if (charCount) charCount.textContent = text.length + " karakter";
@@ -1127,15 +1115,19 @@ function initStudioTranslator() {
       }
       if (romajiEl) romajiEl.hidden = true;
       if (statusEl) statusEl.textContent = "Siap menerjemahkan";
+      setDirectionUI('ja-id');
       return;
     }
 
-    // Smart Auto-Detect Bahasa: Deteksi aksara Jepang (Kanji, Hiragana, Katakana)
-    const HAS_JAPANESE_REGEX = /[\u4E00-\u9FAF\u3040-\u309F\u30A0-\u30FF]/;
-    const isJapaneseInput = HAS_JAPANESE_REGEX.test(text);
-    const targetDirection = isJapaneseInput ? 'ja-id' : 'id-ja';
+    // Auto-detect bahasa input pengguna
+    const detectedLang = detectLanguage(text);
+    const targetDirection = (detectedLang === 'ja') ? 'ja-id' : 'id-ja';
     if (activeDirection !== targetDirection) {
       setDirectionUI(targetDirection);
+    } else if (adaptiveDirectionText) {
+      adaptiveDirectionText.textContent = (targetDirection === 'ja-id')
+        ? '🇯🇵 Jepang ➔ 🇮🇩 Indonesia (Otomatis)'
+        : '🇮🇩 Indonesia ➔ 🇯🇵 Jepang (Otomatis)';
     }
 
     translateDebounceTimer = setTimeout(async () => {
@@ -1162,10 +1154,9 @@ function initStudioTranslator() {
       } catch (e) {
         if (statusEl) statusEl.textContent = 'Gagal menerjemahkan';
       }
-    }, 250);
+    }, 220);
   }
 
-  // Auto-Romaji Realtime Conversion on Physical Typing
   function applyRealtimeImeConversion() {
     if (!textarea || typeof window.wanakana === "undefined") return;
     const cursorPos = textarea.selectionStart;
@@ -1182,7 +1173,7 @@ function initStudioTranslator() {
   }
 
   textarea.addEventListener('input', () => {
-    if (isAutoRomajiOn && activeDirection === 'ja-id') {
+    if (isAutoRomajiOn) {
       applyRealtimeImeConversion();
     }
     triggerInputUpdate();
@@ -1192,49 +1183,7 @@ function initStudioTranslator() {
     applyMobileKeyboardGuard();
   });
 
-  // Swap Direction manual
-  function doSwapLanguage() {
-    const nextDir = activeDirection === 'ja-id' ? 'id-ja' : 'ja-id';
-    setDirectionUI(nextDir);
-
-    const isJa = activeDirection === 'ja-id';
-    textarea.placeholder = isJa
-      ? 'Ketik watashi di keyboard fisik langsung berubah jadi わたし...'
-      : 'Ketik kalimat Bahasa Indonesia di sini... (Contoh: Selamat pagi, terima kasih)';
-
-    const currentInput = textarea.value;
-    const currentOutput = outputEl.classList.contains('placeholder') ? '' : outputEl.textContent;
-
-    if (currentOutput && !currentOutput.startsWith('(Terjemahan belum')) {
-      textarea.value = currentOutput;
-    } else if (currentInput) {
-      textarea.value = currentInput;
-    }
-
-    if (isJa) {
-      setScriptMode('hiragana');
-    }
-
-    window.MiraiSound?.playClickIfIdle();
-    triggerInputUpdate();
-  }
-
-  if (swapBtn) swapBtn.addEventListener('click', doSwapLanguage);
-  if (swapBtnMobile) swapBtnMobile.addEventListener('click', doSwapLanguage);
-
-  // Quick Chips
-  if (quickChipsScroll) {
-    quickChipsScroll.querySelectorAll('.quick-chip').forEach((chip) => {
-      chip.addEventListener('click', () => {
-        const text = chip.dataset.text || chip.textContent.split('(')[0].trim();
-        textarea.value = text;
-        triggerInputUpdate();
-        window.MiraiSound?.playClickIfIdle();
-      });
-    });
-  }
-
-  // Audio Buttons (Normal & Slow-Mo)
+  // Audio Buttons (Adaptif sesuai bahasa terdeteksi)
   if (listenInputBtn) {
     listenInputBtn.addEventListener('click', () => {
       const text = textarea.value.trim();
@@ -1267,7 +1216,6 @@ function initStudioTranslator() {
     });
   }
 
-  // Copy Buttons
   function copyWithFeedback(text, buttonEl) {
     if (!text) return;
     navigator.clipboard.writeText(text).then(() => {
@@ -1303,8 +1251,202 @@ function initStudioTranslator() {
   }
 
   updateKeitaiKeyLabels();
+  initKeyboardDragAndResize();
 }
 
+// =========================================================================
+// FITUR KEYBOARD MELAYANG: DRAGGABLE & RESIZABLE DENGAN VIEWPORT BOUNDARIES
+// =========================================================================
+function initKeyboardDragAndResize() {
+  const kb = document.getElementById('virtualKeyboardPanel');
+  const dragHandle = document.getElementById('kbDragHandle');
+  const headerHandle = document.getElementById('kbHeaderDrag') || document.querySelector('.keyboard-header');
+  const resizeHandle = document.getElementById('kbResizeHandle');
+  if (!kb) return;
+
+  let isDragging = false;
+  let isResizing = false;
+  let startX = 0, startY = 0;
+  let startLeft = 0, startTop = 0;
+  let startWidth = 0, startHeight = 0;
+  let hasCustomPosition = false;
+
+  function clampPosition(left, top) {
+    const pad = 8;
+    const rect = kb.getBoundingClientRect();
+    const minX = pad;
+    const maxX = Math.max(pad, window.innerWidth - rect.width - pad);
+    const minY = pad;
+    const maxY = Math.max(pad, window.innerHeight - rect.height - pad);
+
+    const clampedX = Math.max(minX, Math.min(left, maxX));
+    const clampedY = Math.max(minY, Math.min(top, maxY));
+    return { x: clampedX, y: clampedY };
+  }
+
+  function clampSize(w, h) {
+    const minW = Math.min(310, window.innerWidth - 16);
+    const maxW = Math.min(760, window.innerWidth - 16);
+    const minH = 210;
+    const maxH = Math.min(680, window.innerHeight - 20);
+
+    const clampedW = Math.max(minW, Math.min(w, maxW));
+    const clampedH = Math.max(minH, Math.min(h, maxH));
+    return { w: clampedW, h: clampedH };
+  }
+
+  function onDragStart(e) {
+    if (e.target.closest('button') || e.target.closest('.kb-mode-pill-group')) return;
+    isDragging = true;
+    kb.classList.add('is-dragging');
+
+    const clientX = e.clientX ?? (e.touches && e.touches[0].clientX);
+    const clientY = e.clientY ?? (e.touches && e.touches[0].clientY);
+    startX = clientX;
+    startY = clientY;
+
+    const rect = kb.getBoundingClientRect();
+    startLeft = rect.left;
+    startTop = rect.top;
+
+    kb.style.transform = 'none';
+    kb.style.left = `${startLeft}px`;
+    kb.style.top = `${startTop}px`;
+    kb.style.bottom = 'auto';
+    hasCustomPosition = true;
+
+    window.addEventListener('pointermove', onDragMove, { passive: false });
+    window.addEventListener('pointerup', onDragEnd);
+    window.addEventListener('touchmove', onDragMove, { passive: false });
+    window.addEventListener('touchend', onDragEnd);
+    e.preventDefault();
+  }
+
+  function onDragMove(e) {
+    if (!isDragging) return;
+    const clientX = e.clientX ?? (e.touches && e.touches[0].clientX);
+    const clientY = e.clientY ?? (e.touches && e.touches[0].clientY);
+    const dx = clientX - startX;
+    const dy = clientY - startY;
+
+    const pos = clampPosition(startLeft + dx, startTop + dy);
+    kb.style.left = `${pos.x}px`;
+    kb.style.top = `${pos.y}px`;
+    if (e.cancelable) e.preventDefault();
+  }
+
+  function onDragEnd() {
+    if (!isDragging) return;
+    isDragging = false;
+    kb.classList.remove('is-dragging');
+    window.removeEventListener('pointermove', onDragMove);
+    window.removeEventListener('pointerup', onDragEnd);
+    window.removeEventListener('touchmove', onDragMove);
+    window.removeEventListener('touchend', onDragEnd);
+  }
+
+  if (dragHandle) {
+    dragHandle.addEventListener('pointerdown', onDragStart);
+    dragHandle.addEventListener('touchstart', onDragStart, { passive: false });
+  }
+  if (headerHandle) {
+    headerHandle.addEventListener('pointerdown', onDragStart);
+    headerHandle.addEventListener('touchstart', onDragStart, { passive: false });
+  }
+
+  function onResizeStart(e) {
+    isResizing = true;
+    kb.classList.add('is-resizing');
+
+    const clientX = e.clientX ?? (e.touches && e.touches[0].clientX);
+    const clientY = e.clientY ?? (e.touches && e.touches[0].clientY);
+    startX = clientX;
+    startY = clientY;
+
+    const rect = kb.getBoundingClientRect();
+    startWidth = rect.width;
+    startHeight = rect.height;
+
+    if (!hasCustomPosition) {
+      kb.style.transform = 'none';
+      kb.style.left = `${rect.left}px`;
+      kb.style.top = `${rect.top}px`;
+      kb.style.bottom = 'auto';
+      hasCustomPosition = true;
+    }
+
+    window.addEventListener('pointermove', onResizeMove, { passive: false });
+    window.addEventListener('pointerup', onResizeEnd);
+    window.addEventListener('touchmove', onResizeMove, { passive: false });
+    window.addEventListener('touchend', onResizeEnd);
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  function onResizeMove(e) {
+    if (!isResizing) return;
+    const clientX = e.clientX ?? (e.touches && e.touches[0].clientX);
+    const clientY = e.clientY ?? (e.touches && e.touches[0].clientY);
+    const dw = clientX - startX;
+    const dh = clientY - startY;
+
+    const size = clampSize(startWidth + dw, startHeight + dh);
+    kb.style.width = `${size.w}px`;
+    kb.style.height = `${size.h}px`;
+
+    const rect = kb.getBoundingClientRect();
+    const pos = clampPosition(rect.left, rect.top);
+    kb.style.left = `${pos.x}px`;
+    kb.style.top = `${pos.y}px`;
+
+    if (e.cancelable) e.preventDefault();
+  }
+
+  function onResizeEnd() {
+    if (!isResizing) return;
+    isResizing = false;
+    kb.classList.remove('is-resizing');
+    window.removeEventListener('pointermove', onResizeMove);
+    window.removeEventListener('pointerup', onResizeEnd);
+    window.removeEventListener('touchmove', onResizeMove);
+    window.removeEventListener('touchend', onResizeEnd);
+  }
+
+  if (resizeHandle) {
+    resizeHandle.addEventListener('pointerdown', onResizeStart);
+    resizeHandle.addEventListener('touchstart', onResizeStart, { passive: false });
+  }
+
+  window.addEventListener('resize', () => {
+    if (!kb.classList.contains('is-collapsed') && hasCustomPosition) {
+      const rect = kb.getBoundingClientRect();
+      const pos = clampPosition(rect.left, rect.top);
+      kb.style.left = `${pos.x}px`;
+      kb.style.top = `${pos.y}px`;
+      const size = clampSize(rect.width, rect.height);
+      kb.style.width = `${size.w}px`;
+      kb.style.height = `${size.h}px`;
+    }
+  });
+
+  window.ensureKeyboardInView = function() {
+    if (!hasCustomPosition) {
+      const rect = kb.getBoundingClientRect();
+      const targetLeft = Math.max(8, (window.innerWidth - rect.width) / 2);
+      const targetTop = Math.max(8, window.innerHeight - rect.height - 24);
+      kb.style.transform = 'none';
+      kb.style.left = `${targetLeft}px`;
+      kb.style.top = `${targetTop}px`;
+      kb.style.bottom = 'auto';
+      hasCustomPosition = true;
+    } else {
+      const rect = kb.getBoundingClientRect();
+      const pos = clampPosition(rect.left, rect.top);
+      kb.style.left = `${pos.x}px`;
+      kb.style.top = `${pos.y}px`;
+    }
+  };
+}
 // =========================================================================
   // 7. EXPORT GLOBAL TRANSLATOR & INISIALISASI
 // =========================================================================
@@ -1796,20 +1938,6 @@ function initNameGenerator() {
     divisionSelect.addEventListener('change', triggerGeneration);
   }
 
-  // Quick Chips
-  const nameQuickChips = document.getElementById('nameQuickChips');
-  if (nameQuickChips) {
-    nameQuickChips.addEventListener('click', (e) => {
-      const btn = e.target.closest('.name-chip');
-      if (!btn) return;
-      const chipName = btn.dataset.name;
-      if (chipName && nameInput) {
-        nameInput.value = chipName;
-        window.MiraiSound?.playClickIfIdle();
-        triggerGeneration();
-      }
-    });
-  }
 
   // Audio Katakana Voice Button (Normal & Slow-Mo)
   if (listenKatakanaBtn) {

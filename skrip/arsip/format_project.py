@@ -108,22 +108,17 @@ else:
     else:
         print("  -> PERINGATAN: js/kanji-data.js belum ada dan data tidak ditemukan di kanji.js!")
 
-# 2b. Pastikan script tag dimuat di kamus/index.html dan kamus/kanji.html
+# 2b. Pastikan script kanji.js dimuat tanpa ketergantungan kanji-data.js (data di-chunking ke data/kanji-index.json)
 for html_rel in ["kamus/index.html", "kamus/kanji.html"]:
     html_path = os.path.join(ROOT_DIR, html_rel)
     if os.path.exists(html_path):
         with open(html_path, "r", encoding="utf-8") as f:
             hcontent = f.read()
-        target_pair = '<script src="../js/kanji-data.js"></script><script src="../js/kanji.js"></script>'
-        if "../js/kanji-data.js" not in hcontent:
-            old_tag = '<script src="../js/kanji.js"></script>'
-            if old_tag in hcontent:
-                hcontent = hcontent.replace(old_tag, target_pair)
-                with open(html_path, "w", encoding="utf-8") as f:
-                    f.write(hcontent)
-                print(f"  -> Menambahkan pemuatan js/kanji-data.js ke {html_rel}.")
-        else:
-            print(f"  -> Pemuatan js/kanji-data.js sudah ada di {html_rel} (OK).")
+        if "../js/kanji-data.js" in hcontent:
+            hcontent = hcontent.replace('<script src="../js/kanji-data.js"></script>', '')
+            with open(html_path, "w", encoding="utf-8") as f:
+                f.write(hcontent)
+            print(f"  -> Menghapus pemuatan js/kanji-data.js dari {html_rel} (chunking aktif).")
 
 # 2c. Update .vscode/settings.json
 vscode_settings_path = os.path.join(ROOT_DIR, ".vscode", "settings.json")

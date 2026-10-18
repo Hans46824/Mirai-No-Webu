@@ -1,5 +1,5 @@
 /* cspell:disable */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Noto+Serif+JP:wght@600;700;800;900&family=Noto+Sans+JP:wght@500;700;800;900&display=swap');
+/* Google Fonts dimuat non-blocking via <link rel="preconnect"> dan <link rel="stylesheet"> di <head> HTML */
 
 /* ==========================================================================
    MIRAI NO WEBU — Master Modular Stylesheet Index

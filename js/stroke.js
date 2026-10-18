@@ -30,141 +30,157 @@ for (let i = 0; i < record.paths.length; i++) {
 return true;
 }
 
-// Bersihkan cache versi usang (v1, v2, v3) tanpa menghapus data v4 yang valid
+// Bersihkan cache lama (v1, v2, v3, v4) dari localStorage untuk menghemat storage perangkat pengguna
 try {
-for (let i = localStorage.length - 1; i >= 0; i--) {
-  const k = localStorage.key(i);
-  if (k && (k.startsWith("mirai_stroke_v1_") || k.startsWith("mirai_stroke_v2_") || k.startsWith("mirai_stroke_v3_"))) {
-    localStorage.removeItem(k);
+  for (let i = localStorage.length - 1; i >= 0; i--) {
+    const k = localStorage.key(i);
+    if (k && (k.startsWith("mirai_stroke_") || k.startsWith("kanjivg_cache_"))) {
+      localStorage.removeItem(k);
+    }
   }
-}
 } catch (e) {}
 
 if (!window.MIRAI_STROKE_DATA) window.MIRAI_STROKE_DATA = window.STROKE_DATA || {};
 window.STROKE_DATA = window.MIRAI_STROKE_DATA;
 
+if (!window.MIRAI_STROKE_OVERRIDES) window.MIRAI_STROKE_OVERRIDES = window.STROKE_OVERRIDES || {};
+window.STROKE_OVERRIDES = window.MIRAI_STROKE_OVERRIDES;
+
 /**
- * Mengambil data goresan secara asinkron dengan hierarki aman:
- * 1. Pustaka lokal tervalidasi (window.STROKE_DATA / window.MIRAI_STROKE_DATA) - prioritas tertinggi
- * 2. Cache lokal terverifikasi skema (kanjivg_cache_* / mirai_stroke_v4_*)
- * 3. Jaringan resmi KanjiVG via CDN dengan parsing DOMParser & validasi ketat
-*/
-window.getStrokeDataAsync = async function getStrokeDataAsync(character) {
-if (!character) return null;
-
-// 1. Data lokal kurasi (window.STROKE_DATA / window.MIRAI_STROKE_DATA) prioritas mutlak
-const localRec = window.STROKE_DATA?.[character] || window.MIRAI_STROKE_DATA?.[character];
-if (localRec && isValidStrokeRecord(localRec)) {
-  window.STROKE_DATA[character] = localRec;
-  window.MIRAI_STROKE_DATA[character] = localRec;
-  return localRec;
+ * Menerapkan lapisan override jika karakter memiliki modifikasi path, numbers, atau varian.
+ */
+function applyStrokeOverride(character, record) {
+  if (!character || !record || typeof record !== 'object') return record;
+  const overrides = window.MIRAI_STROKE_OVERRIDES || window.STROKE_OVERRIDES;
+  const ov = overrides?.[character];
+  if (ov) {
+    if (Array.isArray(ov.paths) && ov.paths.length > 0) {
+      record.paths = ov.paths;
+    }
+    if (Array.isArray(ov.numbers) && ov.numbers.length > 0) {
+      record.numbers = ov.numbers;
+    }
+    if (ov.variant) {
+      record.variant = ov.variant;
+    }
+    if (ov.note) {
+      record.note = ov.note;
+    }
+    record.overridden = true;
+  }
+  return record;
 }
 
-const cacheKey = "mirai_stroke_v4_" + character;
-const legacyCacheKey = "kanjivg_cache_" + character;
-
-// 2. Periksa cache localStorage (skema v4 & kanjivg_cache)
-try {
-  const cachedRaw = localStorage.getItem(cacheKey) || localStorage.getItem(legacyCacheKey);
-  if (cachedRaw) {
-    let recCandidate = null;
-    const parsed = JSON.parse(cachedRaw);
-    if (parsed?.v === 4 && isValidStrokeRecord(parsed?.record)) {
-      recCandidate = parsed.record;
-    } else if (isValidStrokeRecord(parsed)) {
-      recCandidate = parsed;
-    }
-    if (recCandidate) {
-      if (!window.MIRAI_STROKE_DATA) window.MIRAI_STROKE_DATA = {};
-      window.MIRAI_STROKE_DATA[character] = recCandidate;
-      window.STROKE_DATA = window.MIRAI_STROKE_DATA;
-      return recCandidate;
-    } else {
-      localStorage.removeItem(cacheKey);
-      localStorage.removeItem(legacyCacheKey);
-    }
+function getAppBasePath() {
+  const logo = document.querySelector(".brand img, .sidebar-footer-logo");
+  if (logo) {
+    const src = logo.getAttribute("src") || "";
+    if (src.startsWith("../../")) return "../../";
+    if (src.startsWith("../")) return "../";
   }
-} catch (e) {}
-
-// Multi-karakter (Yoon / kata): ambil bagian-bagiannya
-if (character.length > 1) {
-  const parts = await Promise.all(Array.from(character).map((c) => window.getStrokeDataAsync(c)));
-  if (parts.length > 0 && parts.every((p) => p && isValidStrokeRecord(p))) {
-    return {
-    isMulti: true,
-    characters: Array.from(character),
-    parts: parts,
-    source: "KanjiVG"
-    };
+  const style = document.querySelector('link[rel="stylesheet"][href*="style.css"]');
+  if (style) {
+    const href = style.getAttribute("href") || "";
+    if (href.startsWith("../../")) return "../../";
+    if (href.startsWith("../")) return "../";
   }
-  return null;
+  return "";
 }
 
-// 3. Fallback: Unduh berkas SVG resmi dari KanjiVG via CDN
-try {
-  const cp = character.codePointAt(0);
-  if (!cp) return null;
-  const hex = cp.toString(16).padStart(5, "0").toLowerCase();
-  const res = await fetch(`https://cdn.jsdelivr.net/gh/KanjiVG/kanjivg@master/kanji/${hex}.svg`);
-  if (res.ok) {
-    const svgText = await res.text();
-    let paths = [];
-    let numbers = [];
+const loadedStrokeChunks = new Set();
+const strokeChunkLoadingPromises = {};
 
+/**
+ * Memuat berkas chunk goresan kanji lokal data/strokes/<jlpt>.json secara on-demand.
+ * Menghilangkan kebutuhan mengunduh 4.2 MB di awal, memangkas bobot menjadi ~58-450 KB per level.
+ */
+async function loadStrokeChunk(jlptLevel) {
+  if (!jlptLevel) return null;
+  const rawLvl = String(jlptLevel).toLowerCase().trim();
+  const lvl = rawLvl.startsWith("n") ? rawLvl : ("n" + rawLvl);
+  if (loadedStrokeChunks.has(lvl)) return window.MIRAI_STROKE_DATA;
+  if (strokeChunkLoadingPromises[lvl]) return strokeChunkLoadingPromises[lvl];
+
+  strokeChunkLoadingPromises[lvl] = (async () => {
+    const base = getAppBasePath();
     try {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(svgText, "image/svg+xml");
-    const pathsGroup = doc.querySelector("[id*='StrokePaths']") || doc;
-    const pathElements = Array.from(pathsGroup.querySelectorAll("path"));
-
-    pathElements.sort((a, b) => {
-    const ma = /-s(\d+)$/.exec(a.id || "");
-    const mb = /-s(\d+)$/.exec(b.id || "");
-    if (ma && mb) return parseInt(ma[1], 10) - parseInt(mb[1], 10);
-    return 0;
-    });
-    paths = pathElements.map((p) => p.getAttribute("d")).filter(Boolean);
-
-    const numbersGroup = doc.querySelector("[id*='StrokeNumbers']");
-    if (numbersGroup) {
-    numbersGroup.querySelectorAll("text").forEach((t) => {
-      const trans = t.getAttribute("transform") || "";
-      const m = /matrix\s*\(\s*[^,\s]+\s*[, ]\s*[^,\s]+\s*[, ]\s*[^,\s]+\s*[, ]\s*[^,\s]+\s*[, ]\s*([-\d\.]+)\s*[, ]\s*([-\d\.]+)\s*\)/i.exec(trans);
-      if (m) {
-        numbers.push({
-        x: parseFloat(m[1]),
-        y: parseFloat(m[2]),
-        text: (t.textContent || "").trim()
-        });
+      const res = await fetch(base + "data/strokes/" + lvl + ".json");
+      if (res.ok) {
+        const chunk = await res.json();
+        if (!window.MIRAI_STROKE_DATA) window.MIRAI_STROKE_DATA = {};
+        for (const [ch, rec] of Object.entries(chunk)) {
+          window.MIRAI_STROKE_DATA[ch] = rec;
+        }
+        window.STROKE_DATA = window.MIRAI_STROKE_DATA;
+        loadedStrokeChunks.add(lvl);
+        return window.MIRAI_STROKE_DATA;
       }
-    });
+    } catch (e) {
+      console.warn("[stroke.js] Gagal memuat data/strokes/" + lvl + ".json:", e);
     }
-    } catch (parseErr) {
-    const regex = /<path[^>]+d="([^"]+)"/g;
-    let match;
-    while ((match = regex.exec(svgText)) !== null) {
-    paths.push(match[1]);
-    }
-    }
+    return null;
+  })();
 
-    const record = { viewBox: "0 0 109 109", paths, numbers, source: "KanjiVG-CDN" };
-    if (isValidStrokeRecord(record)) {
-      if (!window.MIRAI_STROKE_DATA) window.MIRAI_STROKE_DATA = {};
-      window.MIRAI_STROKE_DATA[character] = record;
-      window.STROKE_DATA = window.MIRAI_STROKE_DATA;
-      try {
-        const envelope = { v: 4, char: character, time: Date.now(), record };
-        localStorage.setItem(cacheKey, JSON.stringify(envelope));
-        localStorage.setItem(legacyCacheKey, JSON.stringify(record));
-      } catch (e) {}
-      return record;
+  return strokeChunkLoadingPromises[lvl];
+}
+window.loadStrokeChunk = loadStrokeChunk;
+
+/**
+ * Mengambil data goresan secara asinkron (100% lokal tanpa CDN eksternal):
+ * 1. Karakter Kana: tersedia langsung dari dataset inline (window.MIRAI_STROKE_DATA)
+ * 2. Karakter Kanji: diambil on-demand dari chunk lokal data/strokes/<jlpt>.json
+ */
+window.getStrokeDataAsync = async function getStrokeDataAsync(character, optionalJlpt) {
+  if (!character) return null;
+
+  // 1. Cek apakah sudah ada di memori lokal (Kana inline atau chunk kanji yang telah dimuat)
+  const localRec = window.STROKE_DATA?.[character] || window.MIRAI_STROKE_DATA?.[character];
+  if (localRec && isValidStrokeRecord(localRec)) {
+    const finalRec = applyStrokeOverride(character, localRec);
+    window.STROKE_DATA[character] = finalRec;
+    window.MIRAI_STROKE_DATA[character] = finalRec;
+    return finalRec;
+  }
+
+  // Multi-karakter (Yoon / kata gabungan)
+  if (character.length > 1) {
+    const parts = await Promise.all(Array.from(character).map((c) => window.getStrokeDataAsync(c, optionalJlpt)));
+    if (parts.length > 0 && parts.every((p) => p && isValidStrokeRecord(p))) {
+      return {
+        isMulti: true,
+        characters: Array.from(character),
+        parts: parts,
+        source: "KanjiVG"
+      };
+    }
+    return null;
+  }
+
+  // 2. Muat chunk data/strokes/<jlpt>.json on-demand jika karakter berupa Kanji
+  let targetLvl = optionalJlpt || window.getKanjiJlpt?.(character) || window.currentSelectedKanjiJlpt;
+  if (targetLvl) {
+    await loadStrokeChunk(targetLvl);
+  }
+
+  // Jika belum ditemukan di chunk target, periksa chunk lain yang belum dimuat
+  if (!window.MIRAI_STROKE_DATA?.[character]) {
+    for (const lvl of ['n5', 'n4', 'n3', 'n2', 'n1']) {
+      if (!loadedStrokeChunks.has(lvl)) {
+        await loadStrokeChunk(lvl);
+        if (window.MIRAI_STROKE_DATA?.[character]) break;
+      }
     }
   }
-} catch (err) {
-  console.warn("Gagal memuat stroke KanjiVG CDN untuk:", character, err);
-}
 
-return null;
+  const chunkRec = window.MIRAI_STROKE_DATA?.[character];
+  if (chunkRec && isValidStrokeRecord(chunkRec)) {
+    const finalRec = applyStrokeOverride(character, chunkRec);
+    window.STROKE_DATA[character] = finalRec;
+    window.MIRAI_STROKE_DATA[character] = finalRec;
+    return finalRec;
+  }
+
+  return null;
 };
 
 // Helper cerdas menghitung posisi label angka urutan goresan pada canvas KanjiVG
@@ -233,10 +249,10 @@ let internalController = null;
 const characters = Array.from(kanaString);
 const isMulti = characters.length > 1;
 
-// Helper data karakter lokal
+// Helper data karakter lokal dengan proteksi lapisan override
 const getCached = (c) => {
   const rec = window.MIRAI_STROKE_DATA?.[c];
-  return (rec && isValidStrokeRecord(rec)) ? rec : null;
+  return (rec && isValidStrokeRecord(rec)) ? applyStrokeOverride(c, rec) : null;
 };
 const allImmediate = characters.every(getCached);
 
@@ -304,12 +320,12 @@ function setupPlayerWithRecords(records) {
   const flattenedStrokes = [];
   records.forEach((rec, cIdx) => {
     rec.paths.forEach((d, pIdx) => {
-    flattenedStrokes.push({
-    charIdx: cIdx,
-    pathIdx: pIdx,
-    paths: rec.paths,
-    d: d
-    });
+      flattenedStrokes.push({
+        charIdx: cIdx,
+        pathIdx: pIdx,
+        paths: rec.paths,
+        d: d
+      });
     });
   });
 
@@ -319,34 +335,174 @@ function setupPlayerWithRecords(records) {
     const currentSvg = `<path d="${item.d}" class="step-thumb-current"></path>`;
 
     return `<li class="stroke-step-thumb" data-stroke-step="${index}" title="Goresan ke-${index + 1}">` +
-    `<span class="step-thumb-badge">${index + 1}</span>` +
-    `<svg class="step-thumb-svg" viewBox="-8 -8 125 125" aria-hidden="true">` +
-    `<line x1="5" y1="54.5" x2="104" y2="54.5" class="step-thumb-grid"></line>` +
-    `<line x1="54.5" y1="5" x2="54.5" y2="104" class="step-thumb-grid"></line>` +
-    `${prevSvg}` +
-    `${currentSvg}` +
-    `</svg>` +
-    `</li>`;
+      `<span class="step-thumb-badge">${index + 1}</span>` +
+      `<svg class="step-thumb-svg" viewBox="-8 -8 125 125" aria-hidden="true">` +
+      `<line x1="5" y1="54.5" x2="104" y2="54.5" class="step-thumb-grid"></line>` +
+      `<line x1="54.5" y1="5" x2="54.5" y2="104" class="step-thumb-grid"></line>` +
+      `${prevSvg}` +
+      `${currentSvg}` +
+      `</svg>` +
+      `</li>`;
   }).join("");
 
-  // Render kerangka kontrol UI pemutar lengkap
-  host.innerHTML = `
-            <div class="stroke-stage stroke-thick" aria-label="Animasi urutan menulis ${kanaString}"></div>
-            <div class="stroke-status">Goresan <b data-stroke-number>1</b> dari ${totalStrokes}</div>
-            <ol class="stroke-order" aria-label="Urutan visual goresan">${strokeThumbsHtml}</ol>
-            <div class="stroke-controls" role="toolbar" aria-label="Kontrol animasi goresan">
-                <button type="button" data-stroke-play aria-label="Putar animasi goresan">PUTAR ▶</button>
-                ${showClearControl ? `<button type="button" data-stroke-clear aria-label="Bersihkan tampilan urutan goresan ${kanaString}">BERSIHKAN</button>` : ""}
-                <label>Kecepatan<select data-stroke-speed aria-label="Kecepatan animasi stroke">
-                    <option value="1.6">0.5×</option>
-                    <option value="1" selected>1×</option>
-                    <option value="0.72">1.5×</option>
-                    <option value="0.52">2×</option>
-                </select></label>
-            </div>
-        `;
+  // Catatan varian gaya buku teks atau alasan override
+  const notes = records
+    .filter((r) => r && (r.note || r.variant))
+    .map((r) => r.note || (r.variant === 'kyokasho' ? 'Gaya buku teks resmi (kyōkasho).' : `Varian: ${r.variant}`));
+  const noteHtml = notes.length > 0 ? `
+    <div class="stroke-variant-note" role="note" aria-label="Catatan varian karakter">
+      <span class="stroke-note-icon" aria-hidden="true">💡</span>
+      <span class="stroke-note-text">${notes.join(" • ")}</span>
+    </div>
+  ` : "";
 
-  // Render kontainer kanvas SVG responsif
+  // Tombol lapor goresan salah membuka GForm dengan parameter URL prefilled
+  const firstChar = characters[0] || kanaString;
+  const cp = firstChar.codePointAt(0) || 0;
+  const hexCode = cp.toString(16).padStart(5, "0").toUpperCase();
+  const prefillParam = encodeURIComponent(`Laporan Goresan: ${kanaString} (U+${hexCode})`);
+  const reportUrl = `https://forms.gle/dFPRM842xxKq5YMt9?usp=pp_url&entry.lapor=${prefillParam}`;
+  const reportBtnHtml = `
+    <a href="${reportUrl}" target="_blank" rel="noopener noreferrer" class="stroke-report-pill stroke-report-link" title="Buka formulir untuk melaporkan goresan ${kanaString} (U+${hexCode})">
+      <span class="report-icon">🚩</span>
+      <span class="report-text">Lapor goresan salah</span>
+    </a>
+  `;
+
+  // Render Kerangka Studio Goresan Interaktif 3 Kotak (Trio Panel)
+  host.innerHTML = `
+    <div class="stroke-studio-container">
+      <div class="stroke-studio-header">
+        <div class="stroke-studio-title-wrap">
+          <span class="stroke-studio-badge">✨ Studio Goresan Interaktif</span>
+          <span class="stroke-studio-sub">Amati acuan, latih goresan mandiri, dan bandingkan secara langsung</span>
+        </div>
+        <div class="stroke-mode-tabs" role="tablist">
+          <button type="button" class="stroke-mode-btn is-active" data-stroke-mode="all">Semua Kotak</button>
+          <button type="button" class="stroke-mode-btn" data-stroke-mode="official">1. Acuan</button>
+          <button type="button" class="stroke-mode-btn" data-stroke-mode="practice">2. Tulis</button>
+          <button type="button" class="stroke-mode-btn" data-stroke-mode="compare">3. Bandingkan</button>
+        </div>
+      </div>
+
+      <!-- GRID 3 KOTAK UTAMA -->
+      <div class="stroke-studio-trio">
+        
+        <!-- KOTAK 1: ACUAN RESMI (ANIMASI & URUTAN STANDAR) -->
+        <div class="stroke-panel-card stroke-official-card" data-panel-box="official">
+          <div class="panel-card-head">
+            <span class="panel-card-title">
+              <span class="panel-num">1</span>
+              <strong>Acuan Resmi</strong>
+            </span>
+            <span class="panel-card-tag">Standar KanjiVG</span>
+          </div>
+          <div class="stroke-stage stroke-thick" aria-label="Animasi urutan menulis ${kanaString}"></div>
+          <div class="stroke-status">Goresan <b data-stroke-number>1</b> dari ${totalStrokes}</div>
+          <ol class="stroke-order" aria-label="Urutan visual goresan">${strokeThumbsHtml}</ol>
+          <div class="stroke-controls" role="toolbar" aria-label="Kontrol animasi goresan">
+            <button type="button" data-stroke-prev aria-label="Langkah sebelumnya" title="Langkah sebelumnya">⏮</button>
+            <button type="button" data-stroke-play aria-label="Putar animasi goresan">PUTAR ▶</button>
+            <button type="button" data-stroke-next aria-label="Langkah berikutnya" title="Langkah berikutnya">⏭</button>
+            <button type="button" data-stroke-replay aria-label="Ulangi dari awal" title="Ulangi dari awal">🔄</button>
+            ${showClearControl ? `<button type="button" data-stroke-clear aria-label="Bersihkan tampilan urutan goresan ${kanaString}">BERSIHKAN</button>` : ""}
+            <label>Kecepatan<select data-stroke-speed aria-label="Kecepatan animasi stroke">
+              <option value="1.6">0.5×</option>
+              <option value="1" selected>1×</option>
+              <option value="0.72">1.5×</option>
+              <option value="0.52">2×</option>
+            </select></label>
+          </div>
+        </div>
+
+        <!-- KOTAK 2: KANVAS LATIHAN TULIS (INTERAKTIF USER) -->
+        <div class="stroke-panel-card stroke-practice-card" data-panel-box="practice">
+          <div class="panel-card-head">
+            <span class="panel-card-title">
+              <span class="panel-num">2</span>
+              <strong>Tulis Sendiri</strong>
+            </span>
+            <span class="panel-card-tag">Sentuh &amp; Mouse</span>
+          </div>
+          <div class="user-canvas-wrapper">
+            <canvas class="user-draw-canvas" width="220" height="220" aria-label="Kanvas menulis mandiri untuk ${kanaString}"></canvas>
+            <div class="user-canvas-guide-char" aria-hidden="true">${kanaString}</div>
+          </div>
+          <div class="user-canvas-toolbar">
+            <button type="button" class="canvas-tool-btn" data-canvas-clear title="Hapus goresan pada kanvas">
+              🗑️ Bersihkan
+            </button>
+            <button type="button" class="canvas-tool-btn" data-canvas-undo title="Batalkan goresan terakhir">
+              ↩️ Undo
+            </button>
+            <button type="button" class="canvas-tool-btn is-active" data-canvas-guide-toggle title="Nyalakan/matikan bayangan panduan huruf">
+              👁️ Panduan: ON
+            </button>
+          </div>
+          <div class="user-canvas-footer">
+            <span class="user-canvas-hint">Tulis huruf di kanvas. Hasil otomatis dianalisis dan diputar di Kotak 3!</span>
+            <button type="button" class="studio-btn primary canvas-finish-btn" data-canvas-finish>
+              ✨ Periksa Goresan Saya
+            </button>
+          </div>
+        </div>
+
+        <!-- KOTAK 3: HASIL & PERBANDINGAN OTOMATIS (AUTO-PLAY) -->
+        <div class="stroke-panel-card stroke-compare-card" data-panel-box="compare">
+          <div class="panel-card-head">
+            <span class="panel-card-title">
+              <span class="panel-num">3</span>
+              <strong>Hasil &amp; Putar Otomatis</strong>
+            </span>
+            <span class="panel-card-tag" id="compareBadge">Menunggu Goresan</span>
+          </div>
+          
+          <div class="compare-display-area" id="compareDisplayArea">
+            <!-- Placeholder saat belum ada goresan -->
+            <div class="compare-placeholder" id="comparePlaceholder">
+              <span class="placeholder-icon">✍️</span>
+              <strong>Belum Ada Goresan</strong>
+              <p>Coba tulis huruf <b>"${kanaString}"</b> di Kotak 2. Hasil goresanmu dan animasi acuan otomatis berputar di sini!</p>
+            </div>
+
+            <!-- Tampilan aktif perbandingan setelah user menulis -->
+            <div class="compare-active-view" id="compareActiveView" hidden>
+              <div class="compare-stage-duo">
+                <div class="compare-box user-result-box">
+                  <span class="compare-label">Goresan Kamu</span>
+                  <img class="user-result-img" id="userResultImg" alt="Goresan buatan kamu">
+                </div>
+                <div class="compare-box official-replay-box">
+                  <span class="compare-label">Acuan Standar</span>
+                  <div class="compare-official-stage" id="compareOfficialStage"></div>
+                </div>
+              </div>
+              <div class="compare-feedback-banner" id="compareFeedback">
+                <span class="feedback-sparkle">✨</span>
+                <span class="feedback-text" id="compareFeedbackText">Goresanmu siap dibandingkan! Amati arah dan proporsinya.</span>
+              </div>
+              <div class="compare-actions-bar">
+                <button type="button" class="studio-btn primary compare-replay-btn" id="compareReplayBtn">
+                  🔄 Putar Ulang Animasi
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- FOOTER: CATATAN VARIAN & TOMBOL LAPOR GORESAN ELEGAN -->
+      <div class="stroke-footer-bar">
+        ${noteHtml}
+        <div class="stroke-footer-actions">
+          ${reportBtnHtml}
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Render kontainer kanvas SVG resmi di Kotak 1
   const strokeStage = host.querySelector('.stroke-stage');
   strokeStage.innerHTML = "";
   strokeStage.style.display = 'flex';
@@ -365,22 +521,22 @@ function setupPlayerWithRecords(records) {
     charWrapper.style.position = 'relative';
 
     if (isMulti) {
-    if (characters.length === 2) {
-    charWrapper.classList.add('yoon-char');
-    charWrapper.style.width = '100%';
-    charWrapper.style.maxWidth = '180px';
-    charWrapper.style.aspectRatio = '1 / 1';
+      if (characters.length === 2) {
+        charWrapper.classList.add('yoon-char');
+        charWrapper.style.width = '100%';
+        charWrapper.style.maxWidth = '180px';
+        charWrapper.style.aspectRatio = '1 / 1';
+      } else {
+        charWrapper.classList.add('multi-char');
+        charWrapper.style.width = '100%';
+        charWrapper.style.maxWidth = characters.length === 3 ? '110px' : '90px';
+        charWrapper.style.aspectRatio = '1 / 1';
+      }
     } else {
-    charWrapper.classList.add('multi-char');
-    charWrapper.style.width = '100%';
-    charWrapper.style.maxWidth = characters.length === 3 ? '110px' : '90px';
-    charWrapper.style.aspectRatio = '1 / 1';
-    }
-    } else {
-    charWrapper.style.width = '100%';
-    charWrapper.style.maxWidth = '200px';
-    charWrapper.style.aspectRatio = '1 / 1';
-    charWrapper.classList.add('single-char');
+      charWrapper.style.width = '100%';
+      charWrapper.style.maxWidth = '200px';
+      charWrapper.style.aspectRatio = '1 / 1';
+      charWrapper.classList.add('single-char');
     }
 
     const rec = records[index];
@@ -396,7 +552,7 @@ function setupPlayerWithRecords(records) {
     svg.style.position = 'relative';
     svg.style.display = 'block';
 
-    // Layer 0: Garis Kotak Panduan Latihan (Genkouyoushi Practice Grid Crosshair)
+    // Layer 0: Garis Kotak Panduan Genkouyoushi
     const gridGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
     gridGroup.setAttribute("class", "stroke-grid-group");
     gridGroup.setAttribute("aria-hidden", "true");
@@ -419,47 +575,47 @@ function setupPlayerWithRecords(records) {
     gridGroup.appendChild(vLine);
     svg.appendChild(gridGroup);
 
-    // Layer 1 (Dasar): Goresan Panduan Transparan Urutan (Transparent Guide Strokes)
+    // Layer 1: Goresan Panduan Transparan
     const guideGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
     guideGroup.setAttribute("class", "stroke-guide-group");
     paths.forEach((d) => {
-    const guidePath = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    guidePath.setAttribute("class", "stroke-guide-path");
-    guidePath.setAttribute("d", d);
-    guidePath.setAttribute("stroke-linecap", "round");
-    guidePath.setAttribute("stroke-linejoin", "round");
-    guidePath.setAttribute("fill", "none");
-    guideGroup.appendChild(guidePath);
+      const guidePath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      guidePath.setAttribute("class", "stroke-guide-path");
+      guidePath.setAttribute("d", d);
+      guidePath.setAttribute("stroke-linecap", "round");
+      guidePath.setAttribute("stroke-linejoin", "round");
+      guidePath.setAttribute("fill", "none");
+      guideGroup.appendChild(guidePath);
     });
     svg.appendChild(guideGroup);
 
-    // Layer 2 (Tengah): Goresan Animasi Solid (Active Animated Strokes)
+    // Layer 2: Goresan Animasi Solid
     const activeGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
     activeGroup.setAttribute("class", "stroke-active-group");
     paths.forEach((d, pathIndex) => {
-    const pathEl = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    pathEl.setAttribute("class", "stroke-active-path");
-    pathEl.setAttribute("data-stroke", `${index}-${pathIndex}`);
-    pathEl.setAttribute("d", d);
-    pathEl.setAttribute("stroke-linecap", "round");
-    pathEl.setAttribute("stroke-linejoin", "round");
-    pathEl.setAttribute("fill", "none");
-    activeGroup.appendChild(pathEl);
+      const pathEl = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      pathEl.setAttribute("class", "stroke-active-path");
+      pathEl.setAttribute("data-stroke", `${index}-${pathIndex}`);
+      pathEl.setAttribute("d", d);
+      pathEl.setAttribute("stroke-linecap", "round");
+      pathEl.setAttribute("stroke-linejoin", "round");
+      pathEl.setAttribute("fill", "none");
+      activeGroup.appendChild(pathEl);
     });
     svg.appendChild(activeGroup);
 
-    // Layer 3 (Atas): Angka Penunjuk Urutan Goresan (Stroke Order Numbers)
+    // Layer 3: Angka Penunjuk Urutan Goresan
     const numbersGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
     numbersGroup.setAttribute("class", "stroke-numbers-group");
     const numPositions = calculateStrokeNumbers(paths, rec.numbers);
     numPositions.forEach((pos, pathIndex) => {
-    const textEl = document.createElementNS("http://www.w3.org/2000/svg", "text");
-    textEl.setAttribute("class", "stroke-number-label");
-    textEl.setAttribute("x", String(pos.x));
-    textEl.setAttribute("y", String(pos.y));
-    textEl.setAttribute("data-stroke-num", `${index}-${pathIndex}`);
-    textEl.textContent = String(globalStrokeOffset + pathIndex + 1);
-    numbersGroup.appendChild(textEl);
+      const textEl = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      textEl.setAttribute("class", "stroke-number-label");
+      textEl.setAttribute("x", String(pos.x));
+      textEl.setAttribute("y", String(pos.y));
+      textEl.setAttribute("data-stroke-num", `${index}-${pathIndex}`);
+      textEl.textContent = String(globalStrokeOffset + pathIndex + 1);
+      numbersGroup.appendChild(textEl);
     });
     svg.appendChild(numbersGroup);
 
@@ -468,7 +624,7 @@ function setupPlayerWithRecords(records) {
     strokeStage.appendChild(charWrapper);
   });
 
-  // Koleksi elemen kontrol animasi
+  // Koleksi elemen kontrol animasi Kotak 1
   const lines = [...strokeStage.querySelectorAll("path[data-stroke]")];
   const numberLabels = [...strokeStage.querySelectorAll(".stroke-number-label")];
   const number = host.querySelector("[data-stroke-number]");
@@ -487,272 +643,552 @@ function setupPlayerWithRecords(records) {
   function setStepLabel() {
     if (destroyed) return;
     const visibleStep = Math.min(step + 1, lines.length);
-    number.textContent = cleared ? "0" : String(visibleStep);
+    if (number) number.textContent = cleared ? "0" : String(visibleStep);
 
     order.forEach((item, index) => {
-    item.classList.toggle("is-active", index === step && (playing || paused));
-    item.classList.toggle("is-done", index < step);
+      item.classList.toggle("is-active", index === step && (playing || paused));
+      item.classList.toggle("is-done", index < step);
     });
 
     numberLabels.forEach((numLabel, index) => {
-    numLabel.classList.toggle("is-active", index === step && (playing || paused));
-    numLabel.classList.toggle("is-done", index < step);
+      numLabel.classList.toggle("is-active", index === step && (playing || paused));
+      numLabel.classList.toggle("is-done", index < step);
     });
 
-    // Perbarui label tombol putar utama (PUTAR / JEDA / LANJUTKAN)
     if (playBtn) {
-    if (playing) {
-    playBtn.innerHTML = "JEDA ⏸";
-    playBtn.setAttribute("aria-label", "Jeda animasi goresan");
-    } else if (paused) {
-    playBtn.innerHTML = "LANJUTKAN ▶";
-    playBtn.setAttribute("aria-label", "Lanjutkan animasi goresan");
-    } else if (step >= lines.length || cleared) {
-    playBtn.innerHTML = "PUTAR ULANG ▶";
-    playBtn.setAttribute("aria-label", "Putar ulang dari goresan pertama");
-    } else {
-    playBtn.innerHTML = "PUTAR ▶";
-    playBtn.setAttribute("aria-label", "Putar animasi goresan");
-    }
+      if (playing) {
+        playBtn.innerHTML = "JEDA ⏸";
+      } else if (paused) {
+        playBtn.innerHTML = "LANJUT ▶";
+      } else {
+        playBtn.innerHTML = "PUTAR ▶";
+      }
     }
   }
 
-  function hideFutureStrokes() {
+  function applyActiveState(instant = false) {
+    if (destroyed) return;
     lines.forEach((line, index) => {
-    const length = line.getTotalLength();
-    line.style.strokeDasharray = `${length}`;
-    line.style.strokeDashoffset = index < step ? "0" : `${length}`;
-    line.style.opacity = index < step ? "1" : "0";
-    });
-  }
-
-  function renderStaticState() {
-    lines.forEach((line, index) => {
-    const length = line.getTotalLength();
-    line.style.strokeDasharray = `${length}`;
-    if (index <= step) {
-    line.style.strokeDashoffset = "0";
-    line.style.opacity = "1";
-    } else {
-    line.style.strokeDashoffset = `${length}`;
-    line.style.opacity = "0";
-    }
+      const len = line.getTotalLength ? line.getTotalLength() : 100;
+      line.style.strokeDasharray = `${len} ${len}`;
+      if (index < step) {
+        line.style.transition = instant ? "none" : "stroke-dashoffset 0.15s ease";
+        line.style.strokeDashoffset = "0";
+      } else {
+        line.style.transition = "none";
+        line.style.strokeDashoffset = `${len}`;
+      }
     });
     setStepLabel();
   }
 
-  function finishCurrentStroke() {
-    step += 1;
-    animation = null;
+  function animateSingleStroke(index, onComplete) {
+    if (destroyed) return;
+    const line = lines[index];
+    if (!line) {
+      if (onComplete) onComplete();
+      return;
+    }
+    const len = line.getTotalLength ? line.getTotalLength() : 100;
+    line.style.strokeDasharray = `${len} ${len}`;
+    line.style.strokeDashoffset = `${len}`;
+    line.getBoundingClientRect(); // reflow
+    line.style.transition = `stroke-dashoffset ${duration()}ms cubic-bezier(0.4, 0, 0.2, 1)`;
+    line.style.strokeDashoffset = "0";
+
+    const timer = setTimeout(() => {
+      if (onComplete) onComplete();
+    }, duration() + 80);
+
+    animation = {
+      cancel: () => {
+        clearTimeout(timer);
+        line.style.transition = "none";
+      }
+    };
+  }
+
+  function playSequence() {
+    if (destroyed || !playing) return;
     if (step >= lines.length) {
-    playing = false;
-    paused = false;
+      playing = false;
+      paused = false;
+      setStepLabel();
+      return;
     }
     setStepLabel();
-    if (playing) {
-    drawCurrentStroke();
-    }
-  }
-
-  function drawCurrentStroke() {
-    if (destroyed || !playing || step >= lines.length || animation) return;
-    const line = lines[step];
-    const length = line.getTotalLength();
-    line.style.strokeDasharray = `${length}`;
-    line.style.strokeDashoffset = `${length}`;
-    line.style.opacity = "1";
-    setStepLabel();
-
-    try {
-    animation = line.animate(
-    [{ strokeDashoffset: length }, { strokeDashoffset: 0 }],
-    { duration: duration(), easing: "cubic-bezier(.35, 0, .2, 1)", fill: "forwards" }
-    );
-    animation.finished.then(finishCurrentStroke).catch(() => {});
-    } catch (animErr) {
-    line.style.strokeDashoffset = "0";
-    finishCurrentStroke();
-    }
+    animateSingleStroke(step, () => {
+      if (!playing) return;
+      step++;
+      if (step < lines.length) {
+        playSequence();
+      } else {
+        playing = false;
+        paused = false;
+        setStepLabel();
+      }
+    });
   }
 
   function play() {
-    if (paused) {
-    resume();
-    return;
-    }
-    if (step >= lines.length || cleared) {
-    reset();
-    }
+    if (destroyed) return;
     cleared = false;
-    paused = false;
+    if (animation) animation.cancel();
+    if (paused) {
+      playing = true;
+      paused = false;
+      playSequence();
+      return;
+    }
+    if (step >= lines.length) step = 0;
+    applyActiveState(true);
     playing = true;
-    setStepLabel();
-    drawCurrentStroke();
+    paused = false;
+    playSequence();
   }
 
   function pause() {
-    if (animation && animation.playState === "running") {
-    animation.pause();
-    }
+    if (destroyed || !playing) return;
+    if (animation) animation.cancel();
     playing = false;
     paused = true;
     setStepLabel();
   }
 
   function resume() {
-    if (animation && animation.playState === "paused") {
-    animation.play();
+    if (destroyed || !paused) return;
     playing = true;
     paused = false;
-    setStepLabel();
-    return;
-    }
-    playing = true;
-    paused = false;
-    setStepLabel();
-    drawCurrentStroke();
+    playSequence();
   }
 
   function togglePlay() {
-    if (playing) {
-    pause();
-    } else {
-    play();
-    }
+    if (playing) pause();
+    else if (paused) resume();
+    else play();
   }
 
   function replay() {
-    if (animation) {
-    try { animation.cancel(); } catch (e) {}
-    animation = null;
-    }
+    if (destroyed) return;
+    if (animation) animation.cancel();
     step = 0;
     cleared = false;
-    paused = false;
+    applyActiveState(true);
     playing = true;
-    hideFutureStrokes();
-    setStepLabel();
-    drawCurrentStroke();
+    paused = false;
+    playSequence();
   }
 
   function prevStep() {
-    if (animation) {
-    try { animation.cancel(); } catch (e) {}
-    animation = null;
-    }
+    if (destroyed) return;
+    if (animation) animation.cancel();
     playing = false;
     paused = false;
     cleared = false;
-    if (step > 0) {
-    step -= 1;
-    }
-    renderStaticState();
+    step = Math.max(0, step - 1);
+    applyActiveState(true);
   }
 
   function nextStep() {
-    if (animation) {
-    try { animation.cancel(); } catch (e) {}
-    animation = null;
-    }
+    if (destroyed) return;
+    if (animation) animation.cancel();
     playing = false;
     paused = false;
     cleared = false;
-    if (step < lines.length - 1) {
-    step += 1;
-    }
-    renderStaticState();
+    step = Math.min(lines.length - 1, step + 1);
+    applyActiveState(true);
   }
 
   function reset() {
-    if (animation) {
-    try { animation.cancel(); } catch (e) {}
-    animation = null;
-    }
+    if (destroyed) return;
+    if (animation) animation.cancel();
+    step = 0;
     playing = false;
     paused = false;
-    step = 0;
     cleared = false;
-    hideFutureStrokes();
-    setStepLabel();
+    applyActiveState(true);
   }
 
-  function clear() {
-    if (animation) {
-    try { animation.cancel(); } catch (e) {}
-    animation = null;
-    }
+  function clearView() {
+    if (destroyed) return;
+    if (animation) animation.cancel();
+    step = 0;
     playing = false;
     paused = false;
-    step = 0;
     cleared = true;
-    hideFutureStrokes();
+    lines.forEach((line) => {
+      const len = line.getTotalLength ? line.getTotalLength() : 100;
+      line.style.transition = "none";
+      line.style.strokeDashoffset = `${len}`;
+    });
     setStepLabel();
   }
 
-  function destroy() {
-    destroyed = true;
-    if (animation) {
-    try { animation.cancel(); } catch (e) {}
-    animation = null;
+  // Event Listeners Kotak 1
+  if (playBtn) playBtn.addEventListener("click", togglePlay);
+  const clearBtn = host.querySelector("[data-stroke-clear]");
+  if (clearBtn) clearBtn.addEventListener("click", clearView);
+  const prevBtn = host.querySelector("[data-stroke-prev]");
+  if (prevBtn) prevBtn.addEventListener("click", prevStep);
+  const nextBtn = host.querySelector("[data-stroke-next]");
+  if (nextBtn) nextBtn.addEventListener("click", nextStep);
+  const replayBtn = host.querySelector("[data-stroke-replay]");
+  if (replayBtn) replayBtn.addEventListener("click", replay);
+
+  order.forEach((thumb, idx) => {
+    thumb.addEventListener("click", () => {
+      if (destroyed) return;
+      if (animation) animation.cancel();
+      playing = false;
+      paused = false;
+      cleared = false;
+      step = idx + 1;
+      applyActiveState(true);
+    });
+  });
+
+  numberLabels.forEach((numLabel, idx) => {
+    numLabel.addEventListener("click", () => {
+      if (destroyed) return;
+      if (animation) animation.cancel();
+      playing = false;
+      paused = false;
+      cleared = false;
+      step = idx + 1;
+      applyActiveState(true);
+    });
+  });
+
+  // Tampilkan kondisi awal
+  applyActiveState(true);
+
+  // =========================================================================
+  // INISIALISASI KOTAK 2: KANVAS TULIS INTERAKTIF (USER DRAW CANVAS)
+  // =========================================================================
+  const drawCanvas = host.querySelector('.user-draw-canvas');
+  const guideChar = host.querySelector('.user-canvas-guide-char');
+  const canvasClearBtn = host.querySelector('[data-canvas-clear]');
+  const canvasUndoBtn = host.querySelector('[data-canvas-undo]');
+  const canvasGuideToggle = host.querySelector('[data-canvas-guide-toggle]');
+  const canvasFinishBtn = host.querySelector('[data-canvas-finish]');
+
+  let userStrokes = [];
+  let currentStroke = [];
+  let isDrawing = false;
+  let autoCompareTimeout = null;
+  const drawColor = '#e91e63';
+  const drawLineWidth = 6;
+
+  function renderDrawCanvasGrid() {
+    if (!drawCanvas) return;
+    const ctx = drawCanvas.getContext('2d');
+    if (!ctx) return;
+    ctx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
+
+    // Garis bantu salib (crosshair)
+    ctx.save();
+    ctx.strokeStyle = 'rgba(233, 30, 99, 0.16)';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    ctx.moveTo(10, drawCanvas.height / 2);
+    ctx.lineTo(drawCanvas.width - 10, drawCanvas.height / 2);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(drawCanvas.width / 2, 10);
+    ctx.lineTo(drawCanvas.width / 2, drawCanvas.height - 10);
+    ctx.stroke();
+    ctx.restore();
+
+    // Gambar ulang seluruh goresan yang sudah dibuat
+    ctx.save();
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.lineWidth = drawLineWidth;
+    ctx.strokeStyle = drawColor;
+
+    userStrokes.forEach(stroke => {
+      if (stroke.length < 2) {
+        if (stroke.length === 1) {
+          ctx.beginPath();
+          ctx.arc(stroke[0].x, stroke[0].y, drawLineWidth / 2, 0, Math.PI * 2);
+          ctx.fillStyle = drawColor;
+          ctx.fill();
+        }
+        return;
+      }
+      ctx.beginPath();
+      ctx.moveTo(stroke[0].x, stroke[0].y);
+      for (let i = 1; i < stroke.length; i++) {
+        ctx.lineTo(stroke[i].x, stroke[i].y);
+      }
+      ctx.stroke();
+    });
+    ctx.restore();
+  }
+
+  if (drawCanvas) {
+    const ctx = drawCanvas.getContext('2d');
+    renderDrawCanvasGrid();
+
+    function getCanvasPos(e) {
+      const rect = drawCanvas.getBoundingClientRect();
+      const scaleX = drawCanvas.width / rect.width;
+      const scaleY = drawCanvas.height / rect.height;
+      const clientX = e.clientX ?? (e.touches && e.touches[0].clientX);
+      const clientY = e.clientY ?? (e.touches && e.touches[0].clientY);
+      return {
+        x: (clientX - rect.left) * scaleX,
+        y: (clientY - rect.top) * scaleY
+      };
     }
-    if (host._miraiStrokeController === internalController) {
-    host._miraiStrokeController = null;
+
+    function onPointerDown(e) {
+      isDrawing = true;
+      const pos = getCanvasPos(e);
+      currentStroke = [pos];
+      renderDrawCanvasGrid();
+      if (e.cancelable && e.type.startsWith('touch')) e.preventDefault();
+    }
+
+    function onPointerMove(e) {
+      if (!isDrawing) return;
+      const pos = getCanvasPos(e);
+      currentStroke.push(pos);
+
+      ctx.save();
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.lineWidth = drawLineWidth;
+      ctx.strokeStyle = drawColor;
+      if (currentStroke.length >= 2) {
+        const p1 = currentStroke[currentStroke.length - 2];
+        const p2 = currentStroke[currentStroke.length - 1];
+        ctx.beginPath();
+        ctx.moveTo(p1.x, p1.y);
+        ctx.lineTo(p2.x, p2.y);
+        ctx.stroke();
+      }
+      ctx.restore();
+      if (e.cancelable && e.type.startsWith('touch')) e.preventDefault();
+    }
+
+    function onPointerUp() {
+      if (!isDrawing) return;
+      isDrawing = false;
+      if (currentStroke.length > 0) {
+        userStrokes.push(currentStroke);
+        currentStroke = [];
+        renderDrawCanvasGrid();
+
+        // Pemicu otomatis: Munculkan Kotak 3 & Putar Otomatis setelah jeda 650ms!
+        clearTimeout(autoCompareTimeout);
+        autoCompareTimeout = setTimeout(() => {
+          triggerCompareAutoPlay();
+        }, 650);
+      }
+    }
+
+    drawCanvas.addEventListener('mousedown', onPointerDown);
+    window.addEventListener('mousemove', onPointerMove);
+    window.addEventListener('mouseup', onPointerUp);
+
+    drawCanvas.addEventListener('touchstart', onPointerDown, { passive: false });
+    drawCanvas.addEventListener('touchmove', onPointerMove, { passive: false });
+    drawCanvas.addEventListener('touchend', onPointerUp);
+    drawCanvas.addEventListener('touchcancel', onPointerUp);
+
+    // Toolbar Kanvas
+    if (canvasClearBtn) {
+      canvasClearBtn.addEventListener('click', () => {
+        userStrokes = [];
+        currentStroke = [];
+        renderDrawCanvasGrid();
+        resetCompareView();
+      });
+    }
+
+    if (canvasUndoBtn) {
+      canvasUndoBtn.addEventListener('click', () => {
+        if (userStrokes.length > 0) {
+          userStrokes.pop();
+          renderDrawCanvasGrid();
+          if (userStrokes.length > 0) {
+            triggerCompareAutoPlay();
+          } else {
+            resetCompareView();
+          }
+        }
+      });
+    }
+
+    if (canvasGuideToggle && guideChar) {
+      canvasGuideToggle.addEventListener('click', () => {
+        const isHidden = guideChar.style.display === 'none';
+        guideChar.style.display = isHidden ? 'flex' : 'none';
+        canvasGuideToggle.classList.toggle('is-active', isHidden);
+        canvasGuideToggle.textContent = isHidden ? '👁️ Panduan: ON' : '👁️ Panduan: OFF';
+      });
+    }
+
+    if (canvasFinishBtn) {
+      canvasFinishBtn.addEventListener('click', () => {
+        triggerCompareAutoPlay();
+      });
     }
   }
 
-  // Hubungkan event listeners ke antarmuka kontrol
-  host.querySelector("[data-stroke-play]")?.addEventListener("click", togglePlay);
-  host.querySelector("[data-stroke-pause]")?.addEventListener("click", pause);
-  host.querySelector("[data-stroke-resume]")?.addEventListener("click", resume);
-  host.querySelector("[data-stroke-replay]")?.addEventListener("click", replay);
-  host.querySelector("[data-stroke-prev]")?.addEventListener("click", prevStep);
-  host.querySelector("[data-stroke-next]")?.addEventListener("click", nextStep);
-  host.querySelector("[data-stroke-clear]")?.addEventListener("click", clear);
+  // =========================================================================
+  // INISIALISASI KOTAK 3: HASIL & PUTAR OTOMATIS (AUTO-PLAY COMPARISON)
+  // =========================================================================
+  const comparePlaceholder = host.querySelector('#comparePlaceholder');
+  const compareActiveView = host.querySelector('#compareActiveView');
+  const userResultImg = host.querySelector('#userResultImg');
+  const compareOfficialStage = host.querySelector('#compareOfficialStage');
+  const compareFeedbackText = host.querySelector('#compareFeedbackText');
+  const compareBadge = host.querySelector('#compareBadge');
+  const compareReplayBtn = host.querySelector('#compareReplayBtn');
 
-  speed.addEventListener("change", () => {
-    if (animation && animation.playState === "running") {
-    try { animation.cancel(); } catch (e) {}
-    animation = null;
-    drawCurrentStroke();
-    }
-  });
+  let compareAnimationTimer = null;
 
-  // Interaksi klik tombol penomoran goresan (pills)
-  order.forEach((item, index) => {
-    item.style.cursor = "pointer";
-    item.addEventListener("click", () => {
-    if (animation) {
-    try { animation.cancel(); } catch (e) {}
-    animation = null;
+  function resetCompareView() {
+    if (comparePlaceholder) comparePlaceholder.hidden = false;
+    if (compareActiveView) compareActiveView.hidden = true;
+    if (compareBadge) {
+      compareBadge.textContent = 'Menunggu Goresan';
+      compareBadge.classList.remove('is-active');
     }
-    step = index;
-    playing = false;
-    paused = false;
-    cleared = false;
-    renderStaticState();
+    if (compareOfficialStage) compareOfficialStage.innerHTML = '';
+    clearTimeout(compareAnimationTimer);
+  }
+
+  function startOfficialCompareAnimation() {
+    if (!compareOfficialStage) return;
+    compareOfficialStage.innerHTML = '';
+
+    // Render clone SVG dari Kotak 1 untuk diputar otomatis di Kotak 3
+    characters.forEach((char, index) => {
+      const rec = records[index];
+      const paths = rec.paths;
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svg.setAttribute("viewBox", "0 0 109 109");
+      svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+      svg.style.width = '100%';
+      svg.style.height = '100%';
+      svg.style.display = 'block';
+
+      // Panduan
+      const gGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      paths.forEach(d => {
+        const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        p.setAttribute("d", d);
+        p.setAttribute("class", "stroke-guide-path");
+        p.setAttribute("fill", "none");
+        gGroup.appendChild(p);
+      });
+      svg.appendChild(gGroup);
+
+      // Active
+      const aGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      paths.forEach((d, pIdx) => {
+        const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        p.setAttribute("d", d);
+        p.setAttribute("class", "stroke-active-path");
+        p.setAttribute("data-cmp-stroke", `${index}-${pIdx}`);
+        p.setAttribute("fill", "none");
+        aGroup.appendChild(p);
+      });
+      svg.appendChild(aGroup);
+      compareOfficialStage.appendChild(svg);
+    });
+
+    const cmpLines = [...compareOfficialStage.querySelectorAll('path[data-cmp-stroke]')];
+    cmpLines.forEach(l => {
+      const len = l.getTotalLength ? l.getTotalLength() : 100;
+      l.style.strokeDasharray = `${len} ${len}`;
+      l.style.strokeDashoffset = `${len}`;
+      l.style.transition = 'none';
+    });
+
+    // Auto-play otomatis urutan goresan dari awal sampai selesai
+    let cmpStep = 0;
+    function playNextCmp() {
+      if (cmpStep >= cmpLines.length) return;
+      const l = cmpLines[cmpStep];
+      const len = l.getTotalLength ? l.getTotalLength() : 100;
+      l.getBoundingClientRect(); // reflow
+      l.style.transition = `stroke-dashoffset 420ms cubic-bezier(0.4, 0, 0.2, 1)`;
+      l.style.strokeDashoffset = '0';
+      cmpStep++;
+      compareAnimationTimer = setTimeout(playNextCmp, 480);
+    }
+    clearTimeout(compareAnimationTimer);
+    compareAnimationTimer = setTimeout(playNextCmp, 200);
+  }
+
+  function triggerCompareAutoPlay() {
+    if (userStrokes.length === 0 || !drawCanvas) return;
+    if (comparePlaceholder) comparePlaceholder.hidden = true;
+    if (compareActiveView) compareActiveView.hidden = false;
+
+    // Ambil gambar snapshot dari canvas user
+    if (userResultImg) {
+      userResultImg.src = drawCanvas.toDataURL('image/png');
+    }
+
+    if (compareBadge) {
+      compareBadge.textContent = `${userStrokes.length} Goresan Digambar`;
+      compareBadge.classList.add('is-active');
+    }
+
+    if (compareFeedbackText) {
+      const diff = userStrokes.length - totalStrokes;
+      if (diff === 0) {
+        compareFeedbackText.innerHTML = `Hebat! Jumlah goresanmu tepat <b>${totalStrokes} goresan</b>. Animasi otomatis berputar di samping!`;
+      } else if (diff > 0) {
+        compareFeedbackText.innerHTML = `Kamu membuat <b>${userStrokes.length} goresan</b> (acuan resmi: ${totalStrokes}). Perhatikan urutan animasinya!`;
+      } else {
+        compareFeedbackText.innerHTML = `Kamu membuat <b>${userStrokes.length} goresan</b> dari ${totalStrokes} goresan resmi. Coba lengkapi lagi!`;
+      }
+    }
+
+    // Putar animasi acuan secara OTOMATIS tanpa perlu klik tombol dulu!
+    startOfficialCompareAnimation();
+  }
+
+  if (compareReplayBtn) {
+    compareReplayBtn.addEventListener('click', () => {
+      startOfficialCompareAnimation();
+    });
+  }
+
+  // Mode Switcher Tabs (Semua Kotak / Kotak 1 / Kotak 2 / Kotak 3)
+  const modeBtns = host.querySelectorAll('.stroke-mode-btn');
+  const panelBoxes = host.querySelectorAll('.stroke-panel-card');
+  modeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      modeBtns.forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      const mode = btn.dataset.strokeMode;
+      panelBoxes.forEach(box => {
+        if (mode === 'all') {
+          box.hidden = false;
+        } else {
+          box.hidden = box.dataset.panelBox !== mode;
+        }
+      });
     });
   });
 
-  // Interaksi klik angka label di kanvas SVG
-  numberLabels.forEach((numLabel, index) => {
-    numLabel.style.cursor = "pointer";
-    numLabel.addEventListener("click", () => {
-    if (animation) {
-    try { animation.cancel(); } catch (e) {}
-    animation = null;
-    }
-    step = index;
-    playing = false;
-    paused = false;
-    cleared = false;
-    renderStaticState();
-    });
-  });
-
-  reset();
-
+  // Pasang internalController untuk kompatibilitas penuh dengan sistem
   internalController = {
-    destroy,
+    destroy: () => {
+      destroyed = true;
+      if (animation) animation.cancel();
+      clearTimeout(autoCompareTimeout);
+      clearTimeout(compareAnimationTimer);
+    },
     play,
     pause,
     resume,
@@ -761,7 +1197,7 @@ function setupPlayerWithRecords(records) {
     prev: prevStep,
     next: nextStep,
     reset,
-    clear,
+    clear: clearView,
     isAvailable: true,
     getStep: () => step,
     getTotalSteps: () => lines.length,
@@ -790,7 +1226,7 @@ if (allImmediate) {
             <p class="stroke-source" style="margin: 8px 0; text-align: center;">Memuat data goresan KanjiVG...</p>
         `;
 
-  Promise.all(characters.map((c) => window.getStrokeDataAsync(c))).then((records) => {
+  Promise.all(characters.map((c) => window.getStrokeDataAsync(c, options.jlpt || options.level))).then((records) => {
     if (!destroyed && host._miraiStrokeGen === currentGen) {
     setupPlayerWithRecords(records);
     }

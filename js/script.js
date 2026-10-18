@@ -11,11 +11,7 @@ if (app) {
 }
 }
 
-if (document.readyState === "loading") {
-document.addEventListener("DOMContentLoaded", bootKanaApp);
-} else {
-bootKanaApp();
-}
+// Boot Kana Quest dipanggil di akhir berkas setelah seluruh konstanta selesai dimuat
 
 const rows = [
 [1, "あいうえお", ["a", "i", "u", "e", "o"]],
@@ -1014,9 +1010,10 @@ function initKanaQuest() {
 const yoonStartLevel = rows.length + voiced.length + 1;
 const totalLevels = rows.length + voiced.length + combos.length;
 const allLevelIds = Array.from({ length: totalLevels }, (_, index) => index + 1);
+const progressObj = window.MiraiProgress ? window.MiraiProgress.getProgress() : null;
 const saved = {
-  xp: 0,
-  streak: 1,
+  xp: progressObj?.xp || 0,
+  streak: progressObj?.streak || 1,
   review: [],
   hiragana: { unlocked: totalLevels, completed: [], best: {} },
   katakana: { unlocked: totalLevels, completed: [], best: {} }
@@ -1032,7 +1029,15 @@ document.querySelectorAll(".script-tabs [data-script]").forEach((button) => {
   button.classList.toggle("is-active", button.dataset.script === script);
 });
 
-const save = () => {};
+const save = () => {
+  if (window.MiraiProgress) {
+    const p = window.MiraiProgress.getProgress();
+    p.xp = saved.xp;
+    p.streak = saved.streak;
+    window.MiraiProgress.save(p);
+    window.MiraiProgress.updateAllUI();
+  }
+};
 const allLevels = [
   ...rows.map(([id, chars, readings]) => ({ id, chars, label: readings.join(" ") })),
   ...voiced.map(([chars, readings], index) => ({
@@ -3737,6 +3742,20 @@ function finishPractice() {
     }
   }
 
+  const totalQuestions = currentSession?.questions?.length || (correct + wrong.length);
+  const bonusXp = accuracy === 100 ? 50 : accuracy >= 80 ? 25 : 0;
+  const earnedXp = (correct * 10) + bonusXp;
+  saved.xp = (saved.xp || 0) + earnedXp;
+
+  if (window.MiraiProgress) {
+    window.MiraiProgress.recordActivity(totalQuestions, earnedXp);
+    if (currentSession?.modeKey) {
+      window.MiraiProgress.recordQuizBest(currentSession.modeKey, accuracy);
+    }
+    const currentProgress = window.MiraiProgress.getProgress();
+    saved.streak = currentProgress.streak;
+  }
+
   save();
   $("[data-practice-view]").hidden = true;
   const resultView = $("[data-result-view]");
@@ -3747,7 +3766,10 @@ function finishPractice() {
   document.body.classList.add("is-practicing");
 
   const xpEl = $("[data-result-xp]");
-  if (xpEl) xpEl.style.display = "none";
+  if (xpEl) {
+    xpEl.style.display = "block";
+    xpEl.textContent = `+${earnedXp} XP`;
+  }
 
   const accEl = $("[data-result-accuracy]");
   if (accEl) {
@@ -4129,3 +4151,9 @@ const cleanLabels = () => {
 cleanLabels();
 new MutationObserver(cleanLabels).observe(grid, { childList: true });
 });
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", bootKanaApp);
+} else {
+  bootKanaApp();
+}

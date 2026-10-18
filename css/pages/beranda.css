@@ -232,7 +232,7 @@ Wagara Patterns pada Seluruh Tombol Besar (Tanpa Kotak Informatif Tentang)
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.045 !important;
+  opacity: 0.015 !important;
   mix-blend-mode: multiply;
   pointer-events: none;
   z-index: 1;
@@ -240,7 +240,7 @@ Wagara Patterns pada Seluruh Tombol Besar (Tanpa Kotak Informatif Tentang)
 }
 
 .start-card:hover::after, .curriculum-cards a:hover::after {
-  opacity: 0.07 !important;
+  opacity: 0.03 !important;
   transform: scale(1.02);
 }
 /* Dukungan Dark Mode / Section Genap untuk Tombol Besar Halaman Putih Beranda */
@@ -410,7 +410,7 @@ body:not(.dark-mode):not(.theme-dark) main > section:nth-of-type(odd):not(.home-
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.045 !important;
+  opacity: 0.015 !important;
   mix-blend-mode: multiply;
 }
 /* Nomor & Arrow Lingkaran Kartu Beranda */
@@ -1309,12 +1309,12 @@ section.feedback-preview.feedback-theme-white, body.page-beranda section.feedbac
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.045 !important;
+  opacity: 0.015 !important;
   mix-blend-mode: multiply !important;
 }
 
 .feedback-theme-white .feedback-feature-card:hover::after, body.page-beranda .feedback-feature-card:hover::after {
-  opacity: 0.07 !important;
+  opacity: 0.03 !important;
 }
 
 .feedback-theme-white .feedback-feature-badge, .feedback-theme-white .feedback-feature-tag, body.page-beranda .feedback-feature-badge, body.page-beranda .feedback-feature-tag {
@@ -2010,4 +2010,33 @@ body.theme-dark .card-collapsible-content > .card-collapsible-inner p, body.them
 
 .start-card h3, .activity-start-card h3 {
   margin-top: 0 !important;
+}
+/* Pattern Kumo Gelap untuk Slider Kutipan Beranda */
+.page-beranda .section-quote-slider.quote-theme-dark .quote-card::after,
+.page-beranda .quote-card::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background-image: url("../../images/mirai/background/c1b.jpeg") !important;
+  background-size: 200px auto !important;
+  background-repeat: repeat !important;
+  background-position: center top !important;
+  opacity: 0.045 !important;
+  mix-blend-mode: screen !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+  border-radius: inherit !important;
+  display: block !important;
+  transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+
+.page-beranda .section-quote-slider.quote-theme-dark .quote-card:hover::after,
+.page-beranda .quote-card:hover::after {
+  opacity: 0.07 !important;
+  transform: scale(1.02) !important;
+}
+
+.page-beranda .quote-card > * {
+  position: relative !important;
+  z-index: 2 !important;
 }

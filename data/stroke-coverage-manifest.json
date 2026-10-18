@@ -1,6 +1,6 @@
 {
   "generator": "skrip/arsip/validate_stroke_data.py",
-  "generated_at": "2026-10-15T12:51:20.744585+00:00",
+  "generated_at": "2026-10-18T06:51:48.668926+00:00",
   "source_dataset": "KanjiVG (Ulrich Apel & contributors, CC BY-SA 3.0)",
   "summary": {
     "total_app_characters_required": 2374,
@@ -9,7 +9,7 @@
     "dataset_total_entries": 2375,
     "dataset_valid_entries": 2375,
     "dataset_invalid_entries": 0,
-    "metadata_discrepancies": 1,
+    "metadata_discrepancies": 0,
     "coverage_rate_percent": 100.0,
     "missing_characters_count": 0,
     "failed_characters_count": 0
@@ -129,19 +129,11 @@
       "category": "kanji",
       "status": "PASSED",
       "strokes": 9,
-      "expected_strokes": 10,
-      "discrepancy": true
+      "expected_strokes": 9,
+      "discrepancy": false
     }
   ],
-  "metadata_discrepancies_detail": [
-    {
-      "char": "衷",
-      "hex": "08877",
-      "category": "kanji",
-      "kanjivg_strokes": 9,
-      "metadata_strokes": 10
-    }
-  ],
+  "metadata_discrepancies_detail": [],
   "missing_characters": [],
   "failed_characters": []
 }

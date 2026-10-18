@@ -50,6 +50,7 @@ def parse_svg_path_commands(d_str):
 def load_stroke_data(filepath):
     """
     Membaca dan mem-parsing berkas JavaScript window.MIRAI_STROKE_DATA = { ... };
+    serta menggabungkan chunk goresan kanji dari data/strokes/*.json jika tersedia.
     """
     if not os.path.isfile(filepath):
         raise FileNotFoundError(f"Berkas tidak ditemukan: {filepath}")
@@ -69,6 +70,19 @@ def load_stroke_data(filepath):
         data = json.loads(match.group(1))
     except json.JSONDecodeError as err:
         raise ValueError(f"Gagal mem-parsing JSON dari {filepath}: {err}")
+
+    # Jika data/strokes/ tersedia, gabungkan seluruh chunk kanji untuk validasi penuh
+    strokes_dir = os.path.join(os.path.dirname(filepath), "..", "data", "strokes")
+    if os.path.isdir(strokes_dir):
+        for lvl in ["n5.json", "n4.json", "n3.json", "n2.json", "n1.json"]:
+            cp = os.path.join(strokes_dir, lvl)
+            if os.path.isfile(cp):
+                try:
+                    with open(cp, 'r', encoding='utf-8') as f:
+                        cdata = json.load(f)
+                        data.update(cdata)
+                except Exception:
+                    pass
 
     return data
 
@@ -233,14 +247,18 @@ def validate_dataset(data, kana_map, kanji_map, verbose=False):
         char_status['expected_strokes'] = expected_strokes
         if expected_strokes is not None and char_status['stroke_count'] != expected_strokes:
             char_status['discrepancy'] = True
+            char_status['valid'] = False
+            err_msg = f"Selisih jumlah goresan: kanji.json ({expected_strokes}) != path KanjiVG ({char_status['stroke_count']}). Kemungkinan salah di kanji.json."
+            char_status['errors'].append(err_msg)
             results['metadata_discrepancies'] += 1
+            results['errors'].append(f"{char}: {err_msg}")
             disc_entry = {
                 'char': char,
                 'hex': char_status['hex'],
                 'category': char_status['category'],
                 'kanjivg_strokes': char_status['stroke_count'],
                 'metadata_strokes': expected_strokes,
-                'note': "Discrepancy antara KanjiVG terverifikasi dan metadata lokal. Metadata tidak diubah."
+                'note': "Discrepancy antara KanjiVG dan kanji.json. Dilaporkan sebagai kemungkinan salah di kanji.json."
             }
             results['discrepancies'].append(disc_entry)
 
@@ -348,10 +366,38 @@ def generate_coverage_manifest(data, results, kana_map, kanji_map, output_manife
 
     return manifest
 
+def validate_overrides_integrity(data, overrides_path="data/stroke-overrides.json"):
+    """
+    Memastikan seluruh override yang didefinisikan di data/stroke-overrides.json
+    terdaftar, memiliki struktur valid, dan tidak hilang/ditimpa dari hasil akhir.
+    """
+    if not os.path.isfile(overrides_path):
+        return True, 0, []
+
+    with open(overrides_path, "r", encoding="utf-8") as f:
+        overrides = json.load(f)
+
+    errors = []
+    for char, ov in overrides.items():
+        if "paths" in ov and isinstance(ov["paths"], list) and len(ov["paths"]) > 0:
+            if char not in data:
+                errors.append(f"Karakter override '{char}' tidak ditemukan di dataset stroke-data!")
+            elif data[char].get("paths") != ov["paths"]:
+                errors.append(f"Karakter override '{char}' ditimpa dan berbeda dari data/stroke-overrides.json!")
+        if "numbers" in ov and isinstance(ov["numbers"], list):
+            for n_idx, num in enumerate(ov["numbers"]):
+                if not isinstance(num, dict) or "x" not in num or "y" not in num:
+                    errors.append(f"Nomor #{n_idx+1} pada override '{char}' tidak valid!")
+
+    if errors:
+        return False, len(overrides), errors
+    return True, len(overrides), []
+
 def main():
     parser = argparse.ArgumentParser(description="Validator data goresan KanjiVG MIRAI NO WEBU.")
     parser.add_argument('--file', default='js/stroke-data.js', help='Path ke berkas stroke-data.js (default: js/stroke-data.js)')
     parser.add_argument('--manifest', default='data/stroke-coverage-manifest.json', help='Path output manifest cakupan (default: data/stroke-coverage-manifest.json)')
+    parser.add_argument('--overrides', default='data/stroke-overrides.json', help='Path berkas stroke-overrides.json (default: data/stroke-overrides.json)')
     parser.add_argument('--verbose', action='store_true', help='Tampilkan detail error dan discrepancy')
     parser.add_argument('--allow-partial', action='store_true', help='Jangan gagalkan exit code jika ada karakter yang hilang dari dataset (hanya periksa integritas karakter yang ada)')
     args = parser.parse_args()
@@ -376,11 +422,21 @@ def main():
     # 3. Jalankan validasi
     results = validate_dataset(data, kana_map, kanji_map, verbose=args.verbose)
 
-    # 4. Buat manifest cakupan
+    # 4. Validasi integritas lapisan override
+    ov_ok, ov_count, ov_errors = validate_overrides_integrity(data, args.overrides)
+    if not ov_ok:
+        print(f"\n❌ VALIDASI LAPISAN OVERRIDE GAGAL ({len(ov_errors)} kesalahan):")
+        for err in ov_errors[:10]:
+            print(f"  - {err}")
+        results['invalid_entries'] += len(ov_errors)
+    else:
+        print(f"✔ Lapisan override diverifikasi: {ov_count} entri override aman dan tidak tertimpa.")
+
+    # 5. Buat manifest cakupan
     manifest = generate_coverage_manifest(data, results, kana_map, kanji_map, args.manifest)
     print(f"✔ Manifest cakupan data ditulis ke: {args.manifest}")
 
-    # 5. Cetak ringkasan hasil
+    # 6. Cetak ringkasan hasil
     summary = manifest['summary']
     print(f"\n---------------- HASIL VALIDASI ----------------")
     print(f"Total Karakter di Dataset : {summary['dataset_total_entries']}")
@@ -406,7 +462,7 @@ def main():
             print(f"  ... dan {len(results['discrepancies']) - 5} lainnya (lihat manifest)")
 
     if results['errors']:
-        print(f"\n❌ DITEMUKAN {len(results['errors'])} ERROR STRUKTUR/KOORDINAT:")
+        print(f"\n❌ DITEMUKAN {len(results['errors'])} ERROR STRUKTUR/KOORDINAT/DISCREPANCY:")
         for err in results['errors'][:10]:
             print(f"  - {err}")
         if len(results['errors']) > 10:
@@ -420,7 +476,6 @@ def main():
     if not args.allow_partial and summary['missing_characters_count'] > 0:
         print(f"\n⚠ CATATAN: Dataset saat ini hanya mencakup sebagian ({summary['coverage_rate_percent']}%).")
         print(f"  {summary['missing_characters_count']} karakter aplikasi belum ada di {args.file}.")
-        # Jika file yang divalidasi adalah file parsial saat ini, beri tahu tapi biarkan opsi jika dijalankan dengan flag
         print(f"✔ Seluruh {summary['dataset_valid_entries']} karakter yang ada di berkas 100% VALID.")
 
     print(f"\n✔ VALIDASI SELESAI DENGAN SUKSES!")

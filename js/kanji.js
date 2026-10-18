@@ -20,120 +20,73 @@
 */
 window.KANJI_FULL_DATA = window.KANJI_FULL_DATA || [];
 
-const KanjiAPI = {
-baseUrl: "https://kanjiapi.dev/v1",
+const kanjiDetailChunks = {};
+const kanjiChunkPromises = {};
 
 /**
-   * Mengambil daftar karakter kanji berdasarkan level JLPT (5 sampai 1)
-   * @param {number} levelNum - Angka level JLPT (5 = Dasar, 1 = Lanjutan)
-   * @returns {Promise<Array<string>>} - Array karakter kanji (contoh: ["日", "一", ...])
-*/
-async getJlptList(levelNum) {
-  const cacheKey = `mnh_kapi_jlpt_${levelNum}`;
-  try {
-    const cached = localStorage.getItem(cacheKey);
-    if (cached) {
-    const parsed = JSON.parse(cached);
-    if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-    }
-  } catch (e) {
-    // Abaikan kesalahan pembacaan localStorage
-  }
+ * Memuat detail kanji lokal data/kanji/<jlpt>.json secara on-demand.
+ * Menghilangkan pemanggilan jaringan ke kanjiapi.dev dan MyMemory.
+ */
+async function loadKanjiChunk(jlptLevel) {
+  if (!jlptLevel) return {};
+  const rawLvl = String(jlptLevel).toLowerCase().trim();
+  const lvl = rawLvl.startsWith("n") ? rawLvl : ("n" + rawLvl);
+  if (kanjiDetailChunks[lvl]) return kanjiDetailChunks[lvl];
+  if (kanjiChunkPromises[lvl]) return kanjiChunkPromises[lvl];
 
-  try {
-    const res = await fetch(`${this.baseUrl}/kanji/jlpt-${levelNum}`);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-    if (Array.isArray(data)) {
+  kanjiChunkPromises[lvl] = (async () => {
+    const base = getAppBasePath();
     try {
-    localStorage.setItem(cacheKey, JSON.stringify(data));
-    } catch (e) {}
-    return data;
+      const res = await fetch(base + "data/kanji/" + lvl + ".json");
+      if (res.ok) {
+        const data = await res.json();
+        kanjiDetailChunks[lvl] = data;
+        return data;
+      }
+    } catch (e) {
+      console.warn("[kanji.js] Gagal memuat data/kanji/" + lvl + ".json:", e);
     }
-  } catch (err) {
-    console.warn(`Gagal memuat list JLPT N${levelNum} dari KanjiAPI:`, err);
-  }
-  return [];
-},
+    return {};
+  })();
 
-/**
-   * Mengambil detail lengkap kanji (arti, bacaan on/kun, stroke count, grade)
-   * @param {string} kanji - Satu karakter kanji
-   * @returns {Promise<Object|null>} - Objek detail kanji
-*/
-async getKanjiDetail(kanji) {
-  const cacheKey = `mnh_kapi_detail_${kanji}`;
-  try {
-    const cached = localStorage.getItem(cacheKey);
-    if (cached) return JSON.parse(cached);
-  } catch (e) {}
-
-  try {
-    const res = await fetch(`${this.baseUrl}/kanji/${encodeURIComponent(kanji)}`);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-    try {
-    localStorage.setItem(cacheKey, JSON.stringify(data));
-    } catch (e) {}
-    return data;
-  } catch (err) {
-    console.warn(`Gagal memuat detail kanji ${kanji} dari KanjiAPI:`, err);
-    return null;
-  }
-},
-
-/**
-   * Mengambil daftar kosakata contoh yang menggunakan kanji tertentu
-   * @param {string} kanji - Satu karakter kanji
-   * @returns {Promise<Array<Object>>} - Daftar objek kata dengan atribut word, reading, meaning
-*/
-async getKanjiWords(kanji) {
-  const cacheKey = `mnh_kapi_words_${kanji}`;
-  try {
-    const cached = localStorage.getItem(cacheKey);
-    if (cached) {
-    const parsed = JSON.parse(cached);
-    if (Array.isArray(parsed)) {
-    return parsed.map((w) => ({
-      ...w,
-      rawMeaning: w.rawMeaning || w.meaning,
-      _translated: Boolean(w._translated)
-    }));
-    }
-    }
-  } catch (e) {}
-
-  try {
-    const res = await fetch(`${this.baseUrl}/words/${encodeURIComponent(kanji)}`);
-    if (!res.ok) return [];
-    const raw = await res.json();
-    const words = [];
-    for (const item of raw) {
-    const variant = item.variants?.[0];
-    const glosses = item.meanings?.[0]?.glosses;
-    if (variant && glosses?.length) {
-    const rawMeaning = glosses.slice(0, 2).join(", ");
-    // Terjemahkan langsung jika tersedia di kamus sinkron lokal
-    const directTrans = window.MiraiTranslator?.translateSync ? window.MiraiTranslator.translateSync(rawMeaning) : "";
-    const isTrans = Boolean(directTrans && directTrans.toLowerCase() !== rawMeaning.toLowerCase());
-    words.push({
-      word: variant.written || variant.pronounced,
-      reading: variant.pronounced,
-      rawMeaning: rawMeaning,
-      meaning: isTrans ? directTrans : rawMeaning,
-      _translated: isTrans
-    });
-    if (words.length >= 4) break;
-    }
-    }
-    try {
-    localStorage.setItem(cacheKey, JSON.stringify(words));
-    } catch (e) {}
-    return words;
-  } catch (err) {
-    return [];
-  }
+  return kanjiChunkPromises[lvl];
 }
+window.loadKanjiChunk = loadKanjiChunk;
+
+async function getKanjiDetailFromChunk(char, jlptLevel) {
+  if (!char) return null;
+  const lvl = String(jlptLevel || window.getKanjiJlpt?.(char) || "n5").toLowerCase().trim();
+  const normalizedLvl = lvl.startsWith("n") ? lvl : ("n" + lvl);
+  let chunk = kanjiDetailChunks[normalizedLvl];
+  if (!chunk) {
+    chunk = await loadKanjiChunk(normalizedLvl);
+  }
+  if (chunk && chunk[char]) return chunk[char];
+
+  // Fallback probe other loaded chunks
+  for (const l of ['n5', 'n4', 'n3', 'n2', 'n1']) {
+    if (kanjiDetailChunks[l] && kanjiDetailChunks[l][char]) {
+      return kanjiDetailChunks[l][char];
+    }
+  }
+  return null;
+}
+window.getKanjiDetailFromChunk = getKanjiDetailFromChunk;
+
+const KanjiAPI = {
+  baseUrl: "local",
+  async getJlptList(levelNum) {
+    const lvl = `n${levelNum}`;
+    const chunk = await loadKanjiChunk(lvl);
+    return Object.keys(chunk || {});
+  },
+  async getKanjiDetail(kanji) {
+    return getKanjiDetailFromChunk(kanji);
+  },
+  async getKanjiWords(kanji) {
+    const det = await getKanjiDetailFromChunk(kanji);
+    return det?.words || det?.examples || [];
+  }
 };
 window.KanjiAPI = KanjiAPI;
 
@@ -283,6 +236,84 @@ return result;
 window.kanaToRomaji = kanaToRomaji;
 
 /**
+ * Peta suku kata Romaji standar Hepburn ke aksara Hiragana & Katakana
+*/
+const ROMAJI_HEPBURN_MAP = {
+  "kya": ["きゃ", "キャ"], "kyu": ["きゅ", "キュ"], "kyo": ["きょ", "キョ"],
+  "sha": ["しゃ", "シャ"], "shu": ["しゅ", "シュ"], "sho": ["しょ", "ショ"],
+  "cha": ["ちゃ", "チャ"], "chu": ["ちゅ", "チュ"], "cho": ["ちょ", "チョ"],
+  "nya": ["にゃ", "ニャ"], "nyu": ["にゅ", "ニュ"], "nyo": ["にょ", "ニョ"],
+  "hya": ["ひゃ", "ヒャ"], "hyu": ["ひゅ", "ヒュ"], "hyo": ["ひょ", "ヒョ"],
+  "mya": ["みゃ", "ミャ"], "myu": ["みゅ", "ミュ"], "myo": ["みょ", "ミョ"],
+  "rya": ["りゃ", "リャ"], "ryu": ["りゅ", "リュ"], "ryo": ["りょ", "リョ"],
+  "gya": ["ぎゃ", "ギャ"], "gyu": ["ぎゅ", "ギュ"], "gyo": ["ぎょ", "ギョ"],
+  "ja": ["じゃ", "ジャ"], "ju": ["じゅ", "ジュ"], "jo": ["じょ", "ジョ"],
+  "bya": ["びゃ", "ビャ"], "byu": ["びゅ", "ビュ"], "byo": ["びょ", "ビョ"],
+  "pya": ["ぴゃ", "ピャ"], "pyu": ["ぴゅ", "ピュ"], "pyo": ["ぴょ", "ピョ"],
+  "ka": ["か", "カ"], "ki": ["き", "キ"], "ku": ["く", "ク"], "ke": ["け", "ケ"], "ko": ["こ", "コ"],
+  "sa": ["さ", "サ"], "shi": ["し", "シ"], "su": ["す", "ス"], "se": ["せ", "セ"], "so": ["そ", "ソ"],
+  "ta": ["た", "タ"], "chi": ["ち", "チ"], "tsu": ["つ", "ツ"], "te": ["て", "テ"], "to": ["と", "ト"],
+  "na": ["な", "ナ"], "ni": ["に", "ニ"], "nu": ["ぬ", "ヌ"], "ne": ["ね", "ネ"], "no": ["の", "ノ"],
+  "ha": ["は", "ハ"], "hi": ["ひ", "ヒ"], "fu": ["ふ", "フ"], "he": ["へ", "ヘ"], "ho": ["ほ", "ホ"],
+  "ma": ["ま", "マ"], "mi": ["み", "ミ"], "mu": ["む", "ム"], "me": ["め", "メ"], "mo": ["mo", "モ"],
+  "ya": ["や", "ヤ"], "yu": ["ゆ", "ユ"], "yo": ["よ", "ヨ"],
+  "ra": ["ら", "ラ"], "ri": ["り", "リ"], "ru": ["る", "ル"], "re": ["れ", "レ"], "ro": ["ろ", "ロ"],
+  "wa": ["わ", "ワ"], "wo": ["を", "ヲ"], "n": ["ん", "ン"],
+  "ga": ["が", "ガ"], "gi": ["ぎ", "ギ"], "gu": ["ぐ", "グ"], "ge": ["ge", "ゲ"], "go": ["ご", "ゴ"],
+  "za": ["ざ", "ザ"], "ji": ["じ", "ジ"], "zu": ["ず", "ズ"], "ze": ["ぜ", "ゼ"], "zo": ["zo", "ゾ"],
+  "da": ["だ", "ダ"], "de": ["で", "デ"], "do": ["ど", "ド"],
+  "ba": ["ば", "バ"], "bi": ["び", "ビ"], "bu": ["bu", "ブ"], "be": ["be", "ベ"], "bo": ["bo", "ボ"],
+  "pa": ["pa", "パ"], "pi": ["pi", "ピ"], "pu": ["pu", "プ"], "pe": ["pe", "ペ"], "po": ["po", "ポ"],
+  "a": ["あ", "ア"], "i": ["い", "イ"], "u": ["う", "ウ"], "e": ["え", "エ"], "o": ["お", "オ"]
+};
+
+/**
+ * Mengonversi teks romaji alfabet menjadi aksara Hiragana dan Katakana
+ * @param {string} text - Teks romaji masukan
+ * @returns {{ hiragana: string, katakana: string }}
+*/
+function romajiToKana(text) {
+  if (!text || typeof text !== "string") return { hiragana: "", katakana: "" };
+  if (window.wanakana && typeof window.wanakana.toHiragana === "function") {
+    return {
+      hiragana: window.wanakana.toHiragana(text),
+      katakana: window.wanakana.toKatakana(text)
+    };
+  }
+  const t = text.toLowerCase().trim();
+  let hira = "";
+  let kata = "";
+  let i = 0;
+  const n = t.length;
+  while (i < n) {
+    if (i + 1 < n && t[i] === t[i + 1] && !"aeioun-".includes(t[i])) {
+      hira += "っ";
+      kata += "ッ";
+      i++;
+      continue;
+    }
+    let matched = false;
+    for (const len of [3, 2, 1]) {
+      if (i + len <= n) {
+        const chunk = t.substr(i, len);
+        if (ROMAJI_HEPBURN_MAP[chunk]) {
+          hira += ROMAJI_HEPBURN_MAP[chunk][0];
+          kata += ROMAJI_HEPBURN_MAP[chunk][1];
+          i += len;
+          matched = true;
+          break;
+        }
+      }
+    }
+    if (!matched) {
+      return { hiragana: "", katakana: "" };
+    }
+  }
+  return { hiragana: hira, katakana: kata };
+}
+window.romajiToKana = romajiToKana;
+
+/**
  * Memformat array bacaan kana (Onyomi / Kunyomi) menjadi format: Kana (romaji)
  * Contoh: "ハン (han) / なか.ば (naka.ba)"
  *
@@ -327,69 +358,26 @@ return `<li><b>${word}</b> <span>${readingText}</span> — ${meaning} <button ty
 }
 window.formatWordItem = formatWordItem;
 
-/**
- * Menerjemahkan teks bahasa Inggris ke bahasa Indonesia menggunakan:
- * 1. Cache lokal (localStorage)
- * 2. Kamus kamus statis offline (MiraiTranslator)
- * 3. Layanan gratis MyMemory API (lazy fetch saat kanji diklik)
- *
- * @param {string} text - Teks bahasa Inggris yang akan diterjemahkan
- * @returns {Promise<string>} - Hasil terjemahan dalam bahasa Indonesia
-*/
 async function translateToIndonesian(text) {
-if (!text || typeof text !== "string") return "";
-const raw = text.trim();
-if (!raw) return "";
+  if (!text || typeof text !== "string") return "";
+  const raw = text.trim();
+  if (!raw) return "";
 
-const cacheKey = `mnh_trans_${raw.toLowerCase()}`;
-try {
-  const cached = localStorage.getItem(cacheKey);
-  if (cached) return cached;
-} catch (e) {}
-
-// 1. Cek kamus offline jika kata tunggal tersedia
-if (window.MiraiTranslator?.dictionary) {
-  const direct = window.MiraiTranslator.dictionary[raw.toLowerCase()];
-  if (direct) {
-    try { localStorage.setItem(cacheKey, direct); } catch (e) {}
-    return direct;
+  // 1. Cek kamus offline jika kata tunggal tersedia
+  if (window.MiraiTranslator?.dictionary) {
+    const direct = window.MiraiTranslator.dictionary[raw.toLowerCase()];
+    if (direct) return direct;
   }
-}
 
-// 2. Fetch MyMemory API agar seluruh teks diterjemahkan ke Bahasa Indonesia
-try {
-  const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(raw)}&langpair=en|id`);
-  if (res.ok) {
-    const data = await res.json();
-    const trans = data?.responseData?.translatedText;
-    if (trans && typeof trans === "string" && trans.toLowerCase() !== raw.toLowerCase()) {
-    const cleaned = trans
-    .replace(/&#39;/g, "'")
-    .replace(/&quot;/g, '"')
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .trim()
-    .toLowerCase();
-    try {
-    localStorage.setItem(cacheKey, cleaned);
-    } catch (e) {}
-    return cleaned;
+  // 2. Fallback kamus sinkron lokal
+  if (window.MiraiTranslator?.translateSync) {
+    const fallback = window.MiraiTranslator.translateSync(raw);
+    if (fallback && fallback.toLowerCase() !== raw.toLowerCase()) {
+      return fallback;
     }
   }
-} catch (err) {
-  console.warn("Penerjemahan MyMemory fallback gagal:", err);
-}
 
-// 3. Fallback kamus sinkron
-if (window.MiraiTranslator?.translateSync) {
-  const fallback = window.MiraiTranslator.translateSync(raw);
-  if (fallback && fallback.toLowerCase() !== raw.toLowerCase()) {
-    return fallback;
-  }
-}
-
-return raw;
+  return raw;
 }
 window.translateToIndonesian = translateToIndonesian;
 
@@ -443,15 +431,18 @@ let player;
 let currentRenderLimit = 60;
 let selectedKanjiChar = null;
 
-// Muat data instan langsung dari window.KANJI_FULL_DATA (cadangan instan offline & file:// protocol)
+// Sediakan window.getKanjiJlpt untuk mesin goresan
+window.getKanjiJlpt = (char) => entryMap.get(char)?.jlpt || 'N5';
+
+// Muat data instan langsung jika window.KANJI_FULL_DATA sudah ada di memori
 if (Array.isArray(window.KANJI_FULL_DATA) && window.KANJI_FULL_DATA.length > 0) {
   window.KANJI_FULL_DATA.forEach((item) => {
     entryMap.set(item.kanji, {
-    ...item,
-    words: item.words || item.examples || [],
-    examples: item.examples || item.words || [],
-    _needsDetail: false,
-    _translated: true
+      ...item,
+      words: item.words || item.examples || [],
+      examples: item.examples || item.words || [],
+      _needsDetail: false,
+      _translated: true
     });
   });
   entries = Array.from(entryMap.values());
@@ -480,155 +471,65 @@ if (!dictionary.querySelector("[data-random-kanji]")) {
 }
 
 /**
-   * Memetakan angka level JLPT ke sebutan tingkat belajar Bahasa Indonesia
-*/
-function getLevelName(jlptNum) {
-  if (jlptNum === 5) return "Dasar";
-  if (jlptNum === 4 || jlptNum === 3) return "Menengah";
-  return "Lanjutan";
-}
-
-/**
-   * Mengambil dan mendaftarkan karakter kanji untuk level JLPT tertentu.
-   * Menggunakan metadata goresan dan grade dari data/kanji-meta.json secara langsung.
-   *
-   * @param {number} levelNum - Level JLPT (1 s/d 5)
-*/
-async function loadJlptList(levelNum) {
-  const [charList, meta] = await Promise.all([
-    KanjiAPI.getJlptList(levelNum),
-    ensureKanjiMeta()
-  ]);
-  const levelName = getLevelName(levelNum);
-  let addedNew = false;
-
-  charList.forEach((char) => {
-    if (!entryMap.has(char)) {
-    // Cek cache detail di localStorage
-    let cachedDetail = null;
-    try {
-    const raw = localStorage.getItem(`mnh_kapi_detail_${char}`);
-    if (raw) cachedDetail = JSON.parse(raw);
-    } catch (e) {}
-
-    const metaInfo = meta[char] || [];
-    const strokeCount = (cachedDetail && cachedDetail.stroke_count) || metaInfo[0] || 0;
-    const gradeVal = (cachedDetail && cachedDetail.grade !== undefined) ? cachedDetail.grade : (metaInfo[1] !== undefined ? metaInfo[1] : 99);
-
-    if (cachedDetail) {
-    const rawEng = cachedDetail.meanings?.slice(0, 3).join(", ") || "";
-    let cachedIndo = "";
-    try {
-      cachedIndo = localStorage.getItem(`mnh_trans_${rawEng.toLowerCase()}`);
-    } catch (e) {}
-    const isTranslated = Boolean(cachedIndo && cachedIndo.toLowerCase() !== rawEng.toLowerCase());
-    entryMap.set(char, {
-      kanji: char,
-      meaning: isTranslated ? cachedIndo : "Karakter kanji",
-      meaningEn: rawEng,
-      onyomi: cachedDetail.on_readings || [],
-      kunyomi: cachedDetail.kun_readings || [],
-      jlpt: `N${levelNum}`,
-      level: levelName,
-      strokes: strokeCount,
-      grade: gradeVal,
-      words: [],
-      sentence: { japanese: char, reading: "", meaning: "" },
-      _needsDetail: false,
-      _translated: isTranslated
-    });
-    } else {
-    entryMap.set(char, {
-      kanji: char,
-      meaning: "Karakter kanji",
-      meaningEn: "",
-      onyomi: [],
-      kunyomi: [],
-      jlpt: `N${levelNum}`,
-      level: levelName,
-      strokes: strokeCount,
-      grade: gradeVal,
-      words: [],
-      sentence: { japanese: char, reading: "", meaning: "" },
-      _needsDetail: true,
-      _translated: false
-    });
-    }
-    addedNew = true;
-    }
-  });
-
-  if (addedNew) {
-    entries = Array.from(entryMap.values());
+ * Memuat indeks ramping kanji (data/kanji-index.json) secara lokal (~316 KB).
+ * Memuat 2.211 Joyo & JLPT kanji tanpa panggilan jaringan eksternal.
+ */
+async function loadKanjiData() {
+  if (entryMap.size > 0 && entries.length > 0) {
     render();
-  }
-}
-
-/**
-   * Memuat data kanji dari N5 ke N1 secara berurutan,
-   * serta menyediakan cadangan offline dari data/kanji.json jika jaringan bermasalah.
-*/
-    async function trySyncCanonicalJson() {
-  try {
-    const res = await fetch(getAppBasePath() + "data/kanji.json");
-    if (res.ok) {
-    const canonicalData = await res.json();
-    if (Array.isArray(canonicalData) && canonicalData.length > 0) {
-    canonicalData.forEach((item) => {
-      entryMap.set(item.kanji, {
-        ...item,
-        words: item.words || item.examples || [],
-        examples: item.examples || item.words || [],
-        _needsDetail: false,
-        _translated: true
-      });
-    });
-    entries = Array.from(entryMap.values());
-    render();
-    }
-    }
-  } catch (e) {
-    // Senyap pada protokol file:/// atau ketiadaan koneksi
-  }
-}
-
-async function loadAllJlpt() {
-  if (entryMap.size > 0) {
-    render();
-    trySyncCanonicalJson();
     return;
   }
-  // Muat N5 terlebih dahulu agar UI segera muncul, lalu N4 sampai N1
-  for (const lvl of [5, 4, 3, 2, 1]) {
-    await loadJlptList(lvl);
+  const base = getAppBasePath();
+  try {
+    const res = await fetch(base + "data/kanji-index.json");
+    if (res.ok) {
+      const indexList = await res.json();
+      if (Array.isArray(indexList) && indexList.length > 0) {
+        indexList.forEach((item) => {
+          entryMap.set(item.kanji, {
+            ...item,
+            words: item.words || [],
+            sentence: item.sentence || null,
+            _needsDetail: true,
+            _translated: true
+          });
+        });
+        entries = Array.from(entryMap.values());
+        render();
+
+        // Prefetch N5 chunk saat idle jika browser mendukung
+        if (typeof requestIdleCallback === "function") {
+          requestIdleCallback(() => {
+            loadKanjiChunk("n5");
+            if (window.loadStrokeChunk) window.loadStrokeChunk("n5");
+          }, { timeout: 2000 });
+        }
+        return;
+      }
+    }
+  } catch (e) {
+    console.warn("[kanji.js] Gagal memuat data/kanji-index.json:", e);
   }
 
-  // Cadangan offline bila data KanjiAPI gagal dimuat sama sekali
-  if (entryMap.size === 0) {
-    try {
-    const res = await fetch(getAppBasePath() + "data/kanji.json");
-    if (res.ok) {
-    const localData = await res.json();
-    const meta = await ensureKanjiMeta();
-    localData.forEach((item) => {
-      const metaInfo = meta[item.kanji] || [];
-      entryMap.set(item.kanji, {
-        ...item,
-        jlpt: item.jlpt || "N5",
-        level: item.level || "Dasar",
-        strokes: item.strokes || metaInfo[0] || 0,
-        grade: item.grade || metaInfo[1] || 99,
-        _needsDetail: false,
-        _translated: true
+  // Fallback cadangan jika data/kanji.json utuh dipanggil
+  try {
+    const fallbackRes = await fetch(base + "data/kanji.json");
+    if (fallbackRes.ok) {
+      const fullList = await fallbackRes.json();
+      fullList.forEach((item) => {
+        entryMap.set(item.kanji, {
+          ...item,
+          words: item.words || item.examples || [],
+          _needsDetail: false,
+          _translated: true
+        });
       });
-    });
-    entries = Array.from(entryMap.values());
-    render();
+      entries = Array.from(entryMap.values());
+      render();
     }
-    } catch (e) {}
-  }
+  } catch (e) {}
 }
-loadAllJlpt();
+loadKanjiData();
 
 /**
    * Menampilkan detail lengkap kanji pada panel samping (kanan):
@@ -654,6 +555,11 @@ async function renderDetail(item, options = {}) {
     ? item.meaning
     : '<span style="font-size:0.85em; opacity:0.75; font-weight:normal; font-style:italic;">Menerjemahkan arti ke Bahasa Indonesia...</span>';
 
+  const cp = (item.kanji || "").codePointAt(0) || 0;
+  const hexCode = cp.toString(16).padStart(5, "0").toUpperCase();
+  const prefillParam = encodeURIComponent(`Laporan Koreksi Arti: Kanji ${item.kanji} (U+${hexCode}) - "${item.meaning || ""}" (JLPT ${item.jlpt || ""})`);
+  const reportUrl = `https://forms.gle/dFPRM842xxKq5YMt9?usp=pp_url&entry.lapor=${prefillParam}`;
+
   // Render struktur panel detail dengan label bahasa Indonesia
   detail.innerHTML = `
             <div class="kanji-detail-head">
@@ -675,22 +581,24 @@ async function renderDetail(item, options = {}) {
                     </div>
                 </div>
             </div>
-            <h4>Urutan Menulis (KanjiVG)</h4>
+            <h4>Goresan Karakter (KanjiVG)</h4>
             <div data-stroke-player></div>
             <h4>Kosakata Terkait</h4>
             <ul data-detail-words>${item.words?.length ? item.words.map(formatWordItem).join("") : '<li><em style="color:var(--muted)">Memuat kosakata...</em></li>'}</ul>
-            <h4>Contoh Kalimat / Catatan</h4>
-            <p class="sentence" data-detail-sentence>
-                <b>${item.sentence?.japanese || item.kanji}</b><br>
-                <span>${item.sentence?.reading || ""}</span><br>
-                ${item.sentence?.meaning || `Data resmi dari KanjiAPI.dev (JLPT ${item.jlpt})`}
-            </p>
+            <div data-detail-sentence-container>
+                ${renderDetailSentenceHtml(item)}
+            </div>
+            <div class="kanji-report-row" style="margin-top: 1.25rem; padding-top: 0.75rem; border-top: 1px dashed rgba(255, 79, 145, 0.25); display: flex; justify-content: flex-end; align-items: center;">
+                <a href="${reportUrl}" target="_blank" rel="noopener noreferrer" class="stroke-report-link kanji-report-link" title="Buka formulir kritik dan saran untuk melaporkan koreksi arti Kanji ${item.kanji}">
+                    🚩 Lapor arti salah
+                </a>
+            </div>
         `;
 
   const speakKanjiInfo = (slowMode = false) => {
     const onyomi = (item.onyomi || []).join(", ");
     const kunyomi = (item.kunyomi || []).join(", ");
-    const topWord = item.words?.[0]?.word || "";
+    const topWord = item.example_word?.word || item.words?.[0]?.word || "";
     let toSpeak = `${item.kanji}。 `;
     if (kunyomi) toSpeak += `Kunyomi: ${kunyomi}。 `;
     if (onyomi) toSpeak += `Onyomi: ${onyomi}。 `;
@@ -710,8 +618,8 @@ async function renderDetail(item, options = {}) {
     window.updateQuickStrokeArrow?.();
   });
 
-  // Jalankan player animasi goresan
-  player = window.createStrokePlayer(detail.querySelector("[data-stroke-player]"), item.kanji, item.strokes || 4);
+  // Jalankan player animasi goresan (dengan menyertakan petunjuk jlpt untuk chunk loader)
+  player = window.createStrokePlayer(detail.querySelector("[data-stroke-player]"), item.kanji, item.strokes || 4, { jlpt: item.jlpt });
   window.updateQuickStrokeArrow?.();
 
   // Pada perangkat bergerak (HP < 768px), geser tampilan ke panel detail jika diklik pengguna
@@ -719,31 +627,34 @@ async function renderDetail(item, options = {}) {
     detail.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  // Ambil detail dan kosakata secara lazy HANYA saat kanji diklik
-  const needsDetail = item._needsDetail;
-  const needsWords = !item.words?.length;
-
-  let detailData = null;
-  let wordData = null;
-
-  if (needsDetail || needsWords) {
-    [detailData, wordData] = await Promise.all([
-    needsDetail ? KanjiAPI.getKanjiDetail(item.kanji) : null,
-    needsWords ? KanjiAPI.getKanjiWords(item.kanji) : Promise.resolve(item.words)
-    ]);
-  }
+  // Ambil detail lengkap (kosakata, kalimat contoh) dari chunk lokal on-demand
+  const detailData = await getKanjiDetailFromChunk(item.kanji, item.jlpt);
 
   // Cegah race condition jika pengguna berpindah ke kanji lain saat fetch sedang berlangsung
   if (selectedKanjiChar !== item.kanji) return;
 
-  // Perbarui atribut kanji jika detail baru diambil dari API
   if (detailData) {
-    item.meaningEn = detailData.meanings?.slice(0, 3).join(", ") || "";
-    item.onyomi = detailData.on_readings || [];
-    item.kunyomi = detailData.kun_readings || [];
-    if (detailData.stroke_count) item.strokes = detailData.stroke_count;
+    if (detailData.words || detailData.examples) {
+      item.words = detailData.words || detailData.examples || [];
+    }
+    if (detailData.sentence) {
+      item.sentence = detailData.sentence;
+    }
+    if (detailData.sentence_is_template !== undefined) {
+      item.sentence_is_template = detailData.sentence_is_template;
+    }
+    if (detailData.example_word) {
+      item.example_word = detailData.example_word;
+    }
+    if (detailData.meaning && (!item.meaning || item.meaning === "Karakter kanji")) {
+      item.meaning = detailData.meaning;
+    }
+    if (detailData.onyomi && detailData.onyomi.length) item.onyomi = detailData.onyomi;
+    if (detailData.kunyomi && detailData.kunyomi.length) item.kunyomi = detailData.kunyomi;
+    if (detailData.strokes) item.strokes = detailData.strokes;
     if (detailData.grade !== undefined) item.grade = detailData.grade;
     item._needsDetail = false;
+    item._translated = true;
 
     const sEl = detail.querySelector("[data-detail-strokes]");
     if (sEl) sEl.textContent = item.strokes;
@@ -751,138 +662,141 @@ async function renderDetail(item, options = {}) {
     if (onEl) onEl.textContent = formatKanaReadings(item.onyomi);
     const kunEl = detail.querySelector("[data-detail-kunyomi]");
     if (kunEl) kunEl.textContent = formatKanaReadings(item.kunyomi);
-  }
+    const mEl = detail.querySelector("[data-detail-meaning]");
+    if (mEl) mEl.textContent = item.meaning;
 
-  // Tampilkan daftar kosakata awal
-  if (wordData && wordData.length > 0) {
-    item.words = wordData;
     const wordsEl = detail.querySelector("[data-detail-words]");
-    if (wordsEl && selectedKanjiChar === item.kanji) {
-    wordsEl.innerHTML = item.words.map(formatWordItem).join("");
-    }
-  } else if (item.words?.length === 0) {
-    const wordsEl = detail.querySelector("[data-detail-words]");
-    if (wordsEl && selectedKanjiChar === item.kanji) {
-    wordsEl.innerHTML = '<li><em style="color:var(--muted)">Belum ada kosakata tambahan.</em></li>';
-    }
-  }
-
-  // Terjemahkan arti kosakata dari Inggris ke Indonesia secara lazy
-  if (item.words?.length > 0) {
-    const wordsToTranslate = item.words.filter((w) => !w._translated && (w.rawMeaning || w.meaning));
-    if (wordsToTranslate.length > 0) {
-    Promise.all(wordsToTranslate.map(async (w) => {
-    const src = w.rawMeaning || w.meaning;
-    const indo = await translateToIndonesian(src);
-    if (indo && indo.toLowerCase() !== src.toLowerCase()) {
-      w.meaning = indo;
-      w._translated = true;
-    }
-    })).then(() => {
-    try {
-      localStorage.setItem(`mnh_kapi_words_${item.kanji}`, JSON.stringify(item.words));
-    } catch (e) {}
-
-    // Render ulang daftar kata jika panel masih aktif pada karakter ini
-    if (selectedKanjiChar === item.kanji) {
-      const wordsElUpdated = detail.querySelector("[data-detail-words]");
-      if (wordsElUpdated) {
-        wordsElUpdated.innerHTML = item.words.map(formatWordItem).join("");
+    if (wordsEl) {
+      if (item.words && item.words.length > 0) {
+        wordsEl.innerHTML = item.words.map(formatWordItem).join("");
+      } else {
+        wordsEl.innerHTML = '<li><em style="color:var(--muted)">Belum ada kosakata tambahan.</em></li>';
       }
     }
-    });
-    }
-  }
 
-  // Terjemahkan arti kanji utama (Inggris -> Indonesia) secara lazy
-  if (!item._translated) {
-    const englishText = item.meaningEn || (!item._translated && item.meaning !== "Karakter kanji" && item.meaning !== "Memuat arti..." ? item.meaning : "");
-    if (englishText) {
-    const indonesianMeaning = await translateToIndonesian(englishText);
-    if (indonesianMeaning) {
-    // TIMPA (replace) teks sepenuhnya dengan hasil bahasa Indonesia murni
-    item.meaning = indonesianMeaning;
-    item._translated = true;
+    const sentContainer = detail.querySelector("[data-detail-sentence-container]");
+    if (sentContainer) {
+      sentContainer.innerHTML = renderDetailSentenceHtml(item);
     }
-    }
-  }
 
-  // Tampilkan arti bahasa Indonesia pada panel detail dan perbarui kartu di grid
-  if (selectedKanjiChar === item.kanji) {
-    const mEl = detail.querySelector("[data-detail-meaning]");
-    if (mEl) {
-    mEl.textContent = item.meaning;
+    const cardSpan = grid.querySelector(`[data-kanji="${item.kanji}"] span`);
+    if (cardSpan) {
+      cardSpan.textContent = item.meaning;
     }
-  }
-
-  const cardSpan = grid.querySelector(`[data-kanji="${item.kanji}"] span`);
-  if (cardSpan) {
-    cardSpan.textContent = item.meaning;
   }
 }
 
 /**
+ * Menghasilkan markup HTML untuk contoh kalimat atau contoh kata utama.
+ * Jika kalimat contoh merupakan template isian generik, fungsi ini otomatis menyembunyikannya
+ * dan menampilkan "Contoh Kata Utama" yang diambil dari kosakata terbaik kanji tersebut.
+ *
+ * @param {Object} item - Objek kanji
+ * @returns {string} - String HTML blok kalimat/kata contoh
+*/
+function renderDetailSentenceHtml(item) {
+  const isTmpl = item.sentence_is_template || (!item.sentence?.japanese) || item.sentence.japanese.includes("の漢字") || (item.sentence.meaning || "").includes("Karakter Kanji");
+  if (!isTmpl && item.sentence && item.sentence.japanese) {
+    return `
+      <h4>Contoh Kalimat</h4>
+      <p class="sentence" data-detail-sentence>
+          <b>${escapeHtml(item.sentence.japanese)}</b><br>
+          ${item.sentence.reading ? `<span>${escapeHtml(item.sentence.reading)}</span><br>` : ""}
+          ${escapeHtml(item.sentence.meaning || "")}
+      </p>
+    `;
+  }
+  const bestWord = item.example_word || item.words?.[0];
+  if (bestWord) {
+    const readingPart = bestWord.reading ? `<span> (${escapeHtml(bestWord.reading)})</span>` : "";
+    return `
+      <h4>Contoh Kata Utama</h4>
+      <p class="sentence" data-detail-sentence>
+          <b>${escapeHtml(bestWord.word || item.kanji)}</b> ${readingPart}<br>
+          <span>${escapeHtml(bestWord.meaning || item.meaning || "")}</span>
+      </p>
+    `;
+  }
+  return "";
+}
+
+function cleanKanaText(str) {
+  if (!str || typeof str !== "string") return "";
+  return str.replace(/[\.\-\s]/g, "");
+}
+
+/**
  * Menghitung skor relevansi pencarian Kanji:
- * - Skor 100: Kanji tepat atau arti utama persis sama
- * - Skor 85: Kata utuh di dalam arti bahasa Indonesia
- * - Skor 65: Arti diawali atau mengandung kata kunci
- * - Skor 45: Cocok dengan bacaan Onyomi atau Kunyomi (kana / romaji)
- * - Skor 15: Cocok di dalam contoh kosakata (examples)
+ * 1. Skor 100: Cocok persis Kanji (item.kanji === q)
+ * 2. Skor 90 / 85: Cocok bacaan Kana (Kunyomi / Onyomi cocok eksak atau substring)
+ * 3. Skor 80: Cocok bacaan Romaji tepat (Hepburn konversi romaji -> kana cocok bacaan)
+ * 4. Skor 75 / 65: Cocok arti bahasa Indonesia (persis atau kata utuh)
+ * 5. Skor 50: Partial Romaji substring
+ * 6. Skor 40 / 35: Awalan atau substring arti bahasa Indonesia
+ * 7. Skor 30 / 25: Fallback arti bahasa Inggris
+ * 8. Skor 20 / 10: Cocok di dalam contoh kosakata (words / examples)
 */
 function getKanjiSearchScore(item, query) {
   if (!query) return 0;
   const q = query.trim().toLowerCase();
   if (!q) return 0;
 
-  // 1. Skor 100: Kanji tepat atau arti sama persis
+  // 1. Cocok persis Kanji (Skor 100)
   if (item.kanji === q) return 100;
+
+  const onyomiList = (item.onyomi || []).map((o) => cleanKanaText(o).toLowerCase());
+  const kunyomiList = (item.kunyomi || []).map((k) => cleanKanaText(k).toLowerCase());
+  const allReadings = onyomiList.concat(kunyomiList);
+
+  // 2. Cocok bacaan Kana (Skor 90 / 85)
+  const isKanaQuery = /[\u3040-\u309F\u30A0-\u30FF]/.test(q);
+  if (isKanaQuery) {
+    if (allReadings.some((r) => r === q)) return 90;
+    if (allReadings.some((r) => r.includes(q))) return 85;
+  }
+
+  // 3. Cocok bacaan Romaji Tepat (Skor 80)
+  const { hiragana: qHira, katakana: qKata } = romajiToKana(q);
+  const readingsRomaji = allReadings.map((r) => kanaToRomaji(r).toLowerCase());
+
+  if (readingsRomaji.some((rom) => rom === q) || (qHira && allReadings.some((r) => r === qHira || r === qKata))) {
+    return 80;
+  }
+
+  // 4. Cocok arti Bahasa Indonesia (Skor 75 / 65)
   const mainMeaning = (item.meaning || "").trim().toLowerCase();
-  if (mainMeaning === q) return 100;
-
-  // Cek apakah salah satu sinonim arti sama persis (misal: "orang, manusia" -> "orang")
+  if (mainMeaning === q) return 75;
   const meaningParts = mainMeaning.split(/[,;/•\(\)]/).map((s) => s.trim().toLowerCase()).filter(Boolean);
-  if (meaningParts.includes(q)) return 100;
+  if (meaningParts.includes(q)) return 75;
 
-  // 2. Skor 85: Kata utuh ditemukan di dalam meaning
   try {
     const escaped = q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     const wordRegex = new RegExp(`\\b${escaped}\\b`, "i");
-    if (wordRegex.test(mainMeaning)) return 85;
+    if (wordRegex.test(mainMeaning)) return 65;
   } catch (e) {}
 
-  // 3. Skor 65: Meaning diawali atau mengandung query
-  if (mainMeaning.startsWith(q)) return 75;
-  if (mainMeaning.includes(q)) return 65;
+  // 5. Partial Romaji (Skor 50)
+  if (readingsRomaji.some((rom) => rom.includes(q)) || (qHira && allReadings.some((r) => r.includes(qHira) || r.includes(qKata)))) {
+    return 50;
+  }
+
+  // 6. Partial Arti Bahasa Indonesia (Skor 40 / 35)
+  if (mainMeaning.startsWith(q)) return 40;
+  if (mainMeaning.includes(q)) return 35;
 
   const enMeaning = (item.meaningEn || "").toLowerCase();
-  if (enMeaning === q) return 70;
-  if (enMeaning.includes(q)) return 55;
+  if (enMeaning === q) return 30;
+  if (enMeaning.includes(q)) return 25;
 
-  // 4. Skor 45: Cocok dengan bacaan Onyomi / Kunyomi (kana maupun romaji)
-  const onyomiList = item.onyomi || [];
-  const kunyomiList = item.kunyomi || [];
-  for (const o of onyomiList) {
-    const oLower = o.toLowerCase();
-    const oRomaji = kanaToRomaji(o).toLowerCase();
-    if (oLower === q || oRomaji === q) return 50;
-    if (oLower.includes(q) || oRomaji.includes(q)) return 45;
-  }
-  for (const k of kunyomiList) {
-    const kLower = k.toLowerCase();
-    const kRomaji = kanaToRomaji(k).toLowerCase();
-    if (kLower === q || kRomaji === q) return 50;
-    if (kLower.includes(q) || kRomaji.includes(q)) return 45;
-  }
-
-  // 5. Skor 15: Cocok di dalam contoh kosakata (examples / words)
+  // 7. Cocok di dalam contoh kosakata (words / examples, Skor 20 / 10)
   const words = item.words || item.examples || [];
   for (const w of words) {
     const wWord = (w.word || "").toLowerCase();
     const wReading = (w.reading || "").toLowerCase();
     const wRomaji = kanaToRomaji(w.reading || "").toLowerCase();
     const wMeaning = (w.meaning || "").toLowerCase();
-    if (wWord === q || wReading === q || wRomaji === q || wMeaning === q) return 20;
-    if (wWord.includes(q) || wReading.includes(q) || wRomaji.includes(q) || wMeaning.includes(q)) return 15;
+    if (wWord === q || wReading === q || wRomaji === q || wMeaning === q || (qHira && wReading === qHira) || (qKata && wReading === qKata)) return 20;
+    if (wWord.includes(q) || wReading.includes(q) || wRomaji.includes(q) || wMeaning.includes(q) || (qHira && wReading.includes(qHira))) return 10;
   }
 
   return 0;
@@ -920,14 +834,14 @@ function visibleEntries() {
     return sortKanjiEntries(rawMatches.map((m) => m.item));
   }
 
-  // Jika ada kanji yang cocok langsung pada kanji, arti, atau bacaan (skor >= 45),
+  // Jika ada kanji yang cocok langsung pada kanji, arti, atau bacaan (skor >= 35),
   // abaikan kecocokan yang HANYA berasal dari contoh kata (examples, skor <= 20) agar hasil tidak tercemar
-  const hasStrongMatch = rawMatches.some((m) => m.score >= 45);
+  const hasStrongMatch = rawMatches.some((m) => m.score >= 35);
   const eligibleMatches = hasStrongMatch
-    ? rawMatches.filter((m) => m.score >= 45)
+    ? rawMatches.filter((m) => m.score >= 35)
     : rawMatches;
 
-  // Urutkan berdasarkan Skor Relevansi Descending (100 -> 85 -> 65 -> 45 -> 15).
+  // Urutkan berdasarkan Skor Relevansi Descending (100 -> 90 -> 80 -> 75 -> 65 -> 50 -> 40 -> 20).
   // Jika skor sama, urutkan: Goresan Ascending -> Grade Ascending -> Huruf.
   eligibleMatches.sort((a, b) => {
     if (b.score !== a.score) return b.score - a.score;
@@ -1007,6 +921,11 @@ function render() {
   control.addEventListener("change", () => {
     currentRenderLimit = 60;
     render();
+    if (control === jlpt && jlpt.value) {
+      const lvl = jlpt.value.toLowerCase();
+      loadKanjiChunk(lvl);
+      if (window.loadStrokeChunk) window.loadStrokeChunk(lvl);
+    }
   });
 });
 
@@ -1307,11 +1226,11 @@ if (!btn) {
   btn.id = "quickStrokeBtn";
   btn.className = "quick-stroke-btn";
   btn.type = "button";
-  btn.setAttribute("aria-label", "Geser ke Urutan Goresan");
-  btn.setAttribute("title", "Geser ke Urutan Goresan");
+  btn.setAttribute("aria-label", "Geser ke Goresan");
+  btn.setAttribute("title", "Geser ke Goresan");
   btn.innerHTML = `
             <span class="quick-stroke-icon">✍️</span>
-            <span class="quick-stroke-text">Urutan Goresan</span>
+            <span class="quick-stroke-text">Goresan</span>
             <span class="quick-stroke-arrow">↓</span>
         `;
   const toTop = document.querySelector(".to-top");

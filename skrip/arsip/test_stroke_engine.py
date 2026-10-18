@@ -48,21 +48,32 @@ def test_stroke_js_content():
     assert "_miraiStrokeGen" in code or "_miraiStrokeController" in code, "Mekanisme guard pembatalan race condition tidak ditemukan!"
     print("✔ Guard pembatalan permintaan/animasi lama (_miraiStrokeGen & controller.destroy) terpasang.")
 
-    # 5. Pastikan cache versioning menggunakan v4 dan tidak menghapus sembarangan
-    assert "mirai_stroke_v4_" in code, "Versi cache mirai_stroke_v4_ tidak ditemukan!"
-    assert 'k.startsWith("mirai_stroke_")' not in code, "Masih ditemukan pembersihan cache mirai_stroke_ secara buta!"
-    print("✔ Manajemen cache menggunakan skema v4 dengan pembersihan aman.")
+    # 5. Pastikan arsitektur chunking lokal aktif dan CDN eksternal dihapus
+    assert "loadStrokeChunk" in code, "Fungsi loadStrokeChunk tidak ditemukan!"
+    assert "data/strokes/" in code, "Direktori chunk data/strokes/ tidak ditemukan di stroke.js!"
+    assert "cdn.jsdelivr.net/gh/KanjiVG" not in code, "Fallback CDN eksternal masih ada di stroke.js!"
+    print("✔ Chunking lokal modular (data/strokes/<jlpt>.json) terpasang & 100% bebas dari CDN eksternal.")
 
 def test_dataset_character_coverage():
     print("\n==================================================")
-    print("🧪 MENGUJI DATA KARAKTER BERBAGAI KATEGORI")
+    print("🧪 MENGUJI DATA KARAKTER BERBAGAI KATEGORI (CHUNKS)")
     print("==================================================")
 
+    # Muat Kana inline dari js/stroke-data.js
     with open('js/stroke-data.js', 'r', encoding='utf-8') as f:
         text = f.read()
 
     m = re.search(r'window\.MIRAI_STROKE_DATA\s*=\s*(\{[\s\S]*\});?\s*$', text)
     data = json.loads(m.group(1))
+
+    # Muat juga chunk Kanji dari data/strokes/*.json
+    strokes_dir = os.path.join('data', 'strokes')
+    if os.path.isdir(strokes_dir):
+        for fname in os.listdir(strokes_dir):
+            if fname.endswith('.json'):
+                with open(os.path.join(strokes_dir, fname), 'r', encoding='utf-8') as f:
+                    chunk = json.load(f)
+                    data.update(chunk)
 
     # Kelompok Uji
     test_suite = [
@@ -137,16 +148,72 @@ def test_missing_character_behavior():
         code = f.read()
 
     # Periksa bahwa jika karakter tidak ada dan fetch gagal / null:
-    # Memanggil renderUnavailableState()
     assert "renderUnavailableState" in code
     assert "Data Urutan Goresan Belum Tersedia" in code
     print(f"✔ Karakter tidak tersedia ('{missing_char}') dijamin menampilkan pesan 'Data Urutan Goresan Belum Tersedia'.")
     print("✔ Tidak ada pills nomor palsu (Array.from({length: totalStrokes}) hanya dibuat jika hasAllValidRecords).")
     print("✔ Controller mengembalikan isAvailable: false dengan safe no-op methods.")
 
+def test_stroke_override_layer():
+    print("\n==================================================")
+    print("🧪 MENGUJI LAPISAN OVERRIDE & INTEGRITAS DATA")
+    print("==================================================")
+
+    # 1. Pastikan berkas override ada dan valid JSON
+    assert os.path.isfile("data/stroke-overrides.json"), "data/stroke-overrides.json tidak ditemukan!"
+    with open("data/stroke-overrides.json", "r", encoding="utf-8") as f:
+        overrides = json.load(f)
+    assert len(overrides) > 0, "Override tidak boleh kosong!"
+    print(f"✔ data/stroke-overrides.json memuat {len(overrides)} entri.")
+
+    # 2. Pastikan file js/stroke-overrides.js ada dan mendefinisikan window.MIRAI_STROKE_OVERRIDES
+    assert os.path.isfile("js/stroke-overrides.js"), "js/stroke-overrides.js tidak ditemukan!"
+    with open("js/stroke-overrides.js", "r", encoding="utf-8") as f:
+        js_ov = f.read()
+    assert "window.MIRAI_STROKE_OVERRIDES" in js_ov, "window.MIRAI_STROKE_OVERRIDES tidak ditemukan!"
+    print("✔ js/stroke-overrides.js valid dan mengekspor window.MIRAI_STROKE_OVERRIDES.")
+
+    # 3. Pastikan karakter 衷 memiliki 9 goresan di seluruh dataset
+    with open("data/kanji.json", "r", encoding="utf-8") as f:
+        kj = json.load(f)
+    ch_rec = next((k for k in kj if k.get("kanji") == "衷"), None)
+    assert ch_rec is not None and ch_rec.get("strokes") == 9, f"Karakter 衷 di data/kanji.json harus 9 goresan! Mendapat: {ch_rec}"
+
+    with open("data/kanji-meta.json", "r", encoding="utf-8") as f:
+        km = json.load(f)
+    assert km.get("衷") and km["衷"][0] == 9, f"Karakter 衷 di data/kanji-meta.json harus 9 goresan! Mendapat: {km.get('衷')}"
+
+    with open("js/kanji-data.js", "r", encoding="utf-8") as f:
+        kd = f.read()
+    assert ('"kanji":"衷"' in kd or '"kanji": "衷"' in kd) and ('"strokes":9' in kd or '"strokes": 9' in kd), "Karakter 衷 di js/kanji-data.js harus 9 goresan!"
+    print("✔ Karakter 衷 terverifikasi tepat 9 goresan di kanji.json, kanji-meta.json, dan js/kanji-data.js.")
+
+    # 4. Pastikan js/stroke.js mengimplementasikan applyStrokeOverride, note, dan link lapor
+    with open("js/stroke.js", "r", encoding="utf-8") as f:
+        stroke_code = f.read()
+    assert "applyStrokeOverride" in stroke_code, "applyStrokeOverride tidak ditemukan di js/stroke.js!"
+    assert "stroke-variant-note" in stroke_code, "Komponen stroke-variant-note tidak ditemukan di js/stroke.js!"
+    assert "stroke-report-link" in stroke_code, "Komponen stroke-report-link tidak ditemukan di js/stroke.js!"
+    assert "Lapor goresan salah" in stroke_code, "Tombol Lapor goresan salah tidak ditemukan di js/stroke.js!"
+    print("✔ Logika applyStrokeOverride, banner varian, dan link lapor goresan terpasang di js/stroke.js.")
+
+    # 5. Pastikan halaman kamus/index.html dan kamus/kanji.html menyertakan stroke-overrides.js
+    for h_path in ["kamus/index.html", "kamus/kanji.html"]:
+        with open(h_path, "r", encoding="utf-8") as f:
+            h_code = f.read()
+        assert "stroke-overrides.js" in h_code, f"stroke-overrides.js tidak dimuat di {h_path}!"
+    print("✔ Script stroke-overrides.js terhubung di kamus/index.html dan kamus/kanji.html.")
+
+    # 6. Pastikan alat review visual HTML terbangun
+    assert os.path.isfile("skrip/laporan/stroke-review.html"), "skrip/laporan/stroke-review.html belum dibuat!"
+    assert os.path.getsize("skrip/laporan/stroke-review.html") > 100000, "Berkas stroke-review.html terlalu kecil / kosong!"
+    print("✔ Alat review visual (skrip/laporan/stroke-review.html) terverifikasi tersedia.")
+
 if __name__ == '__main__':
     test_stroke_js_content()
     test_dataset_character_coverage()
     test_missing_character_behavior()
+    test_stroke_override_layer()
     print("\n🎉 SELURUH PENGUJIAN LOGIKA ENGINE STROKE BERHASIL 100%!")
+
 

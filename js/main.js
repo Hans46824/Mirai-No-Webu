@@ -542,6 +542,8 @@ try {
 
 document.addEventListener("DOMContentLoaded", () => {
 normalizeNavigation();
+registerServiceWorker();
+renderMobileBottomNav();
 setupThemeToggle();
 setupMenu();
 setupSidebarNav();
@@ -762,10 +764,99 @@ function setupBackToTop() {
 const button = document.querySelector(".to-top");
 if (!button) return;
 
+if (!button.hasAttribute("aria-label")) {
+  button.setAttribute("aria-label", "Kembali ke atas");
+}
+
 const update = () => button.classList.toggle("is-visible", window.scrollY > 480);
 update();
 window.addEventListener("scroll", update, { passive: true });
 button.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+}
+
+function registerServiceWorker() {
+  if (!('serviceWorker' in navigator)) return;
+  if (window.location.protocol !== 'http:' && window.location.protocol !== 'https:') return;
+
+  window.addEventListener('load', () => {
+    const basePath = getAppBasePath();
+    const swUrl = basePath + 'service-worker.js';
+    const scope = basePath || './';
+
+    navigator.serviceWorker.register(swUrl, { scope })
+      .then((reg) => {
+        reg.onupdatefound = () => {
+          const installingWorker = reg.installing;
+          if (!installingWorker) return;
+          installingWorker.onstatechange = () => {
+            if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              console.log('[PWA] Versi baru Mirai no Webu siap digunakan offline.');
+            }
+          };
+        };
+      })
+      .catch((err) => {
+        console.warn('[PWA] Pendaftaran Service Worker ditangguhkan:', err);
+      });
+  });
+}
+
+function renderMobileBottomNav() {
+  if (window.MIRAI_ENABLE_BOTTOM_NAV === false) return;
+  if (document.body.classList.contains("is-practicing") || document.querySelector(".quest-main")) return;
+  if (document.querySelector(".mobile-bottom-nav")) return;
+
+  const basePath = getAppBasePath();
+  const currentPath = (window.location.pathname || "").toLowerCase();
+
+  const nav = document.createElement("nav");
+  nav.className = "mobile-bottom-nav";
+  nav.setAttribute("aria-label", "Navigasi Bawah Seluler");
+
+  const items = [
+    { label: "Beranda", icon: "🏠", href: basePath + "index.html", match: (p) => p.endsWith("/index.html") || p.endsWith("/mirai-no-webu/") || p.endsWith("/") },
+    { label: "Kelas", icon: "📚", href: basePath + "kelas/index.html", match: (p) => p.includes("/kelas/") && !p.includes("latihan.html") },
+    { label: "Kamus", icon: "📖", href: basePath + "kamus/index.html", match: (p) => p.includes("/kamus/") },
+    { label: "Latihan", icon: "⚡", href: basePath + "kelas/latihan.html", match: (p) => p.includes("latihan.html") },
+    { label: "Menu", icon: "☰", href: "#menu", isMenu: true }
+  ];
+
+  items.forEach((item) => {
+    if (item.isMenu) {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "mobile-bottom-nav-item";
+      btn.setAttribute("aria-label", "Buka Menu Utama");
+      btn.innerHTML = `<span class="nav-icon" aria-hidden="true">${item.icon}</span><span>${item.label}</span>`;
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        window.MiraiSound?.playClickIfIdle();
+        const sidebarNav = document.querySelector(".sidebar-nav");
+        const sidebarOverlay = document.querySelector(".sidebar-overlay");
+        if (sidebarNav) {
+          sidebarNav.classList.add("active");
+          sidebarOverlay?.classList.add("active");
+          document.body.classList.add("sidebar-open");
+        } else {
+          document.querySelector("[data-menu-toggle]")?.click();
+        }
+      });
+      nav.appendChild(btn);
+    } else {
+      const a = document.createElement("a");
+      a.className = "mobile-bottom-nav-item";
+      a.href = item.href;
+      if (item.match && item.match(currentPath)) {
+        a.classList.add("is-active");
+        a.setAttribute("aria-current", "page");
+      }
+      a.innerHTML = `<span class="nav-icon" aria-hidden="true">${item.icon}</span><span>${item.label}</span>`;
+      nav.appendChild(a);
+    }
+  });
+
+  document.body.appendChild(nav);
+  document.body.classList.add("has-bottom-nav");
 }
 
 function setupReveal() {
@@ -2050,7 +2141,7 @@ document.addEventListener("click", (e) => {
 MIRAI PROGRESS ENGINE (localStorage-based learning progress)
 ========================================================================== */
 
-const MiraiProgress = {
+const MiraiProgressLegacy = {
 STORAGE_KEY_COMPLETED: "mirai_completed_materi",
 STORAGE_KEY_LAST: "mirai_last_materi",
 STORAGE_KEY_WRONG: "mirai_wrong_questions",
@@ -2218,11 +2309,17 @@ setupResumeBanner() {
 }
 };
 
-window.MiraiProgress = MiraiProgress;
+if (!window.MiraiProgress) {
+  window.MiraiProgress = MiraiProgressLegacy;
+}
 
 function initMiraiProgress() {
-MiraiProgress.setupLessonPage();
-MiraiProgress.setupResumeBanner();
+  if (window.MiraiProgress && typeof window.MiraiProgress.setupLessonPage === "function") {
+    window.MiraiProgress.setupLessonPage();
+    window.MiraiProgress.setupResumeBanner();
+  } else if (window.MiraiProgress && typeof window.MiraiProgress.init === "function") {
+    window.MiraiProgress.init();
+  }
 }
 
 /* ==========================================================================

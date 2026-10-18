@@ -1399,6 +1399,10 @@ def sync_kanji():
             item["verification_status"] = "needs_verification"
             needs_verif_count += 1
 
+        # Khusus karakter 衷: KanjiVG dan realitas 9 goresan (audit resmi)
+        if char == "衷":
+            item["strokes"] = 9
+
         # Isi metadata stroke & grade
         strokes = item.get("strokes", 0)
         grade = item.get("grade", 99)
@@ -1414,37 +1418,20 @@ def sync_kanji():
         json.dump(meta_dict, f, ensure_ascii=False, indent=2)
     print(f"[sync_datasets] data/kanji-meta.json disinkronkan ({len(meta_dict)} entri).")
 
-    # Perbarui embedded window.KANJI_FULL_DATA di js/kanji.js
-    with open(kanji_js_path, "r", encoding="utf-8") as f:
-        js_content = f.read()
-
-    # Bersihkan sisa broken lines (seperti ... [truncated for diff preview]) dan assignment lama
+    # Perbarui data lengkap di js/kanji-data.js (file data kanji mandiri untuk offline/file://)
     json_str = json.dumps(kanji_list, ensure_ascii=False)
-    target_assign = f"window.KANJI_FULL_DATA = {json_str};\n"
+    kanji_data_js_path = os.path.join(BASE_DIR, "js", "kanji-data.js")
+    kanji_data_header = """/**
+ * File: js/kanji-data.js
+ * Database Lengkap Joyo & JLPT Kanji (N5 sampai N1) — 2.211 Karakter
+ * Ditanamkan langsung agar website dapat dibuka 100% instan offline tanpa CORS / server lokal.
+ * Penggunaan: kamus/index.html dan kamus/kanji.html
+ */
 
-    # Regex untuk mengganti seluruh blok assignment KANJI_FULL_DATA di awal file
-    pattern = re.compile(r'window\.KANJI_FULL_DATA\s*=\s*\[.*?\];\s*', re.DOTALL)
-    if pattern.search(js_content):
-        # Bersihkan jika ada multiple atau broken
-        new_js = pattern.sub('', js_content)
-        # Hapus sisa placeholder truncation jika ada
-        new_js = new_js.replace("... [truncated for diff preview]\n", "")
-        # Selipkan kembali di bawah komentar header
-        header_end = new_js.find("*/\n\nconst KanjiAPI =")
-        if header_end == -1:
-            header_end = new_js.find("const KanjiAPI =")
-            new_js = new_js[:header_end] + target_assign + "\n" + new_js[header_end:]
-        else:
-            insert_pos = header_end + 3
-            new_js = new_js[:insert_pos] + "\n" + target_assign + new_js[insert_pos:]
-    else:
-        # Selipkan sebelum KanjiAPI
-        pos = js_content.find("const KanjiAPI =")
-        new_js = js_content[:pos] + target_assign + "\n" + js_content[pos:]
-
-    with open(kanji_js_path, "w", encoding="utf-8") as f:
-        f.write(new_js)
-    print(f"[sync_datasets] js/kanji.js window.KANJI_FULL_DATA berhasil disinkronkan ({len(kanji_list)} item).")
+window.KANJI_FULL_DATA = """
+    with open(kanji_data_js_path, "w", encoding="utf-8") as f:
+        f.write(kanji_data_header + json_str + ";\n")
+    print(f"[sync_datasets] js/kanji-data.js window.KANJI_FULL_DATA berhasil disinkronkan ({len(kanji_list)} item).")
 
 
 if __name__ == "__main__":

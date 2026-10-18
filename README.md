@@ -189,7 +189,7 @@ Mirai-No-Webu/
 │   └── kewirausahaan.html          # Divisi Kewirausahaan
 │
 ├── lomba/                          # Informasi Matsuri & Kompetisi
-│   ├── index.html                  # Informasi 18 lomba & festival jejepangan
+│   ├── index.html                  # Informasi agenda lomba & festival jejepangan (3 halaman)
 │   └── images/                     # Poster resmi kompetisi (ITS, UNAIR, UNESA)
 │
 ├── peringkat/                      # Papan Peringkat & Prestasi
@@ -248,7 +248,7 @@ Sebagai wujud integritas akademik, keterbukaan informasi, dan penghormatan setin
 | **Pola Tradisional Wagara** | Desain Motif Tradisional Jepang (Seigaiha, Asanoha, Kumo) | Public Domain Heritage | Pola tekstur latar belakang seksi selang-seling hitam dan putih. |
 | **Poster Kompetisi & Acara** | Panitia Bunkasai ITS, UNAIR, UNESA | Materi Publikasi Publik Acara | Pengumuman kalender kegiatan kompetisi dan festival kebudayaan bagi anggota klub. |
 | **Dokumentasi Foto & Busana** | Tim Dokumentasi & Desain Internal MIRAI NO HANA | Hak Cipta Internal Klub | Foto anggota kepengurusan, desain busana Haori/Happi, dan liputan program kerja. |
-| **Basis Data Aksara & Kanji** | EDICT / KANJIDIC / [kanjiapi.dev](https://kanjiapi.dev) | CC BY-SA 3.0 / Public Domain | Basis data lokal offline berisi 2.136 Jōyō Kanji, terjemahan Indonesia, bacaan, dan level JLPT. |
+| **Basis Data Aksara & Kosakata** | [KANJIDIC2](https://www.edrdg.org/wiki/index.php/KANJIDIC_Project) & [JMdict](https://www.edrdg.org/jmdict/j_jmdict.html) (EDRDG — Jim Breen dkk) | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | Basis data 2.211 Joyo & JLPT Kanji, arti bahasa Indonesia terkurasi, onyomi, kunyomi, dan contoh kosakata. Seluruh data merupakan karya terbuka komunitas nirlaba internasional. |
 | **Pustaka Romaji ke Kana** | [WanaKana.js](https://wanakana.com) | MIT License | Konversi otomatis teks Romaji ke karakter Hiragana/Katakana di peramban. |
 | **Markdown Parser** | [Marked.js](https://marked.js.org) (Christopher Jeffrey) | MIT License | Mengurai teks berformat Markdown pada gelembung percakapan asisten Sora. |
 | **Pembersih Sanitasi HTML** | [DOMPurify](https://github.com/cure53/DOMPurify) (Cure53) | Apache-2.0 / MPL-2.0 | Mencegah celah kerentanan Cross-Site Scripting (XSS) pada antarmuka chat. |

@@ -465,6 +465,78 @@ body.theme-dark .stroke-unavailable-box {
   user-select: none;
   box-sizing: border-box;
 }
+
+/* Catatan Varian Gaya Buku Teks & Tombol Lapor Goresan */
+.stroke-footer-bar {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  margin-top: 14px !important;
+  width: 100% !important;
+  max-width: 480px !important;
+  box-sizing: border-box !important;
+}
+
+.stroke-variant-note {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background: rgba(233, 30, 99, 0.06) !important;
+  border: 1px solid rgba(233, 30, 99, 0.22) !important;
+  border-radius: 8px !important;
+  padding: 8px 12px !important;
+  font-size: 11.5px !important;
+  line-height: 1.45 !important;
+  color: #c2185b !important;
+  text-align: left !important;
+}
+
+body.theme-dark .stroke-variant-note,
+body.dark-mode .stroke-variant-note {
+  background: rgba(255, 101, 155, 0.12) !important;
+  border-color: rgba(255, 101, 155, 0.3) !important;
+  color: #ff85b3 !important;
+}
+
+.stroke-footer-actions {
+  display: flex !important;
+  justify-content: flex-end !important;
+  width: 100% !important;
+}
+
+.stroke-report-link,
+.kanji-report-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: #888888 !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+  cursor: pointer !important;
+}
+
+.stroke-report-link:hover,
+.kanji-report-link:hover {
+  color: var(--pink, #e91e63) !important;
+  text-decoration: underline !important;
+}
+
+body.theme-dark .stroke-report-link,
+body.dark-mode .stroke-report-link,
+body.theme-dark .kanji-report-link,
+body.dark-mode .kanji-report-link {
+  color: #aaaaaa !important;
+}
+
+body.theme-dark .stroke-report-link:hover,
+body.dark-mode .stroke-report-link:hover,
+body.theme-dark .kanji-report-link:hover,
+body.dark-mode .kanji-report-link:hover {
+  color: #ff85b3 !important;
+}
+
 /* Kamus Jepang Exclusive Clean White Theme & Practice Banner */
 /* ====================================================
 KAMUS JEPANG (kamus.html) - EXCLUSIVE CLEAN WHITE THEME
@@ -662,7 +734,7 @@ KARTU UJI KEMAMPUAN / LATIHAN KANA (DICTIONARY PRACTICE BANNER)
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.045 !important;
+  opacity: 0.015 !important;
   mix-blend-mode: multiply !important;
   pointer-events: none !important;
   z-index: 1 !important;
@@ -833,7 +905,7 @@ body.theme-dark .dictionary-practice-link::after, body.dark-mode .dictionary-pra
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.045 !important;
+  opacity: 0.015 !important;
   mix-blend-mode: screen !important;
 }
 
@@ -2892,24 +2964,34 @@ body.theme-dark .keitai-btn.action-key, body.dark-mode .keitai-btn.action-key {
    GENERATOR NAMA JEPANG & KARTU ANGGOTA (OSATSU MIRAI NO HANA)
    ========================================================================== */
 .namegen-container {
-  max-width: 1080px;
+  max-width: 1120px;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .namegen-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.15fr;
-  gap: 28px;
-  align-items: start;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) !important;
+  gap: 28px !important;
+  align-items: start !important;
 }
 
-/* Formulir Input */
+/* Formulir Input Identitas (Kolom Kiri) */
 .namegen-form-card {
+  min-width: 0 !important;
   background: #ffffff !important;
   border: 1.5px solid var(--pink-border, #fcd1e5) !important;
   border-radius: 20px !important;
   padding: 24px !important;
   box-shadow: 0 8px 26px rgba(72, 32, 52, 0.05) !important;
+  box-sizing: border-box !important;
+}
+
+body.theme-dark .namegen-form-card,
+body.dark-mode .namegen-form-card {
+  background: #191422 !important;
+  border-color: rgba(233, 30, 99, 0.3) !important;
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.3) !important;
 }
 
 .namegen-badge-tag {
@@ -2920,6 +3002,13 @@ body.theme-dark .keitai-btn.action-key, body.dark-mode .keitai-btn.action-key {
   padding: 4px 12px;
   border-radius: 999px;
   border: 1px solid #ffd4e5;
+}
+
+body.theme-dark .namegen-badge-tag,
+body.dark-mode .namegen-badge-tag {
+  background: rgba(233, 30, 99, 0.2);
+  border-color: rgba(233, 30, 99, 0.4);
+  color: #ff6090;
 }
 
 .namegen-form-body {
@@ -2933,50 +3022,77 @@ body.theme-dark .keitai-btn.action-key, body.dark-mode .keitai-btn.action-key {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  min-width: 0;
 }
 
 .namegen-label {
   font-size: 13.5px;
   font-weight: 700;
-  color: #2c2030;
+  color: var(--ink, #2c2030);
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
+body.theme-dark .namegen-label,
+body.dark-mode .namegen-label {
+  color: #f1ecf4;
+}
+
 .namegen-label .req-star {
-  color: #e91e63;
+  color: var(--pink, #e91e63);
 }
 
 .namegen-sublabel {
   font-size: 11.5px;
   font-weight: 500;
-  color: #6d5b72;
+  color: var(--muted, #6d5b72);
+}
+
+body.theme-dark .namegen-sublabel,
+body.dark-mode .namegen-sublabel {
+  color: #a89cb0;
 }
 
 .namegen-input-wrap {
   position: relative;
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
-.namegen-input {
+.namegen-input,
+.namegen-select {
   width: 100%;
-  padding: 12px 42px 12px 16px;
+  padding: 12px 16px;
   background: #ffffff;
   border: 1.5px solid var(--pink-border, #fcd1e5);
   border-radius: 12px;
-  color: #2c2030;
+  color: var(--ink, #201c26);
   font-size: 15px;
   font-family: inherit;
   transition: all 0.2s ease;
+  box-sizing: border-box;
 }
 
-.namegen-input:focus {
+.namegen-input {
+  padding-right: 42px;
+}
+
+body.theme-dark .namegen-input,
+body.theme-dark .namegen-select,
+body.dark-mode .namegen-input,
+body.dark-mode .namegen-select {
+  background: #231b2e;
+  border-color: rgba(233, 30, 99, 0.35);
+  color: #f1ecf4;
+}
+
+.namegen-input:focus,
+.namegen-select:focus {
   outline: none;
   border-color: var(--pink, #e91e63);
   box-shadow: 0 0 0 3px rgba(255, 101, 155, 0.2);
-  background: #ffffff;
 }
 
 .namegen-row-2col {
@@ -2990,60 +3106,74 @@ body.theme-dark .keitai-btn.action-key, body.dark-mode .keitai-btn.action-key {
 }
 
 .namegen-select {
-  width: 100%;
-  padding: 12px 14px;
-  background: #ffffff;
-  border: 1.5px solid var(--pink-border, #fcd1e5);
-  border-radius: 12px;
-  color: #2c2030;
-  font-size: 13.5px;
-  font-family: inherit;
   cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.namegen-select:focus {
-  outline: none;
-  border-color: var(--pink, #e91e63);
-  box-shadow: 0 0 0 3px rgba(255, 101, 155, 0.2);
 }
 
 .namegen-actions-bar {
-  margin-top: 6px;
+  margin-top: 4px;
 }
 
 .namegen-submit-btn {
   width: 100%;
-  padding: 13px;
+  padding: 14px;
   font-size: 15px;
   font-weight: 800;
   border-radius: 12px;
+  background: linear-gradient(135deg, #ff4f91 0%, #e91e63 100%);
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(233, 30, 99, 0.28);
+  transition: all 0.2s ease;
 }
 
-.namegen-chips-wrap {
+.namegen-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(233, 30, 99, 0.38);
+}
+
+.namegen-tips-box {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding-top: 8px;
-  border-top: 1px solid #f2e6ee;
-}
-
-.chips-label {
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #fdf5f8;
+  border: 1px solid #f8d5e3;
+  border-radius: 12px;
   font-size: 12px;
-  font-weight: 700;
-  color: #7a6b7d;
+  line-height: 1.5;
+  color: #6d5462;
 }
 
-/* Kolom Hasil & Kartu */
+body.theme-dark .namegen-tips-box,
+body.dark-mode .namegen-tips-box {
+  background: #211928;
+  border-color: rgba(233, 30, 99, 0.25);
+  color: #c9bed0;
+}
+
+.tips-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+/* Kolom Kanan: Hasil Nama, Ateji, & Kartu KTA */
 .namegen-result-card {
+  min-width: 0 !important;
   background: #ffffff !important;
   border: 1.5px solid var(--pink-border, #fcd1e5) !important;
   border-radius: 20px !important;
   padding: 24px !important;
   box-shadow: 0 8px 26px rgba(72, 32, 52, 0.05) !important;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 18px !important;
+  box-sizing: border-box !important;
+}
+
+body.theme-dark .namegen-result-card,
+body.dark-mode .namegen-result-card {
+  background: #191422 !important;
+  border-color: rgba(233, 30, 99, 0.3) !important;
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.3) !important;
 }
 
 /* Banner Katakana */
@@ -3053,148 +3183,219 @@ body.theme-dark .keitai-btn.action-key, body.dark-mode .keitai-btn.action-key {
   justify-content: space-between;
   padding: 16px 20px;
   background: #fff4f8;
-  border: 1.5px solid #fcd1e5;
-  border-radius: 14px;
+  border: 1.5px solid #fbd3e5;
+  border-radius: 16px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+body.theme-dark .namegen-phonetic-banner,
+body.dark-mode .namegen-phonetic-banner {
+  background: #23192a;
+  border-color: rgba(233, 30, 99, 0.35);
+}
+
+.phonetic-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
 }
 
 .phonetic-label {
   font-size: 11px;
   font-weight: 800;
-  letter-spacing: 1.5px;
-  color: #d81b60;
+  color: var(--pink, #e91e63);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
 }
 
 .phonetic-display {
   display: flex;
   align-items: baseline;
   gap: 10px;
-  margin-top: 4px;
+  flex-wrap: wrap;
 }
 
 .katakana-large {
-  font-size: 30px;
+  font-size: clamp(24px, 3.5vw, 32px);
   font-weight: 900;
-  color: #2c2030;
-  font-family: 'Noto Sans JP', sans-serif;
-  text-shadow: none;
+  color: var(--ink, #201c26);
+  font-family: var(--font-jp, "Noto Sans JP", sans-serif);
+  letter-spacing: 1px;
+  line-height: 1.2;
+}
+
+body.theme-dark .katakana-large,
+body.dark-mode .katakana-large {
+  color: #ffffff;
 }
 
 .romaji-sub {
   font-size: 15px;
   font-weight: 700;
-  color: #e91e63;
+  color: var(--pink, #e91e63);
 }
 
 /* Ateji Box */
 .namegen-ateji-box {
   background: #faf7fc;
   border: 1.5px solid #f0e4f4;
-  border-radius: 14px;
-  padding: 18px;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+body.theme-dark .namegen-ateji-box,
+body.dark-mode .namegen-ateji-box {
+  background: #20182b;
+  border-color: rgba(233, 30, 99, 0.25);
 }
 
 .ateji-header {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .ateji-icon {
-  font-size: 22px;
+  font-size: 20px;
 }
 
 .ateji-head-text strong {
   display: block;
-  font-size: 14px;
-  color: #2c2030;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--ink, #201c26);
+}
+
+body.theme-dark .ateji-head-text strong,
+body.dark-mode .ateji-head-text strong {
+  color: #f1ecf4;
 }
 
 .ateji-head-text small {
   font-size: 11.5px;
-  color: #6d5b72;
+  color: var(--muted, #6d6471);
+}
+
+body.theme-dark .ateji-head-text small,
+body.dark-mode .ateji-head-text small {
+  color: #a89cb0;
 }
 
 .ateji-kanji-row {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
   margin-bottom: 12px;
 }
 
 .ateji-chip {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   background: #ffffff;
   border: 1px solid #f0d8e4;
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 8px 12px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  min-width: 0;
+}
+
+body.theme-dark .ateji-chip,
+body.dark-mode .ateji-chip {
+  background: #171220;
+  border-color: rgba(233, 30, 99, 0.3);
 }
 
 .ateji-kanji {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 900;
   font-family: 'Noto Serif JP', serif;
   color: #e91e63;
-  width: 36px;
+  width: 32px;
+  flex-shrink: 0;
   text-align: center;
+  line-height: 1;
 }
 
 .ateji-chip-info {
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .ateji-reading {
   font-size: 13px;
-  font-weight: 700;
-  color: #2c2030;
+  font-weight: 800;
+  color: var(--ink, #201c26);
+  line-height: 1.2;
+}
+
+body.theme-dark .ateji-reading,
+body.dark-mode .ateji-reading {
+  color: #ffffff;
 }
 
 .ateji-meaning {
-  font-size: 12px;
-  color: #6d5b72;
+  font-size: 11px;
+  color: var(--muted, #6d6471);
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+body.theme-dark .ateji-meaning,
+body.dark-mode .ateji-meaning {
+  color: #b5a8bd;
 }
 
 .ateji-philosophy-text {
-  font-size: 13px;
+  font-size: 12.5px;
   line-height: 1.6;
   color: #4a3b4d;
   font-style: italic;
   margin: 0;
   padding-top: 10px;
-  border-top: 1px dashed #e5d4e2;
+  border-top: 1px dashed rgba(233, 30, 99, 0.2);
+}
+
+body.theme-dark .ateji-philosophy-text,
+body.dark-mode .ateji-philosophy-text {
+  color: #d1c8d6;
 }
 
 /* ==========================================================================
    LIVE PREVIEW KARTU TANDA ANGGOTA (OSATSU MIRAI NO HANA)
    ========================================================================== */
 .member-card-stage {
-  perspective: 1000px;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
 }
 
 .member-card-wrap {
   width: 100%;
   aspect-ratio: 16 / 9.5;
   background: linear-gradient(135deg, #1b1326 0%, #110d18 50%, #09070e 100%);
-  border: 2px solid rgba(255, 101, 155, 0.45);
+  border: 2px solid rgba(255, 101, 155, 0.55);
   border-radius: 20px;
-  padding: 20px;
+  padding: clamp(12px, 3.2vw, 20px);
   box-shadow: 0 16px 45px rgba(0, 0, 0, 0.65), 0 0 24px rgba(233, 30, 99, 0.22);
   position: relative;
   overflow: hidden;
   color: #ffffff;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 }
 
 .member-card-wrap::before {
   content: "";
   position: absolute;
-  inset: 8px;
-  border: 1px dashed rgba(255, 255, 255, 0.12);
+  inset: 6px;
+  border: 1px dashed rgba(255, 255, 255, 0.14);
   border-radius: 14px;
   pointer-events: none;
 }
@@ -3205,10 +3406,10 @@ body.theme-dark .keitai-btn.action-key, body.dark-mode .keitai-btn.action-key {
   right: -30px;
   top: 50%;
   transform: translateY(-50%);
-  width: 200px;
-  height: 200px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
-  border: 30px solid rgba(255, 101, 155, 0.05);
+  border: 24px solid rgba(255, 101, 155, 0.06);
   pointer-events: none;
 }
 
@@ -3225,6 +3426,7 @@ body.theme-dark .keitai-btn.action-key, body.dark-mode .keitai-btn.action-key {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
 }
 
 .mcard-brand {
@@ -3234,7 +3436,7 @@ body.theme-dark .keitai-btn.action-key, body.dark-mode .keitai-btn.action-key {
 }
 
 .mcard-flower-icon {
-  font-size: 22px;
+  font-size: clamp(16px, 3vw, 22px);
 }
 
 .mcard-brand-text {
@@ -3243,103 +3445,116 @@ body.theme-dark .keitai-btn.action-key, body.dark-mode .keitai-btn.action-key {
 }
 
 .mcard-club-name {
-  font-size: 15px;
+  font-size: clamp(12px, 2.2vw, 15px);
   font-weight: 900;
   letter-spacing: 1px;
   color: #ffffff;
+  line-height: 1.1;
 }
 
 .mcard-sub-jp {
-  font-size: 10px;
+  font-size: clamp(8px, 1.6vw, 10px);
   color: #ff85b3;
   font-family: 'Noto Serif JP', serif;
 }
 
 .mcard-id-pill {
-  font-size: 11px;
+  font-size: clamp(9px, 1.8vw, 11px);
   font-weight: 800;
   font-family: monospace;
-  background: rgba(255, 101, 155, 0.18);
-  border: 1px solid rgba(255, 101, 155, 0.4);
+  background: rgba(255, 101, 155, 0.2);
+  border: 1px solid rgba(255, 101, 155, 0.45);
   color: #ff85b3;
-  padding: 4px 10px;
+  padding: 3px 8px;
   border-radius: 999px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 
 .mcard-body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 10px 0;
+  margin: 6px 0;
+  gap: 12px;
 }
 
 .mcard-name-col {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
+  min-width: 0;
 }
 
 .mcard-jp-name {
-  font-size: 26px;
+  font-size: clamp(18px, 4.2vw, 26px);
   font-weight: 900;
   font-family: 'Noto Sans JP', sans-serif;
   color: #ffffff;
   text-shadow: 0 0 12px rgba(255, 101, 155, 0.5);
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .mcard-latin-name {
-  font-size: 15px;
+  font-size: clamp(12px, 2.4vw, 15px);
   font-weight: 700;
   color: #ffd1e3;
+  line-height: 1.2;
 }
 
 .mcard-meta-row {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-top: 6px;
+  gap: 5px;
+  margin-top: 4px;
   flex-wrap: wrap;
 }
 
 .mcard-meta-pill {
-  font-size: 10.5px;
+  font-size: clamp(8.5px, 1.7vw, 10.5px);
   font-weight: 600;
   background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  padding: 3px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 2px 7px;
   border-radius: 6px;
   color: #f1f5f9;
+  white-space: nowrap;
 }
 
 .mcard-ateji-col {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-shrink: 0;
 }
 
 .mcard-kanji-stamp {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
   background: rgba(20, 14, 28, 0.85);
-  border: 1px solid rgba(255, 101, 155, 0.35);
+  border: 1px solid rgba(255, 101, 155, 0.4);
   border-radius: 8px;
-  padding: 4px 8px;
+  padding: 3px 6px;
   font-family: 'Noto Serif JP', serif;
-  font-size: 16px;
+  font-size: clamp(12px, 2.5vw, 16px);
   font-weight: 800;
   color: #ffffff;
   text-align: center;
+  line-height: 1.1;
 }
 
 .mcard-red-seal {
-  width: 44px;
-  height: 44px;
+  width: clamp(34px, 6vw, 44px);
+  height: clamp(34px, 6vw, 44px);
   background: #e11d48;
   border: 1.5px solid #ffe4e6;
   border-radius: 8px;
   color: #ffffff;
-  font-size: 12px;
+  font-size: clamp(9px, 1.8vw, 12px);
   font-weight: 900;
   font-family: 'Noto Serif JP', serif;
   display: flex;
@@ -3348,20 +3563,30 @@ body.theme-dark .keitai-btn.action-key, body.dark-mode .keitai-btn.action-key {
   text-align: center;
   line-height: 1.1;
   box-shadow: 0 4px 10px rgba(225, 29, 72, 0.4);
+  flex-shrink: 0;
 }
 
 .mcard-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 10.5px;
+  font-size: clamp(8px, 1.6vw, 10.5px);
   color: #94a3b8;
+  gap: 8px;
+}
+
+.mcard-school {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .mcard-barcode {
   font-family: monospace;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
   color: rgba(255, 255, 255, 0.45);
+  font-size: clamp(7.5px, 1.5vw, 10px);
+  white-space: nowrap;
 }
 
 .namegen-download-row {
@@ -3369,6 +3594,7 @@ body.theme-dark .keitai-btn.action-key, body.dark-mode .keitai-btn.action-key {
   flex-direction: column;
   gap: 8px;
   align-items: center;
+  width: 100%;
 }
 
 .download-card-btn {
@@ -3381,21 +3607,2297 @@ body.theme-dark .keitai-btn.action-key, body.dark-mode .keitai-btn.action-key {
 
 .download-hint {
   font-size: 12px;
-  color: #94a3b8;
+  color: var(--muted, #6d6471);
   text-align: center;
 }
 
-@media (max-width: 820px) {
+body.theme-dark .download-hint,
+body.dark-mode .download-hint {
+  color: #a89cb0;
+}
+
+/* Responsivitas Layar Menengah & HP */
+@media (max-width: 960px) {
   .namegen-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
+    gap: 22px !important;
   }
 
   .studio-tab-btn {
     padding: 10px 14px;
     font-size: 13px;
   }
+}
 
+@media (max-width: 540px) {
   .namegen-row-2col {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .namegen-form-card,
+  .namegen-result-card {
+    padding: 18px !important;
+    border-radius: 16px !important;
+  }
+  .ateji-kanji-row {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Safe clearance agar tidak tertutup tombol melayang */
+.translator-studio-section {
+  padding-bottom: 90px !important;
+}
+
+/* ==========================================================================
+STICKY KANJI DETAIL PANEL & SHORTCUTS HINT (LAPTOP / DESKTOP >= 1200px)
+========================================================================== */
+@media (min-width: 1200px) {
+  .dictionary-layout .kanji-detail,
+  .dictionary-layout [data-kanji-detail] {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 88px;
+    max-height: calc(100vh - 108px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border-radius: 12px;
+  }
+
+  .dictionary-layout .kanji-detail::-webkit-scrollbar,
+  .dictionary-layout [data-kanji-detail]::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .dictionary-layout .kanji-detail::-webkit-scrollbar-thumb,
+  .dictionary-layout [data-kanji-detail]::-webkit-scrollbar-thumb {
+    background: rgba(233, 30, 99, 0.35);
+    border-radius: 99px;
+  }
+}
+
+/* ==========================================================================
+   STUDIO TRANSLATOR ADAPTIF & DESKTOP REDESIGN (CLEAN & COMPACT)
+   ========================================================================== */
+.studio-adaptive-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 22px 0 18px;
+  flex-wrap: wrap;
+}
+
+.adaptive-direction-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  background: #ffffff;
+  border: 1.5px solid var(--pink-border, #fcd1e5);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--pink, #e91e63);
+  box-shadow: 0 4px 16px rgba(72, 32, 52, 0.05);
+  transition: all 0.25s ease;
+  user-select: none;
+}
+
+body.theme-dark .adaptive-direction-badge,
+body.dark-mode .adaptive-direction-badge {
+  background: #1c1724;
+  border-color: rgba(233, 30, 99, 0.35);
+  color: #ff6090;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.studio-toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Dual Panel Grid: Desktop 2 Kolom Seimbang */
+.studio-box-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 24px !important;
+  align-items: stretch !important;
+  margin-bottom: 24px !important;
+}
+
+.studio-card {
+  background: #ffffff;
+  border: 1.5px solid var(--pink-border, #fcd1e5);
+  border-radius: 20px;
+  padding: 22px;
+  box-shadow: 0 8px 28px rgba(72, 32, 52, 0.05);
+  display: flex;
+  flex-direction: column;
+  min-height: 290px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.studio-output-card {
+  background: #fffcfd;
+}
+
+body.theme-dark .studio-output-card,
+body.dark-mode .studio-output-card {
+  background: #18141f;
+}
+
+.studio-textarea {
+  width: 100%;
+  min-height: 140px;
+  border: none;
+  outline: none;
+  resize: vertical;
+  font-size: 16px;
+  line-height: 1.6;
+  font-family: inherit;
+  color: var(--ink, #201c26);
+  background: transparent;
+  box-sizing: border-box;
+}
+
+body.theme-dark .studio-textarea,
+body.dark-mode .studio-textarea {
+  color: #f0eef5;
+}
+
+.studio-output-text {
+  min-height: 140px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink, #201c26);
+  word-break: break-word;
+  box-sizing: border-box;
+}
+
+body.theme-dark .studio-output-text,
+body.dark-mode .studio-output-text {
+  color: #f0eef5;
+}
+
+/* Sembunyikan elemen lama tombol tukar & seksi contoh cepat */
+/* Sembunyikan elemen lama swap dan quick-examples */
+.studio-swap-column,
+.studio-mobile-lang-bar,
+.quick-examples-wrap,
+#panelTranslator .quick-chips-scroll,
+#panelTranslator .quick-chip {
+  display: none !important;
+}
+
+/* ==========================================================================
+   KEYBOARD MELAYANG: DRAGGABLE & RESIZABLE DENGAN LIMIT BOUNDARIES
+   ========================================================================== */
+.virtual-keyboard-panel {
+  position: fixed !important;
+  z-index: 99999 !important;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 440px;
+  min-width: 310px;
+  max-width: min(740px, 96vw);
+  min-height: 220px;
+  max-height: min(680px, 85vh);
+  background: rgba(255, 255, 255, 0.98) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1.5px solid var(--pink-border, #f4bfd3) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.22), 0 2px 14px rgba(233, 30, 99, 0.15) !important;
+  padding: 8px 14px 14px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  user-select: none;
+  touch-action: none;
+}
+
+body.theme-dark .virtual-keyboard-panel,
+body.dark-mode .virtual-keyboard-panel {
+  background: rgba(24, 19, 30, 0.98) !important;
+  border-color: rgba(233, 30, 99, 0.35) !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55), 0 2px 14px rgba(233, 30, 99, 0.25) !important;
+}
+
+.virtual-keyboard-panel.is-collapsed {
+  display: none !important;
+}
+
+.virtual-keyboard-panel.is-dragging {
+  cursor: grabbing !important;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.32), 0 4px 20px rgba(233, 30, 99, 0.25) !important;
+}
+
+.kb-floating-drag-bar {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 4px 0 6px !important;
+  cursor: grab !important;
+  touch-action: none !important;
+}
+
+.kb-floating-drag-bar:active,
+.virtual-keyboard-panel.is-dragging .kb-floating-drag-bar {
+  cursor: grabbing !important;
+}
+
+.kb-drag-pill {
+  width: 48px !important;
+  height: 5px !important;
+  border-radius: 99px !important;
+  background: rgba(233, 30, 99, 0.35) !important;
+  transition: background 0.2s ease, width 0.2s ease;
+}
+
+.kb-floating-drag-bar:hover .kb-drag-pill {
+  background: var(--pink, #e91e63) !important;
+  width: 56px !important;
+}
+
+.keyboard-header {
+  cursor: grab;
+  touch-action: none;
+}
+
+.keyboard-header:active,
+.virtual-keyboard-panel.is-dragging .keyboard-header {
+  cursor: grabbing;
+}
+
+.keyboard-body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.keitai-12key-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 7px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.keitai-btn {
+  width: 100% !important;
+  min-height: 48px !important;
+  height: 100% !important;
+  border-radius: 12px !important;
+}
+
+.kb-resize-handle {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 20px;
+  height: 20px;
+  cursor: nwse-resize;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(233, 30, 99, 0.45);
+  touch-action: none;
+  z-index: 10;
+}
+
+.kb-resize-handle:hover,
+.virtual-keyboard-panel.is-resizing .kb-resize-handle {
+  color: var(--pink, #e91e63);
+}
+
+@media (max-width: 850px) {
+  .studio-box-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+  .studio-card {
+    min-height: auto;
+    padding: 16px;
+    border-radius: 16px;
+  }
+  .studio-textarea {
+    min-height: 80px;
+    font-size: 15px;
+  }
+  .studio-output-text {
+    min-height: 60px;
+    font-size: 15px;
+  }
+}
+
+/* ==========================================================================
+   STUDIO GORESAN INTERAKTIF 3 KOTAK (TRIO PANEL KANVAS & AUTO-PLAY)
+   ========================================================================== */
+.stroke-studio-container {
+  width: 100%;
+  margin: 14px 0 24px;
+  box-sizing: border-box;
+}
+
+.stroke-studio-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.stroke-studio-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.stroke-studio-badge {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--pink, #e91e63);
+  letter-spacing: 0.5px;
+}
+
+.stroke-studio-sub {
+  font-size: 11.5px;
+  color: var(--muted, #6d6471);
+}
+
+body.theme-dark .stroke-studio-sub,
+body.dark-mode .stroke-studio-sub {
+  color: #a89cb0;
+}
+
+.stroke-mode-tabs {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #fdf2f7;
+  border: 1px solid var(--pink-border, #fcd1e5);
+  border-radius: 999px;
+  padding: 3px;
+}
+
+body.theme-dark .stroke-mode-tabs,
+body.dark-mode .stroke-mode-tabs {
+  background: #231a29;
+  border-color: rgba(233, 30, 99, 0.3);
+}
+
+.stroke-mode-btn {
+  border: none;
+  background: transparent;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--muted, #6d6471);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+body.theme-dark .stroke-mode-btn,
+body.dark-mode .stroke-mode-btn {
+  color: #b5a8bd;
+}
+
+.stroke-mode-btn.is-active {
+  background: var(--pink, #e91e63);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(233, 30, 99, 0.3);
+}
+
+/* Grid 3 Kotak Berdampingan (Desktop) */
+.stroke-studio-trio {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  align-items: stretch;
+}
+
+.stroke-panel-card {
+  min-width: 0;
+  background: #ffffff;
+  border: 1.5px solid var(--pink-border, #fcd1e5);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 6px 20px rgba(72, 32, 52, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+body.theme-dark .stroke-panel-card,
+body.dark-mode .stroke-panel-card {
+  background: #191422;
+  border-color: rgba(233, 30, 99, 0.3);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.panel-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed rgba(233, 30, 99, 0.18);
+}
+
+.panel-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.panel-num {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--pink, #e91e63);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.panel-card-title strong {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--ink, #201c26);
+}
+
+body.theme-dark .panel-card-title strong,
+body.dark-mode .panel-card-title strong {
+  color: #ffffff;
+}
+
+.panel-card-tag {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--pink, #e91e63);
+  background: #fff0f5;
+  border: 1px solid #ffd4e5;
+  border-radius: 999px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+
+body.theme-dark .panel-card-tag,
+body.dark-mode .panel-card-tag {
+  background: rgba(233, 30, 99, 0.18);
+  border-color: rgba(233, 30, 99, 0.35);
+  color: #ff6090;
+}
+
+/* Kotak 2: Kanvas Tulis Mandiri */
+.user-canvas-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 220px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto 12px;
+  background: #fffcfd;
+  border: 1.5px solid var(--pink-border, #fcd1e5);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.theme-dark .user-canvas-wrapper,
+body.dark-mode .user-canvas-wrapper {
+  background: #15111d;
+  border-color: rgba(233, 30, 99, 0.3);
+}
+
+.user-draw-canvas {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.user-canvas-guide-char {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 120px;
+  font-family: var(--font-jp, "Noto Sans JP", sans-serif);
+  color: rgba(233, 30, 99, 0.14);
+  user-select: none;
+  pointer-events: none;
+  line-height: 1;
+}
+
+body.theme-dark .user-canvas-guide-char,
+body.dark-mode .user-canvas-guide-char {
+  color: rgba(255, 101, 155, 0.18);
+}
+
+.user-canvas-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.canvas-tool-btn {
+  border: 1px solid var(--pink-border, #fcd1e5);
+  background: #ffffff;
+  color: var(--ink, #201c26);
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+body.theme-dark .canvas-tool-btn,
+body.dark-mode .canvas-tool-btn {
+  background: #231b2e;
+  border-color: rgba(233, 30, 99, 0.3);
+  color: #f1ecf4;
+}
+
+.canvas-tool-btn:hover {
+  background: #fff0f5;
+  border-color: var(--pink, #e91e63);
+  color: var(--pink, #e91e63);
+}
+
+.canvas-tool-btn.is-active {
+  background: var(--pink, #e91e63);
+  color: #ffffff;
+  border-color: var(--pink, #e91e63);
+}
+
+.user-canvas-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+}
+
+.user-canvas-hint {
+  font-size: 11px;
+  color: var(--muted, #6d6471);
+  line-height: 1.4;
+}
+
+body.theme-dark .user-canvas-hint,
+body.dark-mode .user-canvas-hint {
+  color: #a89cb0;
+}
+
+.canvas-finish-btn {
+  width: 100%;
+  padding: 10px;
+  font-size: 12.5px;
+  font-weight: 800;
+  border-radius: 10px;
+}
+
+/* Kotak 3: Hasil & Perbandingan Auto-Play */
+.compare-display-area {
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.compare-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px 14px;
+  color: var(--muted, #6d6471);
+  gap: 6px;
+}
+
+body.theme-dark .compare-placeholder,
+body.dark-mode .compare-placeholder {
+  color: #a89cb0;
+}
+
+.placeholder-icon {
+  font-size: 36px;
+  margin-bottom: 4px;
+  opacity: 0.7;
+}
+
+.compare-placeholder strong {
+  font-size: 13.5px;
+  color: var(--ink, #201c26);
+}
+
+body.theme-dark .compare-placeholder strong,
+body.dark-mode .compare-placeholder strong {
+  color: #f1ecf4;
+}
+
+.compare-placeholder p {
+  font-size: 11.5px;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.compare-active-view {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.compare-stage-duo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  align-items: center;
+}
+
+.compare-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.compare-label {
+  font-size: 10.5px;
+  font-weight: 800;
+  color: var(--pink, #e91e63);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.user-result-img,
+.compare-official-stage {
+  width: 100%;
+  max-width: 105px;
+  aspect-ratio: 1 / 1;
+  background: #fffcfd;
+  border: 1.5px solid var(--pink-border, #fcd1e5);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+body.theme-dark .user-result-img,
+body.theme-dark .compare-official-stage,
+body.dark-mode .user-result-img,
+body.dark-mode .compare-official-stage {
+  background: #15111d;
+  border-color: rgba(233, 30, 99, 0.3);
+}
+
+.compare-feedback-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 8px 10px;
+  background: #fdf2f7;
+  border: 1px solid var(--pink-border, #fcd1e5);
+  border-radius: 10px;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--ink, #201c26);
+}
+
+body.theme-dark .compare-feedback-banner,
+body.dark-mode .compare-feedback-banner {
+  background: #231a29;
+  border-color: rgba(233, 30, 99, 0.3);
+  color: #f1ecf4;
+}
+
+.feedback-sparkle {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.compare-actions-bar {
+  display: flex;
+  justify-content: center;
+}
+
+.compare-replay-btn {
+  width: 100%;
+  padding: 10px;
+  font-size: 12px;
+  font-weight: 800;
+  border-radius: 10px;
+}
+
+/* ==========================================================================
+   DESAIN ELEGAN: TOMBOL LAPOR GORESAN SALAH (POINT 3)
+   ========================================================================== */
+.stroke-footer-bar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  margin-top: 16px !important;
+  padding-top: 12px !important;
+  border-top: 1px dashed rgba(233, 30, 99, 0.2) !important;
+  flex-wrap: wrap !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.stroke-report-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 6px 14px !important;
+  background: rgba(233, 30, 99, 0.08) !important;
+  border: 1.5px solid rgba(233, 30, 99, 0.28) !important;
+  border-radius: 999px !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  color: var(--pink, #e91e63) !important;
+  text-decoration: none !important;
+  transition: all 0.22s ease !important;
+  user-select: none !important;
+}
+
+.stroke-report-pill:hover {
+  background: var(--pink, #e91e63) !important;
+  color: #ffffff !important;
+  border-color: var(--pink, #e91e63) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 14px rgba(233, 30, 99, 0.3) !important;
+}
+
+body.theme-dark .stroke-report-pill,
+body.dark-mode .stroke-report-pill {
+  background: rgba(233, 30, 99, 0.18) !important;
+  border-color: rgba(233, 30, 99, 0.4) !important;
+  color: #ff6090 !important;
+}
+
+body.theme-dark .stroke-report-pill:hover,
+body.dark-mode .stroke-report-pill:hover {
+  background: #e91e63 !important;
+  color: #ffffff !important;
+}
+
+/* Responsivitas Layar */
+@media (max-width: 1024px) and (min-width: 681px) {
+  .stroke-studio-trio {
+    grid-template-columns: 1fr 1fr;
+  }
+  .stroke-compare-card {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 680px) {
+  .stroke-studio-trio {
     grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+
+/* ==========================================================================
+   STUDIO GORESAN INTERAKTIF 3 KOTAK (TRIO PANEL KANVAS & AUTO-PLAY)
+   ========================================================================== */
+.stroke-studio-container {
+  width: 100%;
+  margin: 14px 0 24px;
+  box-sizing: border-box;
+}
+
+.stroke-studio-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.stroke-studio-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.stroke-studio-badge {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--pink, #e91e63);
+  letter-spacing: 0.5px;
+}
+
+.stroke-studio-sub {
+  font-size: 11.5px;
+  color: var(--muted, #6d6471);
+}
+
+body.theme-dark .stroke-studio-sub,
+body.dark-mode .stroke-studio-sub {
+  color: #a89cb0;
+}
+
+.stroke-mode-tabs {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #fdf2f7;
+  border: 1px solid var(--pink-border, #fcd1e5);
+  border-radius: 999px;
+  padding: 3px;
+}
+
+body.theme-dark .stroke-mode-tabs,
+body.dark-mode .stroke-mode-tabs {
+  background: #231a29;
+  border-color: rgba(233, 30, 99, 0.3);
+}
+
+.stroke-mode-btn {
+  border: none;
+  background: transparent;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--muted, #6d6471);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+body.theme-dark .stroke-mode-btn,
+body.dark-mode .stroke-mode-btn {
+  color: #b5a8bd;
+}
+
+.stroke-mode-btn.is-active {
+  background: var(--pink, #e91e63);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(233, 30, 99, 0.3);
+}
+
+/* Grid 3 Kotak Berdampingan (Desktop) */
+.stroke-studio-trio {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  align-items: stretch;
+}
+
+.stroke-panel-card {
+  min-width: 0;
+  background: #ffffff;
+  border: 1.5px solid var(--pink-border, #fcd1e5);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 6px 20px rgba(72, 32, 52, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+body.theme-dark .stroke-panel-card,
+body.dark-mode .stroke-panel-card {
+  background: #191422;
+  border-color: rgba(233, 30, 99, 0.3);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.panel-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed rgba(233, 30, 99, 0.18);
+}
+
+.panel-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.panel-num {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--pink, #e91e63);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.panel-card-title strong {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--ink, #201c26);
+}
+
+body.theme-dark .panel-card-title strong,
+body.dark-mode .panel-card-title strong {
+  color: #ffffff;
+}
+
+.panel-card-tag {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--pink, #e91e63);
+  background: #fff0f5;
+  border: 1px solid #ffd4e5;
+  border-radius: 999px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+
+body.theme-dark .panel-card-tag,
+body.dark-mode .panel-card-tag {
+  background: rgba(233, 30, 99, 0.18);
+  border-color: rgba(233, 30, 99, 0.35);
+  color: #ff6090;
+}
+
+/* Kotak 2: Kanvas Tulis Mandiri */
+.user-canvas-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 220px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto 12px;
+  background: #fffcfd;
+  border: 1.5px solid var(--pink-border, #fcd1e5);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.theme-dark .user-canvas-wrapper,
+body.dark-mode .user-canvas-wrapper {
+  background: #15111d;
+  border-color: rgba(233, 30, 99, 0.3);
+}
+
+.user-draw-canvas {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.user-canvas-guide-char {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 120px;
+  font-family: var(--font-jp, "Noto Sans JP", sans-serif);
+  color: rgba(233, 30, 99, 0.14);
+  user-select: none;
+  pointer-events: none;
+  line-height: 1;
+}
+
+body.theme-dark .user-canvas-guide-char,
+body.dark-mode .user-canvas-guide-char {
+  color: rgba(255, 101, 155, 0.18);
+}
+
+.user-canvas-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.canvas-tool-btn {
+  border: 1px solid var(--pink-border, #fcd1e5);
+  background: #ffffff;
+  color: var(--ink, #201c26);
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+body.theme-dark .canvas-tool-btn,
+body.dark-mode .canvas-tool-btn {
+  background: #231b2e;
+  border-color: rgba(233, 30, 99, 0.3);
+  color: #f1ecf4;
+}
+
+.canvas-tool-btn:hover {
+  background: #fff0f5;
+  border-color: var(--pink, #e91e63);
+  color: var(--pink, #e91e63);
+}
+
+.canvas-tool-btn.is-active {
+  background: var(--pink, #e91e63);
+  color: #ffffff;
+  border-color: var(--pink, #e91e63);
+}
+
+.user-canvas-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+}
+
+.user-canvas-hint {
+  font-size: 11px;
+  color: var(--muted, #6d6471);
+  line-height: 1.4;
+}
+
+body.theme-dark .user-canvas-hint,
+body.dark-mode .user-canvas-hint {
+  color: #a89cb0;
+}
+
+.canvas-finish-btn {
+  width: 100%;
+  padding: 10px;
+  font-size: 12.5px;
+  font-weight: 800;
+  border-radius: 10px;
+}
+
+/* Kotak 3: Hasil & Perbandingan Auto-Play */
+.compare-display-area {
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.compare-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px 14px;
+  color: var(--muted, #6d6471);
+  gap: 6px;
+}
+
+body.theme-dark .compare-placeholder,
+body.dark-mode .compare-placeholder {
+  color: #a89cb0;
+}
+
+.placeholder-icon {
+  font-size: 36px;
+  margin-bottom: 4px;
+  opacity: 0.7;
+}
+
+.compare-placeholder strong {
+  font-size: 13.5px;
+  color: var(--ink, #201c26);
+}
+
+body.theme-dark .compare-placeholder strong,
+body.dark-mode .compare-placeholder strong {
+  color: #f1ecf4;
+}
+
+.compare-placeholder p {
+  font-size: 11.5px;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.compare-active-view {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.compare-stage-duo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  align-items: center;
+}
+
+.compare-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.compare-label {
+  font-size: 10.5px;
+  font-weight: 800;
+  color: var(--pink, #e91e63);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.user-result-img,
+.compare-official-stage {
+  width: 100%;
+  max-width: 105px;
+  aspect-ratio: 1 / 1;
+  background: #fffcfd;
+  border: 1.5px solid var(--pink-border, #fcd1e5);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+body.theme-dark .user-result-img,
+body.theme-dark .compare-official-stage,
+body.dark-mode .user-result-img,
+body.dark-mode .compare-official-stage {
+  background: #15111d;
+  border-color: rgba(233, 30, 99, 0.3);
+}
+
+.compare-feedback-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 8px 10px;
+  background: #fdf2f7;
+  border: 1px solid var(--pink-border, #fcd1e5);
+  border-radius: 10px;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--ink, #201c26);
+}
+
+body.theme-dark .compare-feedback-banner,
+body.dark-mode .compare-feedback-banner {
+  background: #231a29;
+  border-color: rgba(233, 30, 99, 0.3);
+  color: #f1ecf4;
+}
+
+.feedback-sparkle {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.compare-actions-bar {
+  display: flex;
+  justify-content: center;
+}
+
+.compare-replay-btn {
+  width: 100%;
+  padding: 10px;
+  font-size: 12px;
+  font-weight: 800;
+  border-radius: 10px;
+}
+
+/* ==========================================================================
+   DESAIN ELEGAN: TOMBOL LAPOR GORESAN SALAH (POINT 3)
+   ========================================================================== */
+.stroke-footer-bar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  margin-top: 16px !important;
+  padding-top: 12px !important;
+  border-top: 1px dashed rgba(233, 30, 99, 0.2) !important;
+  flex-wrap: wrap !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.stroke-report-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 6px 14px !important;
+  background: rgba(233, 30, 99, 0.08) !important;
+  border: 1.5px solid rgba(233, 30, 99, 0.28) !important;
+  border-radius: 999px !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  color: var(--pink, #e91e63) !important;
+  text-decoration: none !important;
+  transition: all 0.22s ease !important;
+  user-select: none !important;
+}
+
+.stroke-report-pill:hover {
+  background: var(--pink, #e91e63) !important;
+  color: #ffffff !important;
+  border-color: var(--pink, #e91e63) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 14px rgba(233, 30, 99, 0.3) !important;
+}
+
+body.theme-dark .stroke-report-pill,
+body.dark-mode .stroke-report-pill {
+  background: rgba(233, 30, 99, 0.18) !important;
+  border-color: rgba(233, 30, 99, 0.4) !important;
+  color: #ff6090 !important;
+}
+
+body.theme-dark .stroke-report-pill:hover,
+body.dark-mode .stroke-report-pill:hover {
+  background: #e91e63 !important;
+  color: #ffffff !important;
+}
+
+/* Responsivitas Layar */
+@media (max-width: 1024px) and (min-width: 681px) {
+  .stroke-studio-trio {
+    grid-template-columns: 1fr 1fr;
+  }
+  .stroke-compare-card {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 680px) {
+  .stroke-studio-trio {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+
+/* ==========================================================================
+   STUDIO GORESAN INTERAKTIF 3 KOTAK (TRIO PANEL KANVAS & AUTO-PLAY)
+   ========================================================================== */
+.stroke-studio-container {
+  width: 100%;
+  margin: 14px 0 24px;
+  box-sizing: border-box;
+}
+
+.stroke-studio-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.stroke-studio-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.stroke-studio-badge {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--pink, #e91e63);
+  letter-spacing: 0.5px;
+}
+
+.stroke-studio-sub {
+  font-size: 11.5px;
+  color: var(--muted, #6d6471);
+}
+
+body.theme-dark .stroke-studio-sub,
+body.dark-mode .stroke-studio-sub {
+  color: #a89cb0;
+}
+
+.stroke-mode-tabs {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #fdf2f7;
+  border: 1px solid var(--pink-border, #fcd1e5);
+  border-radius: 999px;
+  padding: 3px;
+}
+
+body.theme-dark .stroke-mode-tabs,
+body.dark-mode .stroke-mode-tabs {
+  background: #231a29;
+  border-color: rgba(233, 30, 99, 0.3);
+}
+
+.stroke-mode-btn {
+  border: none;
+  background: transparent;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--muted, #6d6471);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+body.theme-dark .stroke-mode-btn,
+body.dark-mode .stroke-mode-btn {
+  color: #b5a8bd;
+}
+
+.stroke-mode-btn.is-active {
+  background: var(--pink, #e91e63);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(233, 30, 99, 0.3);
+}
+
+/* Grid 3 Kotak Berdampingan (Desktop) */
+.stroke-studio-trio {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  align-items: stretch;
+}
+
+.stroke-panel-card {
+  min-width: 0;
+  background: #ffffff;
+  border: 1.5px solid var(--pink-border, #fcd1e5);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 6px 20px rgba(72, 32, 52, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+body.theme-dark .stroke-panel-card,
+body.dark-mode .stroke-panel-card {
+  background: #191422;
+  border-color: rgba(233, 30, 99, 0.3);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.panel-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed rgba(233, 30, 99, 0.18);
+}
+
+.panel-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.panel-num {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--pink, #e91e63);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.panel-card-title strong {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--ink, #201c26);
+}
+
+body.theme-dark .panel-card-title strong,
+body.dark-mode .panel-card-title strong {
+  color: #ffffff;
+}
+
+.panel-card-tag {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--pink, #e91e63);
+  background: #fff0f5;
+  border: 1px solid #ffd4e5;
+  border-radius: 999px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+
+body.theme-dark .panel-card-tag,
+body.dark-mode .panel-card-tag {
+  background: rgba(233, 30, 99, 0.18);
+  border-color: rgba(233, 30, 99, 0.35);
+  color: #ff6090;
+}
+
+/* Kotak 2: Kanvas Tulis Mandiri */
+.user-canvas-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 220px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto 12px;
+  background: #fffcfd;
+  border: 1.5px solid var(--pink-border, #fcd1e5);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.theme-dark .user-canvas-wrapper,
+body.dark-mode .user-canvas-wrapper {
+  background: #15111d;
+  border-color: rgba(233, 30, 99, 0.3);
+}
+
+.user-draw-canvas {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.user-canvas-guide-char {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 120px;
+  font-family: var(--font-jp, "Noto Sans JP", sans-serif);
+  color: rgba(233, 30, 99, 0.14);
+  user-select: none;
+  pointer-events: none;
+  line-height: 1;
+}
+
+body.theme-dark .user-canvas-guide-char,
+body.dark-mode .user-canvas-guide-char {
+  color: rgba(255, 101, 155, 0.18);
+}
+
+.user-canvas-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.canvas-tool-btn {
+  border: 1px solid var(--pink-border, #fcd1e5);
+  background: #ffffff;
+  color: var(--ink, #201c26);
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+body.theme-dark .canvas-tool-btn,
+body.dark-mode .canvas-tool-btn {
+  background: #231b2e;
+  border-color: rgba(233, 30, 99, 0.3);
+  color: #f1ecf4;
+}
+
+.canvas-tool-btn:hover {
+  background: #fff0f5;
+  border-color: var(--pink, #e91e63);
+  color: var(--pink, #e91e63);
+}
+
+.canvas-tool-btn.is-active {
+  background: var(--pink, #e91e63);
+  color: #ffffff;
+  border-color: var(--pink, #e91e63);
+}
+
+.user-canvas-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+}
+
+.user-canvas-hint {
+  font-size: 11px;
+  color: var(--muted, #6d6471);
+  line-height: 1.4;
+}
+
+body.theme-dark .user-canvas-hint,
+body.dark-mode .user-canvas-hint {
+  color: #a89cb0;
+}
+
+.canvas-finish-btn {
+  width: 100%;
+  padding: 10px;
+  font-size: 12.5px;
+  font-weight: 800;
+  border-radius: 10px;
+}
+
+/* Kotak 3: Hasil & Perbandingan Auto-Play */
+.compare-display-area {
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.compare-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px 14px;
+  color: var(--muted, #6d6471);
+  gap: 6px;
+}
+
+body.theme-dark .compare-placeholder,
+body.dark-mode .compare-placeholder {
+  color: #a89cb0;
+}
+
+.placeholder-icon {
+  font-size: 36px;
+  margin-bottom: 4px;
+  opacity: 0.7;
+}
+
+.compare-placeholder strong {
+  font-size: 13.5px;
+  color: var(--ink, #201c26);
+}
+
+body.theme-dark .compare-placeholder strong,
+body.dark-mode .compare-placeholder strong {
+  color: #f1ecf4;
+}
+
+.compare-placeholder p {
+  font-size: 11.5px;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.compare-active-view {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.compare-stage-duo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  align-items: center;
+}
+
+.compare-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.compare-label {
+  font-size: 10.5px;
+  font-weight: 800;
+  color: var(--pink, #e91e63);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.user-result-img,
+.compare-official-stage {
+  width: 100%;
+  max-width: 105px;
+  aspect-ratio: 1 / 1;
+  background: #fffcfd;
+  border: 1.5px solid var(--pink-border, #fcd1e5);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+body.theme-dark .user-result-img,
+body.theme-dark .compare-official-stage,
+body.dark-mode .user-result-img,
+body.dark-mode .compare-official-stage {
+  background: #15111d;
+  border-color: rgba(233, 30, 99, 0.3);
+}
+
+.compare-feedback-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 8px 10px;
+  background: #fdf2f7;
+  border: 1px solid var(--pink-border, #fcd1e5);
+  border-radius: 10px;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--ink, #201c26);
+}
+
+body.theme-dark .compare-feedback-banner,
+body.dark-mode .compare-feedback-banner {
+  background: #231a29;
+  border-color: rgba(233, 30, 99, 0.3);
+  color: #f1ecf4;
+}
+
+.feedback-sparkle {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.compare-actions-bar {
+  display: flex;
+  justify-content: center;
+}
+
+.compare-replay-btn {
+  width: 100%;
+  padding: 10px;
+  font-size: 12px;
+  font-weight: 800;
+  border-radius: 10px;
+}
+
+/* ==========================================================================
+   DESAIN ELEGAN: TOMBOL LAPOR GORESAN SALAH (POINT 3)
+   ========================================================================== */
+.stroke-footer-bar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  margin-top: 16px !important;
+  padding-top: 12px !important;
+  border-top: 1px dashed rgba(233, 30, 99, 0.2) !important;
+  flex-wrap: wrap !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.stroke-report-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 6px 14px !important;
+  background: rgba(233, 30, 99, 0.08) !important;
+  border: 1.5px solid rgba(233, 30, 99, 0.28) !important;
+  border-radius: 999px !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  color: var(--pink, #e91e63) !important;
+  text-decoration: none !important;
+  transition: all 0.22s ease !important;
+  user-select: none !important;
+}
+
+.stroke-report-pill:hover {
+  background: var(--pink, #e91e63) !important;
+  color: #ffffff !important;
+  border-color: var(--pink, #e91e63) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 14px rgba(233, 30, 99, 0.3) !important;
+}
+
+body.theme-dark .stroke-report-pill,
+body.dark-mode .stroke-report-pill {
+  background: rgba(233, 30, 99, 0.18) !important;
+  border-color: rgba(233, 30, 99, 0.4) !important;
+  color: #ff6090 !important;
+}
+
+body.theme-dark .stroke-report-pill:hover,
+body.dark-mode .stroke-report-pill:hover {
+  background: #e91e63 !important;
+  color: #ffffff !important;
+}
+
+/* Responsivitas Layar */
+@media (max-width: 1024px) and (min-width: 681px) {
+  .stroke-studio-trio {
+    grid-template-columns: 1fr 1fr;
+  }
+  .stroke-compare-card {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 680px) {
+  .stroke-studio-trio {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+
+/* ==========================================================================
+   STUDIO GORESAN INTERAKTIF 3 KOTAK (TRIO PANEL KANVAS & AUTO-PLAY)
+   ========================================================================== */
+.stroke-studio-container {
+  width: 100%;
+  margin: 14px 0 24px;
+  box-sizing: border-box;
+}
+
+.stroke-studio-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.stroke-studio-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.stroke-studio-badge {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--pink, #e91e63);
+  letter-spacing: 0.5px;
+}
+
+.stroke-studio-sub {
+  font-size: 11.5px;
+  color: var(--muted, #6d6471);
+}
+
+body.theme-dark .stroke-studio-sub,
+body.dark-mode .stroke-studio-sub {
+  color: #a89cb0;
+}
+
+.stroke-mode-tabs {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #fdf2f7;
+  border: 1px solid var(--pink-border, #fcd1e5);
+  border-radius: 999px;
+  padding: 3px;
+}
+
+body.theme-dark .stroke-mode-tabs,
+body.dark-mode .stroke-mode-tabs {
+  background: #231a29;
+  border-color: rgba(233, 30, 99, 0.3);
+}
+
+.stroke-mode-btn {
+  border: none;
+  background: transparent;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--muted, #6d6471);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+body.theme-dark .stroke-mode-btn,
+body.dark-mode .stroke-mode-btn {
+  color: #b5a8bd;
+}
+
+.stroke-mode-btn.is-active {
+  background: var(--pink, #e91e63);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(233, 30, 99, 0.3);
+}
+
+/* Grid 3 Kotak Berdampingan (Desktop) */
+.stroke-studio-trio {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  align-items: stretch;
+}
+
+.stroke-panel-card {
+  min-width: 0;
+  background: #ffffff;
+  border: 1.5px solid var(--pink-border, #fcd1e5);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 6px 20px rgba(72, 32, 52, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+body.theme-dark .stroke-panel-card,
+body.dark-mode .stroke-panel-card {
+  background: #191422;
+  border-color: rgba(233, 30, 99, 0.3);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.panel-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed rgba(233, 30, 99, 0.18);
+}
+
+.panel-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.panel-num {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--pink, #e91e63);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.panel-card-title strong {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--ink, #201c26);
+}
+
+body.theme-dark .panel-card-title strong,
+body.dark-mode .panel-card-title strong {
+  color: #ffffff;
+}
+
+.panel-card-tag {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--pink, #e91e63);
+  background: #fff0f5;
+  border: 1px solid #ffd4e5;
+  border-radius: 999px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+
+body.theme-dark .panel-card-tag,
+body.dark-mode .panel-card-tag {
+  background: rgba(233, 30, 99, 0.18);
+  border-color: rgba(233, 30, 99, 0.35);
+  color: #ff6090;
+}
+
+/* Kotak 2: Kanvas Tulis Mandiri */
+.user-canvas-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 220px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto 12px;
+  background: #fffcfd;
+  border: 1.5px solid var(--pink-border, #fcd1e5);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.theme-dark .user-canvas-wrapper,
+body.dark-mode .user-canvas-wrapper {
+  background: #15111d;
+  border-color: rgba(233, 30, 99, 0.3);
+}
+
+.user-draw-canvas {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.user-canvas-guide-char {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 120px;
+  font-family: var(--font-jp, "Noto Sans JP", sans-serif);
+  color: rgba(233, 30, 99, 0.14);
+  user-select: none;
+  pointer-events: none;
+  line-height: 1;
+}
+
+body.theme-dark .user-canvas-guide-char,
+body.dark-mode .user-canvas-guide-char {
+  color: rgba(255, 101, 155, 0.18);
+}
+
+.user-canvas-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.canvas-tool-btn {
+  border: 1px solid var(--pink-border, #fcd1e5);
+  background: #ffffff;
+  color: var(--ink, #201c26);
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+body.theme-dark .canvas-tool-btn,
+body.dark-mode .canvas-tool-btn {
+  background: #231b2e;
+  border-color: rgba(233, 30, 99, 0.3);
+  color: #f1ecf4;
+}
+
+.canvas-tool-btn:hover {
+  background: #fff0f5;
+  border-color: var(--pink, #e91e63);
+  color: var(--pink, #e91e63);
+}
+
+.canvas-tool-btn.is-active {
+  background: var(--pink, #e91e63);
+  color: #ffffff;
+  border-color: var(--pink, #e91e63);
+}
+
+.user-canvas-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+}
+
+.user-canvas-hint {
+  font-size: 11px;
+  color: var(--muted, #6d6471);
+  line-height: 1.4;
+}
+
+body.theme-dark .user-canvas-hint,
+body.dark-mode .user-canvas-hint {
+  color: #a89cb0;
+}
+
+.canvas-finish-btn {
+  width: 100%;
+  padding: 10px;
+  font-size: 12.5px;
+  font-weight: 800;
+  border-radius: 10px;
+}
+
+/* Kotak 3: Hasil & Perbandingan Auto-Play */
+.compare-display-area {
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.compare-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px 14px;
+  color: var(--muted, #6d6471);
+  gap: 6px;
+}
+
+body.theme-dark .compare-placeholder,
+body.dark-mode .compare-placeholder {
+  color: #a89cb0;
+}
+
+.placeholder-icon {
+  font-size: 36px;
+  margin-bottom: 4px;
+  opacity: 0.7;
+}
+
+.compare-placeholder strong {
+  font-size: 13.5px;
+  color: var(--ink, #201c26);
+}
+
+body.theme-dark .compare-placeholder strong,
+body.dark-mode .compare-placeholder strong {
+  color: #f1ecf4;
+}
+
+.compare-placeholder p {
+  font-size: 11.5px;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.compare-active-view {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.compare-stage-duo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  align-items: center;
+}
+
+.compare-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.compare-label {
+  font-size: 10.5px;
+  font-weight: 800;
+  color: var(--pink, #e91e63);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.user-result-img,
+.compare-official-stage {
+  width: 100%;
+  max-width: 105px;
+  aspect-ratio: 1 / 1;
+  background: #fffcfd;
+  border: 1.5px solid var(--pink-border, #fcd1e5);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+body.theme-dark .user-result-img,
+body.theme-dark .compare-official-stage,
+body.dark-mode .user-result-img,
+body.dark-mode .compare-official-stage {
+  background: #15111d;
+  border-color: rgba(233, 30, 99, 0.3);
+}
+
+.compare-feedback-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 8px 10px;
+  background: #fdf2f7;
+  border: 1px solid var(--pink-border, #fcd1e5);
+  border-radius: 10px;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--ink, #201c26);
+}
+
+body.theme-dark .compare-feedback-banner,
+body.dark-mode .compare-feedback-banner {
+  background: #231a29;
+  border-color: rgba(233, 30, 99, 0.3);
+  color: #f1ecf4;
+}
+
+.feedback-sparkle {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.compare-actions-bar {
+  display: flex;
+  justify-content: center;
+}
+
+.compare-replay-btn {
+  width: 100%;
+  padding: 10px;
+  font-size: 12px;
+  font-weight: 800;
+  border-radius: 10px;
+}
+
+/* ==========================================================================
+   DESAIN ELEGAN: TOMBOL LAPOR GORESAN SALAH (POINT 3)
+   ========================================================================== */
+.stroke-footer-bar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  margin-top: 16px !important;
+  padding-top: 12px !important;
+  border-top: 1px dashed rgba(233, 30, 99, 0.2) !important;
+  flex-wrap: wrap !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.stroke-report-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 6px 14px !important;
+  background: rgba(233, 30, 99, 0.08) !important;
+  border: 1.5px solid rgba(233, 30, 99, 0.28) !important;
+  border-radius: 999px !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  color: var(--pink, #e91e63) !important;
+  text-decoration: none !important;
+  transition: all 0.22s ease !important;
+  user-select: none !important;
+}
+
+.stroke-report-pill:hover {
+  background: var(--pink, #e91e63) !important;
+  color: #ffffff !important;
+  border-color: var(--pink, #e91e63) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 14px rgba(233, 30, 99, 0.3) !important;
+}
+
+body.theme-dark .stroke-report-pill,
+body.dark-mode .stroke-report-pill {
+  background: rgba(233, 30, 99, 0.18) !important;
+  border-color: rgba(233, 30, 99, 0.4) !important;
+  color: #ff6090 !important;
+}
+
+body.theme-dark .stroke-report-pill:hover,
+body.dark-mode .stroke-report-pill:hover {
+  background: #e91e63 !important;
+  color: #ffffff !important;
+}
+
+/* Responsivitas Layar */
+@media (max-width: 1024px) and (min-width: 681px) {
+  .stroke-studio-trio {
+    grid-template-columns: 1fr 1fr;
+  }
+  .stroke-compare-card {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 680px) {
+  .stroke-studio-trio {
+    grid-template-columns: 1fr;
+    gap: 14px;
   }
 }

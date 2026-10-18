@@ -7,6 +7,11 @@ Struktur direktori menerapkan standar **Feature-Based Asset Colocation**, **Modu
 Mirai-No-Webu/
 ├── index.html                      # Gerbang utama website (Beranda)
 ├── 404.html                        # Halaman penanganan tautan salah / tidak ditemukan bertema Sora
+├── offline.html                    # Halaman fallback ramah pengunjung saat perangkat offline (PWA)
+├── manifest.webmanifest            # Konfigurasi PWA Web App Manifest (standalone, theme_color #e91e63, icons)
+├── service-worker.js               # Service Worker PWA (precache app shell, cache-first data, stale-while-revalidate)
+├── robots.txt                      # Konfigurasi perayapan mesin pencari (SEO)
+├── sitemap.xml                     # Peta situs XML 32 halaman resmi website
 ├── README.md                       # Profil utama repositori & dokumentasi Sources & Credits
 ├── cspell.json                     # Konfigurasi Code Spell Checker (kamus & ignorasi kata bilingual)
 ├── .vscode/                        # Konfigurasi workspace editor VS Code / Antigravity
@@ -38,9 +43,10 @@ Mirai-No-Webu/
 │   ├── kana.js                     # Logika audio pelafalan & kartu Kana
 │   ├── stroke.js                   # Animasi kanvas urutan goresan Yoon & kanji
 │   ├── stroke-data.js              # Vektor koordinat garis KanjiVG terkurasi (dikecualikan dari watcher)
+│   ├── stroke-overrides.js         # Lapisan override proteksi perbaikan manual & varian goresan
 │   ├── carousel.js                 # Logika slider / carousel umum
 │   ├── proker-slider.js            # Slider khusus halaman kegiatan & proker
-│   ├── translator.js               # Mesin terjemahan & generator nama Jepang/KTA
+│   ├── translator.js               # Mesin terjemahan adaptif otomatis (ja-id / id-ja), keyboard draggable/resizable, & generator nama KTA
 │   ├── quiz-divisi.js              # Kuis kepribadian & tes kecocokan 4 divisi
 │   └── api.js                      # Koneksi endpoint data
 │
@@ -57,8 +63,24 @@ Mirai-No-Webu/
 ├── data/                           # Basis Data Lokal JSON (Menyuplai Kamus & Latihan)
 │   ├── README.md                   # Dokumentasi relasi & fungsi basis data JSON
 │   ├── kana.json                   # Database aksara Hiragana & Katakana
-│   ├── kanji.json                  # Database lengkap 2.136 karakter Jōyō Kanji
+│   ├── kanji-index.json            # Index ringkas 2.211 Kanji Joyo/JLPT untuk pencarian & filter kilat
+│   ├── kanji/                      # Chunk detail kanji per JLPT (dimuat on-demand / idle)
+│   │   ├── n5.json                 # Detail contoh kata & kalimat JLPT N5 (58 KB)
+│   │   ├── n4.json                 # Detail contoh kata & kalimat JLPT N4 (135 KB)
+│   │   ├── n3.json                 # Detail contoh kata & kalimat JLPT N3 (320 KB)
+│   │   ├── n2.json                 # Detail contoh kata & kalimat JLPT N2 (280 KB)
+│   │   └── n1.json                 # Detail contoh kata & kalimat JLPT N1 (734 KB)
+│   ├── kanji.json                  # Database lengkap master 2.211 karakter Jōyō & JLPT (Single Source of Truth)
 │   ├── kanji-meta.json             # Metadata radikal, level JLPT, & jumlah goresan
+│   ├── stroke-master.json          # Master data koordinat goresan 2.375 karakter (Single Source of Truth)
+│   ├── strokes/                    # Chunk koordinat vektor goresan per JLPT (dimuat on-demand)
+│   │   ├── n5.json                 # Vektor goresan JLPT N5 (59 KB)
+│   │   ├── n4.json                 # Vektor goresan JLPT N4 (174 KB)
+│   │   ├── n3.json                 # Vektor goresan JLPT N3 (436 KB)
+│   │   ├── n2.json                 # Vektor goresan JLPT N2 (448 KB)
+│   │   └── n1.json                 # Vektor goresan JLPT N1 (1.695 KB)
+│   ├── stroke-overrides.json       # Basis data lapisan override perbaikan goresan & varian kyōkasho
+│   ├── stroke-coverage-manifest.json # Laporan manifest validasi cakupan data goresan
 │   └── STROKES-LICENSE.md          # Lisensi data urutan goresan KanjiVG
 │
 ├── tentang/                        # Halaman Profil Lengkap Klub Mirai No Hana
@@ -68,7 +90,7 @@ Mirai-No-Webu/
 │       └── identitas/              # Foto Haori resmi (depan/belakang), IDC, lanyard, nametag, & pin
 │
 ├── lomba/                          # Halaman Informasi Kompetisi & Matsuri
-│   ├── index.html                  # Informasi 18 lomba & festival jejepangan
+│   ├── index.html                  # Informasi agenda lomba & festival jejepangan (3 halaman)
 │   └── images/                     # Poster resmi lomba (ITS 1 & 2, UNAIR, UNESA 1 & 2)
 │
 ├── kegiatan/                       # Halaman Program Kerja Unggulan & Fasilitas
@@ -132,17 +154,42 @@ Mirai-No-Webu/
 │
 ├── skrip/                          # Pemeliharaan Kode Python
 │   ├── README.md                   # Panduan skrip pengembang
-│   └── arsip/                      # Arsip skrip perbaikan sekali-pakai (dikecualikan dari watcher)
-│       ├── apply_card_expand.py
-│       ├── apply_5_main_fixes.py
-│       ├── apply_portrait_pattern_zoom_out.py
-│       └── apply_transparency_and_tentang_fixes.py
+│   ├── laporan/                    # Laporan & alat review visual otomatis
+│   │   ├── stroke-review.html      # Alat review visual goresan mandiri (statis tanpa server)
+│   │   ├── page-weight.md          # Laporan audit statis bobot halaman, aset, & ukuran transfer
+│   │   └── perlu-terjemah.md       # Daftar 6 kanji yang memerlukan penerjemahan manual oleh pengurus
+│   └── arsip/                      # Arsip skrip otomasi & pipeline (dikecualikan dari watcher)
+│       ├── clean_kanji_data.py     # Pembersih duplikasi arti kata, kalimat template, & pemilih example_word
+│       ├── build_data_chunks.py    # Generator chunk kanji & stroke lokal (offline-first & modular)
+│       ├── build_precache_list.py  # Pembangun otomatis berkas precache & service-worker.js berbasis hash
+│       ├── generate_pwa_icons.py   # Generator ikon PWA 192x192 & 512x512 dari logo resmi klub
+│       ├── add_meta_tags.py        # Skrip batch injeksi meta tag SEO, Open Graph, twitter card, & sitemap
+│       ├── build_stroke_review.py  # Pembangun antarmuka review visual goresan statis
+│       ├── generate_stroke_overrides.py # Generator lapisan override label & varian kyōkasho
+│       ├── fetch_kanjivg_strokes.py # Pipeline sinkronisasi & ekstraksi KanjiVG resmi (anti-overwrite)
+│       ├── validate_stroke_data.py # Validator integritas struktur SVG & akurasi goresan
+│       ├── test_stroke_engine.py   # Pengujian otomatis logika engine stroke & override
+│       ├── test_kanji_engine.py    # Pengujian otomatis logika offline kanji, ranked search, & budget
+│       ├── test_progress_engine.py # Pengujian unit test mesin progres mirai_progress_v1 & mini kuis
+│       ├── test_mobile_responsiveness.py # Pengujian DOM mobile 360/390/430px, floating buttons, & aksesibilitas
+│       ├── optimize_assets.py      # Otomasi atribut gambar (lazy/width/height) & link preconnect
+│       ├── update_translator_and_keyboard.py # Otomasi penerjemah adaptif, tata letak laptop, & keyboard draggable/resizable
+│       ├── fix_namegen_ui.py       # Perbaikan tata letak & UI/UX Generator Nama Jepang & KTA digital
+│       ├── update_stroke_studio.py # Studio Goresan Interaktif 3 kotak, kanvas mandiri, auto-play, & lapor goresan pill
+│       ├── fix_kegiatan_photos.py  # Pemulihan bentuk slider foto kegiatan & pembersihan banner kuis divisi
+│       ├── reduce_lomba_pages.py   # Penyesuaian jumlah kartu kegiatan lomba & acara menjadi 3 halaman
+│       ├── update_light_pattern_opacity.py # Penyesuaian transparansi pola motif cerah (0.015) agar ultra-halus
+│       ├── stamp_asset_versions.py # Cache-busting otomatis berbasis hash SHA-256 pada seluruh HTML
+│       ├── report_page_weight.py   # Skrip analisis & pembuat laporan bobot halaman
+│       ├── sync_datasets.py        # Sinkronisasi dataset kanji & perbaikan metadata
+│       └── format_project.py       # Pemformat dan pembersih kode proyek
 │
 └── images/mirai/                   # Aset Bersama (Shared Global Assets)
     ├── background/                 # Pola Wagara master CSS (w1b, w1w, c1b, c1w, w2w, chat, Sora)
-    ├── logo/                       # Logo resmi klub (MNH1.png, MNH1-nav.png, NK.png, comingsoon.jpg)
+    ├── logo/                       # Logo resmi klub (MNH1.png, MNH1-nav.png, icon-192.png, icon-512.png)
     ├── icon/                       # Ikon chibi Genshin Impact (Al, Ay, Chi, Fa, Fu, Hu, Ka, Ki, Lo, dll.)
     ├── karakter/                   # Foto karakter anime kutipan (luf, ere, nar, dek, tan)
     ├── produk/                     # Foto produk konbini (oni, tak, dan, mat, teh)
-    └── stiker/                     # 28 stiker komunitas ekspresi karakter anime
+    ├── stiker/                     # 28 stiker komunitas ekspresi karakter anime
+    └── goresan-acuan/              # Direktori gambar acuan resmi bentuk goresan (<hex>.png)
 ```
