@@ -7,7 +7,7 @@ Validasi:
  2. Dasbor kelas/index.html (streak, daily target, 7 modul progress bar, resume link, modal sync).
  3. Tampilan kelas/latihan.html (streak, level, xp tidak hidden).
  4. Mini kuis 5 soal dan tombol tandai selesai pada ke-7 halaman materi.
- 5. Integrasi js/script.js dengan MiraiProgress.
+ 5. Integrasi js/kelas-latihan.js dengan MiraiProgress.
 """
 
 import sys
@@ -130,19 +130,19 @@ def run_tests():
 
     print(f"  ✓ 7 modul materi tervalidasi: total {total_questions} soal kuis (masing-masing 5 soal).")
 
-    # 5. Uji js/script.js
-    script_js = ROOT_DIR / "js" / "script.js"
+    # 5. Uji js/kelas-latihan.js
+    script_js = ROOT_DIR / "js" / "kelas-latihan.js"
     if script_js.exists():
         s_content = script_js.read_text(encoding="utf-8")
         if "window.MiraiProgress" not in s_content:
-            errors.append("js/script.js tidak terhubung ke window.MiraiProgress!")
+            errors.append("js/kelas-latihan.js tidak terhubung ke window.MiraiProgress!")
         else:
             checks_passed += 1
         if "recordActivity" not in s_content:
-            errors.append("js/script.js finishSession tidak memanggil recordActivity!")
+            errors.append("js/kelas-latihan.js finishSession tidak memanggil recordActivity!")
         else:
             checks_passed += 1
-        print("  ✓ js/script.js integrasi kuis tervalidasi.")
+        print("  ✓ js/kelas-latihan.js integrasi kuis tervalidasi.")
 
     print(f"\nTotal pengecekan berhasil: {checks_passed}")
     if errors:

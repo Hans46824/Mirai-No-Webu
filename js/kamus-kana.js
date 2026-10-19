@@ -1,5 +1,5 @@
 /**
- * File: js/kana.js
+ * File: js/kamus-kana.js
  * Fungsi: Pengelola modul tabel aksara Kana (Hiragana & Katakana), filter Gojuuon/Dakuon/Yoon, pencarian, dan audio pelafalan.
  * Penggunaan: kamus/index.html dan kamus/kanji.html.
 */

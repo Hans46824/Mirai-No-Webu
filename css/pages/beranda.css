@@ -983,11 +983,11 @@ KARTU MASUKAN & SARAN (FEEDBACK FEATURE CARD)
   content: "" !important;
   position: absolute !important;
   inset: 0 !important;
-  background-image: url("../../images/mirai/background/c1b.jpeg") !important;
+  background-image: var(--page-pattern-dark, url("../../images/mirai/background/c1b.jpeg")) !important;
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.045 !important;
+  opacity: var(--page-pattern-opacity-dark, var(--opacity-c1b)) !important;
   mix-blend-mode: screen !important;
   pointer-events: none !important;
   z-index: 0 !important;
@@ -996,11 +996,11 @@ KARTU MASUKAN & SARAN (FEEDBACK FEATURE CARD)
 }
 
 .feedback-feature-card:hover::after {
-  opacity: 0.07 !important;
+  opacity: var(--page-pattern-opacity-dark-hover, var(--opacity-c1b-hover)) !important;
   transform: scale(1.02) !important;
 }
 
-.feedback-feature-card > * {
+.feedback-feature-card > *:not(.card-toggle):not(.card-corner-chibi) {
   position: relative !important;
   z-index: 2 !important;
 }
@@ -1214,17 +1214,19 @@ main .feedback-feature-card h2, main .feedback-feature-card .heading, .feedback-
   transform: translateX(4px) !important;
 }
 
-.feedback-feature-card > .card-corner-chibi {
+.feedback-feature-card > .card-corner-chibi,
+.feedback-feature-card img.card-corner-chibi {
   position: absolute !important;
-  bottom: 16px !important;
-  right: 22px !important;
+  bottom: 18px !important;
+  right: 24px !important;
+  left: auto !important;
   width: 96px !important;
   height: 96px !important;
   object-fit: contain !important;
-  z-index: 1 !important;
+  z-index: 5 !important;
   pointer-events: none !important;
   opacity: 0.96 !important;
-  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.4)) !important;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.3)) !important;
   transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
   display: block !important;
 }
@@ -1306,16 +1308,16 @@ section.feedback-preview.feedback-theme-white, body.page-beranda section.feedbac
 }
 
 .feedback-theme-white .feedback-feature-card::after, body.page-beranda .feedback-feature-card::after {
-  background-image: url("../../images/mirai/background/c1w.jpeg") !important;
+  background-image: var(--page-pattern-white, url("../../images/mirai/background/c1w.jpeg")) !important;
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: var(--opacity-c1w)!important;
+  opacity: var(--page-pattern-opacity-white, var(--opacity-c1w)) !important;
   mix-blend-mode: multiply !important;
 }
 
 .feedback-theme-white .feedback-feature-card:hover::after, body.page-beranda .feedback-feature-card:hover::after {
-  opacity: var(--opacity-c1w-hover)!important;
+  opacity: var(--page-pattern-opacity-white-hover, var(--opacity-c1w-hover)) !important;
 }
 
 .feedback-theme-white .feedback-feature-badge, .feedback-theme-white .feedback-feature-tag, body.page-beranda .feedback-feature-badge, body.page-beranda .feedback-feature-tag {
@@ -1358,14 +1360,33 @@ section.feedback-preview.feedback-theme-white, body.page-beranda section.feedbac
   box-shadow: 0 8px 24px rgba(233, 30, 99, 0.45) !important;
 }
 
-.feedback-theme-white .card-toggle {
-  background: rgba(233, 30, 99, 0.06) !important;
-  border: 1px solid rgba(233, 30, 99, 0.28) !important;
+.feedback-theme-white .card-toggle, body.page-beranda .feedback-feature-card .card-toggle {
+  position: absolute !important;
+  top: 22px !important;
+  right: 22px !important;
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 50% !important;
+  background: rgba(233, 30, 99, 0.08) !important;
+  border: 1.5px solid rgba(233, 30, 99, 0.3) !important;
+  color: #e91e63 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 10 !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
-.feedback-theme-white .card-toggle::after {
+.feedback-theme-white .card-toggle::after, body.page-beranda .feedback-feature-card .card-toggle::after {
+  content: "" !important;
+  display: block !important;
+  width: 8px !important;
+  height: 8px !important;
   border-right: 2px solid #e91e63 !important;
   border-bottom: 2px solid #e91e63 !important;
+  transform: translateY(-2px) rotate(45deg) !important;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .feedback-theme-white .feedback-feature-card > .card-corner-chibi, body.page-beranda .feedback-feature-card > .card-corner-chibi {
@@ -1394,16 +1415,16 @@ section.feedback-preview.feedback-theme-dark, body.page-tentang main > section.f
 }
 
 .feedback-theme-dark .feedback-feature-card::after, body.page-tentang .feedback-feature-card::after {
-  background-image: url("../../images/mirai/background/w1b.jpeg") !important;
+  background-image: var(--page-pattern-dark, url("../../images/mirai/background/c1b.jpeg")) !important;
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: var(--opacity-c1b)!important;
+  opacity: var(--page-pattern-opacity-dark, var(--opacity-c1b)) !important;
   mix-blend-mode: screen !important;
 }
 
 .feedback-theme-dark .feedback-feature-card:hover::after, body.page-tentang .feedback-feature-card:hover::after {
-  opacity: var(--opacity-c1b-hover)!important;
+  opacity: var(--page-pattern-opacity-dark-hover, var(--opacity-c1b-hover)) !important;
 }
 
 .feedback-theme-dark .feedback-feature-badge, .feedback-theme-dark .feedback-feature-tag, body.page-tentang .feedback-feature-badge, body.page-tentang .feedback-feature-tag {
@@ -1445,14 +1466,33 @@ section.feedback-preview.feedback-theme-dark, body.page-tentang main > section.f
   box-shadow: 0 8px 24px rgba(233, 30, 99, 0.55) !important;
 }
 
-.feedback-theme-dark .card-toggle {
-  background: rgba(255, 255, 255, 0.06) !important;
-  border: 1px solid rgba(255, 101, 155, 0.4) !important;
+.feedback-theme-dark .card-toggle, body.page-tentang .feedback-feature-card .card-toggle {
+  position: absolute !important;
+  top: 22px !important;
+  right: 22px !important;
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1.5px solid rgba(255, 101, 155, 0.4) !important;
+  color: #ff659b !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 10 !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
-.feedback-theme-dark .card-toggle::after {
+.feedback-theme-dark .card-toggle::after, body.page-tentang .feedback-feature-card .card-toggle::after {
+  content: "" !important;
+  display: block !important;
+  width: 8px !important;
+  height: 8px !important;
   border-right: 2px solid #ff659b !important;
   border-bottom: 2px solid #ff659b !important;
+  transform: translateY(-2px) rotate(45deg) !important;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .feedback-theme-dark .feedback-feature-card > .card-corner-chibi, body.page-tentang .feedback-feature-card > .card-corner-chibi {
@@ -1751,12 +1791,12 @@ body.theme-dark .card-collapsible-content > .card-collapsible-inner p, body.them
   transform: translateY(0) scale(0.98) !important;
 }
 /* 5. Penanda Buka-Tutup: Ikon Panah Chevron CSS Murni */
-.card-toggle, .about-feature-card > .card-toggle, .about-drawer-card > .card-toggle {
+.card-toggle, .about-feature-card > .card-toggle, .about-drawer-card > .card-toggle, .feedback-feature-card > .card-toggle {
   position: absolute !important;
-  top: 18px !important;
-  right: 18px !important;
-  width: 34px !important;
-  height: 34px !important;
+  top: 22px !important;
+  right: 22px !important;
+  width: 36px !important;
+  height: 36px !important;
   border-radius: 50% !important;
   background: rgba(255, 79, 145, 0.12) !important;
   border: 1px solid rgba(255, 101, 155, 0.28) !important;
@@ -2041,6 +2081,13 @@ RESPONSIF MODE HP (<= 768px):
     padding-bottom: 84px !important;
   }
 
+  .about-feature-card > .card-toggle, .feedback-feature-card > .card-toggle {
+    top: 16px !important;
+    right: 16px !important;
+    width: 32px !important;
+    height: 32px !important;
+  }
+
   .about-feature-card > .card-corner-chibi, .feedback-feature-card > .card-corner-chibi {
     width: 64px !important;
     height: 64px !important;
@@ -2082,9 +2129,9 @@ RESPONSIF MODE HP (<= 768px):
 .start-card h3, .activity-start-card h3 {
   margin-top: 0 !important;
 }
-/* Pattern Kumo Gelap untuk Slider Kutipan Beranda */
+/* Pattern Kumo Gelap & Terang untuk Slider Kutipan Beranda */
 .page-beranda .section-quote-slider.quote-theme-dark .quote-card::after,
-.page-beranda .quote-card::after {
+.page-beranda .quote-card:not(.quote-theme-white)::after {
   content: "" !important;
   position: absolute !important;
   inset: 0 !important;
@@ -2092,7 +2139,7 @@ RESPONSIF MODE HP (<= 768px):
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: 0.045 !important;
+  opacity: var(--opacity-c1b) !important;
   mix-blend-mode: screen !important;
   pointer-events: none !important;
   z-index: 1 !important;
@@ -2102,9 +2149,19 @@ RESPONSIF MODE HP (<= 768px):
 }
 
 .page-beranda .section-quote-slider.quote-theme-dark .quote-card:hover::after,
-.page-beranda .quote-card:hover::after {
-  opacity: 0.07 !important;
+.page-beranda .quote-card:not(.quote-theme-white):hover::after {
+  opacity: var(--opacity-c1b-hover) !important;
   transform: scale(1.02) !important;
+}
+
+.page-beranda .section-quote-slider.quote-theme-white .quote-card::after {
+  background-image: url("../../images/mirai/background/c1w.jpeg") !important;
+  opacity: var(--opacity-c1w) !important;
+  mix-blend-mode: multiply !important;
+}
+
+.page-beranda .section-quote-slider.quote-theme-white .quote-card:hover::after {
+  opacity: var(--opacity-c1w-hover) !important;
 }
 
 .page-beranda .quote-card > * {

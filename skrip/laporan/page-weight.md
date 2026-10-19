@@ -1,6 +1,6 @@
 # 📊 Laporan Audit Bobot Statik & Performa Halaman (Page Weight)
 
-> Tanggal Audit: 2026-10-18 | Total Halaman: **33 halaman HTML**
+> Tanggal Audit: 2026-10-18 | Total Halaman: **34 halaman HTML**
 > Standar Kinerja: Evaluasi beban awal (HTML, CSS, JS, initial dataset) raw bytes & estimasi transfer Gzip.
 
 ---
@@ -10,7 +10,7 @@
 | Metrik Kinerja | Target Pengguna | Hasil Aktual (Raw) | Hasil Aktual (Gzip) | Status |
 | :--- | :--- | :--- | :--- | :--- |
 | **Beban Data Kamus Awal** (`kanji-index.json` + `stroke-data.js` Kana) | ≤ 700 KB | **388.5 KB** | **66.4 KB** | ✅ Lolos Target |
-| **Total Transfer Jaringan Kamus** (HTML + CSS + JS + Data Awal, Gzip) | ≤ 700 KB | **1614.2 KB (raw)** | **301.7 KB** | ✅ Lolos Target |
+| **Total Transfer Jaringan Kamus** (HTML + CSS + JS + Data Awal, Gzip) | ≤ 700 KB | **1829.9 KB (raw)** | **337.8 KB** | ✅ Lolos Target |
 | **Beban Kanji N5 Pertama Dibuka** (detail teks `data/kanji/n5.json`) | ≤ +60 KB | **+50.3 KB** | **+10.5 KB** | ✅ Lolos Target |
 | **Beban Vektor Goresan N5 Pertama Dibuka** (KanjiVG `data/strokes/n5.json`) | On-demand chunk | **+59.1 KB** | **+20.8 KB** | ✅ Modular |
 | **Panggilan Jaringan Eksternal** (KanjiAPI / MyMemory) | 0 panggilan | **0 KB (100% Offline)** | **0 KB** | ✅ Local-First |
@@ -47,39 +47,40 @@ SESUDAH (Modular Index & On-Demand Chunks):
 
 | No | Halaman HTML | HTML (Raw / Gz) | CSS Bundle (Raw / Gz) | JS Lokal (Raw / Gz) | Data Awal (Raw / Gz) | Total Raw | Transfer Gzip |
 | :---: | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | `kamus/index.html` | 43.3k / 9.9k | 879.5k / 138.3k | 374.7k / 105.1k | 316.6k / 48.4k | **1614.2 KB** | **301.7 KB** |
-| 2 | `kamus/kanji.html` | 12.8k / 3.9k | 879.5k / 138.3k | 374.7k / 105.1k | 316.6k / 48.4k | **1583.7 KB** | **295.7 KB** |
-| 3 | `kelas/latihan.html` | 122.5k / 21.6k | 879.5k / 138.3k | 364.6k / 91.9k | — | **1366.6 KB** | **251.8 KB** |
-| 4 | `lomba/index.html` | 146.4k / 21.4k | 879.5k / 138.3k | 265.1k / 64.9k | — | **1291.0 KB** | **224.6 KB** |
-| 5 | `rekomendasi/index.html` | 93.1k / 15.9k | 879.5k / 138.3k | 265.1k / 64.9k | — | **1237.6 KB** | **219.1 KB** |
-| 6 | `toko/index.html` | 71.2k / 13.2k | 879.5k / 138.3k | 265.1k / 64.9k | — | **1215.7 KB** | **216.4 KB** |
-| 7 | `peringkat/index.html` | 35.7k / 7.9k | 879.5k / 138.3k | 296.6k / 70.7k | — | **1211.8 KB** | **216.9 KB** |
-| 8 | `tentang/index.html` | 62.0k / 13.3k | 879.5k / 138.3k | 132.7k / 33.8k | — | **1074.1 KB** | **185.4 KB** |
-| 9 | `index.html` | 68.5k / 15.5k | 879.5k / 138.3k | 103.4k / 29.3k | — | **1051.5 KB** | **183.1 KB** |
-| 10 | `kegiatan/nihon-go-rajio.html` | 35.6k / 8.1k | 879.5k / 138.3k | 106.4k / 29.7k | — | **1021.5 KB** | **176.1 KB** |
-| 11 | `kegiatan/index.html` | 31.8k / 7.2k | 879.5k / 138.3k | 106.4k / 29.7k | — | **1017.7 KB** | **175.2 KB** |
-| 12 | `kelas/motivasi.html` | 30.2k / 7.1k | 879.5k / 138.3k | 103.4k / 29.3k | — | **1013.2 KB** | **174.7 KB** |
-| 13 | `kelas/index.html` | 27.2k / 5.0k | 879.5k / 138.3k | 103.4k / 29.3k | — | **1010.1 KB** | **172.6 KB** |
-| 14 | `materi/lanjutan/kanji.html` | 24.6k / 6.2k | 879.5k / 138.3k | 103.4k / 29.3k | — | **1007.5 KB** | **173.8 KB** |
-| 15 | `materi/lanjutan/grammar.html` | 24.6k / 6.1k | 879.5k / 138.3k | 103.4k / 29.3k | — | **1007.5 KB** | **173.7 KB** |
-| 16 | `divisi/index.html` | 13.2k / 3.9k | 879.5k / 138.3k | 114.5k / 32.9k | — | **1007.2 KB** | **175.2 KB** |
-| 17 | `materi/lanjutan/kalimat.html` | 23.5k / 5.9k | 879.5k / 138.3k | 103.4k / 29.3k | — | **1006.4 KB** | **173.5 KB** |
-| 18 | `kegiatan/ramadhan.html` | 18.7k / 4.7k | 879.5k / 138.3k | 106.4k / 29.7k | — | **1004.6 KB** | **172.7 KB** |
-| 19 | `kegiatan/konbini.html` | 18.7k / 4.8k | 879.5k / 138.3k | 106.4k / 29.7k | — | **1004.5 KB** | **172.8 KB** |
-| 20 | `kegiatan/kimi-to-nippon.html` | 18.6k / 4.7k | 879.5k / 138.3k | 106.4k / 29.7k | — | **1004.5 KB** | **172.7 KB** |
-| 21 | `kegiatan/tomodachi.html` | 18.6k / 4.7k | 879.5k / 138.3k | 106.4k / 29.7k | — | **1004.5 KB** | **172.7 KB** |
-| 22 | `materi/dasar/kosakata.html` | 21.0k / 5.6k | 879.5k / 138.3k | 103.4k / 29.3k | — | **1003.9 KB** | **173.2 KB** |
-| 23 | `materi/dasar/jikoshokai.html` | 20.3k / 5.3k | 879.5k / 138.3k | 103.4k / 29.3k | — | **1003.3 KB** | **172.9 KB** |
-| 24 | `materi/dasar/hiragana.html` | 19.7k / 5.4k | 879.5k / 138.3k | 103.4k / 29.3k | — | **1002.6 KB** | **173.0 KB** |
-| 25 | `materi/dasar/katakana.html` | 19.5k / 5.4k | 879.5k / 138.3k | 103.4k / 29.3k | — | **1002.4 KB** | **173.0 KB** |
-| 26 | `materi/dasar/index.html` | 16.8k / 4.1k | 879.5k / 138.3k | 103.4k / 29.3k | — | **999.7 KB** | **171.7 KB** |
-| 27 | `materi/lanjutan/index.html` | 13.0k / 3.6k | 879.5k / 138.3k | 103.4k / 29.3k | — | **995.9 KB** | **171.2 KB** |
-| 28 | `divisi/cosplay.html` | 14.9k / 4.5k | 879.5k / 138.3k | 101.1k / 28.0k | — | **995.5 KB** | **170.8 KB** |
-| 29 | `divisi/kewirausahaan.html` | 14.9k / 4.5k | 879.5k / 138.3k | 101.1k / 28.0k | — | **995.5 KB** | **170.8 KB** |
-| 30 | `divisi/bahasa.html` | 14.8k / 4.5k | 879.5k / 138.3k | 101.1k / 28.0k | — | **995.4 KB** | **170.8 KB** |
-| 31 | `divisi/desain.html` | 14.8k / 4.5k | 879.5k / 138.3k | 101.1k / 28.0k | — | **995.4 KB** | **170.8 KB** |
-| 32 | `404.html` | 13.0k / 3.9k | 879.5k / 138.3k | 101.1k / 28.0k | — | **993.5 KB** | **170.2 KB** |
-| 33 | `sora/index.html` | 49.4k / 11.0k | 0.0k / 0.0k | 0.0k / 0.0k | — | **49.4 KB** | **11.0 KB** |
+| 1 | `kamus/index.html` | 54.4k / 11.5k | 1012.0k / 155.7k | 446.8k / 122.1k | 316.6k / 48.4k | **1829.9 KB** | **337.8 KB** |
+| 2 | `kamus/kanji.html` | 14.7k / 4.3k | 1012.0k / 155.7k | 446.8k / 122.1k | 316.6k / 48.4k | **1790.2 KB** | **330.5 KB** |
+| 3 | `kelas/latihan.html` | 124.9k / 22.1k | 1012.0k / 155.7k | 411.7k / 104.6k | — | **1548.7 KB** | **282.4 KB** |
+| 4 | `lomba/index.html` | 110.5k / 19.4k | 1012.0k / 155.7k | 285.5k / 70.1k | — | **1408.0 KB** | **245.3 KB** |
+| 5 | `arsip/halaman-rekomendasi/rekomendasi.archive.html` | 95.1k / 16.3k | 1012.0k / 155.7k | 285.5k / 70.1k | — | **1392.6 KB** | **242.2 KB** |
+| 6 | `toko/index.html` | 74.0k / 14.0k | 1012.0k / 155.7k | 285.5k / 70.1k | — | **1371.5 KB** | **239.9 KB** |
+| 7 | `peringkat/index.html` | 37.9k / 8.3k | 1012.0k / 155.7k | 317.0k / 76.0k | — | **1367.0 KB** | **240.1 KB** |
+| 8 | `tentang/index.html` | 64.1k / 13.5k | 1012.0k / 155.7k | 149.9k / 38.3k | — | **1226.0 KB** | **207.6 KB** |
+| 9 | `index.html` | 69.8k / 15.8k | 1012.0k / 155.7k | 120.7k / 33.8k | — | **1202.6 KB** | **205.3 KB** |
+| 10 | `materi/lanjutan/grammar.html` | 30.1k / 7.0k | 1012.0k / 155.7k | 147.3k / 41.1k | — | **1189.4 KB** | **203.8 KB** |
+| 11 | `materi/lanjutan/kanji.html` | 29.9k / 7.1k | 1012.0k / 155.7k | 147.3k / 41.1k | — | **1189.2 KB** | **203.9 KB** |
+| 12 | `materi/lanjutan/kalimat.html` | 29.1k / 6.9k | 1012.0k / 155.7k | 147.3k / 41.1k | — | **1188.5 KB** | **203.7 KB** |
+| 13 | `materi/dasar/kosakata.html` | 26.3k / 6.4k | 1012.0k / 155.7k | 147.3k / 41.1k | — | **1185.6 KB** | **203.2 KB** |
+| 14 | `materi/dasar/jikoshokai.html` | 25.8k / 6.2k | 1012.0k / 155.7k | 147.3k / 41.1k | — | **1185.1 KB** | **203.0 KB** |
+| 15 | `materi/dasar/hiragana.html` | 25.3k / 6.4k | 1012.0k / 155.7k | 147.3k / 41.1k | — | **1184.6 KB** | **203.2 KB** |
+| 16 | `materi/dasar/katakana.html` | 25.0k / 6.3k | 1012.0k / 155.7k | 147.3k / 41.1k | — | **1184.3 KB** | **203.1 KB** |
+| 17 | `materi/dasar/index.html` | 18.9k / 4.5k | 1012.0k / 155.7k | 147.3k / 41.1k | — | **1178.2 KB** | **201.3 KB** |
+| 18 | `materi/lanjutan/index.html` | 15.1k / 4.0k | 1012.0k / 155.7k | 147.3k / 41.1k | — | **1174.4 KB** | **200.8 KB** |
+| 19 | `kegiatan/nihon-go-rajio.html` | 36.7k / 8.4k | 1012.0k / 155.7k | 123.7k / 34.2k | — | **1172.4 KB** | **198.3 KB** |
+| 20 | `kegiatan/index.html` | 30.2k / 6.9k | 1012.0k / 155.7k | 123.7k / 34.2k | — | **1165.9 KB** | **196.8 KB** |
+| 21 | `kelas/motivasi.html` | 32.2k / 7.5k | 1012.0k / 155.7k | 120.7k / 33.8k | — | **1164.9 KB** | **197.0 KB** |
+| 22 | `kelas/index.html` | 29.4k / 5.4k | 1012.0k / 155.7k | 120.7k / 33.8k | — | **1162.1 KB** | **194.9 KB** |
+| 23 | `divisi/index.html` | 18.1k / 5.0k | 1012.0k / 155.7k | 131.8k / 37.4k | — | **1161.9 KB** | **198.1 KB** |
+| 24 | `kegiatan/ramadhan.html` | 19.8k / 5.0k | 1012.0k / 155.7k | 123.7k / 34.2k | — | **1155.5 KB** | **194.8 KB** |
+| 25 | `kegiatan/konbini.html` | 19.7k / 5.0k | 1012.0k / 155.7k | 123.7k / 34.2k | — | **1155.4 KB** | **194.9 KB** |
+| 26 | `kegiatan/tomodachi.html` | 19.7k / 4.9k | 1012.0k / 155.7k | 123.7k / 34.2k | — | **1155.4 KB** | **194.8 KB** |
+| 27 | `kegiatan/kimi-to-nippon.html` | 19.7k / 4.9k | 1012.0k / 155.7k | 123.7k / 34.2k | — | **1155.4 KB** | **194.8 KB** |
+| 28 | `divisi/cosplay.html` | 16.8k / 4.9k | 1012.0k / 155.7k | 118.4k / 32.5k | — | **1147.2 KB** | **193.1 KB** |
+| 29 | `divisi/kewirausahaan.html` | 16.7k / 4.8k | 1012.0k / 155.7k | 118.4k / 32.5k | — | **1147.2 KB** | **193.1 KB** |
+| 30 | `divisi/desain.html` | 16.7k / 4.9k | 1012.0k / 155.7k | 118.4k / 32.5k | — | **1147.1 KB** | **193.1 KB** |
+| 31 | `divisi/bahasa.html` | 16.7k / 4.8k | 1012.0k / 155.7k | 118.4k / 32.5k | — | **1147.1 KB** | **193.0 KB** |
+| 32 | `404.html` | 14.8k / 4.2k | 1012.0k / 155.7k | 118.4k / 32.5k | — | **1145.2 KB** | **192.4 KB** |
+| 33 | `offline.html` | 7.6k / 2.3k | 1012.0k / 155.7k | 0.0k / 0.0k | — | **1019.6 KB** | **158.0 KB** |
+| 34 | `sora/index.html` | 51.2k / 11.4k | 0.0k / 0.0k | 0.0k / 0.0k | — | **51.2 KB** | **11.4 KB** |
 
 ---
 

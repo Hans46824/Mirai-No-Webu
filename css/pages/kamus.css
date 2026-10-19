@@ -2740,29 +2740,118 @@ FLOATING MOBILE 12-KEY KEITAI KEYBOARD (DOCK MELAYANG ANTI-CUT)
   color: var(--pink, #e91e63) !important;
 }
 
-/* 4x4 Grid 12-Key Keitai */
-.keitai-12key-grid {
+/* ==========================================================================
+   GBOARD 12-KEY JAPANESE KEYBOARD & CANDIDATE PREDICTION BAR
+   ========================================================================== */
+
+/* 1. Bar Prediksi Kata & Kanji (.gboard-candidate-bar) */
+.gboard-candidate-bar {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  white-space: nowrap !important;
+  padding: 4px 6px !important;
+  background: rgba(0, 0, 0, 0.22) !important;
+  border: 1px solid rgba(255, 101, 155, 0.22) !important;
+  border-radius: 12px !important;
+  min-height: 40px !important;
+  box-sizing: border-box !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(255, 101, 155, 0.4) transparent !important;
+  touch-action: pan-x !important;
+}
+
+.gboard-candidate-bar::-webkit-scrollbar {
+  height: 4px !important;
+}
+
+.gboard-candidate-bar::-webkit-scrollbar-thumb {
+  background: rgba(255, 101, 155, 0.45) !important;
+  border-radius: 99px !important;
+}
+
+.gboard-candidate-chip {
+  display: inline-flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 1px !important;
+  padding: 4px 10px !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 101, 155, 0.3) !important;
+  border-radius: 9px !important;
+  color: #ffffff !important;
+  cursor: pointer !important;
+  font-family: inherit !important;
+  flex-shrink: 0 !important;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+.gboard-candidate-chip:hover {
+  background: rgba(233, 30, 99, 0.28) !important;
+  border-color: #ff659b !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(233, 30, 99, 0.3) !important;
+}
+
+.gboard-candidate-chip:active {
+  transform: scale(0.96) !important;
+  background: #e91e63 !important;
+}
+
+.gboard-candidate-chip .candidate-main {
+  font-size: 13.5px !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+  color: #ffffff !important;
+  font-family: var(--font-jp, "Noto Sans JP", sans-serif) !important;
+}
+
+.gboard-candidate-chip .candidate-sub {
+  font-size: 9.5px !important;
+  color: #ff85b3 !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  max-width: 140px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.gboard-candidate-empty {
+  font-size: 11.5px !important;
+  color: #a19ba6 !important;
+  font-style: italic !important;
+  padding: 0 8px !important;
+}
+
+/* 2. Grid Gboard 12-Key (5 Kolom x 4 Baris) */
+.gboard-12key-grid {
   display: grid !important;
-  grid-template-columns: repeat(4, 1fr) !important;
-  gap: 8px !important;
+  grid-template-columns: repeat(5, 1fr) !important;
+  gap: 6px !important;
   width: 100% !important;
   box-sizing: border-box !important;
 }
 
-.keitai-key-wrapper {
+.gboard-key-wrapper {
   position: relative !important;
   display: flex !important;
   flex-direction: column !important;
 }
 
-.keitai-btn {
+.gboard-btn {
   width: 100% !important;
-  min-height: 52px !important;
-  height: 52px !important;
+  min-height: 48px !important;
+  height: 50px !important;
   border-radius: 12px !important;
-  border: 1.5px solid #e5e7eb !important;
-  background: #ffffff !important;
-  color: #1f2937 !important;
+  border: 1.5px solid rgba(233, 30, 99, 0.25) !important;
+  background: #2a2033 !important;
+  color: #ffffff !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
@@ -2770,184 +2859,315 @@ FLOATING MOBILE 12-KEY KEITAI KEYBOARD (DOCK MELAYANG ANTI-CUT)
   cursor: pointer !important;
   user-select: none !important;
   -webkit-user-select: none !important;
-  touch-action: manipulation !important;
-  transition: transform 0.1s ease, background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04) !important;
-  padding: 2px 4px !important;
+  touch-action: none !important;
+  transition: transform 0.08s ease, background 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease !important;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35) !important;
+  padding: 2px 2px !important;
 }
 
-.keitai-btn:active, .keitai-btn.is-pressed {
-  transform: scale(0.94) !important;
-  background: #fce7f3 !important;
-  border-color: var(--pink, #e91e63) !important;
+.gboard-btn:hover {
+  background: #392b45 !important;
+  border-color: #ff659b !important;
 }
 
-.keitai-main-char {
-  font-size: 19px !important;
+.gboard-btn:active, .gboard-btn.is-pressed {
+  transform: scale(0.93) !important;
+  background: #ff4f91 !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 14px rgba(255, 79, 145, 0.6) !important;
+}
+
+.gboard-main-char {
+  font-size: 18px !important;
   font-weight: 800 !important;
   line-height: 1.1 !important;
+  color: #ffffff !important;
+  font-family: var(--font-jp, "Noto Sans JP", sans-serif) !important;
 }
 
-.keitai-sub-chars {
-  font-size: 9.5px !important;
-  color: #6b7280 !important;
+.gboard-sub-chars {
+  font-size: 8.5px !important;
+  color: #b5a8bd !important;
   font-weight: 600 !important;
   letter-spacing: -0.2px !important;
   white-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
   max-width: 100% !important;
+  line-height: 1 !important;
+  margin-top: 1px !important;
 }
 
 /* Action Keys */
-.keitai-btn.action-key {
+.gboard-btn.action-key {
+  background: #1e1526 !important;
+  border-color: rgba(255, 101, 155, 0.28) !important;
+}
+
+.gboard-btn.action-key .gboard-main-char {
+  color: #ff85b3 !important;
+  font-size: 15px !important;
+}
+
+.gboard-btn.action-key .gboard-sub-chars {
+  color: #9d92a6 !important;
+}
+
+.gboard-btn.action-key.backspace-key .gboard-main-char,
+.gboard-btn.action-key.enter-key .gboard-main-char,
+.gboard-btn.action-key.translate-key .gboard-main-char {
+  color: #ff659b !important;
+  font-size: 17px !important;
+}
+
+.gboard-btn.action-key.romaji-toggle-key.is-active {
+  background: rgba(233, 30, 99, 0.25) !important;
+  border-color: #ff659b !important;
+  box-shadow: 0 0 10px rgba(233, 30, 99, 0.35) !important;
+}
+
+/* 3. 4-Way Cross Flick Overlay (.gboard-flick-cross) */
+.gboard-flick-cross {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 136px !important;
+  height: 136px !important;
+  pointer-events: none !important;
+  z-index: 100005 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  animation: gboardCrossPop 0.1s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+@keyframes gboardCrossPop {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.flick-petal {
+  position: absolute !important;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 12px !important;
+  background: rgba(30, 22, 38, 0.96) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1.5px solid rgba(255, 101, 155, 0.45) !important;
+  color: #ffffff !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  font-family: var(--font-jp, "Noto Sans JP", sans-serif) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65) !important;
+  transition: transform 0.08s ease, background 0.08s ease, box-shadow 0.08s ease, border-color 0.08s ease !important;
+}
+
+.flick-petal.flick-center {
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+.flick-petal.flick-top {
+  top: 2px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
+
+.flick-petal.flick-bottom {
+  bottom: 2px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
+
+.flick-petal.flick-left {
+  left: 2px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+
+.flick-petal.flick-right {
+  right: 2px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+
+.flick-petal.is-active {
+  background: linear-gradient(135deg, #ff4f91, #e91e63) !important;
+  border-color: #ffffff !important;
+  box-shadow: 0 0 18px rgba(255, 79, 145, 0.9), 0 8px 26px rgba(0, 0, 0, 0.7) !important;
+  color: #ffffff !important;
+}
+
+.flick-petal.flick-center.is-active {
+  transform: translate(-50%, -50%) scale(1.18) !important;
+}
+.flick-petal.flick-top.is-active {
+  transform: translateX(-50%) scale(1.18) !important;
+}
+.flick-petal.flick-bottom.is-active {
+  transform: translateX(-50%) scale(1.18) !important;
+}
+.flick-petal.flick-left.is-active {
+  transform: translateY(-50%) scale(1.18) !important;
+}
+.flick-petal.flick-right.is-active {
+  transform: translateY(-50%) scale(1.18) !important;
+}
+
+/* 4. Kotak Info Kamus Lokal (#translatorLocalDictBox) */
+.translator-local-dict-box {
+  margin-top: 14px !important;
+  background: rgba(255, 101, 155, 0.08) !important;
+  border: 1.5px solid rgba(255, 101, 155, 0.35) !important;
+  border-radius: 14px !important;
+  padding: 12px 14px !important;
+  color: #ffffff !important;
+  animation: localDictFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+@keyframes localDictFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.local-dict-head {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin-bottom: 8px !important;
+}
+
+.local-dict-icon {
+  font-size: 16px !important;
+}
+
+.local-dict-title {
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  color: #ff85b3 !important;
+  letter-spacing: 0.3px !important;
+}
+
+.local-dict-badge {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  background: var(--pink, #e91e63) !important;
+  color: #ffffff !important;
+  padding: 2px 8px !important;
+  border-radius: 99px !important;
+  margin-left: auto !important;
+}
+
+.local-dict-kanji-preview {
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+}
+
+.local-dict-char {
+  font-size: 38px !important;
+  font-weight: 900 !important;
+  color: #ffffff !important;
+  font-family: var(--font-jp, "Noto Sans JP", sans-serif) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 101, 155, 0.35) !important;
+  border-radius: 12px !important;
+  width: 58px !important;
+  height: 58px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+}
+
+.local-dict-details {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 3px !important;
+  font-size: 13px !important;
+  line-height: 1.4 !important;
+  color: #e5dde7 !important;
+}
+
+.local-dict-meaning strong,
+.local-dict-reading strong,
+.local-dict-meta strong {
+  color: #ff85b3 !important;
+}
+
+/* Light Theme Adaptations for Gboard */
+body:not(.theme-dark):not(.dark-mode) .virtual-keyboard-panel {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border-color: #f4bfd3 !important;
+  color: #1f2937 !important;
+}
+
+body:not(.theme-dark):not(.dark-mode) .gboard-candidate-bar {
+  background: rgba(0, 0, 0, 0.04) !important;
+  border-color: #f4bfd3 !important;
+}
+
+body:not(.theme-dark):not(.dark-mode) .gboard-candidate-chip {
+  background: #ffffff !important;
+  border-color: #f4bfd3 !important;
+  color: #1f2937 !important;
+}
+
+body:not(.theme-dark):not(.dark-mode) .gboard-candidate-chip .candidate-main {
+  color: #1f2937 !important;
+}
+
+body:not(.theme-dark):not(.dark-mode) .gboard-btn {
+  background: #ffffff !important;
+  border-color: #e5e7eb !important;
+  color: #1f2937 !important;
+}
+
+body:not(.theme-dark):not(.dark-mode) .gboard-btn .gboard-main-char {
+  color: #1f2937 !important;
+}
+
+body:not(.theme-dark):not(.dark-mode) .gboard-btn .gboard-sub-chars {
+  color: #6b7280 !important;
+}
+
+body:not(.theme-dark):not(.dark-mode) .gboard-btn.action-key {
   background: #f3f4f6 !important;
   border-color: #d1d5db !important;
 }
 
-.keitai-btn.action-key:active {
-  background: #e5e7eb !important;
+body:not(.theme-dark):not(.dark-mode) .translator-local-dict-box {
+  background: #fff5f8 !important;
+  border-color: #f4bfd3 !important;
+  color: #1f2937 !important;
 }
 
-.keitai-btn.action-key.backspace-key,
-.keitai-btn.action-key.enter-key {
-  color: var(--pink, #e91e63) !important;
+body:not(.theme-dark):not(.dark-mode) .local-dict-char {
+  background: #ffffff !important;
+  border-color: #f4bfd3 !important;
+  color: #18151b !important;
 }
 
-.keitai-btn.action-key.romaji-toggle-key {
-  background: #fdf2f8 !important;
-  border-color: #fbcfe8 !important;
-  color: var(--pink, #e91e63) !important;
-}
-
-.keitai-btn.action-key.romaji-toggle-key.is-active {
-  background: #fce7f3 !important;
-  border-color: var(--pink, #e91e63) !important;
-  color: var(--pink, #e91e63) !important;
-  box-shadow: 0 0 8px rgba(233, 30, 99, 0.25) !important;
-}
-
-body.theme-dark .keitai-btn.action-key.romaji-toggle-key,
-body.dark-mode .keitai-btn.action-key.romaji-toggle-key {
-  background: #2b1d28 !important;
-  border-color: rgba(255, 101, 155, 0.35) !important;
-  color: #ff85b3 !important;
-}
-
-/* Mini Popup Balloon Vowel Selector */
-.keitai-popup-bubble {
-  position: absolute !important;
-  bottom: calc(100% + 8px) !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  display: inline-flex !important;
-  background: rgba(30, 24, 38, 0.94) !important;
-  backdrop-filter: blur(10px) !important;
-  -webkit-backdrop-filter: blur(10px) !important;
-  padding: 4px 6px !important;
-  border-radius: 99px !important;
-  gap: 4px !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
-  z-index: 10001 !important;
-  white-space: nowrap !important;
-  animation: keitaiBubblePop 0.15s ease-out !important;
-}
-
-.keitai-popup-bubble::after {
-  content: "" !important;
-  position: absolute !important;
-  top: 100% !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  border-width: 6px 6px 0 6px !important;
-  border-style: solid !important;
-  border-color: rgba(30, 24, 38, 0.94) transparent transparent transparent !important;
-}
-
-@keyframes keitaiBubblePop {
-  from {
-    opacity: 0;
-    transform: translateX(-50%) translateY(6px) scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0) scale(1);
-  }
-}
-
-.keitai-bubble-pill {
-  min-width: 28px !important;
-  height: 28px !important;
-  border-radius: 99px !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  color: #ffffff !important;
-  font-size: 14px !important;
-  font-weight: 700 !important;
-  background: transparent !important;
-  border: none !important;
-  cursor: pointer !important;
-  padding: 0 4px !important;
-  transition: all 0.15s ease !important;
-}
-
-.keitai-bubble-pill.is-active, .keitai-bubble-pill:active {
-  background: var(--pink, #e91e63) !important;
-  color: #ffffff !important;
-  box-shadow: 0 0 10px rgba(233, 30, 99, 0.6) !important;
-  transform: scale(1.15) !important;
-}
-
-/* Dark Mode Support for Keitai Keyboard */
-body.theme-dark .virtual-keyboard-panel, body.dark-mode .virtual-keyboard-panel {
-  background: rgba(22, 17, 28, 0.97) !important;
-  border-color: rgba(255, 101, 155, 0.28) !important;
-  box-shadow: 0 -10px 36px rgba(0, 0, 0, 0.65) !important;
-}
-
-body.theme-dark .kb-drag-pill, body.dark-mode .kb-drag-pill {
-  background: rgba(255, 255, 255, 0.25) !important;
-}
-
-body.theme-dark .kb-mode-pill-group, body.dark-mode .kb-mode-pill-group {
-  background: rgba(255, 255, 255, 0.08) !important;
-}
-
-body.theme-dark .kb-pill-btn, body.dark-mode .kb-pill-btn {
-  color: #bbb !important;
-}
-
-body.theme-dark .kb-pill-btn.is-active, body.dark-mode .kb-pill-btn.is-active {
-  background: #2b1f30 !important;
-  color: #ff659b !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35) !important;
-}
-
-body.theme-dark .kb-close-btn, body.dark-mode .kb-close-btn {
-  color: #ccc !important;
-  background: rgba(255, 255, 255, 0.08) !important;
-}
-
-body.theme-dark .keitai-btn, body.dark-mode .keitai-btn {
-  background: #201726 !important;
-  border-color: #35273d !important;
-  color: #f3f4f6 !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25) !important;
-}
-
-body.theme-dark .keitai-btn:active, body.dark-mode .keitai-btn:active {
-  background: #3b1d31 !important;
-  border-color: var(--pink, #e91e63) !important;
-}
-
-body.theme-dark .keitai-sub-chars, body.dark-mode .keitai-sub-chars {
-  color: #9ca3af !important;
-}
-
-body.theme-dark .keitai-btn.action-key, body.dark-mode .keitai-btn.action-key {
-  background: #18111e !important;
-  border-color: #35273d !important;
+body:not(.theme-dark):not(.dark-mode) .local-dict-details {
+  color: #374151 !important;
 }
 
 /* ==========================================================================
@@ -3165,6 +3385,117 @@ body.theme-dark .keitai-btn.action-key, body.dark-mode .keitai-btn.action-key {
   cursor: pointer;
 }
 
+/* Kontrol Foto Profil KTP */
+.namegen-photo-ctrl-group {
+  padding: 12px 14px;
+  background: #fff8fb;
+  border: 1.5px dashed #f6c0d8;
+  border-radius: 14px;
+  transition: all 0.2s ease;
+}
+
+body.theme-dark .namegen-photo-ctrl-group,
+body.dark-mode .namegen-photo-ctrl-group {
+  background: #20182b;
+  border-color: rgba(233, 30, 99, 0.35);
+}
+
+.namegen-photo-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.namegen-upload-btn,
+.namegen-reset-photo-btn {
+  font-size: 13px !important;
+  padding: 8px 14px !important;
+  border-radius: 10px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.namegen-upload-btn {
+  background: linear-gradient(135deg, #ff4081, #e91e63) !important;
+  color: #ffffff !important;
+  border: none !important;
+}
+
+.namegen-upload-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(233, 30, 99, 0.3) !important;
+}
+
+.namegen-reset-photo-btn {
+  background: rgba(233, 30, 99, 0.08) !important;
+  border: 1.5px solid rgba(233, 30, 99, 0.25) !important;
+  color: #be185d !important;
+}
+
+body.theme-dark .namegen-reset-photo-btn,
+body.dark-mode .namegen-reset-photo-btn {
+  background: rgba(233, 30, 99, 0.16) !important;
+  color: #f472b6 !important;
+  border-color: rgba(233, 30, 99, 0.4) !important;
+}
+
+.namegen-reset-photo-btn:hover {
+  background: rgba(233, 30, 99, 0.18) !important;
+}
+
+.namegen-zoom-control {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(244, 114, 182, 0.35);
+}
+
+.zoom-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
+}
+
+body.theme-dark .zoom-label-row,
+body.dark-mode .zoom-label-row {
+  color: #cbd5e1;
+}
+
+.zoom-value {
+  color: var(--pink, #e91e63);
+  font-family: monospace;
+  font-weight: bold;
+}
+
+.namegen-range-slider {
+  width: 100%;
+  accent-color: #e91e63;
+  height: 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  background: #fce7f0;
+}
+
+body.theme-dark .namegen-range-slider,
+body.dark-mode .namegen-range-slider {
+  background: #3b2a3f;
+}
+
+.zoom-range-markers {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
 .namegen-actions-bar {
   margin-top: 4px;
 }
@@ -3310,8 +3641,44 @@ body.dark-mode .namegen-ateji-box {
 .ateji-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 12px;
+}
+
+.ateji-head-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.mini-reroll-btn {
+  font-size: 12px !important;
+  padding: 6px 12px !important;
+  border-radius: 9px !important;
+  background: rgba(233, 30, 99, 0.08) !important;
+  border: 1.5px solid rgba(233, 30, 99, 0.28) !important;
+  color: #be185d !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  white-space: nowrap !important;
+}
+
+body.theme-dark .mini-reroll-btn,
+body.dark-mode .mini-reroll-btn {
+  background: rgba(233, 30, 99, 0.16) !important;
+  color: #f472b6 !important;
+  border-color: rgba(233, 30, 99, 0.4) !important;
+}
+
+.mini-reroll-btn:hover {
+  background: #be185d !important;
+  color: #ffffff !important;
+  border-color: #be185d !important;
+  transform: translateY(-1px);
 }
 
 .ateji-icon {
@@ -3449,6 +3816,10 @@ body.dark-mode .ateji-philosophy-text {
   box-sizing: border-box;
 }
 
+.member-card-wrap[hidden] {
+  display: none !important;
+}
+
 .member-card-wrap::before {
   content: "";
   position: absolute;
@@ -3528,6 +3899,57 @@ body.dark-mode .ateji-philosophy-text {
   line-height: 1.2;
 }
 
+/* Tab Toggle Tampak Depan & Belakang */
+.ktp-view-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.ktp-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 13.5px;
+  font-weight: 700;
+  border: 1.5px solid #fbcfe8;
+  background: #ffffff;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+.ktp-tab-btn:hover {
+  border-color: #f472b6;
+  color: #be185d;
+  background: #fff5f8;
+}
+
+.ktp-tab-btn.is-active {
+  background: linear-gradient(135deg, #ff4081 0%, #e91e63 100%) !important;
+  border-color: #e91e63 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(233, 30, 99, 0.3) !important;
+}
+
+body.theme-dark .ktp-tab-btn,
+body.dark-mode .ktp-tab-btn {
+  background: #1f1b24;
+  border-color: #4b3648;
+  color: #cbd5e1;
+}
+
+body.theme-dark .ktp-tab-btn.is-active,
+body.dark-mode .ktp-tab-btn.is-active {
+  background: linear-gradient(135deg, #ff4081 0%, #e91e63 100%) !important;
+  color: #ffffff !important;
+}
+
 .mcard-topbar-right {
   display: flex;
   align-items: center;
@@ -3537,60 +3959,106 @@ body.dark-mode .ateji-philosophy-text {
 }
 
 .mcard-ktp-title-badge {
-  font-size: clamp(7px, 1.4vw, 8.5px);
+  font-size: clamp(8.5px, 1.8vw, 11px);
   font-weight: 800;
-  letter-spacing: 0.6px;
+  letter-spacing: 0.8px;
   text-transform: uppercase;
   color: #9d174d !important;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid #fbcfe8;
-  padding: 2px 7px;
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1.5px solid #f472b6;
+  padding: 3px 10px;
+  border-radius: 6px;
   white-space: nowrap;
-}
-
-.mcard-birth-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  background: #ffffff !important;
-  border: 1.5px solid #f472b6 !important;
-  padding: 2px 9px;
-  border-radius: 999px;
-  box-shadow: 0 2px 6px rgba(233, 30, 99, 0.1) !important;
-  white-space: nowrap;
-}
-
-.mcard-birth-label {
-  font-size: clamp(8px, 1.5vw, 10px);
-  font-weight: 800;
-  color: #db2777 !important;
-  font-family: 'Noto Serif JP', serif;
-}
-
-.mcard-birth-val {
-  font-size: clamp(8.5px, 1.7vw, 10.5px);
-  font-weight: 800;
-  font-family: monospace;
-  color: #be185d !important;
-  letter-spacing: 0.5px;
+  box-shadow: 0 2px 6px rgba(233, 30, 99, 0.08);
 }
 
 .mcard-body {
   display: flex;
-  align-items: stretch;
-  justify-content: space-between;
-  margin: 8px 0;
-  gap: 12px;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 6px 0;
+  gap: clamp(10px, 2.4vw, 16px);
   flex: 1;
   min-height: 0;
+}
+
+.mcard-photo-side {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.mcard-photo-frame {
+  position: relative;
+  width: clamp(78px, 16vw, 104px);
+  height: clamp(104px, 21.5vw, 138px);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid #f472b6;
+  background: linear-gradient(135deg, #fbcfe8 0%, #f472b6 100%);
+  box-shadow: 0 4px 14px rgba(233, 30, 99, 0.18), inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.mcard-photo-frame.is-dragging {
+  cursor: grabbing !important;
+}
+
+.mcard-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+  pointer-events: none;
+  transform-origin: center center;
+  transition: transform 0.05s ease-out;
+  will-change: transform;
+}
+
+.mcard-photo-frame.is-dragging .mcard-photo-img {
+  transition: none;
+}
+
+.mcard-photo-hint {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  color: #ffffff;
+  font-size: 8px;
+  font-weight: 700;
+  text-align: center;
+  padding: 3px 2px;
+  line-height: 1.15;
+  letter-spacing: 0.2px;
+  pointer-events: none;
+  opacity: 0.92;
+  transition: opacity 0.25s ease;
+  z-index: 3;
+}
+
+.mcard-photo-frame:hover .mcard-photo-hint,
+.mcard-photo-frame.is-dragging .mcard-photo-hint {
+  opacity: 1;
+}
+
+.mcard-photo-badge {
+  display: none !important;
 }
 
 .mcard-info-col {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 5px;
+  justify-content: center;
+  gap: clamp(5px, 1.2vw, 8px);
   flex: 1;
   min-width: 0;
 }
@@ -3614,7 +4082,7 @@ body.dark-mode .ateji-philosophy-text {
 }
 
 .mcard-latin-name {
-  font-size: clamp(11.5px, 2.2vw, 14.5px);
+  font-size: clamp(11.5px, 2.2vw, 14px);
   font-weight: 700;
   color: #1f2937 !important;
   line-height: 1.2;
@@ -3625,22 +4093,22 @@ body.dark-mode .ateji-philosophy-text {
   display: flex;
   flex-direction: column;
   gap: 3px;
-  background: rgba(255, 255, 255, 0.75);
-  border: 1px solid rgba(244, 114, 182, 0.35);
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(244, 114, 182, 0.38);
   border-radius: 8px;
-  padding: 5px 8px;
+  padding: 6px 10px;
   box-shadow: 0 2px 6px rgba(233, 30, 99, 0.04);
 }
 
 .mcard-ktp-row {
   display: flex;
   align-items: center;
-  font-size: clamp(8px, 1.5vw, 9.8px);
-  line-height: 1.35;
+  font-size: clamp(8.5px, 1.6vw, 10.5px);
+  line-height: 1.4;
 }
 
 .mcard-ktp-label {
-  width: 96px;
+  width: clamp(96px, 20vw, 128px);
   flex-shrink: 0;
   color: #64748b;
   font-weight: 600;
@@ -3648,7 +4116,7 @@ body.dark-mode .ateji-philosophy-text {
 }
 
 .mcard-ktp-sep {
-  margin: 0 4px;
+  margin: 0 5px 0 2px;
   color: #94a3b8;
   font-weight: bold;
 }
@@ -3661,115 +4129,19 @@ body.dark-mode .ateji-philosophy-text {
   text-overflow: ellipsis;
 }
 
-.mcard-ktp-val.id-code {
+.mcard-ktp-val.highlight-div {
+  color: #be185d;
+}
+
+.mcard-ktp-val.date-val {
   font-family: monospace;
   color: #9d174d;
   letter-spacing: 0.5px;
 }
 
-.mcard-ktp-val.highlight-div {
+.mcard-ktp-val.age-val {
   color: #be185d;
-}
-
-.mcard-ktp-val.status-val {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  color: #059669;
-}
-
-.mcard-status-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #10b981;
-  box-shadow: 0 0 6px rgba(16, 185, 129, 0.7);
-  display: inline-block;
-}
-
-.mcard-photo-side {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-}
-
-.mcard-photo-frame {
-  position: relative;
-  width: clamp(72px, 15vw, 94px);
-  height: clamp(96px, 20vw, 126px);
-  border-radius: 8px;
-  overflow: hidden;
-  border: 2px solid #f472b6;
-  background: linear-gradient(135deg, #fbcfe8 0%, #f472b6 100%);
-  box-shadow: 0 4px 14px rgba(233, 30, 99, 0.18), inset 0 0 0 1px rgba(255, 255, 255, 0.4);
-}
-
-.mcard-photo-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center top;
-  display: block;
-}
-
-.mcard-photo-badge {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(190, 24, 93, 0.88);
-  backdrop-filter: blur(2px);
-  color: #ffffff;
-  font-size: 7.5px;
   font-weight: 800;
-  text-align: center;
-  padding: 2px 0;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-.mcard-stamps-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  align-items: center;
-}
-
-.mcard-kanji-stamp {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  background: #ffffff !important;
-  border: 1.5px solid #f472b6 !important;
-  border-radius: 6px;
-  padding: 3px 5px;
-  font-family: 'Noto Serif JP', serif;
-  font-size: clamp(10px, 2.1vw, 13px);
-  font-weight: 800;
-  color: #881337 !important;
-  text-align: center;
-  line-height: 1.1;
-  box-shadow: 0 2px 6px rgba(233, 30, 99, 0.08);
-}
-
-.mcard-red-seal {
-  width: clamp(28px, 5.5vw, 36px);
-  height: clamp(28px, 5.5vw, 36px);
-  background: #e11d48 !important;
-  border: 1.5px solid #ffe4e6 !important;
-  border-radius: 6px;
-  color: #ffffff !important;
-  font-size: clamp(7.5px, 1.5vw, 9.5px);
-  font-weight: 900;
-  font-family: 'Noto Serif JP', serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  line-height: 1.1;
-  box-shadow: 0 3px 8px rgba(225, 29, 72, 0.35);
-  flex-shrink: 0;
 }
 
 .mcard-footer {
@@ -3820,6 +4192,84 @@ body.dark-mode .ateji-philosophy-text {
   white-space: nowrap;
 }
 
+/* ==========================================================================
+   DESAIN KTP TAMPAK BELAKANG (LOGO NK DI TENGAH DENGAN TEKS BESAR)
+   ========================================================================== */
+.ktp-side-back {
+  position: relative;
+  overflow: hidden;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.mcard-back-centered-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  margin: auto;
+}
+
+.mcard-back-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 2.2vw, 16px);
+  padding: 12px;
+  width: 100%;
+}
+
+.mcard-back-logo-wrap {
+  width: clamp(80px, 16vw, 115px);
+  height: clamp(80px, 16vw, 115px);
+  border-radius: 50%;
+  background: #ffffff;
+  padding: 4px;
+  box-shadow: 0 10px 28px rgba(233, 30, 99, 0.22), 0 0 0 2.5px #f472b6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mcard-back-big-logo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.mcard-back-title {
+  margin: 0;
+  font-family: "Plus Jakarta Sans", Arial, sans-serif;
+  font-size: clamp(14px, 2.8vw, 21px);
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  color: #9d174d !important;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.25;
+}
+
+.mcard-back-sub-jp {
+  margin: 0;
+  font-family: "Noto Serif JP", serif;
+  font-size: clamp(12.5px, 2.4vw, 17px);
+  font-weight: 700;
+  color: #db2777 !important;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+/* ==========================================================================
+   TOMBOL UNDUH DUAL KTP (.PNG)
+   ========================================================================== */
 .namegen-download-row {
   display: flex;
   flex-direction: column;
@@ -3828,10 +4278,23 @@ body.dark-mode .ateji-philosophy-text {
   width: 100%;
 }
 
+.namegen-download-double {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  .namegen-download-double {
+    grid-template-columns: 1fr;
+  }
+}
+
 .download-card-btn {
   width: 100%;
-  padding: 14px;
-  font-size: 15px;
+  padding: 13px 16px;
+  font-size: 14.5px;
   font-weight: 800;
   border-radius: 12px;
 }
@@ -4336,26 +4799,26 @@ STICKY KANJI DETAIL PANEL & SHORTCUTS HINT (LAPTOP / DESKTOP >= 1200px)
   color: #fca5a5 !important;
 }
 
-.virtual-keyboard-panel .keitai-btn {
+.virtual-keyboard-panel .gboard-btn {
   background: #2c2235 !important;
   border: 1.5px solid rgba(233, 30, 99, 0.25) !important;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35) !important;
 }
 
-.virtual-keyboard-panel .keitai-btn .keitai-main-char {
+.virtual-keyboard-panel .gboard-btn .gboard-main-char {
   color: #ffffff !important;
 }
 
-.virtual-keyboard-panel .keitai-btn .keitai-sub-chars {
+.virtual-keyboard-panel .gboard-btn .gboard-sub-chars {
   color: #b5a8bd !important;
 }
 
-.virtual-keyboard-panel .keitai-btn:hover {
+.virtual-keyboard-panel .gboard-btn:hover {
   background: #3c2f48 !important;
   border-color: #ff659b !important;
 }
 
-.virtual-keyboard-panel .keitai-btn:active {
+.virtual-keyboard-panel .gboard-btn:active {
   background: #ff659b !important;
   color: #ffffff !important;
 }
@@ -4365,19 +4828,12 @@ STICKY KANJI DETAIL PANEL & SHORTCUTS HINT (LAPTOP / DESKTOP >= 1200px)
   border-color: rgba(233, 30, 99, 0.35) !important;
 }
 
-.virtual-keyboard-panel .action-key .keitai-main-char {
+.virtual-keyboard-panel .action-key .gboard-main-char {
   color: #ff85b3 !important;
 }
 
-.virtual-keyboard-panel .action-key .keitai-sub-chars {
+.virtual-keyboard-panel .action-key .gboard-sub-chars {
   color: #d5ccd3 !important;
-}
-
-.virtual-keyboard-panel .keitai-popup-bubble {
-  background: #1e1625 !important;
-  border: 1.5px solid #ff659b !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6) !important;
-  color: #ffffff !important;
 }
 
 .virtual-keyboard-panel .kb-resize-handle {
@@ -4435,21 +4891,21 @@ STICKY KANJI DETAIL PANEL & SHORTCUTS HINT (LAPTOP / DESKTOP >= 1200px)
   display: flex;
   flex-direction: column;
   min-height: 0;
-  overflow-y: auto;
+  overflow: visible !important;
 }
 
-.keitai-12key-grid {
+.gboard-12key-grid {
   display: grid !important;
-  grid-template-columns: repeat(4, 1fr) !important;
-  gap: 7px !important;
+  grid-template-columns: repeat(5, 1fr) !important;
+  gap: 6px !important;
   width: 100% !important;
   box-sizing: border-box !important;
 }
 
-.keitai-btn {
+.gboard-btn {
   width: 100% !important;
   min-height: 48px !important;
-  height: 100% !important;
+  height: 50px !important;
   border-radius: 12px !important;
 }
 

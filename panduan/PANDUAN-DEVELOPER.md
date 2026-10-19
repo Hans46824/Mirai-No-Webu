@@ -184,7 +184,7 @@ css/
     ├── beranda.css             # Komponen Beranda (index.html)
     ├── kelas-materi.css        # Modul kelas, kurikulum, dan kuis latihan
     ├── kamus.css               # Kamus Kana, Joyo Kanji, dan kanvas goresan
-    ├── kegiatan-divisi.css     # Hub kegiatan, 5 proker, 4 divisi, fasilitas
+    ├── program-fasilitas-divisi.css     # Hub kegiatan, 5 proker, 4 divisi, fasilitas
     ├── tentang.css             # Profil klub, bendera, timeline sejarah, pengurus
     ├── rekomendasi-motivasi.css# Motivasi anime & rekomendasi karya pop culture
     ├── peringkat.css           # Leaderboard keaktifan, presensi, dan podium
@@ -207,10 +207,10 @@ Gunakan tabel praktis ini untuk mengetahui berkas mana yang harus dibuka saat in
 | **Info Lomba & Festival Matsuri** | `lomba/index.html` | `css/pages/lomba.css` | `lomba/images/` |
 | **Katalog Produk Toko & Konbini** | `toko/index.html` | `css/pages/toko.css` | `images/mirai/produk/` |
 | **Skor Keaktifan & Presensi Anggota** | `peringkat/index.html` | `css/pages/peringkat.css` | `js/leaderboard-data.js` |
-| **Modul Pembelajaran & Kuis** | `kelas/index.html`<br>`kelas/latihan.html` | `css/pages/kelas-materi.css` | `js/script.js`<br>`js/kana.js` |
+| **Modul Pembelajaran & Kuis** | `kelas/index.html`<br>`kelas/latihan.html` | `css/pages/kelas-materi.css` | `js/kelas-latihan.js`<br>`js/kamus-kana.js` |
 | **Kamus Kana, Kanji, & Goresan** | `kamus/index.html`<br>`kamus/kanji.html` | `css/pages/kamus.css` | `data/kanji-index.json`<br>`data/kanji/*.json`<br>`data/strokes/*.json` |
-| **Program Kerja (KTN, NJR, dll.)** | `kegiatan/*.html` | `css/pages/kegiatan-divisi.css` | `js/proker-slider.js` |
-| **Struktur 4 Divisi Resmi** | `divisi/*.html` | `css/pages/kegiatan-divisi.css` | `js/main.js` |
+| **Program Kerja (KTN, NJR, dll.)** | `kegiatan/*.html` | `css/pages/program-fasilitas-divisi.css` | `js/program-slider.js` |
+| **Struktur 4 Divisi Resmi** | `divisi/*.html` | `css/pages/program-fasilitas-divisi.css` | `js/main.js` |
 | **Rekomendasi Anime/Manga/Musik** | `rekomendasi/index.html` | `css/pages/rekomendasi-motivasi.css` | `js/main.js` |
 | **Kutipan Motivasi Karakter** | `kelas/motivasi.html` | `css/pages/rekomendasi-motivasi.css` | `images/mirai/karakter/` |
 | **Chatbot Maskot Sora** | `sora/index.html` | `css/pages/navbar-hero-footer.css` | `js/sora.js` |

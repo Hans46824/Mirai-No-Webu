@@ -1,6 +1,6 @@
 {
   "generator": "skrip/arsip/validate_stroke_data.py",
-  "generated_at": "2026-10-18T08:23:56.459891+00:00",
+  "generated_at": "2026-10-19T11:57:18.552768+00:00",
   "source_dataset": "KanjiVG (Ulrich Apel & contributors, CC BY-SA 3.0)",
   "summary": {
     "total_app_characters_required": 2374,

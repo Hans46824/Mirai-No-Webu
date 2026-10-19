@@ -50,7 +50,7 @@ def run_static_code_analysis():
     print("=" * 80)
 
     css_path = BASE_DIR / "css" / "pages" / "kamus.css"
-    js_path = BASE_DIR / "js" / "kanji.js"
+    js_path = BASE_DIR / "js" / "kamus-kanji.js"
 
     findings = []
     checks_passed = 0

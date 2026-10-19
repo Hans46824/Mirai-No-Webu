@@ -1658,11 +1658,11 @@ Memastikan kontras tinggi, keterbacaan 100%, dan bebas benturan warna
   content: "" !important;
   position: absolute !important;
   inset: 0 !important;
-  background-image: url("../../images/mirai/background/c1b.jpeg") !important;
+  background-image: var(--page-pattern-dark, url("../../images/mirai/background/c1b.jpeg")) !important;
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: var(--opacity-c1b)!important;
+  opacity: var(--page-pattern-opacity-dark, var(--opacity-c1b)) !important;
   mix-blend-mode: screen !important;
   pointer-events: none !important;
   z-index: 1 !important;
@@ -1672,7 +1672,7 @@ Memastikan kontras tinggi, keterbacaan 100%, dan bebas benturan warna
 }
 
 .section-quote-slider.quote-theme-dark .quote-card:hover::after {
-  opacity: var(--opacity-c1b-hover)!important;
+  opacity: var(--page-pattern-opacity-dark-hover, var(--opacity-c1b-hover)) !important;
   transform: scale(1.02) !important;
 }
 
@@ -1963,16 +1963,20 @@ Memastikan kontras tinggi, keterbacaan 100%, dan bebas benturan warna
   content: "" !important;
   position: absolute !important;
   inset: 0 !important;
-  background-image: url("../../images/mirai/background/w1w.jpeg") !important;
+  background-image: var(--page-pattern-white, url("../../images/mirai/background/c1w.jpeg")) !important;
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: var(--opacity-w1w)!important;
+  opacity: var(--page-pattern-opacity-white, var(--opacity-c1w)) !important;
   mix-blend-mode: multiply !important;
   pointer-events: none !important;
   z-index: 1 !important;
   border-radius: inherit !important;
   display: block !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-card:hover::after {
+  opacity: var(--page-pattern-opacity-white-hover, var(--opacity-c1w-hover)) !important;
 }
 
 .section-quote-slider.quote-theme-white .quote-card > * {

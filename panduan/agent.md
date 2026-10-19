@@ -68,7 +68,7 @@ Setiap AI asisten atau pengembang yang bekerja pada repositori ini **WAJIB memat
   - **`css/pages/beranda.css`**: Komponen Beranda (`index.html`), apa itu web (`.about-preview`, `.start-grid`), aktivitas beranda (2 kartu besar), masukan & saran (`.feedback-preview`), dan quote slider.
   - **`css/pages/kelas-materi.css`**: Hub Kelas (`kelas/index.html`), jalur belajar (`.class-overview`), kelas dasar (`#dasar`), kelas lanjutan (`#lanjutan`), buuku lesson (`materi/*`), kurikulum (`#kurikulum`, `.doc-big-card`), dan kuis Kana Quest (`kelas/latihan.html`, `.practice-view`, `.result-view`).
   - **`css/pages/kamus.css`**: Kamus Kana & Kanji (`kamus/index.html`, `kamus/kanji.html`), kartu karakter, stage urutan goresan KanjiVG, kanvas kombinasi Yoon, dan tombol quick stroke.
-  - **`css/pages/kegiatan-divisi.css`**: Hub Kegiatan & Fasilitas (`kegiatan/index.html`), 5 halaman proker (`kegiatan/*`), 4 halaman divisi (`divisi/*`), dan fasilitas klub (format landscape).
+  - **`css/pages/program-fasilitas-divisi.css`**: Hub Kegiatan & Fasilitas (`kegiatan/index.html`), 5 halaman proker (`kegiatan/*`), 4 halaman divisi (`divisi/*`), dan fasilitas klub (format landscape).
   - **`css/pages/tentang.css`**: Halaman Profil Klub (`tentang/index.html`), bendera resmi, filosofi nama, makna logo, slogan, visi misi, timeline sejarah angkatan 1–8, profil Sora RPG, wall of fame prestasi, haori, aksesoris, slider kepengurusan, dan FAQ.
   - **`css/pages/rekomendasi-motivasi.css`**: Halaman Kata Motivasi (`kelas/motivasi.html`), quote-card 3 box, rekomendasi karya (`rekomendasi/index.html`), hero dua warna, dan media legal.
   - **`css/pages/peringkat.css`**: Halaman Papan Peringkat (`peringkat/index.html`), leaderboard-tabs, podium rank 1–3, tabel peringkat 4–10, dan modal riwayat keaktifan/prestasi.
@@ -77,10 +77,10 @@ Setiap AI asisten atau pengembang yang bekerja pada repositori ini **WAJIB memat
 
 ### 2. Peta JavaScript (`js/`)
 Akses logika interaktif langsung ke berkas terkait tanpa membaca seluruh folder:
-- **Logika UI global & navigasi**: `js/main.js` (header scroll, hero motion, launcher) dan `js/script.js` (master interaksi kuis, kartu, & efek global).
-- **Chatbot Sora & Studio Bahasa**: `js/sora.js` (logika chatbot offline & UI), `js/api.js` (endpoint data), `js/translator.js` (mesin bantu terjemahan & generator nama/KTA), dan `js/quiz-divisi.js` (kuis kepribadian tes kecocokan divisi).
-- **Kamus, Kana, Kanji & Goresan**: `js/kana.js` (kartu & audio pelafalan), `js/kanji.js` (ensiklopedia & filter kanji), `js/kanji-data.js` (dataset 2.211 Joyo Kanji), dan `js/stroke.js` (animasi kanvas goresan). Catatan: `js/stroke-data.js` berisi vektor koordinat garis besar dan dikecualikan dari pemindaian.
-- **Slider & Carousel**: `js/carousel.js` (carousel umum & produk) dan `js/proker-slider.js` (slider khusus proker kegiatan).
+- **Logika UI global & navigasi**: `js/main.js` (header scroll, hero motion, launcher) dan `js/kelas-latihan.js` (master interaksi kuis, kartu, & efek global).
+- **Chatbot Sora & Studio Bahasa**: `js/sora.js` (logika chatbot offline & UI), `js/api.js` (endpoint data), `js/kamus-translator.js` (mesin bantu terjemahan & generator nama/KTA), dan `js/quiz-divisi.js` (kuis kepribadian tes kecocokan divisi).
+- **Kamus, Kana, Kanji & Goresan**: `js/kamus-kana.js` (kartu & audio pelafalan), `js/kamus-kanji.js` (ensiklopedia & filter kanji), `js/kamus-kanji-data.js` (dataset 2.211 Joyo Kanji), dan `js/stroke.js` (animasi kanvas goresan). Catatan: `js/stroke-data.js` berisi vektor koordinat garis besar dan dikecualikan dari pemindaian.
+- **Slider & Carousel**: `js/carousel.js` (carousel umum & produk) dan `js/program-slider.js` (slider khusus proker kegiatan).
 
 ### 3. Larangan Menyalakan Server & Screenshot Otomatis
 - **DILARANG KERAS** menyalakan/merestart HTTP server lokal (`python3 -m http.server`, live-server, dll.) atau mengambil screenshot otomatis via browser/tool kecuali diminta secara eksplisit oleh user.
@@ -99,10 +99,10 @@ Akses logika interaktif langsung ke berkas terkait tanpa membaca seluruh folder:
 ### A. Arsitektur Folder Modular (Clean Root Standard)
 Seluruh berkas website Mirai no Webu dikelompokkan secara terstruktur ke dalam folder tematik:
 - **Root (`/`)**: Berisi **index.html** (gerbang utama Beranda), **404.html** (halaman penanganan error ramah pengunjung bertema Mirai no Hana), **README.md** (etalase profil repositori GitHub dan dokumentasi kredit), **cspell.json** (konfigurasi spell checker bilingual), dan folder **`.vscode/`** (`settings.json` konfigurasi workspace, `extensions.json` rekomendasi ekstensi resmi).
-- **`css/`**: Berisi master stylesheet antarmuka (`css/style.css`) yang memanggil 11 berkas CSS berbasis halaman di sub-folder `css/pages/` (`global.css`, `navbar-hero-footer.css`, `beranda.css`, `kelas-materi.css`, `kamus.css`, `kegiatan-divisi.css`, `tentang.css`, `rekomendasi-motivasi.css`, `peringkat.css`, `lomba.css`, `toko.css`).
-- **`js/`**: Berisi seluruh logika JavaScript modular (`main.js`, `script.js`, `kanji.js`, `kana.js`, `stroke.js`, `stroke-data.js`, `sora.js`, dll.).
+- **`css/`**: Berisi master stylesheet antarmuka (`css/style.css`) yang memanggil 11 berkas CSS berbasis halaman di sub-folder `css/pages/` (`global.css`, `navbar-hero-footer.css`, `beranda.css`, `kelas-materi.css`, `kamus.css`, `program-fasilitas-divisi.css`, `tentang.css`, `rekomendasi-motivasi.css`, `peringkat.css`, `lomba.css`, `toko.css`).
+- **`js/`**: Berisi seluruh logika JavaScript modular (`main.js`, `kelas-latihan.js`, `kamus-kanji.js`, `kamus-kana.js`, `stroke.js`, `stroke-data.js`, `sora.js`, dll.).
 - **`panduan/`**: Berisi dokumentasi arsitektur proyek (`panduan/tree.md`, `panduan/agent.md`, `panduan/CONTEKAN-TAG.md`, `panduan/PANDUAN-DEVELOPER.md`, dan folder konfigurasi AI `panduan/ai-configs/`).
-- **`data/`**: Berisi basis data lokal JSON (`kana.json`, `kanji.json`, `kanji-meta.json`) yang menyuplai data untuk Kamus dan Latihan Kana/Kanji.
+- **`data/`**: Berisi basis data lokal JSON (`kamus-kana.json`, `kamus-kanji.json`, `kanji-meta.json`) yang menyuplai data untuk Kamus dan Latihan Kana/Kanji.
 - **`tentang/`**: Profil lengkap klub Mirai No Hana (`index.html`).
 - **`lomba/`**: Informasi 9 agenda lomba & festival jejepangan (3 halaman) (`index.html`).
 - **`peringkat/`**: Papan peringkat keaktifan, presensi, & galeri prestasi (`index.html`).
@@ -569,8 +569,8 @@ Halaman penanganan tautan salah (`404.html`) di root repositori wajib mempertaha
 ## 8. Pengelolaan Basis Data Offline JSON & Vektor KanjiVG (Folder data/)
 
 Seluruh data karakter, kosakata, dan goresan di website beroperasi murni secara offline melalui berkas lokal:
-- **`data/kana.json`**: Menyimpan seluruh inventaris karakter Hiragana dan Katakana (Gojūon, Dakuon, Handakuon, Yōon, Sokuon).
-- **`data/kanji.json`**: Menyimpan basis data lengkap 2.136 karakter Jōyō Kanji, terjemahan Bahasa Indonesia, serta bacaan On'yomi dan Kun'yomi.
+- **`data/kamus-kana.json`**: Menyimpan seluruh inventaris karakter Hiragana dan Katakana (Gojūon, Dakuon, Handakuon, Yōon, Sokuon).
+- **`data/kamus-kanji.json`**: Menyimpan basis data lengkap 2.136 karakter Jōyō Kanji, terjemahan Bahasa Indonesia, serta bacaan On'yomi dan Kun'yomi.
 - **`data/kanji-meta.json`**: Menyimpan metadata radikal, jumlah goresan (*stroke count*), dan tingkatan JLPT (N5 s.d N1).
 - **`js/stroke-data.js`**: Menyimpan vektor koordinat kurva KanjiVG terkurasi (viewBox: `0 0 109 109`) untuk animasi goresan kanvas.
 - **`data/stroke-coverage-manifest.json`**: Laporan cakupan status validasi goresan, sampel pengujian, dan catatan diskrepansi metadata.
@@ -690,15 +690,15 @@ Website Mirai no Webu mengadopsi arsitektur *Zero-Framework* yang mengelompokkan
 ### 2. Data Kamus, Karakter, Goresan & Chunking Modular (`data/`, `js/stroke*`, `js/kanji*`)
 - **Tujuan**: Menambah kosakata baru, melengkapi arti kanji bahasa Indonesia, memperbarui koordinat animasi goresan kuas, memvalidasi perbedaan goresan, dan mengelola varian gaya tulisan tangan (kyōkasho) dengan performa loading ultra-ringan.
 - **Arsitektur Modular & Single Source of Truth**:
-  - `data/kanji.json` (Single Source of Truth): Basis data lengkap 2.211 Joyo Kanji (N5–N1), level JLPT, jumlah goresan, arti Bahasa Indonesia, On'yomi, Kun'yomi, contoh kosakata, dan kalimat.
+  - `data/kamus-kanji.json` (Single Source of Truth): Basis data lengkap 2.211 Joyo Kanji (N5–N1), level JLPT, jumlah goresan, arti Bahasa Indonesia, On'yomi, Kun'yomi, contoh kosakata, dan kalimat.
   - `data/kanji-index.json`: Indeks ramping (~316 KB, gzip ~48 KB) berisi atribut dasar kanji untuk daftar, filter cepat, dan pencarian instan berbobot (Ranked Search).
   - `data/kanji/<jlpt>.json` (`n5.json` s/d `n1.json`): Detail lengkap (words, examples, sentence) yang dimuat secara on-demand saat kanji dibuka dan di-cache di memori.
   - `js/stroke-data.js`: Hanya memuat karakter Kana inline (~71 KB) untuk memastikan beban awal kamus tetap ringan.
   - `data/strokes/<jlpt>.json` (`n5.json` s/d `n1.json`): Vektor kurva goresan resmi KanjiVG per level JLPT (~59 KB - 450 KB) yang dimuat on-demand saat kanji dibuka atau di-prefetch saat idle.
   - `data/stroke-overrides.json` & `js/stroke-overrides.js`: Lapisan override kurasi resmi (varian gaya buku teks kyōkasho & label angka terkalibrasi).
-  - `js/kanji-data.js`: Artefak build turunan otomatis dari `data/kanji.json`. Tidak dimuat di HTML agar tidak membebani transfer jaringan.
+  - `js/kamus-kanji-data.js`: Artefak build turunan otomatis dari `data/kamus-kanji.json`. Tidak dimuat di HTML agar tidak membebani transfer jaringan.
 - **Alat Uji & Pipeline Build**:
-  - `skrip/arsip/build_data_chunks.py`: Pipeline ekstraksi modular data kanji dan goresan dari single source of truth (`data/kanji.json` & `data/stroke-master.json`).
+  - `skrip/arsip/build_data_chunks.py`: Pipeline ekstraksi modular data kanji dan goresan dari single source of truth (`data/kamus-kanji.json` & `data/stroke-master.json`).
   - `skrip/arsip/stamp_asset_versions.py`: Penyemat hash konten otomatis (SHA-256 8 karakter, `?v=<hash>`) pada seluruh tag CSS dan JS di semua HTML.
   - `skrip/arsip/optimize_assets.py`: Pengoptimal aset statik (non-blocking font preconnect, script `defer`, dan penambahan `loading="lazy" decoding="async"` serta `width`/`height` untuk mencegah CLS).
   - `skrip/arsip/report_page_weight.py`: Generator laporan audit bobot statik halaman ke `skrip/laporan/page-weight.md`.
@@ -709,7 +709,7 @@ Website Mirai no Webu mengadopsi arsitektur *Zero-Framework* yang mengelompokkan
   - Beban Data Awal Kamus: **388.5 KB** (Target $\le 700$ KB) — Pemangkasan 95,4% dari beban lama 8,4 MB.
   - Beban Detail Kanji N5 Pertama: **+58.3 KB** (Target $\le +60$ KB).
   - Panggilan Jaringan Eksternal: **0 panggilan** (100% Local-First & Bebas dari kanjiapi.dev / mymemory).
-  - Seluruh jumlah goresan kanji di `kanji.json`, `kanji-meta.json`, dan chunk data terbukti sinkron 100% dengan KanjiVG (termasuk kanji `衷` tepat 9 goresan).
+  - Seluruh jumlah goresan kanji di `kamus-kanji.json`, `kanji-meta.json`, dan chunk data terbukti sinkron 100% dengan KanjiVG (termasuk kanji `衷` tepat 9 goresan).
 
 ### 3. Katalog Lomba & Acara (`lomba/index.html`)
 - **Tujuan**: Menambah informasi lomba jejepangan tingkat kota/provinsi/nasional atau pengumuman festival matsuri terbaru.
@@ -811,7 +811,7 @@ Mirai no Webu mengusung arsitektur **Local-First PWA**, memungkinkan seluruh kam
    - Panel Generator Nama (`#panelNameGen`) menggunakan CSS Grid 2 kolom (`grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr)` dengan `min-width: 0`).
    - Breakpoint responsif pada lebar <= 960px memastikan di layar tablet atau laptop dengan split screen, formulir input dan kartu hasil tertumpuk rapi tanpa saling mendesak atau meluap ke luar layar.
 2. **Penghapusan Contoh Nama Cepat**:
-   - Seksi "Contoh Nama Cepat" telah dihapus sepenuhnya dari formulir identitas, kode skrip event listener (`js/translator.js`), dan CSS. Pengguna dapat langsung mengetik nama apa pun di kotak input.
+   - Seksi "Contoh Nama Cepat" telah dihapus sepenuhnya dari formulir identitas, kode skrip event listener (`js/kamus-translator.js`), dan CSS. Pengguna dapat langsung mengetik nama apa pun di kotak input.
 3. **Kartu Tanda Anggota (KTA) Digital Responsif**:
    - Tampilan KTA digital (`.member-card-wrap`) menggunakan tipografi dan padding adaptif dengan fungsi `clamp()` sehingga tetap proporsional dan tidak terpotong dari layar HP terkecil (360px) hingga monitor desktop besar.
    - Ateji Kanji ditampilkan dalam grid horizontal kompak 3 kolom dengan detail bacaan dan makna filosofis yang rapi.
@@ -867,7 +867,7 @@ Mirai no Webu mengusung arsitektur **Local-First PWA**, memungkinkan seluruh kam
 ### C. Checklist Rilis & Validasi Pra-Commit (Release Checklist)
 Sebelum melakukan `git commit` dan `git push` ke cabang utama (main), AI asisten dan pengembang **WAJIB menjalankan checklist rilis** berikut:
 
-- [ ] **1. Sinkronisasi Data Kamus**: Jika ada perbaikan pada `kanji.json` atau goresan:
+- [ ] **1. Sinkronisasi Data Kamus**: Jika ada perbaikan pada `kamus-kanji.json` atau goresan:
   ```bash
   python3 skrip/arsip/clean_kanji_data.py
   python3 skrip/arsip/sync_datasets.py

@@ -183,10 +183,10 @@ def test_stroke_override_layer():
         km = json.load(f)
     assert km.get("衷") and km["衷"][0] == 9, f"Karakter 衷 di data/kanji-meta.json harus 9 goresan! Mendapat: {km.get('衷')}"
 
-    with open("js/kanji-data.js", "r", encoding="utf-8") as f:
+    with open("js/kamus-kanji-data.js", "r", encoding="utf-8") as f:
         kd = f.read()
-    assert ('"kanji":"衷"' in kd or '"kanji": "衷"' in kd) and ('"strokes":9' in kd or '"strokes": 9' in kd), "Karakter 衷 di js/kanji-data.js harus 9 goresan!"
-    print("✔ Karakter 衷 terverifikasi tepat 9 goresan di kanji.json, kanji-meta.json, dan js/kanji-data.js.")
+    assert ('"kanji":"衷"' in kd or '"kanji": "衷"' in kd) and ('"strokes":9' in kd or '"strokes": 9' in kd), "Karakter 衷 di js/kamus-kanji-data.js harus 9 goresan!"
+    print("✔ Karakter 衷 terverifikasi tepat 9 goresan di kanji.json, kanji-meta.json, dan js/kamus-kanji-data.js.")
 
     # 4. Pastikan js/stroke.js mengimplementasikan applyStrokeOverride, note, dan link lapor
     with open("js/stroke.js", "r", encoding="utf-8") as f:

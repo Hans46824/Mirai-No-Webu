@@ -224,183 +224,569 @@ return placed;
 }
 
 /* ==========================================================================
-   OFFLINE HANDWRITING RECOGNITION & BITMASK SIMILARITY ENGINE
+   OFFLINE HANDWRITING RECOGNITION & VECTOR STROKE SIMILARITY ENGINE
+   Membandingkan goresan pengguna langsung terhadap kurva SVG KanjiVG asli (109x109)
+   dengan normalisasi proporsional (aspect-ratio preserving) & multi-metrik presisi.
    ========================================================================== */
-const _miraiCharMaskCache = new Map();
+
+// Alias global window.STROKE_DATA jika belum didefinisikan
+if (typeof window !== "undefined") {
+  window.STROKE_DATA = window.STROKE_DATA || window.MIRAI_STROKE_DATA;
+}
+
+const _miraiSvgSampleCache = new Map();
+let _miraiOffscreenSvg = null;
+let _miraiOffscreenPath = null;
 
 /**
- * Merender rekaman vektor KanjiVG ke kanvas offscreen 32x32 dan menghasilkan bitmask biner.
+ * Mengambil elemen path SVG offscreen untuk sampling geometris getPointAtLength.
  */
-function getCharacterBitmask(record) {
-  if (!record || !Array.isArray(record.paths) || record.paths.length === 0) return null;
-  const off = document.createElement("canvas");
-  off.width = 32;
-  off.height = 32;
-  const ctx = off.getContext("2d");
-  if (!ctx) return null;
-  ctx.clearRect(0, 0, 32, 32);
-  ctx.strokeStyle = "#000000";
-  ctx.lineWidth = 2.4;
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
-
-  ctx.save();
-  ctx.translate(2, 2);
-  ctx.scale(28 / 109, 28 / 109);
-  record.paths.forEach((p) => {
+function getOffscreenSvgPath() {
+  if (typeof document === "undefined") return null;
+  if (!_miraiOffscreenPath) {
     try {
-      if (window.Path2D) {
-        ctx.stroke(new Path2D(p));
+      _miraiOffscreenSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      _miraiOffscreenSvg.setAttribute("viewBox", "0 0 109 109");
+      _miraiOffscreenSvg.setAttribute("width", "109");
+      _miraiOffscreenSvg.setAttribute("height", "109");
+      _miraiOffscreenSvg.setAttribute("aria-hidden", "true");
+      _miraiOffscreenSvg.style.position = "absolute";
+      _miraiOffscreenSvg.style.left = "-9999px";
+      _miraiOffscreenSvg.style.top = "-9999px";
+      _miraiOffscreenSvg.style.width = "0px";
+      _miraiOffscreenSvg.style.height = "0px";
+      _miraiOffscreenSvg.style.visibility = "hidden";
+      _miraiOffscreenSvg.style.pointerEvents = "none";
+      _miraiOffscreenPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      _miraiOffscreenSvg.appendChild(_miraiOffscreenPath);
+      const hostEl = document.body || document.documentElement;
+      if (hostEl) {
+        hostEl.appendChild(_miraiOffscreenSvg);
       }
     } catch (e) {}
-  });
-  ctx.restore();
-
-  const imgData = ctx.getImageData(0, 0, 32, 32).data;
-  const mask = new Uint8Array(1024);
-  let activeCount = 0;
-  for (let i = 0; i < 1024; i++) {
-    if (imgData[i * 4 + 3] > 40) {
-      mask[i] = 1;
-      activeCount++;
-    }
   }
-  return { mask, activeCount, strokeCount: record.paths.length };
+  return _miraiOffscreenPath;
 }
 
 /**
- * Mengubah goresan coretan pengguna menjadi bitmask biner 32x32 dengan normalisasi kotak batas.
+ * Ekstraksi koordinat angka dari string SVG path (fallback aman jika di luar DOM).
  */
-function getUserDrawingBitmask(userStrokes) {
-  if (!userStrokes || userStrokes.length === 0) return null;
+function extractCoordinatesFromSvgPath(d) {
+  const points = [];
+  if (typeof d !== "string") return points;
+  const numRegex = /[-+]?[0-9]*\.?[0-9]+(?:[eE][-+]?[0-9]+)?/g;
+  const matches = [];
+  let m;
+  while ((m = numRegex.exec(d)) !== null) {
+    matches.push(parseFloat(m[0]));
+  }
+  for (let i = 0; i < matches.length - 1; i += 2) {
+    points.push({ x: matches[i], y: matches[i + 1] });
+  }
+  return points;
+}
+
+/**
+ * 1. BANDINGKAN CORETAN LANGSUNG TERHADAP DATA VEKTOR SVG KANJIVG:
+ * Mengambil titik-titik sampel (x, y) beserta vektor arah (dx, dy) langsung dari data path SVG
+ * KanjiVG (109x109).
+ *
+ * @param {Array<string>|Object} strokesArray - Array string path SVG KanjiVG atau stroke record
+ * @returns {Object} { points, strokes, strokeCount, bounds }
+ */
+function sampleSvgStrokesPoints(strokesArray) {
+  let paths = [];
+  if (Array.isArray(strokesArray)) {
+    paths = strokesArray;
+  } else if (strokesArray && Array.isArray(strokesArray.paths)) {
+    paths = strokesArray.paths;
+  } else if (strokesArray && typeof strokesArray.d === "string") {
+    paths = [strokesArray.d];
+  }
+  if (!paths || paths.length === 0) {
+    return {
+      points: [],
+      strokes: [],
+      strokeCount: 0,
+      bounds: { minX: 10, minY: 10, maxX: 99, maxY: 99, width: 89, height: 89, centerX: 54.5, centerY: 54.5, scale: 89 }
+    };
+  }
+
+  const pathEl = getOffscreenSvgPath();
+  const allPoints = [];
+  const strokes = [];
   let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
-  let pointCount = 0;
-  userStrokes.forEach((stroke) => {
-    stroke.forEach((pt) => {
-      minX = Math.min(minX, pt.x);
-      minY = Math.min(minY, pt.y);
-      maxX = Math.max(maxX, pt.x);
-      maxY = Math.max(maxY, pt.y);
-      pointCount++;
+
+  paths.forEach((d, strokeIdx) => {
+    const strokePts = [];
+    let strokeLen = 0;
+    let pStart = { x: 54.5, y: 54.5 };
+    let pEnd = { x: 54.5, y: 54.5 };
+
+    if (pathEl && typeof pathEl.getTotalLength === "function") {
+      try {
+        pathEl.setAttribute("d", d);
+        strokeLen = pathEl.getTotalLength();
+      } catch (e) {
+        strokeLen = 0;
+      }
+    }
+
+    if (strokeLen > 0) {
+      pStart = pathEl.getPointAtLength(0);
+      pEnd = pathEl.getPointAtLength(strokeLen);
+      // Sample titik setiap ~3.2 unit di ruang 109x109
+      const step = 3.2;
+      const numSamples = Math.max(5, Math.round(strokeLen / step));
+      for (let s = 0; s <= numSamples; s++) {
+        const dist = (s / numSamples) * strokeLen;
+        const pt = pathEl.getPointAtLength(dist);
+        const ptFwd = pathEl.getPointAtLength(Math.min(strokeLen, dist + 1.2));
+        const fwdDx = ptFwd.x - pt.x;
+        const fwdDy = ptFwd.y - pt.y;
+        const fwdLen = Math.hypot(fwdDx, fwdDy) || 1;
+        const ptObj = {
+          x: pt.x,
+          y: pt.y,
+          dx: fwdDx / fwdLen,
+          dy: fwdDy / fwdLen,
+          strokeIndex: strokeIdx
+        };
+        strokePts.push(ptObj);
+        allPoints.push(ptObj);
+        minX = Math.min(minX, pt.x);
+        minY = Math.min(minY, pt.y);
+        maxX = Math.max(maxX, pt.x);
+        maxY = Math.max(maxY, pt.y);
+      }
+    } else {
+      const coords = extractCoordinatesFromSvgPath(d);
+      if (coords.length > 0) {
+        pStart = coords[0];
+        pEnd = coords[coords.length - 1];
+        coords.forEach((c) => {
+          const ptObj = { x: c.x, y: c.y, dx: 0, dy: 0, strokeIndex: strokeIdx };
+          strokePts.push(ptObj);
+          allPoints.push(ptObj);
+          minX = Math.min(minX, c.x);
+          minY = Math.min(minY, c.y);
+          maxX = Math.max(maxX, c.x);
+          maxY = Math.max(maxY, c.y);
+        });
+      }
+    }
+
+    const sdx = pEnd.x - pStart.x;
+    const sdy = pEnd.y - pStart.y;
+    const sHypot = Math.hypot(sdx, sdy);
+    const sLen = sHypot > 0.001 ? sHypot : 1;
+    const strokeDir = {
+      vx: sHypot > 0.001 ? sdx / sLen : 0,
+      vy: sHypot > 0.001 ? sdy / sLen : 0,
+      length: strokeLen || sHypot,
+      start: { x: pStart.x, y: pStart.y },
+      end: { x: pEnd.x, y: pEnd.y }
+    };
+
+    strokes.push({
+      strokeIndex: strokeIdx,
+      points: strokePts,
+      strokeDir,
+      length: strokeLen || sHypot
     });
   });
-  if (pointCount < 3 || (maxX - minX < 8 && maxY - minY < 8)) return null;
 
-  const off = document.createElement("canvas");
-  off.width = 32;
-  off.height = 32;
-  const ctx = off.getContext("2d");
-  if (!ctx) return null;
-  ctx.clearRect(0, 0, 32, 32);
-  ctx.strokeStyle = "#000000";
-  ctx.lineWidth = 2.4;
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
+  if (allPoints.length === 0 || !isFinite(minX)) {
+    minX = 10; minY = 10; maxX = 99; maxY = 99;
+  }
+  const width = Math.max(1, maxX - minX);
+  const height = Math.max(1, maxY - minY);
+  const centerX = (minX + maxX) / 2;
+  const centerY = (minY + maxY) / 2;
+  const scale = Math.max(width, height, 1);
 
-  const drawW = Math.max(1, maxX - minX);
-  const drawH = Math.max(1, maxY - minY);
-  const targetSize = 26;
-  const scale = Math.min(targetSize / drawW, targetSize / drawH);
-  const offsetX = 16 - (drawW * scale) / 2 - minX * scale;
-  const offsetY = 16 - (drawH * scale) / 2 - minY * scale;
+  return {
+    points: allPoints,
+    strokes,
+    strokeCount: paths.length,
+    bounds: { minX, minY, maxX, maxY, width, height, centerX, centerY, scale }
+  };
+}
 
-  ctx.save();
-  ctx.translate(offsetX, offsetY);
-  ctx.scale(scale, scale);
-  userStrokes.forEach((stroke) => {
-    if (stroke.length < 2) {
-      if (stroke.length === 1) {
-        ctx.beginPath();
-        ctx.arc(stroke[0].x, stroke[0].y, 1.2 / scale, 0, Math.PI * 2);
-        ctx.fillStyle = "#000000";
-        ctx.fill();
-      }
+/**
+ * Mengubah goresan coretan pengguna dari piksel kanvas ke koordinat 109x109 dengan arc-length resampling.
+ */
+function sampleUserStrokes(userStrokes, canvasW = 260, canvasH = 260) {
+  if (!userStrokes || userStrokes.length === 0) return null;
+  const scaleX = 109 / (canvasW || 260);
+  const scaleY = 109 / (canvasH || 260);
+
+  const allPoints = [];
+  const strokes = [];
+  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+  let rawPointCount = 0;
+
+  userStrokes.forEach((stroke, strokeIdx) => {
+    if (!stroke || stroke.length === 0) return;
+    rawPointCount += stroke.length;
+    const svgPts = stroke.map((p) => ({ x: p.x * scaleX, y: p.y * scaleY }));
+    if (svgPts.length === 1) {
+      const p = svgPts[0];
+      const ptObj = { x: p.x, y: p.y, dx: 0, dy: 0, strokeIndex: strokeIdx };
+      allPoints.push(ptObj);
+      minX = Math.min(minX, p.x); minY = Math.min(minY, p.y);
+      maxX = Math.max(maxX, p.x); maxY = Math.max(maxY, p.y);
+      strokes.push({
+        strokeIndex: strokeIdx,
+        points: [ptObj],
+        strokeDir: { vx: 0, vy: 0, length: 0, start: p, end: p },
+        length: 0
+      });
       return;
     }
-    ctx.beginPath();
-    ctx.moveTo(stroke[0].x, stroke[0].y);
-    for (let i = 1; i < stroke.length; i++) {
-      ctx.lineTo(stroke[i].x, stroke[i].y);
+
+    const dists = [0];
+    let totalLen = 0;
+    for (let i = 1; i < svgPts.length; i++) {
+      const segLen = Math.hypot(svgPts[i].x - svgPts[i - 1].x, svgPts[i].y - svgPts[i - 1].y);
+      totalLen += segLen;
+      dists.push(totalLen);
     }
-    ctx.stroke();
+
+    const strokePts = [];
+    const pStart = svgPts[0];
+    const pEnd = svgPts[svgPts.length - 1];
+    const step = 3.2;
+    const numSamples = Math.max(4, Math.round(totalLen / step));
+
+    let curSeg = 0;
+    for (let s = 0; s <= numSamples; s++) {
+      const targetDist = (s / numSamples) * totalLen;
+      while (curSeg < dists.length - 2 && dists[curSeg + 1] < targetDist) {
+        curSeg++;
+      }
+      const segStartDist = dists[curSeg];
+      const segEndDist = dists[curSeg + 1];
+      const segLen = segEndDist - segStartDist;
+      const t = segLen > 0 ? (targetDist - segStartDist) / segLen : 0;
+      const px = svgPts[curSeg].x + (svgPts[curSeg + 1].x - svgPts[curSeg].x) * t;
+      const py = svgPts[curSeg].y + (svgPts[curSeg + 1].y - svgPts[curSeg].y) * t;
+
+      const segDx = svgPts[curSeg + 1].x - svgPts[curSeg].x;
+      const segDy = svgPts[curSeg + 1].y - svgPts[curSeg].y;
+      const segHypot = Math.hypot(segDx, segDy) || 1;
+
+      const ptObj = {
+        x: px,
+        y: py,
+        dx: segDx / segHypot,
+        dy: segDy / segHypot,
+        strokeIndex: strokeIdx
+      };
+      strokePts.push(ptObj);
+      allPoints.push(ptObj);
+      minX = Math.min(minX, px); minY = Math.min(minY, py);
+      maxX = Math.max(maxX, px); maxY = Math.max(maxY, py);
+    }
+
+    const sdx = pEnd.x - pStart.x;
+    const sdy = pEnd.y - pStart.y;
+    const sHypot = Math.hypot(sdx, sdy);
+    const sLen = sHypot > 0.001 ? sHypot : 1;
+    strokes.push({
+      strokeIndex: strokeIdx,
+      points: strokePts,
+      strokeDir: {
+        vx: sHypot > 0.001 ? sdx / sLen : 0,
+        vy: sHypot > 0.001 ? sdy / sLen : 0,
+        length: totalLen,
+        start: pStart,
+        end: pEnd
+      },
+      length: totalLen
+    });
   });
-  ctx.restore();
 
-  const imgData = ctx.getImageData(0, 0, 32, 32).data;
-  const mask = new Uint8Array(1024);
-  let activeCount = 0;
-  for (let i = 0; i < 1024; i++) {
-    if (imgData[i * 4 + 3] > 40) {
-      mask[i] = 1;
-      activeCount++;
+  if (allPoints.length < 3 || rawPointCount < 3) return null;
+  const width = Math.max(1, maxX - minX);
+  const height = Math.max(1, maxY - minY);
+  if (width < 3 && height < 3) return null;
+
+  const centerX = (minX + maxX) / 2;
+  const centerY = (minY + maxY) / 2;
+  const scale = Math.max(width, height, 1);
+
+  return {
+    points: allPoints,
+    strokes,
+    strokeCount: userStrokes.length,
+    bounds: { minX, minY, maxX, maxY, width, height, centerX, centerY, scale }
+  };
+}
+
+/**
+ * 2. NORMALISASI ASPECT-RATIO PRESERVING:
+ * Menggunakan skala proporsional (scale = Math.max(w, h)) dengan perataan titik tengah (centroid)
+ * agar huruf ramping / pipih seperti 一, 十, ナ, ノ, リ tidak pernah melar atau gepeng.
+ */
+function normalizePoints(points, bounds) {
+  if (!points || !bounds) return [];
+  const scale = bounds.scale || Math.max(bounds.width || 1, bounds.height || 1, 1);
+  const cx = bounds.centerX ?? ((bounds.minX + bounds.maxX) / 2);
+  const cy = bounds.centerY ?? ((bounds.minY + bounds.maxY) / 2);
+  return points.map((p) => ({
+    x: (p.x - cx) / scale,
+    y: (p.y - cy) / scale,
+    dx: p.dx || 0,
+    dy: p.dy || 0,
+    strokeIndex: p.strokeIndex
+  }));
+}
+
+/**
+ * Menghitung Bidirectional Chamfer Distance dengan zona toleransi ketebalan kuas
+ * dan kurva Gaussian lembut.
+ */
+function computeChamferScore(pointsA, pointsB, toleranceRadius, decaySigma) {
+  if (!pointsA || !pointsB || pointsA.length === 0 || pointsB.length === 0) return 0;
+
+  // A -> B: Jarak tiap titik A ke titik terdekat B
+  let sumScoreAtoB = 0;
+  for (let i = 0; i < pointsA.length; i++) {
+    const ax = pointsA[i].x;
+    const ay = pointsA[i].y;
+    let minDistSq = Infinity;
+    for (let j = 0; j < pointsB.length; j++) {
+      const dx = ax - pointsB[j].x;
+      const dy = ay - pointsB[j].y;
+      const dSq = dx * dx + dy * dy;
+      if (dSq < minDistSq) {
+        minDistSq = dSq;
+        if (minDistSq <= 0.0001) break;
+      }
     }
+    const minDist = Math.sqrt(minDistSq);
+    const effectiveDist = Math.max(0, minDist - toleranceRadius);
+    const ptScore = Math.exp(-Math.pow(effectiveDist / decaySigma, 2));
+    sumScoreAtoB += ptScore;
   }
-  return { mask, activeCount, strokeCount: userStrokes.length };
+  const scoreAtoB = sumScoreAtoB / pointsA.length;
+
+  // B -> A: Jarak tiap titik acuan B ke titik terdekat A
+  let sumScoreBtoA = 0;
+  for (let j = 0; j < pointsB.length; j++) {
+    const bx = pointsB[j].x;
+    const by = pointsB[j].y;
+    let minDistSq = Infinity;
+    for (let i = 0; i < pointsA.length; i++) {
+      const dx = bx - pointsA[i].x;
+      const dy = by - pointsA[i].y;
+      const dSq = dx * dx + dy * dy;
+      if (dSq < minDistSq) {
+        minDistSq = dSq;
+        if (minDistSq <= 0.0001) break;
+      }
+    }
+    const minDist = Math.sqrt(minDistSq);
+    const effectiveDist = Math.max(0, minDist - toleranceRadius);
+    const ptScore = Math.exp(-Math.pow(effectiveDist / decaySigma, 2));
+    sumScoreBtoA += ptScore;
+  }
+  const scoreBtoA = sumScoreBtoA / pointsB.length;
+
+  if (scoreAtoB + scoreBtoA < 1e-6) return 0;
+  return ((2 * scoreAtoB * scoreBtoA) / (scoreAtoB + scoreBtoA)) * 100;
 }
 
 /**
- * Menghitung skor kemiripan antara bitmask coretan user dan bitmask acuan (IoU + selisih goresan).
+ * 3. RUMUS SKOR MULTI-METRIK YANG ADIL & PRESISI:
+ * A. Akurasi Bentuk & Jalur (Bobot 55%): Gabungan Direct Canvas Overlap & Centered Proportional
+ * B. Akurasi Arah & Urutan Goresan (Bobot 25%): Cosine similarity vektor garis start -> end
+ * C. Ketepatan Jumlah Goresan (Bobot 20%): 100% jika sama persis, 60% jika beda 1, 30% jika beda 2
  */
-function computeSimilarityScore(userBitmask, refBitmask) {
-  if (!userBitmask || !refBitmask || userBitmask.activeCount === 0 || refBitmask.activeCount === 0) return 0;
-  let intersect = 0;
-  let union = 0;
-  const uMask = userBitmask.mask;
-  const rMask = refBitmask.mask;
-  for (let i = 0; i < 1024; i++) {
-    const u = uMask[i];
-    const r = rMask[i];
-    if (u && r) intersect++;
-    if (u || r) union++;
+function computeStrokeSimilarity(userSample, refSample) {
+  if (!userSample || !refSample || userSample.points.length === 0 || refSample.points.length === 0) {
+    return 0;
   }
-  if (union === 0) return 0;
-  const iou = intersect / union;
-  const strokeDiff = Math.abs(userBitmask.strokeCount - refBitmask.strokeCount);
-  const strokeScore = Math.max(0.2, 1 - strokeDiff * 0.14);
-  const total = (iou * 0.72 + strokeScore * 0.28) * 100;
-  return Math.min(100, Math.max(5, Math.round(total)));
+
+  // --- METRIK A: AKURASI BENTUK & JALUR (55%) ---
+  // 1. Direct Canvas Overlap (ruang 109x109, toleranceRadius = 5.5, decaySigma = 10.5)
+  const scoreDirect = computeChamferScore(userSample.points, refSample.points, 5.5, 10.5);
+
+  // 2. Centered Proportional Shape Matching (ruang ternormalisasi [-0.5, 0.5], toleranceRadius = 0.05, decaySigma = 0.14)
+  const userNormPts = normalizePoints(userSample.points, userSample.bounds);
+  const refNormPts = normalizePoints(refSample.points, refSample.bounds);
+  let scoreProp = computeChamferScore(userNormPts, refNormPts, 0.05, 0.14);
+
+  // Penyesuaian rasio aspek jika user menggambar di luar rasio acuan
+  const uAr = userSample.bounds.width / userSample.bounds.height;
+  const rAr = refSample.bounds.width / refSample.bounds.height;
+  const arRatio = Math.max(uAr / rAr, rAr / uAr);
+  if (arRatio > 1.3) {
+    scoreProp *= Math.max(0.2, 1.0 - Math.log(arRatio) * 0.5);
+  }
+
+  const metricA = Math.min(100, Math.max(0, Math.max(scoreDirect, scoreProp)));
+
+  // --- METRIK B: AKURASI ARAH & URUTAN GORESAN (25%) ---
+  const uStrokes = userSample.strokes;
+  const rStrokes = refSample.strokes;
+  const maxStrokes = Math.max(uStrokes.length, rStrokes.length);
+  const minStrokes = Math.min(uStrokes.length, rStrokes.length);
+  let metricB = 0;
+
+  if (maxStrokes > 0) {
+    let totalDirScore = 0;
+    for (let i = 0; i < minStrokes; i++) {
+      const uDir = uStrokes[i].strokeDir;
+      const rDir = rStrokes[i].strokeDir;
+      if (uDir.length < 5 || rDir.length < 5) {
+        totalDirScore += 0.95;
+      } else {
+        const dot = (uDir.vx * rDir.vx + uDir.vy * rDir.vy);
+        let dirScore;
+        if (dot >= 0.7) {
+          dirScore = 0.88 + 0.12 * ((dot - 0.7) / 0.3);
+        } else if (dot >= 0) {
+          dirScore = 0.50 + 0.38 * (dot / 0.7);
+        } else {
+          dirScore = Math.max(0.1, 0.50 * (1 + dot));
+        }
+        totalDirScore += dirScore;
+      }
+    }
+    // Goresan yang tidak dibuat mendapat nilai arah 0
+    metricB = Math.min(100, Math.max(0, (totalDirScore / maxStrokes) * 100));
+  }
+
+  // --- METRIK C: KETEPATAN JUMLAH GORESAN (20%) ---
+  const diff = Math.abs(userSample.strokeCount - refSample.strokeCount);
+  let metricC = 0;
+  if (diff === 0) {
+    metricC = 100;
+  } else if (diff === 1) {
+    metricC = 60;
+  } else if (diff === 2) {
+    metricC = 30;
+  } else {
+    metricC = Math.max(0, 30 - (diff - 2) * 10);
+  }
+
+  const total = metricA * 0.55 + metricB * 0.25 + metricC * 0.20;
+  return Math.min(100, Math.max(0, Math.round(total)));
 }
 
 /**
- * Mengidentifikasi karakter dari coretan pengguna dan menghitung akurasi acuan jika ada.
+ * 4. DETEKSI KANDIDAT & EVALUASI KEMIRIPAN KANVAS CERDAS & RELEVAN:
  */
-function identifyCharacterFromDrawing(userStrokes, targetChar, targetRecord) {
-  const userBitmask = getUserDrawingBitmask(userStrokes);
-  if (!userBitmask) return { accuracy: null, candidates: [] };
+function evaluateCanvasSimilarity(userStrokes, targetChar, targetRecord, options = {}) {
+  const canvasW = options.canvasW || 260;
+  const canvasH = options.canvasH || 260;
+  const userSample = sampleUserStrokes(userStrokes, canvasW, canvasH);
+  if (!userSample) return { accuracy: null, candidates: [] };
 
+  // Helper kelompok aksara
+  function getScriptGroup(ch) {
+    if (!ch) return "unknown";
+    const cp = ch.codePointAt(0);
+    if (cp >= 0x3040 && cp <= 0x309F) return "hiragana";
+    if (cp >= 0x30A0 && cp <= 0x30FF) return "katakana";
+    if (cp >= 0x4E00 && cp <= 0x9FAF) return "kanji";
+    return "other";
+  }
+
+  const activeGroup = targetChar ? getScriptGroup(targetChar) : "unknown";
+
+  // 1. Evaluasi akurasi terhadap karakter target yang sedang aktif
   let accuracy = null;
-  if (targetChar && targetRecord) {
-    let targetMask = _miraiCharMaskCache.get(targetChar);
-    if (!targetMask) {
-      targetMask = getCharacterBitmask(targetRecord);
-      if (targetMask) _miraiCharMaskCache.set(targetChar, targetMask);
+  if (targetChar && targetRecord && Array.isArray(targetRecord.paths) && targetRecord.paths.length > 0) {
+    let targetSample = _miraiSvgSampleCache.get(targetChar);
+    if (!targetSample) {
+      targetSample = sampleSvgStrokesPoints(targetRecord.paths);
+      if (targetSample) _miraiSvgSampleCache.set(targetChar, targetSample);
     }
-    if (targetMask) {
-      accuracy = computeSimilarityScore(userBitmask, targetMask);
+    if (targetSample) {
+      accuracy = computeStrokeSimilarity(userSample, targetSample);
     }
   }
 
-  const candidates = [];
-  const strokeData = window.MIRAI_STROKE_DATA || {};
-  for (const [ch, rec] of Object.entries(strokeData)) {
-    if (!rec || !Array.isArray(rec.paths) || rec.paths.length === 0) continue;
-    let refMask = _miraiCharMaskCache.get(ch);
-    if (!refMask) {
-      refMask = getCharacterBitmask(rec);
-      if (refMask) _miraiCharMaskCache.set(ch, refMask);
+  // 2. Evaluasi kandidat mirip dari dataset SVG
+  const strokeData = window.STROKE_DATA || window.MIRAI_STROKE_DATA || {};
+  const candidatesMap = new Map();
+
+  // Karakter target selalu diikutkan jika akurasi terhitung
+  if (targetChar && accuracy !== null) {
+    candidatesMap.set(targetChar, { char: targetChar, score: accuracy });
+  }
+
+  const uStrokeCount = userStrokes.length;
+  const entries = Object.entries(strokeData);
+
+  // Saring entri berdasarkan selisih goresan
+  const qualified = entries.filter(([ch, rec]) => {
+    if (!rec || !Array.isArray(rec.paths) || rec.paths.length === 0) return false;
+    const strokeDiff = Math.abs(rec.paths.length - uStrokeCount);
+    return strokeDiff <= 1;
+  });
+
+  const pool = qualified.length >= 4 ? qualified : entries.filter(([ch, rec]) => {
+    if (!rec || !Array.isArray(rec.paths) || rec.paths.length === 0) return false;
+    return Math.abs(rec.paths.length - uStrokeCount) <= 2;
+  });
+
+  for (const [ch, rec] of pool) {
+    if (ch === targetChar) continue;
+    let refSample = _miraiSvgSampleCache.get(ch);
+    if (!refSample) {
+      refSample = sampleSvgStrokesPoints(rec.paths);
+      if (refSample) _miraiSvgSampleCache.set(ch, refSample);
     }
-    if (!refMask) continue;
-    const score = computeSimilarityScore(userBitmask, refMask);
+    if (!refSample) continue;
+
+    let score = computeStrokeSimilarity(userSample, refSample);
+    // Beri dorongan relevansi jika satu rumpun aksara dengan tab yang sedang aktif
+    if (activeGroup !== "unknown" && getScriptGroup(ch) === activeGroup) {
+      score = Math.min(100, score + 4);
+    }
     if (score >= 32) {
-      candidates.push({ char: ch, score });
+      candidatesMap.set(ch, { char: ch, score });
     }
   }
 
+  let candidates = Array.from(candidatesMap.values());
   candidates.sort((a, b) => b.score - a.score);
+
+  // Pastikan jika karakter target cukup mirip (>= 60%), tampil sebagai kandidat #1
+  if (targetChar && accuracy !== null && accuracy >= 60) {
+    const targetIdx = candidates.findIndex((c) => c.char === targetChar);
+    if (targetIdx > 0) {
+      const [tCand] = candidates.splice(targetIdx, 1);
+      candidates.unshift(tCand);
+    }
+  }
+
   return {
     accuracy,
     candidates: candidates.slice(0, 4)
   };
+}
+
+/**
+ * Kompatibilitas mundur: identifyCharacterFromDrawing memanggil evaluateCanvasSimilarity
+ */
+function identifyCharacterFromDrawing(userStrokes, targetChar, targetRecord, options = {}) {
+  return evaluateCanvasSimilarity(userStrokes, targetChar, targetRecord, options);
+}
+
+// Ekspor ke window untuk aksesibilitas dan pengujian
+if (typeof window !== "undefined") {
+  window.sampleSvgStrokesPoints = sampleSvgStrokesPoints;
+  window.sampleUserStrokes = sampleUserStrokes;
+  window.normalizePoints = normalizePoints;
+  window.computeChamferScore = computeChamferScore;
+  window.computeStrokeSimilarity = computeStrokeSimilarity;
+  window.evaluateCanvasSimilarity = evaluateCanvasSimilarity;
+  window.identifyCharacterFromDrawing = identifyCharacterFromDrawing;
 }
 
 /* ==========================================================================
@@ -1107,20 +1493,23 @@ window.createStrokePlayer = function createStrokePlayer(host, kanaString, fallba
       if (emptyPrompt) emptyPrompt.style.display = "none";
 
       const targetRec = (records && records[0]) ? records[0] : null;
-      const res = identifyCharacterFromDrawing(userStrokes, currentChar, targetRec);
+      const res = evaluateCanvasSimilarity(userStrokes, currentChar, targetRec, { canvasW, canvasH });
 
       let hasContent = false;
 
-      // 1. Akurasi terhadap karakter panduan aktif
+      // 1. Akurasi terhadap karakter panduan aktif (Multi-Metrik Terkalibrasi)
       if (res.accuracy !== null && accuracyRow && accuracyBadge && accuracyText) {
         accuracyRow.style.display = "flex";
         accuracyBadge.textContent = `${res.accuracy}%`;
-        if (res.accuracy >= 80) {
+        if (res.accuracy >= 88) {
           accuracyBadge.className = "accuracy-badge badge-high";
-          accuracyText.textContent = "— Luar biasa! Sangat mirip acuan.";
-        } else if (res.accuracy >= 60) {
+          accuracyText.textContent = "— Sangat Mirip / Sempurna! Pertahankan!";
+        } else if (res.accuracy >= 75) {
           accuracyBadge.className = "accuracy-badge badge-mid";
-          accuracyText.textContent = "— Bagus! Terus perhalus lekukannya.";
+          accuracyText.textContent = "— Bagus! Bentuk sudah tepat.";
+        } else if (res.accuracy >= 55) {
+          accuracyBadge.className = "accuracy-badge badge-mid";
+          accuracyText.textContent = "— Cukup mirip, terus perhalus lekukannya.";
         } else {
           accuracyBadge.className = "accuracy-badge badge-low";
           accuracyText.textContent = "— Coba perhatikan kembali bentuk acuan.";

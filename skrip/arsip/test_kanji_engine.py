@@ -24,15 +24,15 @@ def test_static_rules():
     print("🧪 [1] PEMERIKSAAN ATURAN STATIK LOKAL (OFFLINE FIRST)")
     print("==================================================")
 
-    # 1. Pastikan js/kanji.js bebas dari panggilan kanjiapi.dev dan mymemory
-    with open(os.path.join(BASE_DIR, "js", "kanji.js"), "r", encoding="utf-8") as f:
+    # 1. Pastikan js/kamus-kanji.js bebas dari panggilan kanjiapi.dev dan mymemory
+    with open(os.path.join(BASE_DIR, "js", "kamus-kanji.js"), "r", encoding="utf-8") as f:
         code_kanji = f.read()
 
-    assert "https://kanjiapi.dev" not in code_kanji, "Masih ditemukan URL eksternal kanjiapi.dev di js/kanji.js!"
-    assert "mymemory.translated.net" not in code_kanji, "Masih ditemukan URL eksternal mymemory di js/kanji.js!"
-    assert "loadKanjiChunk" in code_kanji, "Fungsi loadKanjiChunk tidak ditemukan di js/kanji.js!"
-    assert "data/kanji-index.json" in code_kanji, "Pemuatan data/kanji-index.json tidak ditemukan di js/kanji.js!"
-    print("✔ js/kanji.js 100% bebas dari pemanggilan API eksternal (kanjiapi.dev / mymemory).")
+    assert "https://kanjiapi.dev" not in code_kanji, "Masih ditemukan URL eksternal kanjiapi.dev di js/kamus-kanji.js!"
+    assert "mymemory.translated.net" not in code_kanji, "Masih ditemukan URL eksternal mymemory di js/kamus-kanji.js!"
+    assert "loadKanjiChunk" in code_kanji, "Fungsi loadKanjiChunk tidak ditemukan di js/kamus-kanji.js!"
+    assert "data/kanji-index.json" in code_kanji, "Pemuatan data/kanji-index.json tidak ditemukan di js/kamus-kanji.js!"
+    print("✔ js/kamus-kanji.js 100% bebas dari pemanggilan API eksternal (kanjiapi.dev / mymemory).")
     print("✔ Mesin kamus menggunakan pemuatan lokal data/kanji-index.json dan chunk on-demand.")
 
     # 2. Pastikan js/stroke.js bebas dari CDN eksternal
@@ -42,12 +42,12 @@ def test_static_rules():
     assert "loadStrokeChunk" in code_stroke, "Fungsi loadStrokeChunk tidak ditemukan di js/stroke.js!"
     print("✔ js/stroke.js 100% bebas dari fallback CDN eksternal jsDelivr.")
 
-    # 3. Pastikan kamus/index.html dan kamus/kanji.html tidak memuat script kanji-data.js
+    # 3. Pastikan kamus/index.html dan kamus/kanji.html tidak memuat script kamus-kanji-data.js
     for hf in ["kamus/index.html", "kamus/kanji.html"]:
         with open(os.path.join(BASE_DIR, hf), "r", encoding="utf-8") as f:
             h_text = f.read()
-        assert "kanji-data.js" not in h_text, f"{hf} masih memuat script kanji-data.js!"
-    print("✔ kamus/index.html dan kamus/kanji.html tidak memuat berkas berat kanji-data.js (1.8 MB).")
+        assert "kamus-kanji-data.js" not in h_text, f"{hf} masih memuat script kamus-kanji-data.js!"
+    print("✔ kamus/index.html dan kamus/kanji.html tidak memuat berkas berat kamus-kanji-data.js (1.8 MB).")
 
 def test_data_integrity():
     print("\n==================================================")

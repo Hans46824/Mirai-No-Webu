@@ -577,6 +577,7 @@ Global Footer / Disclaimer Section (Tengoku Style)
 ========================================================================== */
 .global-footer {
   background-color: #08070a !important;
+  background: #08070a !important;
   color: #888888 !important;
   padding: 50px 5% !important;
   font-size: 0.85rem !important;
@@ -586,20 +587,58 @@ Global Footer / Disclaimer Section (Tengoku Style)
   z-index: 10;
   box-sizing: border-box;
 }
-/* Pola Kumo Wagara Gelap c1b pada Section Disclaimer / Footer */
+/* Pola Pattern pada Section Disclaimer / Footer (Tetap Selalu Black Page) */
 .global-footer::before {
   content: "";
   position: absolute;
   inset: 0;
   background-image: radial-gradient(ellipse at 50% 0%, rgba(233, 30, 99, 0.09) 0%, transparent 70%),
-        url("../../images/mirai/background/c1b.jpeg");
+        var(--page-pattern-dark, url("../../images/mirai/background/c1b.jpeg")) !important;
   background-size: cover, 200px auto !important;
   background-repeat: no-repeat, repeat !important;
   background-position: center, center;
-  opacity: var(--opacity-c1b)!important;
+  opacity: var(--page-pattern-opacity-dark, var(--opacity-c1b)) !important;
   mix-blend-mode: screen;
   pointer-events: none;
   z-index: 0;
+}
+
+/* Fallback Selektor Eksplisit W1 vs C1 pada Disclaimer / Footer */
+body.page-kelas .global-footer::before,
+body.page-latihan .global-footer::before,
+body.page-materi .global-footer::before,
+body.page-kegiatan .global-footer::before,
+body.page-divisi .global-footer::before,
+body.page-divisi-hub .global-footer::before,
+body.page-ktn .global-footer::before,
+body.page-konbini .global-footer::before,
+body.page-njr .global-footer::before,
+body.page-ramadhan .global-footer::before,
+body.page-tomodachi .global-footer::before,
+body.page-peringkat .global-footer::before,
+body.page-tentang .global-footer::before,
+body[data-pattern-family="w1"] .global-footer::before,
+.global-footer[data-pattern-family="w1"]::before {
+  background-image: radial-gradient(ellipse at 50% 0%, rgba(233, 30, 99, 0.09) 0%, transparent 70%),
+        url("../../images/mirai/background/w1b.jpeg") !important;
+  opacity: var(--opacity-w1b) !important;
+}
+
+body.page-beranda .global-footer::before,
+body.page-kamus .global-footer::before,
+body.page-kanji .global-footer::before,
+body.page-toko .global-footer::before,
+body.page-rekomendasi .global-footer::before,
+body.page-motivasi .global-footer::before,
+body.page-lomba .global-footer::before,
+body.page-404 .global-footer::before,
+body.page-sora .global-footer::before,
+body.offline-page .global-footer::before,
+body[data-pattern-family="c1"] .global-footer::before,
+.global-footer[data-pattern-family="c1"]::before {
+  background-image: radial-gradient(ellipse at 50% 0%, rgba(233, 30, 99, 0.09) 0%, transparent 70%),
+        url("../../images/mirai/background/c1b.jpeg") !important;
+  opacity: var(--opacity-c1b) !important;
 }
 
 .global-footer-main {
@@ -2483,7 +2522,7 @@ PENGGESER CEPAT POJOK KANAN (QUICK DRAG-SCROLL THUMB)
     height: 54px;
     right: 2px;
   }
-  
+
   .quick-scroll-thumb:hover,
   .quick-scroll-thumb:active,
   .quick-scroll-thumb.is-touching,

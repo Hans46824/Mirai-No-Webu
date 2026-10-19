@@ -30,7 +30,7 @@
     <link rel=preconnect href="https://fonts.googleapis.com">
     <link rel=preconnect href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Noto+Serif+JP:wght@600;700;800;900&family=Noto+Sans+JP:wght@500;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css?v=bed24355">
+    <link rel="stylesheet" href="../css/style.css?v=ae0b4b8a">
 </head>
 <body class="page-kamus">
     <a class="skip-link" href="#main-content">Lewati ke konten utama</a>
@@ -54,7 +54,6 @@
             <a class="active" href="index.html">KAMUS</a>
             <a href="../kegiatan/index.html">PROGRAM &amp; FASILITAS</a>
             <a href="../toko/index.html">TOKO</a>
-            <a href="../rekomendasi/index.html">REKOMENDASI</a>
             <a href="../peringkat/index.html">PAPAN PERINGKAT</a>
             <a href="../lomba/index.html">LOMBA & ACARA</a>
             <a href="../tentang/index.html">TENTANG</a>
@@ -232,6 +231,7 @@
                     <div class="output-wrapper">
                         <div id="translatorOutput" class="studio-output-text placeholder">Hasil terjemahan akan otomatis muncul di sini...</div>
                         <div id="translatorRomaji" class="studio-output-romaji" hidden></div>
+                        <div id="translatorLocalDictBox" class="translator-local-dict-box" hidden></div>
                     </div>
 
                     <!-- BARIS TOMBOL AKSI OUTPUT -->
@@ -248,140 +248,159 @@
                 </div>
             </div>
 
-            <!-- PANEL VIRTUAL KEYBOARD JEPANG: FLOATING DRAGGABLE & RESIZABLE -->
-            <div class="virtual-keyboard-panel is-collapsed" id="virtualKeyboardPanel" role="region" aria-label="Keyboard Virtual Jepang Keitai 12-Key">
+            <!-- PANEL VIRTUAL KEYBOARD JEPANG: GBOARD 12-KEY (FLOATING, DRAGGABLE & RESIZABLE) -->
+            <div class="virtual-keyboard-panel is-collapsed" id="virtualKeyboardPanel" role="region" aria-label="Keyboard Virtual Jepang Gboard 12-Key">
                 <div class="kb-floating-drag-bar" id="kbDragHandle" title="Geser keyboard (Tahan &amp; Seret)">
                     <span class="kb-drag-pill"></span>
                 </div>
                 <div class="keyboard-header" id="kbHeaderDrag" title="Geser keyboard (Tahan &amp; Seret)">
                     <div class="kb-title-badge">
                         <span class="kb-title-icon">⌨️</span>
-                        <span class="kb-title-text">Keitai 12-Key</span>
+                        <span class="kb-title-text">Gboard 12-Key</span>
                     </div>
                     <div class="kb-mode-pill-group" role="tablist">
                         <button type="button" class="kb-pill-btn is-active" id="kbScriptHiraganaBtn" data-script="hiragana">あ Hiragana</button>
                         <button type="button" class="kb-pill-btn" id="kbScriptKatakanaBtn" data-script="katakana">ア Katakana</button>
+                        <button type="button" class="kb-pill-btn" id="kbScriptNumberBtn" data-script="number">123 Angka</button>
                     </div>
                     <div class="kb-header-right">
                         <button type="button" class="kb-close-btn" id="kbCloseBtn" title="Tutup virtual keyboard">✕ Tutup</button>
                     </div>
                 </div>
 
-                <!-- 12-KEY KEITAI GRID (4x4: 10 KELOMPOK HURUF + MODIFIER + AKSI) -->
+                <!-- BAR PREDIKSI KATA & KANJI (GBOARD CANDIDATE BAR) -->
+                <div class="gboard-candidate-bar" id="gboardCandidateBar" role="region" aria-label="Prediksi Kata &amp; Kanji">
+                    <!-- Chip kandidat otomatis muncul di sini -->
+                </div>
+
+                <!-- GBOARD 12-KEY GRID (5 KOLOM x 4 BARIS) -->
                 <div class="keyboard-body">
-                    <div class="keitai-12key-grid" id="keitai12KeyGrid">
-                        <!-- Baris 1 -->
-                        <div class="keitai-key-wrapper" data-key-group="a">
-                            <button type="button" class="keitai-btn" data-keitai-key="a">
-                                <span class="keitai-main-char">あ</span>
-                                <span class="keitai-sub-chars">あいうえお</span>
-                            </button>
-                            <div class="keitai-popup-bubble" hidden></div>
-                        </div>
-                        <div class="keitai-key-wrapper" data-key-group="ka">
-                            <button type="button" class="keitai-btn" data-keitai-key="ka">
-                                <span class="keitai-main-char">か</span>
-                                <span class="keitai-sub-chars">かきくけこ</span>
-                            </button>
-                            <div class="keitai-popup-bubble" hidden></div>
-                        </div>
-                        <div class="keitai-key-wrapper" data-key-group="sa">
-                            <button type="button" class="keitai-btn" data-keitai-key="sa">
-                                <span class="keitai-main-char">さ</span>
-                                <span class="keitai-sub-chars">さしすせそ</span>
-                            </button>
-                            <div class="keitai-popup-bubble" hidden></div>
-                        </div>
-                        <div class="keitai-key-wrapper">
-                            <button type="button" class="keitai-btn action-key backspace-key" id="kbBackspaceBtn" title="Hapus karakter (Backspace)">
-                                <span class="keitai-main-char">⌫</span>
-                                <span class="keitai-sub-chars">Hapus</span>
+                    <div class="gboard-12key-grid" id="gboard12KeyGrid">
+                        <!-- Baris 1: Mode | あ | か | さ | ⌫ -->
+                        <div class="gboard-key-wrapper">
+                            <button type="button" class="gboard-btn action-key mode-toggle-key" id="kbScriptToggleBtn" title="Ganti Mode (Hiragana / Katakana / Angka)">
+                                <span class="gboard-main-char">あ/ア</span>
+                                <span class="gboard-sub-chars">Mode</span>
                             </button>
                         </div>
-
-                        <!-- Baris 2 -->
-                        <div class="keitai-key-wrapper" data-key-group="ta">
-                            <button type="button" class="keitai-btn" data-keitai-key="ta">
-                                <span class="keitai-main-char">た</span>
-                                <span class="keitai-sub-chars">たちつてと</span>
+                        <div class="gboard-key-wrapper" data-key-group="a">
+                            <button type="button" class="gboard-btn" data-gboard-key="a">
+                                <span class="gboard-main-char">あ</span>
+                                <span class="gboard-sub-chars">あいうえお</span>
                             </button>
-                            <div class="keitai-popup-bubble" hidden></div>
                         </div>
-                        <div class="keitai-key-wrapper" data-key-group="na">
-                            <button type="button" class="keitai-btn" data-keitai-key="na">
-                                <span class="keitai-main-char">な</span>
-                                <span class="keitai-sub-chars">なにぬねの</span>
+                        <div class="gboard-key-wrapper" data-key-group="ka">
+                            <button type="button" class="gboard-btn" data-gboard-key="ka">
+                                <span class="gboard-main-char">か</span>
+                                <span class="gboard-sub-chars">かきくけこ</span>
                             </button>
-                            <div class="keitai-popup-bubble" hidden></div>
                         </div>
-                        <div class="keitai-key-wrapper" data-key-group="ha">
-                            <button type="button" class="keitai-btn" data-keitai-key="ha">
-                                <span class="keitai-main-char">は</span>
-                                <span class="keitai-sub-chars">はひふへほ</span>
+                        <div class="gboard-key-wrapper" data-key-group="sa">
+                            <button type="button" class="gboard-btn" data-gboard-key="sa">
+                                <span class="gboard-main-char">さ</span>
+                                <span class="gboard-sub-chars">さしすせそ</span>
                             </button>
-                            <div class="keitai-popup-bubble" hidden></div>
                         </div>
-                        <div class="keitai-key-wrapper">
-                            <button type="button" class="keitai-btn action-key space-key" id="kbSpaceBtn" title="Spasi">
-                                <span class="keitai-main-char">␣</span>
-                                <span class="keitai-sub-chars">Spasi</span>
+                        <div class="gboard-key-wrapper">
+                            <button type="button" class="gboard-btn action-key backspace-key" id="kbBackspaceBtn" title="Hapus karakter (Tahan untuk hapus cepat)">
+                                <span class="gboard-main-char">⌫</span>
+                                <span class="gboard-sub-chars">Hapus</span>
                             </button>
                         </div>
 
-                        <!-- Baris 3 -->
-                        <div class="keitai-key-wrapper" data-key-group="ma">
-                            <button type="button" class="keitai-btn" data-keitai-key="ma">
-                                <span class="keitai-main-char">ま</span>
-                                <span class="keitai-sub-chars">まみむめも</span>
+                        <!-- Baris 2: 123 | た | な | は | ␣ -->
+                        <div class="gboard-key-wrapper">
+                            <button type="button" class="gboard-btn action-key number-toggle-key" id="kbQuickNumBtn" title="Mode Angka &amp; Simbol">
+                                <span class="gboard-main-char">123</span>
+                                <span class="gboard-sub-chars">Simbol</span>
                             </button>
-                            <div class="keitai-popup-bubble" hidden></div>
                         </div>
-                        <div class="keitai-key-wrapper" data-key-group="ya">
-                            <button type="button" class="keitai-btn" data-keitai-key="ya">
-                                <span class="keitai-main-char">や</span>
-                                <span class="keitai-sub-chars">やゆよ</span>
+                        <div class="gboard-key-wrapper" data-key-group="ta">
+                            <button type="button" class="gboard-btn" data-gboard-key="ta">
+                                <span class="gboard-main-char">た</span>
+                                <span class="gboard-sub-chars">たちつてと</span>
                             </button>
-                            <div class="keitai-popup-bubble" hidden></div>
                         </div>
-                        <div class="keitai-key-wrapper" data-key-group="ra">
-                            <button type="button" class="keitai-btn" data-keitai-key="ra">
-                                <span class="keitai-main-char">ら</span>
-                                <span class="keitai-sub-chars">らりるれろ</span>
+                        <div class="gboard-key-wrapper" data-key-group="na">
+                            <button type="button" class="gboard-btn" data-gboard-key="na">
+                                <span class="gboard-main-char">な</span>
+                                <span class="gboard-sub-chars">なにぬねの</span>
                             </button>
-                            <div class="keitai-popup-bubble" hidden></div>
                         </div>
-                        <div class="keitai-key-wrapper">
-                            <button type="button" class="keitai-btn action-key enter-key" id="kbEnterBtn" title="Baris Baru (Enter)">
-                                <span class="keitai-main-char">↵</span>
-                                <span class="keitai-sub-chars">Enter</span>
+                        <div class="gboard-key-wrapper" data-key-group="ha">
+                            <button type="button" class="gboard-btn" data-gboard-key="ha">
+                                <span class="gboard-main-char">は</span>
+                                <span class="gboard-sub-chars">はひふへほ</span>
+                            </button>
+                        </div>
+                        <div class="gboard-key-wrapper">
+                            <button type="button" class="gboard-btn action-key space-key" id="kbSpaceBtn" title="Spasi">
+                                <span class="gboard-main-char">␣</span>
+                                <span class="gboard-sub-chars">Spasi</span>
                             </button>
                         </div>
 
-                        <!-- Baris 4 -->
-                        <div class="keitai-key-wrapper">
-                            <button type="button" class="keitai-btn action-key dakuten-key" id="kbDakutenBtn" title="Ubah bunyi Dakuten / Handakuten / Huruf Kecil">
-                                <span class="keitai-main-char">゛゜小</span>
-                                <span class="keitai-sub-chars">Ubah Bunyi</span>
+                        <!-- Baris 3: Romaji | ま | や | ら | ↵ -->
+                        <div class="gboard-key-wrapper">
+                            <button type="button" class="gboard-btn action-key romaji-toggle-key" id="kbToggleRomajiBtn" title="Auto-Romaji ON/OFF">
+                                <span class="gboard-main-char">✨</span>
+                                <span class="gboard-sub-chars" id="kbRomajiStatusText">Romaji ON</span>
                             </button>
                         </div>
-                        <div class="keitai-key-wrapper" data-key-group="wa">
-                            <button type="button" class="keitai-btn" data-keitai-key="wa">
-                                <span class="keitai-main-char">わ</span>
-                                <span class="keitai-sub-chars">わをんー</span>
+                        <div class="gboard-key-wrapper" data-key-group="ma">
+                            <button type="button" class="gboard-btn" data-gboard-key="ma">
+                                <span class="gboard-main-char">ま</span>
+                                <span class="gboard-sub-chars">まみむめも</span>
                             </button>
-                            <div class="keitai-popup-bubble" hidden></div>
                         </div>
-                        <div class="keitai-key-wrapper" data-key-group="punct">
-                            <button type="button" class="keitai-btn" data-keitai-key="punct">
-                                <span class="keitai-main-char">、。</span>
-                                <span class="keitai-sub-chars">、。？！</span>
+                        <div class="gboard-key-wrapper" data-key-group="ya">
+                            <button type="button" class="gboard-btn" data-gboard-key="ya">
+                                <span class="gboard-main-char">や</span>
+                                <span class="gboard-sub-chars">や（ゆ）よ</span>
                             </button>
-                            <div class="keitai-popup-bubble" hidden></div>
                         </div>
-                        <div class="keitai-key-wrapper">
-                            <button type="button" class="keitai-btn action-key romaji-toggle-key" id="kbToggleRomajiBtn" title="Aktif / Nonaktifkan Auto-Romaji">
-                                <span class="keitai-main-char">✨</span>
-                                <span class="keitai-sub-chars" id="kbRomajiStatusText">Romaji ON</span>
+                        <div class="gboard-key-wrapper" data-key-group="ra">
+                            <button type="button" class="gboard-btn" data-gboard-key="ra">
+                                <span class="gboard-main-char">ら</span>
+                                <span class="gboard-sub-chars">らりるれろ</span>
+                            </button>
+                        </div>
+                        <div class="gboard-key-wrapper">
+                            <button type="button" class="gboard-btn action-key enter-key" id="kbEnterBtn" title="Baris Baru (Enter)">
+                                <span class="gboard-main-char">↵</span>
+                                <span class="gboard-sub-chars">Enter</span>
+                            </button>
+                        </div>
+
+                        <!-- Baris 4: ゛゜小 | わ | 、。？！ | ⚡ Terjemahkan | ✕ Tutup -->
+                        <div class="gboard-key-wrapper">
+                            <button type="button" class="gboard-btn action-key dakuten-key" id="kbDakutenBtn" title="Ubah Dakuten / Handakuten / Huruf Kecil">
+                                <span class="gboard-main-char">゛゜小</span>
+                                <span class="gboard-sub-chars">Ubah Bunyi</span>
+                            </button>
+                        </div>
+                        <div class="gboard-key-wrapper" data-key-group="wa">
+                            <button type="button" class="gboard-btn" data-gboard-key="wa">
+                                <span class="gboard-main-char">わ</span>
+                                <span class="gboard-sub-chars">わをんー〜</span>
+                            </button>
+                        </div>
+                        <div class="gboard-key-wrapper" data-key-group="punct">
+                            <button type="button" class="gboard-btn" data-gboard-key="punct">
+                                <span class="gboard-main-char">、。</span>
+                                <span class="gboard-sub-chars">、。？！</span>
+                            </button>
+                        </div>
+                        <div class="gboard-key-wrapper">
+                            <button type="button" class="gboard-btn action-key translate-key" id="kbTranslateNowBtn" title="Terjemahkan Sekarang">
+                                <span class="gboard-main-char">⚡</span>
+                                <span class="gboard-sub-chars">Terjemah</span>
+                            </button>
+                        </div>
+                        <div class="gboard-key-wrapper">
+                            <button type="button" class="gboard-btn action-key quick-close-key" id="kbQuickCloseBtn" title="Tutup Keyboard">
+                                <span class="gboard-main-char">✕</span>
+                                <span class="gboard-sub-chars">Tutup</span>
                             </button>
                         </div>
                     </div>
@@ -427,7 +446,7 @@
                             <small class="namegen-sublabel">Sistem otomatis mengonversi fonetik Indonesia ke Katakana &amp; Kanji Ateji</small>
                         </label>
                         <div class="namegen-input-wrap">
-                            <input type="text" id="nameGenInput" class="namegen-input" placeholder="Ketik nama kamu, misal: Asora Aokita, Riska, Aqmar..." maxlength="40" autocomplete="off" value="Asora Aokita" aria-label="Ketik nama kamu, misal: Asora Aokita, Riska, Aqmar...">
+                            <input type="text" id="nameGenInput" class="namegen-input" placeholder="Ketik nama kamu, misal: Asora Aokita..." maxlength="40" autocomplete="off" value="Asora Aokita" aria-label="Ketik nama kamu, misal: Asora Aokita...">
                             <button type="button" class="mini-clear-btn" id="clearNameInputBtn" title="Hapus teks nama" aria-label="Hapus nama">🗑️</button>
                         </div>
                     </div>
@@ -561,6 +580,34 @@
                         </div>
                     </div>
 
+                    <div class="namegen-field-group namegen-photo-ctrl-group">
+                        <label class="namegen-label">
+                            <span>📸 Foto Profil KTP <small>(Opsional: Pas Foto 3x4)</small></span>
+                            <small class="namegen-sublabel">Gunakan foto sendiri atau pas foto Sora default. Foto dapat digeser &amp; di-zoom.</small>
+                        </label>
+                        <div class="namegen-photo-actions">
+                            <input type="file" id="ktaPhotoUpload" accept="image/*" class="namegen-file-input" hidden aria-label="Upload Foto Profil Sendiri untuk KTP">
+                            <button type="button" class="studio-btn namegen-upload-btn" id="ktaPhotoUploadBtn" aria-label="Upload Foto Sendiri">
+                                <span>📸 Upload Foto Sendiri</span>
+                            </button>
+                            <button type="button" class="studio-btn secondary namegen-reset-photo-btn" id="ktaPhotoResetBtn" title="Kembali ke foto Sora default" aria-label="Reset Foto Default">
+                                <span>🔄 Reset Foto Default</span>
+                            </button>
+                        </div>
+                        <div class="namegen-zoom-control">
+                            <div class="zoom-label-row">
+                                <span class="zoom-label">🔍 Zoom Foto</span>
+                                <span class="zoom-value" id="ktaPhotoZoomVal">100%</span>
+                            </div>
+                            <input type="range" id="ktaPhotoZoom" class="namegen-range-slider" min="100" max="250" value="100" step="1" aria-label="Perbesar atau perkecil foto profil KTP">
+                            <div class="zoom-range-markers">
+                                <span>100% (Normal)</span>
+                                <span>175%</span>
+                                <span>250% (Maksimal)</span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="namegen-actions-bar">
                         <button type="button" class="studio-btn primary namegen-submit-btn" id="generateNameCardBtn">
                             <span>✨ Buat Kartu Tanda Pengenal Nihongo Kurabu</span>
@@ -593,11 +640,16 @@
                 <!-- KOTAK ATEJI KANJI POSITIF -->
                 <div class="namegen-ateji-box">
                     <div class="ateji-header">
-                        <span class="ateji-icon">📜</span>
-                        <div class="ateji-head-text">
-                            <strong>Ateji Kanji Positif &amp; Filosofi Makna</strong>
-                            <small>Karakter Kanji pembawa doa &amp; harapan baik untuk namamu</small>
+                        <div class="ateji-head-left">
+                            <span class="ateji-icon">📜</span>
+                            <div class="ateji-head-text">
+                                <strong>Ateji Kanji Positif &amp; Filosofi Makna</strong>
+                                <small>Karakter Kanji pembawa doa &amp; harapan baik untuk namamu</small>
+                            </div>
                         </div>
+                        <button type="button" class="studio-btn secondary mini-reroll-btn" id="rerollKanjiBtn" title="Lihat kombinasi pilihan variasi Kanji positif lainnya" aria-label="Ganti variasi kombinasi Kanji">
+                            <span>🎲 Ganti Variasi Kanji</span>
+                        </button>
                     </div>
                     <div class="ateji-kanji-row" id="resAtejiRow">
                         <div class="ateji-chip"><span class="ateji-kanji" lang="ja">明</span><div class="ateji-chip-info"><strong class="ateji-reading">Aki</strong><span class="ateji-meaning">Cahaya Terang &amp; Kecerdasan Budi</span></div></div>
@@ -609,9 +661,20 @@
                     </p>
                 </div>
 
-                <!-- LIVE PREVIEW KARTU TANDA PENGENAL NIHONGO KURABU (KTP STYLE WHITE & PINK) -->
+                <!-- LIVE PREVIEW KARTU TANDA PENGENAL NIHONGO KURABU (DUAL SISI: DEPAN & BELAKANG) -->
                 <div class="member-card-stage">
-                    <div class="member-card-wrap theme-white-pink ktp-card-layout" id="memberCardVisual">
+                    <!-- TAB TOGGLE TAMPAK DEPAN & TAMPAK BELAKANG -->
+                    <div class="ktp-view-tabs" role="tablist" aria-label="Pilih Sisi Kartu Tanda Pengenal">
+                        <button type="button" class="ktp-tab-btn is-active" id="tabKtpFront" data-ktp-tab="front" role="tab" aria-selected="true">
+                            🪪 Tampak Depan
+                        </button>
+                        <button type="button" class="ktp-tab-btn" id="tabKtpBack" data-ktp-tab="back" role="tab" aria-selected="false">
+                            🌸 Tampak Belakang
+                        </button>
+                    </div>
+
+                    <!-- KARTU TAMPAK DEPAN (FOTO DI SEBELAH KIRI, DATA DI KANAN) -->
+                    <div class="member-card-wrap theme-white-pink ktp-card-layout ktp-side-front" id="memberCardVisual">
                         <div class="mcard-inner">
                             <div class="mcard-topbar">
                                 <div class="mcard-brand">
@@ -623,14 +686,21 @@
                                 </div>
                                 <div class="mcard-topbar-right">
                                     <span class="mcard-ktp-title-badge">KARTU TANDA PENGENAL</span>
-                                    <div class="mcard-birth-badge" id="mcardBirthBadge" title="Tanggal Lahir Anggota">
-                                        <span class="mcard-birth-label">生年月日</span>
-                                        <span class="mcard-birth-val" id="mcardBirthVal">01-12-2008</span>
-                                    </div>
                                 </div>
                             </div>
 
                             <div class="mcard-body">
+                                <!-- PAS FOTO 3X4 DI SEBELAH KIRI -->
+                                <div class="mcard-photo-side">
+                                    <div class="mcard-photo-frame kta-photo-box" id="ktaPhotoBox" title="Foto 3x4 Anggota Resmi (Tahan &amp; geser untuk mengepaskan posisi)">
+                                        <img src="../images/mirai/karakter/sora-ktp.png" alt="Pas Foto Sora" class="mcard-photo-img" id="mcardPhotoImg" width="110" height="146" draggable="false">
+                                        <div class="mcard-photo-hint" id="ktaPhotoHint" aria-hidden="true">
+                                            <span>✥ Geser foto untuk mengepaskan</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- KOLOM NAMA & KOTAK INFORMASI DI SEBELAH KANAN -->
                                 <div class="mcard-info-col">
                                     <div class="mcard-names-header">
                                         <div class="mcard-jp-name" id="mcardKatakana" lang="ja">アソラ・アオキタ</div>
@@ -638,11 +708,6 @@
                                     </div>
 
                                     <div class="mcard-ktp-grid">
-                                        <div class="mcard-ktp-row">
-                                            <span class="mcard-ktp-label">ID Anggota / 登録番号</span>
-                                            <span class="mcard-ktp-sep">:</span>
-                                            <span class="mcard-ktp-val id-code" id="mcardIdVal">MNH-2026-0810</span>
-                                        </div>
                                         <div class="mcard-ktp-row">
                                             <span class="mcard-ktp-label">Kelas / 学年</span>
                                             <span class="mcard-ktp-sep">:</span>
@@ -654,25 +719,15 @@
                                             <span class="mcard-ktp-val highlight-div" id="mcardDivisionPill">📚 Divisi Bahasa &amp; Budaya</span>
                                         </div>
                                         <div class="mcard-ktp-row">
-                                            <span class="mcard-ktp-label">Status / 資格</span>
+                                            <span class="mcard-ktp-label">Tanggal Lahir / 生年月日</span>
                                             <span class="mcard-ktp-sep">:</span>
-                                            <span class="mcard-ktp-val status-val"><span class="mcard-status-dot"></span> Anggota Aktif (有効)</span>
+                                            <span class="mcard-ktp-val date-val" id="mcardBirthVal">01-12-2008</span>
                                         </div>
-                                    </div>
-                                </div>
-
-                                <div class="mcard-photo-side">
-                                    <div class="mcard-photo-frame" title="Foto 3x4 Anggota">
-                                        <img src="../images/mirai/karakter/sora-ktp.png" alt="Pas Foto Sora" class="mcard-photo-img" id="mcardPhotoImg" width="110" height="146">
-                                        <div class="mcard-photo-badge">OFFICIAL</div>
-                                    </div>
-                                    <div class="mcard-stamps-group">
-                                        <div class="mcard-kanji-stamp" id="mcardKanjiStamp" lang="ja" title="Ateji Kanji">
-                                            <span>明</span>
-                                            <span>創</span>
-                                            <span>羅</span>
+                                        <div class="mcard-ktp-row">
+                                            <span class="mcard-ktp-label">Usia / 年齢</span>
+                                            <span class="mcard-ktp-sep">:</span>
+                                            <span class="mcard-ktp-val age-val" id="mcardAgeVal">17 Tahun</span>
                                         </div>
-                                        <div class="mcard-red-seal" lang="ja" title="Cap Hanko Mirai">未来<br>之印</div>
                                     </div>
                                 </div>
                             </div>
@@ -688,13 +743,30 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- KARTU TAMPAK BELAKANG (LOGO NK DI TENGAH DENGAN TEKS BESAR) -->
+                    <div class="member-card-wrap theme-white-pink ktp-card-layout ktp-side-back" id="memberCardVisualBack" hidden>
+                        <div class="mcard-inner mcard-back-centered-inner">
+                            <div class="mcard-back-hero">
+                                <div class="mcard-back-logo-wrap">
+                                    <img src="../images/mirai/logo/NK.png" alt="Logo Nihongo Kurabu" class="mcard-back-big-logo" width="110" height="110">
+                                </div>
+                                <h2 class="mcard-back-title">MIRAI NO HANA NIHONGO KURABU</h2>
+                                <div class="mcard-back-sub-jp" lang="ja">未来の花・日本語クラブ</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- TOMBOL UNDUH KARTU PNG -->
-                <div class="namegen-download-row">
-                    <button type="button" class="studio-btn primary download-card-btn" id="downloadCardPngBtn">
-                        <span class="btn-icon">📥</span>
-                        <span>Unduh Kartu Tanda Pengenal (.PNG)</span>
+                <!-- TOMBOL UNDUH KARTU PNG (DEPAN & BELAKANG TERPISAH) -->
+                <div class="namegen-download-row namegen-download-double">
+                    <button type="button" class="studio-btn primary download-card-btn" id="downloadCardFrontBtn">
+                        <span class="btn-icon">🪪</span>
+                        <span>Unduh KTP Depan (.PNG)</span>
+                    </button>
+                    <button type="button" class="studio-btn secondary download-card-btn" id="downloadCardBackBtn">
+                        <span class="btn-icon">🌸</span>
+                        <span>Unduh KTP Belakang (.PNG)</span>
                     </button>
                 </div>
             </div>
@@ -728,6 +800,6 @@
     <div class="global-footer-bottom">
             <p>© 2026 MIRAI NO HANA — SMA Wachid Hasyim 2 Taman | Kabinet Sora | Ditenagai oleh GitHub Pages</p>
         </div>
-</footer><button id="quickStrokeBtn" class="quick-stroke-btn" type="button" aria-label="Geser ke Goresan" title="Geser ke Goresan"><span class="quick-stroke-icon">✍️</span><span class="quick-stroke-text">Goresan</span><span class="quick-stroke-arrow">↓</span></button><button class="to-top" type="button">↑</button><script defer src="../js/sora.js?v=547da8dc"></script><script defer src="../js/main.js?v=c6712581"></script><script defer src="../js/translator.js?v=349cc2dd"></script><script defer src="../js/stroke-data.js?v=07d66d9e"></script><script defer src="../js/stroke-overrides.js?v=bbf20e0e"></script><script defer src="../js/stroke.js?v=946218f3"></script><script defer src="../js/kana.js?v=a53aff88"></script><script defer src="../js/api.js?v=9f3082f1"></script><script defer src="https://cdn.jsdelivr.net/npm/wanakana/wanakana.min.js"></script><script defer src="../js/kanji.js?v=cd86f995"></script>
+</footer><button id="quickStrokeBtn" class="quick-stroke-btn" type="button" aria-label="Geser ke Goresan" title="Geser ke Goresan"><span class="quick-stroke-icon">✍️</span><span class="quick-stroke-text">Goresan</span><span class="quick-stroke-arrow">↓</span></button><button class="to-top" type="button">↑</button><script defer src="../js/sora.js?v=547da8dc"></script><script defer src="../js/main.js?v=017b0016"></script><script defer src="../js/kamus-translator.js?v=02efadfb"></script><script defer src="../js/stroke-data.js?v=07d66d9e"></script><script defer src="../js/stroke-overrides.js?v=bbf20e0e"></script><script defer src="../js/stroke.js?v=f765cedd"></script><script defer src="../js/kamus-kana.js?v=5c053065"></script><script defer src="../js/api.js?v=9f3082f1"></script><script defer src="https://cdn.jsdelivr.net/npm/wanakana/wanakana.min.js"></script><script defer src="../js/kamus-kanji.js?v=df7ed260"></script>
 </body>
 </html>

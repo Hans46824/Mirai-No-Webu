@@ -48,7 +48,7 @@ def test_pwa_infrastructure():
 def test_accessibility_and_skip_links():
     print("\n--- [TEST 2] Aksesibilitas, Skip-Link & Input Labels ---")
     html_files = list(ROOT_DIR.glob("**/*.html"))
-    html_files = [f for f in html_files if "skrip/laporan" not in str(f)]
+    html_files = [f for f in html_files if "skrip/laporan" not in str(f) and "arsip" not in str(f)]
     assert len(html_files) >= 30, f"Ditemukan {len(html_files)} file HTML."
 
     missing_skip = []
@@ -153,10 +153,10 @@ def test_floating_buttons_and_mobile_layout():
 
 def test_kamus_shortcuts_and_sticky_panel():
     print("\n--- [TEST 5] Panel Sticky Desktop & Kamus Bersih ---")
-    kanji_js = (ROOT_DIR / "js/kanji.js").read_text(encoding="utf-8")
+    kanji_js = (ROOT_DIR / "js/kamus-kanji.js").read_text(encoding="utf-8")
     kamus_css = (ROOT_DIR / "css/pages/kamus.css").read_text(encoding="utf-8")
 
-    assert "kamus-shortcuts-hint" not in kanji_js, "Petunjuk pintasan harus sudah bersih dihapus dari js/kanji.js!"
+    assert "kamus-shortcuts-hint" not in kanji_js, "Petunjuk pintasan harus sudah bersih dihapus dari js/kamus-kanji.js!"
     assert "kamus-shortcuts-hint" not in kamus_css, "CSS pintasan harus sudah bersih dihapus dari css/pages/kamus.css!"
     print("  ✔ Kamus bersih dari notifikasi pintasan keyboard.")
 

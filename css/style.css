@@ -6,7 +6,8 @@
    Sistem Desain: Obsidian Gelap & Putih Bersih, Pola Wagara, Responsif
    Arsitektur Berbasis Halaman 100% Intuitif (css/pages/)
    Urutan Cascade Dipertahankan Sempurna (100% Identik & Zero Conflict)
-   Revisi: 2026-10-18 - Aturan Selang-Seling Warna: Studio Terjemahan Hitam & KTPNK Putih
+   Catatan: Proyek kini menggunakan pemuatan modular per-halaman secara mandiri
+   dan terstruktur agar efisien serta intuitif saat di-tag (@) dalam editor.
    ========================================================================== */
 
 /* 1. Global: Variabel root, reset, background selang-seling, tombol dasar, dark mode, 404, animasi */
@@ -24,8 +25,8 @@
 /* 5. Kamus & Aksara: Kamus kanji/kana, stroke order kanjivg, kanvas goresan, & quick button */
 @import url('pages/kamus.css');
 
-/* 6. Kegiatan & Divisi: Struktur 4 divisi, program kerja tahunan, fasilitas klub, & galeri slider */
-@import url('pages/kegiatan-divisi.css');
+/* 6. Program, Fasilitas & Divisi: Struktur 4 divisi, program kerja tahunan, fasilitas klub, & galeri slider */
+@import url('pages/program-fasilitas-divisi.css');
 
 /* 7. Tentang Klub: Profil klub, bendera, filosofi, logo, slogan, visi-misi, sejarah, haori, pengurus, FAQ */
 @import url('pages/tentang.css');

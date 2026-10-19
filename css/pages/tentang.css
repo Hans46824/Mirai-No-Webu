@@ -3313,7 +3313,7 @@ RESPACING MINIMAL UNTUK HALAMAN TENTANG (.page-tentang)
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
 }
 
-.about-intro-card::after, .about-name-card::after, .history-origin-card::after, .slogan-hero-card::after, .slogan-card::after, .achievement-card::after, .accessory-card::after, .accessory-banner-card::after, .timeline-content::after, .prestasi-stat-box::after, .podium-card::after, .lb-category-desc-card::after, .lb-table-card::after, .lb-system-info-card::after, .quote-card::after {
+.about-intro-card::after, .about-name-card::after, .history-origin-card::after, .slogan-hero-card::after, .slogan-card::after, .achievement-card::after, .accessory-card::after, .accessory-banner-card::after, .timeline-content::after, .prestasi-stat-box::after, .podium-card::after, .lb-category-desc-card::after, .lb-table-card::after, .lb-system-info-card::after, body.page-tentang .quote-card:not(.quote-theme-white)::after {
   content: "" !important;
   position: absolute !important;
   inset: 0 !important;
@@ -3329,12 +3329,12 @@ RESPACING MINIMAL UNTUK HALAMAN TENTANG (.page-tentang)
   transition: opacity 0.3s ease, transform 0.3s ease !important;
 }
 
-.about-intro-card:hover::after, .about-name-card:hover::after, .history-origin-card:hover::after, .slogan-hero-card:hover::after, .slogan-card:hover::after, .achievement-card:hover::after, .accessory-card:hover::after, .accessory-banner-card:hover::after, .timeline-node:hover .timeline-content::after, .prestasi-stat-box:hover::after, .podium-card:hover::after, .lb-category-desc-card:hover::after, .lb-table-card:hover::after, .lb-system-info-card:hover::after, .quote-card:hover::after {
+.about-intro-card:hover::after, .about-name-card:hover::after, .history-origin-card:hover::after, .slogan-hero-card:hover::after, .slogan-card:hover::after, .achievement-card:hover::after, .accessory-card:hover::after, .accessory-banner-card:hover::after, .timeline-node:hover .timeline-content::after, .prestasi-stat-box:hover::after, .podium-card:hover::after, .lb-category-desc-card:hover::after, .lb-table-card:hover::after, .lb-system-info-card:hover::after, body.page-tentang .quote-card:not(.quote-theme-white):hover::after {
   opacity: var(--opacity-w1b-hover)!important;
   transform: scale(1.02) !important;
 }
 
-.about-intro-card > *, .about-name-card > *, .history-origin-card > *, .slogan-hero-card > *, .slogan-card > *, .achievement-card > *, .accessory-card > *, .accessory-banner-card > *, .timeline-content > *, .prestasi-stat-box > *, .podium-card > *, .lb-category-desc-card > *, .lb-table-card > *, .lb-system-info-card > *, .quote-card > * {
+.about-intro-card > *, .about-name-card > *, .history-origin-card > *, .slogan-hero-card > *, .slogan-card > *, .achievement-card > *, .accessory-card > *, .accessory-banner-card > *, .timeline-content > *, .prestasi-stat-box > *, .podium-card > *, .lb-category-desc-card > *, .lb-table-card > *, .lb-system-info-card > *, body.page-tentang .quote-card > * {
   position: relative !important;
   z-index: 2 !important;
 }
@@ -3852,8 +3852,15 @@ body.page-tentang main > section.feedback-preview {
   color: #f5edf4 !important;
 }
 
-body.page-tentang .feedback-feature-card::after {
+body.page-tentang .feedback-theme-dark .feedback-feature-card::after {
   background-image: url("../../images/mirai/background/w1b.jpeg") !important;
+  opacity: var(--opacity-w1b) !important;
+  mix-blend-mode: screen !important;
+}
+body.page-tentang .feedback-theme-white .feedback-feature-card::after {
+  background-image: url("../../images/mirai/background/w1w.jpeg") !important;
+  opacity: var(--opacity-w1w) !important;
+  mix-blend-mode: multiply !important;
 }
 /* ==========================================================================
 ATURAN PATTERN SELANG-SELING KARTU 8 HALAMAN MENU UTAMA

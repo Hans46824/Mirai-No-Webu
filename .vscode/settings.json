@@ -13,7 +13,7 @@
     "**/js/stroke-data.js": true,
     "**/skrip/arsip/**": true,
     "**/*.bak": true,
-    "**/js/kanji-data.js": true
+    "**/js/kamus-kanji-data.js": true
   },
   "files.watcherExclude": {
     "**/.git": true,
@@ -22,6 +22,6 @@
     "**/js/stroke-data.js": true,
     "**/skrip/arsip/**": true,
     "**/*.bak": true,
-    "**/js/kanji-data.js": true
+    "**/js/kamus-kanji-data.js": true
   }
 }

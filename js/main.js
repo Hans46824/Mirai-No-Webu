@@ -530,7 +530,7 @@ try {
   localStorage.removeItem("mnh_access_unlocked");
   const isUnlocked = sessionStorage.getItem("mnh_access_unlocked") === "true";
   const rawPath = (window.location.pathname || "").toLowerCase();
-  const lockedDirs = ["/toko/", "/peringkat/", "/rekomendasi/", "/lomba/", "/kegiatan/", "/divisi/"];
+  const lockedDirs = ["/toko/", "/peringkat/", "/lomba/", "/kegiatan/", "/divisi/"];
   if (!isUnlocked && lockedDirs.some((dir) => rawPath.includes(dir))) {
     document.documentElement.classList.add("is-page-locked-early");
     if (document.body) {
@@ -1639,7 +1639,6 @@ if (document.body.classList.contains("page-peringkat") ||
   document.body.classList.contains("page-motivasi") ||
   document.body.classList.contains("page-404") ||
   path.includes("/peringkat/") ||
-  path.includes("/rekomendasi/") ||
   path.includes("404")) {
   return true;
 }
@@ -1771,6 +1770,30 @@ if (!masukanEl) {
 
 masukanEl.classList.add("is-visible");
 
+// 1.5. Deteksi dan sinkronisasi keluarga pattern halaman (w1 vs c1)
+const isW1Page = document.body.classList.contains("page-kelas") ||
+  document.body.classList.contains("page-latihan") ||
+  document.body.classList.contains("page-materi") ||
+  document.body.classList.contains("page-kegiatan") ||
+  document.body.classList.contains("page-divisi") ||
+  document.body.classList.contains("page-divisi-hub") ||
+  document.body.classList.contains("page-ktn") ||
+  document.body.classList.contains("page-konbini") ||
+  document.body.classList.contains("page-njr") ||
+  document.body.classList.contains("page-ramadhan") ||
+  document.body.classList.contains("page-tomodachi") ||
+  document.body.classList.contains("page-peringkat") ||
+  document.body.classList.contains("page-tentang");
+
+const patternFamily = isW1Page ? "w1" : "c1";
+if (!document.body.dataset.patternFamily) {
+  document.body.dataset.patternFamily = patternFamily;
+}
+masukanEl.dataset.patternFamily = patternFamily;
+if (footer) {
+  footer.dataset.patternFamily = patternFamily;
+}
+
 // 2. Deteksi warna seksi sebelumnya (Preceding Section)
 const isPrecedingDark = detectIfPrecedingSectionIsDark(masukanEl);
 
@@ -1780,9 +1803,11 @@ const isPrecedingDark = detectIfPrecedingSectionIsDark(masukanEl);
 if (isPrecedingDark) {
   masukanEl.classList.remove("feedback-theme-dark");
   masukanEl.classList.add("feedback-theme-white");
+  masukanEl.dataset.patternColor = "white";
 } else {
   masukanEl.classList.remove("feedback-theme-white");
   masukanEl.classList.add("feedback-theme-dark");
+  masukanEl.dataset.patternColor = "dark";
 }
 
 // 4. Setup Kutipan Motivasi Slider (Kecuali halaman arsip motivasi itu sendiri)
@@ -1791,6 +1816,7 @@ if (!document.body.classList.contains("page-motivasi")) {
   if (!quoteSection) {
     quoteSection = initFooterQuoteSlider(footer, basePath);
   }
+  quoteSection.dataset.patternFamily = patternFamily;
 
   // Terapkan tema selang-seling pada slider kutipan:
   // Jika preceding gelap -> masukan putih -> quote slider HITAM
@@ -1798,9 +1824,11 @@ if (!document.body.classList.contains("page-motivasi")) {
   if (isPrecedingDark) {
     quoteSection.classList.remove("quote-theme-white");
     quoteSection.classList.add("quote-theme-dark");
+    quoteSection.dataset.patternColor = "dark";
   } else {
     quoteSection.classList.remove("quote-theme-dark");
     quoteSection.classList.add("quote-theme-white");
+    quoteSection.dataset.patternColor = "white";
   }
 }
 
@@ -2466,7 +2494,7 @@ document.addEventListener("click", (e) => {
 
   requestAnimationFrame(() => {
     const targetContainers = document.querySelectorAll(
-    "#rekomendasiGrid, #eventsGrid, #tokoProductGrid, .lb-points-grid, .lb-podium-grid, .leaderboard-table-wrapper, .tab-pane.active, .tab-content.active, [data-tab-content].active, .kanji-grid, .mgmt-slider-container"
+    "#eventsGrid, #tokoProductGrid, .lb-points-grid, .lb-podium-grid, .leaderboard-table-wrapper, .tab-pane.active, .tab-content.active, [data-tab-content].active, .kanji-grid, .mgmt-slider-container"
     );
     targetContainers.forEach((container) => {
     container.classList.remove("tab-cascade-animate");
@@ -2784,7 +2812,6 @@ const rawPath = (window.location.pathname || "").toLowerCase();
 const lockedDirs = [
   "/toko/",
   "/peringkat/",
-  "/rekomendasi/",
   "/lomba/",
     "/kegiatan/",
   "/divisi/"
@@ -2808,14 +2835,6 @@ if (rawPath.includes("/peringkat/")) {
     kanji: "リーダーボード",
     icon: "🏆",
     desc: "Sistem papan peringkat dan leaderboard pencapaian belajar anggota klub sedang dalam tahap finalisasi data."
-  };
-}
-if (rawPath.includes("/rekomendasi/")) {
-  return {
-    title: "Rekomendasi Karya & Media",
-    kanji: "おすすめ作品",
-    icon: "⭐",
-    desc: "Kurasi rekomendasi anime, manga, novel, dan media budaya Jepang pilihan sedang disiapkan."
   };
 }
 if (rawPath.includes("/lomba/")) {
@@ -3065,7 +3084,7 @@ if (isUnlocked) {
 }
 
 function updateMenuComingSoonBadges(isUnlocked) {
-const lockedWords = ["toko", "peringkat", "rekomendasi", "lomba", "kegiatan", "divisi"];
+const lockedWords = ["toko", "peringkat", "lomba", "kegiatan", "divisi"];
 const navLinks = document.querySelectorAll(".sidebar-links a");
 
 navLinks.forEach((link) => {
@@ -3270,7 +3289,6 @@ function updateCardsAndButtonsComingSoon(isUnlocked) {
 const lockedWords = [
   "toko",
   "peringkat",
-  "rekomendasi",
   "lomba",
     "kegiatan",
   "divisi",

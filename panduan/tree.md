@@ -26,7 +26,7 @@ Mirai-No-Webu/
 │       ├── beranda.css             # Apa itu web, start-grid, aktivitas beranda (2 kartu besar), masukan & saran, quote slider
 │       ├── kelas-materi.css        # Alur kelas, kelas dasar (#dasar), kelas lanjutan (#lanjutan), buuku lesson, kurikulum, kuis latihan
 │       ├── kamus.css               # Kamus kana & kanji, stage goresan KanjiVG, kanvas Yoon, quick stroke button
-│       ├── kegiatan-divisi.css     # Hub kegiatan, 5 halaman proker, 4 divisi resmi, fasilitas klub (format landscape), slider galeri
+│       ├── program-fasilitas-divisi.css     # Hub kegiatan, 5 halaman proker, 4 divisi resmi, fasilitas klub (format landscape), slider galeri
 │       ├── tentang.css             # Profil klub, bendera, logo, slogan, visi misi, timeline angkatan 1-8, Sora RPG, prestasi, haori, FAQ
 │       ├── rekomendasi-motivasi.css # Kata motivasi anime (3 box), rekomendasi pop culture, & media legal
 │       ├── peringkat.css           # Multi-leaderboard keaktifan rajio, presensi kehadiran, podium rank 1-3, tabel skor, modal riwayat
@@ -35,18 +35,18 @@ Mirai-No-Webu/
 │
 ├── js/                             # Logika JavaScript Modular
 │   ├── main.js                     # Logika navbar, sidebar mobile, launcher Sora, dan tema
-│   ├── script.js                   # Master interaksi kuis, kartu, & efek interaktif global
+│   ├── kelas-latihan.js                   # Master interaksi kuis, kartu, & efek interaktif global
 │   ├── leaderboard-data.js         # Master data profil peringkat & prestasi
 │   ├── sora.js                     # Logika bot obrolan & fallback jawaban cerdas Sora
-│   ├── kanji-data.js               # Basis data embedded 2.211 Kanji Joyo & JLPT
-│   ├── kanji.js                    # Mesin pencari & filter ensiklopedia Kanji
-│   ├── kana.js                     # Logika audio pelafalan & kartu Kana
+│   ├── kamus-kanji-data.js               # Basis data embedded 2.211 Kanji Joyo & JLPT
+│   ├── kamus-kanji.js                    # Mesin pencari & filter ensiklopedia Kanji
+│   ├── kamus-kana.js                     # Logika audio pelafalan & kartu Kana
 │   ├── stroke.js                   # Animasi kanvas urutan goresan Yoon & kanji
 │   ├── stroke-data.js              # Vektor koordinat garis KanjiVG terkurasi (dikecualikan dari watcher)
 │   ├── stroke-overrides.js         # Lapisan override proteksi perbaikan manual & varian goresan
 │   ├── carousel.js                 # Logika slider / carousel umum
-│   ├── proker-slider.js            # Slider khusus halaman kegiatan & proker
-│   ├── translator.js               # Mesin terjemahan adaptif otomatis (ja-id / id-ja), keyboard draggable/resizable, & generator nama KTA
+│   ├── program-slider.js            # Slider khusus halaman kegiatan & proker
+│   ├── kamus-translator.js               # Mesin terjemahan adaptif otomatis (ja-id / id-ja), keyboard draggable/resizable, & generator nama KTA
 │   ├── quiz-divisi.js              # Kuis kepribadian & tes kecocokan 4 divisi
 │   └── api.js                      # Koneksi endpoint data
 │
@@ -62,7 +62,7 @@ Mirai-No-Webu/
 │
 ├── data/                           # Basis Data Lokal JSON (Menyuplai Kamus & Latihan)
 │   ├── README.md                   # Dokumentasi relasi & fungsi basis data JSON
-│   ├── kana.json                   # Database aksara Hiragana & Katakana
+│   ├── kamus-kana.json                   # Database aksara Hiragana & Katakana
 │   ├── kanji-index.json            # Index ringkas 2.211 Kanji Joyo/JLPT untuk pencarian & filter kilat
 │   ├── kanji/                      # Chunk detail kanji per JLPT (dimuat on-demand / idle)
 │   │   ├── n5.json                 # Detail contoh kata & kalimat JLPT N5 (58 KB)
@@ -70,7 +70,7 @@ Mirai-No-Webu/
 │   │   ├── n3.json                 # Detail contoh kata & kalimat JLPT N3 (320 KB)
 │   │   ├── n2.json                 # Detail contoh kata & kalimat JLPT N2 (280 KB)
 │   │   └── n1.json                 # Detail contoh kata & kalimat JLPT N1 (734 KB)
-│   ├── kanji.json                  # Database lengkap master 2.211 karakter Jōyō & JLPT (Single Source of Truth)
+│   ├── kamus-kanji.json                  # Database lengkap master 2.211 karakter Jōyō & JLPT (Single Source of Truth)
 │   ├── kanji-meta.json             # Metadata radikal, level JLPT, & jumlah goresan
 │   ├── stroke-master.json          # Master data koordinat goresan 2.375 karakter (Single Source of Truth)
 │   ├── strokes/                    # Chunk koordinat vektor goresan per JLPT (dimuat on-demand)

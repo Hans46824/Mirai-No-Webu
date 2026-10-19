@@ -131,7 +131,7 @@ def main():
 
     print("\n📝 Menerapkan version hash (?v=...) ke file HTML:")
     for hf in html_files:
-        if ".git" in hf or "node_modules" in hf or "skrip/laporan" in hf:
+        if ".git" in hf or "node_modules" in hf or "skrip/laporan" in hf or "arsip" in hf:
             continue
         rel_html = os.path.relpath(hf, BASE_DIR)
         mod = stamp_html_file(hf)

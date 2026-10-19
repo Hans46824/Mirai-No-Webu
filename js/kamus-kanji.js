@@ -1,5 +1,5 @@
 /**
- * File: js/kanji.js
+ * File: js/kamus-kanji.js
  * Fungsi: Mesin pencarian dan ensiklopedia 2.211 Joyo & JLPT Kanji lengkap N5 s/d N1,
  * filter tingkat JLPT/kelas/goresan, render paginasi ringan bertahap (60 kartu per batch),
  * dan modal detail kanji interaktif.
@@ -1335,7 +1335,7 @@ if (!btn.dataset.initialized) {
     // Jika belum ada kartu yang dipilih atau animasi belum muncul, auto-select kartu pertama pada panel aktif
     const activePanel = document.querySelector('[data-script-panel]:not([hidden])') || document;
     const strokePlayer = activePanel.querySelector('[data-stroke-player], [data-kanji-stroke-player], #stroke-stage');
-    
+
     if (!strokePlayer || !strokePlayer.hasChildNodes()) {
       const firstCard = activePanel.querySelector('.kana-card.is-selected') || activePanel.querySelector('.kana-card') || activePanel.querySelector('.kanji-card');
       if (firstCard) {

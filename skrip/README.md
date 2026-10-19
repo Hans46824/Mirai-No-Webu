@@ -1,23 +1,35 @@
-# Kumpulan Skrip Pembantu Pengembang (Otomasi Python)
+# 🛠️ Kumpulan Skrip Utilitas Pemeliharaan (Mirai No Webu)
 
-Folder ini berisi sekumpulan skrip otomasi Python (`.py`) yang digunakan oleh pengembang / AI asisten untuk pemeliharaan dan pembaruan massal kode di balik layar:
+Folder ini berisi 5 skrip utilitas pemeliharaan utama berbasis Python (`.py`) yang digunakan oleh pengembang dan AI asisten untuk pemeliharaan performa, data, dan arsitektur kode:
 
-## Fungsi Skrip-Skrip:
-- **`apply_card_expand.py`**: Skrip idempoten pembaruan mode interaktif tap-to-expand pada kartu Beranda dan Tentang.
-- **`add_nametag.py`**: Skrip penambahan atribut nametag katakana pengurus.
-- **`fix_heroes.py`**: Skrip perbaikan tata letak seksi hero banner.
-- **`fix_index_links.py`**: Skrip perbaikan tautan beranda utama.
-- **`fix_japanese.py`**: Skrip sinkronisasi glif dan teks aksara Jepang.
-- **`fix_sora.py` & `fix_sora2.py`**: Skrip penyempurnaan integrasi widget obrolan Sora.
-- **`move_menu_btn.py`**: Skrip penyesuaian posisi tombol menu navigasi mobile.
-- **`replace_cards.py` & `replace_cards_revert.py`**: Skrip pembaruan tata letak kartu modul.
-- **`replace_sidebar_text.py`**: Skrip pembaruan teks bilah navigasi samping.
-- **`replace_sora_grid.py`**: Skrip penataan tata letak grid kartu maskot Sora.
-- **`validate_stroke_data.py`**: Skrip validator independen untuk dataset goresan KanjiVG (`js/stroke-data.js`). Memeriksa validitas viewBox, struktur XML/SVG, format koordinat kurva, urutan goresan, konsistensi metadata, dan menghasilkan manifest cakupan (`data/stroke-coverage-manifest.json`).
-- **`fetch_kanjivg_strokes.py`**: Pipeline pengambilan dan parsing resmi XML/SVG KanjiVG dengan penggabungan bertahap (incremental merge), proteksi dataset lama (staging), dan validasi pra-terap otomatis.
-- **`update_carousel.py` & `update_carousel_js.py`**: Skrip pembaruan logika slider/carousel poster.
-- **`update_index_hero.py` & `update_kelas.py`**: Skrip pemeliharaan berkas tampilan beranda dan kelas.
+## 📋 5 Skrip Utilitas Utama:
+
+1. **`skrip/optimasi-performa.py`**
+   - Kompresi gambar WebP/PNG secara fisik.
+   - Preload aset Hero & prioritas tinggi di seluruh halaman web.
+   - Sinkronisasi version hash aset (`?v=...`) ke seluruh file HTML & `service-worker.js`.
+
+2. **`skrip/rapikan-kode.py`**
+   - Formatter multi-line CSS/JS & pembersih trailing whitespace.
+   - Pembersihan otomatis cache `__pycache__` dan file temporer `.pyc`.
+   - Pengecekan keseimbangan kurung & delimiter di seluruh kode JavaScript.
+
+3. **`skrip/validasi-goresan.py`**
+   - Validator independen data urutan goresan KanjiVG (`js/stroke-data.js` & `data/strokes/*.json`).
+   - Memeriksa keabsahan path SVG, format viewBox (0..109), dan urutan goresan karakter.
+   - Menghasilkan manifest cakupan data di `data/stroke-coverage-manifest.json`.
+
+4. **`skrip/sinkron-data-kamus.py`**
+   - Sinkronisasi master data `data/kanji.json` ke indeks ramping `data/kanji-index.json`.
+   - Pemecahan data kamus & koordinat goresan menjadi chunk on-demand per level JLPT (N5–N1).
+   - Memastikan initial load kamus tetap ringan (<= 700 KB).
+
+5. **`skrip/cek-ukuran-web.py`**
+   - Audit beban statik ukuran seluruh halaman web dan aset lokal (HTML, CSS, JS, data JSON).
+   - Menghitung ukuran mentah (*raw bytes*) dan estimasi transfer terkompresi (*gzip*).
+   - Menulis laporan terstruktur ke `skrip/laporan/page-weight.md`.
+
+---
 
 > [!NOTE]
 > **Catatan Pengembang**: Skrip-skrip ini **hanya dijalankan di terminal lokal saat proses pengembangan**, dan **TIDAK dijalankan di peramban pengguna** (website berjalan mandiri dengan HTML, CSS, dan JavaScript).
-

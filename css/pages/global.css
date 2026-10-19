@@ -50,6 +50,15 @@ Daftar Isi:
   --pattern-opacity-dark: var(--opacity-c1b);
   --pattern-opacity-dark-hover: var(--opacity-c1b-hover);
 
+  /* Variabel Dinamis Pola Pattern Per Halaman (Default: C1 Awan Kumo) */
+  --page-pattern-family: "c1";
+  --page-pattern-white: var(--pattern-c1w);
+  --page-pattern-dark: var(--pattern-c1b);
+  --page-pattern-opacity-white: var(--opacity-c1w);
+  --page-pattern-opacity-white-hover: var(--opacity-c1w-hover);
+  --page-pattern-opacity-dark: var(--opacity-c1b);
+  --page-pattern-opacity-dark-hover: var(--opacity-c1b-hover);
+
   --font-jp: 'Noto Serif JP', serif;
   --font-jp-sans: 'Noto Sans JP', sans-serif;
   --font-main: 'Plus Jakarta Sans', Arial, sans-serif;
@@ -74,6 +83,59 @@ Daftar Isi:
   --muted: #6b626e;
   --pink-soft: #fff0f5;
   --pink-border: #f4bfd3;
+}
+
+/* ==========================================================================
+SISTEM PATTERN PER HALAMAN (DYNAMIC PAGE PATTERN FAMILY)
+1. W1 Pages (Wagara Ombak Seigaiha): Kelas, Latihan, Materi, Kegiatan, Divisi, Peringkat, Tentang
+   -> Kartu Putih: w1w.jpeg (multiply)
+   -> Kartu Hitam & Disclaimer: w1b.jpeg (screen)
+2. C1 Pages (Awan Kumo): Beranda, Kamus, Toko, Rekomendasi, Lomba, Sora, 404, Offline
+   -> Kartu Putih: c1w.jpeg (multiply)
+   -> Kartu Hitam & Disclaimer: c1b.jpeg (screen)
+========================================================================== */
+body.page-kelas,
+body.page-latihan,
+body.page-materi,
+body.page-kegiatan,
+body.page-divisi,
+body.page-divisi-hub,
+body.page-ktn,
+body.page-konbini,
+body.page-njr,
+body.page-ramadhan,
+body.page-tomodachi,
+body.page-peringkat,
+body.page-tentang,
+body[data-pattern-family="w1"],
+.pattern-family-w1 {
+  --page-pattern-family: "w1";
+  --page-pattern-white: var(--pattern-w1w);
+  --page-pattern-dark: var(--pattern-w1b);
+  --page-pattern-opacity-white: var(--opacity-w1w);
+  --page-pattern-opacity-white-hover: var(--opacity-w1w-hover);
+  --page-pattern-opacity-dark: var(--opacity-w1b);
+  --page-pattern-opacity-dark-hover: var(--opacity-w1b-hover);
+}
+
+body.page-beranda,
+body.page-kamus,
+body.page-kanji,
+body.page-toko,
+body.page-motivasi,
+body.page-lomba,
+body.page-404,
+body.page-sora,
+body.offline-page,
+body[data-pattern-family="c1"],
+.pattern-family-c1 {
+  --page-pattern-family: "c1";
+  --page-pattern-white: var(--pattern-c1w);
+  --page-pattern-dark: var(--pattern-c1b);
+  --page-pattern-opacity-white: var(--opacity-c1w);
+  --page-pattern-opacity-white-hover: var(--opacity-c1w-hover);
+  --page-pattern-opacity-dark: var(--opacity-c1b);
+  --page-pattern-opacity-dark-hover: var(--opacity-c1b-hover);
 }
 
 .learning-app [hidden] {
@@ -2362,52 +2424,137 @@ section.feedback-preview.feedback-theme-white {
   color: #374151 !important;
 }
 
-section.feedback-preview.feedback-theme-white .feedback-feature-card {
+section.feedback-preview.feedback-theme-white .feedback-feature-card,
+.feedback-theme-white .feedback-feature-card {
   background: #ffffff !important;
   border: 1.5px solid #f4bfd3 !important;
   box-shadow: 0 16px 45px rgba(233, 30, 99, 0.08), 0 4px 18px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  position: relative !important;
+  overflow: hidden !important;
 }
 
-section.feedback-preview.feedback-theme-white .feedback-feature-card:hover {
+section.feedback-preview.feedback-theme-white .feedback-feature-card:hover,
+.feedback-theme-white .feedback-feature-card:hover {
   border-color: var(--pink, #e91e63) !important;
   box-shadow: 0 24px 50px rgba(233, 30, 99, 0.18), 0 8px 22px rgba(0, 0, 0, 0.06) !important;
 }
 
-section.feedback-preview.feedback-theme-white .card-sub-jp {
-  color: #d81b60 !important;
+section.feedback-preview.feedback-theme-white .feedback-feature-card::after,
+.feedback-theme-white .feedback-feature-card::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background-image: var(--page-pattern-white, url("../../images/mirai/background/c1w.jpeg")) !important;
+  background-size: 200px auto !important;
+  background-repeat: repeat !important;
+  background-position: center top !important;
+  opacity: var(--page-pattern-opacity-white, var(--opacity-c1w)) !important;
+  mix-blend-mode: multiply !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+  border-radius: inherit !important;
+  display: block !important;
+  transition: opacity 0.3s ease, transform 0.3s ease !important;
 }
 
-section.feedback-preview.feedback-theme-white .feedback-card-title, section.feedback-preview.feedback-theme-white .feedback-feature-card h2, section.feedback-preview.feedback-theme-white .feedback-feature-card .heading {
-  color: #18151b !important;
+section.feedback-preview.feedback-theme-white .feedback-feature-card:hover::after,
+.feedback-theme-white .feedback-feature-card:hover::after {
+  opacity: var(--page-pattern-opacity-white-hover, var(--opacity-c1w-hover)) !important;
 }
 
-section.feedback-preview.feedback-theme-white .feedback-card-title span.highlight, section.feedback-preview.feedback-theme-white .feedback-card-title span {
-  color: var(--pink, #e91e63) !important;
+section.feedback-preview.feedback-theme-white .feedback-feature-card > *:not(.card-toggle):not(.card-corner-chibi),
+.feedback-theme-white .feedback-feature-card > *:not(.card-toggle):not(.card-corner-chibi),
+section.feedback-preview .feedback-feature-card > *:not(.card-toggle):not(.card-corner-chibi),
+.feedback-feature-card > *:not(.card-toggle):not(.card-corner-chibi) {
+  position: relative !important;
+  z-index: 2 !important;
 }
 
-section.feedback-preview.feedback-theme-white .feedback-card-desc, section.feedback-preview.feedback-theme-white .feedback-feature-card p {
-  color: #374151 !important;
+/* Tombol Toggle Panah Atas-Bawah: Pojok Kanan Atas */
+section.feedback-preview .feedback-feature-card > .card-toggle,
+.feedback-feature-card > .card-toggle {
+  position: absolute !important;
+  top: 22px !important;
+  right: 22px !important;
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 10 !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
 }
 
-section.feedback-preview.feedback-theme-white .feedback-feature-tag {
+section.feedback-preview.feedback-theme-white .card-toggle,
+.feedback-theme-white .card-toggle,
+body.page-beranda .feedback-feature-card .card-toggle {
   background: rgba(233, 30, 99, 0.08) !important;
-  border: 1.5px solid rgba(233, 30, 99, 0.28) !important;
-  color: #d81b60 !important;
+  border: 1.5px solid rgba(233, 30, 99, 0.3) !important;
+  color: #e91e63 !important;
 }
 
-section.feedback-preview.feedback-theme-white .feedback-feature-tag .badge-dot {
-  background: var(--pink, #e91e63) !important;
-  box-shadow: 0 0 6px rgba(233, 30, 99, 0.45) !important;
-}
-
-section.feedback-preview.feedback-theme-white .card-toggle {
-  background: rgba(233, 30, 99, 0.06) !important;
-  border: 1px solid rgba(233, 30, 99, 0.28) !important;
-}
-
-section.feedback-preview.feedback-theme-white .card-toggle::after {
+section.feedback-preview.feedback-theme-white .card-toggle::after,
+.feedback-theme-white .card-toggle::after,
+body.page-beranda .feedback-feature-card .card-toggle::after {
+  content: "" !important;
+  display: block !important;
+  width: 8px !important;
+  height: 8px !important;
   border-right: 2px solid #e91e63 !important;
   border-bottom: 2px solid #e91e63 !important;
+  transform: translateY(-2px) rotate(45deg) !important;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+section.feedback-preview .feedback-feature-card.is-expanded .card-toggle::after,
+.feedback-feature-card.is-expanded .card-toggle::after {
+  transform: translateY(2px) rotate(-135deg) !important;
+}
+
+/* Maskot Chibi: Pojok Kanan Bawah */
+section.feedback-preview .feedback-feature-card > .card-corner-chibi,
+.feedback-feature-card > .card-corner-chibi,
+.feedback-feature-card img.card-corner-chibi {
+  position: absolute !important;
+  bottom: 18px !important;
+  right: 24px !important;
+  left: auto !important;
+  width: 96px !important;
+  height: 96px !important;
+  object-fit: contain !important;
+  z-index: 5 !important;
+  pointer-events: none !important;
+  opacity: 0.96 !important;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.25)) !important;
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  display: block !important;
+}
+
+.feedback-feature-card:hover > .card-corner-chibi {
+  transform: translateY(-5px) scale(1.08) rotate(-3deg) !important;
+}
+
+@media (max-width: 680px) {
+  section.feedback-preview .feedback-feature-card > .card-toggle,
+  .feedback-feature-card > .card-toggle {
+    top: 16px !important;
+    right: 16px !important;
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  section.feedback-preview .feedback-feature-card > .card-corner-chibi,
+  .feedback-feature-card > .card-corner-chibi,
+  .feedback-feature-card img.card-corner-chibi {
+    bottom: 12px !important;
+    right: 14px !important;
+    width: 72px !important;
+    height: 72px !important;
+  }
 }
 /* --- KRITIK & SARAN TEMA HITAM (.feedback-theme-dark) --- */
 section.feedback-preview.feedback-theme-dark {
@@ -2416,15 +2563,48 @@ section.feedback-preview.feedback-theme-dark {
   color: #f5edf4 !important;
 }
 
-section.feedback-preview.feedback-theme-dark .feedback-feature-card {
+section.feedback-preview.feedback-theme-dark .feedback-feature-card,
+.feedback-theme-dark .feedback-feature-card {
   background: linear-gradient(165deg, #1c1523 0%, #130f18 100%) !important;
   border: 1.5px solid rgba(255, 101, 155, 0.28) !important;
   box-shadow: 0 16px 44px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+  position: relative !important;
+  overflow: hidden !important;
 }
 
-section.feedback-preview.feedback-theme-dark .feedback-feature-card:hover {
+section.feedback-preview.feedback-theme-dark .feedback-feature-card:hover,
+.feedback-theme-dark .feedback-feature-card:hover {
   border-color: var(--pink, #e91e63) !important;
   box-shadow: 0 24px 50px rgba(233, 30, 99, 0.22), 0 6px 18px rgba(0, 0, 0, 0.6) !important;
+}
+
+section.feedback-preview.feedback-theme-dark .feedback-feature-card::after,
+.feedback-theme-dark .feedback-feature-card::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background-image: var(--page-pattern-dark, url("../../images/mirai/background/c1b.jpeg")) !important;
+  background-size: 200px auto !important;
+  background-repeat: repeat !important;
+  background-position: center top !important;
+  opacity: var(--page-pattern-opacity-dark, var(--opacity-c1b)) !important;
+  mix-blend-mode: screen !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+  border-radius: inherit !important;
+  display: block !important;
+  transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+
+section.feedback-preview.feedback-theme-dark .feedback-feature-card:hover::after,
+.feedback-theme-dark .feedback-feature-card:hover::after {
+  opacity: var(--page-pattern-opacity-dark-hover, var(--opacity-c1b-hover)) !important;
+}
+
+section.feedback-preview.feedback-theme-dark .feedback-feature-card > *:not(.card-toggle):not(.card-corner-chibi),
+.feedback-theme-dark .feedback-feature-card > *:not(.card-toggle):not(.card-corner-chibi) {
+  position: relative !important;
+  z-index: 2 !important;
 }
 
 section.feedback-preview.feedback-theme-dark .card-sub-jp {
@@ -2502,11 +2682,11 @@ section.feedback-preview.feedback-theme-dark .card-toggle::after {
   content: "" !important;
   position: absolute !important;
   inset: 0 !important;
-  background-image: var(--pattern-c1b, url("../../images/mirai/background/c1b.jpeg")) !important;
+  background-image: var(--page-pattern-dark, url("../../images/mirai/background/c1b.jpeg")) !important;
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: var(--opacity-c1b)!important;
+  opacity: var(--page-pattern-opacity-dark, var(--opacity-c1b)) !important;
   mix-blend-mode: screen !important;
   pointer-events: none !important;
   z-index: 1 !important;
@@ -2517,7 +2697,7 @@ section.feedback-preview.feedback-theme-dark .card-toggle::after {
 
 .section-quote-slider.quote-theme-dark .quote-card:hover::after,
 .quote-card:not(.quote-theme-white):hover::after {
-  opacity: 0.07 !important;
+  opacity: var(--page-pattern-opacity-dark-hover, var(--opacity-c1b-hover)) !important;
   transform: scale(1.02) !important;
 }
 
@@ -3255,16 +3435,22 @@ html.is-page-locked-early main, body.is-page-locked main {
   content: "" !important;
   position: absolute !important;
   inset: 0 !important;
-  background-image: url("../../images/mirai/background/w1w.jpeg") !important;
+  background-image: var(--page-pattern-white, url("../../images/mirai/background/c1w.jpeg")) !important;
   background-size: 200px auto !important;
   background-repeat: repeat !important;
   background-position: center top !important;
-  opacity: var(--opacity-w1w)!important;
+  opacity: var(--page-pattern-opacity-white, var(--opacity-c1w)) !important;
   mix-blend-mode: multiply !important;
   pointer-events: none !important;
   z-index: 1 !important;
   border-radius: inherit !important;
   display: block !important;
+  transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+
+.section-quote-slider.quote-theme-white .quote-card:hover::after {
+  opacity: var(--page-pattern-opacity-white-hover, var(--opacity-c1w-hover)) !important;
+  transform: scale(1.02) !important;
 }
 
 .section-quote-slider.quote-theme-white .quote-card > * {
@@ -3302,6 +3488,56 @@ html.is-page-locked-early main, body.is-page-locked main {
   display: none !important;
   background-image: none !important;
 }
+
+/* ==========================================================================
+   EKSPLISIT OVERRIDE PATTERN: KRITIK & SARAN & KUTIPAN INSPIRATIF
+   - Halaman W1: Kartu Putih -> w1w.jpeg (multiply), Kartu Hitam -> w1b.jpeg (screen)
+   - Halaman C1: Kartu Putih -> c1w.jpeg (multiply), Kartu Hitam -> c1b.jpeg (screen)
+   ========================================================================== */
+/* 1. Halaman W1: Kartu Putih & Hover */
+:is(body[data-pattern-family="w1"], body.page-kelas, body.page-latihan, body.page-materi, body.page-kegiatan, body.page-divisi, body.page-divisi-hub, body.page-ktn, body.page-konbini, body.page-njr, body.page-ramadhan, body.page-tomodachi, body.page-peringkat, body.page-tentang) :is(.feedback-theme-white .feedback-feature-card, .section-quote-slider.quote-theme-white .quote-card)::after {
+  background-image: url("../../images/mirai/background/w1w.jpeg") !important;
+  opacity: var(--opacity-w1w) !important;
+  mix-blend-mode: multiply !important;
+}
+
+:is(body[data-pattern-family="w1"], body.page-kelas, body.page-latihan, body.page-materi, body.page-kegiatan, body.page-divisi, body.page-divisi-hub, body.page-ktn, body.page-konbini, body.page-njr, body.page-ramadhan, body.page-tomodachi, body.page-peringkat, body.page-tentang) :is(.feedback-theme-white .feedback-feature-card:hover, .section-quote-slider.quote-theme-white .quote-card:hover)::after {
+  opacity: var(--opacity-w1w-hover) !important;
+}
+
+/* 2. Halaman W1: Kartu Hitam & Hover */
+:is(body[data-pattern-family="w1"], body.page-kelas, body.page-latihan, body.page-materi, body.page-kegiatan, body.page-divisi, body.page-divisi-hub, body.page-ktn, body.page-konbini, body.page-njr, body.page-ramadhan, body.page-tomodachi, body.page-peringkat, body.page-tentang) :is(.feedback-theme-dark .feedback-feature-card, .section-quote-slider.quote-theme-dark .quote-card, .quote-card:not(.quote-theme-white))::after {
+  background-image: url("../../images/mirai/background/w1b.jpeg") !important;
+  opacity: var(--opacity-w1b) !important;
+  mix-blend-mode: screen !important;
+}
+
+:is(body[data-pattern-family="w1"], body.page-kelas, body.page-latihan, body.page-materi, body.page-kegiatan, body.page-divisi, body.page-divisi-hub, body.page-ktn, body.page-konbini, body.page-njr, body.page-ramadhan, body.page-tomodachi, body.page-peringkat, body.page-tentang) :is(.feedback-theme-dark .feedback-feature-card:hover, .section-quote-slider.quote-theme-dark .quote-card:hover, .quote-card:not(.quote-theme-white):hover)::after {
+  opacity: var(--opacity-w1b-hover) !important;
+}
+
+/* 3. Halaman C1: Kartu Putih & Hover */
+:is(body[data-pattern-family="c1"], body.page-beranda, body.page-kamus, body.page-kanji, body.page-toko, body.page-motivasi, body.page-lomba, body.page-404, body.page-sora, body.offline-page) :is(.feedback-theme-white .feedback-feature-card, .section-quote-slider.quote-theme-white .quote-card)::after {
+  background-image: url("../../images/mirai/background/c1w.jpeg") !important;
+  opacity: var(--opacity-c1w) !important;
+  mix-blend-mode: multiply !important;
+}
+
+:is(body[data-pattern-family="c1"], body.page-beranda, body.page-kamus, body.page-kanji, body.page-toko, body.page-motivasi, body.page-lomba, body.page-404, body.page-sora, body.offline-page) :is(.feedback-theme-white .feedback-feature-card:hover, .section-quote-slider.quote-theme-white .quote-card:hover)::after {
+  opacity: var(--opacity-c1w-hover) !important;
+}
+
+/* 4. Halaman C1: Kartu Hitam & Hover */
+:is(body[data-pattern-family="c1"], body.page-beranda, body.page-kamus, body.page-kanji, body.page-toko, body.page-motivasi, body.page-lomba, body.page-404, body.page-sora, body.offline-page) :is(.feedback-theme-dark .feedback-feature-card, .section-quote-slider.quote-theme-dark .quote-card, .quote-card:not(.quote-theme-white))::after {
+  background-image: url("../../images/mirai/background/c1b.jpeg") !important;
+  opacity: var(--opacity-c1b) !important;
+  mix-blend-mode: screen !important;
+}
+
+:is(body[data-pattern-family="c1"], body.page-beranda, body.page-kamus, body.page-kanji, body.page-toko, body.page-motivasi, body.page-lomba, body.page-404, body.page-sora, body.offline-page) :is(.feedback-theme-dark .feedback-feature-card:hover, .section-quote-slider.quote-theme-dark .quote-card:hover, .quote-card:not(.quote-theme-white):hover)::after {
+  opacity: var(--opacity-c1b-hover) !important;
+}
+
 
 /* ==========================================================================
    UTILITY CLASSES SISTEM VISUAL UNIVERSAL MIRAI (WHITELIST & ANTI-BREAK)

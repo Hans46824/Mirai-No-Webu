@@ -1,5 +1,5 @@
 /**
- * File: js/script.js
+ * File: js/kelas-latihan.js
  * Fungsi: Mesin kuis interaktif pembelajaran mandiri Kana Quest (20 soal adaptif, goresan kanvas, dan evaluasi hasil).
  * Penggunaan: Digunakan di kelas/latihan.html (serta modul interaktif lomba, peringkat, rekomendasi, dan toko).
 */
@@ -1249,15 +1249,6 @@ function renderModes() {
       icon: "🔥",
       preview: weakPreviewText,
       subText: weakKanaChars.length > 0 ? `${weakKanaChars.length} huruf sering salah` : "Evaluasi huruf yang sering salah"
-    },
-    {
-      id: "time_attack",
-      label: "⚡ Time Attack 60 Detik",
-      isTimeAttackMode: true,
-      levels: allLevelIds,
-      icon: "⚡",
-      preview: "⚡ Refleks Cepat (Combo)",
-      subText: "Dojo Refleks • 60 detik"
     },
     {
       id: "bunpou",
