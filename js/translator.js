@@ -1803,40 +1803,46 @@ function initNameGenerator() {
   const panelTranslator = document.getElementById('panelTranslator');
   const panelNameGen = document.getElementById('panelNameGen');
 
-  if (!tabBtnTranslator || !tabBtnNameGen || !panelTranslator || !panelNameGen) return;
+  // 1. Tab Switcher Listener (jika tab switcher digunakan di halaman lain / masa lalu)
+  if (tabBtnTranslator && tabBtnNameGen && panelTranslator && panelNameGen) {
+    tabBtnTranslator.addEventListener('click', () => {
+      tabBtnTranslator.classList.add('is-active');
+      tabBtnTranslator.setAttribute('aria-selected', 'true');
+      tabBtnNameGen.classList.remove('is-active');
+      tabBtnNameGen.setAttribute('aria-selected', 'false');
+      panelTranslator.hidden = false;
+      panelTranslator.classList.add('is-active');
+      panelNameGen.hidden = true;
+      panelNameGen.classList.remove('is-active');
+      window.MiraiSound?.playClickIfIdle();
+    });
 
-  // 1. Tab Switcher Listener
-  tabBtnTranslator.addEventListener('click', () => {
-    tabBtnTranslator.classList.add('is-active');
-    tabBtnTranslator.setAttribute('aria-selected', 'true');
-    tabBtnNameGen.classList.remove('is-active');
-    tabBtnNameGen.setAttribute('aria-selected', 'false');
-    panelTranslator.hidden = false;
-    panelTranslator.classList.add('is-active');
-    panelNameGen.hidden = true;
-    panelNameGen.classList.remove('is-active');
-    window.MiraiSound?.playClickIfIdle();
-  });
-
-  tabBtnNameGen.addEventListener('click', () => {
-    tabBtnNameGen.classList.add('is-active');
-    tabBtnNameGen.setAttribute('aria-selected', 'true');
-    tabBtnTranslator.classList.remove('is-active');
-    tabBtnTranslator.setAttribute('aria-selected', 'false');
-    panelNameGen.hidden = false;
-    panelNameGen.classList.add('is-active');
-    panelTranslator.hidden = true;
-    panelTranslator.classList.remove('is-active');
-    window.MiraiSound?.playClickIfIdle();
-    triggerGeneration();
-  });
+    tabBtnNameGen.addEventListener('click', () => {
+      tabBtnNameGen.classList.add('is-active');
+      tabBtnNameGen.setAttribute('aria-selected', 'true');
+      tabBtnTranslator.classList.remove('is-active');
+      tabBtnTranslator.setAttribute('aria-selected', 'false');
+      panelNameGen.hidden = false;
+      panelNameGen.classList.add('is-active');
+      panelTranslator.hidden = true;
+      panelTranslator.classList.remove('is-active');
+      window.MiraiSound?.playClickIfIdle();
+      triggerGeneration();
+    });
+  }
 
   // 2. Elements Form & Result
   const nameInput = document.getElementById('nameGenInput');
   const classInput = document.getElementById('nameGenClass');
+  const birthDateInput = document.getElementById('nameGenBirthDate');
+  const birthDaySelect = document.getElementById('nameGenBirthDay');
+  const birthMonthSelect = document.getElementById('nameGenBirthMonth');
+  const birthYearSelect = document.getElementById('nameGenBirthYear');
   const divisionSelect = document.getElementById('nameGenDivision');
   const generateBtn = document.getElementById('generateNameCardBtn');
   const clearNameBtn = document.getElementById('clearNameInputBtn');
+
+  if (!nameInput && !generateBtn) return;
 
   const resKatakana = document.getElementById('resKatakana');
   const resRomaji = document.getElementById('resRomaji');
@@ -1850,7 +1856,8 @@ function initNameGenerator() {
   const mcardDivisionPill = document.getElementById('mcardDivisionPill');
   const mcardClassPill = document.getElementById('mcardClassPill');
   const mcardKanjiStamp = document.getElementById('mcardKanjiStamp');
-  const mcardIdText = document.getElementById('mcardIdText');
+  const mcardBirthVal = document.getElementById('mcardBirthVal');
+  const mcardIdVal = document.getElementById('mcardIdVal');
   const downloadCardBtn = document.getElementById('downloadCardPngBtn');
 
   const divisionLabels = {
@@ -1861,20 +1868,21 @@ function initNameGenerator() {
     'anggota': '🌸 Anggota Baru Klub'
   };
 
-  function getDeterministicId(name) {
-    let hash = 0;
-    for (let i = 0; i < name.length; i++) {
-      hash = (hash << 5) - hash + name.charCodeAt(i);
-      hash |= 0;
+  function formatBirthDate(val) {
+    if (!val) return '01-12-2008';
+    const match = String(val).trim().match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (match) {
+      return `${match[3]}-${match[2]}-${match[1]}`;
     }
-    const num = Math.abs(hash % 9000) + 1000;
-    return `MNH-2026-${num}`;
+    return val;
   }
 
   function triggerGeneration() {
-    const rawName = (nameInput.value || '').trim() || 'Raditya';
-    const rawClass = (classInput.value || '').trim() || 'X-E2 / Angkatan 8';
-    const divKey = divisionSelect.value || 'bahasa';
+    const rawName = (nameInput?.value || '').trim() || 'Asora Aokita';
+    const rawClass = (classInput?.value || '').trim() || 'XI-F10 / Angkatan 8';
+    const rawBirth = (birthDateInput?.value || '').trim() || '2008-12-01';
+    const formattedBirth = formatBirthDate(rawBirth);
+    const divKey = divisionSelect?.value || 'bahasa';
     const divLabel = divisionLabels[divKey] || divisionLabels['bahasa'];
 
     // Hitung Katakana & Romaji
@@ -1882,7 +1890,6 @@ function initNameGenerator() {
     const romaji = katakanaToRomajiReading(katakana);
     const atejiList = generateAtejiList(rawName);
     const philosophy = synthesizePhilosophy(atejiList, rawName);
-    const memberId = getDeterministicId(rawName);
 
     // Update Result UI
     if (resKatakana) resKatakana.textContent = katakana;
@@ -1906,7 +1913,11 @@ function initNameGenerator() {
     if (mcardLatin) mcardLatin.textContent = rawName;
     if (mcardDivisionPill) mcardDivisionPill.textContent = divLabel;
     if (mcardClassPill) mcardClassPill.textContent = rawClass;
-    if (mcardIdText) mcardIdText.textContent = memberId;
+    if (mcardBirthVal) mcardBirthVal.textContent = formattedBirth;
+    if (mcardIdVal) {
+      const birthDigits = formattedBirth.replace(/[^0-9]/g, '').slice(0, 4) || '0112';
+      mcardIdVal.textContent = `MNH-2026-${birthDigits}`;
+    }
     if (mcardKanjiStamp) {
       mcardKanjiStamp.innerHTML = atejiList.map(a => `<span>${a.kanji}</span>`).join('');
     }
@@ -1934,15 +1945,35 @@ function initNameGenerator() {
   if (classInput) {
     classInput.addEventListener('input', triggerGeneration);
   }
+  function syncBirthDateFromSelects() {
+    if (!birthDaySelect || !birthMonthSelect || !birthYearSelect) return;
+    const d = birthDaySelect.value.padStart(2, '0');
+    const m = birthMonthSelect.value.padStart(2, '0');
+    const y = birthYearSelect.value;
+    if (birthDateInput) {
+      birthDateInput.value = `${y}-${m}-${d}`;
+    }
+    triggerGeneration();
+  }
+
+  [birthDaySelect, birthMonthSelect, birthYearSelect].forEach((sel) => {
+    if (sel) {
+      sel.addEventListener('change', syncBirthDateFromSelects);
+    }
+  });
+
+  if (birthDateInput) {
+    birthDateInput.addEventListener('input', triggerGeneration);
+    birthDateInput.addEventListener('change', triggerGeneration);
+  }
   if (divisionSelect) {
     divisionSelect.addEventListener('change', triggerGeneration);
   }
 
-
   // Audio Katakana Voice Button (Normal & Slow-Mo)
   if (listenKatakanaBtn) {
     listenKatakanaBtn.addEventListener('click', () => {
-      const textToSpeak = resKatakana?.textContent || 'ラディティヤ';
+      const textToSpeak = resKatakana?.textContent || 'アソラ・アオキタ';
       if (window.speakText) {
         window.speakText(textToSpeak, 'ja-JP', false);
       } else if ('speechSynthesis' in window) {
@@ -1954,7 +1985,7 @@ function initNameGenerator() {
   }
   if (listenKatakanaSlowBtn) {
     listenKatakanaSlowBtn.addEventListener('click', () => {
-      const textToSpeak = resKatakana?.textContent || 'ラディティヤ';
+      const textToSpeak = resKatakana?.textContent || 'アソラ・アオキタ';
       if (window.speakText) {
         window.speakText(textToSpeak, 'ja-JP', true);
       } else if ('speechSynthesis' in window) {
@@ -1966,33 +1997,45 @@ function initNameGenerator() {
     });
   }
 
-  // 3. HTML5 Canvas High-Definition PNG Generator
+  // Helper load image for canvas
+  function loadCardImage(src) {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.onerror = () => resolve(null);
+      img.src = src;
+    });
+  }
+
+  // 3. HTML5 Canvas High-Definition PNG Generator (KTP Style Nihongo Kurabu)
   if (downloadCardBtn) {
-    downloadCardBtn.addEventListener('click', () => {
+    downloadCardBtn.addEventListener('click', async () => {
       window.MiraiSound?.playClickIfIdle();
-      const rawName = (nameInput.value || '').trim() || 'Raditya';
-      const rawClass = (classInput.value || '').trim() || 'Anggota Klub';
-      const divKey = divisionSelect.value || 'bahasa';
+      const rawName = (nameInput?.value || '').trim() || 'Asora Aokita';
+      const rawClass = (classInput?.value || '').trim() || 'XI-F10 / Angkatan 8';
+      const rawBirth = (birthDateInput?.value || '').trim() || '2008-12-01';
+      const formattedBirth = formatBirthDate(rawBirth);
+      const divKey = divisionSelect?.value || 'bahasa';
       const divLabel = divisionLabels[divKey] || divisionLabels['bahasa'];
       const katakana = resKatakana?.textContent || indonesianToKatakana(rawName);
       const atejiList = generateAtejiList(rawName);
-      const memberId = mcardIdText?.textContent || getDeterministicId(rawName);
+      const birthDigits = formattedBirth.replace(/[^0-9]/g, '').slice(0, 4) || '0112';
+      const idCode = `MNH-2026-${birthDigits}`;
+
+      // Preload Gambar Logo NK & Foto Sora
+      const [logoImg, photoImg] = await Promise.all([
+        loadCardImage('../images/mirai/logo/NK.png'),
+        loadCardImage('../images/mirai/karakter/sora-ktp.png')
+      ]);
 
       // Render Canvas
       const canvas = document.createElement('canvas');
-      canvas.width = 960;
-      canvas.height = 560;
+      canvas.width = 1000;
+      canvas.height = 600;
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
 
-      // a. Background Gradient Obsidian
-      const bgGrad = ctx.createLinearGradient(0, 0, 960, 560);
-      bgGrad.addColorStop(0, '#191224');
-      bgGrad.addColorStop(0.5, '#120d1a');
-      bgGrad.addColorStop(1, '#09070d');
-      ctx.fillStyle = bgGrad;
-      
-      // Rounded card shape
+      // Rounded card shape helper
       function roundRect(ctx, x, y, w, h, r) {
         ctx.beginPath();
         ctx.moveTo(x + r, y);
@@ -2003,124 +2046,257 @@ function initNameGenerator() {
         ctx.closePath();
       }
 
-      roundRect(ctx, 0, 0, 960, 560, 32);
+      // a. Background Gradient Putih & Pink Halus
+      const bgGrad = ctx.createLinearGradient(0, 0, 1000, 600);
+      bgGrad.addColorStop(0, '#ffffff');
+      bgGrad.addColorStop(0.55, '#fff2f6');
+      bgGrad.addColorStop(1, '#fce7f0');
+      ctx.fillStyle = bgGrad;
+      roundRect(ctx, 0, 0, 1000, 600, 32);
       ctx.fill();
 
-      // b. Decorative Outer Border (Pink Gold)
+      // b. Decorative Outer Border (Rose Pink)
       ctx.lineWidth = 3;
-      ctx.strokeStyle = 'rgba(255, 101, 155, 0.45)';
-      roundRect(ctx, 2, 2, 956, 556, 30);
+      ctx.strokeStyle = 'rgba(233, 30, 99, 0.45)';
+      roundRect(ctx, 2, 2, 996, 596, 30);
       ctx.stroke();
 
       // c. Inner Dashed Border
       ctx.setLineDash([8, 8]);
       ctx.lineWidth = 1.5;
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.14)';
-      roundRect(ctx, 16, 16, 928, 528, 20);
+      ctx.strokeStyle = 'rgba(233, 30, 99, 0.22)';
+      roundRect(ctx, 16, 16, 968, 568, 20);
       ctx.stroke();
       ctx.setLineDash([]); // reset
 
-      // d. Watermark Crest & Sakura Circle on Right
+      // d. Watermark Crest di Belakang
       ctx.save();
       ctx.beginPath();
-      ctx.arc(810, 280, 160, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(255, 101, 155, 0.08)';
-      ctx.lineWidth = 40;
+      ctx.arc(830, 300, 170, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(233, 30, 99, 0.04)';
+      ctx.lineWidth = 36;
       ctx.stroke();
       ctx.restore();
 
-      // e. Header Bar
-      ctx.fillStyle = '#ff659b';
-      ctx.font = 'bold 30px "Plus Jakarta Sans", Arial, sans-serif';
-      ctx.fillText('🌸 MIRAI NO HANA', 42, 68);
+      // e. Header: Logo NK (Lingkaran)
+      if (logoImg) {
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(68, 68, 28, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.clip();
+        ctx.drawImage(logoImg, 40, 40, 56, 56);
+        ctx.restore();
 
-      ctx.fillStyle = 'rgba(255, 215, 230, 0.82)';
-      ctx.font = '600 16px "Noto Serif JP", serif';
-      ctx.fillText('未来之花 · 会員証 (KARTU ANGGOTA RESMI)', 44, 94);
+        // Border logo
+        ctx.beginPath();
+        ctx.arc(68, 68, 28, 0, Math.PI * 2);
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#f472b6';
+        ctx.stroke();
+      } else {
+        const nkGrad = ctx.createLinearGradient(40, 40, 96, 96);
+        nkGrad.addColorStop(0, '#ff4081');
+        nkGrad.addColorStop(1, '#e91e63');
+        ctx.fillStyle = nkGrad;
+        roundRect(ctx, 40, 40, 56, 56, 28);
+        ctx.fill();
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 20px "Plus Jakarta Sans", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('NK', 68, 76);
+      }
 
-      // ID Tag Pill
-      ctx.fillStyle = 'rgba(255, 101, 155, 0.18)';
-      roundRect(ctx, 720, 42, 195, 42, 21);
-      ctx.fill();
-      ctx.strokeStyle = 'rgba(255, 101, 155, 0.45)';
-      ctx.lineWidth = 1.5;
-      roundRect(ctx, 720, 42, 195, 42, 21);
-      ctx.stroke();
-
-      ctx.fillStyle = '#ff8ab6';
-      ctx.font = 'bold 16px "Plus Jakarta Sans", monospace';
-      ctx.textAlign = 'center';
-      ctx.fillText(memberId, 817, 69);
+      // Brand Header: MIRAI NO HANA NIHONGO KURABU & Terjemahan Jepang
       ctx.textAlign = 'left';
+      ctx.fillStyle = '#be185d';
+      ctx.font = '900 21px "Plus Jakarta Sans", Arial, sans-serif';
+      ctx.fillText('MIRAI NO HANA NIHONGO KURABU', 112, 63);
 
-      // f. Nama Katakana Besar & Glow
-      ctx.shadowColor = 'rgba(255, 101, 155, 0.45)';
-      ctx.shadowBlur = 14;
+      ctx.fillStyle = '#db2777';
+      ctx.font = 'bold 14px "Noto Serif JP", serif';
+      ctx.fillText('未来の花・日本語クラブ', 114, 86);
+
+      // Header Right: Badge KTP & Tanggal Lahir
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+      roundRect(ctx, 580, 46, 195, 38, 8);
+      ctx.fill();
+      ctx.strokeStyle = '#fbcfe8';
+      ctx.lineWidth = 1.2;
+      roundRect(ctx, 580, 46, 195, 38, 8);
+      ctx.stroke();
+      ctx.fillStyle = '#9d174d';
+      ctx.font = '800 11px "Plus Jakarta Sans", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('KARTU TANDA PENGENAL', 677, 70);
+
+      // Tanggal Lahir Badge
       ctx.fillStyle = '#ffffff';
-      ctx.font = '900 62px "Noto Sans JP", Arial, sans-serif';
-      ctx.fillText(katakana, 42, 215);
-      ctx.shadowBlur = 0; // reset
-
-      // Nama Latin
-      ctx.fillStyle = '#ffd1e3';
-      ctx.font = '700 28px "Plus Jakarta Sans", sans-serif';
-      ctx.fillText(rawName, 44, 260);
-
-      // g. Division & Class Pills
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.07)';
-      roundRect(ctx, 44, 300, 310, 40, 20);
+      roundRect(ctx, 788, 46, 172, 38, 19);
       ctx.fill();
-      ctx.fillStyle = '#f1f5f9';
-      ctx.font = '600 15px "Plus Jakarta Sans", sans-serif';
-      ctx.fillText(divLabel, 60, 326);
-
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.07)';
-      roundRect(ctx, 368, 300, 210, 40, 20);
-      ctx.fill();
-      ctx.fillStyle = '#f1f5f9';
-      ctx.font = '600 15px "Plus Jakarta Sans", sans-serif';
-      ctx.fillText(rawClass, 384, 326);
-
-      // h. Ateji Kanji Stamp Box (Kanan)
-      ctx.fillStyle = 'rgba(30, 20, 42, 0.85)';
-      roundRect(ctx, 640, 160, 150, 190, 16);
-      ctx.fill();
-      ctx.strokeStyle = 'rgba(255, 101, 155, 0.35)';
+      ctx.strokeStyle = '#f472b6';
       ctx.lineWidth = 1.5;
-      roundRect(ctx, 640, 160, 150, 190, 16);
+      roundRect(ctx, 788, 46, 172, 38, 19);
       ctx.stroke();
 
+      ctx.fillStyle = '#db2777';
+      ctx.font = 'bold 12px "Noto Serif JP", serif';
+      ctx.textAlign = 'left';
+      ctx.fillText('生年月日', 802, 70);
+
+      ctx.fillStyle = '#be185d';
+      ctx.font = 'bold 14px monospace';
+      ctx.fillText(formattedBirth, 866, 70);
+
+      // Garis Pemisah Header
+      ctx.setLineDash([6, 6]);
+      ctx.strokeStyle = 'rgba(244, 114, 182, 0.4)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(40, 112);
+      ctx.lineTo(960, 112);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // f. Nama Katakana Besar & Latin
+      ctx.fillStyle = '#881337';
+      ctx.font = '900 46px "Noto Sans JP", Arial, sans-serif';
+      ctx.fillText(katakana, 48, 168);
+
+      ctx.fillStyle = '#1f2937';
+      ctx.font = '700 24px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText(rawName, 50, 204);
+
+      // g. Tabel Informasi Data Diri Ala KTP
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+      roundRect(ctx, 48, 226, 540, 260, 14);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(244, 114, 182, 0.45)';
+      ctx.lineWidth = 1.5;
+      roundRect(ctx, 48, 226, 540, 260, 14);
+      ctx.stroke();
+
+      const ktpFields = [
+        { label: 'ID Anggota / 登録番号', val: idCode, isCode: true },
+        { label: 'Kelas / 学年', val: rawClass },
+        { label: 'Divisi / 所属', val: divLabel, isPink: true },
+        { label: 'Status / 資格', val: 'Anggota Aktif (有効)', isGreen: true },
+        { label: 'Masa Berlaku / 有効', val: '2024 – 2027 (3 Tahun)' }
+      ];
+
+      ktpFields.forEach((item, idx) => {
+        const y = 266 + (idx * 45);
+        ctx.fillStyle = '#64748b';
+        ctx.font = '600 14px "Plus Jakarta Sans", sans-serif';
+        ctx.fillText(item.label, 68, y);
+
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = 'bold 14px "Plus Jakarta Sans", sans-serif';
+        ctx.fillText(':', 240, y);
+
+        if (item.isCode) {
+          ctx.fillStyle = '#9d174d';
+          ctx.font = 'bold 16px monospace';
+        } else if (item.isPink) {
+          ctx.fillStyle = '#be185d';
+          ctx.font = '700 15px "Plus Jakarta Sans", sans-serif';
+        } else if (item.isGreen) {
+          // Green dot
+          ctx.fillStyle = '#10b981';
+          ctx.beginPath();
+          ctx.arc(260, y - 5, 5, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = '#059669';
+          ctx.font = '700 15px "Plus Jakarta Sans", sans-serif';
+          ctx.fillText(item.val, 272, y);
+          return;
+        } else {
+          ctx.fillStyle = '#1f2937';
+          ctx.font = '700 15px "Plus Jakarta Sans", sans-serif';
+        }
+        ctx.fillText(item.val, 258, y);
+      });
+
+      // h. Pas Foto 3x4 Sora Resmi
+      const photoX = 615;
+      const photoY = 150;
+      const photoW = 175;
+      const photoH = 235;
+
       ctx.fillStyle = '#ffffff';
+      roundRect(ctx, photoX, photoY, photoW, photoH, 12);
+      ctx.fill();
+
+      if (photoImg) {
+        ctx.save();
+        roundRect(ctx, photoX, photoY, photoW, photoH, 12);
+        ctx.clip();
+        ctx.drawImage(photoImg, photoX, photoY, photoW, photoH);
+        // Badge Official di Bawah Foto
+        ctx.fillStyle = 'rgba(190, 24, 93, 0.88)';
+        ctx.fillRect(photoX, photoY + photoH - 24, photoW, 24);
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 11px "Plus Jakarta Sans", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('OFFICIAL', photoX + (photoW / 2), photoY + photoH - 7);
+        ctx.restore();
+      }
+
+      ctx.strokeStyle = '#f472b6';
+      ctx.lineWidth = 2.5;
+      roundRect(ctx, photoX, photoY, photoW, photoH, 12);
+      ctx.stroke();
+
+      // i. Ateji Kanji Stamp Box (Kanan Atas)
+      ctx.fillStyle = '#ffffff';
+      roundRect(ctx, 816, 150, 142, 180, 12);
+      ctx.fill();
+      ctx.strokeStyle = '#f472b6';
+      ctx.lineWidth = 1.8;
+      roundRect(ctx, 816, 150, 142, 180, 12);
+      ctx.stroke();
+
+      ctx.fillStyle = '#881337';
       ctx.font = 'bold 36px "Noto Serif JP", serif';
       ctx.textAlign = 'center';
       const atejiChars = atejiList.map(a => a.kanji);
       atejiChars.forEach((ch, idx) => {
-        ctx.fillText(ch, 715, 215 + (idx * 50));
+        ctx.fillText(ch, 887, 205 + (idx * 48));
       });
 
-      // i. Red Seal Stamp (Inkan)
-      ctx.fillStyle = 'rgba(225, 29, 72, 0.88)';
-      roundRect(ctx, 815, 220, 95, 95, 12);
+      // j. Red Seal Stamp (Inkan Tradisional)
+      ctx.fillStyle = '#e11d48';
+      roundRect(ctx, 838, 345, 96, 96, 12);
       ctx.fill();
       ctx.strokeStyle = '#ffe4e6';
       ctx.lineWidth = 2;
-      roundRect(ctx, 818, 223, 89, 89, 10);
+      roundRect(ctx, 841, 348, 90, 90, 10);
       ctx.stroke();
 
       ctx.fillStyle = '#ffffff';
       ctx.font = '900 24px "Noto Serif JP", serif';
-      ctx.fillText('未来', 862, 260);
-      ctx.fillText('之印', 862, 296);
+      ctx.fillText('未来', 886, 386);
+      ctx.fillText('之印', 886, 422);
 
-      // j. Footer Credential & Barcode
+      // k. Footer Credential & Barcode
       ctx.textAlign = 'left';
-      ctx.fillStyle = '#94a3b8';
-      ctx.font = '500 15px "Plus Jakarta Sans", sans-serif';
-      ctx.fillText('SMA Wachid Hasyim 2 Taman Sidoarjo · Jawa Timur', 44, 490);
+      ctx.setLineDash([6, 6]);
+      ctx.strokeStyle = 'rgba(244, 114, 182, 0.4)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(40, 510);
+      ctx.lineTo(960, 510);
+      ctx.stroke();
+      ctx.setLineDash([]);
 
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
-      ctx.font = '17px monospace';
-      ctx.fillText('||| | |||| | |||||| || | ||| |||| | ||||| | ||', 620, 490);
+      ctx.fillStyle = '#475569';
+      ctx.font = '700 15px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('SMA Wachid Hasyim 2 Taman Sidoarjo · Nihongo Kurabu', 48, 552);
+
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '16px monospace';
+      ctx.letterSpacing = '1px';
+      ctx.fillText('||| | |||| | |||||| || | ||| |||| | ||||| | ||', 620, 552);
 
       // Trigger Download
       const safeName = rawName.replace(/[^a-zA-Z0-9]/g, '-');
@@ -2129,7 +2305,7 @@ function initNameGenerator() {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `Kartu-Anggota-Mirai-${safeName}.png`;
+        a.download = `Kartu-Tanda-Pengenal-Nihongo-Kurabu-${safeName}.png`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);

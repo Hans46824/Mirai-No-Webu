@@ -804,77 +804,72 @@ function setupQuickScrollThumb() {
 
   let isDragging = false;
   let scrollTimeout = null;
-  let ticking = false;
+  let scrollRafId = null;
+  let naturalScrollTicking = false;
+  let startThumbOffsetY = 0;
+  let targetScrollY = 0;
 
-  // Ukuran batas aman agar tidak menabrak tombol menu di atas atau floating button di bawah
-  function getTrackBounds() {
+  // Pelacakan kecepatan gesek (flick velocity) untuk inersia halus di ponsel
+  let lastTouchY = 0;
+  let lastTouchTime = 0;
+  let touchVelocityY = 0;
+
+  // Ukuran metrik halaman & lintasan yang di-cache (ZERO LAYOUT REFLOW saat geser)
+  let cachedMetrics = {
+    topOffset: 80,
+    maxTop: 500,
+    trackHeight: 420,
+    maxScroll: 1000
+  };
+
+  function measureMetrics() {
     const isMobile = window.innerWidth <= 768;
     const topOffset = isMobile ? 80 : 86;
     const bottomOffset = isMobile ? 138 : 115;
-    const thumbHeight = thumb.offsetHeight || (isMobile ? 54 : 52);
+    const thumbHeight = isMobile ? 62 : 58;
     const winHeight = window.innerHeight;
-    const maxTop = Math.max(topOffset, winHeight - bottomOffset - thumbHeight);
-    const trackHeight = Math.max(1, maxTop - topOffset);
-    return { topOffset, maxTop, trackHeight, thumbHeight };
-  }
-
-  // Perbarui posisi vertikal tombol secara real-time
-  function updateThumbPosition() {
     const docHeight = Math.max(
       document.body.scrollHeight,
       document.documentElement.scrollHeight,
       document.body.offsetHeight,
       document.documentElement.offsetHeight
     );
-    const winHeight = window.innerHeight;
-    const maxScroll = docHeight - winHeight;
+    const maxScroll = Math.max(0, docHeight - winHeight);
+    const maxTop = Math.max(topOffset, winHeight - bottomOffset - thumbHeight);
+    const trackHeight = Math.max(1, maxTop - topOffset);
+
+    cachedMetrics = { topOffset, maxTop, trackHeight, maxScroll };
 
     if (maxScroll <= 40) {
       thumb.style.display = "none";
-      return;
     } else {
       thumb.style.display = "flex";
     }
 
-    const { topOffset, trackHeight } = getTrackBounds();
+    return cachedMetrics;
+  }
+
+  // Perbarui posisi thumb secara efisien saat pengguna scroll normal
+  function updateThumbFromScroll() {
+    if (isDragging) return; // Jangan timpa jika sedang di-drag jari
+    if (cachedMetrics.maxScroll <= 0) return;
+
     const currentScroll = window.pageYOffset || document.documentElement.scrollTop || 0;
-    const progress = Math.min(Math.max(0, currentScroll / maxScroll), 1);
-    const thumbY = topOffset + progress * trackHeight;
+    const progress = Math.min(Math.max(0, currentScroll / cachedMetrics.maxScroll), 1);
+    const thumbY = cachedMetrics.topOffset + progress * cachedMetrics.trackHeight;
 
     thumb.style.transform = `translate3d(0, ${Math.round(thumbY)}px, 0)`;
     thumb.setAttribute("aria-valuenow", Math.round(progress * 100));
   }
 
-  // Menghitung & menggulir halaman berdasarkan posisi sentuh/kursor
-  function scrollFromPointer(clientY, startThumbOffset = 0) {
-    const docHeight = Math.max(
-      document.body.scrollHeight,
-      document.documentElement.scrollHeight
-    );
-    const winHeight = window.innerHeight;
-    const maxScroll = Math.max(0, docHeight - winHeight);
-    if (maxScroll <= 0) return;
-
-    const { topOffset, trackHeight } = getTrackBounds();
-    const targetY = clientY - startThumbOffset;
-    const progress = Math.min(Math.max(0, (targetY - topOffset) / trackHeight), 1);
-    const targetScroll = Math.round(progress * maxScroll);
-
-    window.scrollTo({
-      top: targetScroll,
-      behavior: "auto"
-    });
-    updateThumbPosition();
-  }
-
-  // Deteksi scroll alami (mouse wheel / swipe konten)
+  // Handler Scroll Alami (Mouse wheel / sentuhan konten normal)
   function handleWindowScroll() {
-    if (!ticking) {
+    if (!naturalScrollTicking) {
       window.requestAnimationFrame(() => {
-        updateThumbPosition();
-        ticking = false;
+        updateThumbFromScroll();
+        naturalScrollTicking = false;
       });
-      ticking = true;
+      naturalScrollTicking = true;
     }
 
     if (!isDragging) {
@@ -882,81 +877,138 @@ function setupQuickScrollThumb() {
       clearTimeout(scrollTimeout);
       scrollTimeout = setTimeout(() => {
         thumb.classList.remove("is-scrolling");
-      }, 1200);
+      }, 1000);
     }
   }
 
   window.addEventListener("scroll", handleWindowScroll, { passive: true });
   window.addEventListener("resize", () => {
-    updateThumbPosition();
+    measureMetrics();
+    updateThumbFromScroll();
   }, { passive: true });
 
-  updateThumbPosition();
+  measureMetrics();
+  updateThumbFromScroll();
 
-  // 1. INTERAKSI TOUCH (MOBILE / HP)
-  let touchStartOffset = 0;
-
-  thumb.addEventListener("touchstart", (e) => {
-    if (e.touches.length !== 1) return;
+  // =========================================================================
+  // LOGIKA DRAGGING CEPAT (1:1 DENGAN JARI PENGGUNA, 60/120FPS GPU ACCELERATED)
+  // =========================================================================
+  function startDrag(clientY, isTouch = false) {
     isDragging = true;
-    thumb.classList.add("is-touching", "is-dragging");
+    measureMetrics(); // Ukur dimensi sekali saja saat awal drag
     clearTimeout(scrollTimeout);
 
-    const touch = e.touches[0];
+    // Nonaktifkan sementara smooth scroll di html agar gerakannya instan tanpa lag
+    document.documentElement.style.scrollBehavior = "auto";
+    document.body.style.userSelect = "none";
+
     const rect = thumb.getBoundingClientRect();
-    touchStartOffset = touch.clientY - rect.top;
-  }, { passive: true });
+    startThumbOffsetY = clientY - rect.top;
+    if (startThumbOffsetY < 0 || startThumbOffsetY > rect.height) {
+      startThumbOffsetY = rect.height / 2;
+    }
 
-  window.addEventListener("touchmove", (e) => {
-    if (!isDragging || e.touches.length !== 1) return;
-    e.preventDefault();
-    scrollFromPointer(e.touches[0].clientY, touchStartOffset);
-  }, { passive: false });
+    lastTouchY = clientY;
+    lastTouchTime = performance.now();
+    touchVelocityY = 0;
 
-  function endTouch() {
+    thumb.classList.add("is-dragging");
+    if (isTouch) {
+      thumb.classList.add("is-touching");
+    }
+  }
+
+  function moveDrag(clientY) {
+    if (!isDragging || cachedMetrics.maxScroll <= 0) return;
+
+    const now = performance.now();
+    const dt = now - lastTouchTime;
+    if (dt > 4) {
+      touchVelocityY = (clientY - lastTouchY) / dt; // pixel per millisecond
+      lastTouchY = clientY;
+      lastTouchTime = now;
+    }
+
+    // 1. Kunci posisi thumb LANGSUNG ke jari pengguna secara instan (1:1)
+    const targetThumbY = clientY - startThumbOffsetY;
+    const clampedThumbY = Math.min(Math.max(cachedMetrics.topOffset, targetThumbY), cachedMetrics.maxTop);
+
+    thumb.style.transform = `translate3d(0, ${Math.round(clampedThumbY)}px, 0)`;
+
+    // 2. Hitung target scroll proporsional
+    const progress = Math.min(Math.max(0, (clampedThumbY - cachedMetrics.topOffset) / cachedMetrics.trackHeight), 1);
+    targetScrollY = Math.round(progress * cachedMetrics.maxScroll);
+    thumb.setAttribute("aria-valuenow", Math.round(progress * 100));
+
+    // 3. Sinkronkan scroll halaman dengan display refresh rate (rAF)
+    if (!scrollRafId) {
+      scrollRafId = window.requestAnimationFrame(() => {
+        window.scrollTo(0, targetScrollY);
+        scrollRafId = null;
+      });
+    }
+  }
+
+  function endDrag(isTouch = false) {
     if (!isDragging) return;
     isDragging = false;
+
+    if (scrollRafId) {
+      window.cancelAnimationFrame(scrollRafId);
+      scrollRafId = null;
+    }
+    // Pastikan scroll berada di posisi akhir yang tepat
+    window.scrollTo(0, targetScrollY);
+
+    document.documentElement.style.scrollBehavior = "";
+    document.body.style.userSelect = "";
     thumb.classList.remove("is-dragging", "is-touching");
+
+    // Efek momentum gesekan hape (Fling / Inertia) jika jari dilepas saat masih bergerak cepat
+    if (isTouch && Math.abs(touchVelocityY) > 0.35) {
+      const flingDistance = touchVelocityY * Math.min(cachedMetrics.maxScroll, 3000) * 0.14;
+      const momentumTarget = Math.min(Math.max(0, targetScrollY + flingDistance), cachedMetrics.maxScroll);
+      window.scrollTo({
+        top: Math.round(momentumTarget),
+        behavior: "smooth"
+      });
+    }
+
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(() => {
       thumb.classList.remove("is-scrolling");
     }, 1000);
   }
 
-  window.addEventListener("touchend", endTouch, { passive: true });
-  window.addEventListener("touchcancel", endTouch, { passive: true });
+  // 1. INTERAKSI TOUCH (MOBILE / HP)
+  thumb.addEventListener("touchstart", (e) => {
+    if (e.touches.length !== 1) return;
+    startDrag(e.touches[0].clientY, true);
+  }, { passive: true });
+
+  window.addEventListener("touchmove", (e) => {
+    if (!isDragging || e.touches.length !== 1) return;
+    e.preventDefault(); // Mencegah konflik gesture bawaan browser
+    moveDrag(e.touches[0].clientY);
+  }, { passive: false });
+
+  window.addEventListener("touchend", () => endDrag(true), { passive: true });
+  window.addEventListener("touchcancel", () => endDrag(true), { passive: true });
 
   // 2. INTERAKSI MOUSE (LAPTOP / DESKTOP)
-  let mouseStartOffset = 0;
-
   thumb.addEventListener("mousedown", (e) => {
     if (e.button !== 0) return;
-    isDragging = true;
-    thumb.classList.add("is-dragging");
-    clearTimeout(scrollTimeout);
-
-    const rect = thumb.getBoundingClientRect();
-    mouseStartOffset = e.clientY - rect.top;
-    document.body.style.userSelect = "none";
     e.preventDefault();
+    startDrag(e.clientY, false);
   });
 
   window.addEventListener("mousemove", (e) => {
     if (!isDragging) return;
     e.preventDefault();
-    scrollFromPointer(e.clientY, mouseStartOffset);
+    moveDrag(e.clientY);
   });
 
-  window.addEventListener("mouseup", () => {
-    if (!isDragging) return;
-    isDragging = false;
-    thumb.classList.remove("is-dragging");
-    document.body.style.userSelect = "";
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-      thumb.classList.remove("is-scrolling");
-    }, 1000);
-  });
+  window.addEventListener("mouseup", () => endDrag(false));
 }
 
 function registerServiceWorker() {

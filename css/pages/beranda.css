@@ -1870,44 +1870,31 @@ body.theme-dark .card-collapsible-content > .card-collapsible-inner p, body.them
 
 /* ==========================================================================
 RESPONSIF MODE HP (<= 768px):
-1. Animasi Laci Logo NK Dibatasi Maksimal 44% - 46% (TIDAK BOLEH LEBIH DARI 50% CARD)
-2. Tombol "TENTANG MIRAI NO HANA" Tidak Tertutup / Kemakan & Sangat Mudah Ditekan
-3. Konten Teks Tetap Rapi di Sisi Kiri (54%) Saat Laci Terbuka
+1. Animasi Laci Logo NK Memakan 50% Lebar Card
+2. Isi Teks Stabil (Zero Text Resizing / Teks Tidak Berubah Saat Animasi Laci Berjalan)
+3. Tombol "TENTANG MIRAI NO HANA" di Sisi Kiri Bawah Tetap Nyaman & Interaktif
 ========================================================================== */
 @media (max-width: 768px) {
-  /* Laci geser logo NK di mode HP: maksimal 44-46% dari lebar card (tepat di bawah batas 50%) */
+  /* Laci geser logo NK di mode HP: memakan tepat 50% dari lebar card */
   .drawer-tray,
   .about-feature-card > .drawer-tray,
   .about-drawer-card > .drawer-tray {
-    width: 44% !important;
-    max-width: 46% !important;
+    width: 50% !important;
+    max-width: 50% !important;
     min-width: 0 !important;
-    padding: 10px 8px !important;
+    padding: 12px 10px !important;
     box-sizing: border-box !important;
   }
 
-  /* Logo NK proporsional di dalam laci 44% */
+  /* Logo NK proporsional di dalam laci 50% */
   .drawer-nk-logo {
-    width: clamp(56px, 18vw, 84px) !important;
-    max-width: 82% !important;
+    width: clamp(65px, 20vw, 95px) !important;
+    max-width: 85% !important;
     height: auto !important;
   }
 
-  /* Ketika laci animasi NK aktif (is-pulled): batasi area teks di 54% agar tidak tertutup laci */
-  .about-drawer-card.is-pulled .about-feature-body.stacked-layout {
-    max-width: 54% !important;
-    padding-right: 0 !important;
-  }
-
-  .about-drawer-card.is-pulled .about-card-title {
-    font-size: clamp(20px, 5.2vw, 25px) !important;
-    line-height: 1.25 !important;
-    max-width: 100% !important;
-  }
-
-  .about-drawer-card.is-pulled .about-card-desc {
-    font-size: 13px !important;
-    line-height: 1.6 !important;
+  /* Isi teks tetap konsisten dan tidak berubah ukuran/layout saat laci ditarik */
+  .about-drawer-card .about-feature-body.stacked-layout {
     max-width: 100% !important;
   }
 
@@ -2061,8 +2048,8 @@ RESPONSIF MODE HP (<= 768px):
     right: 12px !important;
   }
 
-  .about-feature-card:not(.is-pulled) .about-feature-body.stacked-layout,
-  .about-feature-card:not(.is-pulled) .about-card-desc,
+  .about-feature-card .about-feature-body.stacked-layout,
+  .about-feature-card .about-card-desc,
   .feedback-card-desc {
     max-width: 100% !important;
     padding-right: 0 !important;

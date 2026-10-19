@@ -1023,7 +1023,59 @@ let script = new URLSearchParams(window.location.search).get("script") === "kata
   ? "katakana"
   : "hiragana";
 let currentSession = null;
+const selectedLevels = new Set();
 const data = { hiragana: makeKana("hiragana"), katakana: makeKana("katakana") };
+
+function renderFloatingMultiBar() {
+  let bar = document.getElementById("levelMultiBar");
+  if (!bar) {
+    bar = document.createElement("div");
+    bar.id = "levelMultiBar";
+    bar.className = "level-multi-bar";
+    document.body.appendChild(bar);
+  }
+
+  if (selectedLevels.size > 0 && !document.body.classList.contains("is-practicing")) {
+    const sortedLevels = Array.from(selectedLevels).sort((a, b) => a - b);
+    bar.innerHTML = `
+      <div class="multi-bar-inner">
+        <div class="multi-bar-info">
+          <span class="multi-bar-badge">Latihan Gabungan</span>
+          <strong class="multi-bar-title">${selectedLevels.size} Level Dipilih</strong>
+          <span class="multi-bar-levels">LV ${sortedLevels.join(", ")}</span>
+        </div>
+        <div class="multi-bar-actions">
+          <button type="button" class="btn-multi-clear" id="btnMultiClear">Batal</button>
+          <button type="button" class="btn-multi-start" id="btnMultiStart">Mulai Latihan Gabungan 🚀</button>
+        </div>
+      </div>
+    `;
+    bar.classList.add("is-visible");
+
+    bar.querySelector("#btnMultiClear")?.addEventListener("click", () => {
+      selectedLevels.clear();
+      renderDashboard();
+    });
+
+    bar.querySelector("#btnMultiStart")?.addEventListener("click", () => {
+      startPractice(Array.from(selectedLevels).sort((a, b) => a - b));
+    });
+  } else {
+    bar.classList.remove("is-visible");
+  }
+}
+
+if (typeof MutationObserver !== "undefined") {
+  const bodyClassObserver = new MutationObserver((mutations) => {
+    for (const m of mutations) {
+      if (m.attributeName === "class") {
+        renderFloatingMultiBar();
+        break;
+      }
+    }
+  });
+  bodyClassObserver.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+}
 
 document.querySelectorAll(".script-tabs [data-script]").forEach((button) => {
   button.classList.toggle("is-active", button.dataset.script === script);
@@ -1130,28 +1182,55 @@ const renderDashboard = () => {
     levelGrid.innerHTML = allLevels.map((level) => {
     const unlocked = level.id <= saved[script].unlocked || saved[script].completed.includes(level.id);
     const completed = saved[script].completed.includes(level.id);
+    const isSelected = selectedLevels.has(level.id);
 
     return `
-                    <article class="level-card level-card--${script} ${unlocked ? "is-unlocked" : "is-locked"} ${completed ? "is-completed" : ""}" data-script="${script}">
+                    <article class="level-card level-card--${script} ${unlocked ? "is-unlocked" : "is-locked"} ${completed ? "is-completed" : ""} ${isSelected ? "is-multi-selected" : ""}" data-script="${script}">
                         <div class="level-card-top">
                             <span>${completed ? "✓ Completed" : unlocked ? "🔓 Unlocked" : "🔒 Locked"}</span>
-                            <b>LV ${level.id}</b>
+                            <div class="level-card-top-right">
+                                <b>LV ${level.id}</b>
+                                ${unlocked ? `
+                                <button type="button" class="level-select-circle ${isSelected ? "is-selected" : ""}" data-select-level="${level.id}" aria-label="Pilih LV ${level.id} untuk latihan gabungan" title="Pilih LV ${level.id} untuk latihan gabungan">
+                                </button>
+                                ` : ""}
+                            </div>
                         </div>
                         <h3>${level.label}</h3>
                         <strong>${displayChars(level.chars)}</strong>
                         <button class="start-level" data-level="${level.id}" ${unlocked ? "" : "disabled"}>
-                            ${completed ? "Latih Lagi →" : "Mulai Latihan →"}
+                            ${selectedLevels.size > 0 ? `Mulai Latihan (${selectedLevels.size} LV Terpilih) →` : (completed ? "Latih Lagi →" : "Mulai Latihan →")}
                         </button>
                     </article>
                 `;
     }).join("");
 
+    levelGrid.querySelectorAll("[data-select-level]").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const lvl = Number(btn.dataset.selectLevel);
+        if (selectedLevels.has(lvl)) {
+          selectedLevels.delete(lvl);
+        } else {
+          selectedLevels.add(lvl);
+        }
+        renderDashboard();
+      });
+    });
+
     levelGrid.querySelectorAll("[data-level]").forEach((button) => {
-    button.addEventListener("click", () => startPractice([Number(button.dataset.level)]));
+      button.addEventListener("click", () => {
+        if (selectedLevels.size > 0) {
+          startPractice(Array.from(selectedLevels).sort((a, b) => a - b));
+        } else {
+          startPractice([Number(button.dataset.level)]);
+        }
+      });
     });
   }
 
   renderModes();
+  renderFloatingMultiBar();
 };
 
 function renderModes() {
@@ -1162,51 +1241,41 @@ function renderModes() {
     : "✨ Belum ada huruf salah";
 
   const modes = [
-    { label: "LV 1–2", levels: [1, 2], preview: "あ・か (a–ko)" },
-    { label: "LV 1–3", levels: [1, 2, 3], preview: "あ〜そ (a–so)" },
-    { label: "LV 1–5", levels: [1, 2, 3, 4, 5], preview: "あ〜の (a–no)" },
-    { label: "LV 1–10", levels: Array.from({ length: rows.length }, (_, index) => index + 1), preview: "あ〜ん (Semua 46 Huruf)" },
-    { label: "LV 6–10", levels: [6, 7, 8, 9, 10], preview: "は〜ん (ha–n)" },
-    { label: `Basic ${script}`, levels: Array.from({ length: rows.length }, (_, index) => index + 1), preview: "あ〜ん (Seion Dasar)" },
-    { label: "Dakuten & Handakuten", levels: Array.from({ length: voiced.length }, (_, index) => rows.length + index + 1), preview: "が・ざ・だ・ば・ぱ" },
-    { label: "Yōon lengkap", levels: Array.from({ length: combos.length }, (_, index) => yoonStartLevel + index), preview: "きゃ・しゅ・ちょ" },
-    { label: "SEMUA MATERI", levels: allLevelIds, preview: "あ〜ん・が〜ぱ・きゃ〜ぴょ" },
-    { label: "RANDOM CHALLENGE", levels: allLevelIds.filter((level) => level <= saved[script].unlocked), preview: "🎲 Acak Seluruh Materi" },
     {
-    id: "weak",
-    label: "🔥 Fokus Perbaikan (Huruf Sering Salah)",
-    isWeakMode: true,
-    levels: allLevelIds,
-    icon: "🔥",
-    preview: weakPreviewText,
-    subText: weakKanaChars.length > 0 ? `${weakKanaChars.length} huruf sering salah` : "Evaluasi huruf yang sering salah"
+      id: "weak",
+      label: "🔥 Fokus Perbaikan",
+      isWeakMode: true,
+      levels: allLevelIds,
+      icon: "🔥",
+      preview: weakPreviewText,
+      subText: weakKanaChars.length > 0 ? `${weakKanaChars.length} huruf sering salah` : "Evaluasi huruf yang sering salah"
     },
     {
-    id: "time_attack",
-    label: "⚡ Time Attack 60 Detik",
-    isTimeAttackMode: true,
-    levels: allLevelIds,
-    icon: "⚡",
-    preview: "⚡ Refleks Cepat (Combo)",
-    subText: "Dojo Refleks • 60 detik"
+      id: "time_attack",
+      label: "⚡ Time Attack 60 Detik",
+      isTimeAttackMode: true,
+      levels: allLevelIds,
+      icon: "⚡",
+      preview: "⚡ Refleks Cepat (Combo)",
+      subText: "Dojo Refleks • 60 detik"
     },
     {
-    id: "bunpou",
-    label: "🧩 Susun Kalimat (Partikel & Bunpou)",
-    isBunpouMode: true,
-    levels: allLevelIds,
-    icon: "🧩",
-    preview: "わたし・は・が・を・です",
-    subText: "10 Soal • Struktur N5"
+      id: "bunpou",
+      label: "🧩 Susun Kalimat",
+      isBunpouMode: true,
+      levels: allLevelIds,
+      icon: "🧩",
+      preview: "わたし・は・が・を・です",
+      subText: "10 Soal • Struktur N5"
     },
     {
-    id: "custom",
-    label: "⚙️ Latihan Kustom (Bebas Atur)",
-    isCustomMode: true,
-    levels: allLevelIds,
-    icon: "⚙️",
-    preview: "🎯 Kustomisasi Bebas",
-    subText: "Atur jumlah & jenis soal"
+      id: "custom",
+      label: "⚙️ Latihan Kustom",
+      isCustomMode: true,
+      levels: allLevelIds,
+      icon: "⚙️",
+      preview: "🎯 Kustomisasi Bebas",
+      subText: "Atur jumlah & jenis soal"
     }
   ];
 
@@ -1385,6 +1454,7 @@ function startPractice(levels, customPool = null, modeKey = null, isWeakMode = f
   }
   document.body.classList.add("is-practicing");
   document.body.classList.remove("is-time-attack-mode");
+  renderFloatingMultiBar();
 
   const scoreBadge = $("[data-ta-score-badge]");
   const comboBadge = $("[data-ta-combo-badge]");
@@ -2405,7 +2475,7 @@ function renderInteractiveStroke(question) {
     ctx.lineWidth = 4.4 * (rect.width / 109);
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
-    ctx.strokeStyle = "#e91e63";
+    ctx.strokeStyle = (document.body.classList.contains("theme-dark") || document.body.classList.contains("dark-mode")) ? "#f3f4f6" : "#1a1a1a";
   });
 
   canvas.addEventListener("pointermove", (e) => {
@@ -3487,6 +3557,7 @@ $("[data-close-practice]")?.addEventListener("click", () => {
   if (scoreBadge) scoreBadge.hidden = true;
   if (comboBadge) comboBadge.hidden = true;
   currentSession = null;
+  renderDashboard();
 });
 
 $("[data-result-home]")?.addEventListener("click", () => {
@@ -3504,6 +3575,7 @@ $("[data-result-home]")?.addEventListener("click", () => {
   const accEl = $("[data-result-accuracy]");
   if (accEl && accEl.nextElementSibling) accEl.nextElementSibling.textContent = "Akurasi";
   currentSession = null;
+  selectedLevels.clear();
   renderDashboard();
 });
 
@@ -3543,6 +3615,7 @@ $("[data-audio]")?.addEventListener("click", () => {
 document.querySelectorAll(".script-tabs [data-script]").forEach((button) => {
   button.addEventListener("click", () => {
     script = button.dataset.script;
+    selectedLevels.clear();
     document.querySelectorAll(".script-tabs [data-script]").forEach((b) => b.classList.remove("is-active"));
     button.classList.add("is-active");
     renderDashboard();

@@ -1081,7 +1081,7 @@ Komponen Pembelajaran Kana Quest: Statistik, Kalender, Level, & Kuis
 }
 
 .kanji-detail-head > strong {
-  color: var(--pink);
+  color: var(--ink, #18151b);
   font-size: 72px;
   font-weight: 500;
   line-height: 1;
@@ -1505,7 +1505,7 @@ body.theme-dark .kana-search input {
 
 .stroke-fallback-glyph {
   position: absolute;
-  color: var(--pink);
+  color: var(--ink, #18151b);
   font-size: 145px;
   line-height: 1;
   animation: stroke-glyph-reveal 1.8s ease-in-out infinite alternate;
@@ -5323,7 +5323,15 @@ SEKSI KURIKULUM & TATA CARA PENGAJARAN DI HALAMAN KELAS (.page-kelas #kurikulum)
   flex-direction: column !important;
   justify-content: space-between !important;
   min-height: 290px !important;
+  text-shadow: none !important;
   transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease !important;
+}
+
+.page-kelas #kurikulum .doc-big-card,
+.page-kelas #kurikulum .doc-big-card *,
+.kurikulum-page-section .doc-big-card,
+.kurikulum-page-section .doc-big-card * {
+  text-shadow: none !important;
 }
 
 .page-kelas #kurikulum .doc-big-card:hover {
@@ -6831,14 +6839,14 @@ body.theme-dark .stroke-preview-svg .stroke-preview-path {
 }
 
 .stroke-preview-svg .stroke-preview-number {
-  fill: var(--pink, #e91e63) !important;
+  fill: #1a1a1a !important;
   font-size: 9.5px !important;
   font-weight: 700 !important;
   font-family: monospace, sans-serif !important;
 }
 
 body.theme-dark .stroke-preview-svg .stroke-preview-number {
-  fill: #ff65a3 !important;
+  fill: #ffffff !important;
 }
 
 .mistake-stroke-char-caption {
@@ -7318,7 +7326,7 @@ MINI-GAME: TIME ATTACK 60S & BUNPOU PUZZLE
 
 .mode-card--time-attack b {
   color: #d97706 !important;
-  text-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+  text-shadow: none !important;
 }
 
 .mode-card--time-attack:hover {
@@ -7345,7 +7353,7 @@ MINI-GAME: TIME ATTACK 60S & BUNPOU PUZZLE
 
 .mode-card--bunpou b {
   color: #7c3aed !important;
-  text-shadow: 0 0 10px rgba(139, 92, 246, 0.35);
+  text-shadow: none !important;
 }
 
 .mode-card--bunpou:hover {
@@ -8443,13 +8451,246 @@ PROGRES BELAJAR & MODUL PEMBELAJARAN TERPADU (MIRAI PROGRESS)
   border: 1.5px solid #f87171;
   border-radius: 12px;
   cursor: pointer;
+  margin-top: 22px !important;
   transition: all 0.2s ease;
+}
+
+.mini-game-shortcut-btn.btn-retry-wrong,
+.btn-retry-wrong[data-home-retry-wrong] {
+  margin-top: 28px !important;
+  margin-bottom: 8px !important;
+  align-self: center;
 }
 
 .btn-retry-wrong:hover {
   background: #fecaca;
   border-color: #ef4444;
   transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   SISTEM MULTI-PILIHAN LEVEL KANA UNTUK LATIHAN GABUNGAN
+   ========================================================================== */
+.level-card {
+  position: relative;
+  transition: border-color 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease !important;
+}
+
+.level-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.level-card-top-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.level-select-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid #cbd5e1;
+  background: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  color: transparent;
+  transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  outline: none;
+  flex-shrink: 0;
+}
+
+.level-select-circle:hover {
+  border-color: #ff659b;
+  transform: scale(1.12);
+  box-shadow: 0 2px 8px rgba(255, 101, 155, 0.25);
+}
+
+.level-select-circle.is-selected {
+  background: linear-gradient(135deg, #ff4081 0%, #e91e63 100%) !important;
+  border-color: #e91e63 !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 12px rgba(233, 30, 99, 0.55) !important;
+  transform: scale(1.08);
+}
+
+.level-select-circle.is-selected::after {
+  content: "✓";
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1;
+  color: #ffffff;
+}
+
+.level-card.is-multi-selected {
+  border-color: #ff659b !important;
+  box-shadow: 0 0 18px rgba(255, 101, 155, 0.35), 0 8px 24px rgba(233, 30, 99, 0.12) !important;
+  transform: translateY(-2px);
+}
+
+body.theme-dark .level-select-circle,
+body.dark-mode .level-select-circle {
+  background: #1f1b24;
+  border-color: #4b3648;
+}
+
+body.theme-dark .level-select-circle.is-selected,
+body.dark-mode .level-select-circle.is-selected {
+  background: linear-gradient(135deg, #ff4081 0%, #e91e63 100%) !important;
+  border-color: #e91e63 !important;
+}
+
+body.theme-dark .level-card.is-multi-selected,
+body.dark-mode .level-card.is-multi-selected {
+  border-color: #ff659b !important;
+  box-shadow: 0 0 20px rgba(255, 101, 155, 0.45), 0 8px 28px rgba(0, 0, 0, 0.55) !important;
+}
+
+/* Floating Action Bar untuk Latihan Gabungan Terpilih */
+.level-multi-bar {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(140%);
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 2px solid #ff659b;
+  border-radius: 999px;
+  padding: 8px 12px 8px 20px;
+  box-shadow: 0 12px 36px rgba(233, 30, 99, 0.28), 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 999;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+  max-width: calc(100vw - 32px);
+  box-sizing: border-box;
+}
+
+.level-multi-bar.is-visible {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+body.theme-dark .level-multi-bar,
+body.dark-mode .level-multi-bar {
+  background: rgba(26, 20, 32, 0.95);
+  border-color: #ff659b;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 101, 155, 0.35);
+}
+
+.multi-bar-inner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+}
+
+.multi-bar-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.multi-bar-badge {
+  font-size: 11px;
+  font-weight: 800;
+  color: #be185d;
+  background: #ffe4e6;
+  padding: 2px 8px;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+
+.multi-bar-title {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #1f2937;
+}
+
+body.theme-dark .multi-bar-title,
+body.dark-mode .multi-bar-title {
+  color: #f3f4f6;
+}
+
+.multi-bar-levels {
+  font-size: 12px;
+  color: #64748b;
+  font-family: monospace;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.multi-bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.btn-multi-clear {
+  background: transparent;
+  border: 1px solid #cbd5e1;
+  color: #64748b;
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 7px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-multi-clear:hover {
+  background: #f1f5f9;
+  color: #1f2937;
+  border-color: #94a3b8;
+}
+
+.btn-multi-start {
+  background: linear-gradient(135deg, #ff4081 0%, #e91e63 100%);
+  border: none;
+  color: #ffffff;
+  font-size: 13.5px;
+  font-weight: 800;
+  padding: 8px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(233, 30, 99, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-multi-start:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(233, 30, 99, 0.5);
+}
+
+@media (max-width: 600px) {
+  .level-multi-bar {
+    bottom: 16px;
+    padding: 8px 12px;
+    border-radius: 16px;
+  }
+  .multi-bar-levels {
+    display: none;
+  }
+  .multi-bar-inner {
+    gap: 8px;
+  }
 }
 /* Mode Gelap (Dark Mode) */
 body.theme-dark .progress-resume-banner, body.dark-mode .progress-resume-banner {

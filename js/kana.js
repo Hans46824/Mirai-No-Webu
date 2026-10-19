@@ -328,25 +328,21 @@ function initLesson() {
   const detail = document.querySelector("[data-kana-detail]");
   const search = document.querySelector("[data-kana-lesson-search]");
   let player;
+  let selectedKanaChar = null;
 
   function show(character) {
+    selectedKanaChar = character;
     const item = getDetail(character, type);
     player?.destroy();
     detail.innerHTML = `
                 <p class="card-number">${type.toUpperCase()} / ${item.reading} • ${item.strokes} Goresan</p>
                 <div class="selected-kana">${character}</div>
-                <div class="kana-detail-audio-actions" style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                <div class="kana-detail-audio-actions" style="display:flex; gap:8px; align-items:center;">
                     <button type="button" class="btn-kana-audio" data-speak-char="${character}" title="Lafalkan huruf ${character} (Normal)">
-                        <span>🔊 Lafalkan (${character})</span>
+                        <span>🔊</span>
                     </button>
                     <button type="button" class="btn-kana-audio btn-audio-slow" data-speak-char-slow="${character}" title="Lafalkan huruf ${character} perlahan (Slow-Mo)">
-                        <span>🐢 Pelan</span>
-                    </button>
-                    <button type="button" class="btn-kana-audio btn-kana-audio-example" data-speak-word="${item.example[0]}" title="Lafalkan contoh kata ${item.example[0]}">
-                        <span>🔊 Kata (${item.example[0]})</span>
-                    </button>
-                    <button type="button" class="btn-kana-audio btn-audio-slow" data-speak-word-slow="${item.example[0]}" title="Lafalkan contoh kata perlahan">
-                        <span>🐢 Pelan</span>
+                        <span>🐢</span>
                     </button>
                 </div>
                 <h3>Goresan Karakter (${item.strokes} Goresan)</h3>
@@ -376,9 +372,27 @@ function initLesson() {
       });
     });
     player = window.createStrokePlayer(detail.querySelector("[data-stroke-player]"), character, item.strokes, {
-      showClear: true
+      showClear: true,
+      mode: type,
+      onSelectCharacter: (char) => show(char),
+      onClear: () => renderBlankState()
     });
   }
+
+  const renderBlankState = () => {
+    player?.destroy();
+    selectedKanaChar = null;
+    grid.querySelectorAll(".kana-card.is-selected").forEach((btn) => btn.classList.remove("is-selected"));
+    detail.innerHTML = `
+      <div data-stroke-player></div>
+    `;
+    player = window.createStrokePlayer(detail.querySelector("[data-stroke-player]"), null, 0, {
+      showClear: true,
+      mode: type,
+      onSelectCharacter: (char) => show(char),
+      onClear: () => renderBlankState()
+    });
+  };
 
   const render = () => {
     const query = search?.value.trim().toLowerCase() || "";
@@ -426,10 +440,14 @@ function initLesson() {
     button.className = "kana-card";
     button.innerHTML = `<strong>${character}</strong><span>${item.reading}</span>`;
     button.addEventListener("click", () => {
-      grid.querySelectorAll(".is-selected").forEach((card) => card.classList.remove("is-selected"));
-      button.classList.add("is-selected");
-      show(character);
-      window.speakText ? window.speakText(character, "ja-JP") : speakJapanese(character);
+      if (selectedKanaChar === character) {
+        renderBlankState();
+      } else {
+        grid.querySelectorAll(".is-selected").forEach((card) => card.classList.remove("is-selected"));
+        button.classList.add("is-selected");
+        show(character);
+        window.speakText ? window.speakText(character, "ja-JP") : speakJapanese(character);
+      }
     });
 
     sectionGrid.append(button);
@@ -447,12 +465,11 @@ function initLesson() {
     emptyEl.className = "kana-empty-state";
     emptyEl.innerHTML = `<p>Tidak ada karakter yang cocok dengan pencarian “${query}”.</p>`;
     grid.append(emptyEl);
-    } else if (firstMatchedButton && !query) {
-    firstMatchedButton.button.classList.add("is-selected");
-    show(firstMatchedButton.character);
-    } else if (firstMatchedButton && query) {
-    firstMatchedButton.button.classList.add("is-selected");
-    show(firstMatchedButton.character);
+    } else if (query && firstMatchedButton) {
+      firstMatchedButton.button.classList.add("is-selected");
+      show(firstMatchedButton.character);
+    } else if (!query && !detail.querySelector(".unified-canvas-stage")) {
+      renderBlankState();
     }
   };
 

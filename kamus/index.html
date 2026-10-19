@@ -30,7 +30,7 @@
     <link rel=preconnect href="https://fonts.googleapis.com">
     <link rel=preconnect href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Noto+Serif+JP:wght@600;700;800;900&family=Noto+Sans+JP:wght@500;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css?v=65608fe2">
+    <link rel="stylesheet" href="../css/style.css?v=bed24355">
 </head>
 <body class="page-kamus">
     <a class="skip-link" href="#main-content">Lewati ke konten utama</a>
@@ -146,19 +146,7 @@
         <p class="section-desc">Penerjemah interaktif 2 arah (Jepang ⇄ Indonesia) dilengkapi Virtual Keyboard pintar (Aksara Kana &amp; QWERTY IME) serta audio pelafalan suara asli.</p>
     </div>
 
-    <!-- 2-TAB SWITCHER STUDIO JEPANG (PENERJEMAH & GENERATOR NAMA) -->
-    <div class="studio-tab-bar" role="tablist" aria-label="Pilihan Studio Bahasa Jepang">
-        <button type="button" class="studio-tab-btn is-active" id="tabBtnTranslator" role="tab" aria-selected="true" data-tab="translator">
-            <span class="tab-icon">🌐</span>
-            <span class="tab-text">Penerjemah &amp; Keyboard Jepang</span>
-        </button>
-        <button type="button" class="studio-tab-btn" id="tabBtnNameGen" role="tab" aria-selected="false" data-tab="namegen">
-            <span class="tab-icon">🎴</span>
-            <span class="tab-text">Generator Nama Jepang &amp; Kartu Anggota</span>
-        </button>
-    </div>
-
-    <!-- TAB PANEL 1: PENERJEMAH & VIRTUAL KEYBOARD -->
+    <!-- PANEL PENERJEMAH & VIRTUAL KEYBOARD -->
     <div class="studio-tab-panel is-active" id="panelTranslator" data-studio-panel="translator">
         <div class="studio-container">
             <!-- BARIS KONTROL ATAS ADAPTIF: DETEKSI BAHASA OTOMATIS & TOOLBAR -->
@@ -408,162 +396,306 @@
             </div>
         </div>
     </div>
+</section>
 
-    <!-- TAB PANEL 2: GENERATOR NAMA JEPANG & KARTU ANGGOTA (OSATSU MIRAI NO HANA) -->
-    <div class="studio-tab-panel" id="panelNameGen" data-studio-panel="namegen" hidden>
-        <div class="studio-container namegen-container">
-            <div class="namegen-grid">
-                <!-- KOLOM KIRI: FORMULIR INPUT IDENTITAS -->
-                <div class="namegen-form-card studio-card">
-                    <div class="studio-card-head">
-                        <div class="card-head-left">
-                            <span class="card-badge">
-                                <span class="badge-flag">🎴</span>
-                                <span class="badge-name">Identitas Siswa</span>
-                            </span>
-                            <span class="namegen-badge-tag">Katakana &amp; Ateji</span>
+<!-- SEKSI KARTU TANDA PENGENAL NIHONGO KURABU -->
+<section class="section name-generator-section" id="pembuat-nama-kta">
+    <div class="section-intro">
+        <p class="section-eyebrow"><span class="jp-kanji" lang="ja">部員証作成</span></p>
+        <h2 class="heading">Kartu Tanda Pengenal <span>Nihongo Kurabu</span></h2>
+        <p class="section-desc">Ubah nama Indonesia menjadi nama resmi Jepang dalam aksara Katakana beserta filosofi Kanji Ateji bermakna positif, lengkap dengan Kartu Tanda Pengenal Nihongo Kurabu digital.</p>
+    </div>
+
+    <div class="studio-container namegen-container" id="panelNameGen">
+        <div class="namegen-grid">
+            <!-- KOLOM KIRI: FORMULIR INPUT IDENTITAS -->
+            <div class="namegen-form-card studio-card">
+                <div class="studio-card-head">
+                    <div class="card-head-left">
+                        <span class="card-badge">
+                            <span class="badge-flag">🎴</span>
+                            <span class="badge-name">Identitas Anggota</span>
+                        </span>
+                        <span class="namegen-badge-tag">Katakana &amp; Ateji</span>
+                    </div>
+                </div>
+
+                <div class="namegen-form-body">
+                    <div class="namegen-field-group">
+                        <label for="nameGenInput" class="namegen-label">
+                            <span>Nama Panggilan / Lengkap <span class="req-star">*</span></span>
+                            <small class="namegen-sublabel">Sistem otomatis mengonversi fonetik Indonesia ke Katakana &amp; Kanji Ateji</small>
+                        </label>
+                        <div class="namegen-input-wrap">
+                            <input type="text" id="nameGenInput" class="namegen-input" placeholder="Ketik nama kamu, misal: Asora Aokita, Riska, Aqmar..." maxlength="40" autocomplete="off" value="Asora Aokita" aria-label="Ketik nama kamu, misal: Asora Aokita, Riska, Aqmar...">
+                            <button type="button" class="mini-clear-btn" id="clearNameInputBtn" title="Hapus teks nama" aria-label="Hapus nama">🗑️</button>
                         </div>
                     </div>
 
-                    <div class="namegen-form-body">
+                    <div class="namegen-row-2col">
                         <div class="namegen-field-group">
-                            <label for="nameGenInput" class="namegen-label">
-                                <span>Nama Panggilan / Lengkap <span class="req-star">*</span></span>
-                                <small class="namegen-sublabel">Sistem otomatis mengonversi fonetik Indonesia ke Katakana &amp; Kanji Ateji</small>
+                            <label for="nameGenClass" class="namegen-label">
+                                <span>Kelas / Angkatan <small>(Opsional)</small></span>
                             </label>
-                            <div class="namegen-input-wrap">
-                                <input type="text" id="nameGenInput" class="namegen-input" placeholder="Ketik nama kamu, misal: Raditya, Riska, Aqmar..." maxlength="40" autocomplete="off" value="Raditya" aria-label="Ketik nama kamu, misal: Raditya, Riska, Aqmar...">
-                                <button type="button" class="mini-clear-btn" id="clearNameInputBtn" title="Hapus teks nama" aria-label="Hapus nama">🗑️</button>
-                            </div>
+                            <input type="text" id="nameGenClass" class="namegen-input" placeholder="Misal: XI-F10 / Angkatan 8" maxlength="25" value="XI-F10 / Angkatan 8" aria-label="Misal: XI-F10 / Angkatan 8">
                         </div>
 
-                        <div class="namegen-row-2col">
-                            <div class="namegen-field-group">
-                                <label for="nameGenClass" class="namegen-label">
-                                    <span>Kelas / Angkatan <small>(Opsional)</small></span>
-                                </label>
-                                <input type="text" id="nameGenClass" class="namegen-input" placeholder="Misal: X-E2 / Angkatan 8" maxlength="25" value="X-E2 / Angkatan 8" aria-label="Misal: X-E2 / Angkatan 8">
+                        <div class="namegen-field-group">
+                            <label class="namegen-label">
+                                <span>Tanggal Lahir <small>(Untuk KTA)</small></span>
+                            </label>
+                            <div class="namegen-birth-group" role="group" aria-label="Pilihan Tanggal Lahir">
+                                <select id="nameGenBirthDay" class="namegen-select namegen-birth-day" aria-label="Pilih Hari Lahir">
+                                    <option value="01" selected>01</option>
+                                    <option value="02">02</option>
+                                    <option value="03">03</option>
+                                    <option value="04">04</option>
+                                    <option value="05">05</option>
+                                    <option value="06">06</option>
+                                    <option value="07">07</option>
+                                    <option value="08">08</option>
+                                    <option value="09">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                    <option value="24">24</option>
+                                    <option value="25">25</option>
+                                    <option value="26">26</option>
+                                    <option value="27">27</option>
+                                    <option value="28">28</option>
+                                    <option value="29">29</option>
+                                    <option value="30">30</option>
+                                    <option value="31">31</option>
+                                </select>
+                                <select id="nameGenBirthMonth" class="namegen-select namegen-birth-month" aria-label="Pilih Bulan Lahir">
+                                    <option value="01">01 - Jan</option>
+                                    <option value="02">02 - Feb</option>
+                                    <option value="03">03 - Mar</option>
+                                    <option value="04">04 - Apr</option>
+                                    <option value="05">05 - Mei</option>
+                                    <option value="06">06 - Jun</option>
+                                    <option value="07">07 - Jul</option>
+                                    <option value="08">08 - Agu</option>
+                                    <option value="09">09 - Sep</option>
+                                    <option value="10">10 - Okt</option>
+                                    <option value="11">11 - Nov</option>
+                                    <option value="12" selected>12 - Des</option>
+                                </select>
+                                <select id="nameGenBirthYear" class="namegen-select namegen-birth-year" aria-label="Pilih Tahun Lahir">
+                                    <option value="2026">2026</option>
+                                    <option value="2025">2025</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2016">2016</option>
+                                    <option value="2015">2015</option>
+                                    <option value="2014">2014</option>
+                                    <option value="2013">2013</option>
+                                    <option value="2012">2012</option>
+                                    <option value="2011">2011</option>
+                                    <option value="2010">2010</option>
+                                    <option value="2009">2009</option>
+                                    <option value="2008" selected>2008</option>
+                                    <option value="2007">2007</option>
+                                    <option value="2006">2006</option>
+                                    <option value="2005">2005</option>
+                                    <option value="2004">2004</option>
+                                    <option value="2003">2003</option>
+                                    <option value="2002">2002</option>
+                                    <option value="2001">2001</option>
+                                    <option value="2000">2000</option>
+                                    <option value="1999">1999</option>
+                                    <option value="1998">1998</option>
+                                    <option value="1997">1997</option>
+                                    <option value="1996">1996</option>
+                                    <option value="1995">1995</option>
+                                    <option value="1994">1994</option>
+                                    <option value="1993">1993</option>
+                                    <option value="1992">1992</option>
+                                    <option value="1991">1991</option>
+                                    <option value="1990">1990</option>
+                                    <option value="1989">1989</option>
+                                    <option value="1988">1988</option>
+                                    <option value="1987">1987</option>
+                                    <option value="1986">1986</option>
+                                    <option value="1985">1985</option>
+                                    <option value="1984">1984</option>
+                                    <option value="1983">1983</option>
+                                    <option value="1982">1982</option>
+                                    <option value="1981">1981</option>
+                                    <option value="1980">1980</option>
+                                </select>
+                                <input type="hidden" id="nameGenBirthDate" value="2008-12-01">
                             </div>
+                        </div>
+                    </div>
 
-                            <div class="namegen-field-group">
-                                <label for="nameGenDivision" class="namegen-label">
-                                    <span>Divisi Pilihan</span>
-                                </label>
-                                <div class="namegen-select-wrap">
-                                    <select id="nameGenDivision" class="namegen-select" aria-label="Divisi Pilihan">
-                                        <option value="bahasa" selected>📚 Divisi Bahasa &amp; Budaya</option>
-                                        <option value="cosplay">🎭 Divisi Cosplay &amp; Seni Peran</option>
-                                        <option value="desain">🎨 Divisi Desain &amp; Kreatif</option>
-                                        <option value="kewirausahaan">🍱 Divisi Kewirausahaan</option>
-                                        <option value="anggota">🌸 Anggota Baru Klub</option>
-                                    </select>
+                    <div class="namegen-field-group">
+                        <label for="nameGenDivision" class="namegen-label">
+                            <span>Divisi Pilihan</span>
+                        </label>
+                        <div class="namegen-select-wrap">
+                            <select id="nameGenDivision" class="namegen-select" aria-label="Divisi Pilihan">
+                                <option value="bahasa" selected>📚 Divisi Bahasa &amp; Budaya</option>
+                                <option value="cosplay">🎭 Divisi Cosplay &amp; Seni Peran</option>
+                                <option value="desain">🎨 Divisi Desain &amp; Kreatif</option>
+                                <option value="kewirausahaan">🍱 Divisi Kewirausahaan</option>
+                                <option value="anggota">🌸 Anggota Baru Klub</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="namegen-actions-bar">
+                        <button type="button" class="studio-btn primary namegen-submit-btn" id="generateNameCardBtn">
+                            <span>✨ Buat Kartu Tanda Pengenal Nihongo Kurabu</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KOLOM KANAN: HASIL NAMA, FILOSOFI ATEJI & KARTU TANDA PENGENAL -->
+            <div class="namegen-result-card studio-card">
+                <!-- BANNER NAMA KATAKANA -->
+                <div class="namegen-phonetic-banner">
+                    <div class="phonetic-left">
+                        <span class="phonetic-label">NAMA RESMI JEPANG (KATAKANA)</span>
+                        <div class="phonetic-display">
+                            <span class="katakana-large" id="resKatakana" lang="ja">アソラ・アオキタ</span>
+                            <span class="romaji-sub" id="resRomaji">(Asora・Aokita)</span>
+                        </div>
+                    </div>
+                    <div class="phonetic-right" style="display:flex;gap:6px;align-items:center;">
+                        <button type="button" class="icon-audio-btn primary" id="listenKatakanaBtn" title="Dengarkan pelafalan nama dalam Bahasa Jepang (Normal)" aria-label="Dengarkan pelafalan nama">
+                            🔊
+                        </button>
+                        <button type="button" class="icon-audio-btn btn-audio-slow" id="listenKatakanaSlowBtn" title="Dengarkan pelafalan nama pelan (Slow-Mo)" aria-label="Dengarkan pelafalan nama lambat">
+                            🐢
+                        </button>
+                    </div>
+                </div>
+
+                <!-- KOTAK ATEJI KANJI POSITIF -->
+                <div class="namegen-ateji-box">
+                    <div class="ateji-header">
+                        <span class="ateji-icon">📜</span>
+                        <div class="ateji-head-text">
+                            <strong>Ateji Kanji Positif &amp; Filosofi Makna</strong>
+                            <small>Karakter Kanji pembawa doa &amp; harapan baik untuk namamu</small>
+                        </div>
+                    </div>
+                    <div class="ateji-kanji-row" id="resAtejiRow">
+                        <div class="ateji-chip"><span class="ateji-kanji" lang="ja">明</span><div class="ateji-chip-info"><strong class="ateji-reading">Aki</strong><span class="ateji-meaning">Cahaya Terang &amp; Kecerdasan Budi</span></div></div>
+                        <div class="ateji-chip"><span class="ateji-kanji" lang="ja">創</span><div class="ateji-chip-info"><strong class="ateji-reading">Sou</strong><span class="ateji-meaning">Daya Cipta &amp; Kreativitas Luhur</span></div></div>
+                        <div class="ateji-chip"><span class="ateji-kanji" lang="ja">羅</span><div class="ateji-chip-info"><strong class="ateji-reading">Ra</strong><span class="ateji-meaning">Jalinan Sutra &amp; Perlindungan</span></div></div>
+                    </div>
+                    <p class="ateji-philosophy-text" id="resAtejiPhilosophy">
+                        "Pribadi berjiwa luhur yang memadukan cahaya terang, daya cipta, dan jalinan sutra, melangkah mantap mencapai cita-cita dengan penuh keyakinan."
+                    </p>
+                </div>
+
+                <!-- LIVE PREVIEW KARTU TANDA PENGENAL NIHONGO KURABU (KTP STYLE WHITE & PINK) -->
+                <div class="member-card-stage">
+                    <div class="member-card-wrap theme-white-pink ktp-card-layout" id="memberCardVisual">
+                        <div class="mcard-inner">
+                            <div class="mcard-topbar">
+                                <div class="mcard-brand">
+                                    <img src="../images/mirai/logo/NK.png" alt="Logo Nihongo Kurabu" class="mcard-nk-logo-img" width="46" height="46">
+                                    <div class="mcard-brand-text">
+                                        <span class="mcard-club-name">MIRAI NO HANA NIHONGO KURABU</span>
+                                        <span class="mcard-sub-jp" lang="ja">未来の花・日本語クラブ</span>
+                                    </div>
+                                </div>
+                                <div class="mcard-topbar-right">
+                                    <span class="mcard-ktp-title-badge">KARTU TANDA PENGENAL</span>
+                                    <div class="mcard-birth-badge" id="mcardBirthBadge" title="Tanggal Lahir Anggota">
+                                        <span class="mcard-birth-label">生年月日</span>
+                                        <span class="mcard-birth-val" id="mcardBirthVal">01-12-2008</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="namegen-actions-bar">
-                            <button type="button" class="studio-btn primary namegen-submit-btn" id="generateNameCardBtn">
-                                <span>✨ Buat Nama &amp; Kartu Anggota</span>
-                            </button>
-                        </div>
+                            <div class="mcard-body">
+                                <div class="mcard-info-col">
+                                    <div class="mcard-names-header">
+                                        <div class="mcard-jp-name" id="mcardKatakana" lang="ja">アソラ・アオキタ</div>
+                                        <div class="mcard-latin-name" id="mcardLatin">Asora Aokita</div>
+                                    </div>
 
-                        <div class="namegen-tips-box">
-                            <span class="tips-icon">💡</span>
-                            <span class="tips-text">Nama di atas otomatis diperbarui secara langsung saat kamu mengetik dan siap diunduh menjadi Kartu Tanda Anggota (KTA) digital.</span>
+                                    <div class="mcard-ktp-grid">
+                                        <div class="mcard-ktp-row">
+                                            <span class="mcard-ktp-label">ID Anggota / 登録番号</span>
+                                            <span class="mcard-ktp-sep">:</span>
+                                            <span class="mcard-ktp-val id-code" id="mcardIdVal">MNH-2026-0810</span>
+                                        </div>
+                                        <div class="mcard-ktp-row">
+                                            <span class="mcard-ktp-label">Kelas / 学年</span>
+                                            <span class="mcard-ktp-sep">:</span>
+                                            <span class="mcard-ktp-val" id="mcardClassPill">XI-F10 / Angkatan 8</span>
+                                        </div>
+                                        <div class="mcard-ktp-row">
+                                            <span class="mcard-ktp-label">Divisi / 所属</span>
+                                            <span class="mcard-ktp-sep">:</span>
+                                            <span class="mcard-ktp-val highlight-div" id="mcardDivisionPill">📚 Divisi Bahasa &amp; Budaya</span>
+                                        </div>
+                                        <div class="mcard-ktp-row">
+                                            <span class="mcard-ktp-label">Status / 資格</span>
+                                            <span class="mcard-ktp-sep">:</span>
+                                            <span class="mcard-ktp-val status-val"><span class="mcard-status-dot"></span> Anggota Aktif (有効)</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mcard-photo-side">
+                                    <div class="mcard-photo-frame" title="Foto 3x4 Anggota">
+                                        <img src="../images/mirai/karakter/sora-ktp.png" alt="Pas Foto Sora" class="mcard-photo-img" id="mcardPhotoImg" width="110" height="146">
+                                        <div class="mcard-photo-badge">OFFICIAL</div>
+                                    </div>
+                                    <div class="mcard-stamps-group">
+                                        <div class="mcard-kanji-stamp" id="mcardKanjiStamp" lang="ja" title="Ateji Kanji">
+                                            <span>明</span>
+                                            <span>創</span>
+                                            <span>羅</span>
+                                        </div>
+                                        <div class="mcard-red-seal" lang="ja" title="Cap Hanko Mirai">未来<br>之印</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mcard-footer">
+                                <div class="mcard-footer-left">
+                                    <span class="mcard-school">SMA Wachid Hasyim 2 Taman Sidoarjo</span>
+                                    <span class="mcard-validity">Berlaku s/d: 2024 – 2027</span>
+                                </div>
+                                <div class="mcard-footer-right">
+                                    <div class="mcard-barcode" aria-hidden="true">||| | |||| | |||||| || | ||| |||| | ||||| | ||</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- KOLOM KANAN: HASIL NAMA, FILOSOFI ATEJI & KARTU TANDA ANGGOTA -->
-                <div class="namegen-result-card studio-card">
-                    <!-- BANNER NAMA KATAKANA -->
-                    <div class="namegen-phonetic-banner">
-                        <div class="phonetic-left">
-                            <span class="phonetic-label">NAMA RESMI JEPANG (KATAKANA)</span>
-                            <div class="phonetic-display">
-                                <span class="katakana-large" id="resKatakana" lang="ja">ラディティヤ</span>
-                                <span class="romaji-sub" id="resRomaji">(Raditiya)</span>
-                            </div>
-                        </div>
-                        <div class="phonetic-right" style="display:flex;gap:6px;align-items:center;">
-                            <button type="button" class="icon-audio-btn primary" id="listenKatakanaBtn" title="Dengarkan pelafalan nama dalam Bahasa Jepang (Normal)" aria-label="Dengarkan pelafalan nama">
-                                🔊
-                            </button>
-                            <button type="button" class="icon-audio-btn btn-audio-slow" id="listenKatakanaSlowBtn" title="Dengarkan pelafalan nama pelan (Slow-Mo)" aria-label="Dengarkan pelafalan nama lambat">
-                                🐢
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- KOTAK ATEJI KANJI POSITIF -->
-                    <div class="namegen-ateji-box">
-                        <div class="ateji-header">
-                            <span class="ateji-icon">📜</span>
-                            <div class="ateji-head-text">
-                                <strong>Ateji Kanji Positif &amp; Filosofi Makna</strong>
-                                <small>Karakter Kanji pembawa doa &amp; harapan baik untuk namamu</small>
-                            </div>
-                        </div>
-                        <div class="ateji-kanji-row" id="resAtejiRow">
-                            <div class="ateji-chip"><span class="ateji-kanji" lang="ja">羅</span><div class="ateji-chip-info"><strong class="ateji-reading">Ra</strong><span class="ateji-meaning">Jalinan Sutra &amp; Perlindungan</span></div></div>
-                            <div class="ateji-chip"><span class="ateji-kanji" lang="ja">大</span><div class="ateji-chip-info"><strong class="ateji-reading">Dai</strong><span class="ateji-meaning">Kebesaran Jiwa &amp; Kelapangan</span></div></div>
-                            <div class="ateji-chip"><span class="ateji-kanji" lang="ja">矢</span><div class="ateji-chip-info"><strong class="ateji-reading">Ya</strong><span class="ateji-meaning">Ketepatan Arah Cita-Cita</span></div></div>
-                        </div>
-                        <p class="ateji-philosophy-text" id="resAtejiPhilosophy">
-                            "Sosok berjiwa besar yang memiliki tekad kuat, melangkah mantap mencapai cita-cita dengan ketepatan anak panah."
-                        </p>
-                    </div>
-
-                    <!-- LIVE PREVIEW KARTU TANDA ANGGOTA MIRAI NO HANA (OSATSU PASS) -->
-                    <div class="member-card-stage">
-                        <div class="member-card-wrap" id="memberCardVisual">
-                            <div class="mcard-inner">
-                                <div class="mcard-topbar">
-                                    <div class="mcard-brand">
-                                        <span class="mcard-flower-icon">🌸</span>
-                                        <div class="mcard-brand-text">
-                                            <span class="mcard-club-name">MIRAI NO HANA</span>
-                                            <span class="mcard-sub-jp" lang="ja">未来之花 · 会員証</span>
-                                        </div>
-                                    </div>
-                                    <div class="mcard-id-pill" id="mcardIdText">MNH-2026-8821</div>
-                                </div>
-
-                                <div class="mcard-body">
-                                    <div class="mcard-name-col">
-                                        <div class="mcard-jp-name" id="mcardKatakana" lang="ja">ラディティヤ</div>
-                                        <div class="mcard-latin-name" id="mcardLatin">Raditya</div>
-                                        <div class="mcard-meta-row">
-                                            <span class="mcard-meta-pill" id="mcardDivisionPill">📚 Divisi Bahasa &amp; Budaya</span>
-                                            <span class="mcard-meta-pill class-pill" id="mcardClassPill">X-E2 / Angkatan 8</span>
-                                        </div>
-                                    </div>
-                                    <div class="mcard-ateji-col">
-                                        <div class="mcard-kanji-stamp" id="mcardKanjiStamp" lang="ja">
-                                            <span>羅</span>
-                                            <span>大</span>
-                                            <span>矢</span>
-                                        </div>
-                                        <div class="mcard-red-seal" lang="ja">未来<br>之印</div>
-                                    </div>
-                                </div>
-
-                                <div class="mcard-footer">
-                                    <span class="mcard-school">SMA Wachid Hasyim 2 Taman Sidoarjo</span>
-                                    <div class="mcard-barcode">||| | |||| | |||||| || | ||| |||| |</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- TOMBOL UNDUH KARTU PNG -->
-                    <div class="namegen-download-row">
-                        <button type="button" class="studio-btn primary download-card-btn" id="downloadCardPngBtn">
-                            <span class="btn-icon">📥</span>
-                            <span>Unduh Kartu Anggota (.PNG)</span>
-                        </button>
-                        <span class="download-hint">Format PNG Resolusi Tinggi (Siap simpan ke galeri HP / Story Instagram)</span>
-                    </div>
+                <!-- TOMBOL UNDUH KARTU PNG -->
+                <div class="namegen-download-row">
+                    <button type="button" class="studio-btn primary download-card-btn" id="downloadCardPngBtn">
+                        <span class="btn-icon">📥</span>
+                        <span>Unduh Kartu Tanda Pengenal (.PNG)</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -596,6 +728,6 @@
     <div class="global-footer-bottom">
             <p>© 2026 MIRAI NO HANA — SMA Wachid Hasyim 2 Taman | Kabinet Sora | Ditenagai oleh GitHub Pages</p>
         </div>
-</footer><button id="quickStrokeBtn" class="quick-stroke-btn" type="button" aria-label="Geser ke Goresan" title="Geser ke Goresan"><span class="quick-stroke-icon">✍️</span><span class="quick-stroke-text">Goresan</span><span class="quick-stroke-arrow">↓</span></button><button class="to-top" type="button">↑</button><script defer src="../js/sora.js?v=547da8dc"></script><script defer src="../js/main.js?v=059553b2"></script><script defer src="../js/translator.js?v=a37ed1dc"></script><script defer src="../js/stroke-data.js?v=07d66d9e"></script><script defer src="../js/stroke-overrides.js?v=bbf20e0e"></script><script defer src="../js/stroke.js?v=fbc40912"></script><script defer src="../js/kana.js?v=bcb417fe"></script><script defer src="../js/api.js?v=9f3082f1"></script><script defer src="https://cdn.jsdelivr.net/npm/wanakana/wanakana.min.js"></script><script defer src="../js/kanji.js?v=a204ba22"></script>
+</footer><button id="quickStrokeBtn" class="quick-stroke-btn" type="button" aria-label="Geser ke Goresan" title="Geser ke Goresan"><span class="quick-stroke-icon">✍️</span><span class="quick-stroke-text">Goresan</span><span class="quick-stroke-arrow">↓</span></button><button class="to-top" type="button">↑</button><script defer src="../js/sora.js?v=547da8dc"></script><script defer src="../js/main.js?v=c6712581"></script><script defer src="../js/translator.js?v=349cc2dd"></script><script defer src="../js/stroke-data.js?v=07d66d9e"></script><script defer src="../js/stroke-overrides.js?v=bbf20e0e"></script><script defer src="../js/stroke.js?v=946218f3"></script><script defer src="../js/kana.js?v=a53aff88"></script><script defer src="../js/api.js?v=9f3082f1"></script><script defer src="https://cdn.jsdelivr.net/npm/wanakana/wanakana.min.js"></script><script defer src="../js/kanji.js?v=cd86f995"></script>
 </body>
 </html>

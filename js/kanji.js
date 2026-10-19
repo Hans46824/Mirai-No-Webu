@@ -540,6 +540,24 @@ loadKanjiData();
    *
    * @param {Object} item - Objek kanji yang dipilih pengguna
 */
+function renderBlankKanjiState() {
+  player?.destroy();
+  selectedKanjiChar = null;
+  grid.querySelectorAll(".kanji-card.is-active").forEach((c) => c.classList.remove("is-active"));
+  detail.innerHTML = `
+    <div data-stroke-player></div>
+  `;
+  player = window.createStrokePlayer(detail.querySelector("[data-stroke-player]"), null, 0, {
+    showClear: true,
+    onSelectCharacter: (char) => {
+      const found = allEntries.find((e) => e.kanji === char);
+      if (found) renderDetail(found, { userInitiated: true });
+    },
+    onClear: () => renderBlankKanjiState()
+  });
+  window.updateQuickStrokeArrow?.();
+}
+
 async function renderDetail(item, options = {}) {
   player?.destroy();
   selectedKanjiChar = item.kanji;
@@ -571,12 +589,12 @@ async function renderDetail(item, options = {}) {
                         <b>Onyomi (Cara baca China):</b> <span data-detail-onyomi>${formatKanaReadings(item.onyomi)}</span><br>
                         <b>Kunyomi (Cara baca Jepang):</b> <span data-detail-kunyomi>${formatKanaReadings(item.kunyomi)}</span>
                     </p>
-                    <div class="kanji-detail-audio-actions">
+                    <div class="kanji-detail-audio-actions" style="display:flex; gap:8px; align-items:center;">
                         <button type="button" class="btn-kanji-audio" id="speakKanjiBtn" title="Dengarkan pelafalan Kanji dan cara bacanya (Normal)">
-                            <span>🔊 Dengarkan</span>
+                            <span>🔊</span>
                         </button>
                         <button type="button" class="btn-kanji-audio btn-audio-slow" id="speakKanjiSlowBtn" title="Dengarkan pelafalan Kanji dan cara bacanya perlahan (Slow-Mo)">
-                            <span>🐢 Suara Pelan</span>
+                            <span>🐢</span>
                         </button>
                     </div>
                 </div>
@@ -612,14 +630,19 @@ async function renderDetail(item, options = {}) {
   // Pasang aksi tombol tutup detail (khusus tampilan mobile)
   detail.querySelector("[data-close-detail]")?.addEventListener("click", () => {
     detail.classList.add("is-collapsed");
-    selectedKanjiChar = null;
-    grid.querySelectorAll(".kanji-card.is-active").forEach((c) => c.classList.remove("is-active"));
-    player?.destroy();
-    window.updateQuickStrokeArrow?.();
+    renderBlankKanjiState();
   });
 
-  // Jalankan player animasi goresan (dengan menyertakan petunjuk jlpt untuk chunk loader)
-  player = window.createStrokePlayer(detail.querySelector("[data-stroke-player]"), item.kanji, item.strokes || 4, { jlpt: item.jlpt });
+  // Jalankan player animasi goresan (dengan menyertakan petunjuk jlpt untuk chunk loader dan aksi onClear)
+  player = window.createStrokePlayer(detail.querySelector("[data-stroke-player]"), item.kanji, item.strokes || 4, {
+    jlpt: item.jlpt,
+    showClear: true,
+    onSelectCharacter: (char) => {
+      const found = allEntries.find((e) => e.kanji === char);
+      if (found) renderDetail(found, { userInitiated: true });
+    },
+    onClear: () => renderBlankKanjiState()
+  });
   window.updateQuickStrokeArrow?.();
 
   // Pada perangkat bergerak (HP < 768px), geser tampilan ke panel detail jika diklik pengguna
@@ -877,7 +900,13 @@ function render() {
     button.classList.add("is-active");
     }
     button.innerHTML = `<strong>${item.kanji}</strong><span>${item.meaning}</span><em>${item.jlpt}</em>`;
-    button.addEventListener("click", () => renderDetail(item, { userInitiated: true }));
+    button.addEventListener("click", () => {
+      if (selectedKanjiChar === item.kanji) {
+        renderBlankKanjiState();
+      } else {
+        renderDetail(item, { userInitiated: true });
+      }
+    });
     grid.append(button);
   });
 
@@ -894,18 +923,22 @@ function render() {
     const remaining = visible.length - currentRenderLimit;
     loadMoreBtn.textContent = `Tampilkan Lebih Banyak Kanji (+${Math.min(remaining, 60)} dari ${remaining} tersisa)`;
     loadMoreBtn.addEventListener("click", () => {
-    currentRenderLimit += 60;
-    render();
+      currentRenderLimit += 60;
+      render();
     });
     loadMoreWrap.append(loadMoreBtn);
     grid.append(loadMoreWrap);
   }
 
-  // Tampilkan detail otomatis untuk kartu pertama atau pertahankan kartu yang sedang dipilih
+  // Pertahankan kartu yang sedang dipilih jika masih terlihat, atau tampilkan kanvas awal bersih
   if (visible.length) {
-    const isSelectedVisible = visible.some((item) => item.kanji === selectedKanjiChar);
-    if (!selectedKanjiChar || !isSelectedVisible) {
-    renderDetail(visible[0], { userInitiated: false });
+    if (selectedKanjiChar) {
+      const isSelectedVisible = visible.some((item) => item.kanji === selectedKanjiChar);
+      if (!isSelectedVisible) {
+        renderBlankKanjiState();
+      }
+    } else if (!detail.querySelector(".unified-canvas-stage")) {
+      renderBlankKanjiState();
     }
   } else {
     detail.innerHTML = "<p>Pilih pencarian atau filter lain untuk melihat detail karakter.</p>";
@@ -1047,18 +1080,12 @@ const show = (character, options = {}) => {
   detail.innerHTML = `
             <p class="card-number">${mode.toUpperCase()} / ${item.reading}</p>
             <div class="selected-kana">${character}</div>
-            <div class="kana-detail-audio-actions" style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+            <div class="kana-detail-audio-actions" style="display:flex; gap:8px; align-items:center;">
                 <button type="button" class="btn-kana-audio" data-speak-char="${character}" title="Lafalkan huruf ${character} (Normal)">
-                    <span>🔊 Lafalkan (${character})</span>
+                    <span>🔊</span>
                 </button>
                 <button type="button" class="btn-kana-audio btn-audio-slow" data-speak-char-slow="${character}" title="Lafalkan huruf ${character} perlahan (Slow-Mo)">
-                    <span>🐢 Pelan</span>
-                </button>
-                <button type="button" class="btn-kana-audio btn-kana-audio-example" data-speak-word="${item.example[0]}" title="Lafalkan contoh kata ${item.example[0]}">
-                    <span>🔊 Kata (${item.example[0]})</span>
-                </button>
-                <button type="button" class="btn-kana-audio btn-audio-slow" data-speak-word-slow="${item.example[0]}" title="Lafalkan contoh kata perlahan">
-                    <span>🐢 Pelan</span>
+                    <span>🐢</span>
                 </button>
             </div>
             <p><b>Romaji:</b> ${item.reading}</p>
@@ -1089,14 +1116,14 @@ const show = (character, options = {}) => {
   // Pasang aksi tombol tutup detail (khusus tampilan mobile)
   detail.querySelector("[data-close-detail]")?.addEventListener("click", () => {
     detail.classList.add("is-collapsed");
-    selectedChar = null;
-    container.querySelectorAll(".kana-card.is-selected").forEach((btn) => btn.classList.remove("is-selected"));
-    player?.destroy();
-    window.updateQuickStrokeArrow?.();
+    renderBlankState();
   });
 
   player = window.createStrokePlayer(detail.querySelector("[data-stroke-player]"), character, strokeCount, {
-    showClear: true
+    showClear: true,
+    mode: mode,
+    onSelectCharacter: (char) => show(char, { userInitiated: true }),
+    onClear: () => renderBlankState()
   });
   window.updateQuickStrokeArrow?.();
 
@@ -1104,6 +1131,22 @@ const show = (character, options = {}) => {
   if (options.userInitiated && window.innerWidth < 768) {
     detail.scrollIntoView({ behavior: "smooth", block: "start" });
   }
+};
+
+const renderBlankState = () => {
+  player?.destroy();
+  selectedChar = null;
+  container.querySelectorAll(".kana-card.is-selected").forEach((btn) => btn.classList.remove("is-selected"));
+  detail.innerHTML = `
+    <div data-stroke-player></div>
+  `;
+  player = window.createStrokePlayer(detail.querySelector("[data-stroke-player]"), null, 0, {
+    showClear: true,
+    mode: mode,
+    onSelectCharacter: (char) => show(char, { userInitiated: true }),
+    onClear: () => renderBlankState()
+  });
+  window.updateQuickStrokeArrow?.();
 };
 
 const render = () => {
@@ -1116,17 +1159,17 @@ const render = () => {
 
   categories.forEach((cat) => {
     if (selectedType && cat.id !== selectedType) {
-    return;
+      return;
     }
 
     const chars = mode === "katakana" ? cat.hiraChars.map(toKatakana) : cat.hiraChars;
     const filteredChars = chars.filter((character) => {
-    const item = window.KanaData.getDetail(character, mode);
-    return !query || `${character} ${item.reading} ${item.example.join(" ")}`.toLowerCase().includes(query);
+      const item = window.KanaData.getDetail(character, mode);
+      return !query || `${character} ${item.reading} ${item.example.join(" ")}`.toLowerCase().includes(query);
     });
 
     if (filteredChars.length === 0) {
-    return;
+      return;
     }
 
     totalVisible += filteredChars.length;
@@ -1164,24 +1207,28 @@ const render = () => {
     grid.className = "kana-section-grid";
 
     filteredChars.forEach((character) => {
-    const item = window.KanaData.getDetail(character, mode);
-    const button = document.createElement("button");
-    button.className = "kana-card";
-    button.type = "button";
-    button.dataset.character = character;
-    if (character === selectedChar) {
-    button.classList.add("is-selected");
-    }
-    button.innerHTML = `<strong>${character}</strong><span>${item.reading}</span>`;
-    button.addEventListener("click", () => {
-    show(character, { userInitiated: true });
-    window.speakText ? window.speakText(character, "ja-JP") : window.speakJapanese?.(character);
-    });
-    grid.append(button);
+      const item = window.KanaData.getDetail(character, mode);
+      const button = document.createElement("button");
+      button.className = "kana-card";
+      button.type = "button";
+      button.dataset.character = character;
+      if (character === selectedChar) {
+        button.classList.add("is-selected");
+      }
+      button.innerHTML = `<strong>${character}</strong><span>${item.reading}</span>`;
+      button.addEventListener("click", () => {
+        if (selectedChar === character) {
+          renderBlankState();
+        } else {
+          show(character, { userInitiated: true });
+          window.speakText ? window.speakText(character, "ja-JP") : window.speakJapanese?.(character);
+        }
+      });
+      grid.append(button);
 
-    if (!firstButton) {
-    firstButton = { button, character };
-    }
+      if (!firstButton) {
+        firstButton = { button, character };
+      }
     });
 
     section.append(header, grid);
@@ -1197,8 +1244,8 @@ const render = () => {
     emptyText.textContent = `Tidak ada karakter yang cocok dengan pencarian “${query}”.`;
     emptyEl.append(emptyText);
     container.append(emptyEl);
-  } else if (!selectedChar && firstButton) {
-    show(firstButton.character, { userInitiated: false });
+  } else if (!selectedChar) {
+    renderBlankState();
   }
 };
 

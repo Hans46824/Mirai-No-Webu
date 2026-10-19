@@ -1670,6 +1670,7 @@ Halaman Pembelajaran MIRAI (Layout Kartu & Stage Kana)
 .kana-card strong {
   font-size: 30px;
   font-weight: 500;
+  color: var(--ink, #18151b);
 }
 
 .kana-card span {
@@ -1678,10 +1679,13 @@ Halaman Pembelajaran MIRAI (Layout Kartu & Stage Kana)
 }
 
 .kana-card:hover, .kana-card.is-selected {
-  color: var(--pink);
   border-color: var(--pink);
   box-shadow: 0 8px 18px rgba(233,30,99,.12);
   transform: translateY(-2px);
+}
+
+.kana-card:hover strong, .kana-card.is-selected strong {
+  color: var(--ink, #18151b);
 }
 
 .kana-detail {
@@ -1712,7 +1716,7 @@ Halaman Pembelajaran MIRAI (Layout Kartu & Stage Kana)
 
 .selected-kana {
   margin: 4px 0 16px;
-  color: var(--pink);
+  color: var(--ink, #18151b);
   font-size: 70px;
   line-height: 1;
 }
@@ -1729,7 +1733,7 @@ Halaman Pembelajaran MIRAI (Layout Kartu & Stage Kana)
 
 .stroke-ghost {
   position: absolute;
-  color: #f9dce7;
+  color: rgba(24, 21, 27, 0.15);
   font-size: 142px;
   line-height: 1;
 }
@@ -2374,22 +2378,32 @@ PENGGESER CEPAT POJOK KANAN (QUICK DRAG-SCROLL THUMB)
   width: 14px;
   height: 52px;
   border-radius: 14px 0 0 14px;
-  background: rgba(255, 79, 145, 0.28);
-  border: 1px solid rgba(255, 79, 145, 0.45);
+  background: rgba(255, 79, 145, 0.32);
+  border: 1px solid rgba(255, 79, 145, 0.5);
   border-right: none;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: grab;
-  touch-action: none;
+  touch-action: none !important;
   user-select: none;
   -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
   opacity: 0.22;
-  transition: opacity 0.3s ease, width 0.22s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, border-radius 0.22s ease, right 0.22s ease;
+  transition: opacity 0.3s ease, width 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, border-radius 0.2s ease;
   will-change: transform, opacity;
+}
+
+/* Touch Hit Area yang Luas untuk Jempol Pengguna HP (Minimal 48px) */
+.quick-scroll-thumb::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  bottom: -12px;
+  right: -8px;
+  width: 48px;
+  pointer-events: auto;
 }
 
 /* State ketika aktif, disentuh, di-hover, atau sedang digeser */
@@ -2400,12 +2414,16 @@ PENGGESER CEPAT POJOK KANAN (QUICK DRAG-SCROLL THUMB)
   opacity: 1 !important;
   width: 32px;
   height: 58px;
-  right: 6px;
   border-radius: 16px;
   border: 1.5px solid rgba(255, 255, 255, 0.88);
   background: linear-gradient(135deg, #ff4f91 0%, #e91e63 100%) !important;
   box-shadow: 0 0 20px rgba(255, 79, 145, 0.8), 0 4px 14px rgba(0, 0, 0, 0.35) !important;
   cursor: grabbing;
+}
+
+/* Matikan transisi sepenuhnya saat sedang di-drag agar pergerakan 100% instan dan tidak mandet */
+.quick-scroll-thumb.is-dragging {
+  transition: none !important;
 }
 
 /* State semi-terang saat halaman sedang di-scroll secara alami (mouse wheel / fling) */
@@ -2472,6 +2490,6 @@ PENGGESER CEPAT POJOK KANAN (QUICK DRAG-SCROLL THUMB)
   .quick-scroll-thumb.is-dragging {
     width: 34px;
     height: 62px;
-    right: 6px;
+    right: 3px;
   }
 }
